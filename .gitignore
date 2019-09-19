@@ -1,1 +1,6 @@
 .DS_Store
+bin/*
+lib/*
+include/*
+pyvenv.cfg
+pip-selfcheck.json
