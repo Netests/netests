@@ -1,0 +1,3 @@
+routing:
+  bgp:
+    asn: 65100

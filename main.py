@@ -120,8 +120,9 @@ def main(ansible, virtual):
     nr = init_nornir()
 
     test_to_execute = open_file(PATH_TO_VERITY_FILES+TEST_TO_EXECUTE_FILENAME)
-
     print(test_to_execute)
+
+    print(nr.inventory.hosts)
 
 
 
