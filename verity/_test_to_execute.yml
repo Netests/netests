@@ -1,0 +1,8 @@
+# Each test can be in 3 types.
+# 1) yes || true => (Mandatory) - If test failed Pipeline will be stopped
+# 2) info =>  (Informations) - If test failed you will only see a message
+# 3) no || false => (Exclude) - Test will not be executed
+# Check that BGP sessions regarding bgp.yml are the same
+bgp: yes
+# Check that all BGP sessions are UP
+bgp_up: yes

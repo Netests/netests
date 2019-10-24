@@ -1,0 +1,6 @@
+2019-09-21 16:10:45,824 -  nornir.core -     INFO -        run() - Running task '_int_errors' with args {} on 1 hosts
+2019-09-21 16:10:45,829 - nornir.core.task -    DEBUG -      start() - Host 'core01b': running task '_int_errors'
+2019-09-21 16:10:45,829 - nornir.core.task -    DEBUG -      start() - Host 'core01b': running task 'Execute show int gigabitEthernet error'
+2019-09-21 16:11:44,515 -  nornir.core -     INFO -        run() - Running task '_int_errors' with args {} on 1 hosts
+2019-09-21 16:11:44,518 - nornir.core.task -    DEBUG -      start() - Host 'core01b': running task '_int_errors'
+2019-09-21 16:11:44,518 - nornir.core.task -    DEBUG -      start() - Host 'core01b': running task 'Execute show int gigabitEthernet error'

@@ -15,11 +15,20 @@ __copyright__ = "Copyright 2019"
 
 ######################################################
 #
+# HEADERS
+#
+ERROR_HEADER = "Error import [bgp.py]"
+
+######################################################
+#
 # Default value used for exit()
 #
-EXIT_SUCCESS = 0
-EXIT_FAILURE = 1
-
+try:
+    from const.constants import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} nornir")
+    print(importError)
+    exit(EXIT_FAILURE)
 ######################################################
 #
 # Class

@@ -1,0 +1,8 @@
+---
+core:
+    num_workers: 10
+
+inventory:
+    plugin: nornir.plugins.inventory.ansible.AnsibleInventory
+    options:
+        hostsfile: "./inventory/hosts_virtual"

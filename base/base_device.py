@@ -40,7 +40,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 
-class DeviceBase(ABC):
+class BaseDevice(ABC):
 
     def ssh_connexion():
         pass

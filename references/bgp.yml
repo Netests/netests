@@ -1,0 +1,100 @@
+---
+bgp_sessions:
+
+  leaf01:
+    asn: 65211
+    neighbors:
+      - neighbor: leaf02
+        interface: peerlink.4094
+      - neighbor: spine01
+        interface: swp1
+      - neighbor: spine02
+        interface: swp2
+
+  leaf02:
+    asn: 65211
+    neighbors:
+      - neighbor: leaf01
+        interface: peerlink.4094
+      - neighbor: spine01
+        interface: swp1
+      - neighbor: spine02
+        interface: swp2
+
+  
+  leaf03:
+    asn: 65222
+    neighbors:
+      - neighbor: leaf04
+        interface: peerlink.4094
+      - neighbor: spine01
+        interface: swp1
+      - neighbor: spine02
+        interface: swp2
+
+  leaf04:
+    asn: 65222
+    neighbors:
+      - neighbor: leaf03
+        interface: peerlink.4094
+      - neighbor: spine01
+        interface: swp1
+      - neighbor: spine02
+        interface: swp2
+
+  
+  exit01:
+    asn: 65133
+    neighbors:
+      - neighbor: exit02
+        interface: peerlink.4094
+      - neighbor: spine01
+        interface: swp1
+      - neighbor: spine02
+        interface: swp2
+
+  
+  exit02:
+    asn: 65133
+    neighbors:
+      - neighbor: exit01
+        interface: peerlink.4094
+      - neighbor: spine01
+        interface: swp1
+      - neighbor: spine02
+        interface: swp2
+
+
+  spine01:
+    asn: 65100
+    neighbors:
+      - neighbor: leaf01
+        interface: swp1
+      - neighbor: leaf02
+        interface: swp2
+      - neighbor: leaf03
+        interface: swp3
+      - neighbor: leaf04
+        interface: swp4
+      - neighbor: exit01
+        interface: swp5
+      - neighbor: exit02
+        interface: swp6
+
+
+  spine02:
+    asn: 65100
+    neighbors:
+      - neighbor: leaf01
+        interface: swp1
+      - neighbor: leaf02
+        interface: swp2
+      - neighbor: leaf03
+        interface: swp3
+      - neighbor: leaf04
+        interface: swp4
+      - neighbor: exit01
+        interface: swp5
+      - neighbor: exit02
+        interface: swp6
+ 
