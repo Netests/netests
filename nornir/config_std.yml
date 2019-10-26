@@ -5,6 +5,6 @@ core:
 inventory:
     plugin: nornir.plugins.inventory.simple.SimpleInventory
     options:
-        host_file: "inventory/hosts.yml"
-        group_file: "inventory/groups.yml"
-        defaults_file: "inventory/defaults.yml"
+        host_file: "inventory/nornir/std/hosts.yml"
+        group_file: "inventory/nornir/std/groups.yml"
+        defaults_file: "inventory/nornir/std/defaults.yml"

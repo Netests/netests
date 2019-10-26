@@ -1,0 +1,8 @@
+[leaf]
+leaf01 ansible_host=192.168.254.10 ansible_port=22201
+leaf02 ansible_host=192.168.254.10 ansible_port=22202
+leaf03 ansible_host=192.168.254.10 ansible_port=22203
+
+[spine]
+spine01 ansible_host=192.168.254.10 ansible_port=22101
+spine02 ansible_host=192.168.254.10 ansible_port=22102

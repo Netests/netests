@@ -4,3 +4,48 @@
 2019-09-21 16:11:44,515 -  nornir.core -     INFO -        run() - Running task '_int_errors' with args {} on 1 hosts
 2019-09-21 16:11:44,518 - nornir.core.task -    DEBUG -      start() - Host 'core01b': running task '_int_errors'
 2019-09-21 16:11:44,518 - nornir.core.task -    DEBUG -      start() - Host 'core01b': running task 'Execute show int gigabitEthernet error'
+2019-10-26 12:40:08,230 -  nornir.core -     INFO -        run() - Running task 'generic_get' with args {} on 5 hosts
+2019-10-26 12:40:08,236 - nornir.core.task -    DEBUG -      start() - Host 'spine01': running task 'generic_get'
+2019-10-26 12:40:08,236 - nornir.core.task -    DEBUG -      start() - Host 'spine02': running task 'generic_get'
+2019-10-26 12:40:08,236 - nornir.core.task -    DEBUG -      start() - Host 'leaf01': running task 'generic_get'
+2019-10-26 12:40:08,236 - nornir.core.task -    DEBUG -      start() - Host 'leaf02': running task 'generic_get'
+2019-10-26 12:40:08,237 - nornir.core.task -    DEBUG -      start() - Host 'leaf03': running task 'generic_get'
+2019-10-26 12:50:12,100 -  nornir.core -     INFO -        run() - Running task 'generic_get' with args {} on 5 hosts
+2019-10-26 12:50:12,103 - nornir.core.task -    DEBUG -      start() - Host 'spine01': running task 'generic_get'
+2019-10-26 12:50:12,103 - nornir.core.task -    DEBUG -      start() - Host 'spine02': running task 'generic_get'
+2019-10-26 12:50:12,103 - nornir.core.task -    DEBUG -      start() - Host 'leaf01': running task 'generic_get'
+2019-10-26 12:50:12,103 - nornir.core.task -    DEBUG -      start() - Host 'leaf02': running task 'generic_get'
+2019-10-26 12:50:12,104 - nornir.core.task -    DEBUG -      start() - Host 'leaf03': running task 'generic_get'
+2019-10-26 12:50:50,818 -  nornir.core -     INFO -        run() - Running task 'generic_get' with args {} on 5 hosts
+2019-10-26 12:50:50,820 - nornir.core.task -    DEBUG -      start() - Host 'spine01': running task 'generic_get'
+2019-10-26 12:50:50,820 - nornir.core.task -    DEBUG -      start() - Host 'spine02': running task 'generic_get'
+2019-10-26 12:50:50,821 - nornir.core.task -    DEBUG -      start() - Host 'leaf01': running task 'generic_get'
+2019-10-26 12:50:50,821 - nornir.core.task -    DEBUG -      start() - Host 'leaf02': running task 'generic_get'
+2019-10-26 12:50:50,821 - nornir.core.task -    DEBUG -      start() - Host 'leaf03': running task 'generic_get'
+2019-10-26 12:54:35,708 -  nornir.core -     INFO -        run() - Running task 'generic_get' with args {} on 5 hosts
+2019-10-26 12:54:35,711 - nornir.core.task -    DEBUG -      start() - Host 'spine01': running task 'generic_get'
+2019-10-26 12:54:35,711 - nornir.core.task -    DEBUG -      start() - Host 'spine02': running task 'generic_get'
+2019-10-26 12:54:35,711 - nornir.core.task -    DEBUG -      start() - Host 'leaf01': running task 'generic_get'
+2019-10-26 12:54:35,711 - nornir.core.task -    DEBUG -      start() - Host 'leaf02': running task 'generic_get'
+2019-10-26 12:54:35,711 - nornir.core.task -    DEBUG -      start() - Host 'leaf03': running task 'generic_get'
+2019-10-26 12:55:03,186 -  nornir.core -     INFO -        run() - Running task 'generic_get' with args {} on 5 hosts
+2019-10-26 12:55:03,189 - nornir.core.task -    DEBUG -      start() - Host 'spine01': running task 'generic_get'
+2019-10-26 12:55:03,190 - nornir.core.task -    DEBUG -      start() - Host 'spine02': running task 'generic_get'
+2019-10-26 12:55:03,190 - nornir.core.task -    DEBUG -      start() - Host 'leaf01': running task 'generic_get'
+2019-10-26 12:55:03,190 - nornir.core.task -    DEBUG -      start() - Host 'leaf02': running task 'generic_get'
+2019-10-26 12:55:03,190 - nornir.core.task -    DEBUG -      start() - Host 'leaf03': running task 'generic_get'
+2019-10-26 12:55:03,190 - nornir.core.task -    DEBUG -      start() - Host 'leaf02': running task 'net show bgp summary'
+2019-10-26 12:55:21,219 -  nornir.core -     INFO -        run() - Running task 'generic_get' with args {} on 5 hosts
+2019-10-26 12:55:21,221 - nornir.core.task -    DEBUG -      start() - Host 'spine01': running task 'generic_get'
+2019-10-26 12:55:21,221 - nornir.core.task -    DEBUG -      start() - Host 'spine02': running task 'generic_get'
+2019-10-26 12:55:21,222 - nornir.core.task -    DEBUG -      start() - Host 'leaf01': running task 'generic_get'
+2019-10-26 12:55:21,222 - nornir.core.task -    DEBUG -      start() - Host 'leaf02': running task 'generic_get'
+2019-10-26 12:55:21,222 - nornir.core.task -    DEBUG -      start() - Host 'leaf03': running task 'generic_get'
+2019-10-26 12:55:21,222 - nornir.core.task -    DEBUG -      start() - Host 'leaf02': running task 'net show bgp summary'
+2019-10-26 12:55:38,480 -  nornir.core -     INFO -        run() - Running task 'generic_get' with args {} on 5 hosts
+2019-10-26 12:55:38,483 - nornir.core.task -    DEBUG -      start() - Host 'spine01': running task 'generic_get'
+2019-10-26 12:55:38,483 - nornir.core.task -    DEBUG -      start() - Host 'spine02': running task 'generic_get'
+2019-10-26 12:55:38,483 - nornir.core.task -    DEBUG -      start() - Host 'leaf01': running task 'generic_get'
+2019-10-26 12:55:38,483 - nornir.core.task -    DEBUG -      start() - Host 'leaf02': running task 'generic_get'
+2019-10-26 12:55:38,483 - nornir.core.task -    DEBUG -      start() - Host 'leaf03': running task 'generic_get'
+2019-10-26 12:55:38,484 - nornir.core.task -    DEBUG -      start() - Host 'leaf02': running task 'net show bgp summary'

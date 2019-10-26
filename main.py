@@ -15,10 +15,10 @@ __copyright__ = "Copyright 2019"
 
 ########################################################################################################################
 #
-# Default value used for exit()
+# Constantes
 #
 ERROR_HEADER = "Error import [main.py]"
-
+HEADER = "[netests - main.py]"
 ########################################################################################################################
 #
 # Import Library
@@ -30,8 +30,20 @@ except ImportError as importError:
     print(importError)
     exit(EXIT_FAILURE)
 
-from nornir import InitNornir
-from nornir.core import Nornir
+try:
+    from functions.retrieve_bgp import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} nornir")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
+    from nornir import InitNornir
+    from nornir.core import Nornir
+except ImportError as importError:
+    print(f"{ERROR_HEADER} nornir")
+    print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     import click
@@ -51,36 +63,31 @@ except ImportError as importError:
 #
 # Functions
 #
-def init_nornir(log_file="./nornir/nornir.log", log_level="debug", ansible=False, virtual=False) -> Nornir:
+def init_nornir(log_file="./nornir/nornir.log", log_level=NORNIR_DEBUG_MODE, ansible=False, virtual=False) -> Nornir:
     """
     Initialize Nornir object with the following files
     """
+
+    config_file = str()
+
     if ansible:
         if virtual:
-            nr = InitNornir(
-                config_file="./nornir/config_ansible_virt.yml",
-                logging={
-                    "file": log_file,
-                    "level": log_level
-                }
-            )
+            config_file= "./nornir/config_ansible_virt.yml"
         else:
-            nr = InitNornir(
-                config_file="./nornir/config_ansible.yml",
-                logging={
-                    "file": log_file,
-                    "level": log_level
-                }
-            )
+            config_file="./nornir/config_ansible.yml"
     else:
-        nr = InitNornir(
-            config_file="./nornir/config_std.yml",
-            logging={
-                "file": log_file,
-                "level": log_level
-            }
-        )
+        if virtual:
+            config_file="./nornir/config_virt.yml"
+        else:
+            config_file="./nornir/config_std_virt.yml"
 
+    nr = InitNornir(
+        config_file=config_file,
+        logging={
+            "file": log_file,
+            "level": log_level
+        }
+    )
 
     return nr
 
@@ -107,24 +114,51 @@ def open_file(path: str()) -> dict():
 
     return data
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Basic test for CI
+#
+def execute_test():
+    pass
+
 ########################################################################################################################
 #
-# Entry Point
+# Main function
 #
 @click.command()
-@click.option('--ansible', default=False, help=f"If this value is TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY}")
-@click.option('--virtual', default=False, help=f"If this value is TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}")
-def main(ansible, virtual):
+@click.option('--ansible', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY}")
+@click.option('--virtual', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}")
+@click.option('--tests', default=False, help=f"If TRUE, only compilation tests will be executed")
+def main(ansible, virtual, tests):
+
+    if tests:
+        execute_test()
+        exit(EXIT_SUCCESS)
 
     # Create Nornir object
-    nr = init_nornir()
+    nr = init_nornir(
+        log_file="./nornir/nornir.log",
+        log_level="debug",
+        ansible=ansible,
+        virtual=virtual
+    )
 
     test_to_execute = open_file(PATH_TO_VERITY_FILES+TEST_TO_EXECUTE_FILENAME)
     print(test_to_execute)
 
     print(nr.inventory.hosts)
 
-
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 1. Check BGP sessions
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if test_to_execute[TEST_TO_EXC_BGP_KEY] is not False:
+        bgp_session_up = get_bgp(nr)
+        #print(f"{HEADER} All BGP sessions are UP regarding YAML file ({BGP_SESSIONS_TO_CHECK}) => {bgp_session_up}")
+        #if test_to_execute['bgp'] is True and all_bgp_session_established is False:
+        #    exit_value = False
+        print(f"{HEADER} BGP_SESSIONS are {bgp_session_up} !!")
+    else:
+        print(f"{HEADER} BGP_SESSIONS tests are not executed !!")
 
     return EXIT_SUCCESS
 

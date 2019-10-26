@@ -24,14 +24,29 @@ EXIT_FAILURE = 1
 #
 # CONSTANTES
 #
+
+###### NORNIR INIT ######
+NORNIR_DEBUG_MODE = 'debug'
+
 PATH_TO_VERITY_FILES = "./verity/"
 PATH_TO_INVENTORY_FILES = "./inventory/"
 
 ###### INVENTORY ######
 ANSIBLE_INVENTORY = "hosts"
-ANSIBLE_INVENTORY_VIRTUAL = "hosts_virtual"
+ANSIBLE_INVENTORY_VIRTUAL = "hosts"
 
-BGP_SRC_FILENAME = "bgp.yml"
+JUNOS_PLATEFORM_NAME = 'junos'
+CUMULUS_PLATEFORM_NAME = 'linux'
+NEXUS_PLATEFORM_NAME = 'cisco_nxos'
+CISCO_PLATEFORM_NAME = 'cisco_ios'
+ARISTA_PLATEFORM_NAME = 'arista_eos'
+
+###### TESTS TO EXECUTE FILE ######
 TEST_TO_EXECUTE_FILENAME = "_test_to_execute.yml"
-
 TO_EXECUTE_FILE_VALUE = ['INFO', 'TRUE', 'FALSE']
+BGP_SRC_FILENAME = "bgp.yml"
+TEST_TO_EXC_BGP_KEY = 'bgp'
+
+
+###### CUMULUS COMMANDS
+CUMULUS_GET_BGP = 'net show bgp summary'

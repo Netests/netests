@@ -1,0 +1,10 @@
+---
+core:
+    num_workers: 10
+
+inventory:
+    plugin: nornir.plugins.inventory.simple.SimpleInventory
+    options:
+        host_file: "inventory/nornir/virt/hosts.yml"
+        group_file: "inventory/nornir/virt/groups.yml"
+        defaults_file: "inventory/nornir/virt/defaults.yml"
