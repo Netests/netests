@@ -79,7 +79,7 @@ def init_nornir(log_file="./nornir/nornir.log", log_level=NORNIR_DEBUG_MODE, ans
         if virtual:
             config_file="./nornir/config_virt.yml"
         else:
-            config_file="./nornir/config_std_virt.yml"
+            config_file="./nornir/config_std.yml"
 
     nr = InitNornir(
         config_file=config_file,

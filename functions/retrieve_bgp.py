@@ -36,6 +36,10 @@ try:
     from nornir.core.filter import F
     # To execute netmiko commands
     from nornir.plugins.tasks.networking import netmiko_send_command
+    # To execute napalm get config
+    from nornir.plugins.tasks.networking import napalm_get
+    # To print task results
+    from nornir.plugins.functions.text import print_result
 except ImportError as importError:
     print(f"{ERROR_HEADER} nornir")
     print(importError)
@@ -70,7 +74,7 @@ def get_bgp(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    
+    print_result(data)
     """
     
     #print_result(data)
@@ -84,25 +88,54 @@ def get_bgp(nr: Nornir):
     return (netests.bgp.compare_topology_and_bgp_output(content, devices))
     """
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Generic function
+#
 def generic_get(task):
+
+    print(f"Start generic_get with {task.host.name} - {task.host.platform} - {task.host.data} {task.host.keys()} - {'connexion' in task.host.keys()}")
+
+    use_ssh = False
+
+    if 'nxos' in task.host.platform:
+        if 'connexion' in task.host.keys():
+            if task.host.data.get('connexion', "") == 'ssh':
+                use_ssh = True
 
     if task.host.platform == CUMULUS_PLATEFORM_NAME:
         _cumulus_get_bgp(task)
-    elif task.host.platform == NEXUS_PLATEFORM_NAME:
-        _nexus_get_bgp(task)
-    elif task.host.platform == CISCO_PLATEFORM_NAME:
-        _cisco_get_bgp(task)
-    elif task.host.platform == ARISTA_PLATEFORM_NAME:
-        _arista_get_bgp(task)
-    elif task.host.platform == JUNOS_PLATEFORM_NAME:
-        _junos_get_bgp(task)
+    elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
+        if use_ssh and 'nxos' == task.host.platform:
+            _nexus_get_bgp(task)
+        else:
+            _generic_napalm(task)
     else:
         # RAISE EXCEPTIONS
         print(f"{HEADER_GET} No plateform selected...")
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Function for devices which are compatible with NAPALM
+#
+def _generic_napalm(task):
 
+    print(f"Start _generic_napalm with {task.host.name} ")
+
+    output = task.run(
+        name=f"napal_get bgp {task.host.platform}",
+        task=napalm_get,
+        getters=["interfaces"])
+
+    print(output.result)
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cumulus Network
+#
 def _cumulus_get_bgp(task):
-    print(f"Start _nexus_get_bgp with {task.host.name}")
+
+    print(f"Start _cumulus_get_bgp with {task.host.name}")
 
     output = task.run(
         name=f"{CUMULUS_GET_BGP}",
@@ -112,19 +145,40 @@ def _cumulus_get_bgp(task):
 
     print(output.result)
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco Nexus NXOS
+#
 def _nexus_get_bgp(task):
+
     print(f"Start _nexus_get_bgp with {task.host.name}")
-    pass
 
+    output = task.run(
+        name=f"{NEXUS_GET_BGP}",
+        task=netmiko_send_command,
+        command_string=NEXUS_GET_BGP
+    )
+
+    print(output.result)
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS
+#
 def _cisco_get_bgp(task):
-    print(f"Start _cisco_get_bgp with {task.host.name}")
-    pass
+    raise NotImplemented
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Arista vEOS
+#
 def _arista_get_bgp(task):
-    print(f"Start _arista_get_bgp with {task.host.name}")
-    pass
+    raise NotImplemented
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Juniper JunOS
+#
 def _junos_get_bgp(task):
-    print(f"Start _junos_get_bgp with {task.host.name}")
-    pass
+    raise NotImplemented
 

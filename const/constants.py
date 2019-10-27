@@ -35,11 +35,14 @@ PATH_TO_INVENTORY_FILES = "./inventory/"
 ANSIBLE_INVENTORY = "hosts"
 ANSIBLE_INVENTORY_VIRTUAL = "hosts"
 
+
+NAPALM_COMPATIBLE_PLATEFORM = ['junos', 'cisco_nxos', 'nxos', 'cisco_ios', 'ios', 'arista_eos']
 JUNOS_PLATEFORM_NAME = 'junos'
 CUMULUS_PLATEFORM_NAME = 'linux'
 NEXUS_PLATEFORM_NAME = 'cisco_nxos'
 CISCO_PLATEFORM_NAME = 'cisco_ios'
 ARISTA_PLATEFORM_NAME = 'arista_eos'
+EXTREME_PLATEFORM_NAME = 'extreme_vsp'
 
 ###### TESTS TO EXECUTE FILE ######
 TEST_TO_EXECUTE_FILENAME = "_test_to_execute.yml"
@@ -49,4 +52,7 @@ TEST_TO_EXC_BGP_KEY = 'bgp'
 
 
 ###### CUMULUS COMMANDS
-CUMULUS_GET_BGP = 'net show bgp summary'
+CUMULUS_GET_BGP = 'net show bgp summary json'
+
+##### NEXUS COMMANDS
+NEXUS_GET_BGP = 'show bgp sessions | json'
