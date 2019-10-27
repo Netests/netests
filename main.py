@@ -31,7 +31,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.retrieve_bgp import *
+    from functions.bgp_gets import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} nornir")
     print(importError)

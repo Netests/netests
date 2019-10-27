@@ -17,7 +17,7 @@ __copyright__ = "Copyright 2019"
 #
 # HEADERS
 #
-ERROR_HEADER = "Error import [retrieve_bgp]"
+ERROR_HEADER = "Error import [bgp_gets.py]"
 HEADER_GET = "[netests - get_bgp]"
 ########################################################################################################################
 #
@@ -26,9 +26,9 @@ HEADER_GET = "[netests - get_bgp]"
 try:
     from const.constants import *
 except ImportError as importError:
-    print(f"{ERROR_HEADER} nornir")
-    print(importError)
+    print(f"{ERROR_HEADER} const.constants")
     exit(EXIT_FAILURE)
+    print(importError)
 
 try:
     from nornir.core import Nornir
@@ -46,9 +46,9 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from tools.converters import cumulus_converter
+    from functions.bgp_converters import _cumulus_bgp_converter
 except ImportError as importError:
-    print(f"{ERROR_HEADER} nornir")
+    print(f"{ERROR_HEADER} functions.bgp_converters")
     print(importError)
     exit(EXIT_FAILURE)
 
@@ -75,18 +75,6 @@ def get_bgp(nr: Nornir):
         num_workers=10
     )
     print_result(data)
-    """
-    
-    #print_result(data)
-    if data.failed is True:
-        return False
-
-    netests.bgp._cumulus_bgp_summary_converter(devices)
-    content = open_file(path_url)
-    content = (content)
-
-    return (netests.bgp.compare_topology_and_bgp_output(content, devices))
-    """
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -98,16 +86,20 @@ def generic_get(task):
 
     use_ssh = False
 
-    if 'nxos' in task.host.platform:
+    if 'nxos' in task.host.platform or 'eos' in task.host.platform:
         if 'connexion' in task.host.keys():
             if task.host.data.get('connexion', "") == 'ssh':
                 use_ssh = True
 
     if task.host.platform == CUMULUS_PLATEFORM_NAME:
         _cumulus_get_bgp(task)
+    if task.host.platform == EXTREME_PLATEFORM_NAME:
+        _extreme_vsp_get_bgp(task)
     elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
         if use_ssh and 'nxos' == task.host.platform:
             _nexus_get_bgp(task)
+        elif use_ssh and 'eos' == task.host.platform:
+            _arista_get_bgp(task)
         else:
             _generic_napalm(task)
     else:
@@ -145,6 +137,32 @@ def _cumulus_get_bgp(task):
 
     print(output.result)
 
+    bgp_sessions_lst = _cumulus_bgp_converter(task.host.name, output.result)
+    print(type(bgp_sessions_lst) ,bgp_sessions_lst)
+
+    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions_lst
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Extreme Network (VSP)
+#
+def _extreme_vsp_get_bgp(task):
+
+    print(f"Start _extreme_vsp_get_bgp with {task.host.name}")
+
+    output = task.run(
+        name=f"{CUMULUS_GET_BGP}",
+        task=netmiko_send_command,
+        command_string=CUMULUS_GET_BGP
+    )
+
+    print(output.result)
+
+    bgp_sessions_lst = _cumulus_bgp_converter(task.host.name, output.result)
+    print(type(bgp_sessions_lst) ,bgp_sessions_lst)
+
+    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions_lst
+
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco Nexus NXOS
@@ -161,6 +179,11 @@ def _nexus_get_bgp(task):
 
     print(output.result)
 
+    bgp_sessions_lst = _(task.host.name, output.result)
+    print(type(bgp_sessions_lst), bgp_sessions_lst)
+
+    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions_lst
+
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco IOS
@@ -173,7 +196,16 @@ def _cisco_get_bgp(task):
 # Arista vEOS
 #
 def _arista_get_bgp(task):
-    raise NotImplemented
+
+    print(f"Start _arista_get_bgp with {task.host.name}")
+
+    output = task.run(
+        name=f"{ARISTA_GET_BGP}",
+        task=netmiko_send_command,
+        command_string=ARISTA_GET_BGP
+    )
+
+    print(output.result)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

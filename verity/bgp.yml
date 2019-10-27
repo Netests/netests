@@ -1,44 +1,8 @@
 ---
 bgp_sessions:
-  leaf01:
-    asn: 65211
-    neighbors:
-      - neighbor: spine01
-        interface: swp1
-      - neighbor: spine02
-        interface: swp2
-  leaf03:
-    asn: 65222
-    neighbors:
-      - neighbor: spine01
-        interface: swp1
-      - neighbor: spine02
-        interface: swp2
-  exit01:
-    asn: 65233
-    neighbors:
-      - neighbor: exit02
-        interface: peerlink.4094
-      - neighbor: spine01
-        interface: swp1
-      - neighbor: spine02
-        interface: swp2
-
   spine01:
     asn: 65100
     neighbors:
-      - neighbor: leaf01
-        interface: swp1
-      - neighbor: leaf03
-        interface: swp3
-      - neighbor: exit01
-        interface: swp5
-  spine02:
-    asn: 65100
-    neighbors:
-      - neighbor: leaf01
-        interface: swp1
-      - neighbor: leaf03
-        interface: swp3
-      - neighbor: exit01
-        interface: swp5
+      - 10.255.255.201
+      - 10.255.255.202
+      - 10.255.255.203

@@ -36,16 +36,16 @@ except ImportError as importError:
 class BGPSession:
 
     src_hostname: str
-    dst_hostname: str
-    src_interface: str
+    peer_ip: str
+    peer_hostname: str
 
     # ------------------------------------------------------------
     #
     #
-    def __init__(self, src_hostname: str(),  dst_hostname: str(), src_interface: str()):
+    def __init__(self, src_hostname=NOT_SET_VALUE, peer_ip=NOT_SET_VALUE, peer_hostname=NOT_SET_VALUE):
         self.src_hostname = src_hostname
-        self.dst_hostname = dst_hostname
-        self.src_interface = src_interface
+        self.peer_ip = peer_ip
+        self.peer_hostname = peer_hostname
 
     # ------------------------------------------------------------
     #
@@ -53,20 +53,18 @@ class BGPSession:
     def __eq__(self, other):
         if not isinstance(other, BGPSession):
             return NotImplemented
-    
-        return ((self.src_hostname == other.src_hostname and
-                self.dst_hostname == other.dst_hostname) and
-                self.src_interface == other.src_interface)
+
+        return ((self.src_hostname == other.src_hostname) and
+                (self.peer_ip == other.peer_ip) and
+                (self.peer_hostname == other.peer_hostname))
 
     # ------------------------------------------------------------
     #
     #
     def __repr__(self):
-        return f"<BGPSession src_hostname={self.src_hostname} dst_hostname={self.dst_hostname} src_interface={self.src_interface}>\n"
-
-
-
-
+        return f"<BGPSession peer_ip={self.src_hostname} " \
+               f"peer_ip={self.peer_ip} " \
+               f"peer_hostname={self.peer_hostname}>\n "
 
 
 class ListBGPSessions:
