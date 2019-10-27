@@ -1,0 +1,88 @@
+{"totalpeers": "2",
+  "totalestablishedpeers": "2",
+  "localas": "65202",
+  "TABLE_vrf":
+    {"ROW_vrf":
+      {"vrf-name-out": "default",
+        "local-as": "65202",
+        "vrfpeers": "2",
+        "vrfestablishedpeers": "2",
+        "router-id": "10.255.255.202",
+        "TABLE_neighbor":
+          {"ROW_neighbor": [
+            {"neighbor-id": "10.255.255.101",
+              "connectionsdropped": "0",
+              "remoteas": "65100",
+              "lastflap": "PT1M2S",
+              "lastread": "PT2S",
+              "lastwrite": "PT1S",
+              "state": "Established",
+              "localport": "179",
+              "remoteport": "40059",
+              "notificationssent": "0",
+              "notificationsreceived": "0",
+            },
+            {"neighbor-id": "10.255.255.203",
+              "connectionsdropped": "0",
+              "remoteas": "65203",
+              "lastflap": "PT17S",
+              "lastread": "PT17S",
+              "lastwrite": "PT16S",
+              "state": "Established",
+              "localport": "179",
+              "remoteport": "37951",
+              "notificationssent": "0",
+              "notificationsreceived": "0"}
+          ],
+          },
+      },
+    },
+}
+
+
+
+
+
+{
+    "vrfs": {
+        "default": {
+            "routerId": "10.255.255.203",
+            "peers": {
+                "10.255.255.202": {
+                    "prefixReceived": 2,
+                    "description": "TO-LEAF02",
+                    "msgSent": 46,
+                    "inMsgQueue": 0,
+                    "underMaintenance": false,
+                    "prefixInBest": 1,
+                    "upDownTime": 1572210634.899541,
+                    "version": 4,
+                    "msgReceived": 47,
+                    "prefixAccepted": 2,
+                    "peerState": "Established",
+                    "outMsgQueue": 0,
+                    "prefixInBestEcmp": 0,
+                    "asn": "65202"
+                },
+                "10.255.255.101": {
+                    "prefixReceived": 2,
+                    "description": "TO-SPINE01",
+                    "msgSent": 931,
+                    "inMsgQueue": 0,
+                    "underMaintenance": false,
+                    "prefixInBest": 1,
+                    "upDownTime": 1572210315.897097,
+                    "version": 4,
+                    "msgReceived": 932,
+                    "prefixAccepted": 2,
+                    "peerState": "Established",
+                    "outMsgQueue": 0,
+                    "prefixInBestEcmp": 0,
+                    "asn": "65100"
+                }
+            },
+            "vrf": "default",
+            "asn": "65203"
+        }
+    }
+}

@@ -47,6 +47,8 @@ except ImportError as importError:
 
 try:
     from functions.bgp_converters import _cumulus_bgp_converter
+    from functions.bgp_converters import _nexus_bgp_converter
+    from functions.bgp_converters import _arista_bgp_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.bgp_converters")
     print(importError)
@@ -74,7 +76,7 @@ def get_bgp(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -134,13 +136,12 @@ def _cumulus_get_bgp(task):
         task=netmiko_send_command,
         command_string=CUMULUS_GET_BGP
     )
+    #print(output.result)
 
-    print(output.result)
+    bgp_sessions = _cumulus_bgp_converter(task.host.name, output.result)
+    print(type(bgp_sessions) ,bgp_sessions)
 
-    bgp_sessions_lst = _cumulus_bgp_converter(task.host.name, output.result)
-    print(type(bgp_sessions_lst) ,bgp_sessions_lst)
-
-    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions_lst
+    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -151,17 +152,11 @@ def _extreme_vsp_get_bgp(task):
     print(f"Start _extreme_vsp_get_bgp with {task.host.name}")
 
     output = task.run(
-        name=f"{CUMULUS_GET_BGP}",
+        name=f"LSODHOUEWHDUWEHDZWEDOUZWQEGDOUWEVDOUWEQVDUWEVDOUWEZDVWOEUZVDOUWEZVDWEOZDVOUWEQZDVOWEUQZDVWDZWE",
         task=netmiko_send_command,
-        command_string=CUMULUS_GET_BGP
+        command_string="COMMANDE à DEFINIR !!!!!!"
     )
-
     print(output.result)
-
-    bgp_sessions_lst = _cumulus_bgp_converter(task.host.name, output.result)
-    print(type(bgp_sessions_lst) ,bgp_sessions_lst)
-
-    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -176,13 +171,12 @@ def _nexus_get_bgp(task):
         task=netmiko_send_command,
         command_string=NEXUS_GET_BGP
     )
+    # print(output.result)
 
-    print(output.result)
+    bgp_sessions = _nexus_bgp_converter(task.host.name, output.result)
+    print(type(bgp_sessions), bgp_sessions)
 
-    bgp_sessions_lst = _(task.host.name, output.result)
-    print(type(bgp_sessions_lst), bgp_sessions_lst)
-
-    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions_lst
+    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -204,8 +198,12 @@ def _arista_get_bgp(task):
         task=netmiko_send_command,
         command_string=ARISTA_GET_BGP
     )
+    #print(output.result)
 
-    print(output.result)
+    bgp_sessions = _arista_bgp_converter(task.host.name, output.result)
+    print(type(bgp_sessions), bgp_sessions)
+
+    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
