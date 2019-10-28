@@ -1,0 +1,30 @@
+---
+#
+# A file per devices
+# Directory tree
+#
+# reports:
+#   date:
+#       protocols:
+#           devices:
+#
+spine01:
+  works: TRUE || FALSE
+  asn: 65100
+  sessions:
+    - 10.255.255.202:
+        state: Established
+        route_imported: 80
+        state_time: 3h30min
+        local_port: swp1
+        peer_name: leaf02
+
+    - 10.255.255.201:
+        state: Established
+        route_imported: 220
+        state_time: 1min
+        local_port: swp1
+        peer_name: leaf01
+
+
+
