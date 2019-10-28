@@ -10,6 +10,7 @@ leaf02:
     session_state: Established
     src_hostname: leaf02
     state_time: NOT_SET
+    vrf_name: default
   - peer_hostname: NOT_SET
     peer_ip: 10.255.255.203
     prefix_received: NOT_SET
@@ -17,6 +18,7 @@ leaf02:
     session_state: Established
     src_hostname: leaf02
     state_time: NOT_SET
+    vrf_name: default
   router_id:
     current_is: 10.255.255.202
     should_be: 65202

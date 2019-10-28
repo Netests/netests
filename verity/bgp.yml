@@ -13,7 +13,7 @@ spine01:
       remote_as: 65203
       vrf_name: mgmt
     - peer_ip: 10.0.5.202
-      remote_as: 652021
+      remote_as: 65202
       vrf_name: mgmt
 
 leaf02:

@@ -104,7 +104,7 @@ def _create(task, bgp_data:json, today:str):
     data_yaml[task.host.name] = dict()
 
     data_yaml[task.host.name]['works'] = task.host.get(BGP_WORKS_KEY, NOT_SET)
-
+    
     data_yaml[task.host.name]['as_number'] = dict()
     data_yaml[task.host.name]['as_number']['should_be'] = bgp_data.get(task.host.name).get(YAML_BGKP_ASN_KEY, NOT_SET)
     data_yaml[task.host.name]['as_number']['current_is'] = task.host.get(BGP_SESSIONS_HOST_KEY).as_number
@@ -126,6 +126,7 @@ def _create(task, bgp_data:json, today:str):
         tmp_dict['session_state'] = neighbor.session_state
         tmp_dict['state_time'] = neighbor.state_time
         tmp_dict['prefix_received'] = neighbor.prefix_received
+        tmp_dict['vrf_name'] = neighbor.vrf_name
 
         data_yaml[task.host.name]['neighbors'].append(tmp_dict)
 

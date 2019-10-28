@@ -177,6 +177,8 @@ def _extreme_vsp_get_bgp(task):
 #
 def _nexus_get_bgp(task):
 
+    outputs_lst = list()
+
     output = task.run(
         name=f"{NEXUS_GET_BGP}",
         task=netmiko_send_command,
@@ -184,7 +186,9 @@ def _nexus_get_bgp(task):
     )
     # print(output.result)
 
-    bgp_sessions = _nexus_bgp_converter(task.host.name, output.result)
+    outputs_lst.append(json.loads(output.result))
+
+    bgp_sessions = _nexus_bgp_converter(task.host.name, outputs_lst)
 
     task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
 
@@ -201,6 +205,8 @@ def _cisco_get_bgp(task):
 #
 def _arista_get_bgp(task):
 
+    outputs_lst = list()
+
     output = task.run(
         name=f"{ARISTA_GET_BGP}",
         task=netmiko_send_command,
@@ -208,7 +214,9 @@ def _arista_get_bgp(task):
     )
     #print_result(output)
 
-    bgp_sessions = _arista_bgp_converter(task.host.name, output.result)
+    outputs_lst.append(json.loads(output.result))
+
+    bgp_sessions = _arista_bgp_converter(task.host.name, outputs_lst)
 
     task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
 
