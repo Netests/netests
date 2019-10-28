@@ -26,14 +26,28 @@ HEADER = "[netests - main.py]"
 try:
     from const.constants import *
 except ImportError as importError:
-    print(f"{ERROR_HEADER} nornir")
+    print(f"{ERROR_HEADER} const.constants")
     print(importError)
     exit(EXIT_FAILURE)
 
 try:
     from functions.bgp_gets import *
 except ImportError as importError:
-    print(f"{ERROR_HEADER} nornir")
+    print(f"{ERROR_HEADER} functions.bgp_gets")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
+    from functions.bgp_compare import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.bgp_compare")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
+    from functions.bgp_reports import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.bgp_reports")
     print(importError)
     exit(EXIT_FAILURE)
 
@@ -129,7 +143,8 @@ def execute_test():
 @click.option('--ansible', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY}")
 @click.option('--virtual', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}")
 @click.option('--tests', default=False, help=f"If TRUE, only compilation tests will be executed")
-def main(ansible, virtual, tests):
+@click.option('--reports', default=False, help=f"If TRUE, configuration reports will be create")
+def main(ansible, virtual, tests, reports):
 
     if tests:
         execute_test()
@@ -152,11 +167,17 @@ def main(ansible, virtual, tests):
     # 1. Check BGP sessions
     # ''''''''''''''''''''''''''''''''''''''''''''
     if test_to_execute[TEST_TO_EXC_BGP_KEY] is not False:
-        bgp_session_up = get_bgp(nr)
-        #print(f"{HEADER} All BGP sessions are UP regarding YAML file ({BGP_SESSIONS_TO_CHECK}) => {bgp_session_up}")
-        #if test_to_execute['bgp'] is True and all_bgp_session_established is False:
-        #    exit_value = False
-        print(f"{HEADER} BGP_SESSIONS are {bgp_session_up} !!")
+        get_bgp(nr)
+        bgp_data = open_file(f"{PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME}")
+        same = compare_bgp(nr, bgp_data)
+        if reports:
+            create_reports(nr, bgp_data)
+
+        if test_to_execute['bgp'] is True and same is False:
+            exit_value = False
+
+        print(
+            f"{HEADER} BGP sessions are the same that defined in {PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME} = {same} !!")
     else:
         print(f"{HEADER} BGP_SESSIONS tests are not executed !!")
 

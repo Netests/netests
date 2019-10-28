@@ -60,14 +60,10 @@ except ImportError as importError:
 #
 def get_bgp(nr: Nornir):
 
-    print("start get_bgp")
-
     devices = nr.filter()
 
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
-
-    print(devices.inventory.hosts)
 
     path_url = f"{PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME}"
 
@@ -95,7 +91,7 @@ def generic_get(task):
 
     if task.host.platform == CUMULUS_PLATEFORM_NAME:
         _cumulus_get_bgp(task)
-    if task.host.platform == EXTREME_PLATEFORM_NAME:
+    elif task.host.platform == EXTREME_PLATEFORM_NAME:
         _extreme_vsp_get_bgp(task)
     elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
         if use_ssh and 'nxos' == task.host.platform:
@@ -106,7 +102,7 @@ def generic_get(task):
             _generic_napalm(task)
     else:
         # RAISE EXCEPTIONS
-        print(f"{HEADER_GET} No plateform selected...")
+        print(f"{HEADER_GET} No plateform selected for {task.host.name}...")
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -129,8 +125,6 @@ def _generic_napalm(task):
 #
 def _cumulus_get_bgp(task):
 
-    print(f"Start _cumulus_get_bgp with {task.host.name}")
-
     output = task.run(
         name=f"{CUMULUS_GET_BGP}",
         task=netmiko_send_command,
@@ -139,7 +133,6 @@ def _cumulus_get_bgp(task):
     #print(output.result)
 
     bgp_sessions = _cumulus_bgp_converter(task.host.name, output.result)
-    print(type(bgp_sessions) ,bgp_sessions)
 
     task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
 
@@ -148,8 +141,6 @@ def _cumulus_get_bgp(task):
 # Extreme Network (VSP)
 #
 def _extreme_vsp_get_bgp(task):
-
-    print(f"Start _extreme_vsp_get_bgp with {task.host.name}")
 
     output = task.run(
         name=f"LSODHOUEWHDUWEHDZWEDOUZWQEGDOUWEVDOUWEQVDUWEVDOUWEZDVWOEUZVDOUWEZVDWEOZDVOUWEQZDVOWEUQZDVWDZWE",
@@ -164,8 +155,6 @@ def _extreme_vsp_get_bgp(task):
 #
 def _nexus_get_bgp(task):
 
-    print(f"Start _nexus_get_bgp with {task.host.name}")
-
     output = task.run(
         name=f"{NEXUS_GET_BGP}",
         task=netmiko_send_command,
@@ -174,7 +163,6 @@ def _nexus_get_bgp(task):
     # print(output.result)
 
     bgp_sessions = _nexus_bgp_converter(task.host.name, output.result)
-    print(type(bgp_sessions), bgp_sessions)
 
     task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
 
@@ -191,17 +179,14 @@ def _cisco_get_bgp(task):
 #
 def _arista_get_bgp(task):
 
-    print(f"Start _arista_get_bgp with {task.host.name}")
-
     output = task.run(
         name=f"{ARISTA_GET_BGP}",
         task=netmiko_send_command,
         command_string=ARISTA_GET_BGP
     )
-    #print(output.result)
+    #print_result(output)
 
     bgp_sessions = _arista_bgp_converter(task.host.name, output.result)
-    print(type(bgp_sessions), bgp_sessions)
 
     task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
 

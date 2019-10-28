@@ -1,8 +1,29 @@
 ---
-bgp_sessions:
-  spine01:
-    asn: 65100
-    neighbors:
-      - 10.255.255.201
-      - 10.255.255.202
-      - 10.255.255.203
+spine01:
+  asn: 65100
+  router_id: 10.255.255.101
+  neighbors:
+    - peer_ip: 10.255.255.201
+      remote_as: 65201
+    - peer_ip: 10.255.255.202
+      remote_as: 65202
+    - peer_ip: 10.255.255.203
+      remote_as: 65203
+
+leaf02:
+  asn: 65202
+  router_id: 10.255.255.202
+  neighbors:
+    - peer_ip: 10.255.255.101
+      remote_as: 65100
+    - peer_ip: 10.255.255.203
+      remote_as: 65203
+
+leaf03:
+  asn: 65203
+  router_id: 10.255.255.203
+  neighbors:
+    - peer_ip: 10.255.255.101
+      remote_as: 65100
+    - peer_ip: 10.255.255.202
+      remote_as: 65202

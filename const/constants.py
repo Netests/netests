@@ -27,6 +27,9 @@ EXIT_FAILURE = 1
 
 NOT_SET = "NOT_SET"
 
+##### REPORT PATH #####
+REPORT_FOLDER = "reports/"
+
 ###### NORNIR INIT ######
 NORNIR_DEBUG_MODE = 'debug'
 
@@ -36,7 +39,6 @@ PATH_TO_INVENTORY_FILES = "./inventory/"
 ###### INVENTORY ######
 ANSIBLE_INVENTORY = "hosts"
 ANSIBLE_INVENTORY_VIRTUAL = "hosts"
-
 
 NAPALM_COMPATIBLE_PLATEFORM = ['junos', 'cisco_nxos', 'nxos', 'cisco_ios', 'ios', 'arista_eos', 'eos']
 JUNOS_PLATEFORM_NAME = 'junos'
@@ -64,3 +66,7 @@ ARISTA_GET_BGP = 'show ip bgp summary | json'
 
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
+BGP_WORKS_KEY = 'bgp_works'
+
+##### BGP YAML FILE ######
+YAML_BGKP_ASN_KEY = 'asn'

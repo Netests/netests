@@ -1,0 +1,30 @@
+spine01:
+  as_number:
+    current_is: 65100
+    should_be: 65100
+  neighbors:
+  - peer_hostname: leaf01
+    peer_ip: 10.255.255.201
+    prefix_received: 1
+    remote_as: 65201
+    session_state: Established
+    src_hostname: spine01
+    state_time: '22:48:59'
+  - peer_hostname: NOT_SET
+    peer_ip: 10.255.255.202
+    prefix_received: 1
+    remote_as: 65202
+    session_state: Established
+    src_hostname: spine01
+    state_time: '22:42:56'
+  - peer_hostname: NOT_SET
+    peer_ip: 10.255.255.203
+    prefix_received: 0
+    remote_as: 65203
+    session_state: Established
+    src_hostname: spine01
+    state_time: '22:47:31'
+  router_id:
+    current_is: 10.255.255.101
+    should_be: 65100
+  works: true

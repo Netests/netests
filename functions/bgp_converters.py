@@ -34,14 +34,10 @@ except ImportError as importError:
 try:
     from protocols.bgp import BGPSession, ListBGPSessions, BGP
 except ImportError as importError:
-    print(f"{ERROR_HEADER} nornir")
+    print(f"{ERROR_HEADER} protocols.bgp")
     exit(EXIT_FAILURE)
     print(importError)
 
-########################################################################################################################
-#
-# Import Library
-#
 try:
     import json
 except ImportError as importError:
@@ -75,6 +71,9 @@ def _cumulus_bgp_converter(hostname:str(), cmd_output:dict()) -> BGP:
                     peer_ip=peer_ip,
                     peer_hostname=facts.get('hostname', NOT_SET),
                     remote_as=facts.get('remoteAs', NOT_SET),
+                    session_state=facts.get('state', NOT_SET),
+                    state_time=facts.get('peerUptime', NOT_SET),
+                    prefix_received=facts.get('prefixReceivedCount', NOT_SET)
                 )
 
                 bgp_sessions_lst.bgp_sessions.append(bgp_session)
@@ -102,7 +101,10 @@ def _nexus_bgp_converter(hostname:str(), cmd_output:dict()) -> BGP:
             src_hostname=hostname,
             peer_ip=neighbor.get('neighbor-id', NOT_SET),
             peer_hostname=neighbor.get('interfaces', NOT_SET),
-            remote_as=neighbor.get('remoteas', NOT_SET)
+            remote_as=neighbor.get('remoteas', NOT_SET),
+            session_state=neighbor.get('state', NOT_SET),
+            state_time=neighbor.get('LastUpDn', NOT_SET),
+            prefix_received=neighbor.get('prefixReceived', NOT_SET)
         )
 
         bgp_sessions_lst.bgp_sessions.append(bgp_session)
@@ -119,7 +121,7 @@ def _nexus_bgp_converter(hostname:str(), cmd_output:dict()) -> BGP:
 #
 # Arista BGP Converter
 #
-def _arista_bgp_converter(hostname:str(), cmd_output:dict()) -> ListBGPSessions:
+def _arista_bgp_converter(hostname:str(), cmd_output:dict()) -> BGP:
 
     bgp_sessions_lst = ListBGPSessions(list())
 
@@ -130,7 +132,10 @@ def _arista_bgp_converter(hostname:str(), cmd_output:dict()) -> ListBGPSessions:
             src_hostname=hostname,
             peer_ip=neighbor,
             peer_hostname=facts.get('hostname', NOT_SET),
-            remote_as=facts.get('asn', NOT_SET)
+            remote_as=facts.get('asn', NOT_SET),
+            session_state=facts.get('peerState', NOT_SET),
+            state_time=facts.get('upDownTime', NOT_SET),
+            prefix_received=facts.get('prefixReceived', NOT_SET)
         )
 
         bgp_sessions_lst.bgp_sessions.append(bgp_session)

@@ -13,20 +13,20 @@ __email__ = "dylan.hamel@protonmail.com"
 __status__ = "Prototype"
 __copyright__ = "Copyright 2019"
 
-######################################################
+########################################################################################################################
 #
 # HEADERS
 #
 ERROR_HEADER = "Error import [bgp.py]"
 
-######################################################
+########################################################################################################################
 #
 # Default value used for exit()
 #
 try:
     from const.constants import *
 except ImportError as importError:
-    print(f"{ERROR_HEADER} nornir")
+    print(f"{ERROR_HEADER} const.constants")
     print(importError)
     exit(EXIT_FAILURE)
 
@@ -38,17 +38,26 @@ class BGPSession:
 
     src_hostname: str
     peer_ip: str
-    peer_hostname: str
     remote_as: str
+
+    # The following values are not used by the __eq__ function !!
+    peer_hostname: str
+    session_state: str
+    state_time: str
+    prefix_received: str
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, src_hostname=NOT_SET, peer_ip=NOT_SET, peer_hostname=NOT_SET,remote_as=NOT_SET):
+    def __init__(self, src_hostname=NOT_SET, peer_ip=NOT_SET, peer_hostname=NOT_SET, remote_as=NOT_SET,
+                 session_state=NOT_SET, state_time=NOT_SET, prefix_received=NOT_SET):
         self.src_hostname = src_hostname
         self.peer_ip = peer_ip
         self.peer_hostname = peer_hostname
         self.remote_as = remote_as
+        self.session_state = session_state
+        self.state_time = state_time
+        self.prefix_received = prefix_received
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -57,10 +66,9 @@ class BGPSession:
         if not isinstance(other, BGPSession):
             return NotImplemented
 
-        return ((self.src_hostname == other.src_hostname) and
-                (self.peer_ip == other.peer_ip) and
-                (self.peer_hostname == other.peer_hostname) and
-                (self.remote_as == other.remote_as))
+        return ((str(self.src_hostname) == str(other.src_hostname)) and
+                (str(self.peer_ip) == str(other.peer_ip)) and
+                (str(self.remote_as) == str(other.remote_as)))
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -69,7 +77,10 @@ class BGPSession:
         return f"<BGPSession src_hostname={self.src_hostname} " \
                f"peer_ip={self.peer_ip} " \
                f"peer_hostname={self.peer_hostname} " \
-               f"remote_as={self.remote_as}>\n"
+               f"remote_as={self.remote_as}" \
+               f"session_state={self.session_state}"\
+               f"state_time={self.state_time}" \
+               f"prefix_received={self.prefix_received}>\n"
 
 
 ########################################################################################################################
@@ -118,7 +129,7 @@ class ListBGPSessions:
         result = "<ListBGPSessions \n"
         for bgp_session in self.bgp_sessions:
             result = result + f"{bgp_session}"
-        return result+"\n>"
+        return result+">"
 
 
 ########################################################################################################################
@@ -148,9 +159,9 @@ class BGP:
         if not isinstance(other, BGP):
             raise NotImplemented
 
-        return ((self.hostname == other.hostname) and
-                (self.as_number == other.as_number) and
-                (self.router_id == other.router_id) and
+        return ((str(self.hostname) == str(other.hostname)) and
+                (str(self.as_number) == str(other.as_number)) and
+                (str(self.router_id) == str(other.router_id)) and
                 (self.bgp_sessions == other.bgp_sessions))
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -160,4 +171,4 @@ class BGP:
         return f"<BGP hostname={self.hostname} " \
                f"as_number={self.as_number} " \
                f"router_id={self.router_id} " \
-               f"bgp_sessions={self.bgp_sessions}>\n "
+               f"bgp_sessions={self.bgp_sessions}>"

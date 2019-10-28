@@ -1,0 +1,23 @@
+leaf03:
+  as_number:
+    current_is: '65203'
+    should_be: 65203
+  neighbors:
+  - peer_hostname: NOT_SET
+    peer_ip: 10.255.255.202
+    prefix_received: 2
+    remote_as: '65202'
+    session_state: Established
+    src_hostname: leaf03
+    state_time: 1572210635.020934
+  - peer_hostname: NOT_SET
+    peer_ip: 10.255.255.101
+    prefix_received: 2
+    remote_as: '65100'
+    session_state: Established
+    src_hostname: leaf03
+    state_time: 1572210316.020649
+  router_id:
+    current_is: 10.255.255.203
+    should_be: 65203
+  works: true
