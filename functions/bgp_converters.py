@@ -54,34 +54,58 @@ except ImportError as importError:
 #
 # Cumulus BGP converter
 #
-def _cumulus_bgp_converter(hostname:str(), cmd_output:dict()) -> BGP:
+def _cumulus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
     bgp_sessions_lst = ListBGPSessions(list())
+    as_number = ""
+    router_id = ""
 
-    jcmd_output = json.loads(cmd_output)
+    for cmd_output in cmd_outputs:
+        if "ipv4 unicast" in cmd_output.keys():
+            if cmd_output.get('ipv4 unicast', NOT_SET) is NOT_SET:
+                return list()
 
-    if "ipv4 unicast" in jcmd_output.keys():
-        if jcmd_output.get('ipv4 unicast', NOT_SET) is NOT_SET:
-            return list()
+            else:
 
-        else:
-            for peer_ip, facts in jcmd_output.get('ipv4 unicast', NOT_SET).get('peers', list()).items() :
-                bgp_session = BGPSession(
-                    src_hostname=hostname,
-                    peer_ip=peer_ip,
-                    peer_hostname=facts.get('hostname', NOT_SET),
-                    remote_as=facts.get('remoteAs', NOT_SET),
-                    session_state=facts.get('state', NOT_SET),
-                    state_time=facts.get('peerUptime', NOT_SET),
-                    prefix_received=facts.get('prefixReceivedCount', NOT_SET)
-                )
+                if cmd_output.get('ipv4 unicast', NOT_SET).get('vrfName', NOT_SET) == "default":
 
-                bgp_sessions_lst.bgp_sessions.append(bgp_session)
+                    if as_number == "" and router_id == "":
+                        as_number = cmd_output.get('ipv4 unicast', NOT_SET).get('as', NOT_SET)
+                        router_id = cmd_output.get('ipv4 unicast', NOT_SET).get('routerId', NOT_SET)
+
+                    for peer_ip, facts in cmd_output.get('ipv4 unicast', NOT_SET).get('peers', list()).items() :
+                        bgp_session = BGPSession(
+                            src_hostname=hostname,
+                            peer_ip=peer_ip,
+                            peer_hostname=facts.get('hostname', NOT_SET),
+                            remote_as=facts.get('remoteAs', NOT_SET),
+                            session_state=facts.get('state', NOT_SET),
+                            state_time=facts.get('peerUptime', NOT_SET),
+                            prefix_received=facts.get('prefixReceivedCount', NOT_SET),
+                            vrf_name=cmd_output.get('ipv4 unicast', NOT_SET).get('vrfName', "default")
+                        )
+
+                        bgp_sessions_lst.bgp_sessions.append(bgp_session)
+
+                else:
+                    for peer_ip, facts in cmd_output.get('ipv4 unicast', NOT_SET).get('ipv4Unicast', NOT_SET).get('peers', list()).items():
+                        bgp_session = BGPSession(
+                            src_hostname=hostname,
+                            peer_ip=peer_ip,
+                            peer_hostname=facts.get('hostname', NOT_SET),
+                            remote_as=facts.get('remoteAs', NOT_SET),
+                            session_state=facts.get('state', NOT_SET),
+                            state_time=facts.get('peerUptime', NOT_SET),
+                            prefix_received=facts.get('prefixReceivedCount', NOT_SET),
+                            vrf_name=cmd_output.get('ipv4 unicast', NOT_SET).get('ipv4Unicast', NOT_SET).get('vrfName', "default")
+                        )
+
+                        bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
     return BGP(
         hostname=hostname,
-        as_number=jcmd_output.get('ipv4 unicast', NOT_SET).get('as', NOT_SET),
-        router_id=jcmd_output.get('ipv4 unicast', NOT_SET).get('routerId', NOT_SET),
+        as_number=as_number,
+        router_id=router_id,
         bgp_sessions=bgp_sessions_lst
     )
 
@@ -89,30 +113,29 @@ def _cumulus_bgp_converter(hostname:str(), cmd_output:dict()) -> BGP:
 #
 # Cisco Nexus BGP Converter
 #
-def _nexus_bgp_converter(hostname:str(), cmd_output:dict()) -> BGP:
+def _nexus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
     bgp_sessions_lst = ListBGPSessions(list())
 
-    jcmd_output = json.loads(cmd_output)
+    for cmd_output in cmd_outputs:
+        for neighbor in cmd_output.get('TABLE_vrf', NOT_SET).get('ROW_vrf', NOT_SET).get('TABLE_neighbor', NOT_SET).get(
+                'ROW_neighbor', NOT_SET):
+            bgp_session = BGPSession(
+                src_hostname=hostname,
+                peer_ip=neighbor.get('neighbor-id', NOT_SET),
+                peer_hostname=neighbor.get('interfaces', NOT_SET),
+                remote_as=neighbor.get('remoteas', NOT_SET),
+                session_state=neighbor.get('state', NOT_SET),
+                state_time=neighbor.get('LastUpDn', NOT_SET),
+                prefix_received=neighbor.get('prefixReceived', NOT_SET)
+            )
 
-    for neighbor in jcmd_output.get('TABLE_vrf', NOT_SET).get('ROW_vrf', NOT_SET).get('TABLE_neighbor', NOT_SET).get(
-            'ROW_neighbor', NOT_SET):
-        bgp_session = BGPSession(
-            src_hostname=hostname,
-            peer_ip=neighbor.get('neighbor-id', NOT_SET),
-            peer_hostname=neighbor.get('interfaces', NOT_SET),
-            remote_as=neighbor.get('remoteas', NOT_SET),
-            session_state=neighbor.get('state', NOT_SET),
-            state_time=neighbor.get('LastUpDn', NOT_SET),
-            prefix_received=neighbor.get('prefixReceived', NOT_SET)
-        )
-
-        bgp_sessions_lst.bgp_sessions.append(bgp_session)
+            bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
     return BGP(
         hostname=hostname,
-        as_number=jcmd_output.get('localas', NOT_SET),
-        router_id=jcmd_output.get('TABLE_vrf', NOT_SET).get('ROW_vrf', NOT_SET).get('router-id', NOT_SET),
+        as_number=cmd_output.get('localas', NOT_SET),
+        router_id=cmd_output.get('TABLE_vrf', NOT_SET).get('ROW_vrf', NOT_SET).get('router-id', NOT_SET),
         bgp_sessions=bgp_sessions_lst
     )
 
@@ -121,28 +144,27 @@ def _nexus_bgp_converter(hostname:str(), cmd_output:dict()) -> BGP:
 #
 # Arista BGP Converter
 #
-def _arista_bgp_converter(hostname:str(), cmd_output:dict()) -> BGP:
+def _arista_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
     bgp_sessions_lst = ListBGPSessions(list())
 
-    jcmd_output = json.loads(cmd_output)
+    for cmd_output in cmd_outputs:
+        for neighbor, facts in cmd_output.get('vrfs', NOT_SET).get('default', NOT_SET).get('peers', NOT_SET).items():
+            bgp_session = BGPSession(
+                src_hostname=hostname,
+                peer_ip=neighbor,
+                peer_hostname=facts.get('hostname', NOT_SET),
+                remote_as=facts.get('asn', NOT_SET),
+                session_state=facts.get('peerState', NOT_SET),
+                state_time=facts.get('upDownTime', NOT_SET),
+                prefix_received=facts.get('prefixReceived', NOT_SET)
+            )
 
-    for neighbor, facts in jcmd_output.get('vrfs', NOT_SET).get('default', NOT_SET).get('peers', NOT_SET).items():
-        bgp_session = BGPSession(
-            src_hostname=hostname,
-            peer_ip=neighbor,
-            peer_hostname=facts.get('hostname', NOT_SET),
-            remote_as=facts.get('asn', NOT_SET),
-            session_state=facts.get('peerState', NOT_SET),
-            state_time=facts.get('upDownTime', NOT_SET),
-            prefix_received=facts.get('prefixReceived', NOT_SET)
-        )
-
-        bgp_sessions_lst.bgp_sessions.append(bgp_session)
+            bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
     return BGP(
         hostname=hostname,
-        as_number=jcmd_output.get('vrfs', NOT_SET).get('default', NOT_SET).get('asn', NOT_SET),
-        router_id=jcmd_output.get('vrfs', NOT_SET).get('default', NOT_SET).get('routerId', NOT_SET),
+        as_number=cmd_output.get('vrfs', NOT_SET).get('default', NOT_SET).get('asn', NOT_SET),
+        router_id=cmd_output.get('vrfs', NOT_SET).get('default', NOT_SET).get('routerId', NOT_SET),
         bgp_sessions=bgp_sessions_lst
     )

@@ -57,7 +57,7 @@ TEST_TO_EXC_BGP_KEY = 'bgp'
 
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
-
+CUMULUS_GET_BGP_VRF = "net show bgp vrf {} summary json"
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
 

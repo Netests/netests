@@ -70,9 +70,16 @@ def compare_bgp(nr, bgp_data:json) -> bool:
         on_failed=True,
         num_workers=10
     )
-    # print_result(data)
+    # print_result(data.result)
 
-    return (not data.failed)
+    return_value = True
+
+    for value in data.values():
+        if value.result is False:
+            print(f"{HEADER_GET} Task '_compare' has failed for {value.host} (value.result={value.result}).")
+            return_value = False
+
+    return (not data.failed and return_value)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -88,7 +95,8 @@ def _compare(task, bgp_data:json):
                 src_hostname=task.host.name,
                 peer_ip=neighbor.get('peer_ip', NOT_SET),
                 peer_hostname=neighbor.get('peer_hostname', NOT_SET),
-                remote_as=neighbor.get('remote_as', NOT_SET)
+                remote_as=neighbor.get('remote_as', NOT_SET),
+                vrf_name=neighbor.get('vrf_name', "default")
             )
 
             bgp_sessions_lst.bgp_sessions.append(bgp_session)

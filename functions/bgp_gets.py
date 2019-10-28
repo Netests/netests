@@ -54,6 +54,13 @@ except ImportError as importError:
     print(importError)
     exit(EXIT_FAILURE)
 
+try:
+    import json
+except ImportError as importError:
+    print(f"{ERROR_HEADER} json")
+    exit(EXIT_FAILURE)
+    print(importError)
+
 ########################################################################################################################
 #
 # Functions
@@ -125,14 +132,29 @@ def _generic_napalm(task):
 #
 def _cumulus_get_bgp(task):
 
+    outputs_lst = list()
+
     output = task.run(
-        name=f"{CUMULUS_GET_BGP}",
-        task=netmiko_send_command,
-        command_string=CUMULUS_GET_BGP
+            name=f"{CUMULUS_GET_BGP}",
+            task=netmiko_send_command,
+            command_string=CUMULUS_GET_BGP
     )
     #print(output.result)
 
-    bgp_sessions = _cumulus_bgp_converter(task.host.name, output.result)
+    outputs_lst.append(json.loads(output.result))
+
+    for vrf in task.host.get('vrfs', list()):
+        if vrf.get('bgp', NOT_SET) is True:
+            output = task.run(
+                name=CUMULUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
+                task=netmiko_send_command,
+                command_string=CUMULUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
+            )
+            # print(output.result)
+
+            outputs_lst.append(json.loads(output.result))
+
+    bgp_sessions = _cumulus_bgp_converter(task.host.name, outputs_lst)
 
     task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
 
