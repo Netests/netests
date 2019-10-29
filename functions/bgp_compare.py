@@ -32,7 +32,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from protocols.bgp import BGPSession, ListBGPSessions, BGP
+    from protocols.bgp import BGPSession, ListBGPSessions, BGPSessionsVRF, ListBGPSessionsVRF, BGP
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.bgp")
     exit(EXIT_FAILURE)
@@ -87,29 +87,42 @@ def compare_bgp(nr, bgp_data:json) -> bool:
 #
 def _compare(task, bgp_data:json):
 
-    if BGP_SESSIONS_HOST_KEY in task.host.keys():
-        bgp_sessions_lst = ListBGPSessions(list())
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
 
-        for neighbor in bgp_data.get(task.host.name, NOT_SET).get('neighbors', NOT_SET):
-            bgp_session = BGPSession(
-                src_hostname=task.host.name,
-                peer_ip=neighbor.get('peer_ip', NOT_SET),
-                peer_hostname=neighbor.get('peer_hostname', NOT_SET),
-                remote_as=neighbor.get('remote_as', NOT_SET),
-                vrf_name=neighbor.get('vrf_name', "default")
+    if BGP_SESSIONS_HOST_KEY in task.host.keys():
+
+        for vrf_name, facts in bgp_data.get(task.host.name, NOT_SET).items():
+
+            bgp_sessions_lst = ListBGPSessions(list())
+
+            for neighbor in facts.get('neighbors', NOT_SET):
+                bgp_session = BGPSession(
+                    src_hostname=task.host.name,
+                    peer_ip=neighbor.get('peer_ip', NOT_SET),
+                    peer_hostname=neighbor.get('peer_hostname', NOT_SET),
+                    remote_as=neighbor.get('remote_as', NOT_SET),
+                )
+
+                bgp_sessions_lst.bgp_sessions.append(bgp_session)
+
+            bgp_session_vrf = BGPSessionsVRF(
+                as_number=facts.get('asn', NOT_SET),
+                router_id=facts.get('router_id', NOT_SET),
+                bgp_sessions=bgp_sessions_lst
             )
 
-            bgp_sessions_lst.bgp_sessions.append(bgp_session)
+            bgp_sessions_vrf_lst.bgp_sessions_vrf.append(bgp_session_vrf)
+
 
         verity_bgp = BGP(
             hostname=task.host.name,
-            as_number=bgp_data.get(task.host.name, NOT_SET).get('asn', NOT_SET),
-            router_id=bgp_data.get(task.host.name, NOT_SET).get('router_id', NOT_SET),
-            bgp_sessions=bgp_sessions_lst
+            bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
         )
 
-        task.host[BGP_WORKS_KEY] = (verity_bgp == task.host[BGP_SESSIONS_HOST_KEY])
-        return verity_bgp == task.host[BGP_SESSIONS_HOST_KEY]
+        is_same = verity_bgp == task.host[BGP_SESSIONS_HOST_KEY]
+
+        task.host[BGP_WORKS_KEY] = is_same
+        return is_same
 
     else:
         print(f"Key {BGP_SESSIONS_HOST_KEY} is missing for {task.host.name}")

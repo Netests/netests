@@ -32,7 +32,7 @@ except ImportError as importError:
     print(importError)
 
 try:
-    from protocols.bgp import BGPSession, ListBGPSessions, BGP
+    from protocols.bgp import BGPSession, ListBGPSessions, BGPSessionsVRF, ListBGPSessionsVRF, BGP
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.bgp")
     exit(EXIT_FAILURE)
@@ -56,7 +56,7 @@ except ImportError as importError:
 #
 def _cumulus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
-    bgp_sessions_lst = ListBGPSessions(list())
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
     as_number = ""
     router_id = ""
 
@@ -67,11 +67,12 @@ def _cumulus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
             else:
 
+                bgp_sessions_lst = ListBGPSessions(list())
+
                 if cmd_output.get('ipv4 unicast', NOT_SET).get('vrfName', NOT_SET) == "default":
 
-                    if as_number == "" and router_id == "":
-                        as_number = cmd_output.get('ipv4 unicast', NOT_SET).get('as', NOT_SET)
-                        router_id = cmd_output.get('ipv4 unicast', NOT_SET).get('routerId', NOT_SET)
+                    as_number = cmd_output.get('ipv4 unicast', NOT_SET).get('as', NOT_SET)
+                    router_id = cmd_output.get('ipv4 unicast', NOT_SET).get('routerId', NOT_SET)
 
                     for peer_ip, facts in cmd_output.get('ipv4 unicast', NOT_SET).get('peers', list()).items() :
                         bgp_session = BGPSession(
@@ -82,12 +83,15 @@ def _cumulus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
                             session_state=facts.get('state', NOT_SET),
                             state_time=facts.get('peerUptime', NOT_SET),
                             prefix_received=facts.get('prefixReceivedCount', NOT_SET),
-                            vrf_name=cmd_output.get('ipv4 unicast', NOT_SET).get('vrfName', "default")
                         )
 
                         bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
                 else:
+
+                    as_number = cmd_output.get('ipv4 unicast', NOT_SET).get('ipv4Unicast', NOT_SET).get('as', NOT_SET)
+                    router_id = cmd_output.get('ipv4 unicast', NOT_SET).get('ipv4Unicast', NOT_SET).get('routerId', NOT_SET)
+
                     for peer_ip, facts in cmd_output.get('ipv4 unicast', NOT_SET).get('ipv4Unicast', NOT_SET).get('peers', list()).items():
                         bgp_session = BGPSession(
                             src_hostname=hostname,
@@ -97,16 +101,21 @@ def _cumulus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
                             session_state=facts.get('state', NOT_SET),
                             state_time=facts.get('peerUptime', NOT_SET),
                             prefix_received=facts.get('prefixReceivedCount', NOT_SET),
-                            vrf_name=cmd_output.get('ipv4 unicast', NOT_SET).get('ipv4Unicast', NOT_SET).get('vrfName', "default")
                         )
 
                         bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
+                bgp_session_vrf = BGPSessionsVRF(
+                    as_number=as_number,
+                    router_id=router_id,
+                    bgp_sessions=bgp_sessions_lst
+                )
+
+            bgp_sessions_vrf_lst.bgp_sessions_vrf.append(bgp_session_vrf)
+
     return BGP(
         hostname=hostname,
-        as_number=as_number,
-        router_id=router_id,
-        bgp_sessions=bgp_sessions_lst
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
 
 # ----------------------------------------------------------------------------------------------------------------------

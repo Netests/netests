@@ -1,35 +1,20 @@
 ---
 spine01:
-  asn: 65100
-  router_id: 10.255.255.101
-  neighbors:
-    - peer_ip: 10.255.255.201
-      remote_as: 65201
-    - peer_ip: 10.255.255.202
-      remote_as: 65202
-    - peer_ip: 10.255.255.203
-      remote_as: 65203
-    - peer_ip: 10.0.5.203
-      remote_as: 65203
-      vrf_name: mgmt
-    - peer_ip: 10.0.5.202
-      remote_as: 65202
-      vrf_name: mgmt
-
-leaf02:
-  asn: 65202
-  router_id: 10.255.255.202
-  neighbors:
-    - peer_ip: 10.255.255.101
-      remote_as: 65100
-    - peer_ip: 10.255.255.203
-      remote_as: 65203
-
-leaf03:
-  asn: 65203
-  router_id: 10.255.255.203
-  neighbors:
-    - peer_ip: 10.255.255.101
-      remote_as: 65100
-    - peer_ip: 10.255.255.202
-      remote_as: 65202
+  default:
+    asn: 65100
+    router_id: 10.255.255.101
+    neighbors:
+      - peer_ip: 10.255.255.201
+        remote_as: 65201
+      - peer_ip: 10.255.255.202
+        remote_as: 65202
+      - peer_ip: 10.255.255.203
+        remote_as: 65203
+  mgmt:
+    asn: 65100
+    router_id: 1.1.1.1
+    neighbors:
+      - peer_ip: 10.0.5.203
+        remote_as: 65203
+      - peer_ip: 10.0.5.202
+        remote_as: 65202
