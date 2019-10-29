@@ -59,6 +59,7 @@ def _cumulus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
     as_number = ""
     router_id = ""
+    vrf_name = ""
 
     for cmd_output in cmd_outputs:
         if "ipv4 unicast" in cmd_output.keys():
@@ -73,6 +74,7 @@ def _cumulus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
                     as_number = cmd_output.get('ipv4 unicast', NOT_SET).get('as', NOT_SET)
                     router_id = cmd_output.get('ipv4 unicast', NOT_SET).get('routerId', NOT_SET)
+                    vrf_name = cmd_output.get('ipv4 unicast', NOT_SET).get('vrfName', NOT_SET)
 
                     for peer_ip, facts in cmd_output.get('ipv4 unicast', NOT_SET).get('peers', list()).items() :
                         bgp_session = BGPSession(
@@ -91,6 +93,7 @@ def _cumulus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
                     as_number = cmd_output.get('ipv4 unicast', NOT_SET).get('ipv4Unicast', NOT_SET).get('as', NOT_SET)
                     router_id = cmd_output.get('ipv4 unicast', NOT_SET).get('ipv4Unicast', NOT_SET).get('routerId', NOT_SET)
+                    vrf_name = cmd_output.get('ipv4 unicast', NOT_SET).get('ipv4Unicast', NOT_SET).get('vrfName',NOT_SET)
 
                     for peer_ip, facts in cmd_output.get('ipv4 unicast', NOT_SET).get('ipv4Unicast', NOT_SET).get('peers', list()).items():
                         bgp_session = BGPSession(
@@ -106,6 +109,7 @@ def _cumulus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
                         bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
                 bgp_session_vrf = BGPSessionsVRF(
+                    vrf_name=vrf_name,
                     as_number=as_number,
                     router_id=router_id,
                     bgp_sessions=bgp_sessions_lst

@@ -138,6 +138,7 @@ class ListBGPSessions:
 #
 class BGPSessionsVRF:
 
+    vrf_name: str
     as_number: str
     router_id: str
     bgp_sessions: ListBGPSessions
@@ -146,7 +147,8 @@ class BGPSessionsVRF:
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, as_number=NOT_SET, router_id=NOT_SET, bgp_sessions=NOT_SET):
+    def __init__(self, vrf_name: str, as_number=NOT_SET, router_id=NOT_SET, bgp_sessions=NOT_SET):
+        self.vrf_name = vrf_name
         self.as_number = as_number
         self.router_id = router_id
         self.bgp_sessions = bgp_sessions
@@ -158,7 +160,8 @@ class BGPSessionsVRF:
         if not isinstance(other, BGPSessionsVRF):
             raise NotImplemented
 
-        return ((str(self.as_number) == str(other.as_number)) and
+        return ((str(self.vrf_name) == str(other.vrf_name)) and
+                (str(self.as_number) == str(other.as_number)) and
                 (str(self.router_id) == str(other.router_id)) and
                  (self.bgp_sessions == other.bgp_sessions))
 
@@ -166,7 +169,8 @@ class BGPSessionsVRF:
     #
     #
     def __repr__(self):
-        return f"<BGPSessionsVRF as_number={self.as_number} " \
+        return f"<BGPSessionsVRF vrf_name={self.vrf_name} " \
+               f"as_number={self.as_number} " \
                f"router_id={self.router_id} " \
                f"bgp_sessions={self.bgp_sessions}>\n"
 

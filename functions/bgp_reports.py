@@ -104,31 +104,44 @@ def _create(task, bgp_data:json, today:str):
     data_yaml[task.host.name] = dict()
 
     data_yaml[task.host.name]['works'] = task.host.get(BGP_WORKS_KEY, NOT_SET)
-    
-    data_yaml[task.host.name]['as_number'] = dict()
-    data_yaml[task.host.name]['as_number']['should_be'] = bgp_data.get(task.host.name).get(YAML_BGKP_ASN_KEY, NOT_SET)
-    data_yaml[task.host.name]['as_number']['current_is'] = task.host.get(BGP_SESSIONS_HOST_KEY).as_number
 
-    data_yaml[task.host.name]['router_id'] = dict()
-    data_yaml[task.host.name]['router_id']['should_be'] = bgp_data.get(task.host.name).get(YAML_BGKP_ASN_KEY,NOT_SET)
-    data_yaml[task.host.name]['router_id']['current_is'] = task.host.get(BGP_SESSIONS_HOST_KEY).router_id
+    data_yaml[task.host.name]['vrfs'] = dict()
 
-    data_yaml[task.host.name]['neighbors'] = list()
+    for vrf_name, facts in bgp_data.get(task.host.name).items():
 
-    for neighbor in task.host.get(BGP_SESSIONS_HOST_KEY).bgp_sessions.bgp_sessions:
+        data_yaml[task.host.name]['vrfs'][vrf_name] = dict()
 
-        tmp_dict = dict()
+        data_yaml[task.host.name]['vrfs'][vrf_name]['as_number'] = dict()
+        data_yaml[task.host.name]['vrfs'][vrf_name]['as_number']['should_be'] = facts.get('asn', NOT_SET)
 
-        tmp_dict['src_hostname'] = neighbor.src_hostname
-        tmp_dict['peer_ip'] = neighbor.peer_ip
-        tmp_dict['remote_as'] = neighbor.remote_as
-        tmp_dict['peer_hostname'] = neighbor.peer_hostname
-        tmp_dict['session_state'] = neighbor.session_state
-        tmp_dict['state_time'] = neighbor.state_time
-        tmp_dict['prefix_received'] = neighbor.prefix_received
-        tmp_dict['vrf_name'] = neighbor.vrf_name
+        for bgp_session_vrf in task.host.get(BGP_SESSIONS_HOST_KEY).bgp_sessions_vrf_lst.bgp_sessions_vrf:
+            if str(bgp_session_vrf.vrf_name) == str(vrf_name):
+                data_yaml[task.host.name]['vrfs'][vrf_name]['as_number']['current_is'] = str(bgp_session_vrf.as_number)
 
-        data_yaml[task.host.name]['neighbors'].append(tmp_dict)
+
+        data_yaml[task.host.name]['vrfs'][vrf_name]['router_id'] = dict()
+        data_yaml[task.host.name]['vrfs'][vrf_name]['router_id']['should_be'] = bgp_data.get(task.host.name).get('router_id',NOT_SET)
+        for bgp_session_vrf in task.host.get(BGP_SESSIONS_HOST_KEY).bgp_sessions_vrf_lst.bgp_sessions_vrf:
+            if str(bgp_session_vrf.vrf_name) == str(vrf_name):
+                data_yaml[task.host.name]['vrfs'][vrf_name]['as_number']['current_is'] = str(bgp_session_vrf.router_id)
+
+        data_yaml[task.host.name]['vrfs'][vrf_name]['neighbors'] = list()
+
+        for bgp_session_vrf in task.host.get(BGP_SESSIONS_HOST_KEY).bgp_sessions_vrf_lst.bgp_sessions_vrf:
+            if str(bgp_session_vrf.vrf_name) == str(vrf_name):
+                for neighbor in bgp_session_vrf.bgp_sessions.bgp_sessions:
+
+                    tmp_dict = dict()
+
+                    tmp_dict['src_hostname'] = neighbor.src_hostname
+                    tmp_dict['peer_ip'] = neighbor.peer_ip
+                    tmp_dict['remote_as'] = neighbor.remote_as
+                    tmp_dict['peer_hostname'] = neighbor.peer_hostname
+                    tmp_dict['session_state'] = neighbor.session_state
+                    tmp_dict['state_time'] = neighbor.state_time
+                    tmp_dict['prefix_received'] = neighbor.prefix_received
+
+                    data_yaml[task.host.name]['vrfs'][vrf_name]['neighbors'].append(tmp_dict)
 
     with open(f"{REPORT_FOLDER}{today}/{task.host.name}.yml", "w+") as outfile:
         yaml.dump(data_yaml, outfile, default_flow_style=False)

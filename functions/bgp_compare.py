@@ -106,6 +106,7 @@ def _compare(task, bgp_data:json):
                 bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
             bgp_session_vrf = BGPSessionsVRF(
+                vrf_name=vrf_name,
                 as_number=facts.get('asn', NOT_SET),
                 router_id=facts.get('router_id', NOT_SET),
                 bgp_sessions=bgp_sessions_lst
