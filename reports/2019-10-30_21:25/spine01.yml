@@ -12,7 +12,7 @@ spine01:
         session_state: Established
         src_hostname: spine01
         state_brief: UP
-        state_time: 2d22h22m
+        state_time: 2d23h22m
       - peer_hostname: NOT_SET
         peer_ip: 10.255.255.202
         prefix_received: 1
@@ -20,7 +20,7 @@ spine01:
         session_state: Established
         src_hostname: spine01
         state_brief: UP
-        state_time: 2d22h16m
+        state_time: 2d23h16m
       - peer_hostname: NOT_SET
         peer_ip: 10.255.255.203
         prefix_received: 0
@@ -28,7 +28,7 @@ spine01:
         session_state: Established
         src_hostname: spine01
         state_brief: UP
-        state_time: 00:24:14
+        state_time: 01:23:57
       router_id:
         current_is: 10.255.255.101
         should_be: 10.255.255.101
@@ -49,10 +49,10 @@ spine01:
         peer_ip: 10.0.5.203
         prefix_received: 0
         remote_as: 65203
-        session_state: Active
+        session_state: Established
         src_hostname: spine01
-        state_brief: DOWN
-        state_time: never
+        state_brief: UP
+        state_time: 00:39:16
       router_id:
         current_is: 1.1.1.1
         should_be: 1.1.1.1

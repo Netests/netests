@@ -216,15 +216,31 @@ def _nexus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 #
 def _arista_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
-    bgp_sessions_lst = ListBGPSessions(list())
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
+    state_brief = ""
 
     for cmd_output in cmd_outputs:
-        for neighbor, facts in cmd_output.get('vrfs', NOT_SET).get('default', NOT_SET).get('peers', NOT_SET).items():
+
+        bgp_sessions_lst = ListBGPSessions(list())
+
+        temp_value = cmd_output.get('vrfs', NOT_SET).keys()
+        for key in temp_value:
+            vrf_name = key
+            break
+
+        for neighbor, facts in cmd_output.get('vrfs', NOT_SET).get(vrf_name, NOT_SET).get('peers', NOT_SET).items():
+
+            if facts.get('peerState', NOT_SET) in BGP_STATE_UP_LIST:
+                state_brief = BGP_STATE_BRIEF_UP
+            else:
+                state_brief = BGP_STATE_BRIEF_DOWN
+
             bgp_session = BGPSession(
                 src_hostname=hostname,
                 peer_ip=neighbor,
                 peer_hostname=facts.get('hostname', NOT_SET),
                 remote_as=facts.get('asn', NOT_SET),
+                state_brief=state_brief,
                 session_state=facts.get('peerState', NOT_SET),
                 state_time=facts.get('upDownTime', NOT_SET),
                 prefix_received=facts.get('prefixReceived', NOT_SET)
@@ -232,9 +248,16 @@ def _arista_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
             bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
+        bgp_session_vrf = BGPSessionsVRF(
+            vrf_name=vrf_name,
+            as_number=cmd_output.get('vrfs', NOT_SET).get(vrf_name, NOT_SET).get('asn', NOT_SET),
+            router_id=cmd_output.get('vrfs', NOT_SET).get(vrf_name, NOT_SET).get('routerId', NOT_SET),
+            bgp_sessions=bgp_sessions_lst
+        )
+
+        bgp_sessions_vrf_lst.bgp_sessions_vrf.append(bgp_session_vrf)
+
     return BGP(
         hostname=hostname,
-        as_number=cmd_output.get('vrfs', NOT_SET).get('default', NOT_SET).get('asn', NOT_SET),
-        router_id=cmd_output.get('vrfs', NOT_SET).get('default', NOT_SET).get('routerId', NOT_SET),
-        bgp_sessions=bgp_sessions_lst
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )

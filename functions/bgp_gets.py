@@ -227,6 +227,17 @@ def _arista_get_bgp(task):
 
     outputs_lst.append(json.loads(output.result))
 
+    for vrf in task.host.get('vrfs', list()):
+        if vrf.get('bgp', NOT_SET) is True:
+            output = task.run(
+                name=ARISTA_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
+                task=netmiko_send_command,
+                command_string=ARISTA_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
+            )
+            # print(output.result)
+
+            outputs_lst.append(json.loads(output.result))
+
     bgp_sessions = _arista_bgp_converter(task.host.name, outputs_lst)
 
     task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions

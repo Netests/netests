@@ -64,6 +64,7 @@ NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
 
 ##### ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
+ARISTA_GET_BGP_VRF = "show ip bgp summary vrf {} | json"
 
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
