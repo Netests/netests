@@ -101,6 +101,7 @@ def _compare(task, bgp_data:json):
                     peer_ip=neighbor.get('peer_ip', NOT_SET),
                     peer_hostname=neighbor.get('peer_hostname', NOT_SET),
                     remote_as=neighbor.get('remote_as', NOT_SET),
+                    state_brief=neighbor.get('state', BGP_STATE_BRIEF_UP),
                 )
 
                 bgp_sessions_lst.bgp_sessions.append(bgp_session)

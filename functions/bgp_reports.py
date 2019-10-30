@@ -118,12 +118,11 @@ def _create(task, bgp_data:json, today:str):
             if str(bgp_session_vrf.vrf_name) == str(vrf_name):
                 data_yaml[task.host.name]['vrfs'][vrf_name]['as_number']['current_is'] = str(bgp_session_vrf.as_number)
 
-
         data_yaml[task.host.name]['vrfs'][vrf_name]['router_id'] = dict()
-        data_yaml[task.host.name]['vrfs'][vrf_name]['router_id']['should_be'] = bgp_data.get(task.host.name).get('router_id',NOT_SET)
+        data_yaml[task.host.name]['vrfs'][vrf_name]['router_id']['should_be'] = facts.get('router_id', NOT_SET)
         for bgp_session_vrf in task.host.get(BGP_SESSIONS_HOST_KEY).bgp_sessions_vrf_lst.bgp_sessions_vrf:
             if str(bgp_session_vrf.vrf_name) == str(vrf_name):
-                data_yaml[task.host.name]['vrfs'][vrf_name]['as_number']['current_is'] = str(bgp_session_vrf.router_id)
+                data_yaml[task.host.name]['vrfs'][vrf_name]['router_id']['current_is'] = str(bgp_session_vrf.router_id)
 
         data_yaml[task.host.name]['vrfs'][vrf_name]['neighbors'] = list()
 
@@ -137,6 +136,7 @@ def _create(task, bgp_data:json, today:str):
                     tmp_dict['peer_ip'] = neighbor.peer_ip
                     tmp_dict['remote_as'] = neighbor.remote_as
                     tmp_dict['peer_hostname'] = neighbor.peer_hostname
+                    tmp_dict['state_brief'] = neighbor.state_brief
                     tmp_dict['session_state'] = neighbor.session_state
                     tmp_dict['state_time'] = neighbor.state_time
                     tmp_dict['prefix_received'] = neighbor.prefix_received

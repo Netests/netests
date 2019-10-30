@@ -41,6 +41,7 @@ class BGPSession:
     remote_as: str
 
     # The following values are not used by the __eq__ function !!
+    state_brief: str
     peer_hostname: str
     session_state: str
     state_time: str
@@ -50,11 +51,12 @@ class BGPSession:
     #
     #
     def __init__(self, src_hostname=NOT_SET, peer_ip=NOT_SET, peer_hostname=NOT_SET, remote_as=NOT_SET,
-                 session_state=NOT_SET, state_time=NOT_SET, prefix_received=NOT_SET):
+                 state_brief=NOT_SET, session_state=NOT_SET, state_time=NOT_SET, prefix_received=NOT_SET):
         self.src_hostname = src_hostname
         self.peer_ip = peer_ip
         self.peer_hostname = peer_hostname
         self.remote_as = remote_as
+        self.state_brief = state_brief
         self.session_state = session_state
         self.state_time = state_time
         self.prefix_received = prefix_received
@@ -68,6 +70,7 @@ class BGPSession:
 
         return ((str(self.src_hostname) == str(other.src_hostname)) and
                 (str(self.peer_ip) == str(other.peer_ip)) and
+                (str(self.state_brief) == str(other.state_brief)) and
                 (str(self.remote_as) == str(other.remote_as)))
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -78,6 +81,7 @@ class BGPSession:
                f"peer_ip={self.peer_ip} " \
                f"peer_hostname={self.peer_hostname} " \
                f"remote_as={self.remote_as}" \
+               f"session_state={self.state_brief}" \
                f"session_state={self.session_state}"\
                f"state_time={self.state_time}" \
                f"prefix_received={self.prefix_received}>\n"

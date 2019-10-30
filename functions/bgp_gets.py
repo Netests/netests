@@ -169,7 +169,7 @@ def _extreme_vsp_get_bgp(task):
         task=netmiko_send_command,
         command_string="COMMANDE à DEFINIR !!!!!!"
     )
-    print(output.result)
+    #print(output.result)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -187,6 +187,17 @@ def _nexus_get_bgp(task):
     # print(output.result)
 
     outputs_lst.append(json.loads(output.result))
+
+    for vrf in task.host.get('vrfs', list()):
+        if vrf.get('bgp', NOT_SET) is True:
+            output = task.run(
+                name=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
+                task=netmiko_send_command,
+                command_string=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
+            )
+            # print(output.result)
+
+            outputs_lst.append(json.loads(output.result))
 
     bgp_sessions = _nexus_bgp_converter(task.host.name, outputs_lst)
 

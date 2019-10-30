@@ -60,6 +60,7 @@ CUMULUS_GET_BGP = 'net show bgp summary json'
 CUMULUS_GET_BGP_VRF = "net show bgp vrf {} summary json"
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
+NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
 
 ##### ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
@@ -67,6 +68,10 @@ ARISTA_GET_BGP = 'show ip bgp summary | json'
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
 BGP_WORKS_KEY = 'bgp_works'
+
+BGP_STATE_UP_LIST = ['ESTABLISHED','established', 'Established', 'Estab','UP', 'up', 'Up']
+BGP_STATE_BRIEF_UP = "UP"
+BGP_STATE_BRIEF_DOWN = "DOWN"
 
 ##### BGP YAML FILE ######
 YAML_BGKP_ASN_KEY = 'asn'
