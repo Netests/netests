@@ -1,0 +1,7 @@
+Value VRF_NAME (\w+)
+Value VRF_ID (\d+)
+
+Start
+  ^${VRF_NAME}\s+${VRF_ID} -> Record
+
+Done

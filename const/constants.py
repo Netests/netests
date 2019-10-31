@@ -29,6 +29,7 @@ NOT_SET = "NOT_SET"
 
 ##### REPORT PATH #####
 REPORT_FOLDER = "reports/"
+TEXTFSM_PATH = "templates/textfsm/"
 
 ###### NORNIR INIT ######
 NORNIR_DEBUG_MODE = 'debug'
@@ -58,6 +59,8 @@ TEST_TO_EXC_BGP_KEY = 'bgp'
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
 CUMULUS_GET_BGP_VRF = "net show bgp vrf {} summary json"
+CUMULUS_GET_VRF = "net show vrf"
+
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
 NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
@@ -76,3 +79,6 @@ BGP_STATE_BRIEF_DOWN = "DOWN"
 
 ##### BGP YAML FILE ######
 YAML_BGKP_ASN_KEY = 'asn'
+
+##### VRF CONSTANTES
+VRF_DATA_KEY = 'vrf_data'

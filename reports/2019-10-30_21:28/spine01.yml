@@ -1,0 +1,59 @@
+spine01:
+  vrfs:
+    default:
+      as_number:
+        current_is: '65100'
+        should_be: 65100
+      neighbors:
+      - peer_hostname: leaf01
+        peer_ip: 10.255.255.201
+        prefix_received: 1
+        remote_as: 65201
+        session_state: Established
+        src_hostname: spine01
+        state_brief: UP
+        state_time: 2d23h25m
+      - peer_hostname: NOT_SET
+        peer_ip: 10.255.255.202
+        prefix_received: 1
+        remote_as: 65202
+        session_state: Established
+        src_hostname: spine01
+        state_brief: UP
+        state_time: 2d23h19m
+      - peer_hostname: NOT_SET
+        peer_ip: 10.255.255.203
+        prefix_received: 0
+        remote_as: 65203
+        session_state: Established
+        src_hostname: spine01
+        state_brief: UP
+        state_time: 01:27:04
+      router_id:
+        current_is: 10.255.255.101
+        should_be: 10.255.255.101
+    mgmt:
+      as_number:
+        current_is: '65100'
+        should_be: 65100
+      neighbors:
+      - peer_hostname: NOT_SET
+        peer_ip: 10.0.5.202
+        prefix_received: 0
+        remote_as: 65202
+        session_state: Active
+        src_hostname: spine01
+        state_brief: DOWN
+        state_time: never
+      - peer_hostname: NOT_SET
+        peer_ip: 10.0.5.203
+        prefix_received: 0
+        remote_as: 65203
+        session_state: Established
+        src_hostname: spine01
+        state_brief: UP
+        state_time: 00:42:22
+      router_id:
+        current_is: 1.1.1.1
+        should_be: 1.1.1.1
+  works: true

@@ -46,9 +46,16 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.bgp_converters import _cumulus_bgp_converter
-    from functions.bgp_converters import _nexus_bgp_converter
-    from functions.bgp_converters import _arista_bgp_converter
+    from functions.bgp.bgp_converters import _cumulus_bgp_converter
+    from functions.bgp.bgp_converters import _nexus_bgp_converter
+    from functions.bgp.bgp_converters import _arista_bgp_converter
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.bgp_converters")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
+    from functions.vrf.vrf_get import generic_vrf_get
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.bgp_converters")
     print(importError)
@@ -73,6 +80,15 @@ def get_bgp(nr: Nornir):
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     path_url = f"{PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME}"
+
+    """
+    vrf_data = devices.run(
+        task=generic_vrf_get,
+        on_failed=True,
+        num_workers=10
+    )
+    print_result(vrf_data)
+    """
 
     data = devices.run(
         task=generic_get,

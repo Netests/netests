@@ -31,21 +31,21 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.bgp_gets import *
+    from functions.bgp.bgp_gets import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.bgp_gets")
     print(importError)
     exit(EXIT_FAILURE)
 
 try:
-    from functions.bgp_compare import *
+    from functions.bgp.bgp_compare import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.bgp_compare")
     print(importError)
     exit(EXIT_FAILURE)
 
 try:
-    from functions.bgp_reports import *
+    from functions.bgp.bgp_reports import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.bgp_reports")
     print(importError)

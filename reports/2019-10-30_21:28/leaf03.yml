@@ -1,0 +1,51 @@
+leaf03:
+  vrfs:
+    default:
+      as_number:
+        current_is: '65203'
+        should_be: 65203
+      neighbors:
+      - peer_hostname: NOT_SET
+        peer_ip: 10.255.255.202
+        prefix_received: 2
+        remote_as: '65202'
+        session_state: Established
+        src_hostname: leaf03
+        state_brief: UP
+        state_time: 1572462150.333477
+      - peer_hostname: NOT_SET
+        peer_ip: 10.10.10.10
+        prefix_received: 0
+        remote_as: '1010'
+        session_state: Idle
+        src_hostname: leaf03
+        state_brief: DOWN
+        state_time: 1572464716.332883
+      - peer_hostname: NOT_SET
+        peer_ip: 10.255.255.101
+        prefix_received: 2
+        remote_as: '65100'
+        session_state: Established
+        src_hostname: leaf03
+        state_brief: UP
+        state_time: 1572462135.333197
+      router_id:
+        current_is: 10.255.255.203
+        should_be: 10.255.255.203
+    mgmt:
+      as_number:
+        current_is: '65203'
+        should_be: 65203
+      neighbors:
+      - peer_hostname: NOT_SET
+        peer_ip: 10.0.5.101
+        prefix_received: 0
+        remote_as: '65100'
+        session_state: Established
+        src_hostname: leaf03
+        state_brief: UP
+        state_time: 1572464818.127192
+      router_id:
+        current_is: 30.30.30.30
+        should_be: 30.30.30.30
+  works: true
