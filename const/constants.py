@@ -55,7 +55,6 @@ TO_EXECUTE_FILE_VALUE = ['INFO', 'TRUE', 'FALSE']
 BGP_SRC_FILENAME = "bgp.yml"
 TEST_TO_EXC_BGP_KEY = 'bgp'
 
-
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
 CUMULUS_GET_BGP_VRF = "net show bgp vrf {} summary json"
@@ -64,10 +63,12 @@ CUMULUS_GET_VRF = "net show vrf"
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
 NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
+NEXUS_GET_VRF = "show vrf all | json"
 
 ##### ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
 ARISTA_GET_BGP_VRF = "show ip bgp summary vrf {} | json"
+ARISTA_GET_VRF = "show vrf | json"
 
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
@@ -82,3 +83,4 @@ YAML_BGKP_ASN_KEY = 'asn'
 
 ##### VRF CONSTANTES
 VRF_DATA_KEY = 'vrf_data'
+VRF_NAME_DATA_KEY = 'vrf_name_data'

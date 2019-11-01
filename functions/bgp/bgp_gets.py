@@ -55,7 +55,8 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.vrf.vrf_get import generic_vrf_get
+    from functions.vrf.vrf_get import get_vrf_name_list
+    from functions.vrf.vrf_get import get_vrf
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.bgp_converters")
     print(importError)
@@ -81,17 +82,10 @@ def get_bgp(nr: Nornir):
 
     path_url = f"{PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME}"
 
-    """
-    vrf_data = devices.run(
-        task=generic_vrf_get,
-        on_failed=True,
-        num_workers=10
-    )
-    print_result(vrf_data)
-    """
+    get_vrf_name_list(nr)
 
     data = devices.run(
-        task=generic_get,
+        task=generic_bgp_get,
         on_failed=True,
         num_workers=10
     )
@@ -101,9 +95,9 @@ def get_bgp(nr: Nornir):
 #
 # Generic function
 #
-def generic_get(task):
+def generic_bgp_get(task):
 
-    print(f"Start generic_get with {task.host.name} - {task.host.platform} - {task.host.data} {task.host.keys()} - {'connexion' in task.host.keys()}")
+    print(f"Start generic_bgp_get with {task.host.name} - {task.host.platform} - {task.host.data} - {task.host.keys()}")
 
     use_ssh = False
 
@@ -138,9 +132,9 @@ def _generic_napalm(task):
     output = task.run(
         name=f"napal_get bgp {task.host.platform}",
         task=napalm_get,
-        getters=["interfaces"])
-
-    print(output.result)
+        getters=["interfaces"]
+    )
+    #print(output.result)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -160,15 +154,16 @@ def _cumulus_get_bgp(task):
     outputs_lst.append(json.loads(output.result))
 
     for vrf in task.host.get('vrfs', list()):
-        if vrf.get('bgp', NOT_SET) is True:
-            output = task.run(
-                name=CUMULUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
-                task=netmiko_send_command,
-                command_string=CUMULUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
-            )
-            # print(output.result)
+        if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
+            if vrf.get('bgp', NOT_SET) is True:
+                output = task.run(
+                    name=CUMULUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
+                    task=netmiko_send_command,
+                    command_string=CUMULUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
+                )
+                # print(output.result)
 
-            outputs_lst.append(json.loads(output.result))
+                outputs_lst.append(json.loads(output.result))
 
     bgp_sessions = _cumulus_bgp_converter(task.host.name, outputs_lst)
 
@@ -205,15 +200,16 @@ def _nexus_get_bgp(task):
     outputs_lst.append(json.loads(output.result))
 
     for vrf in task.host.get('vrfs', list()):
-        if vrf.get('bgp', NOT_SET) is True:
-            output = task.run(
-                name=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
-                task=netmiko_send_command,
-                command_string=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
-            )
-            # print(output.result)
+        if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
+            if vrf.get('bgp', NOT_SET) is True:
+                output = task.run(
+                    name=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
+                    task=netmiko_send_command,
+                    command_string=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
+                )
+                # print(output.result)
 
-            outputs_lst.append(json.loads(output.result))
+                outputs_lst.append(json.loads(output.result))
 
     bgp_sessions = _nexus_bgp_converter(task.host.name, outputs_lst)
 
@@ -244,15 +240,16 @@ def _arista_get_bgp(task):
     outputs_lst.append(json.loads(output.result))
 
     for vrf in task.host.get('vrfs', list()):
-        if vrf.get('bgp', NOT_SET) is True:
-            output = task.run(
-                name=ARISTA_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
-                task=netmiko_send_command,
-                command_string=ARISTA_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
-            )
-            # print(output.result)
+        if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
+            if vrf.get('bgp', NOT_SET) is True:
+                output = task.run(
+                    name=ARISTA_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
+                    task=netmiko_send_command,
+                    command_string=ARISTA_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
+                )
+                # print(output.result)
 
-            outputs_lst.append(json.loads(output.result))
+                outputs_lst.append(json.loads(output.result))
 
     bgp_sessions = _arista_bgp_converter(task.host.name, outputs_lst)
 
