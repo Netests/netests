@@ -40,18 +40,20 @@ class VRF:
     vrf_id: str
     l3_vni: str
     rd: str
-    rt: str
+    rt_imp: str
+    rt_exp: str
 
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, vrf_name=NOT_SET, vrf_id=NOT_SET, l3_vni=NOT_SET, rd=NOT_SET, rt=NOT_SET):
+    def __init__(self, vrf_name=NOT_SET, vrf_id=NOT_SET, l3_vni=NOT_SET, rd=NOT_SET, rt_imp=NOT_SET, rt_exp=NOT_SET):
         self.vrf_name = vrf_name
         self.vrf_id = vrf_id
         self.l3_vni = l3_vni
         self.rd = rd
-        self.rt = rt
+        self.rt_imp = rt_imp
+        self.rt_exp = rt_exp
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -61,10 +63,7 @@ class VRF:
             return NotImplemented
 
         return ((str(self.vrf_name) == str(other.vrf_name)) and
-                (str(self.vrf_id) == str(other.vrf_id)) and
-                (str(self.l3_vni) == str(other.l3_vni)) and
-                (str(self.rd) == str(other.rd)) and
-                (str(self.rt) == str(other.rt)))
+                (str(self.vrf_id) == str(other.vrf_id)))
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -74,7 +73,8 @@ class VRF:
                f"vrf_id={self.vrf_id} " \
                f"l3_vni={self.l3_vni} " \
                f"rd={self.rd}" \
-               f"rt={self.rt}>\n"
+               f"rt_imp={self.rt_imp}" \
+               f"rt_exp={self.rt_exp}>\n"
 
 ########################################################################################################################
 #

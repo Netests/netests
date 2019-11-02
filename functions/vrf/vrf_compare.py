@@ -17,8 +17,8 @@ __copyright__ = "Copyright 2019"
 #
 # HEADERS
 #
-ERROR_HEADER = "Error import [bgp_compare.py]"
-HEADER_GET = "[netests - compare_bgp]"
+ERROR_HEADER = "Error import [vrf_compare.py]"
+HEADER_GET = "[netests - compare_vrf]"
 
 ########################################################################################################################
 #
@@ -32,7 +32,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from protocols.bgp import BGPSession, ListBGPSessions, BGPSessionsVRF, ListBGPSessionsVRF, BGP
+    from protocols.vrf import VRF, ListVRF
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.bgp")
     exit(EXIT_FAILURE)
@@ -57,7 +57,12 @@ except ImportError as importError:
 #
 # Functions
 #
-def compare_bgp(nr, bgp_data:json) -> bool:
+
+########################################################################################################################
+#
+# Functions
+#
+def compare_vrf(nr, vrf_data:json) -> bool:
 
     devices = nr.filter()
 
@@ -65,12 +70,12 @@ def compare_bgp(nr, bgp_data:json) -> bool:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     data = devices.run(
-        task=_compare_bgp,
-        bgp_data=bgp_data,
+        task=_compare_vrf,
+        vrf_data=vrf_data,
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    # print_result(data)
 
     return_value = True
 
@@ -85,46 +90,29 @@ def compare_bgp(nr, bgp_data:json) -> bool:
 #
 # Compare function
 #
-def _compare_bgp(task, bgp_data:json):
+def _compare_vrf(task, vrf_data:json):
 
-    bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
+    verity_vrf = ListVRF(list())
 
-    if BGP_SESSIONS_HOST_KEY in task.host.keys():
+    if VRF_DATA_KEY in task.host.keys():
+        for vrf in vrf_data.get(task.host.name, NOT_SET):
 
-        for vrf_name, facts in bgp_data.get(task.host.name, NOT_SET).items():
+            vrf_obj = VRF(
+                vrf_name=vrf.get('vrf_name', NOT_SET),
+                vrf_id=vrf.get('vrf_id', NOT_SET),
+                l3_vni=vrf.get('l3_vni', NOT_SET),
+                rd=vrf.get('rd', NOT_SET),
+                rt_imp=vrf.get('rt_imp', NOT_SET),
+                rt_exp=vrf.get('rt_exp', NOT_SET),
 
-            bgp_sessions_lst = ListBGPSessions(list())
-
-            for neighbor in facts.get('neighbors', NOT_SET):
-                bgp_session = BGPSession(
-                    src_hostname=task.host.name,
-                    peer_ip=neighbor.get('peer_ip', NOT_SET),
-                    peer_hostname=neighbor.get('peer_hostname', NOT_SET),
-                    remote_as=neighbor.get('remote_as', NOT_SET),
-                    state_brief=neighbor.get('state', BGP_STATE_BRIEF_UP),
-                )
-
-                bgp_sessions_lst.bgp_sessions.append(bgp_session)
-
-            bgp_session_vrf = BGPSessionsVRF(
-                vrf_name=vrf_name,
-                as_number=facts.get('asn', NOT_SET),
-                router_id=facts.get('router_id', NOT_SET),
-                bgp_sessions=bgp_sessions_lst
             )
 
-            bgp_sessions_vrf_lst.bgp_sessions_vrf.append(bgp_session_vrf)
+            verity_vrf.vrf_lst.append(vrf_obj)
 
+        is_same = verity_vrf == task.host[VRF_DATA_KEY]
 
-        verity_bgp = BGP(
-            hostname=task.host.name,
-            bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
-        )
-
-        is_same = verity_bgp == task.host[BGP_SESSIONS_HOST_KEY]
-
-        task.host[BGP_WORKS_KEY] = is_same
+        task.host[VRF_WORKS_KEY] = is_same
         return is_same
 
     else:
-        print(f"Key {BGP_SESSIONS_HOST_KEY} is missing for {task.host.name}")
+        print(f"Key {VRF_DATA_KEY} is missing for {task.host.name}")

@@ -6,3 +6,5 @@
 bgp: yes
 # Check that all BGP sessions are UP
 bgp_up: yes
+# Check that all VRF are defined
+vrf: yes

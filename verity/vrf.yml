@@ -1,0 +1,19 @@
+---
+spine01:
+  - vrf_name: mgmt
+    vrf_id: 1001
+  - vrf_name: test
+    vrf_id: 1002
+
+leaf02:
+  - vrf_name: default
+    vrf_id: 1
+  - vrf_name: management
+    vrf_id: 2
+
+leaf03:
+  - vrf_name: default
+  - vrf_name: mgmt
+  - vrf_name: hello
+  - vrf_name: CLIENT-00
+

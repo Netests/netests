@@ -31,23 +31,18 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.bgp.bgp_gets import *
+    from functions.vrf.vrf_compare import *
 except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.bgp_gets")
+    print(f"{ERROR_HEADER} functions.vrf")
     print(importError)
     exit(EXIT_FAILURE)
 
 try:
     from functions.bgp.bgp_compare import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.bgp_compare")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
     from functions.bgp.bgp_reports import *
+    from functions.bgp.bgp_gets import *
 except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.bgp_reports")
+    print(f"{ERROR_HEADER} functions.bgp")
     print(importError)
     exit(EXIT_FAILURE)
 
@@ -159,9 +154,6 @@ def main(ansible, virtual, tests, reports):
     )
 
     test_to_execute = open_file(PATH_TO_VERITY_FILES+TEST_TO_EXECUTE_FILENAME)
-    print(test_to_execute)
-
-    print(nr.inventory.hosts)
 
     # ''''''''''''''''''''''''''''''''''''''''''''
     # 1. Check BGP sessions
@@ -172,14 +164,31 @@ def main(ansible, virtual, tests, reports):
         same = compare_bgp(nr, bgp_data)
         if reports:
             create_reports(nr, bgp_data)
-
-        if test_to_execute['bgp'] is True and same is False:
+        if test_to_execute[TEST_TO_EXC_BGP_KEY] is True and same is False:
             exit_value = False
-
         print(
             f"{HEADER} BGP sessions are the same that defined in {PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME} = {same} !!")
     else:
         print(f"{HEADER} BGP_SESSIONS tests are not executed !!")
+
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 3. Check VRF on devices
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_VRF_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_VRF_KEY] is not False:
+            get_vrf(nr)
+            vrf_data = open_file(f"{PATH_TO_VERITY_FILES}{VRF_SRC_FILENAME}")
+            same = compare_vrf(nr, vrf_data)
+            if test_to_execute[TEST_TO_EXC_VRF_KEY] is True and same is False:
+                exit_value = False
+            print(f"{HEADER} VRF are the same that defined in {PATH_TO_VERITY_FILES}{VRF_SRC_FILENAME} = {same} !!")
+        else:
+            print(f"{HEADER} VRF tests are not executed !!")
+    else:
+        print(f"{HEADER} VRF key is not defined in {PATH_TO_VERITY_FILES}{VRF_SRC_FILENAME}  !!")
+
+
 
     return EXIT_SUCCESS
 

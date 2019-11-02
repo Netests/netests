@@ -44,9 +44,9 @@ ANSIBLE_INVENTORY_VIRTUAL = "hosts"
 NAPALM_COMPATIBLE_PLATEFORM = ['junos', 'cisco_nxos', 'nxos', 'cisco_ios', 'ios', 'arista_eos', 'eos']
 JUNOS_PLATEFORM_NAME = 'junos'
 CUMULUS_PLATEFORM_NAME = 'linux'
-NEXUS_PLATEFORM_NAME = 'cisco_nxos'
+NEXUS_PLATEFORM_NAME = 'nxos'
 CISCO_PLATEFORM_NAME = 'cisco_ios'
-ARISTA_PLATEFORM_NAME = 'arista_eos'
+ARISTA_PLATEFORM_NAME = 'eos'
 EXTREME_PLATEFORM_NAME = 'extreme_vsp'
 
 ###### TESTS TO EXECUTE FILE ######
@@ -54,6 +54,8 @@ TEST_TO_EXECUTE_FILENAME = "_test_to_execute.yml"
 TO_EXECUTE_FILE_VALUE = ['INFO', 'TRUE', 'FALSE']
 BGP_SRC_FILENAME = "bgp.yml"
 TEST_TO_EXC_BGP_KEY = 'bgp'
+VRF_SRC_FILENAME = "vrf.yml"
+TEST_TO_EXC_VRF_KEY = 'vrf'
 
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
@@ -84,3 +86,4 @@ YAML_BGKP_ASN_KEY = 'asn'
 ##### VRF CONSTANTES
 VRF_DATA_KEY = 'vrf_data'
 VRF_NAME_DATA_KEY = 'vrf_name_data'
+VRF_WORKS_KEY = 'vrf_works'

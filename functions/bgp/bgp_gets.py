@@ -97,26 +97,31 @@ def get_bgp(nr: Nornir):
 #
 def generic_bgp_get(task):
 
-    print(f"Start generic_bgp_get with {task.host.name} - {task.host.platform} - {task.host.data} - {task.host.keys()}")
+    # print(f"Start generic_bgp_get with {task.host.name} - {task.host.platform} - {task.host.data} - {task.host.keys()}")
 
     use_ssh = False
 
-    if 'nxos' in task.host.platform or 'eos' in task.host.platform:
+    if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform:
         if 'connexion' in task.host.keys():
             if task.host.data.get('connexion', "") == 'ssh':
                 use_ssh = True
 
     if task.host.platform == CUMULUS_PLATEFORM_NAME:
         _cumulus_get_bgp(task)
+
     elif task.host.platform == EXTREME_PLATEFORM_NAME:
         _extreme_vsp_get_bgp(task)
+
     elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
-        if use_ssh and 'nxos' == task.host.platform:
+        if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
             _nexus_get_bgp(task)
-        elif use_ssh and 'eos' == task.host.platform:
+
+        elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
             _arista_get_bgp(task)
+
         else:
             _generic_napalm(task)
+
     else:
         # RAISE EXCEPTIONS
         print(f"{HEADER_GET} No plateform selected for {task.host.name}...")

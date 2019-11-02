@@ -123,12 +123,9 @@ def get_vrf_name_list(nr: Nornir, function="LIST"):
 #
 def generic_vrf_get(task, function="GET"):
 
-    print(
-        f"Start generic_vrf_get with {task.host.name} - {task.host.platform} - {task.host.data} {task.host.keys()} - {'connexion' in task.host.keys()}")
-
     use_ssh = False
 
-    if 'nxos' in task.host.platform or 'eos' in task.host.platform:
+    if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform:
         if 'connexion' in task.host.keys():
             if task.host.data.get('connexion', NOT_SET) == 'ssh':
                 use_ssh = True
@@ -137,29 +134,29 @@ def generic_vrf_get(task, function="GET"):
         if function == 'GET':
             _cumulus_get_vrf(task)
         elif function == 'LIST':
-            _get_vrf_name_list(task, device_name="CUMULUS")
+            _get_vrf_name_list(task)
 
 
     elif task.host.platform == EXTREME_PLATEFORM_NAME:
         if function == 'GET':
             _extreme_vsp_get_vrf(task)
         elif function == 'LIST':
-            _get_vrf_name_list(task, device_name="EXTREME_NETWORKS")
+            _get_vrf_name_list(task)
 
 
     elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM:
-        if use_ssh and 'nxos' == task.host.platform:
+        if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
             if function == 'GET':
                 _nexus_get_vrf(task)
             elif function == 'LIST':
-                _get_vrf_name_list(task, device_name="CISCO_NEXUS")
+                _get_vrf_name_list(task)
 
 
-        elif use_ssh and 'eos' == task.host.platform:
+        elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
             if function == 'GET':
                 _arista_get_vrf(task)
             elif function == 'LIST':
-                _get_vrf_name_list(task, device_name="ARISTA")
+                _get_vrf_name_list(task)
 
         else:
             _generic_napalm_vrf(task)
@@ -170,17 +167,17 @@ def generic_vrf_get(task, function="GET"):
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-def _get_vrf_name_list(task, device_name=NOT_SET):
+def _get_vrf_name_list(task):
 
     vrf_name_lst = list()
 
-    if device_name == "CUMULUS":
+    if task.host.platform == CUMULUS_PLATEFORM_NAME:
         _cumulus_get_vrf(task)
-    elif device_name == "CISCO_NEXUS":
+    elif task.host.platform == NEXUS_PLATEFORM_NAME:
         _nexus_get_vrf(task)
-    elif device_name == "ARISTA":
+    elif task.host.platform == ARISTA_PLATEFORM_NAME:
         _arista_get_vrf(task)
-    elif device_name == "EXTREME_NETWORKS":
+    elif task.host.platform == EXTREME_PLATEFORM_NAME:
         pass
 
     for vrf in task.host[VRF_DATA_KEY].vrf_lst:
@@ -194,29 +191,31 @@ def _get_vrf_name_list(task, device_name=NOT_SET):
 #
 def _cumulus_get_vrf(task):
 
-    output = task.run(
-        name=f"{CUMULUS_GET_VRF}",
-        task=netmiko_send_command,
-        command_string=f"{CUMULUS_GET_VRF}",
-    )
+    if VRF_DATA_KEY not in task.host.keys():
 
-    template = open(
-        f"{TEXTFSM_PATH}cumulus_net_show_vrf.template")
-    results_template = textfsm.TextFSM(template)
-
-    parsed_results = results_template.ParseText(output.result)
-
-    list_vrf = ListVRF(list())
-
-    for line in parsed_results:
-        vrf = VRF(
-            vrf_name=line[0],
-            vrf_id = line[1]
+        output = task.run(
+            name=f"{CUMULUS_GET_VRF}",
+            task=netmiko_send_command,
+            command_string=f"{CUMULUS_GET_VRF}",
         )
 
-        list_vrf.vrf_lst.append(vrf)
+        template = open(
+            f"{TEXTFSM_PATH}cumulus_net_show_vrf.template")
+        results_template = textfsm.TextFSM(template)
 
-    task.host[VRF_DATA_KEY] = list_vrf
+        parsed_results = results_template.ParseText(output.result)
+
+        list_vrf = ListVRF(list())
+
+        for line in parsed_results:
+            vrf = VRF(
+                vrf_name=line[0],
+                vrf_id = line[1]
+            )
+
+            list_vrf.vrf_lst.append(vrf)
+
+        task.host[VRF_DATA_KEY] = list_vrf
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -224,15 +223,17 @@ def _cumulus_get_vrf(task):
 #
 def _nexus_get_vrf(task):
 
-    output = task.run(
-        name=f"{NEXUS_GET_VRF}",
-        task=netmiko_send_command,
-        command_string=f"{NEXUS_GET_VRF}",
-    )
+    if VRF_DATA_KEY not in task.host.keys():
 
-    vrf_list = _nexus_vrf_converter(task.host.name, json.loads(output.result))
+        output = task.run(
+            name=f"{NEXUS_GET_VRF}",
+            task=netmiko_send_command,
+            command_string=f"{NEXUS_GET_VRF}",
+        )
 
-    task.host[VRF_DATA_KEY] = vrf_list
+        vrf_list = _nexus_vrf_converter(task.host.name, json.loads(output.result))
+
+        task.host[VRF_DATA_KEY] = vrf_list
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -240,15 +241,17 @@ def _nexus_get_vrf(task):
 #
 def _arista_get_vrf(task):
 
-    output = task.run(
-        name=f"{ARISTA_GET_VRF}",
-        task=netmiko_send_command,
-        command_string=f"{ARISTA_GET_VRF}",
-    )
+    if VRF_DATA_KEY not in task.host.keys():
 
-    vrf_list = _arista_vrf_converter(task.host.name, json.loads(output.result))
+        output = task.run(
+            name=f"{ARISTA_GET_VRF}",
+            task=netmiko_send_command,
+            command_string=f"{ARISTA_GET_VRF}",
+        )
 
-    task.host[VRF_DATA_KEY] = vrf_list
+        vrf_list = _arista_vrf_converter(task.host.name, json.loads(output.result))
+
+        task.host[VRF_DATA_KEY] = vrf_list
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
