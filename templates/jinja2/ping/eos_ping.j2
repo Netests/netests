@@ -4,13 +4,13 @@
 {% if '!' in ip_to_ping['ip_address']  %}
 ! NOT PING NOT AVAILABLE WITH EOS (ARISTA)
 {% else %}
-en \n ping vrf {{ ip_to_ping['vrf'] }} {{ ip_to_ping['ip_address'] }} repeat 1
+ping vrf {{ ip_to_ping['vrf'] }} {{ ip_to_ping['ip_address'] }} repeat 1
 {% endif %}
 {% else %}
 {% if '!' in ip_to_ping['ip_address'] %}
 ! NOT PING NOT AVAILABLE WITH EOS (ARISTA)
 {% else %}
-en \n ping {{ ip_to_ping['ip_address'] }} repeat 1
+ping {{ ip_to_ping['ip_address'] }} repeat 1
 {%  endif %}
 {% endif %}
 {% endif %}

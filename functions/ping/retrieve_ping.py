@@ -161,6 +161,4 @@ def retrieve_ping_from_yaml(task) -> list():
 
             ping_lst.ping_lst.append(ping_obj)
 
-    print(ping_lst)
-
     task.host[PING_DATA_HOST_KEY] = ping_lst
