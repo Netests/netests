@@ -80,10 +80,10 @@ class BGPSession:
         return f"<BGPSession src_hostname={self.src_hostname} " \
                f"peer_ip={self.peer_ip} " \
                f"peer_hostname={self.peer_hostname} " \
-               f"remote_as={self.remote_as}" \
-               f"session_state={self.state_brief}" \
-               f"session_state={self.session_state}"\
-               f"state_time={self.state_time}" \
+               f"remote_as={self.remote_as} " \
+               f"session_state={self.state_brief} " \
+               f"session_state={self.session_state} "\
+               f"state_time={self.state_time} " \
                f"prefix_received={self.prefix_received}>\n"
 
 

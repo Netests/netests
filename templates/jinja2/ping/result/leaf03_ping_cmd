@@ -1,0 +1,4 @@
+! NOT PING NOT AVAILABLE WITH EOS (ARISTA)
+en \n ping vrf default 10.1.3.2 repeat 1
+en \n ping vrf default 10.1.3.2 repeat 1
+en \n ping vrf mgmt 10.0.5.203 repeat 1

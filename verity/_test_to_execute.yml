@@ -8,3 +8,5 @@ bgp: yes
 bgp_up: yes
 # Check that all VRF are defined
 vrf: yes
+# Check pings
+ping: yes

@@ -29,7 +29,11 @@ NOT_SET = "NOT_SET"
 
 ##### REPORT PATH #####
 REPORT_FOLDER = "reports/"
-TEXTFSM_PATH = "templates/textfsm/"
+TEMPLATES_PATH = "templates/"
+TEXTFSM_PATH = f"{TEMPLATES_PATH}textfsm/"
+JINJA2_PATH = f"{TEMPLATES_PATH}jinja2/"
+JINJA2_PING_PATH = f"{JINJA2_PATH}ping/"
+JINJA2_PING_RESULT = f"{JINJA2_PING_PATH}result/"
 
 ###### NORNIR INIT ######
 NORNIR_DEBUG_MODE = 'debug'
@@ -52,10 +56,18 @@ EXTREME_PLATEFORM_NAME = 'extreme_vsp'
 ###### TESTS TO EXECUTE FILE ######
 TEST_TO_EXECUTE_FILENAME = "_test_to_execute.yml"
 TO_EXECUTE_FILE_VALUE = ['INFO', 'TRUE', 'FALSE']
+
 BGP_SRC_FILENAME = "bgp.yml"
-TEST_TO_EXC_BGP_KEY = 'bgp'
 VRF_SRC_FILENAME = "vrf.yml"
+PING_SRC_FILENAME = "ping.yml"
+TEST_TO_EXC_BGP_KEY = 'bgp'
 TEST_TO_EXC_VRF_KEY = 'vrf'
+TEST_TO_EXC_PING_KEY = 'ping'
+
+
+YAML_ALL_GROUPS_KEY = 'all'
+YAML_GROUPS_KEY = 'groups'
+YAML_DEVICES_KEY = 'devices'
 
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
@@ -87,3 +99,6 @@ YAML_BGKP_ASN_KEY = 'asn'
 VRF_DATA_KEY = 'vrf_data'
 VRF_NAME_DATA_KEY = 'vrf_name_data'
 VRF_WORKS_KEY = 'vrf_works'
+
+##### PING CONSTANTES
+PING_DATA_HOST_KEY = 'ping_data'

@@ -97,8 +97,6 @@ def get_bgp(nr: Nornir):
 #
 def generic_bgp_get(task):
 
-    # print(f"Start generic_bgp_get with {task.host.name} - {task.host.platform} - {task.host.data} - {task.host.keys()}")
-
     use_ssh = False
 
     if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform:

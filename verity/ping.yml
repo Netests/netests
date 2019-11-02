@@ -1,0 +1,29 @@
+---
+all:
+  - ip: "!8.8.8.8"
+
+groups:
+  leaf,spine:
+    - ip: "!9.9.9.9"
+
+  spine:
+    - ip: 10.0.5.101
+      vrf: mgmt
+
+  leaf:
+    - ip: 10.22.33.1
+
+
+devices:
+  spine01,leaf03:
+    - ip: 10.1.3.2
+
+leaf02:
+  - ip: 10.1.2.2
+  - ip: 10.0.5.202
+    vrf: management
+
+leaf03:
+  - ip: 10.1.3.2
+  - ip: 10.0.5.203
+    vrf: mgmt

@@ -31,6 +31,13 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.ping.execute_ping import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.ping")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.vrf.vrf_compare import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.vrf")
@@ -155,6 +162,7 @@ def main(ansible, virtual, tests, reports):
 
     test_to_execute = open_file(PATH_TO_VERITY_FILES+TEST_TO_EXECUTE_FILENAME)
 
+    """
     # ''''''''''''''''''''''''''''''''''''''''''''
     # 1. Check BGP sessions
     # ''''''''''''''''''''''''''''''''''''''''''''
@@ -186,7 +194,24 @@ def main(ansible, virtual, tests, reports):
         else:
             print(f"{HEADER} VRF tests are not executed !!")
     else:
-        print(f"{HEADER} VRF key is not defined in {PATH_TO_VERITY_FILES}{VRF_SRC_FILENAME}  !!")
+        print(f"{HEADER} VRF key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
+    
+    """
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 4. Execute PING on devices
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_PING_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_PING_KEY] is not False:
+            execute_ping(nr)
+            same = bool
+            if test_to_execute[TEST_TO_EXC_VRF_KEY] is True and same is False:
+                exit_value = False
+            print(f"{HEADER} Pings defined in {PATH_TO_VERITY_FILES}{VRF_SRC_FILENAME} work = {same} !!")
+        else:
+            print(f"{HEADER} Pings have not been executed !!")
+    else:
+        print(f"{HEADER} PING key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
 
 
