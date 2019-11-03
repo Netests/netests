@@ -31,6 +31,13 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.lldp.get_lldp import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.ping")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.ping.execute_ping import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.ping")
@@ -179,6 +186,24 @@ def main(ansible, virtual, tests, reports):
         print(f"{HEADER} BGP_SESSIONS tests are not executed !!")
 
 
+    dict
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 2. LLDP Neighbors check
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_LLDP_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_LLDP_KEY] is not False:
+            get_lldp(nr)
+            lldp_data = open_file(f"{PATH_TO_VERITY_FILES}{LLDP_SRC_FILENAME}")
+            same = compare_vrf(nr, lldp_data)
+            if test_to_execute[TEST_TO_EXC_LLDP_KEY] is True and same is False:
+                exit_value = False
+            print(
+                f"{HEADER} LLDP sessions are the same that defined in {PATH_TO_VERITY_FILES}{VRF_SRC_FILENAME} = {same} !!")
+        else:
+            print(f"{HEADER} LLDP sessions tests are not executed !!")
+    else:
+        print(f"{HEADER} LLDP sessions key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
+
     # ''''''''''''''''''''''''''''''''''''''''''''
     # 3. Check VRF on devices
     # ''''''''''''''''''''''''''''''''''''''''''''
@@ -194,7 +219,6 @@ def main(ansible, virtual, tests, reports):
             print(f"{HEADER} VRF tests are not executed !!")
     else:
         print(f"{HEADER} VRF key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
-
 
     # ''''''''''''''''''''''''''''''''''''''''''''
     # 4. Execute PING on devices

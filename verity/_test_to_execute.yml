@@ -10,3 +10,5 @@ bgp_up: yes
 vrf: yes
 # Check pings
 ping: yes
+# Check LLDP sessions
+lldp: yes

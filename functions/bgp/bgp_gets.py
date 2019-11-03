@@ -80,8 +80,6 @@ def get_bgp(nr: Nornir):
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
-    path_url = f"{PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME}"
-
     get_vrf_name_list(nr)
 
     data = devices.run(
@@ -141,7 +139,7 @@ def _generic_napalm(task):
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Cumulus Network
+# Cumulus Networks
 #
 def _cumulus_get_bgp(task):
 
@@ -174,7 +172,7 @@ def _cumulus_get_bgp(task):
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Extreme Network (VSP)
+# Extreme Networks (VSP)
 #
 def _extreme_vsp_get_bgp(task):
 

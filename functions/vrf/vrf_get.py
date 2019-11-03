@@ -86,8 +86,6 @@ def get_vrf(nr: Nornir):
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
-    path_url = f"{PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME}"
-
     data = devices.run(
         task=generic_vrf_get,
         function="GET",

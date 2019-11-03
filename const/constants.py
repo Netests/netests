@@ -60,9 +60,11 @@ TO_EXECUTE_FILE_VALUE = ['INFO', 'TRUE', 'FALSE']
 BGP_SRC_FILENAME = "bgp.yml"
 VRF_SRC_FILENAME = "vrf.yml"
 PING_SRC_FILENAME = "ping.yml"
+LLDP_SRC_FILENAME = "lldp.yml"
 TEST_TO_EXC_BGP_KEY = 'bgp'
 TEST_TO_EXC_VRF_KEY = 'vrf'
 TEST_TO_EXC_PING_KEY = 'ping'
+TEST_TO_EXC_LLDP_KEY = 'lldp'
 
 
 YAML_ALL_GROUPS_KEY = 'all'
@@ -73,16 +75,19 @@ YAML_DEVICES_KEY = 'devices'
 CUMULUS_GET_BGP = 'net show bgp summary json'
 CUMULUS_GET_BGP_VRF = "net show bgp vrf {} summary json"
 CUMULUS_GET_VRF = "net show vrf"
+CUMULUS_GET_LLDP = "net show lldp json"
 
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
 NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
 NEXUS_GET_VRF = "show vrf all | json"
+NEXUS_GET_LLDP = "show lldp neighbors detail | json"
 
 ##### ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
 ARISTA_GET_BGP_VRF = "show ip bgp summary vrf {} | json"
 ARISTA_GET_VRF = "show vrf | json"
+ARISTA_GET_LLDP = "show lldp neighbors detail | json"
 
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
@@ -102,3 +107,6 @@ VRF_WORKS_KEY = 'vrf_works'
 
 ##### PING CONSTANTES
 PING_DATA_HOST_KEY = 'ping_data'
+
+##### LLDP CONSTANTES
+LLDP_DATA_HOST_KEY = 'lldp_data'
