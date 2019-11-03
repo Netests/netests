@@ -204,7 +204,7 @@ def main(ansible, virtual, tests, reports):
             works = execute_ping(nr)
             if test_to_execute[TEST_TO_EXC_VRF_KEY] is True and works is False:
                 exit_value = False
-            print(f"{HEADER} Pings defined in {PATH_TO_VERITY_FILES}{VRF_SRC_FILENAME} work = {works} !!")
+            print(f"{HEADER} Pings defined in {PATH_TO_VERITY_FILES}{PING_SRC_FILENAME} work = {works} !!")
         else:
             print(f"{HEADER} Pings have not been executed !!")
     else:

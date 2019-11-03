@@ -2,13 +2,13 @@
 {% if  ip_to_ping['ip_address'] is defined %}
 {% if ip_to_ping['vrf'] is defined %}
 {% if '!' in ip_to_ping['ip_address']  %}
-! NOT PING NOT AVAILABLE WITH NXOS (Cisco Nexus)
+ping {{ ip_to_ping['ip_address'][1:] }} count 1 vrf {{ ip_to_ping['vrf'] }} !
 {% else %}
 ping {{ ip_to_ping['ip_address'] }} count 1 vrf {{ ip_to_ping['vrf'] }}
 {% endif %}
 {% else %}
 {% if '!' in ip_to_ping['ip_address'] %}
-! NOT PING NOT AVAILABLE WITH NXOS (Cisco Nexus)
+ping {{ ip_to_ping['ip_address'][1:] }} count 1 !
 {% else %}
 ping {{ ip_to_ping['ip_address'] }} count 1
 {%  endif %}

@@ -87,7 +87,7 @@ def execute_ping(nr: Nornir):
     data_retrieve = devices.run(
         task=retrieve_ping_from_yaml,
         on_failed=True,
-        num_workers=1
+        num_workers=10
     )
     #print_result(data_retrieve)
 
@@ -182,11 +182,18 @@ def _execute_arista_ping_cmd(task):
 def _execute_generic_ping_cmd(task, *, enable=False):
 
     file = open(f"{JINJA2_PING_RESULT}{task.host.name}_ping_cmd", "r")
+    must_works = True
 
     for ping_line in file:
 
         if enable:
             ping_line = "enable \n " + ping_line
+
+        if "!" in ping_line and "PING NOT AVAILABLE" not in ping_line:
+            ping_line = ping_line.replace("!", "")
+            must_works = False
+        else:
+            must_works = True
 
         output = task.run(
             name=f"Ping network devices",
@@ -196,19 +203,25 @@ def _execute_generic_ping_cmd(task, *, enable=False):
         # print_result(output)
 
         if task.host.platform != CUMULUS_PLATEFORM_NAME:
-            _raise_exception_on_ping_cmd(output, task.host.name, ping_line)
+            _raise_exception_on_ping_cmd(output, task.host.name, ping_line, must_works)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Raise a exception if output is not
 #
-def _raise_exception_on_ping_cmd(output:MultiResult, hostname:str, ping_line:str) -> None :
+def _raise_exception_on_ping_cmd(output:MultiResult, hostname:str, ping_line:str, must_work:bool) -> None :
 
-    if "Invalid host/interface " in output.result or \
-            "Network is unreachable" in output.result or \
-            "Temporary failure in name resolution" in output.result or \
-            "100% packet loss" in output.result or \
-            "0 received" in output.result:
+    if must_work:
+        if "Invalid host/interface " in output.result or \
+                "Network is unreachable" in output.result or \
+                "Temporary failure in name resolution" in output.result or \
+                "100% packet loss" in output.result or \
+                "0 received" in output.result:
 
-        print(f"[PINGS] ERROR WITH {hostname} _> {ping_line}")
-        raise Exception("ERROR")
+            print(f"[PINGS] ERROR WITH {hostname} _> {ping_line} = must_work={must_work}")
+            raise Exception("ERROR")
+    else:
+        if ("1 packets received" in output.result and "0.00% packet loss" in output.result) or \
+                ("1 received" in output.result and "0% packet loss" in output.result):
+            print(f"[PINGS] ERROR WITH {hostname} _> {ping_line} = must_work={must_work}")
+            raise Exception("ERROR")
