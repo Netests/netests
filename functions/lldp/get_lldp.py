@@ -76,7 +76,7 @@ def get_lldp(nr: Nornir):
     data = devices.run(
         task=generic_lldp_get,
         on_failed=True,
-        num_workers=10
+        num_workers=1
     )
     #print_result(data)
 
