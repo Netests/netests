@@ -65,7 +65,7 @@ def _cumulus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
     for cmd_output in cmd_outputs:
         if "ipv4 unicast" in cmd_output.keys():
             if cmd_output.get('ipv4 unicast', NOT_SET) is NOT_SET:
-                return list()
+                return None
 
             else:
 

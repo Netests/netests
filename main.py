@@ -205,7 +205,7 @@ def main(ansible, virtual, tests, reports):
         print(f"{HEADER} LLDP sessions key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
     # ''''''''''''''''''''''''''''''''''''''''''''
-    # 3. Check VRF on devices
+    # 3. Check LLDP on devices
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_VRF_KEY in test_to_execute.keys():
         if test_to_execute[TEST_TO_EXC_VRF_KEY] is not False:

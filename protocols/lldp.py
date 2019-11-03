@@ -43,16 +43,21 @@ class LLDP:
 
     # Following parameter is not use in compare function
     neighbor_os:str
+    neighbor_mgmt_ip: str
+    neighbor_type: list
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, local_name: str, local_port: str, neighbor_name: str, neighbor_port: str, neighbor_os:str):
+    def __init__(self, local_name: str, local_port: str,neighbor_name: str, neighbor_port: str, neighbor_os:str,
+                 neighbor_mgmt_ip:str, neighbor_type:list):
         self.local_name = local_name
         self.local_port = local_port
         self.neighbor_name = neighbor_name
         self.neighbor_port = neighbor_port
         self.neighbor_os = neighbor_os
+        self.neighbor_mgmt_ip = neighbor_mgmt_ip
+        self.neighbor_type = neighbor_type
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -74,8 +79,13 @@ class LLDP:
     #
     #
     def __repr__(self):
-        return f"<LLDP local_name={self.local_name} local_port={self.local_port} " \
-               f"neighbor_name={self.neighbor_name} neighbor_port={self.neighbor_port} neighbor_os={self.neighbor_os}>\n"
+        return f"<LLDP local_name={self.local_name}\n" \
+               f"local_port={self.local_port}\n" \
+               f"neighbor_mgmt_ip={self.neighbor_mgmt_ip}\n" \
+               f"neighbor_name={self.neighbor_name}\n" \
+               f"neighbor_port={self.neighbor_port}\n" \
+               f"neighbor_os={self.neighbor_os}\n" \
+               f"neighbor_type={self.neighbor_type}>\n"
 
 
 ########################################################################################################################
