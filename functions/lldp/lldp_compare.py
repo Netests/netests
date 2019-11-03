@@ -17,8 +17,8 @@ __copyright__ = "Copyright 2019"
 #
 # HEADERS
 #
-ERROR_HEADER = "Error import [bgp_compare.py]"
-HEADER_GET = "[netests - compare_bgp]"
+ERROR_HEADER = "Error import [lldp_compare.py]"
+HEADER_GET = "[netests - compare_lldp]"
 
 ########################################################################################################################
 #
@@ -32,9 +32,9 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from protocols.bgp import BGPSession, ListBGPSessions, BGPSessionsVRF, ListBGPSessionsVRF, BGP
+    from protocols.lldp import LLDP, ListLLDP
 except ImportError as importError:
-    print(f"{ERROR_HEADER} protocols.bgp")
+    print(f"{ERROR_HEADER} protocols.lldp")
     exit(EXIT_FAILURE)
     print(importError)
 
@@ -57,7 +57,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def compare_bgp(nr, bgp_data:json) -> bool:
+def compare_lldp(nr, lldp_data:json) -> bool:
 
     devices = nr.filter()
 
@@ -65,8 +65,8 @@ def compare_bgp(nr, bgp_data:json) -> bool:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     data = devices.run(
-        task=_compare_bgp,
-        bgp_data=bgp_data,
+        task=_compare_lldp,
+        lldp_data=lldp_data,
         on_failed=True,
         num_workers=10
     )
@@ -85,46 +85,23 @@ def compare_bgp(nr, bgp_data:json) -> bool:
 #
 # Compare function
 #
-def _compare_bgp(task, bgp_data:json):
+def _compare_lldp(task, lldp_data:json):
 
-    bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
+    verity_lldp = ListLLDP(list())
 
-    if BGP_SESSIONS_HOST_KEY in task.host.keys():
+    if LLDP_DATA_HOST_KEY in task.host.keys():
 
-        for vrf_name, facts in bgp_data.get(task.host.name, NOT_SET).items():
-
-            bgp_sessions_lst = ListBGPSessions(list())
-
-            for neighbor in facts.get('neighbors', NOT_SET):
-                bgp_session = BGPSession(
-                    src_hostname=task.host.name,
-                    peer_ip=neighbor.get('peer_ip', NOT_SET),
-                    peer_hostname=neighbor.get('peer_hostname', NOT_SET),
-                    remote_as=neighbor.get('remote_as', NOT_SET),
-                    state_brief=neighbor.get('state', BGP_STATE_BRIEF_UP),
-                )
-
-                bgp_sessions_lst.bgp_sessions.append(bgp_session)
-
-            bgp_session_vrf = BGPSessionsVRF(
-                vrf_name=vrf_name,
-                as_number=facts.get('asn', NOT_SET),
-                router_id=facts.get('router_id', NOT_SET),
-                bgp_sessions=bgp_sessions_lst
+        for lldp_neighbor in lldp_data.get(task.host.name, NOT_SET):
+            lldp_obj = LLDP(
+                local_name=task.host.name,
+                local_port=lldp_neighbor.get("local_port", NOT_SET),
+                neighbor_name=lldp_neighbor.get("neighbor_name", NOT_SET),
+                neighbor_port=lldp_neighbor.get("neighbor_port", NOT_SET)
             )
 
-            bgp_sessions_vrf_lst.bgp_sessions_vrf.append(bgp_session_vrf)
+            verity_lldp.lldp_neighbors_lst.append(lldp_obj)
 
+        is_same = verity_lldp == task.host[LLDP_DATA_HOST_KEY]
 
-        verity_bgp = BGP(
-            hostname=task.host.name,
-            bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
-        )
-
-        is_same = verity_bgp == task.host[BGP_SESSIONS_HOST_KEY]
-
-        task.host[BGP_WORKS_KEY] = is_same
+        task.host[LLDP_WORKS_KEY] = is_same
         return is_same
-
-    else:
-        print(f"Key {BGP_SESSIONS_HOST_KEY} is missing for {task.host.name}")

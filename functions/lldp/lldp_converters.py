@@ -32,6 +32,14 @@ except ImportError as importError:
     print(importError)
 
 try:
+    from functions.lldp.lldp_functions import _mapping_sys_capabilities
+    from functions.lldp.lldp_functions import _mapping_interface_name
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.lldp.lldp_functions")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
     from protocols.lldp import LLDP, ListLLDP
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.lldp")
@@ -161,73 +169,3 @@ def _arista_lldp_converter(hostname:str(), cmd_output:json) -> ListLLDP:
                     lldp_neighbors_lst.lldp_neighbors_lst.append(lldp_obj)
 
     return lldp_neighbors_lst
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# LLDP sysem compability converter
-#
-def _mapping_sys_capabilities(code) -> str():
-    """
-    This function will return systeme capability name regarding the abreviation given in parameter
-
-    Output extract from Cisco Nexus9000 9000v Chassis NXOS: version 7.0(3)I7(5a)
-
-    Capability codes:
-    (R) Router, (B) Bridge, (T) Telephone, (C) DOCSIS Cable Device
-    (W) WLAN Access Point, (P) Repeater, (S) Station, (O) Other
-
-    :param codes: str()
-    :return str(): that contains system capability name
-    """
-
-    if code == "R":
-        return "Router"
-    elif code == "B":
-        return "Bridge"
-    elif code == "T":
-        return "Telephone"
-    elif code == "C":
-        return "DOCSIS Cable Device"
-    elif code == "W":
-        return "WLAN Access Point"
-    elif code == "P":
-        return "Repeater"
-    elif code == "S":
-        return "Station"
-    elif code == "O":
-        return "Other"
-    else:
-        return NOT_SET
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Mapping inter converter
-#
-def _mapping_interface_name(int_name) -> str():
-    """
-    This function will receive an interface name in parameter and return the standard interface name.
-
-    For example:
-        * (Arista) Ethernet3 => Eth1/3
-
-    :param int_name:
-    :return:
-    """
-
-    if "Ethernet1/" in int_name:
-        number = ""
-        slash_index = int_name.find("/")
-        for char in int_name[slash_index:]:
-            if str(char).isdigit():
-                number = number + str(char)
-        return "Eth1/" + number
-
-    elif "Ethernet" in int_name:
-        number = ""
-        for char in int_name:
-            if str(char).isdigit():
-                number = number + str(char)
-        return "Eth1/" + number
-
-    else:
-        return int_name

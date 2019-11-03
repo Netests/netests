@@ -1,0 +1,26 @@
+spine01:
+  - local_port: swp1
+    neighbor_name: leaf01
+    neighbor_port: swp1
+  - local_port: swp2
+    neighbor_name: leaf02
+    neighbor_port: Eth1/1
+  - local_port: swp3
+    neighbor_name: leaf03
+    neighbor_port: Eth1/1
+
+leaf02:
+  - local_port: Eth1/1
+    neighbor_name: spine01
+    neighbor_port: swp2
+  - local_port: Eth1/7
+    neighbor_name: leaf03
+    neighbor_port: Eth1/3
+
+leaf03:
+  - local_port: Eth1/1
+    neighbor_name: spine01
+    neighbor_port: swp3
+  - local_port: Eth1/3
+    neighbor_name: leaf02
+    neighbor_port: Eth1/7

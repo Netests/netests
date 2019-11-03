@@ -110,3 +110,4 @@ PING_DATA_HOST_KEY = 'ping_data'
 
 ##### LLDP CONSTANTES
 LLDP_DATA_HOST_KEY = 'lldp_data'
+LLDP_WORKS_KEY = 'lldp_works'

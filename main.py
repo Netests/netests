@@ -32,6 +32,7 @@ except ImportError as importError:
 
 try:
     from functions.lldp.get_lldp import *
+    from functions.lldp.lldp_compare import compare_lldp
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.ping")
     print(importError)
@@ -194,18 +195,18 @@ def main(ansible, virtual, tests, reports):
         if test_to_execute[TEST_TO_EXC_LLDP_KEY] is not False:
             get_lldp(nr)
             lldp_data = open_file(f"{PATH_TO_VERITY_FILES}{LLDP_SRC_FILENAME}")
-            same = compare_vrf(nr, lldp_data)
+            same = compare_lldp(nr, lldp_data)
             if test_to_execute[TEST_TO_EXC_LLDP_KEY] is True and same is False:
                 exit_value = False
             print(
-                f"{HEADER} LLDP sessions are the same that defined in {PATH_TO_VERITY_FILES}{VRF_SRC_FILENAME} = {same} !!")
+                f"{HEADER} LLDP sessions are the same that defined in {PATH_TO_VERITY_FILES}{LLDP_SRC_FILENAME} = {same} !!")
         else:
             print(f"{HEADER} LLDP sessions tests are not executed !!")
     else:
         print(f"{HEADER} LLDP sessions key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
     # ''''''''''''''''''''''''''''''''''''''''''''
-    # 3. Check LLDP on devices
+    # 3. Check VRF on devices
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_VRF_KEY in test_to_execute.keys():
         if test_to_execute[TEST_TO_EXC_VRF_KEY] is not False:
@@ -226,7 +227,7 @@ def main(ansible, virtual, tests, reports):
     if TEST_TO_EXC_PING_KEY in test_to_execute.keys():
         if test_to_execute[TEST_TO_EXC_PING_KEY] is not False:
             works = execute_ping(nr)
-            if test_to_execute[TEST_TO_EXC_VRF_KEY] is True and works is False:
+            if test_to_execute[TEST_TO_EXC_PING_KEY] is True and works is False:
                 exit_value = False
             print(f"{HEADER} Pings defined in {PATH_TO_VERITY_FILES}{PING_SRC_FILENAME} work = {works} !!")
         else:

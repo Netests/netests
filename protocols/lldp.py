@@ -49,8 +49,8 @@ class LLDP:
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, local_name: str, local_port: str,neighbor_name: str, neighbor_port: str, neighbor_os:str,
-                 neighbor_mgmt_ip:str, neighbor_type:list):
+    def __init__(self, local_name=NOT_SET, local_port=NOT_SET,neighbor_name=NOT_SET, neighbor_port=NOT_SET,
+                 neighbor_os=NOT_SET, neighbor_mgmt_ip=NOT_SET, neighbor_type=list()):
         self.local_name = local_name
         self.local_port = local_port
         self.neighbor_name = neighbor_name
