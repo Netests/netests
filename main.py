@@ -31,10 +31,19 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.lldp.get_lldp import *
-    from functions.lldp.lldp_compare import compare_lldp
+    from functions.discovery_protocols.cdp.get_cdp import *
+    from functions.discovery_protocols.cdp.cdp_compare import compare_cdp
 except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.ping")
+    print(f"{ERROR_HEADER} functions.discovery_protocols.cdp")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+
+try:
+    from functions.discovery_protocols.lldp.get_lldp import *
+    from functions.discovery_protocols.lldp.lldp_compare import compare_lldp
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.discovery_protocols.lldp")
     print(importError)
     exit(EXIT_FAILURE)
 
@@ -186,8 +195,6 @@ def main(ansible, virtual, tests, reports):
     else:
         print(f"{HEADER} BGP_SESSIONS tests are not executed !!")
 
-
-    dict
     # ''''''''''''''''''''''''''''''''''''''''''''
     # 2. LLDP Neighbors check
     # ''''''''''''''''''''''''''''''''''''''''''''
@@ -205,8 +212,26 @@ def main(ansible, virtual, tests, reports):
     else:
         print(f"{HEADER} LLDP sessions key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
+
     # ''''''''''''''''''''''''''''''''''''''''''''
-    # 3. Check VRF on devices
+    # 3. CDP Neighbors check
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_CDP_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_CDP_KEY] is not False:
+            get_cdp(nr)
+            cdp_data = open_file(f"{PATH_TO_VERITY_FILES}{CDP_SRC_FILENAME}")
+            same = compare_cdp(nr, cdp_data)
+            if test_to_execute[TEST_TO_EXC_CDP_KEY] is True and same is False:
+                exit_value = False
+            print(
+                f"{HEADER} CDP sessions are the same that defined in {PATH_TO_VERITY_FILES}{CDP_SRC_FILENAME} = {same} !!")
+        else:
+            print(f"{HEADER} CDP sessions tests are not executed !!")
+    else:
+        print(f"{HEADER} CDP sessions key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 4. Check VRF on devices
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_VRF_KEY in test_to_execute.keys():
         if test_to_execute[TEST_TO_EXC_VRF_KEY] is not False:
@@ -222,7 +247,7 @@ def main(ansible, virtual, tests, reports):
         print(f"{HEADER} VRF key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
     # ''''''''''''''''''''''''''''''''''''''''''''
-    # 4. Execute PING on devices
+    # 5. Execute PING on devices
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_PING_KEY in test_to_execute.keys():
         if test_to_execute[TEST_TO_EXC_PING_KEY] is not False:

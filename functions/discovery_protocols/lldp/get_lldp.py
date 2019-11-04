@@ -31,11 +31,11 @@ except ImportError as importError:
     print(importError)
 
 try:
-    from functions.lldp.lldp_converters import _cumulus_lldp_converter
-    from functions.lldp.lldp_converters import _nexus_lldp_converter
-    from functions.lldp.lldp_converters import _arista_lldp_converter
+    from functions.discovery_protocols.lldp.lldp_converters import _cumulus_lldp_converter
+    from functions.discovery_protocols.lldp.lldp_converters import _nexus_lldp_converter
+    from functions.discovery_protocols.lldp.lldp_converters import _arista_lldp_converter
 except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.bgp_converters")
+    print(f"{ERROR_HEADER} functions.discovery_protocols.lldp")
     print(importError)
     exit(EXIT_FAILURE)
 
@@ -121,9 +121,9 @@ def generic_lldp_get(task):
 def _cumulus_get_lldp(task):
 
     output = task.run(
-            name=f"{CUMULUS_GET_LLDP}",
+            name=f"{CUMULUS_GET_LLDP_CDP}",
             task=netmiko_send_command,
-            command_string=CUMULUS_GET_LLDP
+            command_string=CUMULUS_GET_LLDP_CDP
     )
     #print_result(output)
 

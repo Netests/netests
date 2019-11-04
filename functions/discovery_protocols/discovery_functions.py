@@ -17,8 +17,8 @@ __copyright__ = "Copyright 2019"
 #
 # HEADERS
 #
-ERROR_HEADER = "Error import [lldp_functions.py]"
-HEADER_GET = "[netests - function_lldp]"
+ERROR_HEADER = "Error import [discovery_functions.py]"
+HEADER_GET = "[netests - function_discovery]"
 
 ########################################################################################################################
 #
@@ -54,7 +54,7 @@ def _mapping_sys_capabilities(code) -> str():
     :return str(): that contains system capability name
     """
 
-    if code == "R":
+    if code == "R" or "router":
         return "Router"
     elif code == "B":
         return "Bridge"

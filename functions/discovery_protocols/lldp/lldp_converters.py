@@ -32,10 +32,10 @@ except ImportError as importError:
     print(importError)
 
 try:
-    from functions.lldp.lldp_functions import _mapping_sys_capabilities
-    from functions.lldp.lldp_functions import _mapping_interface_name
+    from functions.discovery_protocols.discovery_functions import _mapping_sys_capabilities
+    from functions.discovery_protocols.discovery_functions import _mapping_interface_name
 except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.lldp.lldp_functions")
+    print(f"{ERROR_HEADER} functions.discovery_protocols.discovery_functions")
     exit(EXIT_FAILURE)
     print(importError)
 
@@ -74,29 +74,31 @@ def _cumulus_lldp_converter(hostname:str(), cmd_output:json) -> ListLLDP:
 
             for lldp_neighbor in cmd_output.get('lldp', NOT_SET)[0].get("interface", NOT_SET):
 
-                neighbor_type_lst = list()
+                if lldp_neighbor.get("via", NOT_SET) == "LLDP":
 
-                if lldp_neighbor.get("chassis", NOT_SET)[0].get("descr", NOT_SET) == NOT_SET:
-                    neighbor_os = NOT_SET
-                else:
-                    neighbor_os = lldp_neighbor.get("chassis", NOT_SET)[0].get("descr", NOT_SET)[0].get("value", NOT_SET)
+                    neighbor_type_lst = list()
 
-                for capability in lldp_neighbor.get("chassis", NOT_SET)[0].get("capability", NOT_SET):
-                    neighbor_type_lst.append(capability.get("type", NOT_SET))
+                    if lldp_neighbor.get("chassis", NOT_SET)[0].get("descr", NOT_SET) == NOT_SET:
+                        neighbor_os = NOT_SET
+                    else:
+                        neighbor_os = lldp_neighbor.get("chassis", NOT_SET)[0].get("descr", NOT_SET)[0].get("value", NOT_SET)
+
+                    for capability in lldp_neighbor.get("chassis", NOT_SET)[0].get("capability", NOT_SET):
+                        neighbor_type_lst.append(capability.get("type", NOT_SET))
 
 
-                lldp_obj = LLDP(
-                    local_name=hostname,
-                    local_port=_mapping_interface_name(lldp_neighbor.get("name", NOT_SET)),
-                    neighbor_mgmt_ip=lldp_neighbor.get("chassis", NOT_SET)[0].get("mgmt-ip", NOT_SET)[0].get("value", NOT_SET),
-                    neighbor_name=lldp_neighbor.get("chassis", NOT_SET)[0].get("name", NOT_SET)[0].get("value", NOT_SET),
-                    neighbor_port=_mapping_interface_name(
-                        lldp_neighbor.get("port", NOT_SET)[0].get("id", NOT_SET)[0].get("value", NOT_SET)),
-                    neighbor_os=neighbor_os,
-                    neighbor_type=neighbor_type_lst
-                )
+                    lldp_obj = LLDP(
+                        local_name=hostname,
+                        local_port=_mapping_interface_name(lldp_neighbor.get("name", NOT_SET)),
+                        neighbor_mgmt_ip=lldp_neighbor.get("chassis", NOT_SET)[0].get("mgmt-ip", NOT_SET)[0].get("value", NOT_SET),
+                        neighbor_name=lldp_neighbor.get("chassis", NOT_SET)[0].get("name", NOT_SET)[0].get("value", NOT_SET),
+                        neighbor_port=_mapping_interface_name(
+                            lldp_neighbor.get("port", NOT_SET)[0].get("id", NOT_SET)[0].get("value", NOT_SET)),
+                        neighbor_os=neighbor_os,
+                        neighbor_type=neighbor_type_lst
+                    )
 
-                lldp_neighbors_lst.lldp_neighbors_lst.append(lldp_obj)
+                    lldp_neighbors_lst.lldp_neighbors_lst.append(lldp_obj)
 
     return lldp_neighbors_lst
 

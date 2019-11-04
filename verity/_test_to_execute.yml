@@ -10,5 +10,6 @@ bgp_up: yes
 vrf: yes
 # Check pings
 ping: yes
-# Check LLDP sessions
+# Check Link Discovery Protocols sessions
 lldp: yes
+cdp: yes
