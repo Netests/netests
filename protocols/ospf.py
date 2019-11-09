@@ -37,25 +37,31 @@ except ImportError as importError:
 class OSPFSession:
 
     hostname: str
-    peer_ip: str
-    session_state: str
+    peer_rid: str
 
     # The following values are not used by the __eq__ function !!
+    # But are used by th adv_eq1 function
+    local_interface: str
+    peer_ip: str
+
+    # The following values are not used by the __eq__ and adv1_eq functions !!
+    # But are used by th adv_eq3 function
+    session_state: str
+
+    # The following values are not used by the __eq__, adv1_eq, adv2_eq functions !!
     peer_hostname: str
-    adjacency_time: str
-    prefix_received: str
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, hostname=NOT_SET, peer_ip=NOT_SET, session_state=NOT_SET, area=NOT_SET, peer_hostname=NOT_SET,
-                 adjacency_time=NOT_SET, prefix_received=NOT_SET):
+    def __init__(self, hostname=NOT_SET, peer_rid=NOT_SET, session_state=NOT_SET, peer_hostname=NOT_SET,
+                 local_interface=NOT_SET, peer_ip=NOT_SET):
         self.hostname = hostname
-        self.peer_ip = peer_ip
-        self.session_state = session_state
+        self.peer_rid = peer_rid
+        self.session_state = str(session_state).upper()
         self.peer_hostname = peer_hostname
-        self.adjacency_time = adjacency_time
-        self.prefix_received = prefix_received
+        self.local_interface = local_interface
+        self.peer_ip = peer_ip
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -65,19 +71,44 @@ class OSPFSession:
             return NotImplemented
 
         return ((str(self.hostname) == str(other.hostname)) and
-                (str(self.peer_ip) == str(other.peer_ip)) and
-                (str(self.session_state) == str(other.session_state)))
+                (str(self.local_interface) == str(other.local_interface)) and
+                (str(self.peer_rid) == str(other.peer_rid)))
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def adv1_eq(self, other):
+        if not isinstance(other, OSPFSession):
+            return NotImplemented
+
+        return ((str(self.hostname) == str(other.hostname)) and
+                (str(self.peer_rid) == str(other.peer_rid)) and
+                (str(self.local_interface) == str(other.local_interface)) and
+                (str(self.peer_ip) == str(other.peer_ip)))
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def adv2_eq(self, other):
+        if not isinstance(other, OSPFSession):
+            return NotImplemented
+
+        return ((str(self.hostname) == str(other.hostname)) and
+                (str(self.peer_rid) == str(other.peer_rid)) and
+                (str(self.session_state) == str(other.session_state)) and
+                (str(self.local_interface) == str(other.local_interface)) and
+                (str(self.peer_ip) == str(other.peer_ip)))
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
     def __repr__(self):
         return f"<OSPFSession hostname={self.hostname} " \
-               f"peer_ip={self.peer_ip} " \
+               f"peer_rid={self.peer_rid} " \
                f"session_state={self.session_state} " \
                f"peer_hostname={self.peer_hostname} " \
-               f"adjacency_time={self.adjacency_time} " \
-               f"prefix_received={self.prefix_received}>\n"
+               f"local_interface={self.local_interface} " \
+               f"peer_ip={self.peer_ip}>\n"
 
 
 ########################################################################################################################
@@ -170,7 +201,7 @@ class OSPFSessionsArea:
 #
 class ListOSPFSessionsArea:
 
-    ospf_sessions_area_lst: OSPFSessionsArea
+    ospf_sessions_area_lst: list
 
     # ------------------------------------------------------------------------------------------------------------------
     #

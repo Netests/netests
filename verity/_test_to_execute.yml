@@ -3,13 +3,17 @@
 # 2) info =>  (Informations) - If test failed you will only see a message
 # 3) no || false => (Exclude) - Test will not be executed
 # Check that BGP sessions regarding bgp.yml are the same
-bgp: yes
+bgp: false
 # Check that all BGP sessions are UP
-bgp_up: yes
+bgp_up: false
 # Check that all VRF are defined
-vrf: yes
+vrf: false
 # Check pings
-ping: yes
+ping: false
 # Check Link Discovery Protocols sessions
-lldp: yes
-cdp: yes
+lldp: false
+cdp: false
+# Check OSPF sessions
+ospf:
+  test: yes
+  level: NOT_IMPLEMENTED

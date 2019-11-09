@@ -56,18 +56,19 @@ EXTREME_PLATEFORM_NAME = 'extreme_vsp'
 ###### TESTS TO EXECUTE FILE ######
 TEST_TO_EXECUTE_FILENAME = "_test_to_execute.yml"
 TO_EXECUTE_FILE_VALUE = ['INFO', 'TRUE', 'FALSE']
-
+YAML_BGKP_ASN_KEY = 'asn'
 BGP_SRC_FILENAME = "bgp.yml"
 VRF_SRC_FILENAME = "vrf.yml"
 PING_SRC_FILENAME = "ping.yml"
 LLDP_SRC_FILENAME = "lldp.yml"
 CDP_SRC_FILENAME = "cdp.yml"
+OSPF_SRC_FILENAME = "ospf.yml"
 TEST_TO_EXC_BGP_KEY = 'bgp'
 TEST_TO_EXC_VRF_KEY = 'vrf'
 TEST_TO_EXC_PING_KEY = 'ping'
 TEST_TO_EXC_LLDP_KEY = 'lldp'
 TEST_TO_EXC_CDP_KEY = 'cdp'
-
+TEST_TO_EXC_OSPF_KEY = 'ospf'
 
 YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
@@ -78,6 +79,10 @@ CUMULUS_GET_BGP = 'net show bgp summary json'
 CUMULUS_GET_BGP_VRF = "net show bgp vrf {} summary json"
 CUMULUS_GET_VRF = "net show vrf"
 CUMULUS_GET_LLDP_CDP = "net show lldp json"
+CUMULUS_GET_OSPF = "net show ospf neighbor detail json"
+CUMULUS_GET_OSPF_VRF = "net show ospf vrf {} neighbor detail json"
+CUMULUS_GET_OSPF_RID = "net show ospf json"
+CUMULUS_GET_OSPF_RID_VRF = "net show ospf vrf {} json"
 
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
@@ -100,8 +105,9 @@ BGP_STATE_UP_LIST = ['ESTABLISHED','established', 'Established', 'Estab','UP', '
 BGP_STATE_BRIEF_UP = "UP"
 BGP_STATE_BRIEF_DOWN = "DOWN"
 
-##### BGP YAML FILE ######
-YAML_BGKP_ASN_KEY = 'asn'
+##### OSPF CONSTANTES
+OSPF_SESSIONS_HOST_KEY = 'ospf_sessions'
+OSPF_WORKS_KEY = 'ospf_works'
 
 ##### VRF CONSTANTES
 VRF_DATA_KEY = 'vrf_data'

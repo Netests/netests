@@ -31,13 +31,19 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.ospf.ospf_gets import *
+    from functions.ospf.ospf_compare import compare_ospf
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.ospf")
+    print(importError)
+
+try:
     from functions.discovery_protocols.cdp.get_cdp import *
     from functions.discovery_protocols.cdp.cdp_compare import compare_cdp
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.discovery_protocols.cdp")
     print(importError)
     exit(EXIT_FAILURE)
-
 
 try:
     from functions.discovery_protocols.lldp.get_lldp import *
@@ -146,6 +152,17 @@ def open_file(path: str()) -> dict():
             print(exc)
 
     return data
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Get level test function
+#
+def _get_level_test(level_value: int) -> int:
+
+    if level_value != 1 and level_value != 2:
+        return 0
+    else:
+        return level_value
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -259,6 +276,25 @@ def main(ansible, virtual, tests, reports):
             print(f"{HEADER} Pings have not been executed !!")
     else:
         print(f"{HEADER} PING key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
+
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 6. Check OSPF sessions
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_OSPF_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_OSPF_KEY]['test'] is not False:
+            get_ospf(nr)
+            ospf_data = open_file(f"{PATH_TO_VERITY_FILES}{OSPF_SRC_FILENAME}")
+
+            works = compare_ospf(nr, ospf_data, _get_level_test(test_to_execute.get(TEST_TO_EXC_OSPF_KEY).get('level', NOT_SET)))
+
+            if test_to_execute[TEST_TO_EXC_OSPF_KEY] is True and works is False:
+                exit_value = False
+            print(f"{HEADER} OSPF sessions defined in {PATH_TO_VERITY_FILES}{OSPF_SRC_FILENAME} work = {works} !!")
+        else:
+            print(f"{HEADER} OSPF have not been executed !!")
+    else:
+        print(f"{HEADER} OSPF sessions  key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
 
 

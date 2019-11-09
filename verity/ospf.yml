@@ -1,0 +1,19 @@
+---
+spine01:
+  default:
+    router_id: 10.255.255.101
+    area_id:
+      0.0.0.0:
+        - peer_rid: 10.255.255.202
+          peer_name: leaf02
+          local_interface: swp2
+          peer_ip: 10.1.2.2
+          state: FULL
+        - peer_rid: 10.255.255.203
+          local_interface: swp3
+  mgmt:
+    router_id: 10.0.5.101
+    area_id:
+      0.0.0.100:
+        - peer_rid: 101.101.101.101
+          local_interface: eth0
