@@ -40,6 +40,13 @@ except ImportError as importError:
     print(importError)
 
 try:
+    from functions.discovery_protocols.discovery_functions import _mapping_interface_name
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.discovery_protocols.discovery_functions")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
     import json
 except ImportError as importError:
     print(f"{ERROR_HEADER} json")
@@ -72,7 +79,7 @@ def compare_ospf(nr, ospf_data:json, level_test:int) -> bool:
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    # print_result(data)
 
     return_value = True
 
@@ -117,7 +124,7 @@ def _compare_ospf(task, ospf_data:json, level_test:int):
                             peer_rid=neighbor.get('peer_rid', NOT_SET),
                             peer_hostname=neighbor.get('peer_name', NOT_SET),
                             session_state=neighbor.get('state', NOT_SET),
-                            local_interface=neighbor.get('local_interface', NOT_SET),
+                            local_interface=_mapping_interface_name(neighbor.get('local_interface', NOT_SET)),
                             peer_ip=neighbor.get('peer_ip', NOT_SET),
                         )
 

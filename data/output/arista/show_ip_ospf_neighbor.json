@@ -1,0 +1,79 @@
+leaf03#show ip ospf neighbor | json
+{
+    "vrfs": {
+        "default": {
+            "instList": {
+                "1": {
+                    "ospfNeighborEntries": [
+                        {
+                            "routerId": "10.255.255.101",
+                            "priority": 1,
+                            "drState": "DR",
+                            "interfaceName": "Ethernet1",
+                            "adjacencyState": "full",
+                            "inactivity": 1573311451.954768,
+                            "interfaceAddress": "10.1.3.1",
+                            "options": {
+                                "multitopologyCapability": false,
+                                "doNotUseInRouteCalc": false,
+                                "demandCircuitsSupport": false,
+                                "nssaCapability": false,
+                                "externalRoutingCapability": true,
+                                "opaqueLsaSupport": false,
+                                "linkLocalSignaling": false,
+                                "multicastCapability": false
+                            },
+                            "details": {
+                                "areaId": "0.0.0.0",
+                                "bfdState": "adminDown",
+                                "backupDesignatedRouter": "10.1.3.2",
+                                "stateTime": 1572896711.954822,
+                                "retransmissionCount": 0,
+                                "grLastRestartTime": null,
+                                "designatedRouter": "10.1.3.1",
+                                "grHelperTimer": null,
+                                "numberOfStateChanges": 6,
+                                "bfdRequestSent": false,
+                                "grNumAttempts": 0,
+                                "inactivityDefers": 0
+                            }
+                        },
+                        {
+                            "routerId": "10.255.255.202",
+                            "priority": 1,
+                            "drState": "DR",
+                            "interfaceName": "Ethernet3",
+                            "adjacencyState": "full",
+                            "inactivity": 1573311453.955203,
+                            "interfaceAddress": "10.22.33.1",
+                            "options": {
+                                "multitopologyCapability": false,
+                                "doNotUseInRouteCalc": false,
+                                "demandCircuitsSupport": false,
+                                "nssaCapability": false,
+                                "externalRoutingCapability": true,
+                                "opaqueLsaSupport": false,
+                                "linkLocalSignaling": false,
+                                "multicastCapability": false
+                            },
+                            "details": {
+                                "areaId": "0.0.0.0",
+                                "bfdState": "adminDown",
+                                "backupDesignatedRouter": "10.22.33.2",
+                                "stateTime": 1572896723.955289,
+                                "retransmissionCount": 0,
+                                "grLastRestartTime": null,
+                                "designatedRouter": "10.22.33.1",
+                                "grHelperTimer": null,
+                                "numberOfStateChanges": 6,
+                                "bfdRequestSent": false,
+                                "grNumAttempts": 0,
+                                "inactivityDefers": 0
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -202,4 +202,60 @@ def _nexus_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
 # Arista OSPF Converter
 #
 def _arista_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
-    pass
+
+    ospf_vrf_lst = ListOSPFSessionsVRF(list())
+    router_id = ""
+    inst = ""
+    vrf = ""
+
+    for cmd_output in cmd_outputs:
+
+        if 'vrfs' in cmd_output.get('rid').keys():
+
+            # Retrieve router ID from "show ip ospf | json"
+            for vrf_name in cmd_output.get('rid').get('vrfs').keys():
+                for instance, facts in cmd_output.get('rid').get('vrfs').get(vrf_name).get('instList').items():
+                    router_id = facts.get('routerId', NOT_SET)
+                    inst = instance
+                    vrf = vrf_name
+
+            ospf_sessions_vrf = OSPFSessionsVRF(
+                router_id=router_id,
+                vrf_name=vrf,
+                ospf_sessions_area_lst=ListOSPFSessionsArea(list())
+            )
+
+            session_by_area = dict()
+
+            for adj in cmd_output.get('data').get('vrfs').get(vrf).get('instList').get(inst).get('ospfNeighborEntries'):
+
+                ospf = OSPFSession(
+                    hostname=hostname,
+                    peer_rid=adj.get('routerId', NOT_SET),
+                    peer_hostname=NOT_SET,
+                    session_state=adj.get('adjacencyState', NOT_SET),
+                    local_interface=_mapping_interface_name(adj.get('interfaceName', NOT_SET)),
+                    peer_ip=adj.get('interfaceAddress', NOT_SET)
+                )
+
+                if adj.get('details').get('areaId') not in session_by_area.keys():
+                    session_by_area[adj.get('details').get('areaId')] = list()
+
+                session_by_area[adj.get('details').get('areaId')].append(ospf)
+
+            for area_id, sessions in session_by_area.items():
+                ospf_sessions_vrf.ospf_sessions_area_lst.ospf_sessions_area_lst.append(
+                    OSPFSessionsArea(
+                        area_number=area_id,
+                        ospf_sessions=ListOSPFSessions(
+                            ospf_sessions_lst=sessions
+                        )
+                    )
+                )
+
+            ospf_vrf_lst.ospf_sessions_vrf_lst.append(ospf_sessions_vrf)
+
+    return OSPF(
+        hostname=hostname,
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )

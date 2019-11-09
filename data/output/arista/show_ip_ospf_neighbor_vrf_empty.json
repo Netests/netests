@@ -1,0 +1,7 @@
+leaf03#show ip ospf neighbor vrf mgmt | json
+{
+    "vrfs": {},
+    "errors": [
+        "OSPF instance does not exist in vrf mgmt"
+    ]
+}

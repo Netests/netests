@@ -1,0 +1,99 @@
+leaf03#show ip ospf | json
+{
+    "vrfs": {
+        "default": {
+            "instList": {
+                "1": {
+                    "asbr": false,
+                    "lsaInformation": {
+                        "numLsa": 6,
+                        "lsaStartInterval": 1000,
+                        "lsaMaxWaitInterval": 5000,
+                        "lsaHoldInterval": 5000,
+                        "lsaArrivalInterval": 1000
+                    },
+                    "gracefulRestartInfo": {
+                        "gracefulRestart": false,
+                        "plannedOnly": false,
+                        "helperLooseLsaCheck": true,
+                        "gracePeriod": 120.0,
+                        "lastExitReason": "lastExitNone",
+                        "lastExitTime": null,
+                        "state": "none",
+                        "restartExpirationTime": null,
+                        "lastRestartReason": "Unknown",
+                        "restartDuration": null,
+                        "helperMode": true
+                    },
+                    "externalLsaInformation": {
+                        "asExternalCksum": 0,
+                        "treeSize": 0
+                    },
+                    "instanceId": 1,
+                    "spfInformation": {
+                        "spfStartInterval": 0,
+                        "spfMaxWaitInterval": 5000,
+                        "spfCurrHoldInterval": 5000,
+                        "spfHoldInterval": 5000,
+                        "spfInterval": 5,
+                        "lastSpf": 414659,
+                        "nextSpf": 0
+                    },
+                    "referenceBandwidth": 0,
+                    "opaqueLsaInformation": {
+                        "opaqueTreeSize": 0,
+                        "opaqueCksum": 0,
+                        "opaque": true
+                    },
+                    "numNormalAreas": 1,
+                    "maxLsaInformation": {
+                        "maxLsaCurrentIgnoreCount": 0,
+                        "maxLsaThreshold": 75,
+                        "maxLsaIgnoring": false,
+                        "maxLsaAllowedIgnoreCount": 5,
+                        "maxLsaWarningOnly": false,
+                        "maxLsa": 12000,
+                        "maxLsaResetTime": 5,
+                        "maxLsaIgnoreTime": 5
+                    },
+                    "ecmpMaximumNexthops": 128,
+                    "numBackboneNeighbors": 2,
+                    "adjacencyExchangeStartThreshold": 20,
+                    "areaList": {
+                        "0.0.0.0": {
+                            "normalArea": true,
+                            "lsaInformation": {
+                                "asExternalCksum": 262705,
+                                "treeSize": 6
+                            },
+                            "areaId": "0.0.0.0",
+                            "teEnabled": false,
+                            "spfCount": 5,
+                            "opaqueLsaInformation": {
+                                "opaqueTreeSize": 0,
+                                "opaqueCksum": 0
+                            },
+                            "numIntf": 2,
+                            "rangeList": {},
+                            "stubArea": false,
+                            "opaqueAreaLsaInformation": {
+                                "opaqueTreeSize": 0,
+                                "opaqueCksumSum": 0
+                            },
+                            "areaFiltersConfigured": false
+                        }
+                    },
+                    "numAreas": 1,
+                    "abr": false,
+                    "routerId": "10.255.255.203",
+                    "numStubAreas": 0,
+                    "shutDown": false,
+                    "numNssaAreas": 0,
+                    "lsaRetransmissionThreshold": 10,
+                    "floodPacing": 0,
+                    "vrf": "default"
+                }
+            }
+        }
+    }
+}
