@@ -100,6 +100,10 @@ ARISTA_GET_BGP = 'show ip bgp summary | json'
 ARISTA_GET_BGP_VRF = "show ip bgp summary vrf {} | json"
 ARISTA_GET_VRF = "show vrf | json"
 ARISTA_GET_LLDP = "show lldp neighbors detail | json"
+ARISTA_GET_OSPF = "show ip ospf neighbor detail | json"
+ARISTA_GET_OSPF_RID = "show ip ospf | json"
+ARISTA_GET_OSPF_VRF = "show ip ospf neighbor detail vrf {} | json"
+ARISTA_GET_OSPF_RID_VRF = "show ip ospf vrf {} | json"
 
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
