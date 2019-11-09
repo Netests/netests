@@ -90,6 +90,10 @@ NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
 NEXUS_GET_VRF = "show vrf all | json"
 NEXUS_GET_LLDP = "show lldp neighbors detail | json"
 NEXUS_GET_CDP = "show cdp neighbors detail | json"
+NEXUS_GET_OSPF = "show ip ospf neighbors detail | json"
+NEXUS_GET_OSPF_VRF = "show ip ospf neighbors vrf {} | json"
+NEXUS_GET_OSPF_RID = "show ip ospf | json"
+NEXUS_GET_OSPF_RID_VRF = "show ip ospf vrf {} | json"
 
 ##### ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'

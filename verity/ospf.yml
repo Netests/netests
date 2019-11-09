@@ -17,3 +17,17 @@ spine01:
       0.0.0.100:
         - peer_rid: 101.101.101.101
           local_interface: eth0
+
+
+leaf02:
+  default:
+    router_id: 10.255.255.202
+    area_id:
+      0.0.0.0:
+        - peer_rid: 10.255.255.101
+          peer_name: spine01
+          local_interface: Eth1/1
+          peer_ip: 10.1.2.1
+          state: FULL
+        - peer_rid: 10.255.255.203
+          local_interface: Eth1/7

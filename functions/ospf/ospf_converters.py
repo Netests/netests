@@ -40,6 +40,13 @@ except ImportError as importError:
     print(importError)
 
 try:
+    from functions.discovery_protocols.discovery_functions import _mapping_interface_name
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.discovery_protocols.discovery_functions")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
     import json
 except ImportError as importError:
     print(f"{ERROR_HEADER} json")
@@ -82,7 +89,7 @@ def _cumulus_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
                     peer_rid=neighbor_rid,
                     peer_hostname=NOT_SET,
                     session_state=neighbors_facts[0].get('nbrState', NOT_SET),
-                    local_interface=neighbors_facts[0].get('ifaceName', NOT_SET),
+                    local_interface=_mapping_interface_name(neighbors_facts[0].get('ifaceName', NOT_SET)),
                     peer_ip=neighbors_facts[0].get('ifaceAddress', NOT_SET),
                 )
 
@@ -114,7 +121,7 @@ def _cumulus_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
                     peer_rid=neighbor_rid,
                     peer_hostname=NOT_SET,
                     session_state=neighbors_facts[0].get('nbrState', NOT_SET),
-                    local_interface=neighbors_facts[0].get('ifaceName', NOT_SET),
+                    local_interface=_mapping_interface_name(neighbors_facts[0].get('ifaceName', NOT_SET)),
                     peer_ip=neighbors_facts[0].get('ifaceAddress', NOT_SET),
                 )
 
@@ -143,8 +150,52 @@ def _cumulus_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
 # Cisco Nexus OSPF Converter
 #
 def _nexus_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
-    pass
 
+    ospf_vrf_lst = ListOSPFSessionsVRF(list())
+
+    for cmd_output in cmd_outputs:
+
+        ospf_sessions_vrf = OSPFSessionsVRF(
+            router_id=cmd_output.get('rid').get('TABLE_ctx').get('ROW_ctx')[0].get('rid', NOT_SET),
+            vrf_name=cmd_output.get('rid').get('TABLE_ctx').get('ROW_ctx')[0].get('cname', NOT_SET),
+            ospf_sessions_area_lst=ListOSPFSessionsArea(list())
+        )
+
+        session_by_area = dict()
+
+        for session in cmd_output.get('data').get('TABLE_ctx').get('ROW_ctx').get('TABLE_nbr').get('ROW_nbr'):
+
+            ospf = OSPFSession(
+                hostname=hostname,
+                peer_rid=session.get('rid', NOT_SET),
+                peer_hostname=NOT_SET,
+                session_state=session.get('state', NOT_SET),
+                local_interface=_mapping_interface_name(session.get('intf', NOT_SET)),
+                peer_ip=session.get('addr', NOT_SET)
+            )
+
+            if session.get('area') not in session_by_area.keys():
+                session_by_area[session.get('area')] = list()
+
+            session_by_area[session.get('area')].append(ospf)
+
+        for area_id, sessions in session_by_area.items():
+
+            ospf_sessions_vrf.ospf_sessions_area_lst.ospf_sessions_area_lst.append(
+                OSPFSessionsArea(
+                    area_number=area_id,
+                    ospf_sessions=ListOSPFSessions(
+                        ospf_sessions_lst=sessions
+                    )
+                )
+            )
+
+        ospf_vrf_lst.ospf_sessions_vrf_lst.append(ospf_sessions_vrf)
+
+    return  OSPF(
+        hostname=hostname,
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

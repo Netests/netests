@@ -91,7 +91,7 @@ def _compare_ospf(task, ospf_data:json, level_test:int):
 
     ospf_sessions_vrf_lst = ListOSPFSessionsVRF(list())
 
-    if OSPF_SESSIONS_HOST_KEY in task.host.keys():
+    if OSPF_SESSIONS_HOST_KEY in task.host.keys() and task.host.name in ospf_data.keys():
 
         for vrf_name, ospf_vrf_facts in ospf_data.get(task.host.name, NOT_SET).items():
 
@@ -139,5 +139,5 @@ def _compare_ospf(task, ospf_data:json, level_test:int):
         return is_same
 
     else:
-        print(f"Key {OSPF_SESSIONS_HOST_KEY} is missing for {task.host.name}")
+        print(f"Key {OSPF_SESSIONS_HOST_KEY} is missing for {task.host.name} or verity file is empty for this host")
 

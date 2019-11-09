@@ -87,7 +87,7 @@ def get_bgp(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -152,7 +152,8 @@ def _cumulus_get_bgp(task):
     )
     #print(output.result)
 
-    outputs_lst.append(json.loads(output.result))
+    if output.result != "":
+        outputs_lst.append(json.loads(output.result))
 
     for vrf in task.host.get('vrfs', list()):
         if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
@@ -164,7 +165,8 @@ def _cumulus_get_bgp(task):
                 )
                 # print(output.result)
 
-                outputs_lst.append(json.loads(output.result))
+                if output.result != "":
+                    outputs_lst.append(json.loads(output.result))
 
     bgp_sessions = _cumulus_bgp_converter(task.host.name, outputs_lst)
 
@@ -198,7 +200,8 @@ def _nexus_get_bgp(task):
     )
     # print(output.result)
 
-    outputs_lst.append(json.loads(output.result))
+    if output.result != "":
+        outputs_lst.append(json.loads(output.result))
 
     for vrf in task.host.get('vrfs', list()):
         if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
@@ -209,8 +212,8 @@ def _nexus_get_bgp(task):
                     command_string=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
                 )
                 # print(output.result)
-
-                outputs_lst.append(json.loads(output.result))
+                if output.result != "":
+                    outputs_lst.append(json.loads(output.result))
 
     bgp_sessions = _nexus_bgp_converter(task.host.name, outputs_lst)
 
@@ -238,7 +241,8 @@ def _arista_get_bgp(task):
     )
     #print_result(output)
 
-    outputs_lst.append(json.loads(output.result))
+    if output.result != "":
+        outputs_lst.append(json.loads(output.result))
 
     for vrf in task.host.get('vrfs', list()):
         if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
@@ -250,7 +254,8 @@ def _arista_get_bgp(task):
                 )
                 # print(output.result)
 
-                outputs_lst.append(json.loads(output.result))
+                if output.result != "":
+                    outputs_lst.append(json.loads(output.result))
 
     bgp_sessions = _arista_bgp_converter(task.host.name, outputs_lst)
 

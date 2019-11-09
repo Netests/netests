@@ -159,11 +159,12 @@ def _cumulus_get_ospf(task):
     )
     # print(output_rid.result)
 
-    data = dict()
-    data['rid'] = json.loads(output_rid.result)
-    data['data'] = json.loads(output.result)
+    if output.result != "":
+        data = dict()
+        data['rid'] = json.loads(output_rid.result)
+        data['data'] = json.loads(output.result)
 
-    outputs_lst.append(data)
+        outputs_lst.append(data)
 
     for vrf in task.host.get('vrfs', list()):
         if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
@@ -182,11 +183,12 @@ def _cumulus_get_ospf(task):
                 )
                 # print(output_rid.result)
 
-                data = dict()
-                data['rid'] = json.loads(output_rid.result)
-                data['data'] = json.loads(output.result)
+                if output.result != "":
+                    data = dict()
+                    data['rid'] = json.loads(output_rid.result)
+                    data['data'] = json.loads(output.result)
 
-                outputs_lst.append(data)
+                    outputs_lst.append(data)
 
     ospf_sessions = _cumulus_ospf_converter(task.host.name, outputs_lst)
 
@@ -208,29 +210,54 @@ def _nexus_get_ospf(task):
     outputs_lst = list()
 
     output = task.run(
-        name=f"{NEXUS_GET_BGP}",
+        name=f"{NEXUS_GET_OSPF}",
         task=netmiko_send_command,
-        command_string=NEXUS_GET_BGP
+        command_string=NEXUS_GET_OSPF
     )
     # print(output.result)
 
-    outputs_lst.append(json.loads(output.result))
+    output_rid = task.run(
+        name=f"{NEXUS_GET_OSPF_RID}",
+        task=netmiko_send_command,
+        command_string=NEXUS_GET_OSPF_RID
+    )
+    # print(output_rid.result)
+
+    if output.result != "":
+        data = dict()
+        data['rid'] = json.loads(output_rid.result)
+        data['data'] = json.loads(output.result)
+
+        outputs_lst.append(data)
 
     for vrf in task.host.get('vrfs', list()):
         if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
-            if vrf.get('bgp', NOT_SET) is True:
+            if vrf.get('ospf', NOT_SET) is True:
                 output = task.run(
-                    name=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
+                    name=NEXUS_GET_OSPF_VRF.format(vrf.get('name', NOT_SET)),
                     task=netmiko_send_command,
-                    command_string=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
+                    command_string=NEXUS_GET_OSPF_VRF.format(vrf.get('name', NOT_SET))
                 )
                 # print(output.result)
 
-                outputs_lst.append(json.loads(output.result))
+                output_rid = task.run(
+                    name=NEXUS_GET_OSPF_RID_VRF.format(vrf.get('name', NOT_SET)),
+                    task=netmiko_send_command,
+                    command_string=NEXUS_GET_OSPF_RID_VRF.format(vrf.get('name', NOT_SET))
+                )
+                # print(output_rid.result)
 
-    bgp_sessions = _nexus_ospf_converter(task.host.name, outputs_lst)
+                if output.result != "":
+                    print(output.result)
+                    data = dict()
+                    data['rid'] = json.loads(output_rid.result)
+                    data['data'] = json.loads(output.result)
 
-    task.host[OSPF_SESSIONS_HOST_KEY] = bgp_sessions
+                    outputs_lst.append(data)
+
+    ospf_sessions = _nexus_ospf_converter(task.host.name, outputs_lst)
+
+    task.host[OSPF_SESSIONS_HOST_KEY] = ospf_sessions
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
