@@ -78,7 +78,7 @@ def get_lldp(nr: Nornir):
         on_failed=True,
         num_workers=1
     )
-    #print_result(data)
+    print_result(data)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

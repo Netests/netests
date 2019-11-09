@@ -46,6 +46,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.bgp.bgp_converters import _napalm_bgp_converter
     from functions.bgp.bgp_converters import _cumulus_bgp_converter
     from functions.bgp.bgp_converters import _nexus_bgp_converter
     from functions.bgp.bgp_converters import _arista_bgp_converter
@@ -131,11 +132,16 @@ def _generic_napalm(task):
     print(f"Start _generic_napalm with {task.host.name} ")
 
     output = task.run(
-        name=f"napal_get bgp {task.host.platform}",
+        name=f"NAPALM get_bgp_neighbors {task.host.platform}",
         task=napalm_get,
-        getters=["interfaces"]
+        getters=["get_bgp_neighbors"]
     )
     #print(output.result)
+
+    if output.result != "":
+        bgp_sessions = _napalm_bgp_converter(task.host.name, output.result)
+
+        task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
