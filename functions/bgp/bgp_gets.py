@@ -117,7 +117,7 @@ def generic_bgp_get(task):
             _arista_get_bgp(task)
 
         else:
-            _generic_napalm(task)
+            _generic_bgp_napalm(task)
 
     else:
         # RAISE EXCEPTIONS
@@ -127,9 +127,9 @@ def generic_bgp_get(task):
 #
 # Function for devices which are compatible with NAPALM
 #
-def _generic_napalm(task):
+def _generic_bgp_napalm(task):
 
-    print(f"Start _generic_napalm with {task.host.name} ")
+    print(f"Start _generic_bgp_napalm with {task.host.name} ")
 
     output = task.run(
         name=f"NAPALM get_bgp_neighbors {task.host.platform}",

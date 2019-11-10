@@ -34,6 +34,7 @@ try:
     from functions.discovery_protocols.lldp.lldp_converters import _cumulus_lldp_converter
     from functions.discovery_protocols.lldp.lldp_converters import _nexus_lldp_converter
     from functions.discovery_protocols.lldp.lldp_converters import _arista_lldp_converter
+    from functions.discovery_protocols.lldp.lldp_converters import _napalm_lldp_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.discovery_protocols.lldp")
     print(importError)
@@ -114,6 +115,27 @@ def generic_lldp_get(task):
         # RAISE EXCEPTIONS
         print(f"{HEADER_GET} No plateform selected for {task.host.name}...")
 
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Function for devices which are compatible with NAPALM
+#
+def _generic_lldp_napalm(task):
+
+    print(f"Start _generic_lldp_napalm with {task.host.name} ")
+
+    output = task.run(
+        name=f"NAPALM get_lldp_neighbors_detail {task.host.platform}",
+        task=napalm_get,
+        getters=["get_lldp_neighbors_detail"]
+    )
+    # print(output.result)
+
+    if output.result != "":
+        bgp_sessions = _napalm_lldp_converter(task.host.name, output.result)
+
+        task.host[LLDP_DATA_HOST_KEY] = bgp_sessions
+
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cumulus Networks
@@ -172,11 +194,3 @@ def _arista_get_lldp(task):
 def _extreme_vsp_get_lldp(task):
     pass
 
-
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Function for devices which are compatible with NAPALM
-#
-def _generic_lldp_napalm(task):
-    pass

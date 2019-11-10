@@ -171,3 +171,32 @@ def _arista_lldp_converter(hostname:str(), cmd_output:json) -> ListLLDP:
                     lldp_neighbors_lst.lldp_neighbors_lst.append(lldp_obj)
 
     return lldp_neighbors_lst
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# NAPALM LLDP converter
+#
+def _napalm_lldp_converter(hostname:str(), cmd_output:json) -> ListLLDP:
+
+    lldp_neighbors_lst = ListLLDP(list())
+
+    if "get_lldp_neighbors_detail" in cmd_output.keys():
+
+            for interface_name, facts in cmd_output.get("get_lldp_neighbors_detail", NOT_SET).items():
+
+                for neighbors in facts:
+
+                    lldp_obj = LLDP(
+                        local_name=hostname,
+                        local_port=_mapping_interface_name(interface_name),
+                        neighbor_mgmt_ip=NOT_SET,
+                        neighbor_name=neighbors.get('remote_system_name', NOT_SET),
+                        neighbor_port=_mapping_interface_name(neighbors.get('remote_port', NOT_SET)),
+                        neighbor_os=neighbors.get('remote_system_description', NOT_SET),
+                        neighbor_type=_mapping_sys_capabilities(neighbors.get('remote_system_capab', NOT_SET))
+                    )
+
+                    lldp_neighbors_lst.lldp_neighbors_lst.append(lldp_obj)
+
+    return lldp_neighbors_lst
