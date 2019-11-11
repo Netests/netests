@@ -225,3 +225,11 @@ def _raise_exception_on_ping_cmd(output:MultiResult, hostname:str, ping_line:str
                 ("1 received" in output.result and "0% packet loss" in output.result):
             print(f"[PINGS] ERROR WITH {hostname} _> {ping_line} = must_work={must_work}")
             raise Exception("ERROR")
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Execute Ping using NAPALM
+#
+def _execute_napalm_ping_cmd(task, *, enable=False):
+    pass

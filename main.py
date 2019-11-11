@@ -116,7 +116,7 @@ def init_nornir(log_file="./nornir/nornir.log", log_level=NORNIR_DEBUG_MODE, ans
             config_file="./nornir/config_ansible.yml"
     else:
         if virtual:
-            config_file="./nornir/config_virt.yml"
+            config_file="./nornir/config_std_virt.yml"
         else:
             config_file="./nornir/config_std.yml"
 
@@ -193,6 +193,8 @@ def main(ansible, virtual, tests, reports):
         ansible=ansible,
         virtual=virtual
     )
+
+    print(nr.inventory.hosts)
 
     test_to_execute = open_file(PATH_TO_VERITY_FILES+TEST_TO_EXECUTE_FILENAME)
 

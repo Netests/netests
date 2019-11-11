@@ -1,0 +1,12 @@
+hostname: 10.0.5.203
+username: admin
+password: admin123
+port: 22
+platform: eos
+
+data:
+  connexion: ssh
+  vrfs:
+    - name: mgmt
+      bgp: True
+      ospf: True

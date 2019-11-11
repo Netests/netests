@@ -1,8 +1,0 @@
-[leaf]
-leaf01 ansible_host=10.0.4.201 ansible_port=22
-leaf02 ansible_host=10.0.4.202 ansible_port=22
-leaf03 ansible_host=10.0.4.203 ansible_port=22
-
-[spine]
-spine01 ansible_host=10.0.4.101 ansible_port=22
-spine02 ansible_host=10.0.4.102 ansible_port=22

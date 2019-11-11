@@ -5,4 +5,4 @@ core:
 inventory:
     plugin: nornir.plugins.inventory.ansible.AnsibleInventory
     options:
-        hostsfile: "./inventory/ansible/std/hosts"
+        hostsfile: "./inventory/ansible/hosts"

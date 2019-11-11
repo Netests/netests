@@ -42,8 +42,8 @@ PATH_TO_VERITY_FILES = "./verity/"
 PATH_TO_INVENTORY_FILES = "./inventory/"
 
 ###### INVENTORY ######
-ANSIBLE_INVENTORY = "hosts"
-ANSIBLE_INVENTORY_VIRTUAL = "hosts"
+ANSIBLE_INVENTORY = "hosts_virtual"
+ANSIBLE_INVENTORY_VIRTUAL = "hosts_virtual"
 
 NAPALM_COMPATIBLE_PLATEFORM = ['junos', 'cisco_nxos', 'nxos', 'cisco_ios', 'ios', 'arista_eos', 'eos']
 JUNOS_PLATEFORM_NAME = 'junos'

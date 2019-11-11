@@ -17,12 +17,15 @@ __copyright__ = "Copyright 2019"
 #
 # HEADERS
 #
+
 ERROR_HEADER = "Error import [bgp_gets.py]"
 HEADER_GET = "[netests - get_bgp]"
+
 ########################################################################################################################
 #
 # Import Library
 #
+
 try:
     from const.constants import *
 except ImportError as importError:
@@ -59,7 +62,7 @@ try:
     from functions.vrf.vrf_get import get_vrf_name_list
     from functions.vrf.vrf_get import get_vrf
 except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.bgp_converters")
+    print(f"{ERROR_HEADER} functions.vrf")
     print(importError)
     exit(EXIT_FAILURE)
 
@@ -88,7 +91,7 @@ def get_bgp(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

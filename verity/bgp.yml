@@ -10,6 +10,7 @@ spine01:
         remote_as: 65202
       - peer_ip: 10.255.255.203
         remote_as: 65203
+        state: DOWN
   mgmt:
     asn: 65100
     router_id: 1.1.1.1
@@ -31,7 +32,6 @@ leaf02:
         remote_as: 65100
       - peer_ip: 10.255.255.203
         remote_as: 65203
-
   management:
     asn: 65202
     router_id: 0.0.0.0
@@ -48,6 +48,7 @@ leaf03:
     neighbors:
       - peer_ip: 10.255.255.101
         remote_as: 65100
+        state: DOWN
       - peer_ip: 10.255.255.202
         remote_as: 65202
       - peer_ip: 10.10.10.10

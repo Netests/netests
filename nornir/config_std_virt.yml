@@ -5,6 +5,6 @@ core:
 inventory:
     plugin: nornir.plugins.inventory.simple.SimpleInventory
     options:
-        host_file: "inventory/nornir/virt/hosts.yml"
+        host_file: "inventory/nornir/virt/hosts_virtual.yml"
         group_file: "inventory/nornir/virt/groups.yml"
         defaults_file: "inventory/nornir/virt/defaults.yml"
