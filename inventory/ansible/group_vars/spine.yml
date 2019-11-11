@@ -1,3 +1,1 @@
-routing:
-  bgp:
-    asn: 65100
+port: 22

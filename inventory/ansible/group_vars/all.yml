@@ -1,1 +1,6 @@
-syslog_server: 192.168.254.7
+data:
+  connexion: ssh
+  vrfs:
+    - name: management
+      bgp: True
+      ospf: True

@@ -1,12 +1,5 @@
 hostname: 10.0.5.202
 username: admin
 password: Ci$co123
-port: 22
 platform: nxos
 
-data:
-  connexion: ssh
-  vrfs:
-    - name: management
-      bgp: True
-      ospf: True

@@ -1,12 +1,4 @@
 hostname: 10.0.5.101
 username: cumulus
 password: CumulusLinux!
-port: 22
 platform: linux
-
-data:
-  connexion: ssh
-  vrfs:
-    - name: mgmt
-      bgp: True
-      ospf: True

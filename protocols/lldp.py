@@ -33,7 +33,7 @@ except ImportError as importError:
 try:
     from protocols.discovery_protocols import DiscoveryProtocols
 except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
+    print(f"{ERROR_HEADER} protocols.discovery_protocols")
     print(importError)
     exit(EXIT_FAILURE)
 

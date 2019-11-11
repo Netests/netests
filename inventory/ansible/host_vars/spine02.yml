@@ -1,2 +1,4 @@
-username: admin
-password: arista123
+hostname: 10.0.5.102
+username: cumulus
+password: CumulusLinux!
+platform: linux
