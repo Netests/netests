@@ -75,6 +75,31 @@ def _mapping_sys_capabilities(code) -> str():
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Find a digit in a string
+#
+def get_first_digit_index(string:str) -> int:
+    """
+    This function will return the index of the first index of a string.
+    return -1 if no digit
+
+    :param string: String on which one find a digit
+    :return: Index of the first digit
+    """
+    index = 0
+    find = False
+
+    for char in str(string):
+        if not find:
+            if char.isdigit():
+                find = True
+            else:
+                index = index + 1
+
+    if not find:
+        return -1
+    return index
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Mapping inter converter
 #
 def _mapping_interface_name(int_name) -> str():
@@ -102,6 +127,14 @@ def _mapping_interface_name(int_name) -> str():
             if str(char).isdigit():
                 number = number + str(char)
         return str("Eth1/").lower() + str(number)
+
+    elif "LOOPBACK" in str(int_name).upper():
+        index = get_first_digit_index(int_name)
+        return str("lo").lower() + int_name[index:]
+
+    elif "MANAGEMENT" in str(int_name).upper():
+        index = get_first_digit_index(int_name)
+        return str("mgmt").lower() + int_name[index:]
 
     else:
         return str(int_name).lower()

@@ -45,7 +45,6 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
     print(importError)
 
-
 try:
     import json
 except ImportError as importError:
@@ -96,7 +95,7 @@ def _cumulus_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
 
                     ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
 
-    print(ipv4_addresses_lst)
+    return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -109,26 +108,46 @@ def _nexus_ipv4_converter(hostname:str(), cmd_outputs:list) -> ListIPV4:
         ipv4_addresses_lst=list()
     )
 
-    for cmd_output in cmd_outputs:
-        if 'TABLE_intf' in cmd_output.keys():
-            for interface in cmd_output.get('TABLE_intf'):
-                if isinstance(interface, dict):
 
-                    ip_address = interface.get('ROW_intf').get('prefix', NOT_SET)
+    for cmd_output in cmd_outputs:
+
+        if 'TABLE_intf' in cmd_output.keys():
+
+            if isinstance(cmd_output.get('TABLE_intf'), list):
+                for interface in cmd_output.get('TABLE_intf'):
+                    if isinstance(interface, dict):
+
+                        ip_address = interface.get('ROW_intf').get('prefix', NOT_SET)
+
+                        if ip_address != NOT_SET and "/128" not in ip_address and "/64" not in ip_address and \
+                                "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
+                                "::1/128" not in ip_address:
+
+                            ipv4_obj = IPV4(
+                                interface_name=_mapping_interface_name(interface.get('ROW_intf').get('intf-name')),
+                                ip_address_with_mask=ip_address,
+                                netmask=interface.get('ROW_intf').get('masklen')
+                            )
+
+                            ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
+
+            elif isinstance(cmd_output.get('TABLE_intf'), dict):
+                for interface, facts in cmd_output.get('TABLE_intf').items():
+
+                    ip_address = facts.get('prefix', NOT_SET)
 
                     if ip_address != NOT_SET and "/128" not in ip_address and "/64" not in ip_address and \
                             "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
                             "::1/128" not in ip_address:
-
                         ipv4_obj = IPV4(
-                            interface_name=_mapping_interface_name(interface.get('ROW_intf').get('intf-name')),
+                            interface_name=_mapping_interface_name(facts.get('intf-name')),
                             ip_address_with_mask=ip_address,
-                            netmask=interface.get('ROW_intf').get('masklen')
+                            netmask=facts.get('masklen')
                         )
 
                         ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
 
-    print(ipv4_addresses_lst)
+    return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -157,4 +176,4 @@ def _arista_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
 
             ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
 
-    print(ipv4_addresses_lst)
+    return ipv4_addresses_lst
