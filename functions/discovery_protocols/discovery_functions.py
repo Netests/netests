@@ -94,14 +94,14 @@ def _mapping_interface_name(int_name) -> str():
         for char in int_name[slash_index:]:
             if str(char).isdigit():
                 number = number + str(char)
-        return "Eth1/" + number
+        return str("Eth1/").lower() + str(number)
 
     elif "Ethernet" in int_name:
         number = ""
         for char in int_name:
             if str(char).isdigit():
                 number = number + str(char)
-        return "Eth1/" + number
+        return str("Eth1/").lower() + str(number)
 
     else:
-        return int_name
+        return str(int_name).lower()

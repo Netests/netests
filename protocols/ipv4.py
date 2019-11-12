@@ -47,32 +47,28 @@ except ImportError as importError:
 
 ########################################################################################################################
 #
-# LLDP NEIGHBORS CLASS
+# IPv4 NEIGHBORS CLASS
 #
 class IPV4(IP):
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, ip_address=NOT_SET, netmask=NOT_SET):
-        if self._is_valid_ip_and_mask(ip_address, netmask):
-            super(IP, self).__init__(ip_address, netmask)
+    def __init__(self, interface_name=NOT_SET, ip_address_with_mask=NOT_SET, netmask=NOT_SET):
+
+        if netmask == NOT_SET:
+            ip_address = self._extract_ip_address(ip_address_with_mask)
+            netmask = self._extract_netmask(ip_address_with_mask)
         else:
-            super(IP, self).__init__(NOT_SET, NOT_SET)
+            ip_address = ip_address_with_mask
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
-    def __init__(self, ip_address_with_mask=NOT_SET):
-
-        ip_address = self._extract_ip_address(ip_address_with_mask)
-        netmask = self._extract_netmask(ip_address_with_mask)
+        if self._is_valid_cidr_netmask(netmask):
+            netmask = self._convert_cidr_to_netmask(netmask)
 
         if self._is_valid_ip_and_mask(ip_address, netmask):
-            super(IP, self).__init__(ip_address, netmask)
+            super().__init__(interface_name, ip_address, netmask)
         else:
-            super(IP, self).__init__(NOT_SET, NOT_SET)
-
+            super().__init__(NOT_SET, NOT_SET, NOT_SET)
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
@@ -85,7 +81,7 @@ class IPV4(IP):
         :return: False if one or more of the two values is false
         """
 
-        return_value = self._is_valid_ipv4_address()
+        return_value = self._is_valid_ipv4_address(ip_address)
 
         if self._is_cidr_notation(netmask):
             return return_value and self._is_valid_cidr_netmask(netmask)
@@ -103,12 +99,12 @@ class IPV4(IP):
         :return bool: True if mask is in CIDR format
         """
 
-        return "." in netmask
+        return "." not in str(netmask)
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def _convert_cidr_to_netmask(self, netmask_cidr) -> str:
+    def _convert_cidr_to_netmask(self, netmask_cidr:str) -> str:
         """
         This function will convert a netmask CIDR in a standard netmask (255.255.255.255)
         :param netmask_cidr: IP address netmask in CIDR format (/24)
@@ -123,7 +119,7 @@ class IPV4(IP):
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def _convert_netmask_to_cidr(self, netmask) -> str:
+    def _convert_netmask_to_cidr(self, netmask:str) -> str:
         """
         This function will convert a netmask in a CIDR format.
 
@@ -147,6 +143,7 @@ class IPV4(IP):
         :param ip_address: IP address to check
         :return bool: True if ip_address is a valid IP address
         """
+
         return ipaddress.IPv4Address(ip_address)
 
 
@@ -162,7 +159,7 @@ class IPV4(IP):
         :return bool: True if the netmask is valid
         """
 
-        return cidr_netmask.isdigit() and \
+        return str(cidr_netmask).isdigit() and \
                int(cidr_netmask) > 0 and \
                int(cidr_netmask) <= 32
 
@@ -251,7 +248,7 @@ class IPV4(IP):
         :return str: ip_value in bit format
         """
 
-        all_bytes = ip_value.split(".")
+        all_bytes = ip_value.split  (".")
 
         assert all_bytes.__len__() == 4
 
@@ -261,3 +258,54 @@ class IPV4(IP):
             bit_format = bit_format + str(bin(int(bytes))[2:].zfill(8))
 
         return bit_format
+
+
+########################################################################################################################
+#
+# IPv4 LIST CLASS
+#
+class ListIPV4:
+
+    hostname: str
+    ipv4_addresses_lst: list
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __init__(self, hostname:NOT_SET, ipv4_addresses_lst: list()):
+        self.hostname = hostname
+        self.ipv4_addresses_lst = ipv4_addresses_lst
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __eq__(self, others):
+        if not isinstance(others, ListIPV4):
+            raise NotImplemented
+
+        for ipv4 in self.ipv4_addresses_lst:
+            if ipv4 not in others.ipv4_addresses_lst:
+                print(
+                    f"[ListIPV4 - __eq__] - The following IPv4 address is not in the list \n {ipv4}")
+                print(
+                    f"[ListIPV4 - __eq__] - List: \n {others.ipv4_addresses_lst}")
+                return False
+
+        for ipv4 in others.ipv4_addresses_lst:
+            if ipv4 not in self.ipv4_addresses_lst:
+                print(
+                    f"[ListIPV4 - __eq__] - The following IPv4 address is not in the list \n {ipv4}")
+                print(
+                    f"[ListIPV4 - __eq__] - List: \n {self.ipv4_addresses_lst}")
+                return False
+
+        return True
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __repr__(self):
+        result = f"<ListIPV4 hostname={self.hostname} \n"
+        for ipv4 in self.ipv4_addresses_lst:
+            result = result + f"{ipv4}"
+        return result + ">"

@@ -63,12 +63,16 @@ PING_SRC_FILENAME = "ping.yml"
 LLDP_SRC_FILENAME = "lldp.yml"
 CDP_SRC_FILENAME = "cdp.yml"
 OSPF_SRC_FILENAME = "ospf.yml"
+IPV4_SRC_FILENAME = "ipv4.yml"
+IPV6_SRC_FILENAME = "ipv6.yml"
 TEST_TO_EXC_BGP_KEY = 'bgp'
 TEST_TO_EXC_VRF_KEY = 'vrf'
 TEST_TO_EXC_PING_KEY = 'ping'
 TEST_TO_EXC_LLDP_KEY = 'lldp'
 TEST_TO_EXC_CDP_KEY = 'cdp'
 TEST_TO_EXC_OSPF_KEY = 'ospf'
+TEST_TO_EXC_IPV4_KEY = 'ipv4'
+TEST_TO_EXC_IPV6_KEY = 'ipv6'
 
 YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
@@ -83,6 +87,7 @@ CUMULUS_GET_OSPF = "net show ospf neighbor detail json"
 CUMULUS_GET_OSPF_VRF = "net show ospf vrf {} neighbor detail json"
 CUMULUS_GET_OSPF_RID = "net show ospf json"
 CUMULUS_GET_OSPF_RID_VRF = "net show ospf vrf {} json"
+CUMULUS_GET_IPV4 = "net show interface json"
 
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
@@ -94,6 +99,8 @@ NEXUS_GET_OSPF = "show ip ospf neighbors detail | json"
 NEXUS_GET_OSPF_VRF = "show ip ospf neighbors vrf {} | json"
 NEXUS_GET_OSPF_RID = "show ip ospf | json"
 NEXUS_GET_OSPF_RID_VRF = "show ip ospf vrf {} | json"
+NEXUS_GET_IPV4 = "show ip int | json"
+NEXUS_GET_IPV4_VRF = "show ip int vrf {} | json"
 
 ##### ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
@@ -104,6 +111,7 @@ ARISTA_GET_OSPF = "show ip ospf neighbor detail | json"
 ARISTA_GET_OSPF_RID = "show ip ospf | json"
 ARISTA_GET_OSPF_VRF = "show ip ospf neighbor detail vrf {} | json"
 ARISTA_GET_OSPF_RID_VRF = "show ip ospf vrf {} | json"
+ARISTA_GET_IPV4 = "show ip int | json"
 
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
@@ -124,11 +132,16 @@ VRF_WORKS_KEY = 'vrf_works'
 
 ##### PING CONSTANTES
 PING_DATA_HOST_KEY = 'ping_data'
+PING_WORKS_KEY = 'ping_works'
 
 ##### LLDP CONSTANTES
 LLDP_DATA_HOST_KEY = 'lldp_data'
 LLDP_WORKS_KEY = 'lldp_works'
 
-##### LLDP CONSTANTES
+##### CDP CONSTANTES
 CDP_DATA_HOST_KEY = 'cdp_data'
 CDP_WORKS_KEY = 'cdp_works'
+
+##### IPv4 CONSTANTES
+IPV4_DATA_HOST_KEY = 'ipv4_data'
+IPV4_WORKS_KEY = 'ipv4_works'

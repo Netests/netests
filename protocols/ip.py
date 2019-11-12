@@ -39,23 +39,21 @@ except ImportError as importError:
 
 ########################################################################################################################
 #
-# Discovery Protocols Abstract CLASS
+# IP Abstract Class
 #
 class IP(ABC):
 
+    interface_name: str
     ip_address: str
     netmask: str
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, ip_address=NOT_SET, netmask=NOT_SET):
+    def __init__(self, interface_name=NOT_SET, ip_address=NOT_SET, netmask=NOT_SET):
+        self.interface_name = interface_name
         self.ip_address = ip_address
         self.netmask = netmask
-
-    @abstractmethod
-    def __init__(self, netmask_with_cidr=NOT_SET, ):
-        pass
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -64,14 +62,16 @@ class IP(ABC):
         if not isinstance(other, IP):
             return NotImplemented
 
-        return (str(self.ip_address) == str(other.ip_address) and
+        return (str(self.interface_name) == str(other.interface_name) and
+                str(self.ip_address) == str(other.ip_address) and
                 str(self.netmask) == str(other.netmask))
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
     def __repr__(self):
-        return f"<{type(self)} ip_address={self.ip_address} " \
+        return f"<{type(self)} interface_name={self.interface_name} " \
+               f"ip_address={self.ip_address} " \
                f"netmask={self.netmask}>\n"
 
     # ------------------------------------------------------------------------------------------------------------------

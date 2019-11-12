@@ -31,6 +31,13 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.ip.ipv4.ipv4_get import *
+    from functions.ip.ipv4.ipv4_compare import compare_ipv4
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.ip.ipv4")
+    print(importError)
+
+try:
     from functions.ospf.ospf_gets import *
     from functions.ospf.ospf_compare import compare_ospf
 except ImportError as importError:
@@ -298,6 +305,22 @@ def main(ansible, virtual, tests, reports):
     else:
         print(f"{HEADER} OSPF sessions  key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 6. Check IPv4 addresses
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_IPV4_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_IPV4_KEY] is not False:
+            get_ipv4(nr)
+            ipv4_data = open_file(f"{PATH_TO_VERITY_FILES}{IPV4_SRC_FILENAME}")
+            same = compare_ipv4(nr, ipv4_data)
+            if test_to_execute[TEST_TO_EXC_IPV4_KEY] is True and same is False:
+                exit_value = False
+            print(f"{HEADER} IPv4 addresses defined in {PATH_TO_VERITY_FILES}{IPV4_SRC_FILENAME} work = {same} !!")
+        else:
+            print(f"{HEADER} IPv4 addresses have not been executed !!")
+    else:
+        print(f"{HEADER} IPv4 addresses key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
 
     return EXIT_SUCCESS

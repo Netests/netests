@@ -113,7 +113,7 @@ def get_vrf_name_list(nr: Nornir, function="LIST"):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -125,7 +125,7 @@ def generic_vrf_get(task, function="GET"):
 
     if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform:
         if 'connexion' in task.host.keys():
-            if task.host.data.get('connexion', NOT_SET) == 'ssh':
+            if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET):
                 use_ssh = True
 
     if task.host.platform == CUMULUS_PLATEFORM_NAME:
