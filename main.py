@@ -78,6 +78,7 @@ try:
     from functions.bgp.bgp_compare import *
     from functions.bgp.bgp_reports import *
     from functions.bgp.bgp_gets import *
+    from functions.bgp.bgp_checks import get_bgp_up
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.bgp")
     print(importError)
@@ -206,7 +207,7 @@ def main(ansible, virtual, tests, reports):
     test_to_execute = open_file(PATH_TO_VERITY_FILES+TEST_TO_EXECUTE_FILENAME)
 
     # ''''''''''''''''''''''''''''''''''''''''''''
-    # 1. Check BGP sessions
+    # 0. Check BGP sessions
     # ''''''''''''''''''''''''''''''''''''''''''''
     if test_to_execute[TEST_TO_EXC_BGP_KEY] is not False:
         get_bgp(nr)
@@ -220,6 +221,22 @@ def main(ansible, virtual, tests, reports):
             f"{HEADER} BGP sessions are the same that defined in {PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME} = {same} !!")
     else:
         print(f"{HEADER} BGP_SESSIONS tests are not executed !!")
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 1. Check all BGP sessions UP
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if test_to_execute[TEST_TO_EXC_BGP_UP_KEY] is not False:
+
+        works = get_bgp_up(nr)
+
+        if reports:
+            create_reports(nr, bgp_data)
+        if test_to_execute[TEST_TO_EXC_BGP_UP_KEY] is True and works is False:
+            exit_value = False
+        print(
+            f"{HEADER} All BGP sessions on devices are UP = {works} !!")
+    else:
+        print(f"{HEADER} All BGP sessions tests are not executed !!")
 
     # ''''''''''''''''''''''''''''''''''''''''''''
     # 2. LLDP Neighbors check

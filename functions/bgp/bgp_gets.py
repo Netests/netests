@@ -99,32 +99,34 @@ def get_bgp(nr: Nornir):
 #
 def generic_bgp_get(task):
 
-    use_ssh = False
+    if BGP_SESSIONS_HOST_KEY not in task.host.keys():
 
-    if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform:
-        if 'connexion' in task.host.keys():
-            if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET):
-                use_ssh = True
+        use_ssh = False
 
-    if task.host.platform == CUMULUS_PLATEFORM_NAME:
-        _cumulus_get_bgp(task)
+        if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform:
+            if 'connexion' in task.host.keys():
+                if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET):
+                    use_ssh = True
 
-    elif task.host.platform == EXTREME_PLATEFORM_NAME:
-        _extreme_vsp_get_bgp(task)
+        if task.host.platform == CUMULUS_PLATEFORM_NAME:
+            _cumulus_get_bgp(task)
 
-    elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
-        if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
-            _nexus_get_bgp(task)
+        elif task.host.platform == EXTREME_PLATEFORM_NAME:
+            _extreme_vsp_get_bgp(task)
 
-        elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
-            _arista_get_bgp(task)
+        elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
+            if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
+                _nexus_get_bgp(task)
+
+            elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
+                _arista_get_bgp(task)
+
+            else:
+                _generic_bgp_napalm(task)
 
         else:
-            _generic_bgp_napalm(task)
-
-    else:
-        # RAISE EXCEPTIONS
-        print(f"{HEADER_GET} No plateform selected for {task.host.name}...")
+            # RAISE EXCEPTIONS
+            print(f"{HEADER_GET} No plateform selected for {task.host.name}...")
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

@@ -73,6 +73,7 @@ TEST_TO_EXC_CDP_KEY = 'cdp'
 TEST_TO_EXC_OSPF_KEY = 'ospf'
 TEST_TO_EXC_IPV4_KEY = 'ipv4'
 TEST_TO_EXC_IPV6_KEY = 'ipv6'
+TEST_TO_EXC_BGP_UP_KEY = 'bgp_all_up'
 
 YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
@@ -116,6 +117,7 @@ ARISTA_GET_IPV4 = "show ip int | json"
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
 BGP_WORKS_KEY = 'bgp_works'
+BGP_ALL_BGP_UP_KEY = 'bgp_all_up'
 
 BGP_STATE_UP_LIST = ['ESTABLISHED','established', 'Established', 'Estab','UP', 'up', 'Up']
 BGP_STATE_BRIEF_UP = "UP"
