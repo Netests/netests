@@ -170,7 +170,7 @@ def _nexus_get_ipv4(task):
 
     for vrf in task.host[VRF_NAME_DATA_KEY]:
 
-        if vrf != "default":
+        if vrf != "default" and vrf != "global":
             output = task.run(
                 name=NEXUS_GET_IPV4_VRF.format(vrf),
                 task=netmiko_send_command,

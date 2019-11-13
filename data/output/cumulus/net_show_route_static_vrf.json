@@ -1,0 +1,26 @@
+{
+    "ipv4 unicast": {
+        "0.0.0.0/0": [
+            {
+                "distance": 1,
+                "metric": 0,
+                "nexthops": [
+                    {
+                        "active": true,
+                        "afi": "ipv4",
+                        "fib": true,
+                        "interfaceIndex": 2,
+                        "interfaceName": "eth0",
+                        "ip": "10.0.5.1"
+                    }
+                ],
+                "prefix": "0.0.0.0/0",
+                "protocol": "static",
+                "selected": true,
+                "uptime": "00:01:51",
+                "vrfId": 10
+            }
+        ]
+    },
+    "ipv6 unicast": {}
+}

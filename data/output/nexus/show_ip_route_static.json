@@ -1,0 +1,48 @@
+{
+    "TABLE_vrf": {
+        "ROW_vrf": {
+            "vrf-name-out": "default",
+            "TABLE_addrf": {
+                "ROW_addrf": {
+                    "addrf": "ipv4",
+                    "TABLE_prefix": {
+                        "ROW_prefix": [
+                            {
+                                "ipprefix": "10.255.255.101/32",
+                                "ucast-nhops": "1",
+                                "mcast-nhops": "0",
+                                "attached": "false",
+                                "TABLE_path": {
+                                    "ROW_path": {
+                                        "ipnexthop": "10.1.2.1",
+                                        "uptime": "P16DT23H31M41S",
+                                        "pref": "1",
+                                        "metric": "0",
+                                        "clientname": "static",
+                                        "ubest": "true"
+                                    }
+                                }
+                            },
+                            {
+                                "ipprefix": "10.255.255.203/32",
+                                "ucast-nhops": "1",
+                                "mcast-nhops": "0",
+                                "attached": "false",
+                                "TABLE_path": {
+                                    "ROW_path": {
+                                        "ipnexthop": "10.22.33.2",
+                                        "uptime": "P16DT23H30M55S",
+                                        "pref": "1",
+                                        "metric": "0",
+                                        "clientname": "static",
+                                        "ubest": "true"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

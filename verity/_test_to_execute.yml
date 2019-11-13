@@ -4,7 +4,7 @@
 # 3) no || false => (Exclude) - Test will not be executed
 # Check that BGP sessions regarding bgp.yml are the same
 bgp: false
-bgp_all_up: true
+bgp_all_up: false
 # Check that all BGP sessions are UP
 bgp_up: false
 # Check that all VRF are defined
@@ -22,3 +22,5 @@ ospf:
 ipv4: false
 # Check IPv6 addresses
 ipv6: false
+# Check static routes
+static: true

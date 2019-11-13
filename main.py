@@ -31,6 +31,12 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.static.static_get import get_static
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.static")
+    print(importError)
+
+try:
     from functions.ip.ipv4.ipv4_get import *
     from functions.ip.ipv4.ipv4_compare import compare_ipv4
 except ImportError as importError:
@@ -340,9 +346,25 @@ def main(ansible, virtual, tests, reports):
         print(f"{HEADER} IPv4 addresses key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
 
+    dict
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 6. Check Static routes
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_STATIC_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_STATIC_KEY] is not False:
+
+            get_static(nr)
+            static_data = open_file(f"{PATH_TO_VERITY_FILES}{STATIC_SRC_FILENAME}")
+            same = bool
+            if test_to_execute[TEST_TO_EXC_STATIC_KEY] is True and same is False:
+                exit_value = False
+            print(f"{HEADER} Static routes defined in {PATH_TO_VERITY_FILES}{STATIC_SRC_FILENAME} work = {same} !!")
+        else:
+            print(f"{HEADER} Static routes have not been executed !!")
+    else:
+        print(f"{HEADER} Static routes key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
+
     return EXIT_SUCCESS
-
-
 
 ########################################################################################################################
 #

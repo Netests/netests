@@ -44,21 +44,21 @@ class Static:
     # The following values are not used by the __eq__ function !!
     is_in_fib: str
     out_interface: str
-    preference: str # or preference
+    preference: str # or distance
     metric: str
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
     def __init__(self, vrf_name=NOT_SET, prefix=NOT_SET, netmask=NOT_SET, nexthop=NOT_SET, is_in_fib=NOT_SET,
-                 out_interface=NOT_SET, distance=NOT_SET, metric=NOT_SET):
+                 out_interface=NOT_SET, preference=NOT_SET, metric=NOT_SET):
         self.vrf_name = vrf_name
         self.prefix = prefix
         self.netmask = netmask
         self.nexthop = nexthop
         self.is_in_fib = is_in_fib
         self.out_interface = out_interface
-        self.distance = distance
+        self.preference = preference
         self.metric = metric
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ class Static:
                f"nexthop={self.nexthop} " \
                f"is_in_fib={self.is_in_fib} " \
                f"out_interface={self.out_interface} "\
-               f"distance={self.distance} " \
+               f"preference={self.preference} " \
                f"metric={self.metric}>\n"
 
 ########################################################################################################################
