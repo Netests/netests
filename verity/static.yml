@@ -1,0 +1,6 @@
+---
+spine01:
+  default:
+    # If netmask is not defined => Mask must be in prefix in CIDR format (Ex: 0.0.0.0/0)
+    - prefix: 10.100.0.0/24
+      nexthop: 10.0.0.100
