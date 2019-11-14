@@ -1,0 +1,35 @@
+show lldp neighbor
+
+==========================================================================================
+                                      LLDP Neighbor
+==========================================================================================
+
+Port: 1/1       Index    : 10
+                Protocol : LLDP
+                ChassisId: MAC Address        aa:aa:aa:4d:e0:00
+                PortId   : IfName             1/1
+                SysName  : switch01
+                SysCap   : Br / Br
+                PortDescr: Extreme Networks Virtual Services Platform 8284XSQ - 10GbSR Port 1/1
+                SysDescr : VSP-8284XSQ (6.1.6.0)
+                Address  : 1.1.1.1
+
+Port: 1/2       Index    : 1
+                Protocol : LLDP
+                ChassisId: MAC Address        aa:aa:aa:9c:f4:00
+                PortId   : IfName             1/2
+                SysName  : switch02
+                SysCap   : Br / Br
+                PortDescr: Extreme Networks Virtual Services Platform 8284XSQ - 10GbSR Port 1/2
+                SysDescr : VSP-8284XSQ (6.1.6.0)
+                Address  : 2.2.2.2
+
+Port: 1/3       Index    : 14
+                Protocol : LLDP
+                ChassisId: MAC Address        aa:aa:aa:ab:88:00
+                PortId   : IfName             1/3
+                SysName  : switch03
+                SysCap   : Br / Br
+                PortDescr: Extreme Networks Virtual Services Platform 8404 Module 8418XSQ - 10GbSR Port 1/3
+                SysDescr : VSP-8404 (6.1.6.0)
+                Address  : 3.3.3.3

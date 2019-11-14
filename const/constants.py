@@ -122,6 +122,20 @@ ARISTA_GET_IPV4 = "show ip int | json"
 ARISTA_GET_STATIC = "show ip route static | json"
 ARISTA_GET_STATIC_VRF = "show ip route vrf {} static | json"
 
+##### EXTREME VSP COMMANDS
+EXTREME_VSP_GET_BGP = 'show ip bgp summary'
+EXTREME_VSP_GET_BGP_VRF = "show ip bgp summary vrf {}"
+EXTREME_VSP_GET_VRF = "show ip vrf"
+EXTREME_VSP_GET_LLDP = "show lldp neighbor"
+EXTREME_VSP_GET_OSPF = "show ip ospf neighbor"
+EXTREME_VSP_GET_OSPF_RID = "show ip ospf"
+EXTREME_VSP_GET_OSPF_VRF = "show ip ospf neighbor vrf {}"
+EXTREME_VSP_GET_OSPF_RID_VRF = "show ip ospf vrf {}"
+EXTREME_VSP_GET_IPV4 = "show ip interface"
+EXTREME_VSP_GET_IPV4 = "show ip interface vrf {}"
+EXTREME_VSP_GET_STATIC = "show ip route static"
+EXTREME_VSP_GET_STATIC_VRF = "show ip route static vrf {}"
+
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
 BGP_WORKS_KEY = 'bgp_works'

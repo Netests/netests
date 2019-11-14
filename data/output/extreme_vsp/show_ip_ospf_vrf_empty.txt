@@ -1,0 +1,3 @@
+show ip ospf vrf CLIENT-DYLAN
+
+Error: OSPF instance does not exist for VRF: "CLIENT-DYLAN"
