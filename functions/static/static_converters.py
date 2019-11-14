@@ -61,7 +61,7 @@ except ImportError as importError:
 #
 # Cumulus Networks STATIC converter
 #
-def _cumulus_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:
+def _cumulus_static_converter(hostname:str(), cmd_outputs:list, vrf_dict:dict()) -> ListStatic:
 
     static_routes_lst = ListStatic(
         static_routes_lst=list()
@@ -77,8 +77,16 @@ def _cumulus_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:
 
                     index_slash = str(facts.get('prefix')).find("/")
 
+                    real_vrf = ""
+                    for vrf, vrfid in vrf_dict.items():
+                        try:
+                            if int(facts.get('vrfId', NOT_SET)) == int(vrfid):
+                                real_vrf = vrf
+                        except Exception as e:
+                            pass
+
                     static_obj = Static(
-                        vrf_name=facts.get('vrfId', NOT_SET),
+                        vrf_name=real_vrf,
                         prefix=str(facts.get('prefix'))[:index_slash],
                         netmask=str(facts.get('prefix'))[index_slash+1:],
                         nexthop=facts.get('nexthops')[0].get('ip', NOT_SET),
@@ -109,7 +117,7 @@ def _cumulus_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:
 
                     static_routes_lst.static_routes_lst.append(static_obj)
 
-    print(static_routes_lst)
+    return static_routes_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -166,7 +174,7 @@ def _nexus_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:
 
                 static_routes_lst.static_routes_lst.append(static_obj)
 
-    print(static_routes_lst)
+    return static_routes_lst
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -200,4 +208,4 @@ def _arista_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:
 
                 static_routes_lst.static_routes_lst.append(static_obj)
 
-    print(static_routes_lst)
+    return static_routes_lst

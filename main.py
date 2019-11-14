@@ -32,6 +32,7 @@ except ImportError as importError:
 
 try:
     from functions.static.static_get import get_static
+    from functions.static.static_compare import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.static")
     print(importError)
@@ -215,7 +216,7 @@ def main(ansible, virtual, tests, reports):
     # ''''''''''''''''''''''''''''''''''''''''''''
     # 0. Check BGP sessions
     # ''''''''''''''''''''''''''''''''''''''''''''
-    if test_to_execute[TEST_TO_EXC_BGP_KEY] is not False:
+    if test_to_execute[TEST_TO_EXC_BGP_KEY] is True:
         get_bgp(nr)
         bgp_data = open_file(f"{PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME}")
         same = compare_bgp(nr, bgp_data)
@@ -231,7 +232,7 @@ def main(ansible, virtual, tests, reports):
     # ''''''''''''''''''''''''''''''''''''''''''''
     # 1. Check all BGP sessions UP
     # ''''''''''''''''''''''''''''''''''''''''''''
-    if test_to_execute[TEST_TO_EXC_BGP_UP_KEY] is not False:
+    if test_to_execute[TEST_TO_EXC_BGP_UP_KEY] is True:
 
         works = get_bgp_up(nr)
 
@@ -248,7 +249,7 @@ def main(ansible, virtual, tests, reports):
     # 2. LLDP Neighbors check
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_LLDP_KEY in test_to_execute.keys():
-        if test_to_execute[TEST_TO_EXC_LLDP_KEY] is not False:
+        if test_to_execute[TEST_TO_EXC_LLDP_KEY] is True:
             get_lldp(nr)
             lldp_data = open_file(f"{PATH_TO_VERITY_FILES}{LLDP_SRC_FILENAME}")
             same = compare_lldp(nr, lldp_data)
@@ -266,7 +267,7 @@ def main(ansible, virtual, tests, reports):
     # 3. CDP Neighbors check
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_CDP_KEY in test_to_execute.keys():
-        if test_to_execute[TEST_TO_EXC_CDP_KEY] is not False:
+        if test_to_execute[TEST_TO_EXC_CDP_KEY] is True:
             get_cdp(nr)
             cdp_data = open_file(f"{PATH_TO_VERITY_FILES}{CDP_SRC_FILENAME}")
             same = compare_cdp(nr, cdp_data)
@@ -283,7 +284,7 @@ def main(ansible, virtual, tests, reports):
     # 4. Check VRF on devices
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_VRF_KEY in test_to_execute.keys():
-        if test_to_execute[TEST_TO_EXC_VRF_KEY] is not False:
+        if test_to_execute[TEST_TO_EXC_VRF_KEY] is True:
             get_vrf(nr)
             vrf_data = open_file(f"{PATH_TO_VERITY_FILES}{VRF_SRC_FILENAME}")
             same = compare_vrf(nr, vrf_data)
@@ -299,7 +300,7 @@ def main(ansible, virtual, tests, reports):
     # 5. Execute PING on devices
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_PING_KEY in test_to_execute.keys():
-        if test_to_execute[TEST_TO_EXC_PING_KEY] is not False:
+        if test_to_execute[TEST_TO_EXC_PING_KEY] is True:
             works = execute_ping(nr)
             if test_to_execute[TEST_TO_EXC_PING_KEY] is True and works is False:
                 exit_value = False
@@ -314,8 +315,10 @@ def main(ansible, virtual, tests, reports):
     # 6. Check OSPF sessions
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_OSPF_KEY in test_to_execute.keys():
-        if test_to_execute[TEST_TO_EXC_OSPF_KEY]['test'] is not False:
+        if test_to_execute[TEST_TO_EXC_OSPF_KEY]['test'] is True:
+
             get_ospf(nr)
+
             ospf_data = open_file(f"{PATH_TO_VERITY_FILES}{OSPF_SRC_FILENAME}")
 
             works = compare_ospf(nr, ospf_data, _get_level_test(test_to_execute.get(TEST_TO_EXC_OSPF_KEY).get('level', NOT_SET)))
@@ -333,8 +336,10 @@ def main(ansible, virtual, tests, reports):
     # 6. Check IPv4 addresses
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_IPV4_KEY in test_to_execute.keys():
-        if test_to_execute[TEST_TO_EXC_IPV4_KEY] is not False:
+        if test_to_execute[TEST_TO_EXC_IPV4_KEY] is True:
+
             get_ipv4(nr)
+
             ipv4_data = open_file(f"{PATH_TO_VERITY_FILES}{IPV4_SRC_FILENAME}")
             same = compare_ipv4(nr, ipv4_data)
             if test_to_execute[TEST_TO_EXC_IPV4_KEY] is True and same is False:
@@ -348,15 +353,21 @@ def main(ansible, virtual, tests, reports):
 
     dict
     # ''''''''''''''''''''''''''''''''''''''''''''
-    # 6. Check Static routes
+    # 7. Check Static routes
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_STATIC_KEY in test_to_execute.keys():
-        if test_to_execute[TEST_TO_EXC_STATIC_KEY] is not False:
+        if test_to_execute.get(TEST_TO_EXC_STATIC_KEY).get('test', False) is True:
 
             get_static(nr)
-            static_data = open_file(f"{PATH_TO_VERITY_FILES}{STATIC_SRC_FILENAME}")
-            same = bool
-            if test_to_execute[TEST_TO_EXC_STATIC_KEY] is True and same is False:
+
+            same = compare_static(
+                nr=nr,
+                ansible_vars=test_to_execute.get(TEST_TO_EXC_STATIC_KEY).get('ansible_vars').get('enable', False),
+                dict_keys=test_to_execute.get(TEST_TO_EXC_STATIC_KEY).get('ansible_vars').get('dict_keys', False),
+                your_keys=test_to_execute.get(TEST_TO_EXC_STATIC_KEY).get('ansible_vars').get('your_keys', False)
+            )
+
+            if test_to_execute.get(TEST_TO_EXC_STATIC_KEY).get('test', False) is True and same is False:
                 exit_value = False
             print(f"{HEADER} Static routes defined in {PATH_TO_VERITY_FILES}{STATIC_SRC_FILENAME} work = {same} !!")
         else:
@@ -365,6 +376,9 @@ def main(ansible, virtual, tests, reports):
         print(f"{HEADER} Static routes key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
     return EXIT_SUCCESS
+
+
+
 
 ########################################################################################################################
 #

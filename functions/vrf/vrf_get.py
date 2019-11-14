@@ -167,7 +167,7 @@ def generic_vrf_get(task, function="GET"):
 #
 def _get_vrf_name_list(task):
 
-    vrf_name_lst = list()
+    vrf_name_lst = dict()
 
     if task.host.platform == CUMULUS_PLATEFORM_NAME:
         _cumulus_get_vrf(task)
@@ -179,7 +179,7 @@ def _get_vrf_name_list(task):
         pass
 
     for vrf in task.host[VRF_DATA_KEY].vrf_lst:
-        vrf_name_lst.append(vrf.vrf_name)
+        vrf_name_lst[vrf.vrf_name] = vrf.vrf_id
 
     task.host[VRF_NAME_DATA_KEY] = vrf_name_lst
 
@@ -198,7 +198,7 @@ def _cumulus_get_vrf(task):
         )
 
         template = open(
-            f"{TEXTFSM_PATH}cumulus_net_show_vrf.template")
+            f"{TEXTFSM_PATH}cumulus_net_show_bgp_vrf.template")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)

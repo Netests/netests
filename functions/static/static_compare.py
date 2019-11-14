@@ -24,6 +24,7 @@ HEADER_GET = "[netests - compare_static]"
 #
 # Default value used for exit()
 #
+
 try:
     from const.constants import *
 except ImportError as importError:
@@ -53,20 +54,42 @@ except ImportError as importError:
     print(importError)
     exit(EXIT_FAILURE)
 
+try:
+    from main import open_file
+except ImportError as importError:
+    print(f"{ERROR_HEADER} main")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
+    from functions.global_tools import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.global_tools")
+    print(importError)
+    exit(EXIT_FAILURE)
+
 ########################################################################################################################
 #
 # Functions
 #
-def compare_static(nr, static_data:json) -> bool:
+def compare_static(nr, ansible_vars=False, dict_keys="", your_keys={} ) -> bool:
 
     devices = nr.filter()
 
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
+    if ansible_vars is False:
+        static_data = open_file(f"{PATH_TO_VERITY_FILES}{STATIC_SRC_FILENAME}")
+    else:
+        static_data = dict
+
     data = devices.run(
         task=_compare_static,
         static_data=static_data,
+        ansible_vars=ansible_vars,
+        dict_keys=dict_keys,
+        your_keys=your_keys,
         on_failed=True,
         num_workers=10
     )
@@ -85,14 +108,81 @@ def compare_static(nr, static_data:json) -> bool:
 #
 # Compare function
 #
-def _compare_static(task, static_data:json, *, ansible_vars=False:bool, dict_keys="":str, your_keys={}:dict):
-    pass
+def _compare_static(task, static_data:json, *, ansible_vars=False, dict_keys="", your_keys={}):
+
+    verity_static = ListStatic(
+        static_routes_lst=list()
+    )
+
+    if ansible_vars:
+        verity_static =  _retrieve_in_ansible_vars(
+            task=task,
+            dict_keys=dict_keys,
+            your_keys=your_keys
+        )
+
+    else:
+
+        for vrf_name, facts_lst in static_data.get(task.host.name).items():
+            for facts in facts_lst:
+
+                if facts.get('netmask', NOT_SET) == NOT_SET:
+
+                    index_slash = str(facts.get('prefix')).find("/")
+
+                    if is_cidr_notation(str(facts.get('prefix'))[index_slash + 1:]):
+                        if is_valid_cidr_netmask(str(facts.get('prefix'))[index_slash + 1:]):
+                            netmask = convert_cidr_to_netmask(str(facts.get('prefix'))[index_slash + 1:])
+                        else:
+                            netmask = NOT_SET
+                    else:
+                        netmask = str(facts.get('prefix'))[index_slash + 1:]
+
+                    static_obj = Static(
+                        vrf_name=vrf_name,
+                        prefix=str(facts.get('prefix'))[:index_slash],
+                        netmask=netmask,
+                        nexthop=facts.get('nexthop', NOT_SET),
+                        is_in_fib=facts.get('is_in_fib', NOT_SET),
+                        out_interface=facts.get('out_interface', NOT_SET),
+                        preference=facts.get('preference', NOT_SET),
+                        metric=facts.get('metric', NOT_SET)
+                    )
+
+                else:
+
+                    if is_cidr_notation(facts.get('netmask', NOT_SET)):
+                        if is_valid_cidr_netmask(facts.get('netmask', NOT_SET)):
+                            netmask = convert_cidr_to_netmask(facts.get('netmask', NOT_SET))
+                        else:
+                            netmask = NOT_SET
+                    else:
+                        netmask = facts.get('netmask', NOT_SET)
+
+                    static_obj = Static(
+                        vrf_name=vrf_name,
+                        prefix=facts.get('prefix', NOT_SET),
+                        netmask=netmask,
+                        nexthop=facts.get('nexthop', NOT_SET),
+                        is_in_fib=facts.get('is_in_fib', NOT_SET),
+                        out_interface=facts.get('out_interface', NOT_SET),
+                        preference=facts.get('preference', NOT_SET),
+                        metric=facts.get('metric', NOT_SET)
+                    )
+
+                verity_static.static_routes_lst.append(static_obj)
+
+    is_same = verity_static == task.host[STATIC_DATA_HOST_KEY]
+
+    task.host[STATIC_WORKS_KEY] = is_same
+
+    return is_same
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Compare function
 #
-def _retrieve_in_ansible_vars(task, dict_keys="":str, your_keys={}:dict) -> ListStatic:
+def _retrieve_in_ansible_vars(task, dict_keys="", your_keys={}) -> ListStatic:
     """
     This function will automatically retrieve data in Ansible vars.
 
@@ -108,71 +198,67 @@ def _retrieve_in_ansible_vars(task, dict_keys="":str, your_keys={}:dict) -> List
 
     if dict_keys != "": 
 
-        dyn_keys_lst = str(dict_keys).split(":")    
-        res = task.host.get(dyn_keys_lst[0], {})
-        
+        dyn_keys_lst = str(dict_keys).split(">")
+        res = task.host.get(dyn_keys_lst[0], dict)
+
         if len(dyn_keys_lst) > 1:
-            for key in dyn_keys_lst[1:]:
-                res = res.get(key, {})
-        
-        for vrf_name, facts in res.items():
-            
-            prefix_key = your_keys.get('prefix', 'prefix')
-            netmask_key = your_keys.get('netmask', 'netmask')
-            nexthop_key = your_keys.get('nexthop', 'nexthop')
-            preference_key = your_keys.get('preference', 'preference')
-            metric_key = your_keys.get('metric', 'metric')   
+            for key in dyn_keys_lst[1:]:
+                res = res.get(key, {})
 
-            if acts.get('is_in_fib', NOT_SET) == NOT_SET:
+        for vrf_name, facts_lst in res.items():
+            for facts in facts_lst:
 
-                index_slash = str(facts.get(prefix_key).find("/")
+                prefix_key = your_keys.get('prefix', 'prefix')
+                netmask_key = your_keys.get('netmask', 'netmask')
+                nexthop_key = your_keys.get('nexthop', 'nexthop')
+                preference_key = your_keys.get('preference', 'preference')
+                metric_key = your_keys.get('metric', 'metric')
 
-                static_obj = Static(
-                    vrf_name=vrf_name,
-                    prefix=str(facts.get(prefix_key))[:index_slash],
-                    netmask=str(facts.get(prefix_key))[index_slash+1:],
-                    nexthop=facts.get(nexthop_key, NOT_SET),
-                    is_in_fib=facts.get('is_in_fib', NOT_SET),
-                    out_interface=facts.get('out_interface', NOT_SET),
-                    preference=facts.get(preference_key, NOT_SET),
-                    metric=facts.get(metric_key, NOT_SET)
-                )
+                if facts.get(netmask_key, NOT_SET) == NOT_SET:
+
+                    index_slash = str(facts.get(prefix_key)).find("/")
+
+                    if is_cidr_notation(str(facts.get(prefix_key))[index_slash+1:]):
+                        if is_valid_cidr_netmask(str(facts.get(prefix_key))[index_slash+1:]):
+                            netmask = convert_cidr_to_netmask(str(facts.get(prefix_key))[index_slash+1:])
+                        else:
+                            netmask = NOT_SET
+                    else:
+                        netmask = str(facts.get(prefix_key))[index_slash+1:]
+
+                    static_obj = Static(
+                        vrf_name=vrf_name,
+                        prefix=str(facts.get(prefix_key))[:index_slash],
+                        netmask=netmask,
+                        nexthop=facts.get(nexthop_key, NOT_SET),
+                        is_in_fib=facts.get('is_in_fib', NOT_SET),
+                        out_interface=facts.get('out_interface', NOT_SET),
+                        preference=facts.get(preference_key, NOT_SET),
+                        metric=facts.get(metric_key, NOT_SET)
+                    )
                 
-            else:
+                else:
 
-                static_obj = Static(
-                    vrf_name=vrf_name,
-                    prefix=facts.get(prefix_key, NOT_SET),
-                    netmask=facts.get(netmask_key, NOT_SET),
-                    nexthop=facts.get(nexthop_key, NOT_SET),
-                    is_in_fib=facts.get('is_in_fib', NOT_SET),
-                    out_interface=facts.get('out_interface', NOT_SET),
-                    preference=facts.get(preference_key, NOT_SET),
-                    metric=facts.get(metric_key, NOT_SET)
-                )
+                    if is_cidr_notation(facts.get(netmask_key, NOT_SET)):
+                        if is_valid_cidr_netmask(facts.get(netmask_key, NOT_SET)):
+                            netmask = convert_cidr_to_netmask(facts.get(netmask_key, NOT_SET))
+                        else:
+                            netmask = NOT_SET
+                    else:
+                        netmask = facts.get(netmask_key, NOT_SET)
+
+                    static_obj = Static(
+                        vrf_name=vrf_name,
+                        prefix=facts.get(prefix_key, NOT_SET),
+                        netmask=netmask,
+                        nexthop=facts.get(nexthop_key, NOT_SET),
+                        is_in_fib=facts.get('is_in_fib', NOT_SET),
+                        out_interface=facts.get('out_interface', NOT_SET),
+                        preference=facts.get(preference_key, NOT_SET),
+                        metric=facts.get(metric_key, NOT_SET)
+                    )
     
-            static_routes_lst.static_routes_lst.append(static_obj)    
-                
+                static_routes_lst.static_routes_lst.append(static_obj)
+
     return static_routes_lst
-
-"""
-def find_in_dict(path_list, dic):
-    if path_list and dic:
-        res = dic.get(path_list[0], {})
-        for key in path_list[1:]:
-            res = res.get(key, {})
-        return res
-    return {}
-
-
-
-a = ["a", "b", "c"]
-dic_a = {"a": {"b": {"c": "yeah man"}}}
-print(find_in_dict(a, dic_a))
-"""
-
-        
-
-
-
 

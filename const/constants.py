@@ -84,7 +84,7 @@ YAML_DEVICES_KEY = 'devices'
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
 CUMULUS_GET_BGP_VRF = "net show bgp vrf {} summary json"
-CUMULUS_GET_VRF = "net show vrf"
+CUMULUS_GET_VRF = "net show bgp vrf"
 CUMULUS_GET_LLDP_CDP = "net show lldp json"
 CUMULUS_GET_OSPF = "net show ospf neighbor detail json"
 CUMULUS_GET_OSPF_VRF = "net show ospf vrf {} neighbor detail json"

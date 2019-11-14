@@ -2,3 +2,20 @@ hostname: 10.0.5.101
 username: cumulus
 password: CumulusLinux!
 platform: linux
+
+
+routing:
+  static:
+    ipv4:
+      default:
+        - subnet: 10.255.255.201
+          mask: 32
+          via: 10.1.1.2
+        - subnet: 10.255.255.202/32
+          via: 10.1.2.2
+        - subnet: 10.255.255.203/32
+          via: 10.1.3.2
+
+      mgmt:
+        - subnet: 0.0.0.0/0
+          via: 10.0.5.1

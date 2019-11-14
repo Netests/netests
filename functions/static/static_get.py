@@ -172,7 +172,7 @@ def _cumulus_get_static(task):
             if output.result != "":
                 outputs_lst.append(json.loads(output.result))
 
-    static_routes = _cumulus_static_converter(task.host.name, outputs_lst)
+    static_routes = _cumulus_static_converter(task.host.name, outputs_lst, task.host[VRF_NAME_DATA_KEY])
 
     task.host[STATIC_DATA_HOST_KEY] = static_routes
 

@@ -30,6 +30,13 @@ except ImportError as importError:
     print(importError)
     exit(EXIT_FAILURE)
 
+try:
+    from functions.global_tools import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.global_tools")
+    print(importError)
+    exit(EXIT_FAILURE)
+
 ########################################################################################################################
 #
 # STATIC ROUTE CLASS
@@ -54,7 +61,15 @@ class Static:
                  out_interface=NOT_SET, preference=NOT_SET, metric=NOT_SET):
         self.vrf_name = vrf_name
         self.prefix = prefix
-        self.netmask = netmask
+
+        if is_cidr_notation(netmask):
+            if is_valid_cidr_netmask(netmask):
+                self.netmask = convert_cidr_to_netmask(netmask)
+            else:
+                self.netmask = NOT_SET
+        else:
+            self.netmask = netmask
+
         self.nexthop = nexthop
         self.is_in_fib = is_in_fib
         self.out_interface = out_interface
@@ -69,8 +84,8 @@ class Static:
             return NotImplemented
 
         return ((str(self.vrf_name) == str(other.vrf_name)) and
-                (str(self.prefix) == str(other.prefix))
-                (str(self.netmask) == str(other.netmask))
+                (str(self.prefix) == str(other.prefix)) and
+                (str(self.netmask) == str(other.netmask)) and
                 (str(self.nexthop) == str(other.nexthop)))
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -105,6 +120,7 @@ class ListStatic:
     #
     def __eq__(self, others):
         if not isinstance(others, ListStatic):
+            print(type(others))
             raise NotImplemented
 
         for static_route in self.static_routes_lst:

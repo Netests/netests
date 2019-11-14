@@ -160,7 +160,7 @@ class IPV4(IP):
         """
 
         return str(cidr_netmask).isdigit() and \
-               int(cidr_netmask) > 0 and \
+               int(cidr_netmask) >= 0 and \
                int(cidr_netmask) <= 32
 
     # ------------------------------------------------------------------------------------------------------------------

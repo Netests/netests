@@ -28,8 +28,9 @@ static:
   level: NOT_IMPLEMENTED
   ansible_vars:
     enable: true
-    dict_keys: routes
+    dict_keys: routing>static>ipv4
     your_keys:
-      prefix: network
-      nexthop: gateway
+      prefix: subnet
+      nexthop: via
+      netmask: mask
       preference: pref
