@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 """
@@ -23,6 +23,9 @@ HEADER = "[netests - main.py]"
 #
 # Import Library
 #
+
+import helpers
+
 try:
     from const.constants import *
 except ImportError as importError:
@@ -117,14 +120,16 @@ except ImportError as importError:
 #
 # Functions
 #
-def init_nornir(log_file="./nornir/nornir.log", log_level=NORNIR_DEBUG_MODE, ansible=False, virtual=False) -> Nornir:
+def init_nornir(log_file="./nornir/nornir.log", log_level=NORNIR_DEBUG_MODE,
+                ansible=False, virtual=False, netbox=False) -> Nornir:
     """
     Initialize Nornir object with the following files
     """
 
     config_file = str()
-
-    if ansible:
+    if netbox:
+        config_file = "./nornir/config_netbox.yml"
+    elif ansible:
         if virtual:
             config_file= "./nornir/config_ansible_virt.yml"
         else:
@@ -193,9 +198,11 @@ def execute_test():
 @click.command()
 @click.option('--ansible', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY}")
 @click.option('--virtual', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}")
+@click.option('--netbox', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}")
 @click.option('--tests', default=False, help=f"If TRUE, only compilation tests will be executed")
 @click.option('--reports', default=False, help=f"If TRUE, configuration reports will be create")
-def main(ansible, virtual, tests, reports):
+@click.option('--verbose', default=False, help=f"If TRUE, print fome information about inventory")
+def main(ansible, virtual, netbox, tests, reports, verbose):
 
     if tests:
         execute_test()
@@ -206,10 +213,15 @@ def main(ansible, virtual, tests, reports):
         log_file="./nornir/nornir.log",
         log_level="debug",
         ansible=ansible,
-        virtual=virtual
+        virtual=virtual,
+        netbox=netbox
     )
 
     print(nr.inventory.hosts)
+
+    if verbose:
+        for host in nr.inventory.hosts:
+            print(nr.inventory.hosts[host].data)
 
     test_to_execute = open_file(PATH_TO_VERITY_FILES+TEST_TO_EXECUTE_FILENAME)
 
