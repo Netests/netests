@@ -32,7 +32,7 @@ except ImportError as importError:
     print(importError)
 
 try:
-    from protocols.static import Static, ListStatic
+    from protocols.static import Nexthop, ListNexthop, Static, ListStatic
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.static")
     exit(EXIT_FAILURE)
@@ -73,9 +73,13 @@ def _cumulus_static_converter(hostname:str(), cmd_outputs:list, vrf_dict:dict())
 
             for prefix in cmd_output.get('ipv4 unicast').keys():
 
-                for facts in cmd_output.get('ipv4 unicast').get(prefix):
+                nexthops_lst = ListNexthop(
+                    nexthops_lst=list()
+                )
 
-                    index_slash = str(facts.get('prefix')).find("/")
+                index_slash = str(prefix).find("/")
+
+                for facts in cmd_output.get('ipv4 unicast').get(prefix):
 
                     real_vrf = ""
                     for vrf, vrfid in vrf_dict.items():
@@ -85,37 +89,62 @@ def _cumulus_static_converter(hostname:str(), cmd_outputs:list, vrf_dict:dict())
                         except Exception as e:
                             pass
 
-                    static_obj = Static(
-                        vrf_name=real_vrf,
-                        prefix=str(facts.get('prefix'))[:index_slash],
-                        netmask=str(facts.get('prefix'))[index_slash+1:],
-                        nexthop=facts.get('nexthops')[0].get('ip', NOT_SET),
-                        is_in_fib=facts.get('nexthops')[0].get('fib', NOT_SET),
-                        out_interface=facts.get('nexthops')[0].get('interfaceName', NOT_SET),
-                        preference=facts.get('distance', NOT_SET),
-                        metric=facts.get('metric', NOT_SET)
-                    )
+                    for nexthop in facts.get('nexthops'):
 
-                    static_routes_lst.static_routes_lst.append(static_obj)
+                        nexthop_obj = Nexthop(
+                            ip_address=nexthop.get('ip', NOT_SET),
+                            is_in_fib=nexthop.get('nexthops', False),
+                            out_interface=_mapping_interface_name(nexthop.get('interfaceName', NOT_SET)),
+                            preference=facts.get('distance', NOT_SET),
+                            metric=facts.get('metric', NOT_SET),
+                            active=nexthop.get('nexthops', False)
+                        )
+
+                        nexthops_lst.nexthops_lst.append(nexthop_obj)
+
+                static_obj = Static(
+                    vrf_name=real_vrf,
+                    prefix=str(prefix)[:index_slash],
+                    netmask=str(prefix)[index_slash+1:],
+                    nexthop=nexthops_lst
+                )
+
+                static_routes_lst.static_routes_lst.append(static_obj)
 
         else:
             for prefix in cmd_output.keys():
 
+                nexthops_lst = ListNexthop(
+                    nexthops_lst=list()
+                )
+
+                index_slash = str(prefix).find("/")
+
                 for facts in cmd_output.get(prefix):
+
                     index_slash = str(facts.get('prefix')).find("/")
 
-                    static_obj = Static(
-                        vrf_name="default",
-                        prefix=str(facts.get('prefix'))[:index_slash],
-                        netmask=str(facts.get('prefix'))[index_slash+1:],
-                        nexthop=facts.get('nexthops')[0].get('ip', NOT_SET),
-                        is_in_fib=facts.get('nexthops')[0].get('fib', NOT_SET),
-                        out_interface=_mapping_interface_name(facts.get('nexthops')[0].get('interfaceName', NOT_SET)),
-                        preference=facts.get('distance', NOT_SET),
-                        metric=facts.get('metric', NOT_SET)
-                    )
+                    for nexthop in facts.get('nexthops'):
 
-                    static_routes_lst.static_routes_lst.append(static_obj)
+                        nexthop_obj = Nexthop(
+                            ip_address=nexthop.get('ip', NOT_SET),
+                            is_in_fib=nexthop.get('nexthops', False),
+                            out_interface=_mapping_interface_name(nexthop.get('interfaceName', NOT_SET)),
+                            preference=facts.get('distance', NOT_SET),
+                            metric=facts.get('metric', NOT_SET),
+                            active=nexthop.get('nexthops', False)
+                        )
+
+                        nexthops_lst.nexthops_lst.append(nexthop_obj)
+
+                static_obj = Static(
+                    vrf_name="default",
+                    prefix=str(prefix)[:index_slash],
+                    netmask=str(prefix)[index_slash+1:],
+                    nexthop=nexthops_lst
+                )
+
+                static_routes_lst.static_routes_lst.append(static_obj)
 
     return static_routes_lst
 

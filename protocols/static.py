@@ -39,6 +39,103 @@ except ImportError as importError:
 
 ########################################################################################################################
 #
+# NEXTHOP CLASS
+#
+class Nexthop:
+
+    ip_address: str
+    is_in_fib: str
+    out_interface: str
+    preference: str  # or distance
+    metric: str
+    active: str
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __init__(self, ip_address=NOT_SET, is_in_fib=NOT_SET, out_interface=NOT_SET, preference=NOT_SET,
+                 metric=NOT_SET, active=NOT_SET ):
+        self.ip_address = ip_address
+        self.is_in_fib = is_in_fib
+        self.out_interface = out_interface
+        self.preference = preference
+        self.metric = metric
+        self.active = active
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __eq__(self, other):
+        if not isinstance(other, Nexthop):
+            return NotImplemented
+
+        # Basic
+        return (str(self.ip_address) == str(other.ip_address))
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __repr__(self):
+        return f"<Nexthop ip_address={self.ip_address} " \
+               f"is_in_fib={self.is_in_fib} " \
+               f"out_interface={self.out_interface} " \
+               f"preference={self.preference} " \
+               f"metric={self.metric}" \
+               f"active={self.active}>\n"
+
+
+########################################################################################################################
+#
+# LIST EXTHOP CLASS
+#
+class ListNexthop:
+
+    nexthops_lst: list
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __init__(self, nexthops_lst: list()):
+        self.nexthops_lst = nexthops_lst
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __eq__(self, others):
+        if not isinstance(others, ListNexthop):
+            print(type(others))
+            raise NotImplemented
+
+        for nexthop in self.nexthops_lst:
+            if nexthop not in others.nexthops_lst:
+                print(
+                    f"[ListNexthop - __eq__] - The following NEXTHOP is not in the list \n {nexthop}")
+                print(
+                    f"[ListNexthop - __eq__] - List: \n {others.nexthops_lst}")
+                return False
+
+        for nexthop in others.nexthops_lst:
+            if nexthop not in self.nexthops_lst:
+                print(
+                    f"[ListNexthop - __eq__] - The following NEXTHOP is not in the list \n {nexthop}")
+                print(
+                    f"[ListNexthop - __eq__] - List: \n {self.nexthops_lst}")
+                return False
+
+        return True
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __repr__(self):
+        result = "<ListNexthop \n"
+        for nexthop in self.nexthops_lst:
+            result = result + f"{nexthop}"
+        return result + ">"
+
+
+########################################################################################################################
+#
 # STATIC ROUTE CLASS
 #
 class Static:
@@ -46,19 +143,12 @@ class Static:
     vrf_name: str
     prefix: str
     netmask: str
-    nexthop: str
-
-    # The following values are not used by the __eq__ function !!
-    is_in_fib: str
-    out_interface: str
-    preference: str # or distance
-    metric: str
+    nexthop: Nexthop
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, vrf_name=NOT_SET, prefix=NOT_SET, netmask=NOT_SET, nexthop=NOT_SET, is_in_fib=NOT_SET,
-                 out_interface=NOT_SET, preference=NOT_SET, metric=NOT_SET):
+    def __init__(self, vrf_name=NOT_SET, prefix=NOT_SET, netmask=NOT_SET, nexthop=Nexthop()):
         self.vrf_name = vrf_name
         self.prefix = prefix
 
@@ -71,10 +161,6 @@ class Static:
             self.netmask = netmask
 
         self.nexthop = nexthop
-        self.is_in_fib = is_in_fib
-        self.out_interface = out_interface
-        self.preference = preference
-        self.metric = metric
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -95,11 +181,7 @@ class Static:
         return f"<Static vrf_name={self.vrf_name} " \
                f"prefix={self.prefix} " \
                f"netmask={self.netmask} " \
-               f"nexthop={self.nexthop} " \
-               f"is_in_fib={self.is_in_fib} " \
-               f"out_interface={self.out_interface} "\
-               f"preference={self.preference} " \
-               f"metric={self.metric}>\n"
+               f"nexthop={self.nexthop}>\n"
 
 ########################################################################################################################
 #
