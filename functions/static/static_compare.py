@@ -33,7 +33,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from protocols.static import Static, ListStatic
+    from protocols.static import Nexthop, ListNexthop, Static, ListStatic
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.static")
     exit(EXIT_FAILURE)
@@ -93,7 +93,7 @@ def compare_static(nr, ansible_vars=False, dict_keys="", your_keys={} ) -> bool:
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
     return_value = True
 
@@ -138,15 +138,28 @@ def _compare_static(task, static_data:json, *, ansible_vars=False, dict_keys="",
                     else:
                         netmask = str(facts.get('prefix'))[index_slash + 1:]
 
+                    nexthops_lst = ListNexthop(
+                        nexthops_lst=list()
+                    )
+
+                    for nexthop in facts.get('nexthop', NOT_SET):
+
+                        nexthop_obj = Nexthop(
+                            ip_address=nexthop.get('ip_address', NOT_SET),
+                            is_in_fib=nexthop.get('is_in_fib', False),
+                            out_interface=nexthop.get('out_interface', NOT_SET),
+                            preference=nexthop.get('preference', NOT_SET),
+                            metric=nexthop.get('metric', NOT_SET),
+                            active=nexthop.get('metric', NOT_SET)
+                        )
+
+                        nexthops_lst.nexthops_lst.append(nexthop_obj)
+
                     static_obj = Static(
                         vrf_name=vrf_name,
                         prefix=str(facts.get('prefix'))[:index_slash],
                         netmask=netmask,
-                        nexthop=facts.get('nexthop', NOT_SET),
-                        is_in_fib=facts.get('is_in_fib', NOT_SET),
-                        out_interface=facts.get('out_interface', NOT_SET),
-                        preference=facts.get('preference', NOT_SET),
-                        metric=facts.get('metric', NOT_SET)
+                        nexthop=nexthops_lst
                     )
 
                 else:
@@ -159,15 +172,28 @@ def _compare_static(task, static_data:json, *, ansible_vars=False, dict_keys="",
                     else:
                         netmask = facts.get('netmask', NOT_SET)
 
+                    nexthops_lst = ListNexthop(
+                        nexthops_lst=list()
+                    )
+
+                    for nexthop in facts.get('nexthop', NOT_SET):
+
+                        nexthop_obj = Nexthop(
+                            ip_address=nexthop.get('ip_address', NOT_SET),
+                            is_in_fib=nexthop.get('is_in_fib', False),
+                            out_interface=nexthop.get('out_interface', NOT_SET),
+                            preference=nexthop.get('preference', NOT_SET),
+                            metric=nexthop.get('metric', NOT_SET),
+                            active=nexthop.get('metric', NOT_SET)
+                        )
+
+                        nexthops_lst.nexthops_lst.append(nexthop_obj)
+
                     static_obj = Static(
                         vrf_name=vrf_name,
                         prefix=facts.get('prefix', NOT_SET),
                         netmask=netmask,
-                        nexthop=facts.get('nexthop', NOT_SET),
-                        is_in_fib=facts.get('is_in_fib', NOT_SET),
-                        out_interface=facts.get('out_interface', NOT_SET),
-                        preference=facts.get('preference', NOT_SET),
-                        metric=facts.get('metric', NOT_SET)
+                        nexthop=nexthops_lst
                     )
 
                 verity_static.static_routes_lst.append(static_obj)
@@ -213,6 +239,7 @@ def _retrieve_in_ansible_vars(task, dict_keys="", your_keys={}) -> ListStatic:
                 nexthop_key = your_keys.get('nexthop', 'nexthop')
                 preference_key = your_keys.get('preference', 'preference')
                 metric_key = your_keys.get('metric', 'metric')
+                ip_address_key = your_keys.get('ip_address', 'ip')
 
                 if facts.get(netmask_key, NOT_SET) == NOT_SET:
 
@@ -226,15 +253,28 @@ def _retrieve_in_ansible_vars(task, dict_keys="", your_keys={}) -> ListStatic:
                     else:
                         netmask = str(facts.get(prefix_key))[index_slash+1:]
 
+                    nexthops_lst = ListNexthop(
+                        nexthops_lst=list()
+                    )
+
+                    for nexthop in facts.get(nexthop_key, NOT_SET):
+
+                        nexthop_obj = Nexthop(
+                            ip_address=nexthop.get(ip_address_key, NOT_SET),
+                            is_in_fib=nexthop.get('is_in_fib', False),
+                            out_interface=nexthop.get('out_interface', NOT_SET),
+                            preference=nexthop.get(preference_key, NOT_SET),
+                            metric=nexthop.get(metric_key, NOT_SET),
+                            active=nexthop.get('active', NOT_SET)
+                        )
+
+                        nexthops_lst.nexthops_lst.append(nexthop_obj)
+
                     static_obj = Static(
                         vrf_name=vrf_name,
                         prefix=str(facts.get(prefix_key))[:index_slash],
                         netmask=netmask,
-                        nexthop=facts.get(nexthop_key, NOT_SET),
-                        is_in_fib=facts.get('is_in_fib', NOT_SET),
-                        out_interface=facts.get('out_interface', NOT_SET),
-                        preference=facts.get(preference_key, NOT_SET),
-                        metric=facts.get(metric_key, NOT_SET)
+                        nexthop=nexthops_lst
                     )
                 
                 else:
@@ -247,15 +287,28 @@ def _retrieve_in_ansible_vars(task, dict_keys="", your_keys={}) -> ListStatic:
                     else:
                         netmask = facts.get(netmask_key, NOT_SET)
 
+                    nexthops_lst = ListNexthop(
+                        nexthops_lst=list()
+                    )
+
+                    for nexthop in facts.get(nexthop_key, NOT_SET):
+
+                        nexthop_obj = Nexthop(
+                            ip_address=nexthop.get(ip_address_key, NOT_SET),
+                            is_in_fib=nexthop.get('is_in_fib', False),
+                            out_interface=nexthop.get('out_interface', NOT_SET),
+                            preference=nexthop.get(preference_key, NOT_SET),
+                            metric=nexthop.get(metric_key, NOT_SET),
+                            active=nexthop.get('active', NOT_SET)
+                        )
+
+                        nexthops_lst.nexthops_lst.append(nexthop_obj)
+
                     static_obj = Static(
                         vrf_name=vrf_name,
                         prefix=facts.get(prefix_key, NOT_SET),
                         netmask=netmask,
-                        nexthop=facts.get(nexthop_key, NOT_SET),
-                        is_in_fib=facts.get('is_in_fib', NOT_SET),
-                        out_interface=facts.get('out_interface', NOT_SET),
-                        preference=facts.get(preference_key, NOT_SET),
-                        metric=facts.get(metric_key, NOT_SET)
+                        nexthop=nexthops_lst
                     )
     
                 static_routes_lst.static_routes_lst.append(static_obj)

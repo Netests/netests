@@ -8,6 +8,32 @@
                     "TABLE_prefix": {
                         "ROW_prefix": [
                             {
+                                "ipprefix": "2.2.2.2/32",
+                                "ucast-nhops": "2",
+                                "mcast-nhops": "0",
+                                "attached": "false",
+                                "TABLE_path": {
+                                    "ROW_path": [
+                                        {
+                                            "ipnexthop": "10.1.2.1",
+                                            "uptime": "PT15M10S",
+                                            "pref": "1",
+                                            "metric": "0",
+                                            "clientname": "static",
+                                            "ubest": "true"
+                                        },
+                                        {
+                                            "ipnexthop": "10.22.33.2",
+                                            "uptime": "PT15M14S",
+                                            "pref": "1",
+                                            "metric": "0",
+                                            "clientname": "static",
+                                            "ubest": "true"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
                                 "ipprefix": "10.255.255.101/32",
                                 "ucast-nhops": "1",
                                 "mcast-nhops": "0",
@@ -15,7 +41,7 @@
                                 "TABLE_path": {
                                     "ROW_path": {
                                         "ipnexthop": "10.1.2.1",
-                                        "uptime": "P16DT23H31M41S",
+                                        "uptime": "P18DT23H3M10S",
                                         "pref": "1",
                                         "metric": "0",
                                         "clientname": "static",
@@ -31,7 +57,7 @@
                                 "TABLE_path": {
                                     "ROW_path": {
                                         "ipnexthop": "10.22.33.2",
-                                        "uptime": "P16DT23H30M55S",
+                                        "uptime": "P18DT23H2M24S",
                                         "pref": "1",
                                         "metric": "0",
                                         "clientname": "static",

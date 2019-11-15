@@ -167,20 +167,48 @@ def _nexus_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:
                 for facts in cmd_output.get('TABLE_vrf').get('ROW_vrf').get('TABLE_addrf').get('ROW_addrf').get(
                         'TABLE_prefix').get('ROW_prefix'):
 
+                    nexthops_lst = ListNexthop(
+                        nexthops_lst=list()
+                    )
+
+                    if isinstance(facts.get('TABLE_path').get('ROW_path'), list):
+                        for nexthop in facts.get('TABLE_path').get('ROW_path'):
+
+                            nexthop_obj = Nexthop(
+                                ip_address=nexthop.get('ipnexthop', NOT_SET),
+                                is_in_fib=nexthop.get('always_true_in_nexus', True),
+                                out_interface=NOT_SET,
+                                preference=nexthop.get('pref', NOT_SET),
+                                metric=nexthop.get('metric', NOT_SET),
+                                active=nexthop.get('always_true_in_nexus', True),
+                            )
+
+                            nexthops_lst.nexthops_lst.append(nexthop_obj)
+
+
+                    elif isinstance(facts.get('TABLE_path').get('ROW_path'), dict):
+
+                        nexthop_obj = Nexthop(
+                            ip_address=facts.get('TABLE_path').get('ROW_path').get('ipnexthop', NOT_SET),
+                            is_in_fib=facts.get('TABLE_path').get('ROW_path').get('always_true_in_nexus', True),
+                            out_interface=NOT_SET,
+                            preference=facts.get('TABLE_path').get('ROW_path').get('pref', NOT_SET),
+                            metric=facts.get('TABLE_path').get('ROW_path').get('metric', NOT_SET),
+                            active=facts.get('TABLE_path').get('ROW_path').get('always_true_in_nexus', True)
+                        )
+
+                        nexthops_lst.nexthops_lst.append(nexthop_obj)
+
                     index_slash = str(facts.get('ipprefix')).find("/")
 
                     static_obj = Static(
                         vrf_name=cmd_output.get('TABLE_vrf').get('ROW_vrf').get('vrf-name-out', NOT_SET),
                         prefix=str(facts.get('ipprefix'))[:index_slash],
                         netmask=str(facts.get('ipprefix'))[index_slash + 1:],
-                        nexthop=facts.get('TABLE_path').get('ROW_path').get('ipnexthop', NOT_SET),
-                        is_in_fib=facts.get('TABLE_path').get('ROW_path').get('ubest', NOT_SET),
-                        out_interface=NOT_SET,
-                        preference=facts.get('TABLE_path').get('ROW_path').get('pref', NOT_SET),
-                        metric=facts.get('TABLE_path').get('ROW_path').get('metric', NOT_SET)
+                        nexthop=nexthops_lst
                     )
 
-                static_routes_lst.static_routes_lst.append(static_obj)
+                    static_routes_lst.static_routes_lst.append(static_obj)
 
             elif isinstance(cmd_output.get('TABLE_vrf').get('ROW_vrf').get('TABLE_addrf').get('ROW_addrf').get(
                     'TABLE_prefix').get('ROW_prefix'), dict):
@@ -188,21 +216,50 @@ def _nexus_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:
                 for facts in cmd_output.get('TABLE_vrf').get('ROW_vrf').get('TABLE_addrf').get('ROW_addrf').get(
                         'TABLE_prefix').values():
 
+                    nexthops_lst = ListNexthop(
+                        nexthops_lst=list()
+                    )
+
+                    if isinstance(facts.get('TABLE_path').get('ROW_path'), list):
+                        for nexthop in facts.get('TABLE_path').get('ROW_path'):
+
+                            nexthop_obj = Nexthop(
+                                ip_address=nexthop.get('ipnexthop', NOT_SET),
+                                is_in_fib=nexthop.get('always_true_in_nexus', True),
+                                out_interface=NOT_SET,
+                                preference=nexthop.get('pref', NOT_SET),
+                                metric=nexthop.get('metric', NOT_SET),
+                                active=nexthop.get('always_true_in_nexus', True),
+                            )
+
+                            nexthops_lst.nexthops_lst.append(nexthop_obj)
+
+
+                    elif isinstance(facts.get('TABLE_path').get('ROW_path'), dict):
+
+                        nexthop_obj = Nexthop(
+                            ip_address=facts.get('TABLE_path').get('ROW_path').get('ipnexthop', NOT_SET),
+                            is_in_fib=facts.get('TABLE_path').get('ROW_path').get('always_true_in_nexus', True),
+                            out_interface=NOT_SET,
+                            preference=facts.get('TABLE_path').get('ROW_path').get('pref', NOT_SET),
+                            metric=facts.get('TABLE_path').get('ROW_path').get('metric', NOT_SET),
+                            active=facts.get('TABLE_path').get('ROW_path').get('always_true_in_nexus', True)
+                        )
+
+                        nexthops_lst.nexthops_lst.append(nexthop_obj)
+
                     index_slash = str(facts.get('ipprefix')).find("/")
 
                     static_obj = Static(
                         vrf_name=cmd_output.get('TABLE_vrf').get('ROW_vrf').get('vrf-name-out', NOT_SET),
                         prefix=str(facts.get('ipprefix'))[:index_slash],
                         netmask=str(facts.get('ipprefix'))[index_slash + 1:],
-                        nexthop=facts.get('TABLE_path').get('ROW_path').get('ipnexthop', NOT_SET),
-                        is_in_fib=facts.get('TABLE_path').get('ROW_path').get('ubest', NOT_SET),
-                        out_interface=NOT_SET,
-                        preference=facts.get('TABLE_path').get('ROW_path').get('pref', NOT_SET),
-                        metric=facts.get('TABLE_path').get('ROW_path').get('metric', NOT_SET)
+                        nexthop=nexthops_lst
                     )
 
-                static_routes_lst.static_routes_lst.append(static_obj)
+                    static_routes_lst.static_routes_lst.append(static_obj)
 
+    print(static_routes_lst)
     return static_routes_lst
 
 
@@ -224,15 +281,28 @@ def _arista_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:
 
                 index_slash = str(prefix).find("/")
 
+                nexthops_lst = ListNexthop(
+                    nexthops_lst=list()
+                )
+
+                for nexthop in facts.get('vias'):
+
+                    nexthop_obj = Nexthop(
+                        ip_address=nexthop.get('nexthopAddr', NOT_SET),
+                        is_in_fib=nexthop.get('always_true_in_arista', True),
+                        out_interface=_mapping_interface_name(nexthop.get('interface', NOT_SET)),
+                        preference=facts.get('preference', NOT_SET),
+                        metric=facts.get('metric', NOT_SET),
+                        active=nexthop.get('always_true_in_arista', True)
+                    )
+
+                    nexthops_lst.nexthops_lst.append(nexthop_obj)
+
                 static_obj = Static(
                     vrf_name=vrf_name,
                     prefix=str(prefix)[:index_slash],
                     netmask=str(prefix)[index_slash + 1:],
-                    nexthop=facts.get('vias')[0].get('nexthopAddr', NOT_SET),
-                    is_in_fib=facts.get('kernelProgrammed'),
-                    out_interface=_mapping_interface_name(facts.get('vias')[0].get('interface', NOT_SET)),
-                    preference=facts.get('preference'),
-                    metric=facts.get('metric')
+                    nexthop=nexthops_lst
                 )
 
                 static_routes_lst.static_routes_lst.append(static_obj)

@@ -136,5 +136,8 @@ def _mapping_interface_name(int_name) -> str():
         index = get_first_digit_index(int_name)
         return str("mgmt").lower() + int_name[index:]
 
+    elif str(int_name) == NOT_SET:
+        return int_name
+
     else:
         return str(int_name).lower()

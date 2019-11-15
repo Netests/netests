@@ -31,6 +31,7 @@ static:
     dict_keys: routing>static>ipv4
     your_keys:
       prefix: subnet
+      ip_address: ip
       nexthop: via
       netmask: mask
       preference: pref

@@ -80,7 +80,7 @@ class Nexthop:
                f"is_in_fib={self.is_in_fib} " \
                f"out_interface={self.out_interface} " \
                f"preference={self.preference} " \
-               f"metric={self.metric}" \
+               f"metric={self.metric} " \
                f"active={self.active}>\n"
 
 
@@ -143,12 +143,12 @@ class Static:
     vrf_name: str
     prefix: str
     netmask: str
-    nexthop: Nexthop
+    nexthop: ListNexthop
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, vrf_name=NOT_SET, prefix=NOT_SET, netmask=NOT_SET, nexthop=Nexthop()):
+    def __init__(self, vrf_name=NOT_SET, prefix=NOT_SET, netmask=NOT_SET, nexthop=ListNexthop(list)):
         self.vrf_name = vrf_name
         self.prefix = prefix
 
@@ -172,7 +172,7 @@ class Static:
         return ((str(self.vrf_name) == str(other.vrf_name)) and
                 (str(self.prefix) == str(other.prefix)) and
                 (str(self.netmask) == str(other.netmask)) and
-                (str(self.nexthop) == str(other.nexthop)))
+                (self.nexthop == other.nexthop))
 
     # ------------------------------------------------------------------------------------------------------------------
     #
