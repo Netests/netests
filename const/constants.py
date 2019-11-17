@@ -66,6 +66,7 @@ OSPF_SRC_FILENAME = "ospf.yml"
 IPV4_SRC_FILENAME = "ipv4.yml"
 IPV6_SRC_FILENAME = "ipv6.yml"
 STATIC_SRC_FILENAME = "static.yml"
+INFOS_SRC_FILENAME = "infos.yml"
 TEST_TO_EXC_BGP_KEY = 'bgp'
 TEST_TO_EXC_BGP_UP_KEY = 'bgp_all_up'
 TEST_TO_EXC_VRF_KEY = 'vrf'
@@ -76,6 +77,7 @@ TEST_TO_EXC_OSPF_KEY = 'ospf'
 TEST_TO_EXC_IPV4_KEY = 'ipv4'
 TEST_TO_EXC_IPV6_KEY = 'ipv6'
 TEST_TO_EXC_STATIC_KEY = 'static'
+TEST_TO_EXC_INFOS_KEY = 'infos'
 
 YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
@@ -173,3 +175,7 @@ IPV4_WORKS_KEY = 'ipv4_works'
 ##### STATIC CONSTANTES
 STATIC_DATA_HOST_KEY = "static_data"
 STATIC_WORKS_KEY = "static_works"
+
+##### INFOS / FACTS CONST
+INFOS_DATA_HOST_KEY = "infos_data"
+INFOS_WORKS_KEY = "infos_works"
