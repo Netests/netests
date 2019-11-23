@@ -70,7 +70,7 @@ def compare_infos(nr, infos_data:json) -> bool:
         on_failed=True,
         num_workers=10
     )
-    # print_result(data)
+    #print_result(data)
 
     return_value = True
 
@@ -110,3 +110,4 @@ def _compare_infos(task, infos_data:json):
 
     else:
         print(f"Key {INFOS_DATA_HOST_KEY} is missing for {task.host.name}")
+        return False

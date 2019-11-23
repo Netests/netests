@@ -252,15 +252,72 @@ def _arista_retrieve_int_name(interface_data:list) -> list:
 # Juniper Network System Informations Converter
 #
 def _juniper_infos_converter(cmd_outputs:list) -> SystemInfos:
-    pass
 
+    if cmd_outputs == None:
+        return dict()
+
+    sys_info_obj = SystemInfos(
+        vendor="Juniper"
+    )
+
+    for key, facts in cmd_outputs.items():
+        if key == INFOS_SYS_DICT_KEY:
+
+            for element in cmd_outputs.get(INFOS_SYS_DICT_KEY).get("software-information"):
+
+                if "product-model"  in element.keys():
+                    sys_info_obj.model = element.get("product-model")[0].get("data", NOT_SET)
+
+                if "junos-version"  in element.keys():
+                    sys_info_obj.version = element.get("junos-version")[0].get("data", NOT_SET)
+
+
+        elif key == INFOS_MEMORY_DICT_KEY:
+
+            sys_info_obj.memory = cmd_outputs.get(INFOS_MEMORY_DICT_KEY).get("system-memory-information")[0].get(
+                "system-memory-summary-information")[0].get("system-memory-total")[0].get("data", NOT_SET)
+
+        elif key == INFOS_CONFIG_DICT_KEY:
+
+            sys_info_obj.hostname = cmd_outputs.get(INFOS_CONFIG_DICT_KEY).get("configuration").get("system").get("host-name", NOT_SET)
+            sys_info_obj.domain = cmd_outputs.get(INFOS_CONFIG_DICT_KEY).get("configuration").get("system").get("domain-name", NOT_SET)
+
+
+        elif key == INFOS_SERIAL_DICT_KEY:
+
+            sys_info_obj.serial = \
+                cmd_outputs.get(INFOS_SERIAL_DICT_KEY).get("chassis-inventory")[0].get("chassis")[0].get(
+                    "serial-number")[0].get("data", NOT_SET)
+
+        elif key == INFOS_INT_DICT_KEY:
+
+            sys_info_obj.interfaces_lst = _juniper_retrieve_int_name(
+                cmd_outputs.get(INFOS_INT_DICT_KEY).get("interface-information")[0].get("physical-interface")
+            )
+
+    return sys_info_obj
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Juniper Network interfacer filter
 #
-def _juniper_retrieve_int_name(interface_data:list) -> list:
-    pass
+def _juniper_retrieve_int_name(interface_data:dict) -> list:
+
+    int_name_lst = list()
+
+    for interface_name in interface_data:
+        if ("em" in interface_name.get("name")[0].get("data", NOT_SET) or \
+                "lo" in interface_name.get("name")[0].get("data", NOT_SET)  or \
+                "fxp" in interface_name.get("name")[0].get("data", NOT_SET)) and \
+                "demux" not in interface_name.get("name")[0].get("data", NOT_SET) and \
+                "local" not in interface_name.get("name")[0].get("data", NOT_SET) and \
+                interface_name.get("name")[0].get("data", NOT_SET) != NOT_SET:
+
+            int_name_lst.append(
+                _mapping_interface_name(interface_name.get("name")[0].get("data"))
+            )
+
+    return int_name_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

@@ -87,6 +87,9 @@ YAML_DEVICES_KEY = 'devices'
 ##### JUNOS COMMANDS
 JUNOS_GET_INFOS = "show version | display json"
 JUNOS_GET_INT = "show interfaces brief | display json"
+JUNOS_GET_MEMORY = "show system memory | display json"
+JUNOS_GET_CONFIG_SYSTEM = "show configuration system | display json"
+JUNOS_GET_SERIAL = "show chassis hardware detail | display json"
 
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
@@ -197,3 +200,6 @@ INFOS_SYS_DICT_KEY = "get_infos_sys"
 INFOS_SNMP_DICT_KEY = "get_infos_snmp"
 INFOS_INT_DICT_KEY = "get_infos_int"
 INFOS_DOMAIN_DICT_KEY = "get_infos_domain"
+INFOS_MEMORY_DICT_KEY = "get_infos_memory"
+INFOS_CONFIG_DICT_KEY = "get_infos_config"
+INFOS_SERIAL_DICT_KEY = "get_infos_serial"

@@ -116,3 +116,4 @@ def _compare_vrf(task, vrf_data:json):
 
     else:
         print(f"Key {VRF_DATA_KEY} is missing for {task.host.name}")
+        return False

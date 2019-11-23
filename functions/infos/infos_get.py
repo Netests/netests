@@ -53,6 +53,7 @@ try:
     from functions.infos.infos_converters import _cumulus_infos_converter
     from functions.infos.infos_converters import _nexus_infos_converter
     from functions.infos.infos_converters import _arista_infos_converter
+    from functions.infos.infos_converters import _juniper_infos_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.infos.infos_converters")
     print(importError)
@@ -81,7 +82,7 @@ def get_infos(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -309,7 +310,49 @@ def _juniper_get_infos(task):
     )
     # print(output.result)
 
-    print(output.result)
-
     if output.result != "":
         outputs_dict[INFOS_SYS_DICT_KEY] = (json.loads(output.result))
+
+    output = task.run(
+        name=f"{JUNOS_GET_INT}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_INT
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_INT_DICT_KEY] = (json.loads(output.result))
+
+    output = task.run(
+        name=f"{JUNOS_GET_MEMORY}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_MEMORY
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_MEMORY_DICT_KEY] = (json.loads(output.result))
+
+    output = task.run(
+        name=f"{JUNOS_GET_CONFIG_SYSTEM}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_CONFIG_SYSTEM
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_CONFIG_DICT_KEY] = (json.loads(output.result))
+
+    output = task.run(
+        name=f"{JUNOS_GET_SERIAL}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_SERIAL
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_SERIAL_DICT_KEY] = (json.loads(output.result))
+
+    system_infos = _juniper_infos_converter(outputs_dict)
+
+    task.host[INFOS_DATA_HOST_KEY] = system_infos

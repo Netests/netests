@@ -1,0 +1,700 @@
+{
+    "software-information" : [
+    {
+        "host-name" : [
+        {
+            "data" : "leaf04"
+        }
+        ],
+        "product-model" : [
+        {
+            "data" : "vmx"
+        }
+        ],
+        "product-name" : [
+        {
+            "data" : "vmx"
+        }
+        ],
+        "junos-version" : [
+        {
+            "data" : "18.1R2.6"
+        }
+        ],
+        "package-information" : [
+        {
+            "name" : [
+            {
+                "data" : "os-kernel"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS OS Kernel 64-bit  [20180518.0669ae9_builder_stable_11]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "os-libs"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS OS libs [20180518.0669ae9_builder_stable_11]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "os-runtime"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS OS runtime [20180518.0669ae9_builder_stable_11]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "zoneinfo"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS OS time zone information [20180518.0669ae9_builder_stable_11]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "netstack"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS network stack and utilities [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-libs"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS libs [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "os-libs-compat32"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS OS libs compat32 [20180518.0669ae9_builder_stable_11]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "os-compat32"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS OS 32-bit compatibility [20180518.0669ae9_builder_stable_11]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-libs-compat32"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS libs compat32 [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-runtime"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS runtime [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "vmguest"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Packet Forwarding Engine Simulation Package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "sflow-platform"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS sflow mx [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "py-extensions"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS py extensions [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "py-base"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS py base [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "os-vmguest"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS OS vmguest [20180518.0669ae9_builder_stable_11]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "os-crypto"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS OS crypto [20180518.0669ae9_builder_stable_11]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-libs-compat32-platform"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS mx libs compat32 [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-runtime-platform"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS mx runtime [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-platform"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS common platform support [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-net-platform"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS mtx network modules [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-modules"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS modules [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-modules-platform"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS mx modules [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-libs-platform"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS mx libs [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-dp-crypto-support-platform"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS mtx Data Plane Crypto Support [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-daemons"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS daemons [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "junos-daemons-platform"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS mx daemons [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jsim-wrlinux"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Simulation Linux Package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jsim-pfe-vmx"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Simulation Package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-urlf"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services URL Filter package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-traffic-dird"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services TLB Service PIC package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-telemetry"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services Telemetry [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-ssl"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services SSL [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-softwire"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services SOFTWIRE [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-sfw"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services Stateful Firewall [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-rpm"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services RPM [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-pcef"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services PCEF package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-nat"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services NAT [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-mss"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services Mobile Subscriber Service Container package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-mobile"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services MobileNext Software package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-lrf"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services Logging Report Framework package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-llpdf"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services LL-PDF Container package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-jflow"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services Jflow Container package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-jdpi"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services Deep Packet Inspection package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-ipsec"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services IPSec [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-ids"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services IDS [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-idp"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS IDP Services [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-hcm"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services HTTP Content Management package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-crypto-base"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services Crypto [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-cpcd"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services Captive Portal and Content Delivery Container package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-cos"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services COS [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-appid"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS AppId Services [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-alg"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services Application Level Gateways [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jservices-aacl"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Services AACL Container package [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jsd-jet-1"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Extension Toolkit [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jdocs"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS Online Documentation [20180906.211110_builder_junos_181_r2]"
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jail-runtime"
+            }
+            ],
+            "comment" : [
+            {
+                "data" : "JUNOS jail runtime [20180518.0669ae9_builder_stable_11]"
+            }
+            ]
+        }
+        ]
+    }
+    ]
+}

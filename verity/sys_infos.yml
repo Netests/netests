@@ -9,3 +9,6 @@ leaf02:
 
 leaf03:
   version: 4.23.0.1
+
+leaf04:
+  version: 18.1R2.6

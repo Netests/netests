@@ -1,0 +1,41 @@
+{
+    "interface-information" : [
+    {
+        "attributes" : {"xmlns" : "http://xml.juniper.net/junos/18.1R2/junos-interface",
+                        "junos:style" : "brief"
+                       },
+        "physical-interface" : [
+        {
+            "name" : [
+            {
+                "data" : "cbp0"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "9192"
+            }
+            ],
+            "speed" : [
+            {

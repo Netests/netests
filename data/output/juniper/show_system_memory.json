@@ -1,0 +1,35 @@
+{
+    "system-memory-information" : [
+    {
+        "system-memory-summary-information" : [
+        {
+            "system-memory-total" : [
+            {
+                "data" : "2052416"
+            }
+            ],
+            "system-memory-total-percent" : [
+            {
+                "data" : "100%"
+            }
+            ],
+            "system-memory-reserved" : [
+            {
+                "data" : "  53856"
+            }
+            ],
+            "system-memory-reserved-percent" : [
+            {
+                "data" : "  2%"
+            }
+            ],
+            "system-memory-wired" : [
+            {
+                "data" : " 205712"
+            }
+            ],
+            "system-memory-wired-percent" : [
+            {
+                "data" : " 10%"
+            }
+            ],
