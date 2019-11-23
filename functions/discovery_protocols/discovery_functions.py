@@ -113,7 +113,7 @@ def _mapping_interface_name(int_name) -> str():
     :return:
     """
 
-    if "Ethernet1/" in int_name:
+    if "Ethernet1/" in int_name and "GIGABITETHERNET" not in str(int_name).upper():
         number = ""
         slash_index = int_name.find("/")
         for char in int_name[slash_index:]:
@@ -121,7 +121,7 @@ def _mapping_interface_name(int_name) -> str():
                 number = number + str(char)
         return str("Eth1/").lower() + str(number)
 
-    elif "Ethernet" in int_name:
+    elif "Ethernet" in int_name and "GIGABITETHERNET" not in str(int_name).upper():
         number = ""
         for char in int_name:
             if str(char).isdigit():
@@ -135,6 +135,10 @@ def _mapping_interface_name(int_name) -> str():
     elif "MANAGEMENT" in str(int_name).upper():
         index = get_first_digit_index(int_name)
         return str("mgmt").lower() + int_name[index:]
+
+    elif "GIGABITETHERNET" in str(int_name).upper():
+        index = get_first_digit_index(int_name)
+        return str("Gi") + str(int_name)[index:]
 
     elif str(int_name) == NOT_SET:
         return int_name

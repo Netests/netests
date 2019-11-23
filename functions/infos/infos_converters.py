@@ -17,8 +17,8 @@ __copyright__ = "Copyright 2019"
 #
 # HEADERS
 #
-ERROR_HEADER = "Error import [bgp_converters.py]"
-HEADER_GET = "[netests - bgp_converters]"
+ERROR_HEADER = "Error import [infos_converters.py]"
+HEADER_GET = "[netests - infos_converters]"
 
 ########################################################################################################################
 #
@@ -34,7 +34,14 @@ except ImportError as importError:
 try:
     from protocols.infos import SystemInfos
 except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
+    print(f"{ERROR_HEADER} protocols.infos")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
+    from functions.discovery_protocols.discovery_functions import _mapping_interface_name
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.discovery_protocols.discovery_functions")
     exit(EXIT_FAILURE)
     print(importError)
 
@@ -52,19 +59,52 @@ except ImportError as importError:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# NAPALM infos converter
+# NAPALM System Informations Converter
 #
-def _napalm_infos_converter(status:str) -> str:
-    pass
+def _napalm_infos_converter(plateform:str, cmd_output:dict) -> SystemInfos:
+
+    if cmd_output == None:
+        return SystemInfos()
+
+    index_fqdn = len(f"{str(cmd_output.get('facts').get('hostname'))}.")
+
+    # Retrive only physical interfaces
+    interface_lst = list()
+    if plateform == JUNOS_PLATEFORM_NAME:
+        interface_lst = _juniper_retrieve_int_name_with_napalm(
+            cmd_output.get("facts").get("interface_list", list)
+        )
+    elif plateform == CISCO_PLATEFORM_NAME:
+        interface_lst = _ios_retrieve_int_name_with_napalm(
+            cmd_output.get("facts").get("interface_list", list)
+        )
+    else:
+        interface_lst = cmd_output.get("facts").get("interface_list", list)
+
+    sys_info_obj = SystemInfos(
+        hostname=cmd_output.get("facts").get("hostname", NOT_SET),
+        domain=cmd_output.get("facts").get("fqdn", NOT_SET)[index_fqdn:],
+        version=cmd_output.get("facts").get("os_version", NOT_SET),
+        serial=cmd_output.get("facts").get("serial_number", NOT_SET),
+        base_mac=NOT_SET,
+        memory=NOT_SET,
+        vendor=cmd_output.get("facts").get("vendor", NOT_SET),
+        model=cmd_output.get("facts").get("model", NOT_SET),
+        snmp_ips=list,
+        interfaces_lst=interface_lst
+    )
+
+    print(sys_info_obj)
+    return sys_info_obj
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Cumulus BGP converter
+# Cumulus System Informations Converter
 #
 def _cumulus_infos_converter(cmd_outputs:dict) -> SystemInfos:
 
     if cmd_outputs == None:
-        return dict()
+        return SystemInfos()
 
     sys_info_obj = SystemInfos()
 
@@ -106,7 +146,7 @@ def _cumulus_retrieve_int_name(interface_data:dict) -> list:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Cisco Nexus BGP Converter
+# Cisco Nexus System Informations Converter
 #
 def _nexus_infos_converter(cmd_outputs:list) -> SystemInfos:
 
@@ -156,7 +196,7 @@ def _nexus_retrieve_int_name(interface_data:list) -> list:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Arista BGP Converter
+# Arista System Informations Converter
 #
 def _arista_infos_converter(cmd_outputs:list) -> SystemInfos:
 
@@ -172,7 +212,7 @@ def _arista_infos_converter(cmd_outputs:list) -> SystemInfos:
             sys_info_obj.serial = cmd_outputs.get(INFOS_SYS_DICT_KEY).get("serialNumber", NOT_SET)
             sys_info_obj.base_mac = NOT_SET
             sys_info_obj.memory = cmd_outputs.get(INFOS_SYS_DICT_KEY).get("memFree", NOT_SET)
-            sys_info_obj.vendor = "Arista Networks"
+            sys_info_obj.vendor = "Arista"
             sys_info_obj.model = cmd_outputs.get(INFOS_SYS_DICT_KEY).get("modelName", NOT_SET)
 
         elif key == INFOS_SNMP_DICT_KEY:
@@ -202,7 +242,70 @@ def _arista_retrieve_int_name(interface_data:list) -> list:
     int_name_lst = list()
 
     if interface_data != None:
-        for intferce_name in interface_data.keys():
-            int_name_lst.append(intferce_name)
+        for interface_name in interface_data.keys():
+            int_name_lst.append(interface_name)
+
+    return int_name_lst
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Juniper Network System Informations Converter
+#
+def _juniper_infos_converter(cmd_outputs:list) -> SystemInfos:
+    pass
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Juniper Network interfacer filter
+#
+def _juniper_retrieve_int_name(interface_data:list) -> list:
+    pass
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Juniper Network interfacer filter recupered with NAPALM
+#
+def _juniper_retrieve_int_name_with_napalm(interface_data:list) -> list:
+
+    int_name_lst = list()
+
+    if interface_data != None:
+        for interface_name in interface_data:
+            if ("em" in interface_name or "lo" in interface_name or "fxp" in interface_name) \
+                    and "demux" not in interface_name and "local" not in interface_name:
+                int_name_lst.append(
+                    _mapping_interface_name(interface_name)
+                )
+
+    return int_name_lst
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS System Informations Converter
+#
+def _ios_infos_converter(cmd_outputs:list) -> SystemInfos:
+    pass
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS interfacer filter
+#
+def _ios_infos_converter(cmd_outputs:list) -> SystemInfos:
+    pass
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS interfacer filter recupered with NAPALM
+#
+def _ios_retrieve_int_name_with_napalm(interface_data:list) -> list:
+    int_name_lst = list()
+
+    if interface_data != None:
+        for interface_name in interface_data:
+            int_name_lst.append(
+                _mapping_interface_name(interface_name)
+            )
 
     return int_name_lst

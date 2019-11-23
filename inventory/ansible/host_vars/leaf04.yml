@@ -1,0 +1,6 @@
+hostname: 10.0.5.204
+username: root
+password: Jun1p3r
+platform: junos
+port: 22
+connexion: ssh

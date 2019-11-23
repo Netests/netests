@@ -15,31 +15,76 @@ pip 19.2.3
 ```
 
 
+
+## Capabilities 
+
+|           | Juniper |      Cumulus       | Arista             |    Cisco  NXOS     | Cisco IOS | Cisco IOS-XR | NAPALM             |
+| --------- | :-----: | :----------------: | ------------------ | :----------------: | :-------: | :----------: | ------------------ |
+| BGP       |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |    :x:    |     :x:      | :x:                |
+| OSPF      |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |    :x:    |     :x:      | :x:                |
+| SysInfos  |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |    :x:    |     :x:      | :white_check_mark: |
+| Ping      |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |    :x:    |     :x:      | :x:                |
+| Socket    |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |    :x:    |     :x:      | :x:                |
+| Static    |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |    :x:    |     :x:      | :x:                |
+| VRF       |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |    :x:    |     :x:      | :x:                |
+| LLDP      |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |    :x:    |     :x:      | :white_check_mark: |
+| CDP       |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |    :x:    |     :x:      | :white_check_mark: |
+| IPv4      |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |    :x:    |     :x:      | :x:                |
+| IPv6      |   :x:   |        :x:         | :x:                |        :x:         |    :x:    |     :x:      | :x:                |
+| MTU       |   :x:   |        :x:         | :x:                |        :x:         |    :x:    |     :x:      | :x:                |
+| VTEP      |   :x:   |        :x:         | :x:                |        :x:         |    :x:    |     :x:      | :x:                |
+| Multicast |   :x:   |        :x:         | :x:                |        :x:         |    :x:    |     :x:      | :x:                |
+| VLAN      |   :x:   |        :x:         | :x:                |        :x:         |    :x:    |     :x:      | :x:                |
+| VXLAN     |   :x:   |        :x:         | :x:                |        :x:         |    :x:    |     :x:      | :x:                |
+| EVPN      |   :x:   |        :x:         | :x:                |        :x:         |    :x:    |     :x:      | :x:                |
+|           |         |                    |                    |                    |           |              |                    |
+
+
+
+## Devices supported by NAPALM
+
+|      Juniper       | Cumulus |       Arista       |     Cisco NXOS     |    Cisco IOS-XR    |     Cisco IOS      |
+| :----------------: | :-----: | :----------------: | :----------------: | :----------------: | :----------------: |
+| :white_check_mark: |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|       junos        |   ---   |        eos         |        nxos        |       iosxr        |        ios         |
+
+For the moment Cumulus Linux is only compatible with SSH. Utilization with REST API is int development.
+
+
+
 ## Error / Miss
 
 This chapter contains informations about what is missing in protocols implementation and need to be implemented or improved.
 
-#### Static routes
+### SystemInfos
 
-It's not possible to have multiple identic static routes with different next-hop.
+#### Arista
+1. Error with "memory" :
 
-```shell
-ip route 10.100.0.0 255.255.0.0 10.0.0.100 
-ip route 10.100.0.0 255.255.0.0 10.0.0.101
+```json
+{
+    "memTotal": 2014640,
+    "uptime": 21040.32,
+    "modelName": "vEOS",
+    "internalVersion": "4.23.0.1F-13860745.42301F",
+    "mfgName": "",
+    "serialNumber": "",
+    "systemMacAddress": "50:00:00:03:37:66",
+    "bootupTimestamp": 1574501433.0,
+    "memFree": 1326488,
+    "version": "4.23.0.1F",
+    "architecture": "i686",
+    "isIntlVersion": false,
+    "internalBuildId": "6a1d05a3-2754-4ecf-b553-fc15f98cfe62",
+    "hardwareRevision": ""
+}
 ```
+memfree is used for "memory" ....
 
-To change => Change next-hop type (list) in ``static.py`` class.
+2. Error with vendor name
 
-Current implementation :
-```Python
-static_obj = Static(
-    vrf_name=vrf_name,
-    prefix=str(prefix)[:index_slash],
-    netmask=str(prefix)[index_slash + 1:],
-    nexthop=facts.get('vias')[0].get('nexthopAddr', NOT_SET),
-    is_in_fib=facts.get('kernelProgrammed'),
-    out_interface=facts.get('vias')[0].get('interface', NOT_SET),
-    preference=facts.get('preference'),
-    metric=facts.get('metric')
- )
-``` 
+Vendor value is set manually
+
+```python
+sys_info_obj.vendor = "Arista"
+```

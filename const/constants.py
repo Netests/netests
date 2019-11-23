@@ -45,11 +45,12 @@ PATH_TO_INVENTORY_FILES = "./inventory/"
 ANSIBLE_INVENTORY = "hosts"
 ANSIBLE_INVENTORY_VIRTUAL = "hosts_virtual"
 
-NAPALM_COMPATIBLE_PLATEFORM = ['junos', 'cisco_nxos', 'nxos', 'cisco_ios', 'ios', 'arista_eos', 'eos']
+NAPALM_COMPATIBLE_PLATEFORM = ['junos', 'cisco_nxos', 'nxos', 'cisco_ios', 'ios', 'iosxr', 'cisco_iosxr', 'arista_eos', 'eos']
 JUNOS_PLATEFORM_NAME = 'junos'
 CUMULUS_PLATEFORM_NAME = 'linux'
 NEXUS_PLATEFORM_NAME = 'nxos'
-CISCO_PLATEFORM_NAME = 'cisco_ios'
+CISCO_PLATEFORM_NAME = 'ios'
+CISCO_IOSXR_PLATEFORM_NAME = 'iosxr'
 ARISTA_PLATEFORM_NAME = 'eos'
 EXTREME_PLATEFORM_NAME = 'extreme_vsp'
 
@@ -82,6 +83,10 @@ TEST_TO_EXC_INFOS_KEY = 'sys_infos'
 YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
 YAML_DEVICES_KEY = 'devices'
+
+##### JUNOS COMMANDS
+JUNOS_GET_INFOS = "show version | display json"
+JUNOS_GET_INT = "show interfaces brief | display json"
 
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'

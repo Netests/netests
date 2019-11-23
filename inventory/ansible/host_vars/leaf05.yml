@@ -1,0 +1,5 @@
+hostname: 10.0.5.205
+username: admin
+password: cisco123
+platform: ios
+port: 22

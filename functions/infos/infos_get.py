@@ -81,7 +81,7 @@ def get_infos(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -93,9 +93,11 @@ def generic_infos_get(task):
 
         use_ssh = False
 
-        if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform:
+        if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform or \
+            JUNOS_PLATEFORM_NAME in task.host.platform or CISCO_PLATEFORM_NAME in task.host.platform or \
+                CISCO_IOSXR_PLATEFORM_NAME in task.host.platform:
             if 'connexion' in task.host.keys():
-                if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET):
+                if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET) == "ssh":
                     use_ssh = True
 
         if task.host.platform == CUMULUS_PLATEFORM_NAME:
@@ -111,6 +113,9 @@ def generic_infos_get(task):
             elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
                 _arista_get_infos(task)
 
+            elif use_ssh and JUNOS_PLATEFORM_NAME == task.host.platform:
+                _juniper_get_infos(task)
+
             else:
                 _generic_infos_napalm(task)
 
@@ -123,7 +128,22 @@ def generic_infos_get(task):
 # Function for devices which are compatible with NAPALM
 #
 def _generic_infos_napalm(task):
-    pass
+
+    print(f"Start _generic_infos_napalm with {task.host.name} ")
+
+    output = task.run(
+        name=f"NAPALM _generic_infos_napalm {task.host.platform}",
+        task=napalm_get,
+        getters=["facts"]
+    )
+    # print(output.result)
+
+    if output.result != "":
+        system_infos = _napalm_infos_converter(task.host.platform, output.result)
+
+        task.host[INFOS_DATA_HOST_KEY] = system_infos
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cumulus Networks
@@ -278,5 +298,18 @@ def _arista_get_infos(task):
 #
 # Juniper JunOS
 #
-def _junos_get_infos(task):
-    raise NotImplemented
+def _juniper_get_infos(task):
+
+    outputs_dict = dict()
+
+    output = task.run(
+        name=f"{JUNOS_GET_INFOS}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_INFOS
+    )
+    # print(output.result)
+
+    print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_SYS_DICT_KEY] = (json.loads(output.result))

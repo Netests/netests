@@ -1,5 +1,4 @@
 data:
-  connexion: ssh
   vrfs:
     - name: management
       bgp: True

@@ -1,0 +1,5 @@
+hostname: 10.0.5.103
+username: admin
+password: C!sco123
+platform: iosxr
+port: 443
