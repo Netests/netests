@@ -77,7 +77,7 @@ TEST_TO_EXC_OSPF_KEY = 'ospf'
 TEST_TO_EXC_IPV4_KEY = 'ipv4'
 TEST_TO_EXC_IPV6_KEY = 'ipv6'
 TEST_TO_EXC_STATIC_KEY = 'static'
-TEST_TO_EXC_INFOS_KEY = 'infos'
+TEST_TO_EXC_INFOS_KEY = 'sys_infos'
 
 YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
@@ -95,6 +95,9 @@ CUMULUS_GET_OSPF_RID_VRF = "net show ospf vrf {} json"
 CUMULUS_GET_IPV4 = "net show interface json"
 CUMULUS_GET_STATIC = "net show route static json"
 CUMULUS_GET_STATIC_VRF = "net show route vrf {} static json"
+CUMULUS_GET_INFOS = "net show system json"
+CUMULUS_GET_SNMP = "net show snmp-server status json"
+
 
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
@@ -110,6 +113,7 @@ NEXUS_GET_IPV4 = "show ip int | json"
 NEXUS_GET_IPV4_VRF = "show ip int vrf {} | json"
 NEXUS_GET_STATIC = "show ip route static | json"
 NEXUS_GET_STATIC_VRF = "show ip route static  vrf {} | json"
+
 
 ##### ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
@@ -179,3 +183,6 @@ STATIC_WORKS_KEY = "static_works"
 ##### INFOS / FACTS CONST
 INFOS_DATA_HOST_KEY = "infos_data"
 INFOS_WORKS_KEY = "infos_works"
+INFOS_SYS_DICT_KEY = "get_infos_sys"
+INFOS_SNMP_DICT_KEY = "get_infos_snmp"
+INFOS_INT_DICT_KEY = "get_infos_int"

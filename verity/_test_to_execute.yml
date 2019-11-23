@@ -24,10 +24,10 @@ ipv4: false
 ipv6: false
 # Check static routes
 static:
-  test: true
+  test: false
   level: NOT_IMPLEMENTED
   ansible_vars:
-    enable: true
+    enable: false
     dict_keys: routing>static>ipv4
     your_keys:
       prefix: subnet
@@ -35,3 +35,5 @@ static:
       nexthop: via
       netmask: mask
       preference: pref
+# Check System informations
+sys_infos: True

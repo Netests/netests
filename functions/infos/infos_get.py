@@ -77,7 +77,7 @@ def get_infos(nr: Nornir):
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     data = devices.run(
-        task=generic_infos_get(),
+        task=generic_infos_get,
         on_failed=True,
         num_workers=10
     )
@@ -129,7 +129,43 @@ def _generic_infos_napalm(task):
 # Cumulus Networks
 #
 def _cumulus_get_infos(task):
-    pass
+
+    outputs_dict = dict()
+
+    output = task.run(
+        name=f"{CUMULUS_GET_INFOS}",
+        task=netmiko_send_command,
+        command_string=CUMULUS_GET_INFOS
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_SYS_DICT_KEY] = (json.loads(output.result))
+
+    output = task.run(
+        name=f"{CUMULUS_GET_SNMP}",
+        task=netmiko_send_command,
+        command_string=CUMULUS_GET_SNMP
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_SNMP_DICT_KEY] = (json.loads(output.result))
+
+
+    output = task.run(
+        name=f"{CUMULUS_GET_IPV4}",
+        task=netmiko_send_command,
+        command_string=CUMULUS_GET_IPV4
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_INT_DICT_KEY] = (json.loads(output.result))
+
+    system_infos = _cumulus_infos_converter(outputs_dict)
+
+    task.host[INFOS_DATA_HOST_KEY] = system_infos
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

@@ -37,24 +37,23 @@ except ImportError as importError:
 class SystemInfos:
 
     hostname: str
-    domain: str
     version: str
     serial: str
 
     # The following values are not used by the __eq__ function !!
+    domain: str
     base_mac: str
     memory: str
     vendor: str
     model: str
-    syslog: str
-    snmp: str
+    snmp: list
     interfaces_lst: list
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
     def __init__(self, hostname=NOT_SET, domain=NOT_SET, version=NOT_SET, serial=NOT_SET, base_mac=NOT_SET,
-                 memory=NOT_SET, vendor=NOT_SET, model=NOT_SET, syslog=NOT_SET, snmp=NOT_SET, interfaces_lst=list()):
+                 memory=NOT_SET, vendor=NOT_SET, model=NOT_SET, snmp_ips=list(), interfaces_lst=list()):
         self.hostname = hostname
         self.domain = domain
         self.version = version
@@ -63,8 +62,7 @@ class SystemInfos:
         self.memory = memory
         self.vendor = vendor
         self.model = model
-        self.syslog = syslog
-        self.snmp = snmp
+        self.snmp_ips = snmp_ips
         self.interfaces_lst = interfaces_lst
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -91,7 +89,6 @@ class SystemInfos:
                 f"memory={self.memory} "\
                 f"vendor={self.vendor} " \
                 f"model={self.model} "\
-                f"syslog={self.syslog} " \
-                f"snmp={self.snmp} " \
+                f"snmp_ips={self.snmp_ips} " \
                 f"interfaces_lst={self.interfaces_lst}>\n"
 

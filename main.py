@@ -34,6 +34,13 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.infos.infos_compare import compare_infos
+    from functions.infos.infos_get import get_infos
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.infos")
+    print(importError)
+
+try:
     from functions.static.static_get import get_static
     from functions.static.static_compare import *
 except ImportError as importError:
@@ -363,7 +370,6 @@ def main(ansible, virtual, netbox, tests, reports, verbose):
         print(f"{HEADER} IPv4 addresses key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
 
-    dict
     # ''''''''''''''''''''''''''''''''''''''''''''
     # 7. Check Static routes
     # ''''''''''''''''''''''''''''''''''''''''''''
@@ -387,9 +393,24 @@ def main(ansible, virtual, netbox, tests, reports, verbose):
     else:
         print(f"{HEADER} Static routes key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 8. Check system infos
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_INFOS_KEY in test_to_execute.keys():
+        if test_to_execute.get(TEST_TO_EXC_INFOS_KEY) is True:
+
+            get_infos(nr)
+            same = True
+
+            if test_to_execute.get(TEST_TO_EXC_INFOS_KEY) is True and same is False:
+                exit_value = False
+            print(f"{HEADER} System informations defined in {PATH_TO_VERITY_FILES}{INFOS_SRC_FILENAME} work = {same}!!")
+        else:
+            print(f"{HEADER} System informations have not been executed !!")
+    else:
+        print(f"{HEADER} System informations key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME} !!")
+
     return EXIT_SUCCESS
-
-
 
 
 ########################################################################################################################
