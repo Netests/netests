@@ -179,7 +179,52 @@ def _extreme_vsp_get_infos(task):
 # Cisco Nexus NXOS
 #
 def _nexus_get_infos(task):
-    pass
+
+    outputs_dict = dict()
+
+    output = task.run(
+        name=f"{NEXUS_GET_INFOS}",
+        task=netmiko_send_command,
+        command_string=NEXUS_GET_INFOS
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_SYS_DICT_KEY] = (json.loads(output.result))
+
+    output = task.run(
+        name=f"{NEXUS_GET_SNMP}",
+        task=netmiko_send_command,
+        command_string=NEXUS_GET_SNMP
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_SNMP_DICT_KEY] = (json.loads(output.result))
+
+    output = task.run(
+        name=f"{NEXUS_GET_INT}",
+        task=netmiko_send_command,
+        command_string=NEXUS_GET_INT
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_INT_DICT_KEY] = (json.loads(output.result))
+
+    output = task.run(
+        name=f"{NEXUS_GET_DOMAIN}",
+        task=netmiko_send_command,
+        command_string=NEXUS_GET_DOMAIN
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_DOMAIN_DICT_KEY] = (json.loads(output.result))
+
+    system_infos = _nexus_infos_converter(outputs_dict)
+
+    task.host[INFOS_DATA_HOST_KEY] = system_infos
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -193,8 +238,42 @@ def _cisco_get_infos(task):
 # Arista vEOS
 #
 def _arista_get_infos(task):
-    pass
 
+    outputs_dict = dict()
+
+    output = task.run(
+        name=f"{ARISTA_GET_INFOS}",
+        task=netmiko_send_command,
+        command_string=ARISTA_GET_INFOS
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_SYS_DICT_KEY] = (json.loads(output.result))
+
+    output = task.run(
+        name=f"{ARISTA_GET_INT}",
+        task=netmiko_send_command,
+        command_string=ARISTA_GET_INT
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_INT_DICT_KEY] = (json.loads(output.result))
+
+    output = task.run(
+        name=f"{ARISTA_GET_DOMAIN}",
+        task=netmiko_send_command,
+        command_string=ARISTA_GET_DOMAIN
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[INFOS_DOMAIN_DICT_KEY] = (json.loads(output.result))
+
+    system_infos = _arista_infos_converter(outputs_dict)
+
+    task.host[INFOS_DATA_HOST_KEY] = system_infos
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Juniper JunOS

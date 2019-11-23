@@ -38,9 +38,9 @@ class SystemInfos:
 
     hostname: str
     version: str
-    serial: str
 
     # The following values are not used by the __eq__ function !!
+    serial: str
     domain: str
     base_mac: str
     memory: str
@@ -73,9 +73,7 @@ class SystemInfos:
             return NotImplemented
 
         return ((str(self.hostname) == str(other.hostname)) and
-                (str(self.domain) == str(other.domain)) and
-                (str(self.version) == str(other.version)) and
-                (str(self.serial) == str(other.serial)))
+                (str(self.version) == str(other.version)))
 
     # ------------------------------------------------------------------------------------------------------------------
     #

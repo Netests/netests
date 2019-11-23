@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.7
 # -*- coding: utf-8 -*-
 
 """
@@ -23,8 +23,6 @@ HEADER = "[netests - main.py]"
 #
 # Import Library
 #
-
-import helpers
 
 try:
     from const.constants import *
@@ -400,7 +398,10 @@ def main(ansible, virtual, netbox, tests, reports, verbose):
         if test_to_execute.get(TEST_TO_EXC_INFOS_KEY) is True:
 
             get_infos(nr)
-            same = True
+            same = compare_infos(
+                nr=nr,
+                infos_data=open_file(f"{PATH_TO_VERITY_FILES}{INFOS_SRC_FILENAME}")
+            )
 
             if test_to_execute.get(TEST_TO_EXC_INFOS_KEY) is True and same is False:
                 exit_value = False

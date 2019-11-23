@@ -66,7 +66,7 @@ OSPF_SRC_FILENAME = "ospf.yml"
 IPV4_SRC_FILENAME = "ipv4.yml"
 IPV6_SRC_FILENAME = "ipv6.yml"
 STATIC_SRC_FILENAME = "static.yml"
-INFOS_SRC_FILENAME = "infos.yml"
+INFOS_SRC_FILENAME = "sys_infos.yml"
 TEST_TO_EXC_BGP_KEY = 'bgp'
 TEST_TO_EXC_BGP_UP_KEY = 'bgp_all_up'
 TEST_TO_EXC_VRF_KEY = 'vrf'
@@ -98,7 +98,6 @@ CUMULUS_GET_STATIC_VRF = "net show route vrf {} static json"
 CUMULUS_GET_INFOS = "net show system json"
 CUMULUS_GET_SNMP = "net show snmp-server status json"
 
-
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
 NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
@@ -113,7 +112,10 @@ NEXUS_GET_IPV4 = "show ip int | json"
 NEXUS_GET_IPV4_VRF = "show ip int vrf {} | json"
 NEXUS_GET_STATIC = "show ip route static | json"
 NEXUS_GET_STATIC_VRF = "show ip route static  vrf {} | json"
-
+NEXUS_GET_INFOS = "show version | json"
+NEXUS_GET_INT = "show interface brief | json"
+NEXUS_GET_SNMP = "show snmp host | json"
+NEXUS_GET_DOMAIN = "show hostname | json"
 
 ##### ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
@@ -127,6 +129,9 @@ ARISTA_GET_OSPF_RID_VRF = "show ip ospf vrf {} | json"
 ARISTA_GET_IPV4 = "show ip int | json"
 ARISTA_GET_STATIC = "show ip route static | json"
 ARISTA_GET_STATIC_VRF = "show ip route vrf {} static | json"
+ARISTA_GET_INFOS = "show version | json"
+ARISTA_GET_INT = "show interfaces status | json"
+ARISTA_GET_DOMAIN = "show hostname | json"
 
 ##### EXTREME VSP COMMANDS
 EXTREME_VSP_GET_BGP = 'show ip bgp summary'
@@ -138,7 +143,7 @@ EXTREME_VSP_GET_OSPF_RID = "show ip ospf"
 EXTREME_VSP_GET_OSPF_VRF = "show ip ospf neighbor vrf {}"
 EXTREME_VSP_GET_OSPF_RID_VRF = "show ip ospf vrf {}"
 EXTREME_VSP_GET_IPV4 = "show ip interface"
-EXTREME_VSP_GET_IPV4 = "show ip interface vrf {}"
+EXTREME_VSP_GET_IPV4_VRF = "show ip interface vrf {}"
 EXTREME_VSP_GET_STATIC = "show ip route static"
 EXTREME_VSP_GET_STATIC_VRF = "show ip route static vrf {}"
 
@@ -186,3 +191,4 @@ INFOS_WORKS_KEY = "infos_works"
 INFOS_SYS_DICT_KEY = "get_infos_sys"
 INFOS_SNMP_DICT_KEY = "get_infos_snmp"
 INFOS_INT_DICT_KEY = "get_infos_int"
+INFOS_DOMAIN_DICT_KEY = "get_infos_domain"

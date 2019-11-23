@@ -87,4 +87,26 @@ def compare_infos(nr, infos_data:json) -> bool:
 # Compare function
 #
 def _compare_infos(task, infos_data:json):
-    pass
+
+    verity_infos = SystemInfos()
+
+    if INFOS_DATA_HOST_KEY in task.host.keys():
+        if task.host.name in infos_data.keys():
+            verity_infos.hostname = task.host.name
+            verity_infos.domain = infos_data.get(task.host.name).get('domain', NOT_SET)
+            verity_infos.version = infos_data.get(task.host.name).get('version', NOT_SET)
+            verity_infos.serial = infos_data.get(task.host.name).get('serial', NOT_SET)
+            verity_infos.base_mac = infos_data.get(task.host.name).get('serial', NOT_SET)
+            verity_infos.memory = infos_data.get(task.host.name).get('memory', NOT_SET)
+            verity_infos.vendor = infos_data.get(task.host.name).get('vendor', NOT_SET)
+            verity_infos.model = infos_data.get(task.host.name).get('model', NOT_SET)
+            verity_infos.snmp_ips = infos_data.get(task.host.name).get('snmp_ips', list())
+            verity_infos.interfaces_lst = infos_data.get(task.host.name).get('interfaces', list())
+
+        is_same = verity_infos == task.host[INFOS_DATA_HOST_KEY]
+
+        task.host[INFOS_WORKS_KEY] = is_same
+        return is_same
+
+    else:
+        print(f"Key {INFOS_DATA_HOST_KEY} is missing for {task.host.name}")
