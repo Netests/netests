@@ -17,3 +17,6 @@ leaf03:
 
 leaf04:
   version: 18.1R2.6
+
+leaf05:
+  version: 15.6(1)TW

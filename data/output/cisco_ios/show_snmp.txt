@@ -1,0 +1,25 @@
+0 SNMP packets input
+    0 Bad SNMP version errors
+    0 Unknown community name
+    0 Illegal operation for community name supplied
+    0 Encoding errors
+    0 Number of requested variables
+    0 Number of altered variables
+    0 Get-request PDUs
+    0 Get-next PDUs
+    0 Set-request PDUs
+    0 Input queue packet drops (Maximum queue size 1000)
+2 SNMP packets output
+    0 Too big errors (Maximum packet size 1500)
+    0 No such name errors
+    0 Bad values errors
+    0 General errors
+    0 Response PDUs
+    2 Trap PDUs
+SNMP Dispatcher:
+   queue 0/75 (current/max), 0 dropped
+SNMP Engine:
+   queue 0/1000 (current/max), 0 dropped
+
+SNMP logging: enabled
+    Logging to 192.168.254.7.162, 2/10, 0 sent, 0 dropped.

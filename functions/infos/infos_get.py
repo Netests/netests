@@ -55,6 +55,7 @@ try:
     from functions.infos.infos_converters import _arista_infos_converter
     from functions.infos.infos_converters import _juniper_infos_converter
     from functions.infos.infos_converters import _extreme_infos_converter
+    from functions.infos.infos_converters import _ios_infos_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.infos.infos_converters")
     print(importError)
@@ -103,7 +104,7 @@ def generic_infos_get(task):
         use_ssh = False
 
         if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform or \
-            JUNOS_PLATEFORM_NAME in task.host.platform or CISCO_PLATEFORM_NAME in task.host.platform or \
+            JUNOS_PLATEFORM_NAME in task.host.platform or CISCO_IOS_PLATEFORM_NAME in task.host.platform or \
                 CISCO_IOSXR_PLATEFORM_NAME in task.host.platform:
             if 'connexion' in task.host.keys():
                 if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET) == "ssh":
@@ -114,6 +115,9 @@ def generic_infos_get(task):
 
         elif task.host.platform == EXTREME_PLATEFORM_NAME:
             _extreme_vsp_get_infos(task)
+
+        elif task.host.platform == CISCO_IOS_PLATEFORM_NAME:
+            _ios_get_infos(task)
 
         elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
             if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
@@ -345,8 +349,76 @@ def _nexus_get_infos(task):
 #
 # Cisco IOS
 #
-def _cisco_get_infos(task):
-    raise NotImplemented
+def _ios_get_infos(task):
+
+    outputs_dict = dict()
+
+    ##
+    ## General System Informations
+    ##
+    output = task.run(
+        name=f"{IOS_GET_INFOS}",
+        task=netmiko_send_command,
+        command_string=IOS_GET_INFOS
+    )
+    # print(output.result)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_version.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [['15.6(1)T', 'Bootstrap', 'leaf05', '1 day, 10 hours, 7 minutes', 'Unknown reason',
+        # '/vios-adventerprisek9-m', [], ['9BDRILUBE9YEZ60E5IJAW'], '0x0', [], 'IOSv']]
+        # type = list() of list()
+        outputs_dict[INFOS_SYS_DICT_KEY] = (parsed_results)
+
+    ##
+    ## SNMP
+    ##
+    output = task.run(
+        name=f"{IOS_GET_SNMP}",
+        task=netmiko_send_command,
+        command_string=IOS_GET_SNMP
+    )
+    # print(output.result)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_snmp.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [['192.168.254.7', '162']]
+        # type = list() of list()
+        outputs_dict[INFOS_SNMP_DICT_KEY] = (parsed_results)
+
+    ##
+    ## INTERFACES
+    ##
+    output = task.run(
+        name=f"{IOS_GET_INT}",
+        task=netmiko_send_command,
+        command_string=IOS_GET_INT
+    )
+    # print(output.result)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_int_brief.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example =
+        # [['GigabitEthernet0/0', '10.0.5.205', 'up', 'up'],
+        # ['GigabitEthernet0/1', 'unassigned', 'administratively down', 'down']]
+        # type = list() of list()
+        outputs_dict[INFOS_INT_DICT_KEY] = (parsed_results)
+
+    system_infos = _ios_infos_converter(outputs_dict)
+
+    task.host[INFOS_DATA_HOST_KEY] = system_infos
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

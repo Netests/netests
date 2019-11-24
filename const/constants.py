@@ -49,7 +49,7 @@ NAPALM_COMPATIBLE_PLATEFORM = ['junos', 'cisco_nxos', 'nxos', 'cisco_ios', 'ios'
 JUNOS_PLATEFORM_NAME = 'junos'
 CUMULUS_PLATEFORM_NAME = 'linux'
 NEXUS_PLATEFORM_NAME = 'nxos'
-CISCO_PLATEFORM_NAME = 'ios'
+CISCO_IOS_PLATEFORM_NAME = 'ios'
 CISCO_IOSXR_PLATEFORM_NAME = 'iosxr'
 ARISTA_PLATEFORM_NAME = 'eos'
 EXTREME_PLATEFORM_NAME = 'extreme_vsp'
@@ -158,6 +158,11 @@ EXTREME_VSP_GET_INFOS = "show tech"
 EXTREME_VSP_GET_SNMP = "show snmp-server host"
 EXTREME_VSP_GET_DOMAIN = "show sys dns"
 EXTREME_VSP_GET_INT = "show interfaces gigabitEthernet name"
+
+##### CISCO IOS
+IOS_GET_INFOS = "show version"
+IOS_GET_SNMP = "show snmp"
+IOS_GET_INT = "show ip interface brief"
 
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
