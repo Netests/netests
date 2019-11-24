@@ -54,6 +54,7 @@ try:
     from functions.infos.infos_converters import _nexus_infos_converter
     from functions.infos.infos_converters import _arista_infos_converter
     from functions.infos.infos_converters import _juniper_infos_converter
+    from functions.infos.infos_converters import _extreme_infos_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.infos.infos_converters")
     print(importError)
@@ -63,6 +64,13 @@ try:
     import json
 except ImportError as importError:
     print(f"{ERROR_HEADER} json")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
+    import textfsm
+except ImportError as importError:
+    print(f"{ERROR_HEADER} textfsm")
     exit(EXIT_FAILURE)
     print(importError)
 
@@ -193,7 +201,93 @@ def _cumulus_get_infos(task):
 # Extreme Networks (VSP)
 #
 def _extreme_vsp_get_infos(task):
-    pass
+
+    outputs_dict = dict()
+
+    ##
+    ## General System Informations
+    ##
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_INFOS}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_INFOS
+    )
+    # print(output.result)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_tech.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [['7.1.0.0', 'spine02', '8284XSQ', 'Extreme Networks', '', '00:51:00:05:00:00']]
+        # type = list() of list()
+        outputs_dict[INFOS_SYS_DICT_KEY] = (parsed_results)
+
+    ##
+    ## SNMP
+    ##
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_SNMP}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_SNMP
+    )
+    # print(output.result)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_snmp_server_host.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [['192.168.254.10'], ['192.168.254.7']]
+        # type = list() of list()
+        outputs_dict[INFOS_SNMP_DICT_KEY] = (parsed_results)
+
+    ##
+    ## DOMAIN
+    ##
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_DOMAIN}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_DOMAIN
+    )
+    # print(output.result)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_sys_dns.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [['dh.local']]
+        # type = list() of list()
+        outputs_dict[INFOS_DOMAIN_DICT_KEY] = (parsed_results)
+
+    ##
+    ## INTERFACES
+    ##
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_INT}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_INT,
+        enable=True
+    )
+    # print(output.result)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extrme_vsp_show_int_gi_name.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [['1/1'], ['1/2']]
+        # type = list() of list(=
+        outputs_dict[INFOS_INT_DICT_KEY] = (parsed_results)
+
+    system_infos = _extreme_infos_converter(outputs_dict)
+
+    task.host[INFOS_DATA_HOST_KEY] = system_infos
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

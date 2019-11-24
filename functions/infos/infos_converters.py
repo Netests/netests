@@ -339,6 +339,54 @@ def _juniper_retrieve_int_name_with_napalm(interface_data:list) -> list:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Extreme Networks System Informations Converter
+#
+def _extreme_infos_converter(cmd_outputs:list) -> SystemInfos:
+
+    if cmd_outputs == None:
+        return dict()
+
+    sys_info_obj = SystemInfos()
+
+    for key in cmd_outputs.keys():
+        if key == INFOS_SYS_DICT_KEY:
+
+            for value in cmd_outputs.get(INFOS_SYS_DICT_KEY):
+
+                sys_info_obj.version = value[0] if value[0] != "" else NOT_SET
+                sys_info_obj.hostname = value[1] if value[1] != "" else NOT_SET
+                sys_info_obj.model = value[2] if value[2] != "" else NOT_SET
+                sys_info_obj.vendor = value[3] if value[3] != "" else NOT_SET
+                sys_info_obj.serial = value[4] if value[4] != "" else NOT_SET
+                sys_info_obj.base_mac = value[5] if value[5] != "" else NOT_SET
+
+
+        if key == INFOS_DOMAIN_DICT_KEY:
+
+            for value in cmd_outputs.get(INFOS_DOMAIN_DICT_KEY):
+
+                sys_info_obj.domain = value[0] if not "" else NOT_SET
+
+
+        if key == INFOS_SNMP_DICT_KEY:
+
+            for value in cmd_outputs.get(INFOS_SNMP_DICT_KEY):
+
+                sys_info_obj.snmp_ips.append(value[0])
+
+
+        if key == INFOS_INT_DICT_KEY:
+
+            for value in cmd_outputs.get(INFOS_INT_DICT_KEY):
+
+                sys_info_obj.interfaces_lst.append(
+                    _mapping_interface_name(value[0])
+                )
+
+    return sys_info_obj
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Cisco IOS System Informations Converter
 #
 def _ios_infos_converter(cmd_outputs:list) -> SystemInfos:

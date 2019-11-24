@@ -76,7 +76,7 @@ def compare_infos(nr, infos_data:json) -> bool:
 
     for value in data.values():
         if value.result is False:
-            print(f"{HEADER_GET} Task '_compare' has failed for {value.host} (value.result={value.result}).")
+            print(f"\t{HEADER_GET} Task '_compare' has failed for {value.host} (value.result={value.result}).")
             return_value = False
 
     return (not data.failed and return_value)

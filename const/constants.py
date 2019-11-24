@@ -154,6 +154,10 @@ EXTREME_VSP_GET_IPV4 = "show ip interface"
 EXTREME_VSP_GET_IPV4_VRF = "show ip interface vrf {}"
 EXTREME_VSP_GET_STATIC = "show ip route static"
 EXTREME_VSP_GET_STATIC_VRF = "show ip route static vrf {}"
+EXTREME_VSP_GET_INFOS = "show tech"
+EXTREME_VSP_GET_SNMP = "show snmp-server host"
+EXTREME_VSP_GET_DOMAIN = "show sys dns"
+EXTREME_VSP_GET_INT = "show interfaces gigabitEthernet name"
 
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
