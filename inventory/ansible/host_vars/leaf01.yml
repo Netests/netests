@@ -1,5 +1,6 @@
-hostname: 10.0.5.202
-username: admin
-password: Ci$co123
+hostname: 10.0.5.201
+username: cumulus
+password: CumulusLinux!
 platform: linux
-
+connexion: ssh
+port: 22

@@ -3,4 +3,3 @@ username: root
 password: Jun1p3r
 platform: junos
 port: 22
-connexion: ssh

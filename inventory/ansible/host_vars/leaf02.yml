@@ -2,6 +2,7 @@ hostname: 10.0.5.202
 username: admin
 password: Ci$co123
 platform: nxos
+port: 443
 
 routing:
   static:

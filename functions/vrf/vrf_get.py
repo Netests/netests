@@ -293,7 +293,6 @@ def _juniper_get_vrf(task):
 
         task.host[VRF_DATA_KEY] = vrf_list
 
-
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Function for devices which are compatible with NAPALM

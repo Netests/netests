@@ -52,11 +52,12 @@ class SystemInfos:
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, hostname=NOT_SET, domain=NOT_SET, version=NOT_SET, serial=NOT_SET, base_mac=NOT_SET,
-                 memory=NOT_SET, vendor=NOT_SET, model=NOT_SET, snmp_ips=list(), interfaces_lst=list()):
+    def __init__(self, hostname=NOT_SET, domain=NOT_SET, version=NOT_SET, build=NOT_SET, serial=NOT_SET,
+                 base_mac=NOT_SET, memory=NOT_SET, vendor=NOT_SET, model=NOT_SET, snmp_ips=list(), interfaces_lst=list()):
         self.hostname = hostname
         self.domain = domain
         self.version = version
+        self.build = build
         self.serial = serial
         self.base_mac = base_mac
         self.memory = memory
@@ -82,6 +83,7 @@ class SystemInfos:
         return f"<SystemInfos hostname={self.hostname} " \
                 f"domain={self.domain} " \
                 f"version={self.version} " \
+                f"build={self.build} " \
                 f"serial={self.serial} " \
                 f"base_mac={self.base_mac} " \
                 f"memory={self.memory} "\

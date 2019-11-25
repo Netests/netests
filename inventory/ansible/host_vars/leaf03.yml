@@ -4,6 +4,8 @@ hostname: 10.0.5.203
 username: admin
 password: admin123
 platform: eos
+connexion: ssh
+port: 22
 
 routing:
   static:

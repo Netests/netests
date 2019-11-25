@@ -121,6 +121,13 @@ except ImportError as importError:
     print(importError)
     exit(EXIT_FAILURE)
 
+try:
+    import urllib3
+except ImportError as importError:
+    print(f"{ERROR_HEADER} urllib3")
+    print(importError)
+    exit(EXIT_FAILURE)
+
 ########################################################################################################################
 #
 # Functions
@@ -208,6 +215,7 @@ def execute_test():
 @click.option('--reports', default=False, help=f"If TRUE, configuration reports will be create")
 @click.option('--verbose', default=False, help=f"If TRUE, print fome information about inventory")
 def main(ansible, virtual, netbox, tests, reports, verbose):
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     if tests:
         execute_test()

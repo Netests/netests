@@ -8,7 +8,7 @@ bgp_all_up: false
 # Check that all BGP sessions are UP
 bgp_up: false
 # Check that all VRF are defined
-vrf: true
+vrf: false
 # Check pings
 ping: false
 # Check Link Discovery Protocols sessions
@@ -36,4 +36,4 @@ static:
       netmask: mask
       preference: pref
 # Check System informations
-sys_infos: false
+sys_infos: true

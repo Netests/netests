@@ -143,18 +143,31 @@ def generic_infos_get(task):
 def _generic_infos_napalm(task):
 
     print(f"Start _generic_infos_napalm with {task.host.name} ")
+    outputs_dict = dict()
 
     output = task.run(
-        name=f"NAPALM _generic_infos_napalm {task.host.platform}",
+        name=f"NAPALM napalm_get_facts {task.host.platform}",
         task=napalm_get,
         getters=["facts"]
     )
     # print(output.result)
-
     if output.result != "":
-        system_infos = _napalm_infos_converter(task.host.platform, output.result)
+        outputs_dict[INFOS_SYS_DICT_KEY] = (output.result)
 
-        task.host[INFOS_DATA_HOST_KEY] = system_infos
+    if task.host.platform != ARISTA_PLATEFORM_NAME:
+        output = task.run(
+            name=f"NAPALM get_snmp_information {task.host.platform}",
+            task=napalm_get,
+            getters=["get_snmp_information"]
+        )
+        # print(output.result)
+
+        if output.result != "":
+            outputs_dict[INFOS_SNMP_DICT_KEY] = (output.result)
+
+    system_infos = _napalm_infos_converter(task.host.platform, outputs_dict)
+
+    task.host[INFOS_DATA_HOST_KEY] = system_infos
 
 
 # ----------------------------------------------------------------------------------------------------------------------

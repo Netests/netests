@@ -66,33 +66,43 @@ def _napalm_infos_converter(plateform:str, cmd_output:dict) -> SystemInfos:
     if cmd_output == None:
         return SystemInfos()
 
-    index_fqdn = len(f"{str(cmd_output.get('facts').get('hostname'))}.")
+    sys_info_obj = SystemInfos()
 
-    # Retrive only physical interfaces
-    interface_lst = list()
-    if plateform == JUNOS_PLATEFORM_NAME:
-        interface_lst = _juniper_retrieve_int_name_with_napalm(
-            cmd_output.get("facts").get("interface_list", list)
-        )
-    elif plateform == CISCO_IOS_PLATEFORM_NAME:
-        interface_lst = _ios_retrieve_int_name_with_napalm(
-            cmd_output.get("facts").get("interface_list", list)
-        )
-    else:
-        interface_lst = cmd_output.get("facts").get("interface_list", list)
+    for key in cmd_output.keys():
 
-    sys_info_obj = SystemInfos(
-        hostname=cmd_output.get("facts").get("hostname", NOT_SET),
-        domain=cmd_output.get("facts").get("fqdn", NOT_SET)[index_fqdn:],
-        version=cmd_output.get("facts").get("os_version", NOT_SET),
-        serial=cmd_output.get("facts").get("serial_number", NOT_SET),
-        base_mac=NOT_SET,
-        memory=NOT_SET,
-        vendor=cmd_output.get("facts").get("vendor", NOT_SET),
-        model=cmd_output.get("facts").get("model", NOT_SET),
-        snmp_ips=list,
-        interfaces_lst=interface_lst
-    )
+        # NAPALM get_facts command
+        if key ==  INFOS_SYS_DICT_KEY:
+
+            index_fqdn = len(f"{str(cmd_output.get(INFOS_SYS_DICT_KEY).get('facts').get('hostname'))}.")
+
+            # Retrive only physical interfaces
+            interface_lst = list()
+            if plateform == JUNOS_PLATEFORM_NAME:
+                interface_lst = _juniper_retrieve_int_name_with_napalm(
+                    cmd_output.get(INFOS_SYS_DICT_KEY).get("facts").get("interface_list", list)
+                )
+            elif plateform == CISCO_IOS_PLATEFORM_NAME or plateform == NEXUS_PLATEFORM_NAME:
+                interface_lst = _ios_retrieve_int_name_with_napalm(
+                    cmd_output.get(INFOS_SYS_DICT_KEY).get("facts").get("interface_list", list)
+                )
+            else:
+                interface_lst = cmd_output.get(INFOS_SYS_DICT_KEY).get("facts").get("interface_list", list)
+
+
+            sys_info_obj.hostname=cmd_output.get(INFOS_SYS_DICT_KEY).get("facts").get("hostname", NOT_SET)
+            sys_info_obj.domain=cmd_output.get(INFOS_SYS_DICT_KEY).get("facts").get("fqdn", NOT_SET)[index_fqdn:]
+            sys_info_obj.version=cmd_output.get(INFOS_SYS_DICT_KEY).get("facts").get("os_version", NOT_SET)
+            sys_info_obj.serial=cmd_output.get(INFOS_SYS_DICT_KEY).get("facts").get("serial_number", NOT_SET)
+            sys_info_obj.base_mac=NOT_SET
+            sys_info_obj.memory=NOT_SET
+            sys_info_obj.vendor=cmd_output.get(INFOS_SYS_DICT_KEY).get("facts").get("vendor", NOT_SET)
+            sys_info_obj.model=cmd_output.get(INFOS_SYS_DICT_KEY).get("facts").get("model", NOT_SET)
+            sys_info_obj.snmp_ips=list()
+            sys_info_obj.interfaces_lst=interface_lst
+
+        # NAPALM get_snmp
+        if key == INFOS_SNMP_DICT_KEY:
+            pass
 
     return sys_info_obj
 
@@ -208,6 +218,7 @@ def _arista_infos_converter(cmd_outputs:list) -> SystemInfos:
         if key == INFOS_SYS_DICT_KEY:
 
             sys_info_obj.version = cmd_outputs.get(INFOS_SYS_DICT_KEY).get("version", NOT_SET)
+            sys_info_obj.build = cmd_outputs.get(INFOS_SYS_DICT_KEY).get("internalVersion", NOT_SET)
             sys_info_obj.serial = cmd_outputs.get(INFOS_SYS_DICT_KEY).get("serialNumber", NOT_SET)
             sys_info_obj.base_mac = NOT_SET
             sys_info_obj.memory = cmd_outputs.get(INFOS_SYS_DICT_KEY).get("memFree", NOT_SET)
@@ -427,12 +438,21 @@ def _ios_infos_converter(cmd_outputs:list) -> SystemInfos:
 # Cisco IOS interfacer filter recupered with NAPALM
 #
 def _ios_retrieve_int_name_with_napalm(interface_data:list) -> list:
+    """
+    This function will remove information about Loopback and VLAN interface.
+    Goal of the function is to have only physical interfaces
+
+    :param interface_data: List of interfaces retrieve with NAPALM
+    :return list: Interfaces list filter with removing virtual interfaces
+    """
+
     int_name_lst = list()
 
     if interface_data != None:
         for interface_name in interface_data:
-            int_name_lst.append(
-                _mapping_interface_name(interface_name)
-            )
+            if "LO" not in str(interface_name).upper() and "VL" not in str(interface_name).upper():
+                int_name_lst.append(
+                    _mapping_interface_name(interface_name)
+                )
 
     return int_name_lst
