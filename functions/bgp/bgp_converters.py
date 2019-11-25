@@ -52,6 +52,24 @@ except ImportError as importError:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Generic state converter
+#
+def _generic_state_converter(state:str) -> str:
+    """
+    This function will convert session state in a session state brief (UP or DOWN)
+    Example : Idle => Down
+
+    :param state:
+    :return str: State brief
+    """
+
+    if state in BGP_STATE_UP_LIST or state == NOT_SET:
+        return BGP_STATE_BRIEF_UP
+    else:
+        return BGP_STATE_BRIEF_DOWN
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # NAPALM BGP sessions state converter
 #
 def _napalm_bgp_status_converter(status:str) -> str:
@@ -304,7 +322,9 @@ def _nexus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 #
 def _arista_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
-    bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(
+        list()
+    )
     state_brief = ""
 
     for cmd_output in cmd_outputs:
@@ -354,5 +374,109 @@ def _arista_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 #
 # Juniper BGP Converter
 #
-def _juniper_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
-    pass
+def _juniper_bgp_converter(hostname:str(), cmd_outputs:dict) -> BGP:
+
+    if cmd_outputs is None:
+        return None
+
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(
+        list()
+    )
+
+    for vrf_name in cmd_outputs.keys():
+
+        # Create a BGP sessions list for each VRF
+        bgp_sessions_lst = ListBGPSessions(
+            list()
+        )
+        local_as = ""
+
+        if 'bgp-peer' in cmd_outputs.get(vrf_name).get('bgp').get('bgp-information')[0].keys():
+            for bgp_peer in cmd_outputs.get(vrf_name).get('bgp').get('bgp-information')[0].get('bgp-peer'):
+
+                local_as = bgp_peer.get('local-as')[0].get('data', NOT_SET)
+
+                if 'bgp-rib' in bgp_peer.keys():
+                    prefix_received = bgp_peer.get('bgp-rib')[0].get('received-prefix-count')[0].get('data', NOT_SET)
+                else:
+                    prefix_received = NOT_SET
+
+                bgp_session = BGPSession(
+                    src_hostname=hostname,
+                    peer_ip=_juniper_bgp_addr_filter(
+                        bgp_peer.get('peer-address')[0].get('data', NOT_SET)
+                    ),
+                    peer_hostname=NOT_SET,
+                    remote_as=bgp_peer.get('peer-as')[0].get('data', NOT_SET),
+                    state_brief=_generic_state_converter(
+                        bgp_peer.get('peer-state')[0].get('data', NOT_SET),
+                    ),
+                    session_state=bgp_peer.get('peer-state')[0].get('data', NOT_SET),
+                    state_time=NOT_SET,
+                    prefix_received=prefix_received,
+                )
+
+                bgp_sessions_lst.bgp_sessions.append(bgp_session)
+
+            if vrf_name == "default":
+                if 'conf' in cmd_outputs.get(vrf_name).keys():
+                    if 'configuration' in cmd_outputs.get(vrf_name).get('conf').keys():
+                        rid = cmd_outputs.get(vrf_name).get('conf').get('configuration').get('routing-options').get(
+                            'router-id')
+                    else:
+                        rid = NOT_SET
+                else:
+                    rid = NOT_SET
+            else:
+                if 'conf' in cmd_outputs.get(vrf_name).keys():
+                    if 'configuration' in cmd_outputs.get(vrf_name).get('conf').keys():
+                        rid = cmd_outputs.get(vrf_name).get('conf').get('configuration').get('routing-instances').get(
+                            'instance')[0].get('routing-options').get('router-id', NOT_SET)
+                    else:
+                        rid = NOT_SET
+                else:
+                    rid = NOT_SET
+
+            bgp_session_vrf = BGPSessionsVRF(
+                vrf_name=vrf_name,
+                as_number=local_as,
+                router_id=rid,
+                bgp_sessions=bgp_sessions_lst
+            )
+
+            bgp_sessions_vrf_lst.bgp_sessions_vrf.append(bgp_session_vrf)
+
+    return BGP(
+        hostname=hostname,
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Juniper peer and local address filter
+#
+def _juniper_bgp_addr_filter(ip_addr:str) -> str:
+    """
+    This function will remove BGP (tcp) port of output information.
+    Juniper output example :
+
+    "peer-address" : [
+            {
+                "data" : "10.255.255.101+179"
+            }
+            ],
+            "local-address" : [
+            {
+                "data" : "10.255.255.204+51954"
+            }
+            ],
+
+    :param ip_addr:
+    :return str: IP address without "+port"
+    """
+
+    if ip_addr.find("+") != -1:
+        return ip_addr[:ip_addr.find("+")]
+    else:
+        return ip_addr

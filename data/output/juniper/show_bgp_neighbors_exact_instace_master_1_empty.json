@@ -1,0 +1,119 @@
+{
+            "attributes" : {"junos:style" : "detail"},
+            "peer-address" : [
+            {
+                "data" : "10.255.255.103"
+            }
+            ],
+            "peer-as" : [
+            {
+                "data" : "65100"
+            }
+            ],
+            "local-address" : [
+            {
+                "data" : "10.255.255.204"
+            }
+            ],
+            "local-as" : [
+            {
+                "data" : "65204"
+            }
+            ],
+            "peer-group" : [
+            {
+                "data" : "SPINE_PEER"
+            }
+            ],
+            "peer-cfg-rti" : [
+            {
+                "data" : "master"
+            }
+            ],
+            "peer-fwd-rti" : [
+            {
+                "data" : "master"
+            }
+            ],
+            "peer-type" : [
+            {
+                "data" : "External"
+            }
+            ],
+            "peer-state" : [
+            {
+                "data" : "Active"
+            }
+            ],
+            "peer-flags" : [
+            {
+            }
+            ],
+            "last-state" : [
+            {
+                "data" : "Idle"
+            }
+            ],
+            "last-event" : [
+            {
+                "data" : "Start"
+            }
+            ],
+            "last-error" : [
+            {
+                "data" : "None"
+            }
+            ],
+            "bgp-option-information" : [
+            {
+                "attributes" : {"xmlns" : "http://xml.juniper.net/junos/18.1R2/junos-routing"},
+                "bgp-options" : [
+                {
+                    "data" : "Multihop Preference LocalAddress Ttl PeerAS Multipath LocalAS Refresh"
+                }
+                ],
+                "bgp-options2" : [
+                {
+                }
+                ],
+                "bgp-options-extended" : [
+                {
+                }
+                ],
+                "local-address" : [
+                {
+                    "data" : "10.255.255.204"
+                }
+                ],
+                "holdtime" : [
+                {
+                    "data" : "90"
+                }
+                ],
+                "preference" : [
+                {
+                    "data" : "170"
+                }
+                ],
+                "local-as" : [
+                {
+                    "data" : "65204"
+                }
+                ],
+                "local-system-as" : [
+                {
+                    "data" : "65204"
+                }
+                ]
+            }
+            ],
+            "flap-count" : [
+            {
+                "data" : "0"
+            }
+            ]
+        }
+        ]
+    }
+    ]
+}

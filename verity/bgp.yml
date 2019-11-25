@@ -62,3 +62,28 @@ leaf03:
       - peer_ip: 10.0.5.101
         remote_as: 65100
         state: UP
+
+
+
+leaf04:
+  default:
+    asn: 65204
+    router_id: 10.255.255.204
+    neighbors:
+      - peer_ip: 10.255.255.101
+        remote_as: 65100
+        state: UP
+      - peer_ip: 10.255.255.102
+        remote_as: 65100
+        state: DOWN
+      - peer_ip: 10.255.255.103
+        remote_as: 65100
+        state: DOWN
+
+  test-dylan:
+    asn: 12345
+    router_id: 10.255.255.204
+    neighbors:
+      - peer_ip: 1.1.1.1
+        remote_as: 1111
+        state: DOWN

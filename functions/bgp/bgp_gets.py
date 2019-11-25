@@ -92,7 +92,7 @@ def get_bgp(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -277,7 +277,9 @@ def _arista_get_bgp(task):
 #
 def _juniper_get_bgp(task):
 
-    outputs_lst = list()
+    outputs_lst = dict()
+    outputs_lst['default'] = dict()
+
 
     output = task.run(
         name=f"{JUNOS_GET_BGP}",
@@ -287,10 +289,22 @@ def _juniper_get_bgp(task):
     # print_result(output)
 
     if output.result != "":
-        outputs_lst.append(json.loads(output.result))
+        outputs_lst['default']['bgp'] = json.loads(output.result)
+
+        output = task.run(
+            name=f"{JUNOS_GET_BGP_RID}",
+            task=netmiko_send_command,
+            command_string=JUNOS_GET_BGP_RID
+        )
+        # print_result(output)
+
+        if output.result != "":
+            outputs_lst['default']['conf'] = json.loads(output.result)
 
 
     for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+
+        if vrf != "default":
 
             output = task.run(
                 name=JUNOS_GET_BGP_VRF.format(vrf),
@@ -299,8 +313,19 @@ def _juniper_get_bgp(task):
             )
             # print(output.result)
 
-            if output.result != "":
-                outputs_lst.append(json.loads(output.result))
+            if output.result != "" and "bgp-peer" in output.result:
+                outputs_lst[vrf] = dict()
+                outputs_lst[vrf]['bgp'] = json.loads(output.result)
+
+                output = task.run(
+                    name=JUNOS_GET_BGP_VRF_RID.format(vrf),
+                    task=netmiko_send_command,
+                    command_string=JUNOS_GET_BGP_VRF_RID .format(vrf)
+                )
+                # print(output.result)
+
+                if output.result != "" and "router-id" in output.result:
+                    outputs_lst[vrf]['conf'] = json.loads(output.result)
 
     bgp_sessions = _juniper_bgp_converter(task.host.name, outputs_lst)
 
