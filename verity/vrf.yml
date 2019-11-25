@@ -14,9 +14,6 @@ leaf02:
 leaf03:
   - vrf_name: default
   - vrf_name: mgmt
-  - vrf_name: hello
-  - vrf_name: CLIENT-00
-
 
 leaf04:
   - vrf_name: default

@@ -349,3 +349,10 @@ def _arista_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Juniper BGP Converter
+#
+def _juniper_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
+    pass

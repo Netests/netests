@@ -53,6 +53,7 @@ try:
     from functions.bgp.bgp_converters import _cumulus_bgp_converter
     from functions.bgp.bgp_converters import _nexus_bgp_converter
     from functions.bgp.bgp_converters import _arista_bgp_converter
+    from functions.bgp.bgp_converters import _juniper_bgp_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.bgp_converters")
     print(importError)
@@ -276,8 +277,6 @@ def _arista_get_bgp(task):
 #
 def _juniper_get_bgp(task):
 
-    return None
-
     outputs_lst = list()
 
     output = task.run(
@@ -291,6 +290,18 @@ def _juniper_get_bgp(task):
         outputs_lst.append(json.loads(output.result))
 
 
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
 
+            output = task.run(
+                name=JUNOS_GET_BGP_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=JUNOS_GET_BGP_VRF.format(vrf)
+            )
+            # print(output.result)
 
+            if output.result != "":
+                outputs_lst.append(json.loads(output.result))
 
+    bgp_sessions = _juniper_bgp_converter(task.host.name, outputs_lst)
+
+    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions

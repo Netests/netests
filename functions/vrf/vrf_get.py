@@ -38,6 +38,7 @@ except ImportError as importError:
     print(importError)
 
 try:
+    from functions.vrf.vrf_converter import _napalm_vrf_converter
     from functions.vrf.vrf_converter import _cumulus_vrf_converter
     from functions.vrf.vrf_converter import _nexus_vrf_converter
     from functions.vrf.vrf_converter import _arista_vrf_converter
@@ -93,7 +94,7 @@ def get_vrf(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -145,12 +146,18 @@ def generic_vrf_get(task, function="GET"):
 
 
     elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM:
-        if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
+        # Nexus get_network_instances is not Implemented by NAPALM (November 2019)
+        # File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/napalm/base/base.py", line 1535, in get_network_instances
+        # raise NotImplementedError
+        #   NotImplementedError
+        if NEXUS_PLATEFORM_NAME == task.host.platform:
+            port = task.host.port
+            task.host.port = 22
             if function == 'GET':
                 _nexus_get_vrf(task)
             elif function == 'LIST':
                 _get_vrf_name_list(task)
-
+            task.host.platform = port
 
         elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
             if function == 'GET':
@@ -292,4 +299,18 @@ def _juniper_get_vrf(task):
 # Function for devices which are compatible with NAPALM
 #
 def _generic_napalm_vrf(task):
-    pass
+
+    print(f"Start _generic_napalm_vrf with {task.host.name} ")
+
+    output = task.run(
+        name=f"NAPALM get_bgp_neighbors {task.host.platform}",
+        task=napalm_get,
+        getters=["get_network_instances"]
+    )
+    # print(output.result)
+
+    if output.result != "":
+        vrf_list = _napalm_vrf_converter(task.host.name, output.result)
+
+        task.host[VRF_DATA_KEY] = vrf_list
+
