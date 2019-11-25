@@ -86,10 +86,10 @@ Tests are defined in the file `verity/_test_to_execute.yml`. In this file you ca
 # 2) info =>  (Informations) - If test failed you will only see a message
 # 3) no || false => (Exclude) - Test will not be executed
 # Check Link Discovery Protocols sessions
-lldp: false
+lldp: true
 ```
 
-In the same directory you can describe which BGP sessions you want have on devices.
+In the same directory you can describe which LLDP sessions you want have on devices (`verity/lldp.yml`).
 
 ```yaml
 spine01:
@@ -120,7 +120,7 @@ leaf03:
     neighbor_port: Eth1/7
 ```
 
-The script will connect on each device and retrieve BGP sessions informations and campre them with the data define in ``verity/bgp.yml``.
+The script will connect on each device and retrieve LLDP sessions informations and campre them with the data define in ``verity/lldp.yml``.
 
 If the informations are the same the tests is OK :smile:
 
