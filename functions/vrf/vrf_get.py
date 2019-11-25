@@ -41,6 +41,7 @@ try:
     from functions.vrf.vrf_converter import _cumulus_vrf_converter
     from functions.vrf.vrf_converter import _nexus_vrf_converter
     from functions.vrf.vrf_converter import _arista_vrf_converter
+    from functions.vrf.vrf_converter import _juniper_vrf_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.vrf.vrf_converter")
     exit(EXIT_FAILURE)
@@ -113,7 +114,7 @@ def get_vrf_name_list(nr: Nornir, function="LIST"):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -123,7 +124,8 @@ def generic_vrf_get(task, function="GET"):
 
     use_ssh = False
 
-    if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform:
+    if NEXUS_PLATEFORM_NAME in task.host.platform or JUNOS_PLATEFORM_NAME in task.host.platform or \
+            ARISTA_PLATEFORM_NAME in task.host.platform or CISCO_IOSXR_PLATEFORM_NAME in task.host.platform:
         if 'connexion' in task.host.keys():
             if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET):
                 use_ssh = True
@@ -156,6 +158,12 @@ def generic_vrf_get(task, function="GET"):
             elif function == 'LIST':
                 _get_vrf_name_list(task)
 
+        elif use_ssh and JUNOS_PLATEFORM_NAME == task.host.platform:
+            if function == 'GET':
+                _juniper_get_vrf(task)
+            elif function == 'LIST':
+                _get_vrf_name_list(task)
+
         else:
             _generic_napalm_vrf(task)
     else:
@@ -175,6 +183,8 @@ def _get_vrf_name_list(task):
         _nexus_get_vrf(task)
     elif task.host.platform == ARISTA_PLATEFORM_NAME:
         _arista_get_vrf(task)
+    elif task.host.platform == JUNOS_PLATEFORM_NAME:
+        _juniper_get_vrf(task)
     elif task.host.platform == EXTREME_PLATEFORM_NAME:
         pass
 
@@ -257,6 +267,24 @@ def _arista_get_vrf(task):
 #
 def _extreme_vsp_get_vrf(task):
     pass
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Extreme Network (VSP)
+#
+def _juniper_get_vrf(task):
+
+    if VRF_DATA_KEY not in task.host.keys():
+
+        output = task.run(
+            name=f"{JUNOS_GET_VRF_DETAIL}",
+            task=netmiko_send_command,
+            command_string=f"{JUNOS_GET_VRF_DETAIL}",
+        )
+
+        vrf_list = _juniper_vrf_converter(task.host.name, json.loads(output.result))
+
+        task.host[VRF_DATA_KEY] = vrf_list
 
 
 # ----------------------------------------------------------------------------------------------------------------------

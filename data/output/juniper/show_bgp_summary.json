@@ -1,0 +1,328 @@
+{
+    "bgp-information" : [
+    {
+        "attributes" : {"xmlns" : "http://xml.juniper.net/junos/18.1R2/junos-routing"},
+        "group-count" : [
+        {
+            "data" : "2"
+        }
+        ],
+        "peer-count" : [
+        {
+            "data" : "4"
+        }
+        ],
+        "down-peer-count" : [
+        {
+            "data" : "3"
+        }
+        ],
+        "bgp-rib" : [
+        {
+            "attributes" : {"junos:style" : "brief"},
+            "name" : [
+            {
+                "data" : "inet.0"
+            }
+            ],
+            "total-prefix-count" : [
+            {
+                "data" : "2"
+            }
+            ],
+            "received-prefix-count" : [
+            {
+                "data" : "2"
+            }
+            ],
+            "accepted-prefix-count" : [
+            {
+                "data" : "2"
+            }
+            ],
+            "active-prefix-count" : [
+            {
+                "data" : "2"
+            }
+            ],
+            "suppressed-prefix-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "history-prefix-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "damped-prefix-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "total-external-prefix-count" : [
+            {
+                "data" : "2"
+            }
+            ],
+            "active-external-prefix-count" : [
+            {
+                "data" : "2"
+            }
+            ],
+            "accepted-external-prefix-count" : [
+            {
+                "data" : "2"
+            }
+            ],
+            "suppressed-external-prefix-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "total-internal-prefix-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "active-internal-prefix-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "accepted-internal-prefix-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "suppressed-internal-prefix-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "pending-prefix-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "bgp-rib-state" : [
+            {
+                "data" : "BGP restart is complete"
+            }
+            ]
+        }
+        ],
+        "bgp-peer" : [
+        {
+            "attributes" : {"junos:style" : "terse",
+                            "heading" : "Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped..."
+                           },
+            "peer-address" : [
+            {
+                "data" : "1.1.1.1"
+            }
+            ],
+            "peer-as" : [
+            {
+                "data" : "1111"
+            }
+            ],
+            "input-messages" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "output-messages" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "route-queue-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "flap-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "elapsed-time" : [
+            {
+                "data" : "6:37",
+                "attributes" : {"junos:seconds" : "397"}
+            }
+            ],
+            "peer-state" : [
+            {
+                "data" : "Idle"
+            }
+            ]
+        },
+        {
+            "attributes" : {"junos:style" : "terse"},
+            "peer-address" : [
+            {
+                "data" : "10.255.255.101"
+            }
+            ],
+            "peer-as" : [
+            {
+                "data" : "65100"
+            }
+            ],
+            "input-messages" : [
+            {
+                "data" : "21767"
+            }
+            ],
+            "output-messages" : [
+            {
+                "data" : "24109"
+            }
+            ],
+            "route-queue-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "flap-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "elapsed-time" : [
+            {
+                "data" : "18:08:10",
+                "attributes" : {"junos:seconds" : "65290"}
+            }
+            ],
+            "peer-state" : [
+            {
+                "data" : "Established",
+                "attributes" : {"junos:format" : "Establ"}
+            }
+            ],
+            "bgp-rib" : [
+            {
+                "attributes" : {"junos:style" : "terse"},
+                "name" : [
+                {
+                    "data" : "inet.0"
+                }
+                ],
+                "active-prefix-count" : [
+                {
+                    "data" : "2"
+                }
+                ],
+                "received-prefix-count" : [
+                {
+                    "data" : "2"
+                }
+                ],
+                "accepted-prefix-count" : [
+                {
+                    "data" : "2"
+                }
+                ],
+                "suppressed-prefix-count" : [
+                {
+                    "data" : "0"
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "attributes" : {"junos:style" : "terse"},
+            "peer-address" : [
+            {
+                "data" : "10.255.255.102"
+            }
+            ],
+            "peer-as" : [
+            {
+                "data" : "65100"
+            }
+            ],
+            "input-messages" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "output-messages" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "route-queue-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "flap-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "elapsed-time" : [
+            {
+                "data" : "18:08:23",
+                "attributes" : {"junos:seconds" : "65303"}
+            }
+            ],
+            "peer-state" : [
+            {
+                "data" : "Active"
+            }
+            ]
+        },
+        {
+            "attributes" : {"junos:style" : "terse"},
+            "peer-address" : [
+            {
+                "data" : "10.255.255.103"
+            }
+            ],
+            "peer-as" : [
+            {
+                "data" : "65100"
+            }
+            ],
+            "input-messages" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "output-messages" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "route-queue-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "flap-count" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "elapsed-time" : [
+            {
+                "data" : "18:08:23",
+                "attributes" : {"junos:seconds" : "65303"}
+            }
+            ],
+            "peer-state" : [
+            {
+                "data" : "Active"
+            }
+            ]
+        }
+        ]
+    }
+    ]
+}

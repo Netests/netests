@@ -91,7 +91,7 @@ def get_bgp(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -103,7 +103,8 @@ def generic_bgp_get(task):
 
         use_ssh = False
 
-        if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform:
+        if NEXUS_PLATEFORM_NAME in task.host.platform or JUNOS_PLATEFORM_NAME in task.host.platform or \
+                ARISTA_PLATEFORM_NAME in task.host.platform or CISCO_IOSXR_PLATEFORM_NAME in task.host.platform:
             if 'connexion' in task.host.keys():
                 if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET):
                     use_ssh = True
@@ -120,6 +121,9 @@ def generic_bgp_get(task):
 
             elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
                 _arista_get_bgp(task)
+
+            elif use_ssh and JUNOS_PLATEFORM_NAME == task.host.platform:
+                _juniper_get_bgp(task)
 
             else:
                 _generic_bgp_napalm(task)
@@ -270,6 +274,23 @@ def _arista_get_bgp(task):
 #
 # Juniper JunOS
 #
-def _junos_get_bgp(task):
-    raise NotImplemented
+def _juniper_get_bgp(task):
+
+    return None
+
+    outputs_lst = list()
+
+    output = task.run(
+        name=f"{JUNOS_GET_BGP}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_BGP
+    )
+    # print_result(output)
+
+    if output.result != "":
+        outputs_lst.append(json.loads(output.result))
+
+
+
+
 

@@ -22,5 +22,5 @@ leaf03:
     neighbor_name: spine01
     neighbor_port: swp3
   - local_port: Eth1/3
-    neighbor_name: leaf02
+    neighbor_name: leaf02.dh.local
     neighbor_port: Eth1/7

@@ -40,7 +40,6 @@ except ImportError as importError:
     print(importError)
     exit(EXIT_FAILURE)
 
-
 try:
     from nornir.core import Nornir
     # To use advanced filters
@@ -79,7 +78,7 @@ def get_lldp(nr: Nornir):
         on_failed=True,
         num_workers=1
     )
-    print_result(data)
+    #print_result(data)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

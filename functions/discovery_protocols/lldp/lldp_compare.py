@@ -39,6 +39,13 @@ except ImportError as importError:
     print(importError)
 
 try:
+    from functions.discovery_protocols.discovery_functions import _mapping_interface_name
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.discovery_protocols.discovery_functions")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
     import json
 except ImportError as importError:
     print(f"{ERROR_HEADER} json")
@@ -94,9 +101,13 @@ def _compare_lldp(task, lldp_data:json):
         for lldp_neighbor in lldp_data.get(task.host.name, NOT_SET):
             lldp_obj = LLDP(
                 local_name=task.host.name,
-                local_port=lldp_neighbor.get("local_port", NOT_SET),
+                local_port=_mapping_interface_name(
+                    lldp_neighbor.get("local_port", NOT_SET)
+                ),
                 neighbor_name=lldp_neighbor.get("neighbor_name", NOT_SET),
-                neighbor_port=lldp_neighbor.get("neighbor_port", NOT_SET)
+                neighbor_port=_mapping_interface_name(
+                    lldp_neighbor.get("neighbor_port", NOT_SET)
+                )
             )
 
             verity_lldp.lldp_neighbors_lst.append(lldp_obj)

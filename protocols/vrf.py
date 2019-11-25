@@ -38,22 +38,30 @@ class VRF:
 
     vrf_name: str
     vrf_id: str
+    vrf_type: str
     l3_vni: str
     rd: str
     rt_imp: str
     rt_exp: str
+    imp_targ: str
+    exp_targ: str
 
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, vrf_name=NOT_SET, vrf_id=NOT_SET, l3_vni=NOT_SET, rd=NOT_SET, rt_imp=NOT_SET, rt_exp=NOT_SET):
+    def __init__(self, vrf_name=NOT_SET, vrf_id=NOT_SET, vrf_type=NOT_SET, l3_vni=NOT_SET, rd=NOT_SET, rt_imp=NOT_SET,
+                 rt_exp=NOT_SET, imp_targ=NOT_SET, exp_targ=NOT_SET):
+
         self.vrf_name = vrf_name
         self.vrf_id = vrf_id
+        self.vrf_type = vrf_type
         self.l3_vni = l3_vni
         self.rd = rd
         self.rt_imp = rt_imp
         self.rt_exp = rt_exp
+        self.imp_targ = imp_targ
+        self.exp_targ = exp_targ
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -62,8 +70,7 @@ class VRF:
         if not isinstance(other, VRF):
             return NotImplemented
 
-        return ((str(self.vrf_name) == str(other.vrf_name)) and
-                (str(self.vrf_id) == str(other.vrf_id)))
+        return ((str(self.vrf_name) == str(other.vrf_name)))
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -71,10 +78,13 @@ class VRF:
     def __repr__(self):
         return f"<VRF vrf_name={self.vrf_name} " \
                f"vrf_id={self.vrf_id} " \
+               f"vrf_type={self.vrf_type} " \
                f"l3_vni={self.l3_vni} " \
-               f"rd={self.rd}" \
-               f"rt_imp={self.rt_imp}" \
-               f"rt_exp={self.rt_exp}>\n"
+               f"rd={self.rd} " \
+               f"rt_imp={self.rt_imp} " \
+               f"rt_exp={self.rt_exp} " \
+               f"imp_targ={self.imp_targ} " \
+               f"exp_targ={self.exp_targ}>\n"
 
 ########################################################################################################################
 #

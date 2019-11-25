@@ -1,4 +1,6 @@
-# netests
+# Netests.io
+
+###### <dylan.hamel@protonmail.com> - November 2019 - Copyright
 
 Create your environnement :
 
@@ -14,9 +16,185 @@ Create your environnement :
 pip 19.2.3
 ```
 
+## How to use ??
+
+The idea of this project is to offer a test platform for the network to allow engineers to perform tests without having to write python code (or other languages :smile:).
+
+In addition, this platform does not consider the OS, it is possible to run tests on Cisco, Cumulus, Juniper devices without changing the data structure.
+
+#### Define inventory
+
+1) You have to create a Nornir or an Ansible inventory (Example based on an Ansible Inventory)
+
+`hosts` file.
+
+```yaml
+[leaf]
+leaf01	# Cumulus Networks
+leaf02	# Cisco Nexus 9k
+leaf03	# Arista vEOS
+leaf04	# Juniper Networks
+leaf05	# Cisco IOS
+
+[spine]
+spine01	# Cumulus Networks
+spine02	# Extreme Networks VSP
+spine03	# Cisco IOS-XR
+```
+
+2) Define device parameters in ``host_vars/inventory_hostname.yml`` files
+
+```yaml
+hostname: 10.0.5.202
+username: admin
+password: Ci$co123
+platform: linux			# <<=== specify device OS
+port: 22
+connexion: ssh
+```
+
+```yaml
+hostname: 10.0.5.204
+username: root
+password: Jun1p3r
+platform: junos			# <<=== specify device OS
+port: 2222
+connexion: ssh
+```
+
+```yaml
+hostname: 10.0.5.203
+username: admin
+password: admin123
+platform: eos				# <<=== specify device OS
+port: 443
+```
+
+If `connexion: ssh` is not specify and the OS is supported by NAPALM, NAPALM will be used.
+
+* Cumulus --->> SSH session on port 22
+* Juniper --->> SSH session on port 2222
+* Arista --->> REST API call on port 443
+
+#### Define tests
+
+Tests are defined in the file `verity/_test_to_execute.yml`. In this file you can define which test will be executed.
+
+```yaml
+# Each test can be in 3 types.
+# 1) yes || true => (Mandatory) - If test failed Pipeline will be stopped
+# 2) info =>  (Informations) - If test failed you will only see a message
+# 3) no || false => (Exclude) - Test will not be executed
+# Check Link Discovery Protocols sessions
+lldp: false
+```
+
+In the same directory you can describe which BGP sessions you want have on devices.
+
+```yaml
+spine01:
+  - local_port: swp1
+    neighbor_name: leaf01
+    neighbor_port: swp1
+  - local_port: swp2
+    neighbor_name: leaf02
+    neighbor_port: Eth1/1
+  - local_port: swp3
+    neighbor_name: leaf03
+    neighbor_port: Eth1/1
+
+leaf02:
+  - local_port: Eth1/1
+    neighbor_name: spine01
+    neighbor_port: swp2
+  - local_port: Eth1/7
+    neighbor_name: leaf03
+    neighbor_port: Eth1/3
+
+leaf03:
+  - local_port: Eth1/1
+    neighbor_name: spine01
+    neighbor_port: swp3
+  - local_port: Eth1/3
+    neighbor_name: leaf02.dh.local
+    neighbor_port: Eth1/7
+```
+
+The script will connect on each device and retrieve BGP sessions informations and campre them with the data define in ``verity/bgp.yml``.
+
+If the informations are the same the tests is OK :smile:
+
+#### Run the script
+
+```shell
+» ./main.py --ansible=True
+[netests - main.py] BGP_SESSIONS tests are not executed !!
+[netests - main.py] All BGP sessions tests are not executed !!
+[netests - main.py] LLDP sessions are the same that defined in ./verity/lldp.yml = True
+[netests - main.py] CDP sessions tests are not executed !!
+[netests - main.py] VRF tests are not executed !!
+[netests - main.py] Pings have not been executed !!
+[netests - main.py] OSPF have not been executed !!
+[netests - main.py] IPv4 addresses have not been executed !!
+[netests - main.py] Static routes have not been executed !!
+[netests - main.py] System informations have not been executed !!
+```
 
 
-## Capabilities (Only via SSH)
+
+#### BGP with VRF example
+
+```yaml
+---
+spine01:
+  default:
+    asn: 65100
+    router_id: 10.255.255.101
+    neighbors:
+      - peer_ip: 10.255.255.201
+        remote_as: 65201
+      - peer_ip: 10.255.255.202
+        remote_as: 65202
+      - peer_ip: 10.255.255.203
+        remote_as: 65203
+        state: DOWN
+  mgmt:
+    asn: 65100
+    router_id: 1.1.1.1
+    neighbors:
+      - peer_ip: 10.0.5.203
+        remote_as: 65203
+        state: UP
+      - peer_ip: 10.0.5.202
+        remote_as: 65202
+        state: DOWN
+
+
+leaf02:
+  default:
+    asn: 65202
+    router_id: 10.255.255.202
+    neighbors:
+      - peer_ip: 10.255.255.101
+        remote_as: 65100
+
+leaf03:
+  default:
+    asn: 65203
+    router_id: 10.255.255.203
+    neighbors:
+      - peer_ip: 10.255.255.101
+        remote_as: 65100
+        state: UP
+      - peer_ip: 10.255.255.202
+        remote_as: 65202
+```
+
+
+
+
+
+## Capabilities (Only via SSH) LOT OF WORK
 
 |           |      Juniper       |      Cumulus       | Arista             |        NXOS        |        IOS         | IOS-XR |    Extreme VSP     | NAPALM             |
 | --------- | :----------------: | :----------------: | ------------------ | :----------------: | :----------------: | :----: | :----------------: | ------------------ |
@@ -26,12 +204,15 @@ pip 19.2.3
 | Ping      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |  :x:   |        :x:         | :x:                |
 | Socket    |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |  :x:   |        :x:         | :x:                |
 | Static    |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |  :x:   |        :x:         | :x:                |
-| VRF       |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |  :x:   |        :x:         | :x:                |
+| VRF       |     :warning:      | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |  :x:   |        :x:         | :x:                |
 | LLDP      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |  :x:   |        :x:         | :white_check_mark: |
 | CDP       |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |  :x:   |        :x:         | :white_check_mark: |
 | IPv4      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |  :x:   |        :x:         | :x:                |
 | IPv6      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |  :x:   |        :x:         | :x:                |
 | MTU       |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |  :x:   |        :x:         | :x:                |
+|           |                    |                    |                    |                    |                    |        |                    |                    |
+| MVP ^^^   |                    |                    |                    |                    |                    |        |                    |                    |
+|           |                    |                    |                    |                    |                    |        |                    |                    |
 | VTEP      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |  :x:   |        :x:         | :x:                |
 | Multicast |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |  :x:   |        :x:         | :x:                |
 | VLAN      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |  :x:   |        :x:         | :x:                |
@@ -40,6 +221,8 @@ pip 19.2.3
 | IS-IS     |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |  :x:   |        :x:         | :x:                |
 
 :white_check_mark: = Implemented
+
+:warning: = Implemented but need to be verified
 
 :x: = Not implemented​
 
@@ -121,3 +304,8 @@ sys_info_obj.hostname = value[2] if value[2] != "" else NOT_SET
                 sys_info_obj.vendor = "Cisco IOS"
 ```
 
+
+
+## Contributor
+
+**Become a contributor** !!!

@@ -39,9 +39,9 @@ class BGPSession:
     src_hostname: str
     peer_ip: str
     remote_as: str
+    state_brief: str
 
     # The following values are not used by the __eq__ function !!
-    state_brief: str
     peer_hostname: str
     session_state: str
     state_time: str
