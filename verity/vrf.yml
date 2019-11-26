@@ -30,3 +30,8 @@ leaf04:
   - vrf_name: fabric
   - vrf_name: mgmt_junos
 
+leaf05:
+  - vrf_name: default
+  - vrf_name: mgmt
+  - vrf_name: tenant-2
+

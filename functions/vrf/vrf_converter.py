@@ -123,9 +123,44 @@ def _arista_vrf_converter(hostname:str(), cmd_output:json) -> ListVRF:
 #
 # Cisco IOSXR VRF converter
 #
-def _iosxr_vrf_converter(hostname:str(), cmd_output:json) -> ListVRF:
+def _iosxr_vrf_converter(hostname:str(), cmd_output:list) -> ListVRF:
+    return _cisco_vrf_converter(
+        hostname,
+        cmd_output
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOSVRF converter
+#
+def _ios_vrf_converter(hostname:str(), cmd_output:list) -> ListVRF:
+    return _cisco_vrf_converter(
+        hostname,
+        cmd_output
+    )
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco Generic (IOS + IOSXR) VRF converter
+#
+def _cisco_vrf_converter(hostname:str(), cmd_output:list) -> ListVRF:
 
     vrf_list = ListVRF(list())
+
+    vrf_list.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id="0",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            exp_targ=NOT_SET,
+            imp_targ=NOT_SET
+        )
+    )
 
     for vrf in cmd_output:
 

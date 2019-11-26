@@ -3,3 +3,4 @@ username: admin
 password: cisco123
 platform: ios
 port: 22
+connexion: ssh
