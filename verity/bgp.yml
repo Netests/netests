@@ -78,7 +78,7 @@ leaf04:
         state: DOWN
       - peer_ip: 10.255.255.103
         remote_as: 65100
-        state: DOWN
+        state: UP
 
   test-dylan:
     asn: 12345

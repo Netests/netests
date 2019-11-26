@@ -1,4 +1,4 @@
-Value VRF_NAME (\w+)
+Value VRF_NAME (\S+)
 Value VRF_ID (\d+)
 
 Start

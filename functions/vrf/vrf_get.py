@@ -43,6 +43,7 @@ try:
     from functions.vrf.vrf_converter import _nexus_vrf_converter
     from functions.vrf.vrf_converter import _arista_vrf_converter
     from functions.vrf.vrf_converter import _juniper_vrf_converter
+    from functions.vrf.vrf_converter import _iosxr_vrf_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.vrf.vrf_converter")
     exit(EXIT_FAILURE)
@@ -94,7 +95,7 @@ def get_vrf(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    # print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -144,7 +145,6 @@ def generic_vrf_get(task, function="GET"):
         elif function == 'LIST':
             _get_vrf_name_list(task)
 
-
     elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM:
         # Nexus get_network_instances is not Implemented by NAPALM (November 2019)
         # File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/napalm/base/base.py", line 1535, in get_network_instances
@@ -171,6 +171,12 @@ def generic_vrf_get(task, function="GET"):
             elif function == 'LIST':
                 _get_vrf_name_list(task)
 
+        elif use_ssh and CISCO_IOSXR_PLATEFORM_NAME == task.host.platform:
+            if function == 'GET':
+                _iosxr_get_vrf(task)
+            elif function == 'LIST':
+                _get_vrf_name_list(task)
+
         else:
             _generic_napalm_vrf(task)
     else:
@@ -192,6 +198,8 @@ def _get_vrf_name_list(task):
         _arista_get_vrf(task)
     elif task.host.platform == JUNOS_PLATEFORM_NAME:
         _juniper_get_vrf(task)
+    elif task.host.platform == CISCO_IOSXR_PLATEFORM_NAME:
+        _iosxr_get_vrf(task)
     elif task.host.platform == EXTREME_PLATEFORM_NAME:
         pass
 
@@ -290,6 +298,33 @@ def _juniper_get_vrf(task):
         )
 
         vrf_list = _juniper_vrf_converter(task.host.name, json.loads(output.result))
+
+        task.host[VRF_DATA_KEY] = vrf_list
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Extreme Network (VSP)
+#
+def _iosxr_get_vrf(task):
+
+    if VRF_DATA_KEY not in task.host.keys():
+
+        output = task.run(
+            name=f"{IOSXR_GET_VRF}",
+            task=netmiko_send_command,
+            command_string=f"{IOSXR_GET_VRF}",
+        )
+
+        template = open(
+            f"{TEXTFSM_PATH}cisco_xr_show_vrf_detail.template")
+        results_template = textfsm.TextFSM(template)
+
+        # Return value
+        # Example : [['mgmt', '1', '<not set>'], ['tenant-1', '2', '10.255.255.103:103']]
+
+        parsed_results = results_template.ParseText(output.result)
+
+        vrf_list = _iosxr_vrf_converter(task.host.name, parsed_results)
 
         task.host[VRF_DATA_KEY] = vrf_list
 

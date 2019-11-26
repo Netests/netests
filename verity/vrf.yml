@@ -5,6 +5,13 @@ spine01:
   - vrf_name: test
     vrf_id: 1002
 
+
+spine03:
+  - vrf_name: mgmt
+    vrf_id: 1
+  - vrf_name: tenant-12
+    vrf_id: 2
+
 leaf02:
   - vrf_name: default
     vrf_id: 1

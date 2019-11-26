@@ -172,6 +172,10 @@ IOS_GET_INFOS = "show version"
 IOS_GET_SNMP = "show snmp"
 IOS_GET_INT = "show ip interface brief"
 
+##### CISCO IOSXR
+IOSXR_GET_VRF = "show vrf detail"
+
+
 ##### BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
 BGP_WORKS_KEY = 'bgp_works'
