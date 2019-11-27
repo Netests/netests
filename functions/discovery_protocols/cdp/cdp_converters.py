@@ -60,7 +60,7 @@ except ImportError as importError:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Cumulus Networks LLDP converter
+# Cumulus Networks CDP converter
 #
 def _cumulus_cdp_converter(hostname:str(), cmd_output:json) -> ListCDP:
 
@@ -104,7 +104,7 @@ def _cumulus_cdp_converter(hostname:str(), cmd_output:json) -> ListCDP:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Cisco Nexus NXOS LLDP converter
+# Cisco Nexus NXOS CDP converter
 #
 def _nexus_cdp_converter(hostname:str(), cmd_output:json) -> ListCDP:
 
@@ -131,5 +131,42 @@ def _nexus_cdp_converter(hostname:str(), cmd_output:json) -> ListCDP:
                 )
 
                 cdp_neighbors_lst.cdp_neighbors_lst.append(lldp_obj)
+
+    return cdp_neighbors_lst
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS CDP converter
+#
+def _ios_cdp_converter(hostname:str(), cmd_output:json) -> ListCDP:
+
+    cdp_neighbors_lst = ListCDP(list())
+
+    for cdp_neighbor in cmd_output:
+
+        neighbor_type_lst = list()
+        for sys_capability in cdp_neighbor[6].split(","):
+            neighbor_type_lst.append(
+                _mapping_sys_capabilities(
+                    str(sys_capability).capitalize()
+                )
+            )
+
+        cdp_neighbors_lst.cdp_neighbors_lst.append(
+
+            CDP(
+                local_name=hostname,
+                local_port=_mapping_interface_name(
+                    cdp_neighbor[4]
+                ),
+                neighbor_mgmt_ip=NOT_SET,
+                neighbor_name=cdp_neighbor[0],
+                neighbor_port=_mapping_interface_name(
+                    cdp_neighbor[3]
+                ),
+                neighbor_os=cdp_neighbor[5],
+                neighbor_type=neighbor_type_lst
+            )
+        )
 
     return cdp_neighbors_lst

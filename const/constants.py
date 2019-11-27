@@ -172,6 +172,8 @@ IOS_GET_INFOS = "show version"
 IOS_GET_SNMP = "show snmp"
 IOS_GET_INT = "show ip interface brief"
 IOS_GET_VRF = "show vrf detail"
+IOS_GET_LLDP = "show lldp neighbors detail"
+IOS_GET_CDP = "show cdp neighbors detail"
 
 ##### CISCO IOSXR
 IOSXR_GET_VRF = "show vrf detail"

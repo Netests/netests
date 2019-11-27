@@ -205,8 +205,8 @@ leaf03:
 | Socket    |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | Static    |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         |        :x:         | :x:                |
 | VRF       |     :warning:      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: |
-| LLDP      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         |        :x:         | :white_check_mark: |
-| CDP       |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         |        :x:         | :white_check_mark: |
+| LLDP      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         | :white_check_mark: |
+| CDP       |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         | :x:                |
 | IPv4      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         |        :x:         | :x:                |
 | IPv6      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | MTU       |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
@@ -396,6 +396,12 @@ sys_info_obj.hostname = value[2] if value[2] != "" else NOT_SET
 ```
 
 
+
+## TextFSM templates
+
+Some templates have be retreieve on :
+
+**https://github.com/networktocode/ntc-templates/tree/master/templates**
 
 
 

@@ -159,11 +159,14 @@ def _arista_lldp_converter(hostname:str(), cmd_output:json) -> ListLLDP:
 
                     lldp_obj = LLDP(
                         local_name=hostname,
-                        local_port=_mapping_interface_name(interface_name),
+                        local_port=_mapping_interface_name(
+                            interface_name
+                        ),
                         neighbor_mgmt_ip=neighbor_mgmt_ip,
                         neighbor_name=data.get("systemName", NOT_SET),
                         neighbor_port=_mapping_interface_name(
-                            data.get("neighborInterfaceInfo", NOT_SET).get("interfaceDescription", NOT_SET)),
+                            data.get("neighborInterfaceInfo", NOT_SET).get("interfaceDescription", NOT_SET)
+                        ),
                         neighbor_os=data.get("systemDescription", NOT_SET),
                         neighbor_type=neighbor_type_lst
                     )
@@ -172,7 +175,42 @@ def _arista_lldp_converter(hostname:str(), cmd_output:json) -> ListLLDP:
 
     return lldp_neighbors_lst
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cico IOS LLDP converter
+#
+def _ios_lldp_converter(hostname:str(), cmd_output:list) -> ListLLDP:
 
+    lldp_neighbors_lst = ListLLDP(list())
+
+    for lldp_neighbor in cmd_output:
+
+        neighbor_type_lst = list()
+        for sys_capability in lldp_neighbor[6]:
+            neighbor_type_lst.append(
+                _mapping_sys_capabilities(
+                    str(sys_capability).capitalize()
+                )
+            )
+
+        lldp_neighbors_lst.lldp_neighbors_lst.append(
+
+            LLDP(
+                local_name=hostname,
+                local_port=_mapping_interface_name(
+                    lldp_neighbor[0]
+                ),
+                neighbor_mgmt_ip=lldp_neighbor[7],
+                neighbor_name=lldp_neighbor[4],
+                neighbor_port=_mapping_interface_name(
+                    lldp_neighbor[3]
+                ),
+                neighbor_os=lldp_neighbor[5],
+                neighbor_type=neighbor_type_lst
+            )
+        )
+
+    return lldp_neighbors_lst
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # NAPALM LLDP converter
