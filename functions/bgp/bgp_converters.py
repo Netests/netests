@@ -318,6 +318,56 @@ def _nexus_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Cisco IOS BGP Converter
+#
+def _ios_bgp_converter(hostname:str(), cmd_outputs:dict) -> BGP:
+
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
+
+    for vrf in cmd_outputs:
+
+        bgp_sessions_lst = ListBGPSessions(
+            list()
+        )
+
+        for bgp_session in cmd_outputs.get(vrf):
+
+            state_brief = BGP_STATE_BRIEF_UP
+            asn = bgp_session[1]
+            rid = bgp_session[0]
+
+            if str(bgp_session[5]).isdigit() is False:
+                state_brief = BGP_STATE_BRIEF_DOWN
+
+            bgp_sessions_lst.bgp_sessions.append(
+                BGPSession(
+                    src_hostname=hostname,
+                    peer_ip=bgp_session[2],
+                    peer_hostname=NOT_SET,
+                    remote_as=bgp_session[3],
+                    state_brief=state_brief,
+                    session_state=bgp_session[5],
+                    state_time=bgp_session[4],
+                    prefix_received=NOT_SET
+                )
+            )
+
+        bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+            BGPSessionsVRF(
+                vrf_name=vrf,
+                as_number=asn,
+                router_id=rid,
+                bgp_sessions=bgp_sessions_lst
+            )
+        )
+
+    return BGP(
+        hostname=hostname,
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Arista BGP Converter
 #
 def _arista_bgp_converter(hostname:str(), cmd_outputs:list) -> BGP:

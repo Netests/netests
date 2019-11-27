@@ -52,6 +52,7 @@ try:
     from functions.bgp.bgp_converters import _napalm_bgp_converter
     from functions.bgp.bgp_converters import _cumulus_bgp_converter
     from functions.bgp.bgp_converters import _nexus_bgp_converter
+    from functions.bgp.bgp_converters import _ios_bgp_converter
     from functions.bgp.bgp_converters import _arista_bgp_converter
     from functions.bgp.bgp_converters import _juniper_bgp_converter
 except ImportError as importError:
@@ -71,6 +72,13 @@ try:
     import json
 except ImportError as importError:
     print(f"{ERROR_HEADER} json")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
+    import textfsm
+except ImportError as importError:
+    print(f"{ERROR_HEADER} textfsm")
     exit(EXIT_FAILURE)
     print(importError)
 
@@ -105,7 +113,8 @@ def generic_bgp_get(task):
         use_ssh = False
 
         if NEXUS_PLATEFORM_NAME in task.host.platform or JUNOS_PLATEFORM_NAME in task.host.platform or \
-                ARISTA_PLATEFORM_NAME in task.host.platform or CISCO_IOSXR_PLATEFORM_NAME in task.host.platform:
+                ARISTA_PLATEFORM_NAME in task.host.platform or CISCO_IOSXR_PLATEFORM_NAME in task.host.platform or \
+                CISCO_IOS_PLATEFORM_NAME in task.host.platform:
             if 'connexion' in task.host.keys():
                 if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET):
                     use_ssh = True
@@ -119,6 +128,9 @@ def generic_bgp_get(task):
         elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
             if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
                 _nexus_get_bgp(task)
+
+            if use_ssh and CISCO_IOS_PLATEFORM_NAME == task.host.platform:
+                _ios_get_bgp(task)
 
             elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
                 _arista_get_bgp(task)
@@ -233,8 +245,54 @@ def _nexus_get_bgp(task):
 #
 # Cisco IOS
 #
-def _cisco_get_bgp(task):
-    raise NotImplemented
+def _ios_get_bgp(task):
+
+    outputs_dict = dict()
+
+    output = task.run(
+        name=f"{IOS_GET_BGP}",
+        task=netmiko_send_command,
+        command_string=IOS_GET_BGP
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_bgp_summary.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [
+        # ['10.255.255.205', '65205', '10.255.255.101', '65100', '00:33:09', '2'],
+        # ['10.255.255.205', '65205', '10.255.255.255', '65535', 'never', 'Idle']]
+        # type = list() of list()
+        outputs_dict['default'] = parsed_results
+
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+
+        if vrf != "default":
+
+            output = task.run(
+                name=IOS_GET_BGP_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=IOS_GET_BGP_VRF.format(vrf)
+            )
+            # print_result(output)
+
+            if output.result != "":
+                template = open(
+                    f"{TEXTFSM_PATH}cisco_ios_show_ip_bgp_summary.template")
+                results_template = textfsm.TextFSM(template)
+
+                parsed_results = results_template.ParseText(output.result)
+                # Result Example = [
+                # type = list() of list()
+                outputs_dict[vrf] = parsed_results
+
+    bgp_sessions = _ios_bgp_converter(task.host.name, outputs_dict)
+
+    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

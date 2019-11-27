@@ -63,8 +63,6 @@ leaf03:
         remote_as: 65100
         state: UP
 
-
-
 leaf04:
   default:
     asn: 65204
@@ -87,3 +85,31 @@ leaf04:
       - peer_ip: 1.1.1.1
         remote_as: 1111
         state: DOWN
+
+leaf05:
+  default:
+    asn: 65205
+    router_id: 205.205.205.205
+    neighbors:
+      - peer_ip: 10.255.255.101
+        remote_as: 65100
+      - peer_ip: 10.255.255.255
+        remote_as: 65535
+        state: DOWN
+
+  tenant1:
+    asn: 65205
+    router_id: 205.205.205.1
+    neighbors:
+      - peer_ip: 10.100.100.1
+        remote_as: 12345
+        state: DOWN
+
+  mgmt:
+    asn: 65205
+    router_id: 205.205.205.205
+    neighbors:
+      - peer_ip: 10.0.5.101
+        remote_as: 65100
+        state: UP
+

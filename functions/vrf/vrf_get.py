@@ -208,6 +208,8 @@ def _get_vrf_name_list(task):
         _juniper_get_vrf(task)
     elif task.host.platform == CISCO_IOSXR_PLATEFORM_NAME:
         _iosxr_get_vrf(task)
+    elif task.host.platform == CISCO_IOS_PLATEFORM_NAME:
+        _ios_get_vrf(task)
     elif task.host.platform == EXTREME_PLATEFORM_NAME:
         pass
 

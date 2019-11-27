@@ -77,17 +77,17 @@ Other parameters are not included in the comparaison function and can be differe
 
 ### BGP Retrieve Data
 
-|             | src_hostname       | peer_ip            | peer_hostname | remote_as          | state_brief        | sessions_state     | state_time | prefix_received           |
-| ----------- | ------------------ | ------------------ | ------------- | ------------------ | ------------------ | ------------------ | ---------- | ------------------------- |
-| NAPALM      |                    |                    |               |                    |                    |                    |            |                           |
-| Junos       | :white_check_mark: | :white_check_mark: | :x:           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:        | :white_check_mark:  If UP |
-| Cumulus     |                    |                    |               |                    |                    |                    |            |                           |
-| Arista      |                    |                    |               |                    |                    |                    |            |                           |
-| Cisco Nexus |                    |                    |               |                    |                    |                    |            |                           |
-|             |                    |                    |               |                    |                    |                    |            |                           |
-|             |                    |                    |               |                    |                    |                    |            |                           |
-|             |                    |                    |               |                    |                    |                    |            |                           |
-|             |                    |                    |               |                    |                    |                    |            |                           |
-|             |                    |                    |               |                    |                    |                    |            |                           |
-|             |                    |                    |               |                    |                    |                    |            |                           |
+|             | src_hostname       | peer_ip            | peer_hostname | remote_as          | state_brief        | sessions_state     | state_time         | prefix_received           |
+| ----------- | ------------------ | ------------------ | ------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------------- |
+| NAPALM      |                    |                    |               |                    |                    |                    |                    |                           |
+| Junos       | :white_check_mark: | :white_check_mark: | :x:           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :white_check_mark:  If UP |
+| Cumulus     |                    |                    |               |                    |                    |                    |                    |                           |
+| Arista      |                    |                    |               |                    |                    |                    |                    |                           |
+| Cisco Nexus |                    |                    |               |                    |                    |                    |                    |                           |
+| Cisco IOS   | :white_check_mark: | :white_check_mark: | :x:           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                       |
+|             |                    |                    |               |                    |                    |                    |                    |                           |
+|             |                    |                    |               |                    |                    |                    |                    |                           |
+|             |                    |                    |               |                    |                    |                    |                    |                           |
+|             |                    |                    |               |                    |                    |                    |                    |                           |
+|             |                    |                    |               |                    |                    |                    |                    |                           |
 
