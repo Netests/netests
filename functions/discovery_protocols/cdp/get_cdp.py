@@ -123,7 +123,7 @@ def generic_cdp_get(task):
 
         else:
             # RAISE EXCEPTIONS
-            print(f"{HEADER_GET} No plateform selected for {task.host.name}...")
+            print(f"{HEADER_GET} CDP is not compatible with NAPALM for {task.host.name}...")
 
     else:
         # RAISE EXCEPTIONS
@@ -219,4 +219,12 @@ def _juniper_get_cdp(task):
 # Extreme Networks VSP
 #
 def _extreme_vsp_get_cdp(task):
+    raise NotImplemented
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# NAPALM generic CDP
+#
+def _napalm_get_cdp(task):
     raise NotImplemented
