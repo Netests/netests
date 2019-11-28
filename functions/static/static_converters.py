@@ -262,6 +262,49 @@ def _nexus_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:
     print(static_routes_lst)
     return static_routes_lst
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS STATIC Converter
+#
+def _ios_static_converter(cmd_outputs:dict) -> ListStatic:
+
+    static_routes_lst = ListStatic(
+        static_routes_lst=list()
+    )
+
+    for vrf in cmd_outputs:
+
+        for route in cmd_outputs.get(vrf):
+            nexthops_lst = ListNexthop(
+                nexthops_lst=list()
+            )
+
+            out_int = route[4] if str(route[4]).find('.') == -1 else NOT_SET
+            next_hop = _mapping_interface_name(route[4]) if str(route[4]).find('.') == -1 else route[4]
+
+            nexthops_lst.nexthops_lst.append(
+                Nexthop(
+                    ip_address=next_hop,
+                    is_in_fib=True,
+                    out_interface=_mapping_interface_name(
+                        out_int
+                    ),
+                    preference=route[1] if route[1] != '' else 1 ,
+                    metric=route[2] if route[2] != '' else 1,
+                    active=True
+                )
+            )
+
+            static_routes_lst.static_routes_lst.append(
+                Static(
+                    vrf_name=vrf,
+                    prefix=route[0],
+                    netmask=route[3],
+                    nexthop=nexthops_lst
+                )
+            )
+
+    return static_routes_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

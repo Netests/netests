@@ -176,6 +176,8 @@ IOS_GET_LLDP = "show lldp neighbors detail"
 IOS_GET_CDP = "show cdp neighbors detail"
 IOS_GET_BGP = "show ip bgp summary"
 IOS_GET_BGP_VRF = "show bgp vrf {} all summary"
+IOS_GET_STATIC = "show ip route static"
+IOS_GET_STATIC_VRF = "show ip route vrf {} static"
 
 ##### CISCO IOSXR
 IOSXR_GET_VRF = "show vrf detail"

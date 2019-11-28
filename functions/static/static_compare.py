@@ -93,7 +93,7 @@ def compare_static(nr, ansible_vars=False, dict_keys="", your_keys={} ) -> bool:
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    # print_result(data)
 
     return_value = True
 
@@ -122,83 +122,87 @@ def _compare_static(task, static_data:json, *, ansible_vars=False, dict_keys="",
         )
 
     else:
+        if task.host.name in static_data.keys():
+            for vrf_name, facts_lst in static_data.get(task.host.name).items():
+                for facts in facts_lst:
 
-        for vrf_name, facts_lst in static_data.get(task.host.name).items():
-            for facts in facts_lst:
+                    if facts.get('netmask', NOT_SET) == NOT_SET:
 
-                if facts.get('netmask', NOT_SET) == NOT_SET:
+                        index_slash = str(facts.get('prefix')).find("/")
 
-                    index_slash = str(facts.get('prefix')).find("/")
-
-                    if is_cidr_notation(str(facts.get('prefix'))[index_slash + 1:]):
-                        if is_valid_cidr_netmask(str(facts.get('prefix'))[index_slash + 1:]):
-                            netmask = convert_cidr_to_netmask(str(facts.get('prefix'))[index_slash + 1:])
+                        if is_cidr_notation(str(facts.get('prefix'))[index_slash + 1:]):
+                            if is_valid_cidr_netmask(str(facts.get('prefix'))[index_slash + 1:]):
+                                netmask = convert_cidr_to_netmask(str(facts.get('prefix'))[index_slash + 1:])
+                            else:
+                                netmask = NOT_SET
                         else:
-                            netmask = NOT_SET
-                    else:
-                        netmask = str(facts.get('prefix'))[index_slash + 1:]
+                            netmask = str(facts.get('prefix'))[index_slash + 1:]
 
-                    nexthops_lst = ListNexthop(
-                        nexthops_lst=list()
-                    )
-
-                    for nexthop in facts.get('nexthop', NOT_SET):
-
-                        nexthop_obj = Nexthop(
-                            ip_address=nexthop.get('ip_address', NOT_SET),
-                            is_in_fib=nexthop.get('is_in_fib', False),
-                            out_interface=nexthop.get('out_interface', NOT_SET),
-                            preference=nexthop.get('preference', NOT_SET),
-                            metric=nexthop.get('metric', NOT_SET),
-                            active=nexthop.get('metric', NOT_SET)
+                        nexthops_lst = ListNexthop(
+                            nexthops_lst=list()
                         )
 
-                        nexthops_lst.nexthops_lst.append(nexthop_obj)
+                        for nexthop in facts.get('nexthop', NOT_SET):
 
-                    static_obj = Static(
-                        vrf_name=vrf_name,
-                        prefix=str(facts.get('prefix'))[:index_slash],
-                        netmask=netmask,
-                        nexthop=nexthops_lst
-                    )
+                            nexthop_obj = Nexthop(
+                                ip_address=nexthop.get('ip_address', NOT_SET),
+                                is_in_fib=nexthop.get('is_in_fib', False),
+                                out_interface=nexthop.get('out_interface', NOT_SET),
+                                preference=nexthop.get('preference', NOT_SET),
+                                metric=nexthop.get('metric', NOT_SET),
+                                active=nexthop.get('metric', NOT_SET)
+                            )
 
-                else:
+                            nexthops_lst.nexthops_lst.append(nexthop_obj)
 
-                    if is_cidr_notation(facts.get('netmask', NOT_SET)):
-                        if is_valid_cidr_netmask(facts.get('netmask', NOT_SET)):
-                            netmask = convert_cidr_to_netmask(facts.get('netmask', NOT_SET))
-                        else:
-                            netmask = NOT_SET
-                    else:
-                        netmask = facts.get('netmask', NOT_SET)
-
-                    nexthops_lst = ListNexthop(
-                        nexthops_lst=list()
-                    )
-
-                    for nexthop in facts.get('nexthop', NOT_SET):
-
-                        nexthop_obj = Nexthop(
-                            ip_address=nexthop.get('ip_address', NOT_SET),
-                            is_in_fib=nexthop.get('is_in_fib', False),
-                            out_interface=nexthop.get('out_interface', NOT_SET),
-                            preference=nexthop.get('preference', NOT_SET),
-                            metric=nexthop.get('metric', NOT_SET),
-                            active=nexthop.get('metric', NOT_SET)
+                        static_obj = Static(
+                            vrf_name=vrf_name,
+                            prefix=str(facts.get('prefix'))[:index_slash],
+                            netmask=netmask,
+                            nexthop=nexthops_lst
                         )
 
-                        nexthops_lst.nexthops_lst.append(nexthop_obj)
+                    else:
 
-                    static_obj = Static(
-                        vrf_name=vrf_name,
-                        prefix=facts.get('prefix', NOT_SET),
-                        netmask=netmask,
-                        nexthop=nexthops_lst
-                    )
+                        if is_cidr_notation(facts.get('netmask', NOT_SET)):
+                            if is_valid_cidr_netmask(facts.get('netmask', NOT_SET)):
+                                netmask = convert_cidr_to_netmask(facts.get('netmask', NOT_SET))
+                            else:
+                                netmask = NOT_SET
+                        else:
+                            netmask = facts.get('netmask', NOT_SET)
 
-                verity_static.static_routes_lst.append(static_obj)
+                        nexthops_lst = ListNexthop(
+                            nexthops_lst=list()
+                        )
 
-    is_same = verity_static == task.host[STATIC_DATA_HOST_KEY]
+                        for nexthop in facts.get('nexthop', NOT_SET):
+
+                            nexthop_obj = Nexthop(
+                                ip_address=nexthop.get('ip_address', NOT_SET),
+                                is_in_fib=nexthop.get('is_in_fib', False),
+                                out_interface=nexthop.get('out_interface', NOT_SET),
+                                preference=nexthop.get('preference', NOT_SET),
+                                metric=nexthop.get('metric', NOT_SET),
+                                active=nexthop.get('metric', NOT_SET)
+                            )
+
+                            nexthops_lst.nexthops_lst.append(nexthop_obj)
+
+                        static_obj = Static(
+                            vrf_name=vrf_name,
+                            prefix=facts.get('prefix', NOT_SET),
+                            netmask=netmask,
+                            nexthop=nexthops_lst
+                        )
+
+                    verity_static.static_routes_lst.append(static_obj)
+
+            is_same = verity_static == task.host[STATIC_DATA_HOST_KEY]
+
+        else:
+            print(f"[{HEADER_GET}] {task.host.name} is not present in {PATH_TO_VERITY_FILES}/{TEST_TO_EXC_STATIC_KEY}.")
+
 
     task.host[STATIC_WORKS_KEY] = is_same
 
