@@ -156,7 +156,8 @@ def _execute_ping_cmd(task):
         )
 
     elif task.host.platform == CISCO_IOS_PLATEFORM_NAME or \
-            task.host.platform == JUNOS_PLATEFORM_NAME:
+            task.host.platform == JUNOS_PLATEFORM_NAME or \
+            task.host.platform == EXTREME_PLATEFORM_NAME:
         _execute_generic_ping_cmd(
             task,
             use_netmiko=True,
@@ -247,7 +248,9 @@ def _raise_exception_on_ping_cmd(output:MultiResult, hostname:str, ping_line:str
                 "100% packet loss" in output.result or \
                 "0 received" in output.result or \
                 "Success rate is 0 percent" in output.result or \
-                "invalid routing instance" in output.result:
+                "invalid routing instance" in output.result or \
+                "no answer from" in output.result or \
+                "ping: timeout" in output.result:
 
             print(f"[PINGS] ERROR WITH {hostname} _> {ping_line} = must_work={must_work}")
             raise Exception("ERROR")

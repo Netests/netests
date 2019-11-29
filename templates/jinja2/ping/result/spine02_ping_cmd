@@ -1,0 +1,4 @@
+ping 8.8.8.8 count 1 -t 1 !
+ping 9.9.9.9 count 1 -t 1 !
+ping 10.0.5.101 count 1 -t 1 vrf MgmtRouterping 10.2.5.2 count 1 -t 1
+ping 10.0.5.202 count 1 -t 1 vrf MgmtRouter

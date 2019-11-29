@@ -1,4 +1,6 @@
-ping vrf default 8.8.8.8 repeat 1 !
-ping vrf default 10.1.3.2 repeat 1
-ping vrf default 10.1.3.2 repeat 1
+ping 8.8.8.8 repeat 1 !
+ping 9.9.9.9 repeat 1 !
+ping 10.22.33.1 repeat 1 !
+ping 10.1.3.2 repeat 1
+ping 10.1.3.2 repeat 1
 ping vrf mgmt 10.0.5.203 repeat 1
