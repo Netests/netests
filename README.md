@@ -16,6 +16,14 @@ Create your environnement :
 pip 19.2.3
 ```
 
+
+
+## Discuss
+
+https://join.slack.com/t/dteamgroupe/shared_invite/enQtODQyNDY3NjQyMjkxLTJhMGE5YzM2MTY0MGJiM2M4OTBjOTc1MGMxZDU1MTk4Y2ZmYTQ4ZTc0OWI0NjliNzc1NmQ4ZDNmMzNhNjM3YWM
+
+
+
 ## How to use ??
 
 The idea of this project is to offer a test platform for the network to allow engineers to perform tests without having to write python code (or other languages :smile:).
