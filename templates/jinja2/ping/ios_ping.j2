@@ -2,15 +2,15 @@
 {% if  ip_to_ping['ip_address'] is defined %}
 {% if ip_to_ping['vrf'] is defined and ip_to_ping['vrf'] != "default" %}
 {% if '!' in ip_to_ping['ip_address']  %}
-ping {{ ip_to_ping['ip_address'][1:] }} count 1 vrf {{ ip_to_ping['vrf'] }} !
+ping vrf {{ ip_to_ping['vrf'] }} {{ ip_to_ping['ip_address'][1:] }} repeat 1 !
 {% else %}
-ping {{ ip_to_ping['ip_address'] }} count 1 vrf {{ ip_to_ping['vrf'] }}
+ping vrf {{ ip_to_ping['vrf'] }} {{ ip_to_ping['ip_address']     }} repeat 1
 {% endif %}
 {% else %}
 {% if '!' in ip_to_ping['ip_address'] %}
-ping {{ ip_to_ping['ip_address'][1:] }} count 1 !
+ping {{ ip_to_ping['ip_address'][1:] }} repeat 1 !
 {% else %}
-ping {{ ip_to_ping['ip_address'] }} count 1
+ping {{ ip_to_ping['ip_address'] }} repeat 1
 {%  endif %}
 {% endif %}
 {% endif %}

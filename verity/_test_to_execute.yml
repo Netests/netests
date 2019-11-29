@@ -10,7 +10,7 @@ bgp_up: false
 # Check that all VRF are defined
 vrf: false
 # Check pings
-ping: false
+ping: true
 # Check Link Discovery Protocols sessions
 lldp: false
 cdp: false
@@ -24,7 +24,7 @@ ipv4: false
 ipv6: false
 # Check static routes
 static:
-  test: true
+  test: false
   level: NOT_IMPLEMENTED
   ansible_vars:
     enable: false

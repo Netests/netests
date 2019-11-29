@@ -73,8 +73,16 @@ def _open_file(path: str()) -> dict():
 #
 #
 def retrieve_ping_from_yaml(task) -> list():
+    """
+    This function will retrieve all pings to execute from the YAML.
+    Given a host, this function will retrieve all ip_addr to ping in "all." / "groups"
+    :param task: Nornir Task
+    :return list: IP_ADDR to ping
+    """
 
-    ping_lst = ListPING(list())
+    ping_lst = ListPING(
+        list()
+    )
     ping_data = _open_file(f"{PATH_TO_VERITY_FILES}{PING_SRC_FILENAME}")
 
     # Retrieve data in "all:"
