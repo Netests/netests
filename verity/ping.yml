@@ -27,6 +27,10 @@ leaf03:
   - ip: 10.0.5.203
     vrf: mgmt
 
+leaf04:
+  - ip: 10.0.5.101
+    vrf: mgmt_junos
+
 leaf05:
   - ip: 10.1.5.1
   - ip: 10.0.5.101

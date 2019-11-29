@@ -1,0 +1,5 @@
+64 bytes from 10.1.5.2: icmp_seq=0 ttl=64 time=0.282 ms
+
+--- 10.1.5.2 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.282/0.282/0.282/0.000 ms

@@ -1,0 +1,17 @@
+{% for ip_to_ping in host["ping_data"].ping_lst %}
+{% if  ip_to_ping['ip_address'] is defined %}
+{% if ip_to_ping['vrf'] is defined and ip_to_ping['vrf'] != "default" %}
+{% if '!' in ip_to_ping['ip_address']  %}
+ping routing-instance {{ ip_to_ping['vrf'] }} {{ ip_to_ping['ip_address'][1:] }} count 1 wait 1!
+{% else %}
+ping routing-instance {{ ip_to_ping['vrf'] }} {{ ip_to_ping['ip_address'] }} count 1 wait 1
+{% endif %}
+{% else %}
+{% if '!' in ip_to_ping['ip_address'] %}
+ping {{ ip_to_ping['ip_address'][1:] }} count 1 wait 1 !
+{% else %}
+ping {{ ip_to_ping['ip_address'] }} count 1 wait 1
+{%  endif %}
+{% endif %}
+{% endif %}
+{% endfor %}

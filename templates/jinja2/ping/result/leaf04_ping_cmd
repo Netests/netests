@@ -1,0 +1,4 @@
+ping 8.8.8.8 count 1 wait 1 !
+ping 9.9.9.9 count 1 wait 1 !
+ping 10.22.33.1 count 1 wait 1 !
+ping routing-instance mgmt_junos 10.0.5.101 count 1 wait 1
