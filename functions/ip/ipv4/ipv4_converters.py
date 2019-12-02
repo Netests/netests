@@ -128,7 +128,6 @@ def _nexus_ipv4_converter(hostname:str(), cmd_outputs:list) -> ListIPV4:
         ipv4_addresses_lst=list()
     )
 
-
     for cmd_output in cmd_outputs:
 
         if 'TABLE_intf' in cmd_output.keys():
@@ -197,7 +196,6 @@ def _nexus_ipv4_converter(hostname:str(), cmd_outputs:list) -> ListIPV4:
                             )
                         )
 
-    print(ipv4_addresses_lst)
     return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -256,13 +254,35 @@ def _arista_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
                 "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
                 "::1/128" not in ip_address:
 
-            ipv4_obj = IPV4(
-                interface_name=_mapping_interface_name(interface_name),
-                ip_address_with_mask=ip_address,
-                netmask=facts.get('interfaceAddress').get('primaryIp').get('maskLen', NOT_SET)
+            ipv4_addresses_lst.ipv4_addresses_lst.append(
+                IPV4(
+                    interface_name=_mapping_interface_name(
+                        interface_name
+                    ),
+                    ip_address_with_mask=ip_address,
+                    netmask=facts.get('interfaceAddress').get('primaryIp').get('maskLen', NOT_SET)
+                )
             )
 
-            ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
+        if len(facts.get('interfaceAddress').get('secondaryIpsOrderedList')) > 0:
+
+            for ip_addr in facts.get('interfaceAddress').get('secondaryIpsOrderedList'):
+                secondary_ip = ip_addr.get('address', NOT_SET)
+
+                if secondary_ip != NOT_SET and "/128" not in secondary_ip and "/64" not in secondary_ip and \
+                        "/48" not in secondary_ip and "::" not in secondary_ip and "127.0.0.1" not in secondary_ip and \
+                        "::1/128" not in secondary_ip:
+
+                    ipv4_addresses_lst.ipv4_addresses_lst.append(
+                        IPV4(
+                            interface_name=_mapping_interface_name(
+                                interface_name
+                            ),
+                            ip_address_with_mask=secondary_ip,
+                            netmask=ip_addr.get('maskLen', NOT_SET)
+                        )
+                    )
+
 
     return ipv4_addresses_lst
 
