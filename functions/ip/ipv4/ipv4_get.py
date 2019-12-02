@@ -76,6 +76,13 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
     print(importError)
 
+try:
+    import textfsm
+except ImportError as importError:
+    print(f"{ERROR_HEADER} textfsm")
+    exit(EXIT_FAILURE)
+    print(importError)
+
 ########################################################################################################################
 #
 # Functions
@@ -214,7 +221,7 @@ def _ios_get_ipv4(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_interface_brief.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_interfacef.template")
         results_template = textfsm.TextFSM(template)
          
         parsed_results = results_template.ParseText(output.result)
