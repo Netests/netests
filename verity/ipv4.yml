@@ -61,3 +61,23 @@ leaf03:
   - interface_name: Vlan200
     ip_address: 10.222.22.2
     netmask: 255.255.255.0
+
+leaf05:
+  - interface_name: loopback0
+    ip_address: 10.255.255.205
+    netmask: 255.255.255.255
+  - interface_name: GigabitEthernet0/0
+    ip_address: 10.0.5.205
+    netmask: 255.255.255.0
+  - interface_name: GigabitEthernet0/1
+    ip_address: 10.1.5.2
+    netmask: 255.255.255.252
+  - interface_name: GigabitEthernet0/2
+    ip_address: 10.2.5.2
+    netmask: 255.255.255.252
+  - interface_name: GigabitEthernet0/7
+    ip_address: 10.0.0.1
+    netmask: 255.255.255.252
+  - interface_name: GigabitEthernet0/7
+    ip_address: 10.0.0.253
+    netmask: 255.255.255.252

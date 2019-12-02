@@ -62,7 +62,27 @@ except ImportError as importError:
 # NAPALM IPv4 addresses converter
 #
 def _napalm_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
-    pass
+
+    ipv4_addresses_lst = ListIPV4(
+        hostname=hostname,
+        ipv4_addresses_lst=list()
+    )
+
+    for interface_name in cmd_output.get('get_interfaces_ip'):
+
+        for ip_addr in cmd_output.get('get_interfaces_ip').get(interface_name).get('ipv4'):
+
+            ipv4_addresses_lst.ipv4_addresses_lst.append(
+                IPV4(
+                    interface_name=_mapping_interface_name(
+                        interface_name
+                    ),
+                    ip_address_with_mask=ip_addr,
+                    netmask=cmd_output.get('get_interfaces_ip').get(interface_name).get('ipv4').get(ip_addr).get('prefix_length')
+                )
+            )
+
+    return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -94,6 +114,7 @@ def _cumulus_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
 
                     ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
 
+    print(ipv4_addresses_lst)
     return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -167,15 +188,23 @@ def _ios_ipv4_converter(hostname:str(), cmd_output:list) -> ListIPV4:
         for index, ip_addr in enumerate(interface[3]):
         
             ipv4_addresses_lst.ipv4_addresses_lst.append(
-                interface_name=_mapping_interface_name(
-                   interface[0] 
-                ),
-                ip_address_with_mask=ip_addr,
-                netmask=interface[4][index]
+                IPV4(
+                    interface_name=_mapping_interface_name(
+                        interface[0]
+                    ),
+                    ip_address_with_mask=ip_addr,
+                    netmask=interface[4][index]
                 )
             )
 
     return ipv4_addresses_lst
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS XR IPv4 addresses Converter
+#
+def _iosxr_ipv4_converter(hostname:str(), cmd_output:list) -> ListIPV4:
+    pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -205,3 +234,11 @@ def _arista_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
             ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
 
     return ipv4_addresses_lst
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Juniper IPv4 addresses Converter
+#
+def _juniper_ipv4_converter(hostname:str(), cmd_output:list) -> ListIPV4:
+    pass

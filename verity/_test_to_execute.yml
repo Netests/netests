@@ -10,7 +10,7 @@ bgp_up: false
 # Check that all VRF are defined
 vrf: false
 # Check pings
-ping: true
+ping: false
 # Check Link Discovery Protocols sessions
 lldp: false
 cdp: false
@@ -19,7 +19,7 @@ ospf:
   test: false
   level: NOT_IMPLEMENTED
 # Check IPv4 addresses
-ipv4: false
+ipv4: true
 # Check IPv6 addresses
 ipv6: false
 # Check static routes

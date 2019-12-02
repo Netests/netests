@@ -101,7 +101,7 @@ def get_ipv4(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    # print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -152,7 +152,21 @@ def generic_ipv4_get(task):
 # Generic IPv4 Napalm
 #
 def _generic_ipv4_napalm(task):
-    pass
+
+    print(f"Start _generic_ipv4_napalm with {task.host.name} ")
+
+    output = task.run(
+        name=f"NAPALM _generic_ipv4_napalm {task.host.platform}",
+        task=napalm_get,
+        getters=["get_interfaces_ip"]
+    )
+    # print(output.result)
+
+    if output.result != "":
+        ipv4_addresses = _napalm_ipv4_converter(task.host.name, output.result)
+
+        task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -202,9 +216,9 @@ def _nexus_get_ipv4(task):
             if output.result != "":
                 outputs_lst.append(json.loads(output.result))
 
-    bgp_sessions = _nexus_ipv4_converter(task.host.name, outputs_lst)
+    ipv4_addresses = _nexus_ipv4_converter(task.host.name, outputs_lst)
 
-    task.host[IPV4_DATA_HOST_KEY] = bgp_sessions
+    task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -221,7 +235,7 @@ def _ios_get_ipv4(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_interfacef.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_interface.template")
         results_template = textfsm.TextFSM(template)
          
         parsed_results = results_template.ParseText(output.result)
