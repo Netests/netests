@@ -268,16 +268,28 @@ def _arista_get_ipv4(task):
     )
     #print_result(output)
 
-    ipv4_addresses = _arista_ipv4_converter(task.host.name, json.loads(output.result))
+    if output.result != "":
+        ipv4_addresses = _arista_ipv4_converter(task.host.name, json.loads(output.result))
 
-    task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
+        task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Juniper Networks
 #
 def _juniper_get_ipv4(task):
-    pass
+
+    output = task.run(
+        name=f"{JUNOS_GET_IPV4}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_IPV4
+    )
+    # print_result(output)
+
+    if output.result != "":
+        ipv4_addresses = _juniper_ipv4_converter(task.host.name, json.loads(output.result))
+
+        task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

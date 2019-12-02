@@ -39,3 +39,2556 @@
             ],
             "speed" : [
             {
+                "data" : "Unspecified"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "demux0"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Software-Pseudo"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "9192"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "1"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-point-to-point" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "dsc"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Software-Pseudo"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-point-to-point" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "em1"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1514"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "1000mbps"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "logical-interface" : [
+            {
+                "name" : [
+                {
+                    "data" : "em1.0"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-up" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "iff-snmp-traps" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "internal-flags" : [
+                    {
+                        "data" : "0x4004000"
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "ENET2"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "10.0.0.4/8",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    },
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "128.0.0.1/2",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    },
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "128.0.0.4/2",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                },
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet6"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "fe80::5200:ff:fe06:1/64",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    },
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "fec0::a:0:0:4/64",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                },
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "tnp"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "0x4",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "em2"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1514"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "1000mbps"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "logical-interface" : [
+            {
+                "name" : [
+                {
+                    "data" : "em2.32768"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-up" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "internal-flags" : [
+                    {
+                        "data" : "0x4000000"
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "ENET2"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "192.168.1.2/24",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "em3"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1514"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "1000mbps"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "logical-interface" : [
+            {
+                "name" : [
+                {
+                    "data" : "em3.0"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-up" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "iff-snmp-traps" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "internal-flags" : [
+                    {
+                        "data" : "0x4000000"
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "ENET2"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "10.1.5.2/30",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "em4"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1514"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "1000mbps"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "logical-interface" : [
+            {
+                "name" : [
+                {
+                    "data" : "em4.32768"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-up" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "internal-flags" : [
+                    {
+                        "data" : "0x4000000"
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "ENET2"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "192.0.2.2/24",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "em5"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1514"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "1000mbps"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "logical-interface" : [
+            {
+                "name" : [
+                {
+                    "data" : "em5.0"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-up" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "iff-snmp-traps" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "internal-flags" : [
+                    {
+                        "data" : "0x4000000"
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "ENET2"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "10.0.0.1/30",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    },
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "10.3.4.2/30",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "em6"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1514"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "1000mbps"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "em7"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1514"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "1000mbps"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "logical-interface" : [
+            {
+                "name" : [
+                {
+                    "data" : "em7.0"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-up" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "iff-snmp-traps" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "internal-flags" : [
+                    {
+                        "data" : "0x4000000"
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "ENET2"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "esi"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Software-Pseudo"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "VxLAN-Tunnel-Endpoint"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "fxp0"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1514"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "1000mbps"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "logical-interface" : [
+            {
+                "name" : [
+                {
+                    "data" : "fxp0.0"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-up" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "iff-snmp-traps" : [
+                    {
+                        "data" : [null]
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "ENET2"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "10.0.5.204/24",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "gre"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "GRE"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "GRE"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "up-hold-time" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "down-hold-time" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-point-to-point" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "ipip"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "IPIP"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "IP-over-IP"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "up-hold-time" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "down-hold-time" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "irb"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1514"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "jsrv"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1514"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+            }
+            ],
+            "logical-interface" : [
+            {
+                "name" : [
+                {
+                    "data" : "jsrv.1"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-up" : [
+                    {
+                        "data" : [null]
+                    }
+                    ],
+                    "internal-flags" : [
+                    {
+                        "data" : "0x24004000"
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "unknown"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "128.0.0.127/2",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "lo0"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Loopback"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-loopback" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "logical-interface" : [
+            {
+                "name" : [
+                {
+                    "data" : "lo0.0"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-snmp-traps" : [
+                    {
+                        "data" : [null]
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "Unspecified"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "10.255.255.204"
+                        }
+                        ],
+                        "ifa-destination" : [
+                        {
+                            "data" : "0/0",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ]
+            },
+            {
+                "name" : [
+                {
+                    "data" : "lo0.16384"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-snmp-traps" : [
+                    {
+                        "data" : [null]
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "Unspecified"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ],
+                    "interface-address" : [
+                    {
+                        "ifa-local" : [
+                        {
+                            "data" : "127.0.0.1"
+                        }
+                        ],
+                        "ifa-destination" : [
+                        {
+                            "data" : "0/0",
+                            "attributes" : {"junos:emit" : "emit"}
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ]
+            },
+            {
+                "name" : [
+                {
+                    "data" : "lo0.16385"
+                }
+                ],
+                "if-config-flags" : [
+                {
+                    "iff-snmp-traps" : [
+                    {
+                        "data" : [null]
+                    }
+                    ]
+                }
+                ],
+                "encapsulation" : [
+                {
+                    "data" : "Unspecified"
+                }
+                ],
+                "filter-information" : [
+                {
+                }
+                ],
+                "address-family" : [
+                {
+                    "address-family-name" : [
+                    {
+                        "data" : "inet"
+                    }
+                    ]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "lsi"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Software-Pseudo"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "LSI"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "mtun"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Multicast-GRE"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "GRE"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "up-hold-time" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "down-hold-time" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "pimd"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "PIMD"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "PIM-Decapsulator"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "up-hold-time" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "down-hold-time" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "pime"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "PIME"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "PIM-Encapsulator"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "up-hold-time" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "down-hold-time" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "pip0"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Ethernet"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "9192"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "pp0"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "PPPoE"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "PPPoE"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "1532"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-point-to-point" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "rbeb"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Software-Pseudo"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Remote-BEB"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "tap"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Software-Pseudo"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "Interface-Specific"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+                "iff-snmp-traps" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ]
+        },
+        {
+            "name" : [
+            {
+                "data" : "vtep"
+            }
+            ],
+            "admin-status" : [
+            {
+                "data" : "up",
+                "attributes" : {"junos:format" : "Enabled"}
+            }
+            ],
+            "oper-status" : [
+            {
+                "data" : "up"
+            }
+            ],
+            "if-type" : [
+            {
+                "data" : "Software-Pseudo"
+            }
+            ],
+            "link-level-type" : [
+            {
+                "data" : "VxLAN-Tunnel-Endpoint"
+            }
+            ],
+            "mtu" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "speed" : [
+            {
+                "data" : "Unlimited"
+            }
+            ],
+            "clocking" : [
+            {
+                "data" : "Unspecified"
+            }
+            ],
+            "if-device-flags" : [
+            {
+                "ifdf-present" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ifdf-running" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ifd-specific-config-flags" : [
+            {
+                "internal-flags" : [
+                {
+                    "data" : "0x200"
+                }
+                ]
+            }
+            ],
+            "if-config-flags" : [
+            {
+            }
+            ]
+        }
+        ]
+    }
+    ]
+}

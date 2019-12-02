@@ -27,12 +27,12 @@ class IP(ABC):
 
 
 
-### VRF Retrieve Data
+## VRF Retrieve Data
 
 |             | interface_name     | ip_address         | netmask            |
 | ----------- | ------------------ | ------------------ | ------------------ |
 | NAPALM      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Junos       | 😢                  | 😢                  | 😢                  |
+| Junos       | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | Cumulus     | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | Arista      | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | Cisco Nexus | :white_check_mark: | :white_check_mark: | :white_check_mark: |
@@ -46,3 +46,36 @@ class IP(ABC):
 :white_check_mark: => Implemented​
 
 :cry: => Not Implemented
+
+
+
+
+
+## Error - must be improved
+
+#### Juniper
+
+Loopback interface netmask is set manually at 255.255.255.255.
+
+```python
+if "lo" in logic_interface.get("name")[0].get("data", NOT_SET) :
+	ipv4_addresses_lst.ipv4_addresses_lst.append(
+		IPV4(
+            interface_name=_mapping_interface_name(
+            	logic_interface.get("name")[0].get("data", NOT_SET)
+            ),
+			ip_address_with_mask=ip_addr,
+			netmask="255.255.255.255"
+		)
+	)
+else:
+    ipv4_addresses_lst.ipv4_addresses_lst.append(
+        IPV4(
+            interface_name=_mapping_interface_name(
+            	logic_interface.get("name")[0].get("data", NOT_SET)
+            ),
+            ip_address_with_mask=ip_addr,
+        )
+    )
+```
+

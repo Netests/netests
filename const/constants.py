@@ -88,7 +88,7 @@ YAML_DEVICES_KEY = 'devices'
 
 ##### JUNOS COMMANDS
 JUNOS_GET_INFOS = "show version | display json"
-JUNOS_GET_INT = "show interfaces brief | display json"
+JUNOS_GET_IPV4 = JUNOS_GET_INT = "show interfaces brief | display json"
 JUNOS_GET_MEMORY = "show system memory | display json"
 JUNOS_GET_CONFIG_SYSTEM = "show configuration system | display json"
 JUNOS_GET_SERIAL = "show chassis hardware detail | display json"

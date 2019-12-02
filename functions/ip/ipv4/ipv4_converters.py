@@ -291,5 +291,56 @@ def _arista_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
 #
 # Juniper IPv4 addresses Converter
 #
-def _juniper_ipv4_converter(hostname:str(), cmd_output:list) -> ListIPV4:
-    pass
+def _juniper_ipv4_converter(hostname:str(), cmd_output:dict) -> ListIPV4:
+
+    ipv4_addresses_lst = ListIPV4(
+        hostname=hostname,
+        ipv4_addresses_lst=list()
+    )
+
+    for key in cmd_output.get('interface-information')[0].keys():
+        if key != "attributes":
+            for interface in cmd_output.get('interface-information')[0].get(key):
+                if "logical-interface" in interface.keys():
+                    for logic_interface in interface.get("logical-interface"):
+                        if "address-family" in logic_interface.keys():
+                            if "address-family-name" in logic_interface.get("address-family")[0]:
+                                if logic_interface.get("address-family")[0].get("address-family-name")[0].get("data") == "inet" and \
+                                        logic_interface.get("address-family")[0].get("interface-address") is not None:
+
+                                    for interface_ip in logic_interface.get("address-family")[0].get("interface-address"):
+
+                                        ip_addr = interface_ip.get("ifa-local")[0].get("data", NOT_SET)
+
+                                        if ip_addr != NOT_SET and \
+                                                "/128" not in ip_addr and \
+                                                "/64" not in ip_addr and \
+                                                "/48" not in ip_addr and \
+                                                "::" not in ip_addr and \
+                                                "127.0.0.1" not in ip_addr and \
+                                                "::1/128" not in ip_addr and \
+                                                "128.0.0." not in ip_addr and \
+                                                ".32768" not in logic_interface.get("name")[0].get("data", NOT_SET):
+
+                                            if "lo" in logic_interface.get("name")[0].get("data", NOT_SET) :
+                                                ipv4_addresses_lst.ipv4_addresses_lst.append(
+                                                    IPV4(
+                                                        interface_name=_mapping_interface_name(
+                                                            logic_interface.get("name")[0].get("data",NOT_SET)
+                                                        ),
+                                                        ip_address_with_mask=ip_addr,
+                                                        netmask="255.255.255.255"
+                                                    )
+                                                )
+                                            else:
+                                                ipv4_addresses_lst.ipv4_addresses_lst.append(
+                                                    IPV4(
+                                                        interface_name=_mapping_interface_name(
+                                                            logic_interface.get("name")[0].get("data", NOT_SET)
+                                                        ),
+                                                        ip_address_with_mask=ip_addr,
+                                                    )
+                                                )
+
+    print(ipv4_addresses_lst)
+    return ipv4_addresses_lst

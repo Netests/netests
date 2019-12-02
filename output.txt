@@ -1,0 +1,8 @@
+{'leaf04': Host: leaf04}[0m
+[0m[netests - main.py] BGP_SESSIONS tests are not executed !![0m
+[0m[netests - main.py] All BGP sessions tests are not executed !![0m
+[0m[netests - main.py] LLDP sessions tests are not executed !![0m
+[0m[netests - main.py] CDP sessions tests are not executed !![0m
+[0m[netests - main.py] VRF tests are not executed !![0m
+[0m[netests - main.py] Pings have not been executed !![0m
+[0m[netests - main.py] OSPF have not been executed !![0m
