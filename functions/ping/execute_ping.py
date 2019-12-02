@@ -258,6 +258,7 @@ def _raise_exception_on_ping_cmd(output:MultiResult, hostname:str, ping_line:str
         # PING MUST NOT WORK !
         if ("1 packets received" in output.result and "0.00% packet loss" in output.result) or \
                 ("1 received" in output.result and "0% packet loss" in output.result) or \
+                ("is alive" in output.result) or \
                 ("Success rate is 100 percent" in output.result):
 
             print(f"[PINGS] ERROR WITH {hostname} _> {ping_line} = must_work={must_work}")
