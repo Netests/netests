@@ -101,7 +101,7 @@ def get_ipv4(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    # print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

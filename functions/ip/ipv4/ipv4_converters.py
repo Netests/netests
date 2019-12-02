@@ -144,12 +144,27 @@ def _nexus_ipv4_converter(hostname:str(), cmd_outputs:list) -> ListIPV4:
                                 "::1/128" not in ip_address:
 
                             ipv4_obj = IPV4(
-                                interface_name=_mapping_interface_name(interface.get('ROW_intf').get('intf-name')),
+                                interface_name=_mapping_interface_name(
+                                    interface.get('ROW_intf').get('intf-name')
+                                ),
                                 ip_address_with_mask=ip_address,
                                 netmask=interface.get('ROW_intf').get('masklen')
                             )
 
                             ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
+
+                        if 'TABLE_secondary_address' in interface.get('ROW_intf').keys():
+                            ipv4_addresses_lst.ipv4_addresses_lst.append(
+                                IPV4(
+                                    interface_name=_mapping_interface_name(
+                                        interface.get('ROW_intf').get('intf-name')
+                                    ),
+                                    ip_address_with_mask=interface.get('ROW_intf').get('TABLE_secondary_address').get(
+                                        'ROW_secondary_address').get('prefix1'),
+                                    netmask=interface.get('ROW_intf').get('TABLE_secondary_address').get(
+                                        'ROW_secondary_address').get('masklen1')
+                                )
+                            )
 
             elif isinstance(cmd_output.get('TABLE_intf'), dict):
                 for interface, facts in cmd_output.get('TABLE_intf').items():
@@ -160,13 +175,29 @@ def _nexus_ipv4_converter(hostname:str(), cmd_outputs:list) -> ListIPV4:
                             "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
                             "::1/128" not in ip_address:
                         ipv4_obj = IPV4(
-                            interface_name=_mapping_interface_name(facts.get('intf-name')),
+                            interface_name=_mapping_interface_name(
+                                facts.get('intf-name')
+                            ),
                             ip_address_with_mask=ip_address,
                             netmask=facts.get('masklen')
                         )
 
                         ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
 
+                    if 'TABLE_secondary_address' in facts.keys():
+                        ipv4_addresses_lst.ipv4_addresses_lst.append(
+                            IPV4(
+                                interface_name=_mapping_interface_name(
+                                    facts.get('intf-name')
+                                ),
+                                ip_address_with_mask=facts.get('TABLE_secondary_address').get(
+                                    'ROW_secondary_address').get('prefix1'),
+                                netmask=facts.get('TABLE_secondary_address').get('ROW_secondary_address').get(
+                                    'masklen1')
+                            )
+                        )
+
+    print(ipv4_addresses_lst)
     return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------

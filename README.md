@@ -213,7 +213,7 @@ leaf03:
 | VRF       |     :warning:      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: |
 | LLDP      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         | :white_check_mark: |
 | CDP       |      :sleepy:      | :white_check_mark: | :sleepy:           | :white_check_mark: | :white_check_mark: |        :x:         |      :sleepy:      | :sleepy:           |
-| IPv4      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         | :x:                |
+| IPv4      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         | :white_check_mark: |
 | IPv6      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | MTU       |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 |           |                    |                    |                    |                    |                    |                    |                    |                    |
@@ -400,6 +400,32 @@ sys_info_obj.hostname = value[2] if value[2] != "" else NOT_SET
                 sys_info_obj.serial = value[7][0] if value[7][0] != "" else NOT_SET
                 sys_info_obj.vendor = "Cisco IOS"
 ```
+
+
+
+#### Cisco Nexus
+
+port 22 is fix
+
+```python
+    elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM:
+        # Nexus get_network_instances is not Implemented by NAPALM (November 2019)
+        # File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/napalm/base/base.py", line 1535, in get_network_instances
+        # raise NotImplementedError
+        #   NotImplementedError
+        if NEXUS_PLATEFORM_NAME == task.host.platform:
+            port = task.host.port
+            task.host.port = 22
+            if function == 'GET':
+                _nexus_get_vrf(task)
+            elif function == 'LIST':
+                _get_vrf_name_list(task)
+            task.host.port = port
+```
+
+
+
+
 
 
 

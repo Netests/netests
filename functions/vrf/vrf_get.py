@@ -159,7 +159,7 @@ def generic_vrf_get(task, function="GET"):
                 _nexus_get_vrf(task)
             elif function == 'LIST':
                 _get_vrf_name_list(task)
-            task.host.platform = port
+            task.host.port = port
 
         elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
             if function == 'GET':
