@@ -64,7 +64,6 @@ except ImportError as importError:
 def _napalm_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
     pass
 
-
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cumulus IPv4 addresses converter
@@ -146,6 +145,35 @@ def _nexus_ipv4_converter(hostname:str(), cmd_outputs:list) -> ListIPV4:
                         )
 
                         ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
+
+    return ipv4_addresses_lst
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS IPv4 addresses Converter
+#
+def _ios_ipv4_converter(hostname:str(), cmd_output:list) -> ListIPV4:
+    
+    ipv4_addresses_lst = ListIPV4(
+        hostname=hostname,
+        ipv4_addresses_lst=list()
+    )
+
+    for interface in cmd_output:
+
+        # In textfsm -> IPADDR & MASK are list
+        # Value List IPADDR (\S+?)
+        # Value List MASK (\d*)        
+        for index, ip_addr in enumerate(interface[3]):
+        
+            ipv4_addresses_lst.ipv4_addresses_lst.append(
+                interface_name=_mapping_interface_name(
+                   interface[0] 
+                ),
+                ip_address_with_mask=ip_addr,
+                netmask=interface[4][index]
+                )
+            )
 
     return ipv4_addresses_lst
 

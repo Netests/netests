@@ -178,6 +178,8 @@ IOS_GET_BGP = "show ip bgp summary"
 IOS_GET_BGP_VRF = "show bgp vrf {} all summary"
 IOS_GET_STATIC = "show ip route static"
 IOS_GET_STATIC_VRF = "show ip route vrf {} static"
+IOS_GET_IPV4_BRIEF = "show ip int brief"
+IOS_GET_IPV4 = "show ip interface"
 
 ##### CISCO IOSXR
 IOSXR_GET_VRF = "show vrf detail"
