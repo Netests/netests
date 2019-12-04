@@ -34,17 +34,7 @@ except ImportError as importError:
 #
 # VRF CLASS
 #
-class VRF:
 
-    vrf_name: str
-    vrf_id: str
-    vrf_type: str
-    l3_vni: str
-    rd: str
-    rt_imp: str
-    rt_exp: str
-    imp_targ: str
-    exp_targ: str
 
 
     # ------------------------------------------------------------------------------------------------------------------

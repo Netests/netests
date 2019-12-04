@@ -4,8 +4,19 @@
 
 ## VRF Definition
 
+```python
+class VRF:
 
-
+    vrf_name: str
+    vrf_id: str
+    vrf_type: str
+    l3_vni: str
+    rd: str
+    rt_imp: str
+    rt_exp: str
+    imp_targ: str
+    exp_targ: str
+```
 
 
 ## VRF comparaison function `__eq__`
@@ -34,7 +45,7 @@ Other parameters are not included in the comparaison function and can be differe
 | Cisco Nexus | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
 | Cisco IOSXR | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
 | Cisco IOS   | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
-|             |                    |                    |                    |        |                    |                    |                    |                    |                    |
+| Extreme VSP | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
 |             |                    |                    |                    |        |                    |                    |                    |                    |                    |
 |             |                    |                    |                    |        |                    |                    |                    |                    |                    |
 |             |                    |                    |                    |        |                    |                    |                    |                    |                    |

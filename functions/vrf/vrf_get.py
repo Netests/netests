@@ -45,6 +45,7 @@ try:
     from functions.vrf.vrf_converter import _juniper_vrf_converter
     from functions.vrf.vrf_converter import _iosxr_vrf_converter
     from functions.vrf.vrf_converter import _ios_vrf_converter
+    from functions.vrf.vrf_converter import _extreme_vsp_vrf_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.vrf.vrf_converter")
     exit(EXIT_FAILURE)
@@ -140,6 +141,12 @@ def generic_vrf_get(task, function="GET"):
         elif function == 'LIST':
             _get_vrf_name_list(task)
 
+    if task.host.platform == EXTREME_PLATEFORM_NAME:
+        if function == 'GET':
+            _extreme_vsp_get_vrf(task)
+        elif function == 'LIST':
+            _get_vrf_name_list(task)
+
 
     elif task.host.platform == EXTREME_PLATEFORM_NAME:
         if function == 'GET':
@@ -211,7 +218,7 @@ def _get_vrf_name_list(task):
     elif task.host.platform == CISCO_IOS_PLATEFORM_NAME:
         _ios_get_vrf(task)
     elif task.host.platform == EXTREME_PLATEFORM_NAME:
-        pass
+        _extreme_vsp_get_vrf(task)
 
     for vrf in task.host[VRF_DATA_KEY].vrf_lst:
         vrf_name_lst[vrf.vrf_name] = vrf.vrf_id
@@ -291,7 +298,24 @@ def _arista_get_vrf(task):
 # Extreme Networks (VSP)
 #
 def _extreme_vsp_get_vrf(task):
-    pass
+    
+    if VRF_DATA_KEY not in task.host.keys():
+
+        output = task.run(
+            name=f"{EXTREME_VSP_GET_VRF}",
+            task=netmiko_send_command,
+            command_string=f"{EXTREME_VSP_GET_VRF}",
+        )
+
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_vrf.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+
+        vrf_list = _extreme_vsp_vrf_converter(task.host.name, parsed_results)
+
+        task.host[VRF_DATA_KEY] = vrf_list
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

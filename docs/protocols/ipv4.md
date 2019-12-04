@@ -38,7 +38,7 @@ class IP(ABC):
 | Cisco Nexus | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | Cisco IOSXR | :cry:              | :cry:              | :cry:              |
 | Cisco IOS   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-|             |                    |                    |                    |
+| Extreme VSP | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 |             |                    |                    |                    |
 |             |                    |                    |                    |
 |             |                    |                    |                    |
