@@ -41,6 +41,7 @@ try:
     from functions.ip.ipv4.ipv4_converters import _iosxr_ipv4_converter
     from functions.ip.ipv4.ipv4_converters import _arista_ipv4_converter
     from functions.ip.ipv4.ipv4_converters import _juniper_ipv4_converter
+    from functions.ip.ipv4.ipv4_converters import _extreme_vsp_ipv4_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.ip.ipv4.ipv4_converters")
     print(importError)
@@ -296,5 +297,57 @@ def _juniper_get_ipv4(task):
 # Extreme Networks
 #
 def _extreme_vsp_get_ipv4(task):
-    pass
+    
+    outputs_dict = dict()
 
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_IPV4}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_IPV4
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example =[
+        #
+        #    
+        # type = list() of list()
+        outputs_dict['default'] = parsed_results
+    
+
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+        
+        if vrf != "default" and vrf != "GlobalRouter":
+
+            utput = task.run(
+                name=EXTREME_VSP_GET_IPV4_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=EXTREME_VSP_GET_IPV4_VRF.format(vrf)
+            )
+            # print_result(output)
+
+            if output.result != "":
+                template = open(
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+                results_template = textfsm.TextFSM(template)
+
+                parsed_results = results_template.ParseText(output.result)
+                # Result Example = [
+                #
+                #
+                # type = list() of list()
+                outputs_dict[vrf] = parsed_results
+
+    ipv4_addresses = _extreme_vsp_ipv4_converter(outputs_dict)
+
+    task.host[STATIC_DATA_HOST_KEY] = ipv4_addresses
+    
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Next Device
+#

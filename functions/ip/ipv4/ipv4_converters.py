@@ -342,5 +342,31 @@ def _juniper_ipv4_converter(hostname:str(), cmd_output:dict) -> ListIPV4:
                                                     )
                                                 )
 
-    print(ipv4_addresses_lst)
+    return ipv4_addresses_lst
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Extreme Networks VSP IPv4 addresses Converter
+#
+def _ios_ipv4_converter(hostname:str(), cmd_output:dict) -> ListIPV4:
+    
+    ipv4_addresses_lst = ListIPV4(
+        hostname=hostname,
+        ipv4_addresses_lst=list()
+    )
+
+    for vrf in cmd_ouput:
+        
+        for interface in cmd_output.get(vrf):
+            
+            ipv4_addresses_lst.ipv4_addresses_lst.append(
+                IPV4(
+                    interface_name=_mapping_interface_name(
+                        interface[0]
+                    ),
+                    ip_address_with_mask=interface[1],
+                    netmask=interface[2]
+                )
+            )
+
     return ipv4_addresses_lst
