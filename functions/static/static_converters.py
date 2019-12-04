@@ -28,29 +28,30 @@ try:
     from const.constants import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} const.constants")
-    exit(EXIT_FAILURE)
     print(importError)
+    exit(EXIT_FAILURE)
+
 
 try:
     from protocols.static import Nexthop, ListNexthop, Static, ListStatic
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.static")
-    exit(EXIT_FAILURE)
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     from functions.discovery_protocols.discovery_functions import _mapping_interface_name
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.discovery_protocols.discovery_functions")
-    exit(EXIT_FAILURE)
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     import json
 except ImportError as importError:
     print(f"{ERROR_HEADER} json")
-    exit(EXIT_FAILURE)
     print(importError)
+    exit(EXIT_FAILURE)
 
 ########################################################################################################################
 #

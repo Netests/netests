@@ -35,6 +35,7 @@ try:
     from functions.discovery_protocols.lldp.lldp_converters import _nexus_lldp_converter
     from functions.discovery_protocols.lldp.lldp_converters import _arista_lldp_converter
     from functions.discovery_protocols.lldp.lldp_converters import _ios_lldp_converter
+    from functions.discovery_protocols.lldp.lldp_converters import _extreme_vsp_lldp_converter
     from functions.discovery_protocols.lldp.lldp_converters import _napalm_lldp_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.discovery_protocols.lldp")
@@ -87,7 +88,7 @@ def get_lldp(nr: Nornir):
         on_failed=True,
         num_workers=1
     )
-    # print_result(data)
+    #print_result(data)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -256,5 +257,27 @@ def _juniper_get_lldp(task):
 # Extreme Networks VSP
 #
 def _extreme_vsp_get_lldp(task):
-    pass
+
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_LLDP}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_LLDP,
+        enable=True
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_lldp_neighbor.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example =[
+        # ['1/1', '50:00:00:03:00:00:', 'swp2', 'leaf01', 'Br', '',
+        # 'Cumulus Linux version 3.7.9 running on Bochs Bochs', '10.255.255.201']]
+        # type = list() of list()
+
+        lldp_sessions = _extreme_vsp_lldp_converter(task.host.name, parsed_results)
+
+        task.host[LLDP_DATA_HOST_KEY] = lldp_sessions
 

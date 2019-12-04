@@ -27,8 +27,8 @@ try:
     from const.constants import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} const.constants")
-    exit(EXIT_FAILURE)
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     from functions.static.static_converters import _cumulus_static_converter
@@ -38,16 +38,16 @@ try:
     from functions.static.static_converters import _extreme_vsp_static_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.static.static_converters")
-    exit(EXIT_FAILURE)
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     from functions.vrf.vrf_get import get_vrf_name_list
     from functions.vrf.vrf_get import get_vrf
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.vrf")
-    print(importError)
     exit(EXIT_FAILURE)
+    print(importError)
 
 try:
     from nornir.core import Nornir
@@ -61,22 +61,22 @@ try:
     from nornir.plugins.functions.text import print_result
 except ImportError as importError:
     print(f"{ERROR_HEADER} nornir")
-    print(importError)
     exit(EXIT_FAILURE)
+    print(importError)
 
 try:
     import textfsm
 except ImportError as importError:
     print(f"{ERROR_HEADER} textfsm")
-    exit(EXIT_FAILURE)
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     import json
 except ImportError as importError:
     print(f"{ERROR_HEADER} json")
-    exit(EXIT_FAILURE)
     print(importError)
+    exit(EXIT_FAILURE)
 
 ########################################################################################################################
 #

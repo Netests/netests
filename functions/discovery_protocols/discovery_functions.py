@@ -54,7 +54,7 @@ def _mapping_sys_capabilities(code) -> str():
     :return str(): that contains system capability name
     """
 
-    if code == "R" or code == "router" or code == "Router " or code == "router ":
+    if code == "R" or code == "ROUTER" or code == "Router " or code == "router ":
         return "Router"
     elif code == "B":
         return "Bridge"
