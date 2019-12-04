@@ -35,6 +35,7 @@ try:
     from functions.static.static_converters import _nexus_static_converter
     from functions.static.static_converters import _arista_static_converter
     from functions.static.static_converters import _ios_static_converter
+    from functions.static.static_converters import _extreme_vsp_static_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.static.static_converters")
     exit(EXIT_FAILURE)
@@ -95,7 +96,7 @@ def get_static(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    # print_result(data)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -193,7 +194,51 @@ def _cumulus_get_static(task):
 # Extreme Networks (VSP)
 #
 def _extreme_vsp_get_static(task):
-    pass
+
+    outputs_dict = dict()
+
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_STATIC}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_STATIC
+    )
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_route_static.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example =[
+        # ['1.1.1.1', '255.255.255.255', '10.2.1.2', 'GlobalRouter', '1', '5', 'TRUE', 'ACTIVE', 'TRUE']]
+        # type = list() of list()
+        outputs_dict['default'] = parsed_results
+
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+
+        if vrf != "default" and vrf != "GlobalRouter":
+
+            output = task.run(
+                name=EXTREME_VSP_GET_STATIC_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=EXTREME_VSP_GET_STATIC_VRF.format(vrf)
+            )
+            # print_result(output)
+
+            if output.result != "":
+                template = open(
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_route_static.template")
+                results_template = textfsm.TextFSM(template)
+
+                parsed_results = results_template.ParseText(output.result)
+                # Result Example = [
+                # ['0.0.0.0', '0.0.0.0', '10.0.5.1', 'MgmtRouter', '1', '5', 'TRUE', 'ACTIVE', 'TRUE']]
+                # type = list() of list()
+                outputs_dict[vrf] = parsed_results
+
+    static_routes = _extreme_vsp_static_converter(outputs_dict)
+
+    task.host[STATIC_DATA_HOST_KEY] = static_routes
 
 
 # ----------------------------------------------------------------------------------------------------------------------

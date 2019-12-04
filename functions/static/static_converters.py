@@ -308,6 +308,84 @@ def _ios_static_converter(cmd_outputs:dict) -> ListStatic:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Extreme Network VSP STATIC Converter
+#
+def _extreme_vsp_static_converter(cmd_outputs:dict) -> ListStatic:
+
+    static_routes_lst = ListStatic(
+        static_routes_lst=list()
+    )
+
+    for vrf in cmd_outputs:
+
+        length = len(cmd_outputs.get(vrf))-1
+
+        while length > 0:
+
+            nb = 0
+
+            nexthops_lst = ListNexthop(
+                nexthops_lst=list()
+            )
+
+            if cmd_outputs.get(vrf)[length-nb][0] == cmd_outputs.get(vrf)[length-(nb+1)][0]:
+                while cmd_outputs.get(vrf)[length-nb][0] == cmd_outputs.get(vrf)[length-(nb+1)][0]:
+
+                    nexthops_lst.nexthops_lst.append(
+                        Nexthop(
+                            ip_address=cmd_outputs.get(vrf)[length-nb][2],
+                            is_in_fib=cmd_outputs.get(vrf)[length-nb][7],
+                            out_interface=NOT_SET,
+                            preference=cmd_outputs.get(vrf)[length-nb][5],
+                            metric=cmd_outputs.get(vrf)[length-nb][5],
+                            active=cmd_outputs.get(vrf)[length-nb][7]
+                        )
+                    )
+
+                    nb += 1
+
+                nexthops_lst.nexthops_lst.append(
+                    Nexthop(
+                        ip_address=cmd_outputs.get(vrf)[length - nb][2],
+                        is_in_fib=cmd_outputs.get(vrf)[length - nb][7],
+                        out_interface=NOT_SET,
+                        preference=cmd_outputs.get(vrf)[length - nb][5],
+                        metric=cmd_outputs.get(vrf)[length - nb][5],
+                        active=cmd_outputs.get(vrf)[length - nb][7]
+                    )
+                )
+
+            else:
+
+                nexthops_lst.nexthops_lst.append(
+                    Nexthop(
+                        ip_address=cmd_outputs.get(vrf)[length - nb][2],
+                        is_in_fib=cmd_outputs.get(vrf)[length - nb][7],
+                        out_interface=NOT_SET,
+                        preference=cmd_outputs.get(vrf)[length - nb][5],
+                        metric=cmd_outputs.get(vrf)[length - nb][5],
+                        active=cmd_outputs.get(vrf)[length - nb][7]
+                    )
+                )
+
+                nb += 1
+
+
+            static_routes_lst.static_routes_lst.append(
+                Static(
+                    vrf_name=vrf,
+                    prefix=cmd_outputs.get(vrf)[length][0],
+                    netmask=cmd_outputs.get(vrf)[length][1],
+                    nexthop=nexthops_lst
+                )
+            )
+
+            length = length - nb
+
+    return  static_routes_lst
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Arista STATIC Converter
 #
 def _arista_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:

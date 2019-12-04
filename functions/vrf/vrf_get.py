@@ -27,15 +27,15 @@ try:
     from const.constants import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} const.constants")
-    exit(EXIT_FAILURE)
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     from protocols.vrf import VRF, ListVRF
 except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    exit(EXIT_FAILURE)
+    print(f"{ERROR_HEADER} protocols.vrf")
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     from functions.vrf.vrf_converter import _napalm_vrf_converter
@@ -97,7 +97,7 @@ def get_vrf(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    # print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

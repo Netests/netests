@@ -314,9 +314,9 @@ def _extreme_vsp_get_ipv4(task):
 
         parsed_results = results_template.ParseText(output.result)
         # Result Example =[
-        #
-        #    
+        # ['Port1/5', '10.2.5.1', '255.255.255.252', 'ones', '1500', '5', 'true', 'disable']]
         # type = list() of list()
+        print(parsed_results)
         outputs_dict['default'] = parsed_results
     
 
@@ -324,7 +324,7 @@ def _extreme_vsp_get_ipv4(task):
         
         if vrf != "default" and vrf != "GlobalRouter":
 
-            utput = task.run(
+            output = task.run(
                 name=EXTREME_VSP_GET_IPV4_VRF.format(vrf),
                 task=netmiko_send_command,
                 command_string=EXTREME_VSP_GET_IPV4_VRF.format(vrf)
@@ -337,13 +337,13 @@ def _extreme_vsp_get_ipv4(task):
                 results_template = textfsm.TextFSM(template)
 
                 parsed_results = results_template.ParseText(output.result)
-                # Result Example = [
-                #
-                #
+                # Result Example =[
+                # ['Port1/5', '10.2.5.1', '255.255.255.252', 'ones', '1500', '5', 'true', 'disable']]
                 # type = list() of list()
+                print(parsed_results)
                 outputs_dict[vrf] = parsed_results
 
-    ipv4_addresses = _extreme_vsp_ipv4_converter(outputs_dict)
+    ipv4_addresses = _extreme_vsp_ipv4_converter(task.host.name, outputs_dict)
 
     task.host[STATIC_DATA_HOST_KEY] = ipv4_addresses
     

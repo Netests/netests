@@ -19,12 +19,12 @@ ospf:
   test: false
   level: NOT_IMPLEMENTED
 # Check IPv4 addresses
-ipv4: true
+ipv4: false
 # Check IPv6 addresses
 ipv6: false
 # Check static routes
 static:
-  test: false
+  test: true
   level: NOT_IMPLEMENTED
   ansible_vars:
     enable: false

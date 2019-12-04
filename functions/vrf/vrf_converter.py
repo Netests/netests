@@ -202,6 +202,7 @@ def _extreme_vsp_vrf_converter(hostname:str(), cmd_output:list) -> ListVRF:
                 exp_targ=NOT_SET,
                 imp_targ=NOT_SET
             )
+        )
             
     return vrf_list    
 

@@ -348,14 +348,14 @@ def _juniper_ipv4_converter(hostname:str(), cmd_output:dict) -> ListIPV4:
 #
 # Extreme Networks VSP IPv4 addresses Converter
 #
-def _ios_ipv4_converter(hostname:str(), cmd_output:dict) -> ListIPV4:
+def _extreme_vsp_ipv4_converter(hostname:str(), cmd_output:dict) -> ListIPV4:
     
     ipv4_addresses_lst = ListIPV4(
         hostname=hostname,
         ipv4_addresses_lst=list()
     )
 
-    for vrf in cmd_ouput:
+    for vrf in cmd_output:
         
         for interface in cmd_output.get(vrf):
             
