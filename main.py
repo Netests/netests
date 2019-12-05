@@ -32,11 +32,20 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.mtu.mtu_compare import compare_mtu
+    from functions.mtu.mtu_get import get_mtu
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.mtu")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.infos.infos_compare import compare_infos
     from functions.infos.infos_get import get_infos
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.infos")
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     from functions.static.static_get import get_static
@@ -44,6 +53,7 @@ try:
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.static")
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     from functions.ip.ipv4.ipv4_get import *
@@ -51,6 +61,7 @@ try:
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.ip.ipv4")
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     from functions.ospf.ospf_gets import *
@@ -58,6 +69,7 @@ try:
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.ospf")
     print(importError)
+    exit(EXIT_FAILURE)
 
 try:
     from functions.discovery_protocols.cdp.get_cdp import *
@@ -418,6 +430,29 @@ def main(ansible, virtual, netbox, tests, reports, verbose):
             print(f"{HEADER} System informations have not been executed !!")
     else:
         print(f"{HEADER} System informations key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME} !!")
+
+    return EXIT_SUCCESS
+
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 9. Check MTU interfaces
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_MTU_KEY in test_to_execute.keys():
+        if test_to_execute.get(TEST_TO_EXC_MTU_KEY) is True:
+
+            get_mtu(nr)
+            same = compare_mtu(
+                nr=nr,
+                mtu_data=open_file(f"{PATH_TO_VERITY_FILES}{MTU_SRC_FILENAME}")
+            )
+
+            if test_to_execute.get(TEST_TO_EXC_MTU_KEY) is True and same is False:
+                exit_value = False
+            print(f"{HEADER} MTU interfaces defined in {PATH_TO_VERITY_FILES}{MTU_SRC_FILENAME} work = {same}!!")
+        else:
+            print(f"{HEADER} MTU interfaces have not been executed !!")
+    else:
+        print(f"{HEADER} MTU interfaces key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME} !!")
 
     return EXIT_SUCCESS
 

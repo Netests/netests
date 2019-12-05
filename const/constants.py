@@ -70,6 +70,7 @@ IPV4_SRC_FILENAME = "ipv4.yml"
 IPV6_SRC_FILENAME = "ipv6.yml"
 STATIC_SRC_FILENAME = "static.yml"
 INFOS_SRC_FILENAME = "sys_infos.yml"
+MTU_SRC_FILENAME = "mtu.yml"
 TEST_TO_EXC_BGP_KEY = 'bgp'
 TEST_TO_EXC_BGP_UP_KEY = 'bgp_all_up'
 TEST_TO_EXC_VRF_KEY = 'vrf'
@@ -81,6 +82,7 @@ TEST_TO_EXC_IPV4_KEY = 'ipv4'
 TEST_TO_EXC_IPV6_KEY = 'ipv6'
 TEST_TO_EXC_STATIC_KEY = 'static'
 TEST_TO_EXC_INFOS_KEY = 'sys_infos'
+TEST_TO_EXC_MTU_KEY = "mtu"
 
 YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
@@ -232,3 +234,6 @@ INFOS_DOMAIN_DICT_KEY = "get_infos_domain"
 INFOS_MEMORY_DICT_KEY = "get_infos_memory"
 INFOS_CONFIG_DICT_KEY = "get_infos_config"
 INFOS_SERIAL_DICT_KEY = "get_infos_serial"
+
+##### MTU
+MTU_DATA_HOST_KEY = "mtu_data"
