@@ -182,6 +182,7 @@ IOS_GET_STATIC = "show ip route static"
 IOS_GET_STATIC_VRF = "show ip route vrf {} static"
 IOS_GET_IPV4_BRIEF = "show ip int brief"
 IOS_GET_IPV4 = "show ip interface"
+IOS_GET_MTU = "show interface"
 
 ##### CISCO IOSXR
 IOSXR_GET_VRF = "show vrf detail"
@@ -237,3 +238,6 @@ INFOS_SERIAL_DICT_KEY = "get_infos_serial"
 
 ##### MTU
 MTU_DATA_HOST_KEY = "mtu_data"
+MTU_WORKS_HOST_KEY = "mtu_works"
+MTU_INTER_YAML_KEY = "interfaces"
+MTU_GLOBAL_YAML_KEY = "global_mtu"

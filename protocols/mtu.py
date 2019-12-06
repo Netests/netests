@@ -60,8 +60,8 @@ class InterfaceMTU:
     #
     #
     def __repr__(self):
-        return f"<InterfaceMTU interface_name={self.interface_name} " \
-               f"mtu_size={self.mtu_size}>\n"
+        return f"\n<InterfaceMTU interface_name={self.interface_name} " \
+               f"mtu_size={self.mtu_size}>"
 
 
 			   
@@ -71,9 +71,9 @@ class InterfaceMTU:
 #
 class ListInterfaceMTU:
 	
-	interface_mtu_lst: list
-	
-	# ------------------------------------------------------------------------------------------------------------------
+    interface_mtu_lst: list
+
+    # ------------------------------------------------------------------------------------------------------------------
     #
     #
     def __init__(self, interface_mtu_lst=list()):
@@ -92,7 +92,7 @@ class ListInterfaceMTU:
     #
     #
     def __repr__(self):
-		result = "<ListInterfaceMTU \n"
+        result = "<ListInterfaceMTU \n"
         for mtu in self.interface_mtu_lst:
             result = result + f"{mtu}"
         return result + ">"
@@ -103,10 +103,11 @@ class ListInterfaceMTU:
 #
 class MTU:
 
-	hostname: str
-	interface_mtu_lst: ListInterfaceMTU
-	
-	# ------------------------------------------------------------------------------------------------------------------
+    hostname: str
+    mtu_global: str
+    interface_mtu_lst: ListInterfaceMTU
+
+    # ------------------------------------------------------------------------------------------------------------------
     #
     #
     def __init__(self, hostname=NOT_SET, mtu_global=NOT_SET, interface_mtu_lst=list()):
@@ -120,13 +121,12 @@ class MTU:
     def __eq__(self, other):
         if not isinstance(other, MTU):
             return NotImplemented
-		
-		if mtu_global == NOT_SET:
-			return (str(self.hostname) == str(other.hostname) and \
+
+        if self.mtu_global == NOT_SET:
+            return (str(self.hostname) == str(other.hostname) and \
 					(self.interface_mtu_lst) == str(other.interface_mtu_lst))
-		
-		else:
-			return (str(self.hostname) == str(other.hostname) and \
+        else:
+            return (str(self.hostname) == str(other.hostname) and \
 					str(self.mtu_global) == str(other.mtu_global) and \
 					(self.interface_mtu_lst) == str(other.interface_mtu_lst))
 
@@ -134,9 +134,10 @@ class MTU:
     #
     #
     def __repr__(self):
-		return f"<MTU hostname={self.hostname} " \
-			   f"<MTU mtu_global={self.mtu_global} " \
-               f"interface_mtu_lst={self.interface_mtu_lst}>\n"
+        return f"<MTU \n" \
+               f"hostname={self.hostname} \n" \
+			   f"<MTU mtu_global={self.mtu_global} \n" \
+               f"interface_mtu_lst={self.interface_mtu_lst}>"
 	
 
 	

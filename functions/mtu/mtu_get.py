@@ -92,7 +92,7 @@ def get_mtu(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -143,7 +143,7 @@ def generic_mtu_get(task):
 # Generic Napalm
 #
 def _generic_mtu_napalm(task):
-	pass
+    pass
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -151,22 +151,22 @@ def _generic_mtu_napalm(task):
 # Cumulus Networks
 #
 def _cumulus_get_mtu(task):
-	pass
+    pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco Nexus (NXOS)
 #
 def _nexus_get_mtu(task):
-	pass
+    pass
 	
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco IOS
 #
 def _ios_get_mtu(task):
-    
-	output = task.run(
+
+    output = task.run(
             name=f"{IOS_GET_MTU}",
             task=netmiko_send_command,
             command_string=IOS_GET_MTU
@@ -184,9 +184,9 @@ def _ios_get_mtu(task):
         #
         # type = list() of list()
 
-		mtu_interfaces = _ios_mtu_converter(task.host.name, parsed_results)
+        mtu_interfaces = _ios_mtu_converter(task.host.name, parsed_results)
 
-		task.host[MTU_DATA_HOST_KEY] = mtu_interfaces
+        task.host[MTU_DATA_HOST_KEY] = mtu_interfaces
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -201,21 +201,21 @@ def _iosxr_get_mtu(task):
 # Arista vEOS
 #
 def _arista_get_mtu(task):
-	pass
+    pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Juniper Networks
 #
 def _juniper_get_mtu(task):
-	pass
+    pass
 	
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Extreme Networks
 #
 def _extreme_vsp_get_mtu(task):
-	pass
+    pass
     
 # ----------------------------------------------------------------------------------------------------------------------
 #

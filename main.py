@@ -431,8 +431,6 @@ def main(ansible, virtual, netbox, tests, reports, verbose):
     else:
         print(f"{HEADER} System informations key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME} !!")
 
-    return EXIT_SUCCESS
-
 
     # ''''''''''''''''''''''''''''''''''''''''''''
     # 9. Check MTU interfaces

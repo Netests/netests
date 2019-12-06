@@ -24,7 +24,7 @@ ipv4: false
 ipv6: false
 # Check static routes
 static:
-  test: true
+  test: false
   level: NOT_IMPLEMENTED
   ansible_vars:
     enable: false
@@ -37,3 +37,5 @@ static:
       preference: pref
 # Check System informations
 sys_infos: false
+# Check Interfaces MTU
+mtu: true

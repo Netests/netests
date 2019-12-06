@@ -91,11 +91,13 @@ def _ios_mtu_converter(hostname:str(), cmd_output:list) -> MTU:
 	for interface in cmd_output:
 		interface_mtu_lst.interface_mtu_lst.append(
 			InterfaceMTU(
-				interface_name=interface[0],
+				interface_name=_mapping_interface_name(
+					interface[0]
+				),
 				mtu_size=interface[8],
 			)
 		)
-		
+
 	return MTU(
 		hostname=hostname,
 		interface_mtu_lst=interface_mtu_lst

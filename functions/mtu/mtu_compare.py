@@ -94,4 +94,37 @@ def compare_mtu(nr, mtu_data:json) -> bool:
 # Compare function
 #
 def _compare_mtu(task, mtu_data:json):
-    raise NotImplemented
+
+    return_value = True
+    int_error_lst = list()
+
+    if task.host.name in mtu_data.keys():
+
+        for interface in task.host[MTU_DATA_HOST_KEY].interface_mtu_lst.interface_mtu_lst:
+
+            if MTU_INTER_YAML_KEY in mtu_data.get(task.host.name) and \
+                    interface.interface_name in mtu_data.get(task.host.name).get(MTU_INTER_YAML_KEY).keys():
+                if str(interface.mtu_size) != str(
+                        mtu_data.get(task.host.name).get(MTU_INTER_YAML_KEY).get(interface.interface_name)):
+                    return_value = False
+                    int_error_lst.append(interface)
+
+            elif MTU_GLOBAL_YAML_KEY in mtu_data.get(task.host.name):
+                if str(interface.mtu_size) != str(mtu_data.get(task.host.name).get(MTU_GLOBAL_YAML_KEY)):
+                    return_value = False
+                    int_error_lst.append(interface)
+
+            else:
+                return_value = False
+
+        if len(int_error_lst) > 0 and return_value == False:
+            print(f"{HEADER_GET} Error with the following interfaces MTU{int_error_lst} !")
+
+        task.host[INFOS_WORKS_KEY] = return_value
+
+        return return_value
+
+    else:
+        print(f"{HEADER_GET} Key {INFOS_DATA_HOST_KEY} is missing for {task.host.name}")
+        return False
+

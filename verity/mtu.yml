@@ -1,0 +1,4 @@
+leaf05:
+  global_mtu: 1500
+  interfaces:
+    lo0: 1514
