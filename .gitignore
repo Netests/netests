@@ -6,3 +6,5 @@ pyvenv.cfg
 pip-selfcheck.json
 .idea
 __pycache__/
+*.pyc
+**/bck.*
