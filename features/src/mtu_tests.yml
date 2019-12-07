@@ -1,0 +1,7 @@
+spine01:
+  global_mtu: 1500
+  interfaces:
+    Gi0/0: 2000
+    Gi0/1: 2200
+    Gi0/2: 2400
+    Gi0/3: 2600

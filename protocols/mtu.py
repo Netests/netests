@@ -70,7 +70,7 @@ class InterfaceMTU:
 # List Interface MTU CLASS
 #
 class ListInterfaceMTU:
-	
+
     interface_mtu_lst: list
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ class ListInterfaceMTU:
     #
     def __init__(self, interface_mtu_lst=list()):
         self.interface_mtu_lst = interface_mtu_lst
-		
+
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
@@ -86,7 +86,7 @@ class ListInterfaceMTU:
         if not isinstance(other, ListInterfaceMTU):
             return NotImplemented
 
-        return (str(self.interface_mtu_lst) == str(other.interface_mtu_lst))
+        return (self.interface_mtu_lst == other.interface_mtu_lst)
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -114,7 +114,7 @@ class MTU:
         self.hostname = hostname
         self.mtu_global = mtu_global
         self.interface_mtu_lst = interface_mtu_lst
-		
+
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
@@ -124,11 +124,11 @@ class MTU:
 
         if self.mtu_global == NOT_SET:
             return (str(self.hostname) == str(other.hostname) and \
-					(self.interface_mtu_lst) == str(other.interface_mtu_lst))
+                    (self.interface_mtu_lst) == str(other.interface_mtu_lst))
         else:
             return (str(self.hostname) == str(other.hostname) and \
-					str(self.mtu_global) == str(other.mtu_global) and \
-					(self.interface_mtu_lst) == str(other.interface_mtu_lst))
+                    str(self.mtu_global) == str(other.mtu_global) and \
+                    (self.interface_mtu_lst) == other.interface_mtu_lst)
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -136,9 +136,5 @@ class MTU:
     def __repr__(self):
         return f"<MTU \n" \
                f"hostname={self.hostname} \n" \
-			   f"<MTU mtu_global={self.mtu_global} \n" \
+               f"<MTU mtu_global={self.mtu_global} \n" \
                f"interface_mtu_lst={self.interface_mtu_lst}>"
-	
-
-	
-	

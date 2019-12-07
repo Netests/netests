@@ -1,10 +1,12 @@
 alabaster==0.7.12
 Babel==2.7.0
 bcrypt==3.1.7
+behave==1.2.6
 certifi==2019.9.11
 cffi==1.13.1
 chardet==3.0.4
 ciscoconfparse==1.4.7
+Click==7.0
 color==0.1
 colorama==0.4.1
 cryptography==2.8
@@ -12,6 +14,7 @@ dnspython==1.16.0
 docutils==0.15.2
 enum34==1.1.6
 future==0.18.1
+helpers==0.2.0
 idna==2.8
 imagesize==1.1.0
 ipaddress==1.0.23
@@ -28,6 +31,8 @@ nornir==2.3.0
 nxapi-plumbing==0.5.2
 packaging==19.2
 paramiko==2.6.0
+parse==1.12.1
+parse-type==0.5.2
 passlib==1.7.1
 pyasn1==0.4.7
 pycparser==2.19

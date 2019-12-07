@@ -37,6 +37,13 @@ except ImportError as importError:
     print(importError)
     exit(EXIT_FAILURE)
 
+try:
+    import yaml
+except ImportError as importError:
+    print(f"{ERROR_HEADER} yaml")
+    print(importError)
+    exit(EXIT_FAILURE)
+
 # ------------------------------------------------------------------------------------------------------------------
 #
 #
@@ -234,3 +241,50 @@ def convert_in_bit_format(ip_value) -> str:
         bit_format = bit_format + str(bin(int(bytes))[2:].zfill(8))
 
     return bit_format
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Open a YAML File and open VM_path contains into YAML file
+#
+def open_file(path: str()) -> dict():
+    """
+    This function  will open a yaml file and return is data
+
+    Args:
+        param1 (str): Path to the yaml file
+
+    Returns:
+        dict: file content
+    """
+
+    with open(path, 'r') as yamlFile:
+        try:
+            data = yaml.load(yamlFile)
+        except yaml.YAMLError as exc:
+            print(exc)
+
+    return data
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Open a YAML File and open VM_path contains into YAML file
+#
+def open_txt_file(path: str()) -> str():
+    """
+    This function  will open a yaml file and return is data
+
+    Args:
+        param1 (str): Path to the string file
+
+    Returns:
+        str: file content
+    """
+
+    with open(path, 'r') as content_file   :
+        try:
+            content = content_file.read()
+        except yaml.YAMLError as exc:
+            print(exc)
+
+    return content
+
