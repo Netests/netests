@@ -73,12 +73,12 @@ def compare_mtu(nr, mtu_data:json) -> bool:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     data = devices.run(
-        task=_compare_mtu,
+        task=_transit_compare_mtu,
         mtu_data=mtu_data,
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
     return_value = True
 
@@ -93,24 +93,37 @@ def compare_mtu(nr, mtu_data:json) -> bool:
 #
 # Compare function
 #
-def _compare_mtu(task, mtu_data:json):
+def _transit_compare_mtu(task, mtu_data:json):
+
+    task.host[MTU_WORKS_HOST_KEY] = _compare_mtu(
+        hostname=task.host.name,
+        mtu_host_data=task.host[MTU_DATA_HOST_KEY],
+        mtu_yaml_data=mtu_data
+    )
+
+    return task.host[MTU_WORKS_HOST_KEY]
+
+def _compare_mtu(hostname:str, mtu_host_data:MTU, mtu_yaml_data:dict):
+
+    if mtu_yaml_data is None:
+        return False
 
     return_value = True
     int_error_lst = list()
 
-    if task.host.name in mtu_data.keys():
+    if hostname in mtu_yaml_data.keys():
 
-        for interface in task.host[MTU_DATA_HOST_KEY].interface_mtu_lst.interface_mtu_lst:
+        for interface in mtu_host_data.interface_mtu_lst.interface_mtu_lst:
 
-            if MTU_INTER_YAML_KEY in mtu_data.get(task.host.name) and \
-                    interface.interface_name in mtu_data.get(task.host.name).get(MTU_INTER_YAML_KEY).keys():
+            if MTU_INTER_YAML_KEY in mtu_yaml_data.get(hostname) and \
+                    interface.interface_name in mtu_yaml_data.get(hostname).get(MTU_INTER_YAML_KEY).keys():
                 if str(interface.mtu_size) != str(
-                        mtu_data.get(task.host.name).get(MTU_INTER_YAML_KEY).get(interface.interface_name)):
+                        mtu_yaml_data.get(hostname).get(MTU_INTER_YAML_KEY).get(interface.interface_name)):
                     return_value = False
                     int_error_lst.append(interface)
 
-            elif MTU_GLOBAL_YAML_KEY in mtu_data.get(task.host.name):
-                if str(interface.mtu_size) != str(mtu_data.get(task.host.name).get(MTU_GLOBAL_YAML_KEY)):
+            elif MTU_GLOBAL_YAML_KEY in mtu_yaml_data.get(hostname):
+                if str(interface.mtu_size) != str(mtu_yaml_data.get(hostname).get(MTU_GLOBAL_YAML_KEY)):
                     return_value = False
                     int_error_lst.append(interface)
 
@@ -119,8 +132,6 @@ def _compare_mtu(task, mtu_data:json):
 
         if len(int_error_lst) > 0 and return_value == False:
             print(f"{HEADER_GET} Error with the following interfaces MTU{int_error_lst} !")
-
-        task.host[INFOS_WORKS_KEY] = return_value
 
         return return_value
 

@@ -94,11 +94,13 @@ except ImportError as importError:
 #
 
 """
+Feature: Test protocols MTU python class ./protocols/mtu.py
   Scenario: Create two MTU objects
-    Given I create a MTU object with nb_int_01 interfaces named object_01
+    Given I create a MTU object with 4 interfaces named object_01
     And a JSON object with data to create a MTU object named object_02
+    And a MTU object retrieve on a network device named object_03
     Then object_01 should be equal to object_02
-    And object_01 should be equal to a MTU defintion describe in verity file
+    And object_03 should be equal to a MTU defintion describe in verity file
 """
 ########################################################################################################################
 #
@@ -108,7 +110,7 @@ except ImportError as importError:
 @given(u'I create a MTU object with {nb_int_01:d} interfaces named object_01')
 def step_impl(context, nb_int_01):
     """
-    Create a MTU object and store it in contect object.
+    Create a MTU object and store it in context object.
 
     :param context:
     :param nb_int_01:
@@ -234,28 +236,10 @@ def compare_mtu_object_01_and_json_object(context) -> None:
     mtu_data = open_file(
         path=f"{FEATURES_SRC_PATH}mtu_tests_validate.yml"
     )
-
     hostname = list(mtu_data.keys())[0]
-    return_value = True
-    int_error_lst = list()
 
-    if hostname in mtu_data.keys():
-
-        for interface in context.object_03.interface_mtu_lst.interface_mtu_lst:
-
-            if MTU_INTER_YAML_KEY in mtu_data.get(hostname) and \
-                    interface.interface_name in mtu_data.get(hostname).get(MTU_INTER_YAML_KEY).keys():
-                if str(interface.mtu_size) != str(
-                        mtu_data.get(hostname).get(MTU_INTER_YAML_KEY).get(interface.interface_name)):
-                    return_value = False
-                    int_error_lst.append(interface)
-
-            elif MTU_GLOBAL_YAML_KEY in mtu_data.get(hostname):
-                if str(interface.mtu_size) != str(mtu_data.get(hostname).get(MTU_GLOBAL_YAML_KEY)):
-                    return_value = False
-                    int_error_lst.append(interface)
-
-            else:
-                return_value = False
-
-        assert return_value
+    assert _compare_mtu(
+        hostname=hostname,
+        mtu_host_data=context.object_03,
+        mtu_yaml_data=mtu_data
+    )
