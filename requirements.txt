@@ -7,8 +7,6 @@ cffi==1.13.1
 chardet==3.0.4
 ciscoconfparse==1.4.7
 Click==7.0
-color==0.1
-colorama==0.4.1
 cryptography==2.8
 dnspython==1.16.0
 docutils==0.15.2
