@@ -269,7 +269,32 @@ def _juniper_get_mtu(task):
 # Extreme Networks
 #
 def _extreme_vsp_get_mtu(task):
-    pass
+
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_MTU}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_MTU,
+        enable=True
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_interfaces_gigabitethernet.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example =
+        #
+        #
+        # type = list() of list()
+
+        mtu_interfaces = _extreme_vsp_mtu_converter(
+            hostname=task.host.name,
+            cmd_output=parsed_results
+        )
+
+        task.host[MTU_DATA_HOST_KEY] = mtu_interfaces
     
 # ----------------------------------------------------------------------------------------------------------------------
 #

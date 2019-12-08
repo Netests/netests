@@ -15,7 +15,7 @@ Start
   ^PORT\s+LINK\s+PORT\s+PHYSICAL\s+STATUS\s+
   ^NUM\s+INDEX\s+DESCRIPTION\s+TRAP\s+LOCK\s+MTU\s+ADDRESS\s+ADMIN\s+OPERATE\s+
   ^-+
-  ^${PORT}\s+${INDEX}\s+${DESCRIPTION}\s+${LINK_TRAP}\s+${\s+${PORT_LOCK}}\s+${MTU}\s+${MAC_ADDR}\s+${ADMIN_STATUS}\s+${OPERATE} -> Record
+  ^${PORT}\s+${INDEX}\s+${DESCRIPTION}\s+${LINK_TRAP}\s+\s+${PORT_LOCK}\s+${MTU}\s+${MAC_ADDR}\s+${ADMIN_STATUS}\s+${OPERATE} -> Record
   ^=+
 
 Done

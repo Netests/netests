@@ -1,3 +1,6 @@
+spine02:
+  global_mtu: 1950
+
 leaf02:
   global_mtu: 1500
 

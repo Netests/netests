@@ -175,6 +175,7 @@ EXTREME_VSP_GET_INFOS = "show tech"
 EXTREME_VSP_GET_SNMP = "show snmp-server host"
 EXTREME_VSP_GET_DOMAIN = "show sys dns"
 EXTREME_VSP_GET_INT = "show interfaces gigabitEthernet name"
+EXTREME_VSP_GET_MTU = "show interfaces gigabitEthernet"
 
 ##### CISCO IOS
 IOS_GET_INFOS = "show version"
