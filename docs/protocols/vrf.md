@@ -50,4 +50,33 @@ Other parameters are not included in the comparaison function and can be differe
 |             |                    |                    |                    |        |                    |                    |                    |                    |                    |
 |             |                    |                    |                    |        |                    |                    |                    |                    |                    |
 
+:white_check_mark: => Supported
+
+:x: => Not supported
+
+:cry: => Not implemented
+
+
+
+## Error and Miss
+
+#### Cisco Nexus
+
+port 22 is fix
+
+```python
+    elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM:
+        # Nexus get_network_instances is not Implemented by NAPALM (November 2019)
+        # File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/napalm/base/base.py", line 1535, in get_network_instances
+        # raise NotImplementedError
+        #   NotImplementedError
+        if NEXUS_PLATEFORM_NAME == task.host.platform:
+            port = task.host.port
+            task.host.port = 22
+            if function == 'GET':
+                _nexus_get_vrf(task)
+            elif function == 'LIST':
+                _get_vrf_name_list(task)
+            task.host.port = port
+```
 
