@@ -89,3 +89,36 @@ leaf05:
 
 Only the loopback interface has a MTU size of 1514. All others interfaces have a MTU size of 1500.
 
+
+
+## Error, Miss and Exceptions
+
+#### Cumulus
+
+Loopback interface is not retrieve. In Cumulus Linux MTU size of an interface loopback is 65536.
+
+```python
+	for interface in cmd_output:
+		if "swp" in interface or "eth" in interface:
+			interface_mtu_lst.interface_mtu_lst.append(
+				InterfaceMTU(
+					interface_name=_mapping_interface_name(
+						interface
+					),
+					mtu_size=cmd_output.get(interface).get('iface_obj').get('mtu', NOT_SET),
+				)
+			)
+```
+
+```python
+<InterfaceMTU interface_name=swp5 mtu_size=1500>
+<InterfaceMTU interface_name=lo mtu_size=65536>
+<InterfaceMTU interface_name=swp2 mtu_size=1500>
+<InterfaceMTU interface_name=swp3 mtu_size=1500>
+<InterfaceMTU interface_name=swp1 mtu_size=1500>
+<InterfaceMTU interface_name=swp6 mtu_size=1500>
+<InterfaceMTU interface_name=swp7 mtu_size=1500>
+<InterfaceMTU interface_name=swp4 mtu_size=1500>
+<InterfaceMTU interface_name=eth0 mtu_size=1500>>
+```
+

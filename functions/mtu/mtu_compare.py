@@ -136,6 +136,5 @@ def _compare_mtu(hostname:str, mtu_host_data:MTU, mtu_yaml_data:dict):
         return return_value
 
     else:
-        print(f"{HEADER_GET} Key {INFOS_DATA_HOST_KEY} is missing for {task.host.name}")
+        print(f"{HEADER_GET} Key {INFOS_DATA_HOST_KEY} is missing for {hostname}")
         return False
-

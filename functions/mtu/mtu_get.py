@@ -145,13 +145,25 @@ def generic_mtu_get(task):
 def _generic_mtu_napalm(task):
     pass
 
-
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cumulus Networks
 #
 def _cumulus_get_mtu(task):
-    pass
+
+    output = task.run(
+        name=f"{CUMULUS_GET_MTU}",
+        task=netmiko_send_command,
+        command_string=CUMULUS_GET_MTU
+    )
+    # print_result(output)
+
+    mtu_interfaces = _cumulus_mtu_converter(
+        hostname=task.host.name,
+        cmd_output=json.loads(output.result)
+    )
+
+    task.host[MTU_DATA_HOST_KEY] = mtu_interfaces
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -184,7 +196,10 @@ def _ios_get_mtu(task):
         #
         # type = list() of list()
 
-        mtu_interfaces = _ios_mtu_converter(task.host.name, parsed_results)
+        mtu_interfaces = _ios_mtu_converter(
+            hostname=task.host.name,
+            cmd_output=parsed_results
+        )
 
         task.host[MTU_DATA_HOST_KEY] = mtu_interfaces
 

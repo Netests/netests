@@ -118,6 +118,7 @@ CUMULUS_GET_STATIC = "net show route static json"
 CUMULUS_GET_STATIC_VRF = "net show route vrf {} static json"
 CUMULUS_GET_INFOS = "net show system json"
 CUMULUS_GET_SNMP = "net show snmp-server status json"
+CUMULUS_GET_MTU = "net show interface all json"
 
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'

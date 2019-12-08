@@ -69,7 +69,27 @@ def _napalm_mtu_converter(hostname:str(), cmd_output:json) -> MTU:
 # Cumulus MTU converter
 #
 def _cumulus_mtu_converter(hostname:str(), cmd_output:json) -> MTU:
-	pass
+
+	if cmd_output is None:
+		return None
+
+	interface_mtu_lst = ListInterfaceMTU(
+		list()
+	)
+
+	for interface in cmd_output:
+		if "swp" in interface or "eth" in interface:
+			interface_mtu_lst.interface_mtu_lst.append(
+				InterfaceMTU(
+					interface_name=_mapping_interface_name(
+						interface
+					),
+					mtu_size=cmd_output.get(interface).get('iface_obj').get('mtu', NOT_SET),
+				)
+			)
+
+	print(interface_mtu_lst)
+	return interface_mtu_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -83,7 +103,10 @@ def _nexus_mtu_converter(hostname:str(), cmd_outputs:list) -> MTU:
 # Cisco IOS MTU Converter
 #
 def _ios_mtu_converter(hostname:str(), cmd_output:list) -> MTU:
-	
+
+	if cmd_output is None:
+		return None
+
 	interface_mtu_lst = ListInterfaceMTU(
 		list()
 	)

@@ -40,7 +40,7 @@ except ImportError as importError:
 
 try:
     from functions.mtu.mtu_compare import _compare_mtu
-    from functions.mtu.mtu_converters import _ios_mtu_converter
+    from functions.mtu.mtu_converters import _ios_mtu_converter, _cumulus_mtu_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.mtu")
     print(importError)
@@ -212,6 +212,23 @@ def create_a_mtu_object_from_a_network_device(context) -> None:
         cmd_output=parsed_results
     )
 
+@given('I create a MTU python object from a Cumulus output command named object_04')
+def create_a_mtu_object_from_a_cumulus_output_command(context) -> None:
+    """
+    Create a MTU object from a Cumulus Linux output
+
+    :param context:
+    :return None:
+    """
+
+    context.object_04 = _cumulus_mtu_converter(
+        hostname="spine01",
+        cmd_output=open_file(
+            path=f"{FEATURES_OUTPUT_PATH}cumulus_net_show_inteface_all.json"
+        )
+    )
+
+
 @then('object_01 should be equal to object_02')
 def compare_mtu_object_01_and_object_02(context) -> None:
     """
@@ -243,3 +260,13 @@ def compare_mtu_object_01_and_json_object(context) -> None:
         mtu_host_data=context.object_03,
         mtu_yaml_data=mtu_data
     )
+
+@then('MTU object_02 should not be equal to object_04')
+def compare_mtu_object_02_and_object_04(context) -> None:
+    """
+    Compare object_01 and object_02
+
+    :param context:
+    :return:
+    """
+    assert (context.object_02 != context.object_04)
