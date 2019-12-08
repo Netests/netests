@@ -122,3 +122,55 @@ Loopback interface is not retrieve. In Cumulus Linux MTU size of an interface lo
 <InterfaceMTU interface_name=eth0 mtu_size=1500>>
 ```
 
+#### Nexus
+
+Loopback interfaces are removed
+
+```python
+				if "Ethernet" in interface.get("interface", NOT_SET) or \
+                        "mgmt" in interface.get("interface", NOT_SET):
+					interface_mtu_lst.interface_mtu_lst.append(
+						InterfaceMTU(
+							interface_name=_mapping_interface_name(
+								interface.get("interface", NOT_SET)
+							),
+							mtu_size=interface.get("eth_mtu", NOT_SET)
+						)
+					)
+```
+
+#### Arista
+
+Loopback interfaces are removed
+
+```python
+			if "Ethernet" in interface or "Management" in interface:
+				interface_mtu_lst.interface_mtu_lst.append(
+					InterfaceMTU(
+						interface_name=_mapping_interface_name(
+							interface
+						),
+						mtu_size=cmd_output.get("interfaces").get(interface).get('mtu', NOT_SET)
+					)
+				)
+```
+
+#### Juniper
+
+Only `em` and `fxp` interfaces are kept in the list
+
+```python
+			if ("em" in interface.get("name")[0].get("data", NOT_SET) and \
+                "demux"not in interface.get("name")[0].get("data", NOT_SET)) or \
+								"fxp" in interface.get("name")[0].get("data", NOT_SET):
+
+				interface_mtu_lst.interface_mtu_lst.append(
+					InterfaceMTU(
+						interface_name=_mapping_interface_name(
+							interface.get("name")[0].get("data", NOT_SET)
+						),
+						mtu_size=interface.get("mtu")[0].get("data", NOT_SET)
+					)
+				)
+```
+

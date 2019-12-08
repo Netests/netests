@@ -84,19 +84,46 @@ def _cumulus_mtu_converter(hostname:str(), cmd_output:json) -> MTU:
 					interface_name=_mapping_interface_name(
 						interface
 					),
-					mtu_size=cmd_output.get(interface).get('iface_obj').get('mtu', NOT_SET),
+					mtu_size=cmd_output.get(interface).get('iface_obj').get('mtu', NOT_SET)
 				)
 			)
 
-	return interface_mtu_lst
+	return MTU(
+		hostname=hostname,
+		interface_mtu_lst=interface_mtu_lst
+	)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco Nexus MTU Converter
 #
-def _nexus_mtu_converter(hostname:str(), cmd_outputs:list) -> MTU:
-	pass
+def _nexus_mtu_converter(hostname:str(), cmd_output:json) -> MTU:
 
+	if cmd_output is None:
+		return None
+
+	interface_mtu_lst = ListInterfaceMTU(
+		list()
+	)
+
+	if "TABLE_interface" in cmd_output.keys():
+		if "ROW_interface" in cmd_output.get("TABLE_interface").keys():
+			for interface in cmd_output.get("TABLE_interface").get("ROW_interface"):
+				if "Ethernet" in interface.get("interface", NOT_SET) or \
+                        "mgmt" in interface.get("interface", NOT_SET):
+					interface_mtu_lst.interface_mtu_lst.append(
+						InterfaceMTU(
+							interface_name=_mapping_interface_name(
+								interface.get("interface", NOT_SET)
+							),
+							mtu_size=interface.get("eth_mtu", NOT_SET)
+						)
+					)
+
+	return MTU(
+		hostname=hostname,
+		interface_mtu_lst=interface_mtu_lst
+	)
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco IOS MTU Converter
@@ -116,7 +143,7 @@ def _ios_mtu_converter(hostname:str(), cmd_output:list) -> MTU:
 				interface_name=_mapping_interface_name(
 					interface[0]
 				),
-				mtu_size=interface[8],
+				mtu_size=interface[8]
 			)
 		)
 
@@ -137,6 +164,7 @@ def _iosxr_mtu_converter(hostname:str(), cmd_output:list) -> MTU:
 # Arista MTU addresses Converter
 #
 def _arista_mtu_converter(hostname:str(), cmd_output:json) -> MTU:
+
 	if cmd_output is None:
 		return None
 
@@ -152,19 +180,48 @@ def _arista_mtu_converter(hostname:str(), cmd_output:json) -> MTU:
 						interface_name=_mapping_interface_name(
 							interface
 						),
-						mtu_size=cmd_output.get("interfaces").get(interface).get('mtu', NOT_SET),
+						mtu_size=cmd_output.get("interfaces").get(interface).get('mtu', NOT_SET)
 					)
 				)
 
-	print(interface_mtu_lst)
-	return interface_mtu_lst
+	return MTU(
+		hostname=hostname,
+		interface_mtu_lst=interface_mtu_lst
+	)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Juniper MTU Converter
 #
-def _juniper_mtu_converter(hostname:str(), cmd_output:dict) -> MTU:
-	pass
+def _juniper_mtu_converter(hostname:str(), cmd_output:json) -> MTU:
+
+	if cmd_output is None:
+		return None
+
+	interface_mtu_lst = ListInterfaceMTU(
+		list()
+	)
+
+	if "interface-information" in cmd_output.keys():
+		for interface in cmd_output.get("interface-information")[0].get("physical-interface"):
+
+			if ("em" in interface.get("name")[0].get("data", NOT_SET) and \
+                "demux"not in interface.get("name")[0].get("data", NOT_SET)) or \
+					"fxp" in interface.get("name")[0].get("data", NOT_SET):
+
+				interface_mtu_lst.interface_mtu_lst.append(
+					InterfaceMTU(
+						interface_name=_mapping_interface_name(
+							interface.get("name")[0].get("data", NOT_SET)
+						),
+						mtu_size=interface.get("mtu")[0].get("data", NOT_SET)
+					)
+				)
+
+	return MTU(
+		hostname=hostname,
+		interface_mtu_lst=interface_mtu_lst
+	)
 	
 # ----------------------------------------------------------------------------------------------------------------------
 #

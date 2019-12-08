@@ -1,3 +1,6 @@
+leaf02:
+  global_mtu: 1500
+
 leaf05:
   global_mtu: 1500
   interfaces:

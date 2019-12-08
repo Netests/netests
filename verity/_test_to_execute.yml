@@ -36,6 +36,6 @@ static:
       netmask: mask
       preference: pref
 # Check System informations
-sys_infos: true
+sys_infos: false
 # Check Interfaces MTU
-mtu: false
+mtu: true

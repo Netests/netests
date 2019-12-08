@@ -170,7 +170,20 @@ def _cumulus_get_mtu(task):
 # Cisco Nexus (NXOS)
 #
 def _nexus_get_mtu(task):
-    pass
+
+    output = task.run(
+        name=f"{NEXUS_GET_MTU}",
+        task=netmiko_send_command,
+        command_string=NEXUS_GET_MTU
+    )
+    # print_result(output)
+
+    mtu_interfaces = _nexus_mtu_converter(
+        hostname=task.host.name,
+        cmd_output=json.loads(output.result)
+    )
+
+    task.host[MTU_DATA_HOST_KEY] = mtu_interfaces
 	
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -236,7 +249,20 @@ def _arista_get_mtu(task):
 # Juniper Networks
 #
 def _juniper_get_mtu(task):
-    pass
+
+    output = task.run(
+        name=f"{JUNOS_GET_MTU}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_MTU
+    )
+    # print_result(output)
+
+    mtu_interfaces = _juniper_mtu_converter(
+        hostname=task.host.name,
+        cmd_output=json.loads(output.result)
+    )
+
+    task.host[MTU_DATA_HOST_KEY] = mtu_interfaces
 	
 # ----------------------------------------------------------------------------------------------------------------------
 #

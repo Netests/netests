@@ -78,7 +78,7 @@ def compare_mtu(nr, mtu_data:json) -> bool:
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
     return_value = True
 

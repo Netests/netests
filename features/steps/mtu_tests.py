@@ -244,6 +244,22 @@ def create_a_mtu_object_from_a_arista_output_command(context) -> None:
         )
     )
 
+@given('I create a MTU python object from a Nexus output command named object_06')
+def create_a_mtu_object_from_a_nexus_output_command(context) -> None:
+    """
+    Create a MTU object from a Nexus output
+
+    :param context:
+    :return None:
+    """
+
+    context.object_06 = _cumulus_mtu_converter(
+        hostname="spine01",
+        cmd_output=open_file(
+            path=f"{FEATURES_OUTPUT_PATH}nexus_show_interface.json"
+        )
+    )
+
 @then('object_01 should be equal to object_02')
 def compare_mtu_object_01_and_object_02(context) -> None:
     """
@@ -279,7 +295,7 @@ def compare_mtu_object_01_and_json_object(context) -> None:
 @then('MTU object_02 should not be equal to object_04')
 def compare_mtu_object_02_and_object_04(context) -> None:
     """
-    Compare object_01 and object_02
+    Compare object_02 and object_04
 
     :param context:
     :return:
@@ -289,9 +305,19 @@ def compare_mtu_object_02_and_object_04(context) -> None:
 @then('MTU object_04 should not be equal to object_05')
 def compare_mtu_object_04_and_object_05(context) -> None:
     """
-    Compare object_01 and object_02
+    Compare object_04 and object_05
 
     :param context:
     :return:
     """
     assert (context.object_04 != context.object_05)
+
+@then('MTU object_02 should not be equal to object_06')
+def compare_mtu_object_02_and_object_06(context) -> None:
+    """
+    Compare object_02 and object_06
+
+    :param context:
+    :return:
+    """
+    assert (context.object_02 != context.object_06)

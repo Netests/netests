@@ -103,6 +103,7 @@ JUNOS_GET_BGP_VRF = "show bgp neighbor exact-instance {} | display json"
 JUNOS_GET_BGP_VRF_RID = "show configuration routing-instances {} routing-options router-id | display json"
 JUNOS_GET_VRF_DETAIL = "show route instance detail | display json"
 JUNOS_GET_VRF = "show route instance | display json"
+JUNOS_GET_MTU = "show interfaces | display json"
 
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
@@ -138,6 +139,7 @@ NEXUS_GET_INFOS = "show version | json"
 NEXUS_GET_INT = "show interface brief | json"
 NEXUS_GET_SNMP = "show snmp host | json"
 NEXUS_GET_DOMAIN = "show hostname | json"
+NEXUS_GET_MTU = "show interface | json"
 
 ##### ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
