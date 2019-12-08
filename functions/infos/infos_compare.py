@@ -65,8 +65,8 @@ def compare_infos(nr, infos_data:json) -> bool:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     data = devices.run(
-        task=_compare_infos,
-        infos_data=infos_data,
+        task=_compare_transit_infos,
+        infos_yaml_data=infos_data,
         on_failed=True,
         num_workers=10
     )
@@ -81,33 +81,44 @@ def compare_infos(nr, infos_data:json) -> bool:
 
     return (not data.failed and return_value)
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Compare function
+#
+def _compare_transit_infos(task, infos_yaml_data:json):
+
+    task.host[INFOS_WORKS_KEY] = _compare_infos(
+        host_keys=task.host.keys(),
+        hostname=task.host.name,
+        infos_host_data=task.host[INFOS_DATA_HOST_KEY],
+        infos_data=infos_yaml_data,
+    )
+
+    return task.host[INFOS_WORKS_KEY]
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Compare function
 #
-def _compare_infos(task, infos_data:json):
+def _compare_infos(host_keys, hostname, infos_host_data, infos_data:json):
 
     verity_infos = SystemInfos()
 
-    if INFOS_DATA_HOST_KEY in task.host.keys():
-        if task.host.name in infos_data.keys():
-            verity_infos.hostname = task.host.name
-            verity_infos.domain = infos_data.get(task.host.name).get('domain', NOT_SET)
-            verity_infos.version = infos_data.get(task.host.name).get('version', NOT_SET)
-            verity_infos.serial = infos_data.get(task.host.name).get('serial', NOT_SET)
-            verity_infos.base_mac = infos_data.get(task.host.name).get('serial', NOT_SET)
-            verity_infos.memory = infos_data.get(task.host.name).get('memory', NOT_SET)
-            verity_infos.vendor = infos_data.get(task.host.name).get('vendor', NOT_SET)
-            verity_infos.model = infos_data.get(task.host.name).get('model', NOT_SET)
-            verity_infos.snmp_ips = infos_data.get(task.host.name).get('snmp_ips', list())
-            verity_infos.interfaces_lst = infos_data.get(task.host.name).get('interfaces', list())
+    if INFOS_DATA_HOST_KEY in host_keys:
+        if hostname in infos_data.keys():
+            verity_infos.hostname = hostname
+            verity_infos.domain = infos_data.get(hostname).get('domain', NOT_SET)
+            verity_infos.version = infos_data.get(hostname).get('version', NOT_SET)
+            verity_infos.serial = infos_data.get(hostname).get('serial', NOT_SET)
+            verity_infos.base_mac = infos_data.get(hostname).get('serial', NOT_SET)
+            verity_infos.memory = infos_data.get(hostname).get('memory', NOT_SET)
+            verity_infos.vendor = infos_data.get(hostname).get('vendor', NOT_SET)
+            verity_infos.model = infos_data.get(hostname).get('model', NOT_SET)
+            verity_infos.snmp_ips = infos_data.get(hostname).get('snmp_ips', list())
+            verity_infos.interfaces_lst = infos_data.get(hostname).get('interfaces', list())
 
-        is_same = verity_infos == task.host[INFOS_DATA_HOST_KEY]
-
-        task.host[INFOS_WORKS_KEY] = is_same
-        return is_same
+        return verity_infos == infos_host_data
 
     else:
-        print(f"Key {INFOS_DATA_HOST_KEY} is missing for {task.host.name}")
+        print(f"Key {INFOS_DATA_HOST_KEY} is missing for {hostname}")
         return False

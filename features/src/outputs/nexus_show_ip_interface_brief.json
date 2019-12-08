@@ -1,0 +1,43 @@
+{
+  "TABLE_interface": {
+    "ROW_interface": [
+      {
+        "interface": "mgmt0",
+        "state": "up",
+        "ip_addr": "10.0.5.202",
+        "speed": "1000",
+        "mtu": "1500"
+      },
+      {
+        "interface": "Ethernet1/1",
+        "vlan": "--",
+        "type": "eth",
+        "portmode": "routed",
+        "state": "up",
+        "state_rsn_desc": "none",
+        "speed": "1000",
+        "ratemode": "D"
+      },
+      {
+        "interface": "Ethernet1/2",
+        "vlan": "1",
+        "type": "eth",
+        "portmode": "access",
+        "state": "up",
+        "state_rsn_desc": "none",
+        "speed": "auto",
+        "ratemode": "D"
+      },
+      {
+        "interface": "Ethernet1/3",
+        "vlan": "1",
+        "type": "eth",
+        "portmode": "access",
+        "state": "up",
+        "state_rsn_desc": "none",
+        "speed": "auto",
+        "ratemode": "D"
+      }
+    ]
+  }
+}

@@ -197,7 +197,6 @@ def _nexus_infos_converter(cmd_outputs:list) -> SystemInfos:
                 index_fqdn = len(str(f"{cmd_outputs.get(INFOS_SYS_DICT_KEY).get('host_name', NOT_SET)}."))
                 sys_info_obj.domain = cmd_outputs.get(INFOS_DOMAIN_DICT_KEY).get("hostname", NOT_SET)[index_fqdn:]
 
-    print(sys_info_obj)
     return sys_info_obj
 
 # ----------------------------------------------------------------------------------------------------------------------

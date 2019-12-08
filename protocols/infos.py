@@ -40,6 +40,7 @@ class SystemInfos:
     version: str
 
     # The following values are not used by the __eq__ function !!
+    build: str
     serial: str
     domain: str
     base_mac: str

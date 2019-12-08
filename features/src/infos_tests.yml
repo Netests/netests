@@ -1,0 +1,17 @@
+leaf02:
+  version: 7.0(3)I7(5a)
+  serial: 96L4EUDRHHW
+  domain: dh.local
+  build: 1.0
+  base_mac: 00:00:00:00:00:01
+  memory: 8129568
+  snmp_ips:
+    - 192.168.254.7
+    - 192.168.254.17
+  interfaces_lst:
+    - mgmt0
+    - Ethernet1/1
+    - Ethernet1/2
+    - Ethernet1/3
+    - Ethernet1/4
+    - loopback0

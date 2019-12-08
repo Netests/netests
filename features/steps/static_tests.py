@@ -41,7 +41,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.global_tools import open_file, open_txt_file
+    from functions.global_tools import open_file
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.global_tools")
     print(importError)
@@ -194,6 +194,12 @@ def create_a_static_object_manually(context) -> None:
 
 @given('I retrieve data from a YAML file to create a Static python object named object_02')
 def create_a_static_object_from_a_json(context) -> None:
+    """
+    Retrieve data from a YAML file to compare with a Static object
+
+    :param context:
+    :return None:
+    """
 
     yaml_content = open_file(
         path=f"{FEATURES_SRC_PATH}static_tests.yml"
@@ -204,6 +210,12 @@ def create_a_static_object_from_a_json(context) -> None:
 
 @given('I create a Static python object from a Arista output command named object_03')
 def create_a_static_object_from_a_arista_output_command(context) -> None:
+    """
+    Create a Static object from a Arista output
+
+    :param context:
+    :return None:
+    """
 
     cmd_outputs = list()
 

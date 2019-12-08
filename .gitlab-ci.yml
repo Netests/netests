@@ -9,5 +9,6 @@ tests:
     - pip install -r requirements.txt
     - behave features/mtu_tests.feature
     - behave features/static_tests.feature
+    - behave features/infos_tests.feature
   tags:
     - docker

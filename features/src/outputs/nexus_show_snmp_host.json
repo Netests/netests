@@ -1,0 +1,22 @@
+{
+    "TABLE_host": {
+        "ROW_host": [
+            {
+                "host": "192.168.254.7",
+                "port": "162",
+                "version": "v2c",
+                "level": "noauth",
+                "type": "trap",
+                "secname": "my-community"
+            },
+            {
+                "host": "192.168.254.17",
+                "port": "162",
+                "version": "v2c",
+                "level": "noauth",
+                "type": "trap",
+                "secname": "my-com"
+            }
+        ]
+    }
+}
