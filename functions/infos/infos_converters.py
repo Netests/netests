@@ -134,7 +134,11 @@ def _cumulus_infos_converter(cmd_outputs:dict) -> SystemInfos:
 
         elif key == INFOS_INT_DICT_KEY:
 
-            sys_info_obj.interfaces_lst = _cumulus_retrieve_int_name(cmd_outputs.get(INFOS_INT_DICT_KEY))
+            sys_info_obj.interfaces_lst = _cumulus_retrieve_int_name(
+                cmd_outputs.get(
+                    INFOS_INT_DICT_KEY
+                )
+            )
 
     return sys_info_obj
 
@@ -175,7 +179,13 @@ def _nexus_infos_converter(cmd_outputs:list) -> SystemInfos:
             sys_info_obj.model = cmd_outputs.get(INFOS_SYS_DICT_KEY).get("chassis_id", NOT_SET)
 
         elif key == INFOS_SNMP_DICT_KEY:
-            sys_info_obj.snmp_ips = cmd_outputs.get(INFOS_SNMP_DICT_KEY).get("TABLE_host", NOT_SET).get("ROW_host").get("host")
+            if isinstance(cmd_outputs.get(INFOS_SNMP_DICT_KEY).get("TABLE_host", NOT_SET).get("ROW_host"), list):
+
+                for snmp_host in cmd_outputs.get(INFOS_SNMP_DICT_KEY).get("TABLE_host", NOT_SET).get("ROW_host"):
+                    sys_info_obj.snmp_ips.append(snmp_host.get("host"))
+
+            elif isinstance(cmd_outputs.get(INFOS_SNMP_DICT_KEY).get("TABLE_host", NOT_SET).get("ROW_host"), dict):
+                sys_info_obj.snmp_ips = [cmd_outputs.get(INFOS_SNMP_DICT_KEY).get("TABLE_host", NOT_SET).get("ROW_host").get("host")]
 
         elif key == INFOS_INT_DICT_KEY:
             sys_info_obj.interfaces_lst = _nexus_retrieve_int_name(
@@ -187,6 +197,7 @@ def _nexus_infos_converter(cmd_outputs:list) -> SystemInfos:
                 index_fqdn = len(str(f"{cmd_outputs.get(INFOS_SYS_DICT_KEY).get('host_name', NOT_SET)}."))
                 sys_info_obj.domain = cmd_outputs.get(INFOS_DOMAIN_DICT_KEY).get("hostname", NOT_SET)[index_fqdn:]
 
+    print(sys_info_obj)
     return sys_info_obj
 
 # ----------------------------------------------------------------------------------------------------------------------
