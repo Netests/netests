@@ -88,7 +88,6 @@ def _cumulus_mtu_converter(hostname:str(), cmd_output:json) -> MTU:
 				)
 			)
 
-	print(interface_mtu_lst)
 	return interface_mtu_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -138,7 +137,27 @@ def _iosxr_mtu_converter(hostname:str(), cmd_output:list) -> MTU:
 # Arista MTU addresses Converter
 #
 def _arista_mtu_converter(hostname:str(), cmd_output:json) -> MTU:
-	pass
+	if cmd_output is None:
+		return None
+
+	interface_mtu_lst = ListInterfaceMTU(
+		list()
+	)
+
+	if "interfaces" in cmd_output.keys():
+		for interface in cmd_output.get("interfaces"):
+			if "Ethernet" in interface or "Management" in interface:
+				interface_mtu_lst.interface_mtu_lst.append(
+					InterfaceMTU(
+						interface_name=_mapping_interface_name(
+							interface
+						),
+						mtu_size=cmd_output.get("interfaces").get(interface).get('mtu', NOT_SET),
+					)
+				)
+
+	print(interface_mtu_lst)
+	return interface_mtu_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

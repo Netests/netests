@@ -216,7 +216,20 @@ def _iosxr_get_mtu(task):
 # Arista vEOS
 #
 def _arista_get_mtu(task):
-    pass
+
+    output = task.run(
+        name=f"{ARISTA_GET_MTU}",
+        task=netmiko_send_command,
+        command_string=ARISTA_GET_MTU
+    )
+    # print_result(output)
+
+    mtu_interfaces = _arista_mtu_converter(
+        hostname=task.host.name,
+        cmd_output=json.loads(output.result)
+    )
+
+    task.host[MTU_DATA_HOST_KEY] = mtu_interfaces
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

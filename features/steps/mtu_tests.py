@@ -228,6 +228,21 @@ def create_a_mtu_object_from_a_cumulus_output_command(context) -> None:
         )
     )
 
+@given('I create a MTU python object from a Arista output command named object_05')
+def create_a_mtu_object_from_a_arista_output_command(context) -> None:
+    """
+    Create a MTU object from a Arista output
+
+    :param context:
+    :return None:
+    """
+
+    context.object_05 = _cumulus_mtu_converter(
+        hostname="spine01",
+        cmd_output=open_file(
+            path=f"{FEATURES_OUTPUT_PATH}arista_show_interfaces.json"
+        )
+    )
 
 @then('object_01 should be equal to object_02')
 def compare_mtu_object_01_and_object_02(context) -> None:
@@ -270,3 +285,13 @@ def compare_mtu_object_02_and_object_04(context) -> None:
     :return:
     """
     assert (context.object_02 != context.object_04)
+
+@then('MTU object_04 should not be equal to object_05')
+def compare_mtu_object_04_and_object_05(context) -> None:
+    """
+    Compare object_01 and object_02
+
+    :param context:
+    :return:
+    """
+    assert (context.object_04 != context.object_05)

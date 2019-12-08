@@ -2,6 +2,10 @@
 
 ###### <dylan.hamel@protonmail.com> - November 2019 - Copyright
 
+![logo.png](./images/logo.png)
+
+## Install
+
 Create your environnement :
 
 ```shell

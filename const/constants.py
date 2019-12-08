@@ -154,6 +154,7 @@ ARISTA_GET_STATIC_VRF = "show ip route vrf {} static | json"
 ARISTA_GET_INFOS = "show version | json"
 ARISTA_GET_INT = "show interfaces status | json"
 ARISTA_GET_DOMAIN = "show hostname | json"
+ARISTA_GET_MTU = "show interfaces | json"
 
 ##### EXTREME VSP COMMANDS
 EXTREME_VSP_GET_BGP = 'show ip bgp summary'
