@@ -257,6 +257,14 @@ Use Cumulus Linux REST API to retrieve Data
 
 
 
+## Pipeline
+
+|       | MTU                | IPv4 | IPv6 | Static             | BGP  | OSPF | SysInfos | CDP  | LLDP | VRF  | Ping | Socket |
+| ----- | ------------------ | ---- | ---- | ------------------ | ---- | ---- | -------- | ---- | ---- | ---- | ---- | ------ |
+| Works | :white_check_mark: | :x:  | :x:  | :white_check_mark: | :x:  | :x:  | :x:      | :x:  | :x:  | :x:  | :x:  | :x:    |
+
+
+
 ## Error / Miss
 
 This chapter contains informations about what is missing in protocols implementation and need to be implemented or improved.

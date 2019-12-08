@@ -44,6 +44,13 @@ except ImportError as importError:
     print(importError)
     exit(EXIT_FAILURE)
 
+try:
+    import json
+except ImportError as importError:
+    print(f"{ERROR_HEADER} json")
+    print(importError)
+    exit(EXIT_FAILURE)
+
 # ------------------------------------------------------------------------------------------------------------------
 #
 #
@@ -244,7 +251,7 @@ def convert_in_bit_format(ip_value) -> str:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Open a YAML File and open VM_path contains into YAML file
+# Open a YAML File
 #
 def open_file(path: str()) -> dict():
     """
@@ -267,7 +274,7 @@ def open_file(path: str()) -> dict():
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Open a YAML File and open VM_path contains into YAML file
+# Open a Text File
 #
 def open_txt_file(path: str()) -> str():
     """
@@ -283,8 +290,30 @@ def open_txt_file(path: str()) -> str():
     with open(path, 'r') as content_file   :
         try:
             content = content_file.read()
-        except yaml.YAMLError as exc:
+        except Exception as exc:
             print(exc)
 
     return content
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Open a JSON File
+#
+def open_json_file(path: str()) -> str():
+    """
+        This function  will open a json file and return is data
+
+        Args:
+            param1 (str): Path to the string file
+
+        Returns:
+            str: file content
+        """
+
+    with open(path, 'r') as content_file:
+        try:
+            content = json.dump(content_file)
+        except yaml.YAMLError as exc:
+            print(exc)
+
+    return content

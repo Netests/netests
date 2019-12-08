@@ -27,3 +27,19 @@ spine01:
     - prefix: 0.0.0.0/0
       nexthop:
         -  ip_address: 10.0.5.1
+
+
+leaf03:
+  default:
+    - prefix: 10.255.255.202/32
+      nexthop:
+        - ip_address: 10.22.33.1
+
+    - prefix: 10.255.255.101/32
+      nexthop:
+        -  ip_address: 10.1.3.1
+
+  mgmt:
+    - prefix: 0.0.0.0/0
+      nexthop:
+        - ip_address: 10.0.5.1

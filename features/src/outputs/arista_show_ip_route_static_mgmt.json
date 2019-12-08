@@ -1,0 +1,28 @@
+{
+    "vrfs": {
+        "mgmt": {
+            "routes": {
+                "0.0.0.0/0": {
+                    "kernelProgrammed": true,
+                    "directlyConnected": false,
+                    "routeAction": "forward",
+                    "routeLeaked": false,
+                    "vias": [
+                        {
+                            "interface": "Management1",
+                            "nexthopAddr": "10.0.5.1"
+                        }
+                    ],
+                    "metric": 0,
+                    "hardwareProgrammed": true,
+                    "routeType": "static",
+                    "preference": 1
+                }
+            },
+            "allRoutesProgrammedKernel": true,
+            "routingDisabled": true,
+            "allRoutesProgrammedHardware": true,
+            "defaultRouteState": "reachable"
+        }
+    }
+}

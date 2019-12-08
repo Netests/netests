@@ -8,5 +8,6 @@ tests:
     - pip install --upgrade pip
     - pip install -r requirements.txt
     - behave features/mtu_tests.feature
+    - behave features/static_tests.feature
   tags:
     - docker

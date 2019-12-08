@@ -49,6 +49,8 @@ except ImportError as importError:
 try:
     # To print task results
     from nornir.plugins.functions.text import print_result
+    # Import Task class
+    from nornir.core.task import Task
 except ImportError as importError:
     print(f"{ERROR_HEADER} nornir")
     print(importError)
@@ -85,7 +87,7 @@ def compare_static(nr, ansible_vars=False, dict_keys="", your_keys={} ) -> bool:
         static_data = dict
 
     data = devices.run(
-        task=_compare_static,
+        task=_compare_transit_static,
         static_data=static_data,
         ansible_vars=ansible_vars,
         dict_keys=dict_keys,
@@ -93,7 +95,7 @@ def compare_static(nr, ansible_vars=False, dict_keys="", your_keys={} ) -> bool:
         on_failed=True,
         num_workers=10
     )
-    # print_result(data)
+    #print_result(data)
 
     return_value = True
 
@@ -106,9 +108,28 @@ def compare_static(nr, ansible_vars=False, dict_keys="", your_keys={} ) -> bool:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Transit function
+#
+def _compare_transit_static(task, static_data:json, *, ansible_vars=False, dict_keys="", your_keys={}):
+
+    task.host[STATIC_WORKS_KEY] =  _compare_static(
+        hostname=task.host.name,
+        static_host_data=task.host[STATIC_DATA_HOST_KEY],
+        static_data=static_data,
+        ansible_vars=ansible_vars,
+        dict_keys=dict_keys,
+        your_keys=your_keys,
+        task=task
+    )
+
+    return task.host[STATIC_WORKS_KEY]
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Compare function
 #
-def _compare_static(task, static_data:json, *, ansible_vars=False, dict_keys="", your_keys={}):
+def _compare_static(hostname:str, static_host_data:Static, static_data:json, *,
+                    ansible_vars=False, dict_keys="", your_keys={}, task:Task):
 
     verity_static = ListStatic(
         static_routes_lst=list()
@@ -122,8 +143,8 @@ def _compare_static(task, static_data:json, *, ansible_vars=False, dict_keys="",
         )
 
     else:
-        if task.host.name in static_data.keys():
-            for vrf_name, facts_lst in static_data.get(task.host.name).items():
+        if hostname in static_data.keys():
+            for vrf_name, facts_lst in static_data.get(hostname).items():
                 for facts in facts_lst:
 
                     if facts.get('netmask', NOT_SET) == NOT_SET:
@@ -198,13 +219,10 @@ def _compare_static(task, static_data:json, *, ansible_vars=False, dict_keys="",
 
                     verity_static.static_routes_lst.append(static_obj)
 
-            is_same = verity_static == task.host[STATIC_DATA_HOST_KEY]
+            is_same = verity_static == static_host_data
 
         else:
-            print(f"[{HEADER_GET}] {task.host.name} is not present in {PATH_TO_VERITY_FILES}/{TEST_TO_EXC_STATIC_KEY}.")
-
-
-    task.host[STATIC_WORKS_KEY] = is_same
+            print(f"[{HEADER_GET}] {hostname} is not present in {PATH_TO_VERITY_FILES}/{TEST_TO_EXC_STATIC_KEY}.")
 
     return is_same
 
