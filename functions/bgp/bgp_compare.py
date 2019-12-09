@@ -57,7 +57,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def compare_bgp(nr, bgp_data:json) -> bool:
+def compare_bgp(nr, bgp_yaml_data:json) -> bool:
 
     devices = nr.filter()
 
@@ -65,8 +65,8 @@ def compare_bgp(nr, bgp_data:json) -> bool:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     data = devices.run(
-        task=_compare_bgp,
-        bgp_data=bgp_data,
+        task=_compare_transit_bgp,
+        bgp_yaml_data=bgp_yaml_data,
         on_failed=True,
         num_workers=10
     )
@@ -83,21 +83,36 @@ def compare_bgp(nr, bgp_data:json) -> bool:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Compare Transit function
+#
+def _compare_transit_bgp(task, bgp_yaml_data:json):
+
+    task.host[BGP_WORKS_KEY] = _compare_bgp(
+        host_keys=task.host.keys(),
+        hostname=task.host.name,
+        bgp_host_data=task.host[BGP_SESSIONS_HOST_KEY],
+        bgp_yaml_data=bgp_yaml_data,
+    )
+
+    return task.host[BGP_WORKS_KEY]
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Compare function
 #
-def _compare_bgp(task, bgp_data:json):
+def _compare_bgp(host_keys, hostname, bgp_host_data:BGP, bgp_yaml_data:json):
 
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
 
-    if BGP_SESSIONS_HOST_KEY in task.host.keys():
+    if BGP_SESSIONS_HOST_KEY in host_keys:
 
-        for vrf_name, facts in bgp_data.get(task.host.name, NOT_SET).items():
+        for vrf_name, facts in bgp_yaml_data.get(hostname, NOT_SET).items():
 
             bgp_sessions_lst = ListBGPSessions(list())
 
             for neighbor in facts.get('neighbors', NOT_SET):
                 bgp_session = BGPSession(
-                    src_hostname=task.host.name,
+                    src_hostname=hostname,
                     peer_ip=neighbor.get('peer_ip', NOT_SET),
                     peer_hostname=neighbor.get('peer_hostname', NOT_SET),
                     remote_as=neighbor.get('remote_as', NOT_SET),
@@ -117,14 +132,13 @@ def _compare_bgp(task, bgp_data:json):
 
 
         verity_bgp = BGP(
-            hostname=task.host.name,
+            hostname=hostname,
             bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
         )
 
-        is_same = verity_bgp == task.host[BGP_SESSIONS_HOST_KEY]
+        return verity_bgp == bgp_host_data
 
-        task.host[BGP_WORKS_KEY] = is_same
-        return is_same
 
     else:
-        print(f"Key {BGP_SESSIONS_HOST_KEY} is missing for {task.host.name}")
+        print(f"Key {BGP_SESSIONS_HOST_KEY} is missing for {hostname}")
+        return False

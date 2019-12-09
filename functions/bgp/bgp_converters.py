@@ -530,3 +530,109 @@ def _juniper_bgp_addr_filter(ip_addr:str) -> str:
         return ip_addr[:ip_addr.find("+")]
     else:
         return ip_addr
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Extreme Networks BGP Converter
+#
+def _extreme_vsp_bgp_converter(hostname:str(), cmd_outputs:dict) -> BGP:
+
+    if cmd_outputs is None:
+        return None
+
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(
+        list()
+    )
+
+    for vrf in cmd_outputs:
+
+        bgp_sessions_lst = ListBGPSessions(
+            list()
+        )
+
+        i = 1
+
+        for bgp_session in cmd_outputs.get(vrf):
+
+            # To remove last line empty ...
+            if len(cmd_outputs.get(vrf))-i > 0:
+
+                asn = bgp_session[1]
+                rid = bgp_session[2]
+
+                bgp_sessions_lst.bgp_sessions.append(
+                    BGPSession(
+                        src_hostname=hostname,
+                        peer_ip=bgp_session[3],
+                        peer_hostname=NOT_SET,
+                        remote_as=bgp_session[4],
+                        state_brief=_generic_state_converter(
+                            bgp_session[5]
+                        ),
+                        session_state=bgp_session[5],
+                        state_time=_extreme_vsp_peer_uptime_converter(
+                            day=bgp_session[13],
+                            hour=bgp_session[14],
+                            min=bgp_session[15],
+                            sec=bgp_session[16]
+                        ),
+                        prefix_received=NOT_SET
+                    )
+                )
+
+                i += 1
+
+        bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+            BGPSessionsVRF(
+                vrf_name=vrf,
+                as_number=asn,
+                router_id=rid,
+                bgp_sessions=bgp_sessions_lst
+            )
+        )
+
+    return BGP(
+        hostname=hostname,
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Extreme Network peer uptime converter
+#
+def _extreme_vsp_peer_uptime_converter(day, hour, min, sec) -> str:
+    """
+    This function will convert BGP peer uptime from a Extreme VSP output command.
+    Output example:
+
+        - 0 day(s), 00:42:05
+
+    :param day:
+    :param hour:
+    :param min:
+    :param sec:
+    :return str: All convert in second
+    """
+
+    return str(
+        (int(_extreme_vsp_remove_double_zero(day))*24*60*60 + \
+         int(_extreme_vsp_remove_double_zero(hour))*60*60) + \
+         int(_extreme_vsp_remove_double_zero(min))*60 + \
+         int(_extreme_vsp_remove_double_zero(sec))
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Extreme Network remove double zero in peer uptime
+#
+def _extreme_vsp_remove_double_zero(value) -> str:
+    """
+    This function will remove a zero of the peer uptime value.
+    This operation is necessary to convert str to int.
+
+    :param value:
+    :return str: value if not 00 else 0
+    """
+
+    return value if value != "00" else "0"

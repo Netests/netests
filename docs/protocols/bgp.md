@@ -85,7 +85,7 @@ Other parameters are not included in the comparaison function and can be differe
 | Arista      |                    |                    |               |                    |                    |                    |                    |                           |
 | Cisco Nexus |                    |                    |               |                    |                    |                    |                    |                           |
 | Cisco IOS   | :white_check_mark: | :white_check_mark: | :x:           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                       |
-|             |                    |                    |               |                    |                    |                    |                    |                           |
+| Extreme VSP | :white_check_mark: | :white_check_mark: | :x:           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                       |
 |             |                    |                    |               |                    |                    |                    |                    |                           |
 |             |                    |                    |               |                    |                    |                    |                    |                           |
 |             |                    |                    |               |                    |                    |                    |                    |                           |

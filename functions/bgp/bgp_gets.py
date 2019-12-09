@@ -55,6 +55,7 @@ try:
     from functions.bgp.bgp_converters import _ios_bgp_converter
     from functions.bgp.bgp_converters import _arista_bgp_converter
     from functions.bgp.bgp_converters import _juniper_bgp_converter
+    from functions.bgp.bgp_converters import _extreme_vsp_bgp_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.bgp_converters")
     print(importError)
@@ -183,18 +184,19 @@ def _cumulus_get_bgp(task):
     if output.result != "":
         outputs_lst.append(json.loads(output.result))
 
-    for vrf in task.host.get('vrfs', list()):
-        if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
-            if vrf.get('bgp', NOT_SET) is True:
-                output = task.run(
-                    name=CUMULUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
-                    task=netmiko_send_command,
-                    command_string=CUMULUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
-                )
-                # print(output.result)
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
 
-                if output.result != "":
-                    outputs_lst.append(json.loads(output.result))
+        if vrf != "default" and vrf != "global":
+
+            output = task.run(
+                name=CUMULUS_GET_BGP_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=CUMULUS_GET_BGP_VRF.format(vrf)
+            )
+            # print(output.result)
+
+            if output.result != "":
+                outputs_lst.append(json.loads(output.result))
 
     bgp_sessions = _cumulus_bgp_converter(task.host.name, outputs_lst)
 
@@ -205,7 +207,59 @@ def _cumulus_get_bgp(task):
 # Extreme Networks (VSP)
 #
 def _extreme_vsp_get_bgp(task):
-    pass
+
+    outputs_dict = dict()
+
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_BGP}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_BGP
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_bgp_summary.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [
+        # ['4', '65100', '10.255.255.102', '10.2.5.2', '65205', 'Established', '180', '60', '180', '60', '100', '120', '5', '0', '00', '42', '05'],
+        # ['4', '65100', '', '10.255.255.205', '65205', 'Established', '180', '60', '180', '60', '100', '3', '5', '0', '00', '42', '05'],
+        # ['4', '65100', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']]
+        # type = list() of list()
+        # Last line is empty ....
+        outputs_dict['default'] = parsed_results
+
+
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+
+        if vrf != "default" and vrf != "GlobalRouter":
+
+            output = task.run(
+                name=EXTREME_VSP_GET_BGP_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=EXTREME_VSP_GET_BGP_VRF.format(vrf)
+            )
+            # print_result(output)
+
+            if output.result != "" and "BGP instance does not exist for" not in output.result:
+                template = open(
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_bgp_summary.template")
+                results_template = textfsm.TextFSM(template)
+
+                parsed_results = results_template.ParseText(output.result)
+                # Result Example = [
+                # ['4', '65100', '10.0.5.102', '10.0.5.202', '65202', 'Idle', '0', '0', '180', '60', '100', '120', '5', '16', '10', '40', '50'],
+                # ['4', '65100', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']]
+                # type = list() of list()
+                # Last line is empty ....
+                outputs_dict[vrf] = parsed_results
+
+    bgp_sessions = _extreme_vsp_bgp_converter(task.host.name, outputs_dict)
+
+    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -225,17 +279,17 @@ def _nexus_get_bgp(task):
     if output.result != "":
         outputs_lst.append(json.loads(output.result))
 
-    for vrf in task.host.get('vrfs', list()):
-        if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
-            if vrf.get('bgp', NOT_SET) is True:
-                output = task.run(
-                    name=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
-                    task=netmiko_send_command,
-                    command_string=NEXUS_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
-                )
-                # print(output.result)
-                if output.result != "":
-                    outputs_lst.append(json.loads(output.result))
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+        if vrf != "default" and vrf != "global":
+            output = task.run(
+                name=NEXUS_GET_BGP_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=NEXUS_GET_BGP_VRF.format(vrf)
+            )
+            # print(output.result)
+
+            if output.result != "":
+                outputs_lst.append(json.loads(output.result))
 
     bgp_sessions = _nexus_bgp_converter(task.host.name, outputs_lst)
 
@@ -312,18 +366,17 @@ def _arista_get_bgp(task):
     if output.result != "":
         outputs_lst.append(json.loads(output.result))
 
-    for vrf in task.host.get('vrfs', list()):
-        if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
-            if vrf.get('bgp', NOT_SET) is True:
-                output = task.run(
-                    name=ARISTA_GET_BGP_VRF.format(vrf.get('name', NOT_SET)),
-                    task=netmiko_send_command,
-                    command_string=ARISTA_GET_BGP_VRF.format(vrf.get('name', NOT_SET))
-                )
-                # print(output.result)
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+        if vrf != "default" and vrf != "global":
+            output = task.run(
+                name=ARISTA_GET_BGP_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=ARISTA_GET_BGP_VRF.format(vrf)
+            )
+            # print(output.result)
 
-                if output.result != "":
-                    outputs_lst.append(json.loads(output.result))
+            if output.result != "":
+                outputs_lst.append(json.loads(output.result))
 
     bgp_sessions = _arista_bgp_converter(task.host.name, outputs_lst)
 

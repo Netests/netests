@@ -141,12 +141,11 @@ def generic_vrf_get(task, function="GET"):
         elif function == 'LIST':
             _get_vrf_name_list(task)
 
-    if task.host.platform == EXTREME_PLATEFORM_NAME:
+    elif task.host.platform == EXTREME_PLATEFORM_NAME:
         if function == 'GET':
             _extreme_vsp_get_vrf(task)
         elif function == 'LIST':
             _get_vrf_name_list(task)
-
 
     elif task.host.platform == EXTREME_PLATEFORM_NAME:
         if function == 'GET':
