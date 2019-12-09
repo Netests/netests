@@ -10,5 +10,6 @@ tests:
     - behave features/mtu_tests.feature
     - behave features/static_tests.feature
     - behave features/infos_tests.feature
+    - behave features/bgp_tests.feature
   tags:
     - docker

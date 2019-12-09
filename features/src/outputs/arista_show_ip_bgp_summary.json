@@ -1,0 +1,43 @@
+{
+    "vrfs": {
+        "default": {
+            "routerId": "10.255.255.203",
+            "peers": {
+                "10.255.255.202": {
+                    "prefixReceived": 0,
+                    "description": "TO-LEAF02",
+                    "msgSent": 0,
+                    "inMsgQueue": 0,
+                    "underMaintenance": false,
+                    "prefixInBest": 0,
+                    "upDownTime": 1574501512.837786,
+                    "version": 4,
+                    "msgReceived": 0,
+                    "prefixAccepted": 0,
+                    "peerState": "Active",
+                    "outMsgQueue": 0,
+                    "prefixInBestEcmp": 0,
+                    "asn": "65202"
+                },
+                "10.255.255.101": {
+                    "prefixReceived": 3,
+                    "description": "TO-SPINE01",
+                    "msgSent": 474662,
+                    "inMsgQueue": 0,
+                    "underMaintenance": false,
+                    "prefixInBest": 3,
+                    "upDownTime": 1574501514.837446,
+                    "version": 4,
+                    "msgReceived": 474648,
+                    "prefixAccepted": 3,
+                    "peerState": "Established",
+                    "outMsgQueue": 0,
+                    "prefixInBestEcmp": 0,
+                    "asn": "65100"
+                }
+            },
+            "vrf": "default",
+            "asn": "65203"
+        }
+    }
+}

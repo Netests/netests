@@ -1,0 +1,29 @@
+---
+spine01:
+  default:
+    asn: 65100
+    router_id: 10.255.255.101
+    neighbors:
+      - peer_ip: 10.255.255.201
+        remote_as: 65201
+      - peer_ip: 10.255.255.202
+        remote_as: 65202
+      - peer_ip: 10.255.255.203
+        remote_as: 65203
+      - peer_ip: 10.255.255.204
+        remote_as: 65204
+        state: DOWN
+      - peer_ip: 10.255.255.205
+        remote_as: 65205
+  mgmt:
+    asn: 65100
+    router_id: 1.1.1.1
+    neighbors:
+      - peer_ip: 10.0.5.203
+        remote_as: 65203
+        state: DOWN
+      - peer_ip: 10.0.5.202
+        remote_as: 65202
+        state: DOWN
+      - peer_ip: 10.0.5.205
+        remote_as: 65205

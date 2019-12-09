@@ -17,8 +17,8 @@ __copyright__ = "Copyright 2019"
 #
 # Constantes
 #
-ERROR_HEADER = "Error import [mtu_tests.py]"
-HEADER = "[netests - mtu_tests.py]"
+ERROR_HEADER = "Error import [bgp_tests.py]"
+HEADER = "[netests - bgp_tests.py]"
 ########################################################################################################################
 #
 # Import Library
@@ -36,7 +36,7 @@ try:
     from functions.static.static_compare import _compare_static
     from protocols.static import ListNexthop, Nexthop, ListStatic, Static
 except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.global_tools")
+    print(f"{ERROR_HEADER} functions.static")
     print(importError)
     exit(EXIT_FAILURE)
 
@@ -75,22 +75,6 @@ except ImportError as importError:
     print(importError)
     exit(EXIT_FAILURE)
 
-########################################################################################################################
-#
-# Scenario
-#
-"""
-Feature: Test protocols Static python class ./protocols/static.py
-  # Description
-  Scenario:
-    # Description
-    Given I create a Static python object manually named object_01
-    And I retrieve data from a YAML file to create a Static python object named object_02
-    And I create a Static python object from a Arista output command named object_03
-    Then Static object_01 should be equal to object_02
-    And Static object_01 should be equal to object_03
-    And Static object_02 should be equal to object_03
-"""
 ########################################################################################################################
 #
 # Functions

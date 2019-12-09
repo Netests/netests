@@ -1,0 +1,33 @@
+
+====================================================================================================
+                           BGP Summary - GlobalRouter
+====================================================================================================
+
+	                             BGP version - 4
+	                                local-as - 65100
+	                              Identifier - 10.255.255.102
+	                          Decision state - Idle
+	           The total number of routes is   2
+
+
+BGP NEIGHBOR INFO :
+
+   NEIGHBOR       RMTAS     STATE    HLDTM  KPALV  HLDCFG KPCFG   WGHT  CONRTY ADVINT UPTime
+----------------------------------------------------------------------------------------------------------
+10.2.5.2         65205        Established 180   60    180    60    100   120    5     0 day(s), 01:21:46
+10.255.255.205   65205        Established 180   60    180    60    100   3      5     0 day(s), 01:21:46
+Total bgp neighbors: 2
+
+BGP CONFEDERATION INFO :
+confederation identifier 0
+confederation peer as
+
+
+
+BGP NETWORK INFO :
+
+====================================================================================================
+                          BGP Networks - GlobalRouter
+====================================================================================================
+10.255.255.102 mask 255.255.255.255 metric 0
+
