@@ -39,6 +39,14 @@ except ImportError as importError:
 
 NOT_SET = "NOT_SET"
 
+NETMIKO_NAPALM_MAPPING_PLATEFORM = {
+    'ios': 'cisco_ios',
+    'nxos': 'cisco_nxos',
+    'eos': 'arista_eos',
+    'junos': 'juniper_junos',
+    'iosxr': 'cisco_xr'
+}
+
 ##### REPORT PATH #####
 REPORT_FOLDER = "reports/"
 TEMPLATES_PATH = "templates/"

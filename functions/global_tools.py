@@ -317,3 +317,31 @@ def open_json_file(path: str()) -> str():
             print(exc)
 
     return content
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Print a line
+#
+def printline() -> None:
+    """
+    This function print a line :)
+    :return None:
+    """
+    print("////////////////////////////////////////////////////////////////////////////////////////")
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Print a line
+#
+def printline_comment_json(comment:str, json_to_print) -> None:
+    """
+    This function print a line :)
+    :return None:
+    """
+    printline()
+    print(f"///////////////\t {comment}")
+    printline()
+    PP.pprint(json_to_print)
+    printline()

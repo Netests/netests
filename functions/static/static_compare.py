@@ -57,13 +57,6 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from main import open_file
-except ImportError as importError:
-    print(f"{ERROR_HEADER} main")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
     from functions.global_tools import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.global_tools")

@@ -32,6 +32,13 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.global_tools import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.global_tools")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.mtu.mtu_compare import compare_mtu
     from functions.mtu.mtu_get import get_mtu
 except ImportError as importError:
@@ -114,8 +121,16 @@ except ImportError as importError:
 try:
     from nornir import InitNornir
     from nornir.core import Nornir
+    from nornir.plugins.connections.netmiko import Netmiko
 except ImportError as importError:
     print(f"{ERROR_HEADER} nornir")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
+    from netmiko import ConnectHandler
+except ImportError as importError:
+    print(f"{ERROR_HEADER} netmiko")
     print(importError)
     exit(EXIT_FAILURE)
 
@@ -176,29 +191,6 @@ def init_nornir(log_file="./nornir/nornir.log", log_level=NORNIR_DEBUG_MODE,
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Open a YAML File and open VM_path contains into YAML file
-#
-def open_file(path: str()) -> dict():
-    """
-    This function  will open a yaml file and return is data
-
-    Args:
-        param1 (str): Path to the yaml file
-
-    Returns:
-        str: Node name
-    """
-
-    with open(path, 'r') as yamlFile:
-        try:
-            data = yaml.load(yamlFile)
-        except yaml.YAMLError as exc:
-            print(exc)
-
-    return data
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
 # Get level test function
 #
 def _get_level_test(level_value: int) -> int:
@@ -210,10 +202,63 @@ def _get_level_test(level_value: int) -> int:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Basic test for CI
+# Test devices connectivity function
 #
-def execute_test():
-    pass
+def _check_connectivity(nr: Nornir) -> bool:
+    """
+    This function will test the connectivity to each devices
+
+    :param nr:
+    :return bool: True if ALL devices are reachable
+    """
+
+    devices = nr.filter()
+
+    if len(devices.inventory.hosts) == 0:
+        raise Exception(f"[{HEADER_GET}] no device selected.")
+
+    data = devices.run(
+        task=is_alive,
+        num_workers=100
+    )
+    #print_result(data)
+
+    for device in devices.inventory.hosts:
+        if data[device].failed:
+            print(f"\t--> Connection to {device} has failed.")
+
+    if not data.failed:
+        print("All devices are reachable :) !")
+    else:
+        print(f"\nPlease check credentials in the inventory")
+
+    printline()
+    return not data.failed
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Test devices connectivity Nornir function
+#
+def is_alive(task) -> None:
+    """
+    This function will use Netmiko find_prompt() function to test connectivity
+    :param task:
+    :return None:
+    """
+
+    if task.host.platform in NETMIKO_NAPALM_MAPPING_PLATEFORM.keys():
+        plateform = NETMIKO_NAPALM_MAPPING_PLATEFORM.get(task.host.platform)
+    else:
+        plateform = task.host.platform
+
+    device = ConnectHandler(
+        device_type=plateform,
+        host=task.host.hostname,
+        username=task.host.username,
+        password=task.host.password
+    )
+
+    device.find_prompt()
 
 ########################################################################################################################
 #
@@ -223,15 +268,11 @@ def execute_test():
 @click.option('--ansible', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY}")
 @click.option('--virtual', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}")
 @click.option('--netbox', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}")
-@click.option('--tests', default=False, help=f"If TRUE, only compilation tests will be executed")
 @click.option('--reports', default=False, help=f"If TRUE, configuration reports will be create")
 @click.option('--verbose', default=False, help=f"If TRUE, print fome information about inventory")
-def main(ansible, virtual, netbox, tests, reports, verbose):
+@click.option('--check-connectivity', default=False, help=f"If TRUE, check if devices are reachable")
+def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-    if tests:
-        execute_test()
-        exit(EXIT_SUCCESS)
 
     # Create Nornir object
     nr = init_nornir(
@@ -242,11 +283,21 @@ def main(ansible, virtual, netbox, tests, reports, verbose):
         netbox=netbox
     )
 
-    print(nr.inventory.hosts)
+
+    printline_comment_json(
+        comment="Devices selected",
+        json_to_print=nr.inventory.hosts
+    )
 
     if verbose:
         for host in nr.inventory.hosts:
             print(nr.inventory.hosts[host].data)
+
+    if check_connectivity:
+        if _check_connectivity(nr):
+            exit(EXIT_SUCCESS)
+        else:
+            exit(EXIT_FAILURE)
 
     test_to_execute = open_file(PATH_TO_VERITY_FILES+TEST_TO_EXECUTE_FILENAME)
 
