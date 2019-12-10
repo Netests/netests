@@ -69,6 +69,13 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
     print(importError)
 
+try:
+    import textfsm
+except ImportError as importError:
+    print(f"{ERROR_HEADER} textfsm")
+    exit(EXIT_FAILURE)
+    print(importError)
+
 ########################################################################################################################
 #
 # Functions
@@ -87,7 +94,7 @@ def get_ospf(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -199,7 +206,70 @@ def _cumulus_get_ospf(task):
 # Extreme Networks (VSP)
 #
 def _extreme_vsp_get_ospf(task):
-    raise NotImplemented
+
+    outputs_dict = dict()
+    outputs_dict['default'] = dict()
+
+    # Execute show ip ospf neighbors
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_OSPF}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_OSPF
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_neighbor.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [
+        # ['10.2.1.1', '10.255.255.201', '10.2.1.2', '1', 'Full', '0', 'Dyn', '32'],
+        # ['10.2.5.1', '10.255.255.205', '10.2.5.2', '1', 'Full', '0', 'Dyn', '37']]
+        # type = list() of list()
+        outputs_dict['default']['neighbors'] = parsed_results
+
+    # Execute show ip ospf interface
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_OSPF_INTERFACES}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_OSPF_INTERFACES
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_interface.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [
+        # ['10.2.1.1', '0.0.0.0', 'en', 'DR', '1', '1', '10.2.1.1', '10.2.1.2', 'brdc', 'none', 'dis'],
+        # ['10.2.5.1', '0.0.0.0', 'en', 'BDR', '1', '1', '10.2.5.2', '10.2.5.1', 'brdc', 'none', 'dis']]
+        # type = list() of list()
+        outputs_dict['default']['interface'] = parsed_results
+
+    # Execute show ip ospf
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_OSPF_RID}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_OSPF_RID
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [
+        # ['10.255.255.102', 'enabled', '2', '100', '10', '1', '1', '1', '10']]
+        # type = list() of list()
+        print(parsed_results)
+        outputs_dict['default']['ospf'] = parsed_results
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

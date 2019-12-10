@@ -1,0 +1,30 @@
+
+====================================================================================================
+                          OSPF General - GlobalRouter
+====================================================================================================
+
+            RouterId: 10.255.255.102
+           AdminStat: enabled
+       VersionNumber: 2
+    AreaBdrRtrStatus: true
+      ASBdrRtrStatus: false
+      Bad-Lsa-Ignore: false
+      ExternLsaCount: 0
+   ExternLsaCksumSum: 0(0x0)
+          TOSSupport: 0
+    OriginateNewLsas: 30
+           RxNewLsas: 15
+          TrapEnable: false
+  AutoVirtLinkEnable: false
+     SpfHoldDownTime: 10
+Rfc1583Compatibility: disable
+Helper Mode         : enabled
+
+	      default-metric :
+
+                         ethernet - 100
+                    fast-ethernet - 10
+                     gig-ethernet - 1
+                 ten-gig-ethernet - 1
+               forty-gig-ethernet - 1
+                             vlan - 10
