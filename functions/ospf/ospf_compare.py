@@ -146,5 +146,6 @@ def _compare_ospf(task, ospf_data:json, level_test:int):
         return is_same
 
     else:
-        print(f"Key {OSPF_SESSIONS_HOST_KEY} is missing for {task.host.name} or verity file is empty for this host")
+        print(f"{HEADER_GET} Key {OSPF_SESSIONS_HOST_KEY} is missing for {task.host.name} or verity file is empty for this host")
+        return False
 

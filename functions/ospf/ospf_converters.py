@@ -203,7 +203,9 @@ def _nexus_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
 #
 def _arista_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
 
-    ospf_vrf_lst = ListOSPFSessionsVRF(list())
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        list()
+    )
     router_id = ""
     inst = ""
     vrf = ""
@@ -259,3 +261,101 @@ def _arista_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
         hostname=hostname,
         ospf_sessions_vrf_lst=ospf_vrf_lst
     )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Extreme Network VSP OSPF Converter
+#
+def _extreme_vsp_ospf_converter(hostname:str(), cmd_outputs:json) -> OSPF:
+
+    if cmd_outputs is None:
+        return None
+
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        list()
+    )
+
+    formated_data = _extreme_vsp_format_data(
+        cmd_outputs=cmd_outputs
+    )
+
+    for vrf in formated_data:
+
+        ospf_area_lst = ListOSPFSessionsArea(
+            ospf_sessions_area_lst=list()
+        )
+
+        for area in formated_data.get(vrf):
+
+            ospf_session_lst = ListOSPFSessions(
+                ospf_sessions_lst=list()
+            )
+
+            for interface in formated_data.get(vrf).get(area):
+
+                ospf_session_lst.ospf_sessions_lst.append(
+                    OSPFSession(
+                        hostname=hostname,
+                        peer_rid=formated_data.get(vrf).get(area).get(interface).get('peer_rid', NOT_SET),
+                        peer_hostname=NOT_SET,
+                        session_state=formated_data.get(vrf).get(area).get(interface).get('session_state', NOT_SET),
+                        local_interface=NOT_SET,
+                        peer_ip=formated_data.get(vrf).get(area).get(interface).get('peer_ip', NOT_SET)
+                    )
+                )
+
+            ospf_area_lst.ospf_sessions_area_lst.append(
+                OSPFSessionsArea(
+                    area_number=area,
+                    ospf_sessions=ospf_session_lst
+                )
+            )
+
+        ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+            OSPFSessionsVRF(
+                vrf_name=vrf,
+                router_id=cmd_outputs.get(vrf).get(OSPF_RIB_KEY)[0][0],
+                ospf_sessions_area_lst=ospf_area_lst
+            )
+        )
+
+    return OSPF(
+        hostname=hostname,
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Extreme Network VSP OSPF data Formater
+#
+def _extreme_vsp_format_data(cmd_outputs:json) -> json:
+
+    result = dict()
+    temp_result = dict()
+
+    for vrf in cmd_outputs:
+
+        result[vrf] = dict()
+        temp_result[vrf] = dict()
+
+        if OSPF_NEI_KEY in cmd_outputs.get(vrf):
+            for neighbors in cmd_outputs.get(vrf).get(OSPF_NEI_KEY):
+
+                temp_result[vrf][neighbors[0]] = dict()
+
+                temp_result[vrf][neighbors[0]]['peer_rid'] = neighbors[1]
+                temp_result[vrf][neighbors[0]]['peer_ip'] = neighbors[2]
+                temp_result[vrf][neighbors[0]]['session_state'] = neighbors[4]
+
+
+        if OSPF_INT_KEY in cmd_outputs.get(vrf):
+            for neighbors_int in cmd_outputs.get(vrf).get(OSPF_INT_KEY):
+
+                if neighbors_int[0] in temp_result[vrf].keys():
+
+                    if neighbors_int[1] not in result[vrf].keys():
+                        result[vrf][neighbors_int[1]] = dict()
+
+                    result[vrf][neighbors_int[1]][neighbors_int[0]] = temp_result[vrf][neighbors_int[0]]
+
+    return result

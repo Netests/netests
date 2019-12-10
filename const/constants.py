@@ -209,6 +209,9 @@ BGP_STATE_BRIEF_DOWN = "DOWN"
 ##### OSPF CONSTANTES
 OSPF_SESSIONS_HOST_KEY = 'ospf_sessions'
 OSPF_WORKS_KEY = 'ospf_works'
+OSPF_RIB_KEY = 'ospf'
+OSPF_INT_KEY = 'interfaces'
+OSPF_NEI_KEY = 'neighbors'
 
 ##### VRF CONSTANTES
 VRF_DATA_KEY = 'vrf_data'

@@ -49,6 +49,7 @@ try:
     from functions.ospf.ospf_converters import _cumulus_ospf_converter
     from functions.ospf.ospf_converters import _nexus_ospf_converter
     from functions.ospf.ospf_converters import _arista_ospf_converter
+    from functions.ospf.ospf_converters import _extreme_vsp_ospf_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.ospf.ospf_converters")
     print(importError)
@@ -94,7 +95,7 @@ def get_ospf(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -173,29 +174,28 @@ def _cumulus_get_ospf(task):
 
         outputs_lst.append(data)
 
-    for vrf in task.host.get('vrfs', list()):
-        if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
-            if vrf.get('ospf', NOT_SET) is True:
-                output = task.run(
-                    name=CUMULUS_GET_OSPF_VRF.format(vrf.get('name', NOT_SET)),
-                    task=netmiko_send_command,
-                    command_string=CUMULUS_GET_OSPF_VRF.format(vrf.get('name', NOT_SET))
-                )
-                # print(output.result)
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+        if vrf != "default" and vrf != "global":
+            output = task.run(
+                name=CUMULUS_GET_OSPF_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=CUMULUS_GET_OSPF_VRF.format(vrf)
+            )
+            # print(output.result)
 
-                output_rid = task.run(
-                    name=CUMULUS_GET_OSPF_RID_VRF.format(vrf.get('name', NOT_SET)),
-                    task=netmiko_send_command,
-                    command_string=CUMULUS_GET_OSPF_RID_VRF.format(vrf.get('name', NOT_SET))
-                )
-                # print(output_rid.result)
+            output_rid = task.run(
+                name=CUMULUS_GET_OSPF_RID_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=CUMULUS_GET_OSPF_RID_VRF.format(vrf)
+            )
+            # print(output_rid.result)
 
-                if output.result != "":
-                    data = dict()
-                    data['rid'] = json.loads(output_rid.result)
-                    data['data'] = json.loads(output.result)
+            if output.result != "":
+                data = dict()
+                data['rid'] = json.loads(output_rid.result)
+                data['data'] = json.loads(output.result)
 
-                    outputs_lst.append(data)
+                outputs_lst.append(data)
 
     ospf_sessions = _cumulus_ospf_converter(task.host.name, outputs_lst)
 
@@ -228,7 +228,7 @@ def _extreme_vsp_get_ospf(task):
         # ['10.2.1.1', '10.255.255.201', '10.2.1.2', '1', 'Full', '0', 'Dyn', '32'],
         # ['10.2.5.1', '10.255.255.205', '10.2.5.2', '1', 'Full', '0', 'Dyn', '37']]
         # type = list() of list()
-        outputs_dict['default']['neighbors'] = parsed_results
+        outputs_dict['default'][OSPF_NEI_KEY] = parsed_results
 
     # Execute show ip ospf interface
     output = task.run(
@@ -248,7 +248,7 @@ def _extreme_vsp_get_ospf(task):
         # ['10.2.1.1', '0.0.0.0', 'en', 'DR', '1', '1', '10.2.1.1', '10.2.1.2', 'brdc', 'none', 'dis'],
         # ['10.2.5.1', '0.0.0.0', 'en', 'BDR', '1', '1', '10.2.5.2', '10.2.5.1', 'brdc', 'none', 'dis']]
         # type = list() of list()
-        outputs_dict['default']['interface'] = parsed_results
+        outputs_dict['default'][OSPF_INT_KEY] = parsed_results
 
     # Execute show ip ospf
     output = task.run(
@@ -267,9 +267,73 @@ def _extreme_vsp_get_ospf(task):
         # Result Example = [
         # ['10.255.255.102', 'enabled', '2', '100', '10', '1', '1', '1', '10']]
         # type = list() of list()
-        print(parsed_results)
-        outputs_dict['default']['ospf'] = parsed_results
+        outputs_dict['default'][OSPF_RIB_KEY] = parsed_results
 
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+        if vrf != "default" and vrf != "GlobalRouter":
+
+
+
+            # Execute show ip ospf neighbors vrf "vrf"
+            output = task.run(
+                name=EXTREME_VSP_GET_OSPF_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=EXTREME_VSP_GET_OSPF_VRF.format(vrf)
+            )
+            # print_result(output)
+
+            if output.result != "" and "OSPF instance does not exist" not in output.result:
+                template = open(
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_neighbor.template")
+                results_template = textfsm.TextFSM(template)
+
+                parsed_results = results_template.ParseText(output.result)
+                # type = list() of list()
+                outputs_dict[vrf] = dict()
+                outputs_dict[vrf][OSPF_NEI_KEY] = parsed_results
+
+
+            # Execute show ip ospf interface vrf "vrf"
+            output = task.run(
+                name=EXTREME_VSP_GET_OSPF_INTERFACES_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=EXTREME_VSP_GET_OSPF_INTERFACES_VRF.format(vrf)
+            )
+            # print_result(output)
+
+            if output.result != "" and "OSPF instance does not exist" not in output.result:
+                template = open(
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_interface.template")
+                results_template = textfsm.TextFSM(template)
+
+                parsed_results = results_template.ParseText(output.result)
+                # type = list() of list()
+                outputs_dict[vrf][OSPF_INT_KEY] = parsed_results
+
+
+            # Execute show ip ospf vrf "vrf"
+            output = task.run(
+                name=EXTREME_VSP_GET_OSPF_RID_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=EXTREME_VSP_GET_OSPF_RID_VRF.format(vrf)
+            )
+            # print_result(output)
+
+            if output.result != "" and "OSPF instance does not exist" not in output.result:
+                template = open(
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf.template")
+                results_template = textfsm.TextFSM(template)
+
+                parsed_results = results_template.ParseText(output.result)
+                # type = list() of list()
+                outputs_dict[vrf][OSPF_RIB_KEY] = parsed_results
+
+    ospf_sessions = _extreme_vsp_ospf_converter(
+        hostname=task.host.name,
+        cmd_outputs=outputs_dict
+    )
+
+    task.host[OSPF_SESSIONS_HOST_KEY] = ospf_sessions
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -300,30 +364,29 @@ def _nexus_get_ospf(task):
 
         outputs_lst.append(data)
 
-    for vrf in task.host.get('vrfs', list()):
-        if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
-            if vrf.get('ospf', NOT_SET) is True:
-                output = task.run(
-                    name=NEXUS_GET_OSPF_VRF.format(vrf.get('name', NOT_SET)),
-                    task=netmiko_send_command,
-                    command_string=NEXUS_GET_OSPF_VRF.format(vrf.get('name', NOT_SET))
-                )
-                # print(output.result)
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+        if vrf != "default" and vrf != "GlobalRouter":
+            output = task.run(
+                name=NEXUS_GET_OSPF_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=NEXUS_GET_OSPF_VRF.format(vrf)
+            )
+            # print(output.result)
 
-                output_rid = task.run(
-                    name=NEXUS_GET_OSPF_RID_VRF.format(vrf.get('name', NOT_SET)),
-                    task=netmiko_send_command,
-                    command_string=NEXUS_GET_OSPF_RID_VRF.format(vrf.get('name', NOT_SET))
-                )
-                # print(output_rid.result)
+            output_rid = task.run(
+                name=NEXUS_GET_OSPF_RID_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=NEXUS_GET_OSPF_RID_VRF.format(vrf)
+            )
+            # print(output_rid.result)
 
-                if output.result != "":
-                    print(output.result)
-                    data = dict()
-                    data['rid'] = json.loads(output_rid.result)
-                    data['data'] = json.loads(output.result)
+            if output.result != "":
+                print(output.result)
+                data = dict()
+                data['rid'] = json.loads(output_rid.result)
+                data['data'] = json.loads(output.result)
 
-                    outputs_lst.append(data)
+                outputs_lst.append(data)
 
     ospf_sessions = _nexus_ospf_converter(task.host.name, outputs_lst)
 
@@ -333,7 +396,15 @@ def _nexus_get_ospf(task):
 #
 # Cisco IOS
 #
-def _cisco_get_ospf(task):
+def _ios_get_ospf(task):
+    raise NotImplemented
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS-XR
+#
+def _iosxr_get_ospf(task):
     raise NotImplemented
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -365,30 +436,29 @@ def _arista_get_ospf(task):
 
         outputs_lst.append(data)
 
-    for vrf in task.host.get('vrfs', list()):
-        if vrf.get('name', NOT_SET) in task.host[VRF_NAME_DATA_KEY]:
-            if vrf.get('ospf', NOT_SET) is True:
-                output = task.run(
-                    name=ARISTA_GET_OSPF_VRF.format(vrf.get('name', NOT_SET)),
-                    task=netmiko_send_command,
-                    command_string=ARISTA_GET_OSPF_VRF.format(vrf.get('name', NOT_SET))
-                )
-                # print(output.result)
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+        if vrf != "default" and vrf != "GlobalRouter":
 
-                output_rid = task.run(
-                    name=ARISTA_GET_OSPF_RID_VRF.format(vrf.get('name', NOT_SET)),
-                    task=netmiko_send_command,
-                    command_string=ARISTA_GET_OSPF_RID_VRF.format(vrf.get('name', NOT_SET))
-                )
-                # print(output_rid.result)
+            output = task.run(
+                name=ARISTA_GET_OSPF_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=ARISTA_GET_OSPF_VRF.format(vrf)
+            )
+            # print(output.result)
 
-                if output.result != "" and "OSPF instance does not exist" not in output.result:
-                    print(output.result)
-                    data = dict()
-                    data['rid'] = json.loads(output_rid.result)
-                    data['data'] = json.loads(output.result)
+            output_rid = task.run(
+                name=ARISTA_GET_OSPF_RID_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=ARISTA_GET_OSPF_RID_VRF.format(vrf)
+            )
+            # print(output_rid.result)
 
-                    outputs_lst.append(data)
+            if output.result != "" and "OSPF instance does not exist" not in output.result:
+                data = dict()
+                data['rid'] = json.loads(output_rid.result)
+                data['data'] = json.loads(output.result)
+
+                outputs_lst.append(data)
 
     ospf_sessions = _arista_ospf_converter(task.host.name, outputs_lst)
 
