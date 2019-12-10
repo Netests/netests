@@ -430,3 +430,129 @@ def _extreme_vsp_format_data(cmd_outputs:json) -> json:
                     result[vrf][neighbors_int[1]][neighbors_int[0]] = temp_result[vrf][neighbors_int[0]]
 
     return result
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS OSPF Converter
+#
+def _ios_ospf_converter(hostname:str(), cmd_outputs:json) -> OSPF:
+
+    if cmd_outputs is None:
+        return None
+
+    formated_data, mapping_router_id = _ios_format_data(
+        cmd_outputs=cmd_outputs
+    )
+
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        list()
+    )
+
+    for vrf in formated_data:
+
+        ospf_area_lst = ListOSPFSessionsArea(
+            ospf_sessions_area_lst=list()
+        )
+
+        for area in formated_data.get(vrf):
+
+            ospf_session_lst = ListOSPFSessions(
+                ospf_sessions_lst=list()
+            )
+
+            for interface in formated_data.get(vrf).get(area):
+                for peer in  formated_data.get(vrf).get(area).get(interface):
+
+                    ospf_session_lst.ospf_sessions_lst.append(
+                        OSPFSession(
+                            hostname=hostname,
+                            peer_rid=peer.get('peer_rid'),
+                            peer_hostname=NOT_SET,
+                            session_state=peer.get('session_state', NOT_SET),
+                            local_interface=interface,
+                            peer_ip=peer.get('peer_ip')
+                        )
+                    )
+
+            ospf_area_lst.ospf_sessions_area_lst.append(
+                OSPFSessionsArea(
+                    area_number=area,
+                    ospf_sessions=ospf_session_lst
+                )
+            )
+
+        ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+            OSPFSessionsVRF(
+                vrf_name=vrf,
+                router_id=mapping_router_id[vrf],
+                ospf_sessions_area_lst=ospf_area_lst
+            )
+        )
+
+    return OSPF(
+        hostname=hostname,
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Cisco IOS OSPF data Formater
+#
+def _ios_format_data(cmd_outputs:json) -> json:
+    """
+    This function will retrieve data from differents commands outputs and gegroup them in a structured data format.
+    Three command are executed on devices
+        -> show ip ospf neighbor detail
+        -> show ip ospf interface
+        -> show ip ospf
+
+    :param cmd_outputs:
+    :return json: Structured data
+    """
+
+    return_val = dict()
+    result = dict()
+    mapping_instance_vrf = dict()
+    router_id = dict()
+
+    if OSPF_RIB_KEY in cmd_outputs.keys():
+        for vrf in cmd_outputs.get(OSPF_RIB_KEY):
+            result[vrf[0]] = dict()
+
+            if vrf[2] == '':
+                return_val['default'] = dict()
+                mapping_instance_vrf[vrf[0]] = 'default'
+                router_id['default'] = vrf[1]
+            else:
+                return_val[vrf[2]] = dict()
+                mapping_instance_vrf[vrf[0]] = vrf[2]
+                router_id[vrf[2]] = vrf[1]
+
+    if OSPF_INT_KEY in cmd_outputs.keys():
+        for interface in cmd_outputs.get(OSPF_INT_KEY):
+
+            if interface[1] in result.keys():
+                if interface[2] not in result.get(interface[1]).keys():
+                    result[interface[1]][interface[2]] = dict()
+
+                result[interface[1]][interface[2]][_mapping_interface_name(interface[0])] = list()
+
+    if OSPF_NEI_KEY in cmd_outputs.keys() and OSPF_RIB_KEY in cmd_outputs.keys():
+        for neighbor in cmd_outputs.get(OSPF_NEI_KEY):
+            for instance_id in result:
+                for area in result.get(instance_id):
+                    if _mapping_interface_name(neighbor[3]) in result.get(instance_id).get(area).keys():
+
+                        result[instance_id][area][_mapping_interface_name(neighbor[3])].append(
+                            {
+                                'peer_rid': neighbor[0],
+                                'peer_ip': neighbor[1],
+                                'session_state': neighbor[4]
+                            }
+                        )
+
+
+    for mapping in mapping_instance_vrf.keys():
+        return_val[mapping_instance_vrf.get(mapping)] = result[mapping]
+
+    return return_val, router_id

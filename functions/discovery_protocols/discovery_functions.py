@@ -140,6 +140,10 @@ def _mapping_interface_name(int_name) -> str():
         index = get_first_digit_index(int_name)
         return str("Gi") + str(int_name)[index:]
 
+    elif "Gi" in str(int_name):
+        index = get_first_digit_index(int_name)
+        return str("Gi") + str(int_name)[index:]
+
     elif str(int_name) == NOT_SET:
         return int_name
 

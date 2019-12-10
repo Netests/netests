@@ -1,0 +1,36 @@
+ Neighbor 10.255.255.102, interface address 10.2.5.1
+    In the area 0 via interface GigabitEthernet0/2
+    Neighbor priority is 1, State is FULL, 6 state changes
+    DR is 10.2.5.2 BDR is 10.2.5.1
+    Options is 0x2 in Hello (E-bit)
+    Options is 0x42 in DBD (E-bit, O-bit)
+    Dead timer due in 00:00:37
+    Neighbor is up for 09:40:17
+    Index 1/1/1, retransmission queue length 0, number of retransmission 0
+    First 0x0(0)/0x0(0)/0x0(0) Next 0x0(0)/0x0(0)/0x0(0)
+    Last retransmission scan length is 0, maximum is 0
+    Last retransmission scan time is 0 msec, maximum is 0 msec
+ Neighbor 10.0.5.101, interface address 10.0.5.101
+    In the area 0.0.0.100 via interface GigabitEthernet0/0
+    Neighbor priority is 1, State is FULL, 12 state changes
+    DR is 10.0.5.205 BDR is 10.0.5.201
+    Options is 0x2 in Hello (E-bit)
+    Options is 0x2 in DBD (E-bit)
+    Dead timer due in 00:00:37
+    Neighbor is up for 00:40:14
+    Index 1/1/1, retransmission queue length 0, number of retransmission 3
+    First 0x0(0)/0x0(0)/0x0(0) Next 0x0(0)/0x0(0)/0x0(0)
+    Last retransmission scan length is 1, maximum is 1
+    Last retransmission scan time is 2 msec, maximum is 2 msec
+ Neighbor 201.201.201.201, interface address 10.0.5.201
+    In the area 0.0.0.100 via interface GigabitEthernet0/0
+    Neighbor priority is 1, State is FULL, 6 state changes
+    DR is 10.0.5.205 BDR is 10.0.5.201
+    Options is 0x2 in Hello (E-bit)
+    Options is 0x2 in DBD (E-bit)
+    Dead timer due in 00:00:37
+    Neighbor is up for 00:41:33
+    Index 2/2/2, retransmission queue length 0, number of retransmission 3
+    First 0x0(0)/0x0(0)/0x0(0) Next 0x0(0)/0x0(0)/0x0(0)
+    Last retransmission scan length is 1, maximum is 1
+    Last retransmission scan time is 1 msec, maximum is 4 msec

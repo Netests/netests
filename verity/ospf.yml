@@ -18,6 +18,18 @@ spine01:
         - peer_rid: 101.101.101.101
           local_interface: eth0
 
+spine02:
+  default:
+    router_id: 10.255.255.102
+    area_id:
+      0.0.0.0:
+        - peer_rid: 10.255.255.201
+          local_interface: port1/1
+        - peer_rid: 10.255.255.205
+          local_interface: port1/5
+      0.0.0.3:
+        - peer_rid: 10.255.255.203
+          local_interface: port1/3
 
 leaf02:
   default:
@@ -45,3 +57,26 @@ leaf03:
           state: FULL
         - peer_rid: 10.255.255.202
           local_interface: Ethernet3
+
+
+leaf05:
+  default:
+    router_id: 10.255.255.205
+    area_id:
+      0:
+        - peer_rid: 10.255.255.102
+          local_interface: GigabitEthernet0/2
+          peer_ip: 10.2.5.1
+          state: FULL
+  mgmt:
+    router_id: 205.205.205.205
+    area_id:
+      0.0.0.100:
+        - peer_rid: 10.0.5.101
+          local_interface: GigabitEthernet0/0
+          peer_ip: 10.0.5.101
+          state: FULL
+        - peer_rid: 201.201.201.201
+          local_interface: GigabitEthernet0/0
+          peer_ip: 10.0.5.201
+          state: FULL

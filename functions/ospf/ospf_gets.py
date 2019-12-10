@@ -50,6 +50,7 @@ try:
     from functions.ospf.ospf_converters import _nexus_ospf_converter
     from functions.ospf.ospf_converters import _arista_ospf_converter
     from functions.ospf.ospf_converters import _extreme_vsp_ospf_converter
+    from functions.ospf.ospf_converters import _ios_ospf_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.ospf.ospf_converters")
     print(importError)
@@ -95,7 +96,7 @@ def get_ospf(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -105,7 +106,9 @@ def generic_ospf_get(task):
 
     use_ssh = False
 
-    if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform:
+    if NEXUS_PLATEFORM_NAME in task.host.platform or JUNOS_PLATEFORM_NAME in task.host.platform or \
+            ARISTA_PLATEFORM_NAME in task.host.platform or CISCO_IOSXR_PLATEFORM_NAME in task.host.platform or \
+            CISCO_IOS_PLATEFORM_NAME in task.host.platform:
         if 'connexion' in task.host.keys():
             if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET):
                 use_ssh = True
@@ -120,11 +123,17 @@ def generic_ospf_get(task):
         if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
             _nexus_get_ospf(task)
 
+        elif use_ssh and CISCO_IOS_PLATEFORM_NAME == task.host.platform:
+            _ios_get_ospf(task)
+
+        elif use_ssh and CISCO_IOSXR_PLATEFORM_NAME == task.host.platform:
+            _iosxr_get_ospf(task)
+
         elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
             _arista_get_ospf(task)
 
         else:
-            _generic_napalm(task)
+            _generic_napalm_ospf(task)
 
     else:
         # RAISE EXCEPTIONS
@@ -134,9 +143,9 @@ def generic_ospf_get(task):
 #
 # Function for devices which are compatible with NAPALM
 #
-def _generic_napalm(task):
+def _generic_napalm_ospf(task):
 
-    print(f"Start _generic_napalm with {task.host.name} ")
+    print(f"Start _generic_napalm_ospf with {task.host.name} ")
 
     output = task.run(
         name=f"napal_get OSPF {task.host.platform}",
@@ -435,7 +444,75 @@ def _nexus_get_ospf(task):
 # Cisco IOS
 #
 def _ios_get_ospf(task):
-    raise NotImplemented
+
+    outputs_dict = dict()
+
+    # Execute show ip ospf
+    output = task.run(
+        name=f"{IOS_GET_OSPF}",
+        task=netmiko_send_command,
+        command_string=IOS_GET_OSPF
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [
+        # ['1', '10.255.255.205', ''],
+        # ['2', '205.205.205.205', 'mgmt']]
+        # type = list() of list()
+        outputs_dict[OSPF_RIB_KEY] = parsed_results
+
+
+    # Execute show ip ospf neighbor detail
+    output = task.run(
+        name=f"{IOS_GET_OSPF_NEI}",
+        task=netmiko_send_command,
+        command_string=IOS_GET_OSPF_NEI
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf_neighbor_detail.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [
+        # ['10.255.255.102', '10.2.5.1', '0', 'GigabitEthernet0/2', 'FULL', '10.2.5.2', '10.2.5.1', '10', '12', '34'],
+        # ['10.0.5.101', '10.0.5.101', '0.0.0.100', 'GigabitEthernet0/0', 'FULL', '10.0.5.205', '10.0.5.201', '01', '12', '31']]
+        # type = list() of list()
+        outputs_dict[OSPF_NEI_KEY] = parsed_results
+
+    # Execute show ip ospf interface
+    output = task.run(
+        name=f"{IOS_GET_OSPF_INT}",
+        task=netmiko_send_command,
+        command_string=IOS_GET_OSPF_INT
+    )
+    # print_result(output)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf_interface_brief.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [['Gi0/1', '1', '0', '10.1.5.2/30', '1', 'DR', '0/0'],
+        # ['Gi0/0', '2', '0.0.0.100', '10.0.5.205/24', '1', 'DR', '2/2']]
+        # type = list() of list()
+        outputs_dict[OSPF_INT_KEY] = parsed_results
+
+    ospf_sessions = _ios_ospf_converter(
+        hostname=task.host.name,
+        cmd_outputs=outputs_dict
+    )
+
+    task.host[OSPF_SESSIONS_HOST_KEY] = ospf_sessions
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -498,7 +575,10 @@ def _arista_get_ospf(task):
 
                 outputs_lst.append(data)
 
-    ospf_sessions = _arista_ospf_converter(task.host.name, outputs_lst)
+    ospf_sessions = _arista_ospf_converter(
+        hostname=task.host.name,
+        cmd_outputs=outputs_lst
+    )
 
     task.host[OSPF_SESSIONS_HOST_KEY] = ospf_sessions
 

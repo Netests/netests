@@ -22,6 +22,18 @@ EXIT_FAILURE = 1
 
 ########################################################################################################################
 #
+# Import Library
+#
+try:
+    import pprint
+    PP = pprint.PrettyPrinter(indent=4)
+except ImportError as importError:
+    print(f"const pprint")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+########################################################################################################################
+#
 # CONSTANTES
 #
 
@@ -193,6 +205,9 @@ IOS_GET_STATIC_VRF = "show ip route vrf {} static"
 IOS_GET_IPV4_BRIEF = "show ip int brief"
 IOS_GET_IPV4 = "show ip interface"
 IOS_GET_MTU = "show interface"
+IOS_GET_OSPF = "show ip ospf"
+IOS_GET_OSPF_NEI = "show ip ospf neighbor detail"
+IOS_GET_OSPF_INT = "show ip ospf interface brief"
 
 ##### CISCO IOSXR
 IOSXR_GET_VRF = "show vrf detail"
