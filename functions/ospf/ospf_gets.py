@@ -95,7 +95,7 @@ def get_ospf(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -269,10 +269,28 @@ def _extreme_vsp_get_ospf(task):
         # type = list() of list()
         outputs_dict['default'][OSPF_RIB_KEY] = parsed_results
 
+    # Execute show ip interfaces to have OSPF neighbors inteface name
+    output = task.run(
+        name=f"{EXTREME_VSP_GET_IPV4}",
+        task=netmiko_send_command,
+        command_string=EXTREME_VSP_GET_IPV4
+    )
+    # print_result(output)
+
+    if output.result != "" and "All 0 out of 0" not in output.result:
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [
+        #
+        # type = list() of list()
+        outputs_dict['default'][OSPF_INT_NAME_KEY] = parsed_results
+
+
     for vrf in task.host[VRF_NAME_DATA_KEY].keys():
         if vrf != "default" and vrf != "GlobalRouter":
-
-
 
             # Execute show ip ospf neighbors vrf "vrf"
             output = task.run(
@@ -327,6 +345,26 @@ def _extreme_vsp_get_ospf(task):
                 parsed_results = results_template.ParseText(output.result)
                 # type = list() of list()
                 outputs_dict[vrf][OSPF_RIB_KEY] = parsed_results
+
+            if vrf in outputs_dict.keys():
+                # Execute show ip interfaces to have OSPF neighbors inteface name
+                output = task.run(
+                    name=EXTREME_VSP_GET_IPV4_VRF.format(vrf),
+                    task=netmiko_send_command,
+                    command_string=EXTREME_VSP_GET_IPV4_VRF.format(vrf)
+                )
+                # print_result(output)
+
+                if output.result != "" and "All 0 out of 0" not in output.result:
+                    template = open(
+                        f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+                    results_template = textfsm.TextFSM(template)
+
+                    parsed_results = results_template.ParseText(output.result)
+                    # Result Example = [
+                    #
+                    # type = list() of list()
+                    outputs_dict[vrf][OSPF_INT_NAME_KEY] = parsed_results
 
     ospf_sessions = _extreme_vsp_ospf_converter(
         hostname=task.host.name,

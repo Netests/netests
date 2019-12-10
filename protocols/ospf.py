@@ -68,9 +68,6 @@ class OSPFSession:
     #
     def __eq__(self, other):
         if not isinstance(other, OSPFSession):
-            print("OSPFSession __eq__")
-            print(f"type(other)={type(other)}")
-            print(f"{other}")
             return NotImplemented
 
         return ((str(self.hostname) == str(other.hostname)) and

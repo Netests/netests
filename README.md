@@ -209,7 +209,7 @@ leaf03:
 |           |      Juniper       |      Cumulus       | Arista             |        NXOS        |        IOS         |       IOS-XR       |    Extreme VSP     | NAPALM             |
 | --------- | :----------------: | :----------------: | ------------------ | :----------------: | :----------------: | :----------------: | :----------------: | ------------------ |
 | BGP       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-| OSPF      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         |        :x:         | :x:                |
+| OSPF      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         | :white_check_mark: | :x:                |
 | SysInfos  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | Ping      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :x:                |
 | Socket    |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
