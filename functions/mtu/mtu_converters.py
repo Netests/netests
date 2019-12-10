@@ -62,7 +62,7 @@ except ImportError as importError:
 # NAPALM MTU converter
 #
 def _napalm_mtu_converter(hostname:str(), cmd_output:json) -> MTU:
-	pass
+	raise NotImplemented
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

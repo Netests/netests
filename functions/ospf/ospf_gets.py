@@ -51,6 +51,7 @@ try:
     from functions.ospf.ospf_converters import _arista_ospf_converter
     from functions.ospf.ospf_converters import _extreme_vsp_ospf_converter
     from functions.ospf.ospf_converters import _ios_ospf_converter
+    from functions.ospf.ospf_converters import _napalm_ospf_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.ospf.ospf_converters")
     print(importError)
@@ -133,7 +134,7 @@ def generic_ospf_get(task):
             _arista_get_ospf(task)
 
         else:
-            _generic_napalm_ospf(task)
+            _generic_ospf_napalm(task)
 
     else:
         # RAISE EXCEPTIONS
@@ -143,16 +144,26 @@ def generic_ospf_get(task):
 #
 # Function for devices which are compatible with NAPALM
 #
-def _generic_napalm_ospf(task):
-
-    print(f"Start _generic_napalm_ospf with {task.host.name} ")
+def _generic_ospf_napalm(task):
+    pass
+    """
+    print(f"Start _generic_ospf_napalm with {task.host.name} ")
 
     output = task.run(
-        name=f"napal_get OSPF {task.host.platform}",
+        name=f"NAPALM get_ospf_neighbors {task.host.platform}",
         task=napalm_get,
-        getters=["interfaces"]
+        getters=["get_ospf_neighbors"]
     )
-    #print(output.result)
+    # print(output.result)
+
+    if output.result != "":
+        bgp_sessions = _napalm_ospf_converter(
+            task.host.name,
+            output.result
+        )
+
+        task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
+    """
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

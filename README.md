@@ -209,17 +209,17 @@ leaf03:
 |           |      Juniper       |      Cumulus       | Arista             |        NXOS        |        IOS         |       IOS-XR       |    Extreme VSP     | NAPALM             |
 | --------- | :----------------: | :----------------: | ------------------ | :----------------: | :----------------: | :----------------: | :----------------: | ------------------ |
 | BGP       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-| OSPF      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         | :white_check_mark: | :x:                |
+| OSPF      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
 | SysInfos  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-| Ping      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :x:                |
+| Ping      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
 | Socket    |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| Static    |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :x:                |
-| VRF       |     :warning:      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :white_check_mark:         | :white_check_mark: |
+| Static    |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
+| VRF       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :white_check_mark:         | :white_check_mark: |
 | LLDP      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | CDP       |      :sleepy:      | :white_check_mark: | :sleepy:           | :white_check_mark: | :white_check_mark: |        :x:         |      :sleepy:      | :sleepy:           |
 | IPv4      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |       :white_check_mark:         | :white_check_mark: |
 | IPv6      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :x:                |
+| MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:*       |
 | MLAG | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | L2VNI | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | VLAN | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
@@ -268,8 +268,6 @@ Join the Telegram channel to have access to Trello
 
 
 
-
-
 ## TextFSM templates
 
 Some templates have be retreieve on :
@@ -281,3 +279,40 @@ Some templates have be retreieve on :
 ## Contributor
 
 **Become a contributor** !!!
+
+
+
+## *NAPALM
+
+In the documentation MTU is retrieve with `get_interfaces()` function : 
+https://napalm.readthedocs.io/en/latest/base.html#napalm.base.base.NetworkDriver.get_interfaces
+
+But actually...
+
+```json
+													'em3': {   'description': '',
+                                     'is_enabled': True,
+                                     'is_up': True,
+                                     'last_flapped': 1506443.0,
+                                     'mac_address': '50:00:00:06:00:03',
+                                     'speed': 1000},
+                          'em3.0': {   'description': 'TO_SPINE01',
+                                       'is_enabled': True,
+                                       'is_up': True,
+                                       'last_flapped': 1506444.0,
+                                       'mac_address': '50:00:00:06:00:03',
+                                       'speed': 1000},
+                          'em4': {   'description': '',
+                                     'is_enabled': True,
+                                     'is_up': True,
+                                     'last_flapped': 1506443.0,
+                                     'mac_address': '50:00:00:06:00:04',
+                                     'speed': 1000},
+                          'em4.32768': {   'description': '',
+                                           'is_enabled': True,
+                                           'is_up': True,
+                                           'last_flapped': 1506444.0,
+                                           'mac_address': '50:00:00:06:00:04',
+                                           'speed': 1000},
+```
+

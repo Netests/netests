@@ -60,6 +60,13 @@ except ImportError as importError:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# NAPALM OSPF converter
+#
+def _napalm_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
+    raise NotImplemented
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Cumulus Networks OSPF converter
 #
 def _cumulus_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:

@@ -60,6 +60,13 @@ except ImportError as importError:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# NAPALM STATIC converter
+#
+def _napalm_static_converter(hostname:str(), cmd_outputs:list, vrf_dict:dict()) -> ListStatic:
+    pass
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Cumulus Networks STATIC converter
 #
 def _cumulus_static_converter(hostname:str(), cmd_outputs:list, vrf_dict:dict()) -> ListStatic:

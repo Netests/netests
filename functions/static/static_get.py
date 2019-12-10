@@ -31,6 +31,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.static.static_converters import _napalm_static_converter
     from functions.static.static_converters import _cumulus_static_converter
     from functions.static.static_converters import _nexus_static_converter
     from functions.static.static_converters import _arista_static_converter
@@ -96,7 +97,7 @@ def get_static(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    # print_result(data)
+    #print_result(data)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -151,8 +152,26 @@ def generic_static_get(task):
 # Function for devices which are compatible with NAPALM
 #
 def _generic_static_napalm(task):
-    raise NotImplemented
+    pass
 
+    """
+    print(f"Start _generic_static_napalm with {task.host.name} ")
+
+    output = task.run(
+        name=f"NAPALM get_route_to {task.host.platform}",
+        task=napalm_get,
+        getters=["get_route_to"]
+    )
+    # print(output.result)
+
+    if output.result != "":
+        static_routes = _napalm_static_converter(
+            hostname=task.host.name,
+            cmd_outputs=output.result
+        )
+
+        task.host[STATIC_DATA_HOST_KEY] = static_routes
+    """
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cumulus Networks

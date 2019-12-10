@@ -118,7 +118,7 @@ def get_vrf_name_list(nr: Nornir, function="LIST"):
         on_failed=True,
         num_workers=10
     )
-    # print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

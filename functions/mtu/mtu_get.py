@@ -144,7 +144,25 @@ def generic_mtu_get(task):
 #
 def _generic_mtu_napalm(task):
     pass
+    """
+    print(f"Start _generic_mtu_napalm with {task.host.name} ")
 
+    output = task.run(
+        name=f"NAPALM get_interfaces {task.host.platform}",
+        task=napalm_get,
+        getters=["interfaces"],
+        retrieve="all"
+    )
+    # print(output.result)
+
+    if output.result != "":
+        bgp_sessions = _napalm_mtu_converter(
+            task.host.name,
+            output.result
+        )
+
+        task.host[MTU_DATA_HOST_KEY] = bgp_sessions
+    """
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cumulus Networks
