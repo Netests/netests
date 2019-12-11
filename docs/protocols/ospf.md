@@ -45,12 +45,12 @@ Other parameters are not included in the comparaison function and can be differe
 
 |             | hostname           | peer_rid           | local_interface    | peer_ip            | session_state      | peer_hostname |
 | ----------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------- |
-| NAPALM      | 😢                  | 😢                  | 😢                  | 😢                  | 😢                  | 😢             |
-| Junos       | 😢                  | 😢                  | 😢                  | 😢                  | 😢                  | 😢             |
+| NAPALM      | :x:                | :x:                | :x:                | :x:                | :x:                | :x:           |
+| Junos       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:           |
 | Cumulus     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:           |
 | Arista      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:           |
 | Cisco Nexus | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:           |
-| Cisco IOS   | 😢                  | 😢                  | 😢                  | 😢                  | 😢                  | 😢             |
+| Cisco IOS   | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:           |
 | Extreme VSP | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:           |
 |             |                    |                    |                    |                    |                    |               |
 |             |                    |                    |                    |                    |                    |               |
@@ -62,3 +62,4 @@ Other parameters are not included in the comparaison function and can be differe
 :x: => Not Supported
 
 :cry: => Not Implemented
+

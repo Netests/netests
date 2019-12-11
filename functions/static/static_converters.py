@@ -437,3 +437,64 @@ def _arista_static_converter(hostname:str(), cmd_outputs:list) -> ListStatic:
                 static_routes_lst.static_routes_lst.append(static_obj)
 
     return static_routes_lst
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Juniper STATIC Converter
+#
+def _juniper_static_converter(hostname:str(), cmd_outputs:json) -> ListStatic:
+
+    static_routes_lst = ListStatic(
+        static_routes_lst=list()
+    )
+
+    if "route-information" in cmd_outputs.keys():
+        for instance_route in cmd_outputs.get("route-information")[0].get("route-table"):
+            if "rt" in instance_route.keys():
+                for route in instance_route.get("rt"):
+
+                    nexthops_lst = ListNexthop(
+                        nexthops_lst=list()
+                    )
+
+                    for route_entry in route.get("rt-entry"):
+                        for nexthop in route_entry.get("nh"):
+
+                            nexthops_lst.nexthops_lst.append(
+                                Nexthop(
+                                    ip_address=nexthop.get('to')[0].get("data", NOT_SET),
+                                    is_in_fib=nexthop.get('always_true_in_juniper', True),
+                                    out_interface=_mapping_interface_name(
+                                        nexthop.get('via')[0].get("data", NOT_SET)
+                                    ),
+                                    preference=route_entry.get('preference')[0].get("data", NOT_SET),
+                                    metric=NOT_SET,
+                                    active=nexthop.get('always_true_in_juniper', True)
+                                )
+                            )
+
+                        # Example of default table route => "data" : "inet.0"
+                        if instance_route.get("table-name")[0].get("data") == "inet.0":
+                            vrf_name = "default"
+                        else:
+                            index_dot = instance_route.get("table-name")[0].get("data").find(".")
+                            vrf_name = instance_route.get("table-name")[0].get("data")[:index_dot]
+
+                        # Output is => "data" : "10.255.255.103/32"
+                        index_slash = str(route.get("rt-destination")[0].get("data", NOT_SET)).find("/")
+
+                        static_routes_lst.static_routes_lst.append(
+                            Static(
+                                vrf_name=vrf_name,
+                                prefix=str(route.get("rt-destination")[0].get("data", NOT_SET))[:index_slash],
+                                netmask=str(route.get("rt-destination")[0].get("data", NOT_SET))[index_slash + 1:],
+                                nexthop=nexthops_lst
+                            )
+                        )
+
+    return static_routes_lst
+
+
+
+

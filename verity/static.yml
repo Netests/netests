@@ -43,3 +43,19 @@ leaf03:
     - prefix: 0.0.0.0/0
       nexthop:
         - ip_address: 10.0.5.1
+
+
+leaf04:
+  default:
+    - prefix: 111.111.111.111/32
+      nexthop:
+        - ip_address: 10.1.4.1
+        - ip_address: 10.3.4.1
+    - prefix: 10.255.255.103/32
+      nexthop:
+        - ip_address: 10.3.4.1
+  mgmt_junos:
+    - prefix: 0.0.0.0/0
+      nexthop:
+        - ip_address: 10.0.5.1
+

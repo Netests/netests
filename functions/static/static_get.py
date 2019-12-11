@@ -37,6 +37,7 @@ try:
     from functions.static.static_converters import _arista_static_converter
     from functions.static.static_converters import _ios_static_converter
     from functions.static.static_converters import _extreme_vsp_static_converter
+    from functions.static.static_converters import _juniper_static_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.static.static_converters")
     print(importError)
@@ -395,4 +396,19 @@ def _arista_get_static(task):
 # Juniper JunOS
 #
 def _juniper_get_static(task):
-    pass
+
+    output = task.run(
+        name=f"{JUNOS_GET_STATIC}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_STATIC
+    )
+    # print(output.result)
+
+    if output.result != "":
+
+        static_routes = _juniper_static_converter(
+            hostname=task.host.name,
+            cmd_outputs=json.loads(output.result)
+        )
+
+        task.host[STATIC_DATA_HOST_KEY] = static_routes
