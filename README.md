@@ -262,9 +262,14 @@ Join the Telegram channel to have access to Trello
 
 ## Pipeline
 
-|       | MTU                | IPv4 | IPv6 | Static             | BGP                | OSPF               | SysInfos           | CDP  | LLDP | VRF  | Ping | Socket |
-| ----- | ------------------ | ---- | ---- | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ---- | ---- | ---- | ------ |
-| Works | :white_check_mark: | :x:  | :x:  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:  | :x:  | :x:  | :x:  | :x:    |
+|             | MTU                | IPv4 | IPv6 | Static             | BGP                | OSPF               | SysInfos           | CDP  | LLDP | VRF  | Ping | Socket |
+| ----------- | ------------------ | ---- | ---- | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ---- | ---- | ---- | ------ |
+| Juniper     |                    |      |      | :white_check_mark: |                    | :white_check_mark: |                    |      |      |      |      |        |
+| Cumulus     | :white_check_mark: |      |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
+| Arista      | :white_check_mark: |      |      | :white_check_mark: |                    |                    |                    |      |      |      |      |        |
+| Nexus       | :white_check_mark: |      |      |                    |                    |                    | :white_check_mark: |      |      |      |      |        |
+| IOS         |                    |      |      |                    |                    | :white_check_mark: |                    |      |      |      |      |        |
+| Extreme VSP |                    |      |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
 
 
 
