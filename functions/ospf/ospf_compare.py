@@ -73,13 +73,13 @@ def compare_ospf(nr, ospf_data:json, level_test:int) -> bool:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     data = devices.run(
-        task=_compare_ospf,
-        ospf_data=ospf_data,
+        task=_compare_transit_ospf,
+        ospf_yaml_data=ospf_data,
         level_test=level_test,
         on_failed=True,
         num_workers=10
     )
-    # print_result(data)
+    #print_result(data)
 
     return_value = True
 
@@ -92,15 +92,31 @@ def compare_ospf(nr, ospf_data:json, level_test:int) -> bool:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Compare Transit function
+#
+def _compare_transit_ospf(task, ospf_yaml_data:json, level_test:int):
+
+    task.host[OSPF_WORKS_KEY] = _compare_ospf(
+        host_keys=task.host.keys(),
+        hostname=task.host.name,
+        ospf_host_data=task.host[OSPF_SESSIONS_HOST_KEY],
+        ospf_yaml_data=ospf_yaml_data,
+        level_test=level_test
+    )
+
+    return task.host[OSPF_WORKS_KEY]
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Compare function
 #
-def _compare_ospf(task, ospf_data:json, level_test:int):
+def _compare_ospf(host_keys, hostname, ospf_host_data:OSPF, ospf_yaml_data:json, level_test:int):
 
     ospf_sessions_vrf_lst = ListOSPFSessionsVRF(list())
 
-    if OSPF_SESSIONS_HOST_KEY in task.host.keys() and task.host.name in ospf_data.keys():
+    if OSPF_SESSIONS_HOST_KEY in host_keys and hostname in ospf_yaml_data.keys():
 
-        for vrf_name, ospf_vrf_facts in ospf_data.get(task.host.name, NOT_SET).items():
+        for vrf_name, ospf_vrf_facts in ospf_yaml_data.get(hostname, NOT_SET).items():
 
             ospf_sessions_vrf = OSPFSessionsVRF(
                 router_id=ospf_vrf_facts.get('router_id', NOT_SET),
@@ -120,7 +136,7 @@ def _compare_ospf(task, ospf_data:json, level_test:int):
                     if isinstance(neighbor,dict):
 
                         ospf = OSPFSession(
-                            hostname=task.host.name,
+                            hostname=hostname,
                             peer_rid=neighbor.get('peer_rid', NOT_SET),
                             peer_hostname=neighbor.get('peer_name', NOT_SET),
                             session_state=neighbor.get('state', NOT_SET),
@@ -135,17 +151,15 @@ def _compare_ospf(task, ospf_data:json, level_test:int):
             ospf_sessions_vrf_lst.ospf_sessions_vrf_lst.append(ospf_sessions_vrf)
 
         verity_ospf = OSPF(
-            hostname=task.host.name,
+            hostname=hostname,
             ospf_sessions_vrf_lst=ospf_sessions_vrf_lst
         )
 
 
-        is_same = verity_ospf == task.host[OSPF_SESSIONS_HOST_KEY]
+        return verity_ospf == ospf_host_data
 
-        task.host[OSPF_WORKS_KEY] = is_same
-        return is_same
 
     else:
-        print(f"{HEADER_GET} Key {OSPF_SESSIONS_HOST_KEY} is missing for {task.host.name} or verity file is empty for this host")
+        print(f"{HEADER_GET} Key {OSPF_SESSIONS_HOST_KEY} is missing for {hostname} or verity file is empty for this host")
         return False
 

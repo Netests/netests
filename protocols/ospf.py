@@ -130,9 +130,6 @@ class ListOSPFSessions:
     #
     def __eq__(self, others):
         if not isinstance(others, ListOSPFSessions):
-            print("ListOSPFSessions __eq__")
-            print(f"type(other)={type(others)}")
-            print(f"{others}")
             raise NotImplemented
 
         for ospf_session in self.ospf_sessions_lst:
@@ -218,6 +215,9 @@ class ListOSPFSessionsArea:
     def __eq__(self, others):
         if not isinstance(others, ListOSPFSessionsArea):
             raise NotImplemented
+
+        if len(self.ospf_sessions_area_lst) != len(others.ospf_sessions_area_lst):
+            return False
 
         for ospf_session in self.ospf_sessions_area_lst:
             if ospf_session not in others.ospf_sessions_area_lst:

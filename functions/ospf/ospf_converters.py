@@ -88,7 +88,9 @@ def _cumulus_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
             ospf_sessions_vrf = OSPFSessionsVRF(
                 router_id=cmd_output.get('rid', NOT_SET).get(vrf_name, NOT_SET).get('routerId', NOT_SET),
                 vrf_name=vrf_name,
-                ospf_sessions_area_lst=ListOSPFSessionsArea(list())
+                ospf_sessions_area_lst=ListOSPFSessionsArea(
+                    ospf_sessions_area_lst=list()
+                )
             )
 
             result_area = dict()
@@ -115,10 +117,10 @@ def _cumulus_ospf_converter(hostname:str(), cmd_outputs:list) -> OSPF:
 
                 result_area.get(neighbors_facts[0].get('areaId', NOT_SET)).ospf_sessions.ospf_sessions_lst.append(ospf)
 
-                for area_id, ospf_sessions in result_area.items():
-                    ospf_sessions_vrf.ospf_sessions_area_lst.ospf_sessions_area_lst.append(
-                        ospf_sessions
-                    )
+            for area_id, ospf_sessions in result_area.items():
+                ospf_sessions_vrf.ospf_sessions_area_lst.ospf_sessions_area_lst.append(
+                    ospf_sessions
+                )
 
         else:
 
