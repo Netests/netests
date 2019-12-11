@@ -32,7 +32,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.static.static_converters import _arista_static_converter
+    from functions.static.static_converters import _arista_static_converter, _juniper_static_converter
     from functions.static.static_compare import _compare_static
     from protocols.static import ListNexthop, Nexthop, ListStatic, Static
 except ImportError as importError:
@@ -80,6 +80,10 @@ except ImportError as importError:
 # Functions
 #
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @given(u'I create a Static python object manually named object_01')
 def create_a_static_object_manually(context) -> None:
     """
@@ -175,8 +179,11 @@ def create_a_static_object_manually(context) -> None:
 
     context.object_01 = static_routes_lst
 
-
-@given('I retrieve data from a YAML file to create a Static python object named object_02')
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@given('I retrieve data from a YAML file corresponding to devices to create an Static python object named object_02')
 def create_a_static_object_from_a_json(context) -> None:
     """
     Retrieve data from a YAML file to compare with a Static object
@@ -191,7 +198,10 @@ def create_a_static_object_from_a_json(context) -> None:
 
     context.object_02 = yaml_content
 
-
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @given('I create a Static python object from a Arista output command named object_03')
 def create_a_static_object_from_a_arista_output_command(context) -> None:
     """
@@ -216,11 +226,36 @@ def create_a_static_object_from_a_arista_output_command(context) -> None:
     )
 
     context.object_03 = _arista_static_converter(
-        hostname="spine01",
+        hostname="leaf03",
         cmd_outputs=cmd_outputs
     )
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@given('I create a Static python object from a Juniper output command named object_04')
+def create_a_static_object_from_a_juniper_output_command(context) -> None:
+    """
+    Create a Static object from a Arista output
 
+    :param context:
+    :return None:
+    """
+
+    cmd_outputs = open_file(
+        path=f"{FEATURES_OUTPUT_PATH}juniper_show_route_protocol_static.json"
+    )
+
+    context.object_04 = _juniper_static_converter(
+        hostname="leaf04",
+        cmd_outputs=cmd_outputs
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @then('Static object_01 should be equal to object_02')
 def compare_static_object_01_and_object_02(context) -> None:
     """
@@ -231,7 +266,7 @@ def compare_static_object_01_and_object_02(context) -> None:
     """
 
     assert _compare_static(
-        hostname="spine01",
+        hostname="leaf03",
         static_host_data=context.object_01,
         static_data=context.object_02,
         ansible_vars=False,
@@ -240,7 +275,10 @@ def compare_static_object_01_and_object_02(context) -> None:
         task=None
     )
 
-
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @then('Static object_01 should be equal to object_03')
 def compare_static_object_01_and_object_03(context) -> None:
     """
@@ -251,6 +289,10 @@ def compare_static_object_01_and_object_03(context) -> None:
     """
     assert context.object_01 == context.object_03
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @then('Static object_02 should be equal to object_03')
 def compare_static_object_02_and_object_03(context) -> None:
     """
@@ -261,7 +303,7 @@ def compare_static_object_02_and_object_03(context) -> None:
     """
 
     assert _compare_static(
-        hostname="spine01",
+        hostname="leaf03",
         static_host_data=context.object_03,
         static_data=context.object_02,
         ansible_vars=False,
@@ -269,3 +311,41 @@ def compare_static_object_02_and_object_03(context) -> None:
         your_keys={},
         task=None
     )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('Static object_02 should be equal to object_04')
+def compare_static_object_02_and_object_04(context) -> None:
+    """
+    Compare object_02 and object_04
+
+    :param context:
+    :return:
+    """
+
+    assert _compare_static(
+        hostname="leaf04",
+        static_host_data=context.object_04,
+        static_data=context.object_02,
+        ansible_vars=False,
+        dict_keys="",
+        your_keys={},
+        task=None
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('Static object_03 should not be equal to object_04')
+def compare_static_object_03_and_object_04(context) -> None:
+    """
+    Compare object_03 and object_04
+
+    :param context:
+    :return:
+    """
+
+    assert context.object_03 != context.object_04
