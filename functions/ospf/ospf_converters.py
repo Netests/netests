@@ -563,3 +563,65 @@ def _ios_format_data(cmd_outputs:json) -> json:
         return_val[mapping_instance_vrf.get(mapping)] = result[mapping]
 
     return return_val, router_id
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Juniper OSPF Converter
+#
+def _juniper_ospf_converter(hostname:str(), cmd_outputs:json) -> OSPF:
+
+    if cmd_outputs is None:
+        return None
+
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        list()
+    )
+
+    for vrf in cmd_outputs:
+        if OSPF_RIB_KEY in cmd_outputs.get(vrf).keys() and OSPF_NEI_KEY in cmd_outputs.get(vrf).keys():
+
+            area_in_vrf_dict = dict()
+
+            ospf_area_lst = ListOSPFSessionsArea(
+                ospf_sessions_area_lst=list()
+            )
+
+            for nei in cmd_outputs.get(vrf).get(OSPF_NEI_KEY).get("ospf-neighbor-information")[0].get("ospf-neighbor"):
+
+                if nei.get("ospf-area")[0].get("data") not in area_in_vrf_dict:
+                    area_in_vrf_dict[nei.get("ospf-area")[0].get("data")] = list()
+
+                area_in_vrf_dict.get(nei.get("ospf-area")[0].get("data")).append(
+                    OSPFSession(
+                        hostname=hostname,
+                        peer_rid=nei.get("neighbor-id")[0].get("data"),
+                        peer_hostname=NOT_SET,
+                        session_state=nei.get("ospf-neighbor-state")[0].get("data"),
+                        local_interface=nei.get("interface-name")[0].get("data"),
+                        peer_ip=nei.get("neighbor-address")[0].get("data")
+                    )
+                )
+
+            for area in area_in_vrf_dict:
+                ospf_area_lst.ospf_sessions_area_lst.append(
+                    OSPFSessionsArea(
+                        area_number=area,
+                        ospf_sessions=ListOSPFSessions(
+                            ospf_sessions_lst=area_in_vrf_dict.get(area)
+                        )
+                    )
+                )
+
+        ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+            OSPFSessionsVRF(
+                vrf_name=vrf,
+                router_id=cmd_outputs.get(vrf).get(OSPF_RIB_KEY).get("ospf-overview-information")[0].get("ospf-overview")[0].get("ospf-router-id")[0].get("data", NOT_SET),
+                ospf_sessions_area_lst=ospf_area_lst
+            )
+        )
+
+    return OSPF(
+        hostname=hostname,
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )

@@ -58,6 +58,21 @@ leaf03:
         - peer_rid: 10.255.255.202
           local_interface: Ethernet3
 
+leaf04:
+  default:
+    router_id: 10.255.255.204
+    area_id:
+      0.0.0.0:
+        - peer_rid: 10.255.255.101
+          local_interface: em3.0
+          peer_ip: 10.1.4.1
+          state: FULL
+      0.0.0.4:
+        - peer_rid: 10.255.255.103
+          local_interface: em5.0
+          peer_ip: 10.1.5.1
+          state: FULL
+
 
 leaf05:
   default:

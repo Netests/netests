@@ -124,6 +124,10 @@ JUNOS_GET_BGP_VRF_RID = "show configuration routing-instances {} routing-options
 JUNOS_GET_VRF_DETAIL = "show route instance detail | display json"
 JUNOS_GET_VRF = "show route instance | display json"
 JUNOS_GET_MTU = "show interfaces | display json"
+JUNOS_GET_OSPF_NEI = "show ospf neighbor detail | display json"
+JUNOS_GET_OSPF_NEI_VRF = "show ospf neighbor detail instance {} | display json"
+JUNOS_GET_OSPF_RID = "show ospf overview | display json"
+JUNOS_GET_OSPF_RID_VRF = "show ospf overview instance {} | display json"
 
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'

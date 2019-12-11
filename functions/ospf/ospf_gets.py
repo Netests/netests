@@ -51,6 +51,7 @@ try:
     from functions.ospf.ospf_converters import _arista_ospf_converter
     from functions.ospf.ospf_converters import _extreme_vsp_ospf_converter
     from functions.ospf.ospf_converters import _ios_ospf_converter
+    from functions.ospf.ospf_converters import _juniper_ospf_converter
     from functions.ospf.ospf_converters import _napalm_ospf_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.ospf.ospf_converters")
@@ -132,6 +133,9 @@ def generic_ospf_get(task):
 
         elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
             _arista_get_ospf(task)
+
+        elif use_ssh and JUNOS_PLATEFORM_NAME == task.host.platform:
+            _juniper_get_ospf(task)
 
         else:
             _generic_ospf_napalm(task)
@@ -597,6 +601,68 @@ def _arista_get_ospf(task):
 #
 # Juniper JunOS
 #
-def _junos_get_ospf(task):
-    raise NotImplemented
+def _juniper_get_ospf(task):
 
+    outputs_dict = dict()
+
+    # Execute show ospf neighbor detail
+    output_nei = task.run(
+        name=f"{JUNOS_GET_OSPF_NEI}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_OSPF_NEI
+    )
+    # print_result(output)
+
+    outputs_dict['default'] = dict()
+
+    if output_nei.result != "" and "OSPF instance is not running" not in output_nei.result:
+        outputs_dict['default'][OSPF_NEI_KEY] = json.loads(output_nei.result)
+
+
+    # Execute show ospf overview
+    output_rid = task.run(
+        name=f"{JUNOS_GET_OSPF_RID}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_OSPF_RID
+    )
+    # print_result(output)
+
+    if output_rid.result != "" and "OSPF instance is not running" not in output_rid.result:
+        outputs_dict['default'][OSPF_RIB_KEY] = json.loads(output_rid.result)
+
+
+    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+        if vrf != "default" and vrf != "master":
+
+            # Execute show ospf neighbor detail
+            output_nei = task.run(
+                name=JUNOS_GET_OSPF_NEI_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=JUNOS_GET_OSPF_NEI_VRF.format(vrf)
+            )
+            # print_result(output)
+
+
+
+            if output_nei.result != "" and "OSPF instance is not running" not in output_nei.result:
+                outputs_dict[vrf] = dict()
+                outputs_dict[vrf][OSPF_NEI_KEY] = json.loads(output_nei.result)
+
+            # Execute show ospf overview
+            output_rid = task.run(
+                name=JUNOS_GET_OSPF_RID_VRF.format(vrf),
+                task=netmiko_send_command,
+                command_string=JUNOS_GET_OSPF_RID_VRF.format(vrf)
+            )
+            # print_result(output)
+
+            if output_rid.result != "" and "OSPF instance is not running" not in output_rid.result:
+                outputs_dict[vrf][OSPF_RIB_KEY] = json.loads(output_rid.result)
+
+
+    ospf_sessions = _juniper_ospf_converter(
+        hostname=task.host.name,
+        cmd_outputs=outputs_dict
+    )
+
+    task.host[OSPF_SESSIONS_HOST_KEY] = ospf_sessions

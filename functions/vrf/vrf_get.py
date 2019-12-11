@@ -330,7 +330,10 @@ def _juniper_get_vrf(task):
             command_string=f"{JUNOS_GET_VRF_DETAIL}",
         )
 
-        vrf_list = _juniper_vrf_converter(task.host.name, json.loads(output.result))
+        vrf_list = _juniper_vrf_converter(
+            hostname=task.host.name,
+            cmd_output=json.loads(output.result)
+        )
 
         task.host[VRF_DATA_KEY] = vrf_list
 
