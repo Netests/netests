@@ -1,0 +1,17 @@
+
+====================================================================================================
+                          IP Interface - GlobalRouter
+====================================================================================================
+INTERFACE    IP             NET            BCASTADDR  REASM    VLAN  BROUTER    IPSEC
+             ADDRESS        MASK           FORMAT     MAXSIZE  ID    PORT       STATE
+----------------------------------------------------------------------------------------------------
+Port1/1      10.2.1.1       255.255.255.252 ones       1500     4000  true       disable
+Port1/2      10.2.2.1       255.255.255.252 ones       1500     2     true       disable
+Port1/3      10.2.3.1       255.255.255.252 ones       1500     3     true       disable
+Port1/4      10.2.4.1       255.255.255.252 ones       1500     4     true       disable
+Port1/5      10.2.5.1       255.255.255.252 ones       1500     5     true       disable
+Clip1        10.255.255.102 255.255.255.255 ones       1500     --    false      disable
+Vlan100      192.168.1.1    255.255.255.252 ones       1500     100   false      disable
+
+
+All 7 out of 7 Total Num of IP interfaces displayed

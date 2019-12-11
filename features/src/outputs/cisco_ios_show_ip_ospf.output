@@ -1,0 +1,88 @@
+ Routing Process "ospf 1" with ID 10.255.255.205
+ Start time: 2w2d, Time elapsed: 1d04h
+ Supports only single TOS(TOS0) routes
+ Supports opaque LSA
+ Supports Link-local Signaling (LLS)
+ Supports area transit capability
+ Supports NSSA (compatible with RFC 3101)
+ Supports Database Exchange Summary List Optimization (RFC 5243)
+ Event-log enabled, Maximum number of events: 1000, Mode: cyclic
+ Router is not originating router-LSAs with maximum metric
+ Initial SPF schedule delay 5000 msecs
+ Minimum hold time between two consecutive SPFs 10000 msecs
+ Maximum wait time between two consecutive SPFs 10000 msecs
+ Incremental-SPF disabled
+ Minimum LSA interval 5 secs
+ Minimum LSA arrival 1000 msecs
+ LSA group pacing timer 240 secs
+ Interface flood pacing timer 33 msecs
+ Retransmission pacing timer 66 msecs
+ EXCHANGE/LOADING adjacency limit: initial 300, process maximum 300
+ Number of external LSA 0. Checksum Sum 0x000000
+ Number of opaque AS LSA 0. Checksum Sum 0x000000
+ Number of DCbitless external and opaque AS LSA 0
+ Number of DoNotAge external and opaque AS LSA 0
+ Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+ Number of areas transit capable is 0
+ External flood list length 0
+ IETF NSF helper support enabled
+ Cisco NSF helper support enabled
+ Reference bandwidth unit is 100 mbps
+    Area BACKBONE(0)
+        Number of interfaces in this area is 3
+	Area has no authentication
+	SPF algorithm last executed 19:47:06.646 ago
+	SPF algorithm executed 12 times
+	Area ranges are
+	Number of LSA 6. Checksum Sum 0x023E5F
+	Number of opaque link LSA 0. Checksum Sum 0x000000
+	Number of DCbitless LSA 4
+	Number of indication LSA 0
+	Number of DoNotAge LSA 0
+	Flood list length 0
+
+ Routing Process "ospf 2" with ID 205.205.205.205
+   Domain ID type 0x0005, value 0.0.0.2
+ Start time: 2w3d, Time elapsed: 20:02:49.897
+ Supports only single TOS(TOS0) routes
+ Supports opaque LSA
+ Supports Link-local Signaling (LLS)
+ Supports area transit capability
+ Supports NSSA (compatible with RFC 3101)
+ Supports Database Exchange Summary List Optimization (RFC 5243)
+ Connected to MPLS VPN Superbackbone, VRF mgmt
+ Event-log disabled
+ It is an area border router
+ Router is not originating router-LSAs with maximum metric
+ Initial SPF schedule delay 5000 msecs
+ Minimum hold time between two consecutive SPFs 10000 msecs
+ Maximum wait time between two consecutive SPFs 10000 msecs
+ Incremental-SPF disabled
+ Minimum LSA interval 5 secs
+ Minimum LSA arrival 1000 msecs
+ LSA group pacing timer 240 secs
+ Interface flood pacing timer 33 msecs
+ Retransmission pacing timer 66 msecs
+ EXCHANGE/LOADING adjacency limit: initial 300, process maximum 300
+ Number of external LSA 0. Checksum Sum 0x000000
+ Number of opaque AS LSA 0. Checksum Sum 0x000000
+ Number of DCbitless external and opaque AS LSA 0
+ Number of DoNotAge external and opaque AS LSA 0
+ Number of areas in this router is 1. 1 normal 0 stub 0 nssa
+ Number of areas transit capable is 0
+ External flood list length 0
+ IETF NSF helper support enabled
+ Cisco NSF helper support enabled
+ Reference bandwidth unit is 100 mbps
+    Area 0.0.0.100
+        Number of interfaces in this area is 1
+	Area has no authentication
+	SPF algorithm last executed 19:31:53.286 ago
+	SPF algorithm executed 5 times
+	Area ranges are
+	Number of LSA 4. Checksum Sum 0x028361
+	Number of opaque link LSA 0. Checksum Sum 0x000000
+	Number of DCbitless LSA 2
+	Number of indication LSA 0
+	Number of DoNotAge LSA 0
+	Flood list length 0

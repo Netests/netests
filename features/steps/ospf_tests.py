@@ -82,6 +82,10 @@ except ImportError as importError:
 # Functions
 #
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @given(u'I create an OSPF python object corresponding to Cumulus device manually named object_01')
 def create_an_ospf_object_manually(context) -> None:
     """
@@ -90,9 +94,111 @@ def create_an_ospf_object_manually(context) -> None:
     :param context:
     :return None:
     """
-    pass
 
-@given('I retrieve data from a YAML file corresponding to Cumulus device to create an OSPF python object named object_02')
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    ### VRF - Default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ###### Area 0.0.0.0
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            hostname="spine01",
+            peer_rid="10.255.255.203",
+            peer_ip="10.1.3.2",
+            local_interface="swp3",
+            session_state="Full"
+        )
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            hostname="spine01",
+            peer_rid="10.255.255.204",
+            peer_ip="10.1.4.2",
+            local_interface="swp4",
+            session_state="Full"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="default",
+            router_id="10.255.255.101",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    ### VRF - Default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ###### Area 0.0.0.100
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            hostname="spine01",
+            peer_rid="201.201.201.201",
+            peer_ip="10.0.5.201",
+            local_interface="eth0",
+            session_state="Full"
+        )
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            hostname="spine01",
+            peer_rid="205.205.205.205",
+            peer_ip="10.0.5.205",
+            local_interface="eth0",
+            session_state="Full"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.100",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="mgmt",
+            router_id="10.0.5.101",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    context.object_01 = OSPF(
+        hostname="spine01",
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@given('I retrieve data from a YAML file corresponding to devices to create an OSPF python object named object_02')
 def create_an_ospf_object_from_a_yaml_corresponding_to_cumulus(context) -> None:
     """
     Retrieve data from a YAML file to compare with a OSPF object
@@ -102,10 +208,13 @@ def create_an_ospf_object_from_a_yaml_corresponding_to_cumulus(context) -> None:
     """
 
     context.object_02 = open_file(
-        path=f"{FEATURES_SRC_PATH}ospf_tests_cumulus.yml"
+        path=f"{FEATURES_SRC_PATH}ospf_tests.yml"
     )
 
-
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @given('I create an OSPF python object from a Cumulus output command named object_03')
 def create_an_ospf_object_from_a_cumulus_output_command(context) -> None:
     """
@@ -148,19 +257,11 @@ def create_an_ospf_object_from_a_cumulus_output_command(context) -> None:
         cmd_outputs=outputs_lst
     )
 
-    print(context.object_03)
-
-@given('I retrieve data from a YAML file corresponding to Juniper device to create an OSPF python object named object_04')
-def create_an_ospf_object_from_a_yaml_corresponding_to_juniper(context) -> None:
-    """
-    Retrieve data from a YAML file to compare with a OSPF object
-
-    :param context:
-    :return None:
-    """
-    pass
-
-@given('I create an OSPF python object from a Juniper output command named object_05')
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@given('I create an OSPF python object from a Juniper output command named object_04')
 def create_an_ospf_object_from_a_juniper_output_command(context) -> None:
     """
     Create an OSPF object from a Juniper output
@@ -168,19 +269,27 @@ def create_an_ospf_object_from_a_juniper_output_command(context) -> None:
     :param context:
     :return None:
     """
-    pass
+    outputs_dict = dict()
 
-@given('I retrieve data from a YAML file corresponding to Extreme VSP device to create an OSPF python object named object_06')
-def create_an_ospf_object_from_a_yaml_corresponding_to_extreme_vsp(context) -> None:
-    """
-    Retrieve data from a YAML file to compare with a OSPF object
+    outputs_dict['default'] = dict()
+    outputs_dict['default'][OSPF_NEI_KEY] = open_file(
+        path=f"{FEATURES_OUTPUT_PATH}juniper_show_ospf_neighbor_detail.json"
+    )
 
-    :param context:
-    :return None:
-    """
-    pass
+    outputs_dict['default'][OSPF_RIB_KEY] = open_file(
+        path=f"{FEATURES_OUTPUT_PATH}juniper_show_ospf_overview.json"
+    )
 
-@given('I create an OSPF python object from a Extreme VSP output command named object_07')
+    context.object_04 = _juniper_ospf_converter(
+        hostname="leaf04",
+        cmd_outputs=outputs_dict
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@given('I create an OSPF python object from a Extreme VSP output command named object_05')
 def create_an_ospf_object_from_a_extreme_vsp_output_command(context) -> None:
     """
     Create an OSPF object from a Extreme VSP output
@@ -188,19 +297,73 @@ def create_an_ospf_object_from_a_extreme_vsp_output_command(context) -> None:
     :param context:
     :return None:
     """
-    pass
 
-@given('I retrieve data from a YAML file corresponding to Cisco IOS device to create an OSPF python object named object_08')
-def create_an_ospf_object_from_a_yaml_corresponding_to_cisco_ios(context) -> None:
-    """
-    Retrieve data from a YAML file to compare with a OSPF object
+    outputs_dict = dict()
+    outputs_dict['default'] = dict()
 
-    :param context:
-    :return None:
-    """
-    pass
+    ospf_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_ospf_neighbor.output"
+    )
 
-@given('I create an OSPF python object from a Cisco IOS output command named object_09')
+    if ospf_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_neighbor.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ospf_data)
+
+        outputs_dict['default'][OSPF_NEI_KEY] = parsed_results
+
+
+    ospf_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_ospf_interface.output"
+    )
+
+    if ospf_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_interface.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ospf_data)
+
+        outputs_dict['default'][OSPF_INT_KEY] = parsed_results
+
+    ospf_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_ospf.output"
+    )
+
+    if ospf_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ospf_data)
+
+        outputs_dict['default'][OSPF_RIB_KEY] = parsed_results
+
+    ospf_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_interface.output"
+    )
+
+    if ospf_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ospf_data)
+
+        outputs_dict['default'][OSPF_INT_NAME_KEY] = parsed_results
+
+    context.object_05 = _extreme_vsp_ospf_converter(
+        hostname="spine02",
+        cmd_outputs=outputs_dict
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@given('I create an OSPF python object from a Cisco IOS output command named object_06')
 def create_an_ospf_object_from_a_cisco_ios_output_command(context) -> None:
     """
     Create an OSPF object from a Cisco IOS output
@@ -208,9 +371,58 @@ def create_an_ospf_object_from_a_cisco_ios_output_command(context) -> None:
     :param context:
     :return None:
     """
-    pass
+
+    outputs_dict = dict()
+
+    ospf_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}cisco_ios_show_ip_ospf.output"
+    )
+
+    if ospf_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ospf_data)
+
+        outputs_dict[OSPF_RIB_KEY] = parsed_results
 
 
+    ospf_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}cisco_ios_show_ip_ospf_neighbor_detail.output"
+    )
+
+    if ospf_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf_neighbor_detail.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ospf_data)
+
+        outputs_dict[OSPF_NEI_KEY] = parsed_results
+
+    ospf_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}cisco_ios_show_ip_ospf_interface_brief.output"
+    )
+
+    if ospf_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf_interface_brief.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ospf_data)
+
+        outputs_dict[OSPF_INT_KEY] = parsed_results
+
+    context.object_06 = _ios_ospf_converter(
+        hostname="leaf05",
+        cmd_outputs=outputs_dict
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @then('OSPF object_01 should be equal to object_02')
 def compare_ospf_object_01_and_object_02(context) -> None:
     """
@@ -219,8 +431,20 @@ def compare_ospf_object_01_and_object_02(context) -> None:
     :param context:
     :return:
     """
-    pass
 
+    assert _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname="spine01",
+        ospf_host_data=context.object_01,
+        ospf_yaml_data=context.object_02,
+        level_test=0
+    )
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @then('OSPF object_01 should be equal to object_03')
 def compare_ospf_object_01_and_object_03(context) -> None:
     """
@@ -229,8 +453,30 @@ def compare_ospf_object_01_and_object_03(context) -> None:
     :param context:
     :return:
     """
-    pass
 
+    assert context.object_01 == context.object_03
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('OSPF object_03 should be equal to object_01')
+def compare_ospf_object_03_and_object_01(context) -> None:
+    """
+    Compare object_03 and object_01
+
+    :param context:
+    :return:
+    """
+
+    assert context.object_03 == context.object_01
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @then('OSPF object_02 should be equal to object_03')
 def compare_ospf_object_02_and_object_03(context) -> None:
     """
@@ -247,67 +493,11 @@ def compare_ospf_object_02_and_object_03(context) -> None:
         level_test=0
     )
 
-@then('OSPF object_04 should be equal to object_05')
-def compare_ospf_object_04_and_object_05(context) -> None:
-    """
-    Compare object_04 and object_05
-
-    :param context:
-    :return:
-    """
-    pass
-
-@then('OSPF object_05 should be equal to object_04')
-def compare_ospf_object_05_and_object_04(context) -> None:
-    """
-    Compare object_05 and object_04
-
-    :param context:
-    :return:
-    """
-    pass
-
-@then('OSPF object_06 should be equal to object_07')
-def compare_ospf_object_06_and_object_07(context) -> None:
-    """
-    Compare object_06 and object_07
-
-    :param context:
-    :return:
-    """
-    pass
-
-@then('OSPF object_07 should be equal to object_06')
-def compare_ospf_object_07_and_object_06(context) -> None:
-    """
-    Compare object_07 and object_06
-
-    :param context:
-    :return:
-    """
-    pass
-
-@then('OSPF object_08 should be equal to object_09')
-def compare_ospf_object_08_and_object_09(context) -> None:
-    """
-    Compare object_08 and object_09
-
-    :param context:
-    :return:
-    """
-    pass
-
-@then('OSPF object_09 should be equal to object_08')
-def compare_ospf_object_09_and_object_08(context) -> None:
-    """
-    Compare object_09 and object_08
-
-    :param context:
-    :return:
-    """
-    pass
-
-@then('OSPF object_02 should not be equal to object_04')
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('OSPF object_02 should be equal to object_04')
 def compare_ospf_object_02_and_object_04(context) -> None:
     """
     Compare object_02 and object_04
@@ -315,24 +505,96 @@ def compare_ospf_object_02_and_object_04(context) -> None:
     :param context:
     :return:
     """
-    pass
+    assert _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname="leaf04",
+        ospf_host_data=context.object_04,
+        ospf_yaml_data=context.object_02,
+        level_test=0
+    )
 
-@then('OSPF object_04 should not be equal to object_06')
-def compare_ospf_object_04_and_object_06(context) -> None:
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('OSPF object_02 should be equal to object_05')
+def compare_ospf_object_02_and_object_05(context) -> None:
     """
-    Compare object_04 and object_06
+    Compare object_02 and object_05
 
     :param context:
     :return:
     """
-    pass
+    assert _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname="spine02",
+        ospf_host_data=context.object_05,
+        ospf_yaml_data=context.object_02,
+        level_test=0
+    )
 
-@then('OSPF object_06 should not be equal to object_08')
-def compare_ospf_object_06_and_object_08(context) -> None:
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('OSPF object_02 should be equal to object_06')
+def compare_ospf_object_02_and_object_06(context) -> None:
     """
-    Compare object_06 and object_08
+    Compare object_02 and object_06
 
     :param context:
     :return:
     """
-    pass
+
+    assert _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname="leaf05",
+        ospf_host_data=context.object_06,
+        ospf_yaml_data=context.object_02,
+        level_test=0
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('OSPF object_03 should not be equal to object_04')
+def compare_ospf_object_03_and_object_04(context) -> None:
+    """
+    Compare object_03 and object_04
+
+    :param context:
+    :return:
+    """
+
+    assert context.object_03 != context.object_04
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('OSPF object_03 should not be equal to object_05')
+def compare_ospf_object_03_and_object_05(context) -> None:
+    """
+    Compare object_03 and object_05
+
+    :param context:
+    :return:
+    """
+
+    assert context.object_03 != context.object_05
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('OSPF object_03 should not be equal to object_06')
+def compare_ospf_object_03_and_object_06(context) -> None:
+    """
+    Compare object_03 and object_06
+
+    :param context:
+    :return:
+    """
+
+    assert context.object_03 != context.object_06

@@ -1,0 +1,184 @@
+{
+    "ospf-overview-information" : [
+    {
+        "attributes" : {"xmlns" : "http://xml.juniper.net/junos/18.1R2/junos-routing"},
+        "ospf-overview" : [
+        {
+            "instance-name" : [
+            {
+                "data" : "master"
+            }
+            ],
+            "ospf-router-id" : [
+            {
+                "data" : "10.255.255.204"
+            }
+            ],
+            "ospf-route-table-index" : [
+            {
+                "data" : "0"
+            }
+            ],
+            "ospf-abr" : [
+            {
+                "data" : [null]
+            }
+            ],
+            "ospf-lsa-refresh-time" : [
+            {
+                "data" : "50"
+            }
+            ],
+            "ospf-dna-uncapable" : [
+            {
+                "data" : [null]
+            }
+            ],
+            "ospf-area-dc-bit-clear-count" : [
+            {
+                "data" : "2"
+            }
+            ],
+            "ospf-area-overview" : [
+            {
+                "ospf-area" : [
+                {
+                    "data" : "0.0.0.0"
+                }
+                ],
+                "ospf-stub-type" : [
+                {
+                    "data" : "Not Stub"
+                }
+                ],
+                "authentication-type" : [
+                {
+                    "data" : "None"
+                }
+                ],
+                "ospf-abr-count" : [
+                {
+                    "data" : "1"
+                }
+                ],
+                "ospf-asbr-count" : [
+                {
+                    "data" : "0"
+                }
+                ],
+                "ospf-nbr-overview" : [
+                {
+                    "ospf-nbr-up-count" : [
+                    {
+                        "data" : "1"
+                    }
+                    ]
+                }
+                ],
+                "ospf-dna-uncapable" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ospf-area-dc-bit-clear-count" : [
+                {
+                    "data" : "2"
+                }
+                ]
+            },
+            {
+                "ospf-area" : [
+                {
+                    "data" : "0.0.0.4"
+                }
+                ],
+                "ospf-stub-type" : [
+                {
+                    "data" : "Not Stub"
+                }
+                ],
+                "authentication-type" : [
+                {
+                    "data" : "None"
+                }
+                ],
+                "ospf-abr-count" : [
+                {
+                    "data" : "0"
+                }
+                ],
+                "ospf-asbr-count" : [
+                {
+                    "data" : "0"
+                }
+                ],
+                "ospf-nbr-overview" : [
+                {
+                    "ospf-nbr-up-count" : [
+                    {
+                        "data" : "1"
+                    }
+                    ]
+                }
+                ],
+                "ospf-dna-uncapable" : [
+                {
+                    "data" : [null]
+                }
+                ],
+                "ospf-area-self-indicating" : [
+                {
+                    "data" : [null]
+                }
+                ]
+            }
+            ],
+            "ospf-topology-overview" : [
+            {
+                "ospf-topology-name" : [
+                {
+                    "data" : "default"
+                }
+                ],
+                "ospf-topology-id" : [
+                {
+                    "data" : "0"
+                }
+                ],
+                "ospf-prefix-export-count" : [
+                {
+                    "data" : "0"
+                }
+                ],
+                "ospf-full-spf-count" : [
+                {
+                    "data" : "5"
+                }
+                ],
+                "ospf-spf-delay" : [
+                {
+                    "data" : "0.200000"
+                }
+                ],
+                "ospf-spf-holddown" : [
+                {
+                    "data" : "5"
+                }
+                ],
+                "ospf-spf-rapid-runs" : [
+                {
+                    "data" : "3"
+                }
+                ],
+                "ospf-backup-spf-status" : [
+                {
+                    "data" : "Not Needed"
+                }
+                ]
+            }
+            ]
+        }
+        ]
+    }
+    ]
+}

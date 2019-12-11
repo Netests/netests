@@ -1,0 +1,76 @@
+---
+spine01:
+  default:
+    router_id: 10.255.255.101
+    area_id:
+      0.0.0.0:
+        - peer_rid: 10.255.255.203
+          local_interface: swp3
+          peer_ip: 10.1.3.2
+          state: FULL
+        - peer_rid: 10.255.255.204
+          local_interface: swp4
+          peer_ip: 10.1.4.2
+          state: FULL
+  mgmt:
+    router_id: 10.0.5.101
+    area_id:
+      0.0.0.100:
+        - peer_rid: 201.201.201.201
+          local_interface: eth0
+        - peer_rid: 205.205.205.205
+          local_interface: eth0
+
+# ----------------------------------------------------------------------------------------------------------------------
+spine02:
+  default:
+    router_id: 10.255.255.102
+    area_id:
+      0.0.0.0:
+        - peer_rid: 10.255.255.201
+          local_interface: port1/1
+        - peer_rid: 10.255.255.205
+          local_interface: port1/5
+      0.0.0.3:
+        - peer_rid: 10.255.255.203
+          local_interface: port1/3
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+leaf04:
+  default:
+    router_id: 10.255.255.204
+    area_id:
+      0.0.0.0:
+        - peer_rid: 10.255.255.101
+          local_interface: em3.0
+          peer_ip: 10.1.4.1
+          state: FULL
+      0.0.0.4:
+        - peer_rid: 10.255.255.103
+          local_interface: em5.0
+          peer_ip: 10.1.5.1
+          state: FULL
+
+# ----------------------------------------------------------------------------------------------------------------------
+leaf05:
+  default:
+    router_id: 10.255.255.205
+    area_id:
+      0:
+        - peer_rid: 10.255.255.102
+          local_interface: GigabitEthernet0/2
+          peer_ip: 10.2.5.1
+          state: FULL
+  mgmt:
+    router_id: 205.205.205.205
+    area_id:
+      0.0.0.100:
+        - peer_rid: 10.0.5.101
+          local_interface: GigabitEthernet0/0
+          peer_ip: 10.0.5.101
+          state: FULL
+        - peer_rid: 201.201.201.201
+          local_interface: GigabitEthernet0/0
+          peer_ip: 10.0.5.201
+          state: FULL
