@@ -57,6 +57,8 @@ TEXTFSM_PATH = f"{TEMPLATES_PATH}textfsm/"
 JINJA2_PATH = f"{TEMPLATES_PATH}jinja2/"
 JINJA2_PING_PATH = f"{JINJA2_PATH}ping/"
 JINJA2_PING_RESULT = f"{JINJA2_PING_PATH}result/"
+JINJA2_SOCKET_PATH = f"{JINJA2_PATH}socket/"
+JINJA2_SOCKET_RESULT = f"{JINJA2_SOCKET_PATH}result/"
 
 ###### NORNIR INIT ######
 NORNIR_DEBUG_MODE = 'debug'
@@ -86,6 +88,7 @@ YAML_BGKP_ASN_KEY = 'asn'
 BGP_SRC_FILENAME = "bgp.yml"
 VRF_SRC_FILENAME = "vrf.yml"
 PING_SRC_FILENAME = "ping.yml"
+SOCKET_SRC_FILENAME = "socket.yml"
 LLDP_SRC_FILENAME = "lldp.yml"
 CDP_SRC_FILENAME = "cdp.yml"
 OSPF_SRC_FILENAME = "ospf.yml"
@@ -99,6 +102,7 @@ TEST_TO_EXC_BGP_KEY = 'bgp'
 TEST_TO_EXC_BGP_UP_KEY = 'bgp_all_up'
 TEST_TO_EXC_VRF_KEY = 'vrf'
 TEST_TO_EXC_PING_KEY = 'ping'
+TEST_TO_EXC_SOCKET_KEY = 'socket'
 TEST_TO_EXC_LLDP_KEY = 'lldp'
 TEST_TO_EXC_CDP_KEY = 'cdp'
 TEST_TO_EXC_OSPF_KEY = 'ospf'
@@ -253,6 +257,10 @@ VRF_WORKS_KEY = 'vrf_works'
 ##### PING CONSTANTES
 PING_DATA_HOST_KEY = 'ping_data'
 PING_WORKS_KEY = 'ping_works'
+
+##### SOCKET CONSTANTES
+SOCKET_DATA_HOST_KEY = "socket_data"
+SOCKET_WORKS_KEY = "socket_works"
 
 ##### LLDP CONSTANTES
 LLDP_DATA_HOST_KEY = 'lldp_data'

@@ -39,35 +39,19 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.global_tools import open_file
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.global_tools")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+
+try:
     import yaml
 except ImportError as importError:
     print(f"{ERROR_HEADER} yaml")
     print(importError)
     exit(EXIT_FAILURE)
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Open a YAML File and open VM_path contains into YAML file
-#
-def _open_file(path: str()) -> dict():
-    """
-    This function  will open a yaml file and return is data
-
-    Args:
-        param1 (str): Path to the yaml file
-
-    Returns:
-        str: Node name
-    """
-
-    with open(path, 'r') as yamlFile:
-        try:
-            data = yaml.load(yamlFile)
-        except yaml.YAMLError as exc:
-            print(exc)
-
-    return data
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -83,7 +67,7 @@ def retrieve_ping_from_yaml(task) -> list():
     ping_lst = ListPING(
         list()
     )
-    ping_data = _open_file(f"{PATH_TO_VERITY_FILES}{PING_SRC_FILENAME}")
+    ping_data = open_file(f"{PATH_TO_VERITY_FILES}{PING_SRC_FILENAME}")
 
     # Retrieve data in "all:"
     if YAML_ALL_GROUPS_KEY in ping_data.keys():

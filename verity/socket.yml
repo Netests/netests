@@ -1,0 +1,31 @@
+# ip: mandatory
+# port: mandatory
+# timeout: if not set = 1
+# vrf:  if not set = global routing table
+# protocol: if not set = tcp (both, udp, tcp)
+# work: if not set = true
+
+all:
+  - ip: 192.168.254.1
+    port: 443
+    timeout: 1
+    protocol: tcp
+    work: true
+
+  - ip: 192.168.254.12
+    port: 80
+    timeout: 1
+    protocol: tcp
+    work: true
+
+groups:
+  simulate:
+    - ip: 172.16.194.239
+      port: 443
+      protocol: both
+      work: true
+    - ip: 172.16.194.239
+      port: 80
+    - ip: 172.16.194.240
+      port: 80
+      timeout: 3

@@ -14,9 +14,11 @@ ospf:
 # Check that all VRF are defined
 vrf: false
 # Check MLAG
-mlag: true
+mlag: false
 # Check pings
 ping: false
+# Test sockets
+socket: true
 # Check Link Discovery Protocols sessions
 lldp: false
 cdp: false

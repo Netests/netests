@@ -110,6 +110,13 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.socket.execute_socket import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.socket")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.vrf.vrf_compare import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.vrf")
@@ -536,6 +543,20 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
     else:
         print(f"{HEADER} MLAG key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME} !!")
 
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 11. Execute Socket
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_SOCKET_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_SOCKET_KEY] is True:
+            works = execute_socket(nr)
+            if test_to_execute[TEST_TO_EXC_SOCKET_KEY] is True and works is False:
+                exit_value = False
+            print(f"{HEADER} Sockets defined in {PATH_TO_VERITY_FILES}{SOCKET_SRC_FILENAME} work = {works} !!")
+        else:
+            print(f"{HEADER} Sockets have not been executed !!")
+    else:
+        print(f"{HEADER} SOCKET key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
     return EXIT_SUCCESS
 
