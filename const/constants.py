@@ -91,6 +91,7 @@ CDP_SRC_FILENAME = "cdp.yml"
 OSPF_SRC_FILENAME = "ospf.yml"
 IPV4_SRC_FILENAME = "ipv4.yml"
 IPV6_SRC_FILENAME = "ipv6.yml"
+MLAG_SRC_FILENAME = "mlag.yml"
 STATIC_SRC_FILENAME = "static.yml"
 INFOS_SRC_FILENAME = "sys_infos.yml"
 MTU_SRC_FILENAME = "mtu.yml"
@@ -106,6 +107,7 @@ TEST_TO_EXC_IPV6_KEY = 'ipv6'
 TEST_TO_EXC_STATIC_KEY = 'static'
 TEST_TO_EXC_INFOS_KEY = 'sys_infos'
 TEST_TO_EXC_MTU_KEY = "mtu"
+TEST_TO_EXC_MLAG_KEY = "mlag"
 
 YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
@@ -145,6 +147,7 @@ CUMULUS_GET_STATIC_VRF = "net show route vrf {} static json"
 CUMULUS_GET_INFOS = "net show system json"
 CUMULUS_GET_SNMP = "net show snmp-server status json"
 CUMULUS_GET_MTU = "net show interface all json"
+CUMULUS_GET_MLAG = "net show clag json"
 
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
@@ -283,3 +286,7 @@ MTU_DATA_HOST_KEY = "mtu_data"
 MTU_WORKS_HOST_KEY = "mtu_works"
 MTU_INTER_YAML_KEY = "interfaces"
 MTU_GLOBAL_YAML_KEY = "global_mtu"
+
+#### MLAG
+MLAG_DATA_HOST_KEY = "mlag_data"
+MLAG_WORKS_KEY = "mlag_works"

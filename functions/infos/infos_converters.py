@@ -359,6 +359,30 @@ def _juniper_retrieve_int_name_with_napalm(interface_data:list) -> list:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Juniper Network System Informations Converter
+#
+def _juniper_api_infos_converter(cmd_outputs:json) -> SystemInfos:
+
+    print(cmd_outputs)
+
+    obj = SystemInfos(
+        hostname=cmd_outputs.get('hostname', NOT_SET),
+        domain=cmd_outputs.get('domain', NOT_SET),
+        build=cmd_outputs.get('version', NOT_SET),
+        version=cmd_outputs.get('version', NOT_SET),
+        serial=cmd_outputs.get('serialnumber', NOT_SET),
+        base_mac=NOT_SET,
+        memory=NOT_SET,
+        vendor="Juniper",
+        model=cmd_outputs.get('model', NOT_SET),
+        snmp_ips=list(),
+        interfaces_lst=list()
+    )
+
+    print(obj)
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Extreme Networks System Informations Converter
 #
 def _extreme_infos_converter(cmd_outputs:list) -> SystemInfos:

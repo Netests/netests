@@ -34,6 +34,13 @@ except ImportError as importError:
     print(importError)
 
 try:
+    from functions.global_tools import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.global_tools")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
     from nornir.core import Nornir
     # To use advanced filters
     from nornir.core.filter import F
@@ -49,11 +56,18 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from jnpr.junos import Device
+except ImportError as importError:
+    print(f"{ERROR_HEADER} jnpr.junos")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.infos.infos_converters import _napalm_infos_converter
     from functions.infos.infos_converters import _cumulus_infos_converter
     from functions.infos.infos_converters import _nexus_infos_converter
     from functions.infos.infos_converters import _arista_infos_converter
-    from functions.infos.infos_converters import _juniper_infos_converter
+    from functions.infos.infos_converters import _juniper_infos_converter, _juniper_api_infos_converter
     from functions.infos.infos_converters import _extreme_infos_converter
     from functions.infos.infos_converters import _ios_infos_converter
 except ImportError as importError:
@@ -102,6 +116,7 @@ def generic_infos_get(task):
     if INFOS_DATA_HOST_KEY not in task.host.keys():
 
         use_ssh = False
+        use_net_rest_conf = False
 
         if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform or \
             JUNOS_PLATEFORM_NAME in task.host.platform or CISCO_IOS_PLATEFORM_NAME in task.host.platform or \
@@ -109,6 +124,8 @@ def generic_infos_get(task):
             if 'connexion' in task.host.keys():
                 if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET) == "ssh":
                     use_ssh = True
+                elif task.host.data.get('connexion', NOT_SET) == 'api' or task.host.get('connexion', NOT_SET) == "api":
+                    use_net_rest_conf = True
 
         if task.host.platform == CUMULUS_PLATEFORM_NAME:
             _cumulus_get_infos(task)
@@ -128,6 +145,9 @@ def generic_infos_get(task):
 
             elif use_ssh and JUNOS_PLATEFORM_NAME == task.host.platform:
                 _juniper_get_infos(task)
+
+            elif use_net_rest_conf and JUNOS_PLATEFORM_NAME == task.host.platform:
+                _juniper_get_infos_api(task)
 
             else:
                 _generic_infos_napalm(task)
@@ -535,3 +555,26 @@ def _juniper_get_infos(task):
     system_infos = _juniper_infos_converter(outputs_dict)
 
     task.host[INFOS_DATA_HOST_KEY] = system_infos
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Juniper JunOS - Netconf - https://github.com/Juniper/py-junos-eznc
+# -> set system services netconf ssh
+#
+def _juniper_get_infos_api(task):
+
+    juniper_device = init_junos_api(
+        hostname=task.host.hostname,
+        username=task.host.username,
+        password=task.host.password
+    )
+
+    juniper_device.open()
+
+    system_infos = _juniper_api_infos_converter(
+        cmd_outputs=juniper_device.facts
+    )
+
+    task.host[INFOS_DATA_HOST_KEY] = system_infos
+
