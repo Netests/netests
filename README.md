@@ -206,32 +206,32 @@ leaf03:
 
 ## Capabilities (Only via SSH) LOT OF WORK
 
-|           |      Juniper       |      Juniper NetConf      |      Cumulus       | Arista             |        NXOS        |        IOS         |       IOS-XR       |    Extreme VSP     | NAPALM             |
-| --------- | :----------------: | :----------------: | ------------------ | :----------------: | :----------------: | :----------------: | :----------------: | ------------------ | :----------------: |
-| BGP       | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-| OSPF      | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| SysInfos  | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-| Ping      | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| Socket    |        :x:         |                 |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| Static    | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| VRF       | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :white_check_mark:         | :white_check_mark: |
-| LLDP      |        :x:         |                 | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-| CDP       |      :sleepy:      |            | :white_check_mark: | :sleepy:           | :white_check_mark: | :white_check_mark: |        :x:         |      :sleepy:      | :sleepy:           |
-| IPv4      | :white_check_mark: |  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |       :white_check_mark:         | :white_check_mark: |
-| IPv6      |        :x:         |                 |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| MTU       | :white_check_mark: |  |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:*       |
-| MLAG | :x: |  | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :sleepy: |
-| L2VNI | :x: |  | :x: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| VLAN | :x: |  | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
-|  | | | | | | | | | |
-| MVP ^^^   |                    |                    |                    |                    |                    |                    |                    |                    |                    |
-|           |                    |                    |                    |                    |                    |                    |                    |                    |                    |
-| VTEP      |        :x:         |                 |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| Multicast |        :x:         |                 |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| VLAN      |        :x:         |                 |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| VXLAN     |        :x:         |                 |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| EVPN      |        :x:         |                 |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| IS-IS     |        :x:         |                 |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+|           |      Juniper       |      Cumulus       | Arista             |        NXOS        |        IOS         |       IOS-XR       |    Extreme VSP     | NAPALM             |
+| --------- | :----------------: | ------------------ | :----------------: | :----------------: | :----------------: | :----------------: | ------------------ | :----------------: |
+| BGP       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
+| OSPF      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
+| SysInfos  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
+| Ping      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
+| Socket    |        :x:         | :white_check_mark:* | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+| Static    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
+| VRF       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :white_check_mark:         | :white_check_mark: |
+| LLDP      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
+| CDP       |      :sleepy:      | :white_check_mark: | :sleepy:           | :white_check_mark: | :white_check_mark: |        :x:         |      :sleepy:      | :sleepy:           |
+| IPv4      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |       :white_check_mark:         | :white_check_mark: |
+| IPv6      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+| MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:*       |
+| MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
+| L2VNI | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
+| VLAN | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
+|  | | | | | | | | |
+| MVP ^^^   |                    |                    |                    |                    |                    |                    |                    |                    |
+|           |                    |                    |                    |                    |                    |                    |                    |                    |
+| VTEP      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+| Multicast |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+| VLAN      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+| VXLAN     |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+| EVPN      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+| IS-IS     |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 
 :white_check_mark: = Implemented
 
@@ -240,6 +240,8 @@ leaf03:
 :x: = Not implemented​
 
 :sleepy: = Impossible to implement
+
+*`[Cumulus - Socket]` => netcat must be installed on Cumulus devices ``sudo apt install netcat``.
 
 
 
