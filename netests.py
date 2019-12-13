@@ -39,6 +39,14 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.l2vni.l2vni_compare import compare_l2vni
+    from functions.l2vni.l2vni_get import get_l2vni
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.l2vni")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.mlag.mlag_compare import compare_mlag
     from functions.mlag.mlag_get import get_mlag
 except ImportError as importError:
@@ -557,6 +565,27 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
             print(f"{HEADER} Sockets have not been executed !!")
     else:
         print(f"{HEADER} SOCKET key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
+
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 12. Check L2VNI
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_L2VNI_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_L2VNI_KEY] is True:
+
+            get_l2vni(nr)
+            same = compare_l2vni(
+                nr=nr,
+                l2vni_yaml_data=open_file(f"{PATH_TO_VERITY_FILES}{L2VNI_SRC_FILENAME}")
+            )
+
+            if test_to_execute[TEST_TO_EXC_L2VNI_KEY] is True and works is False:
+                exit_value = False
+            print(f"{HEADER} L2VNI defined in {PATH_TO_VERITY_FILES}{L2VNI_SRC_FILENAME} work = {works} !!")
+        else:
+            print(f"{HEADER} L2VNI have not been executed !!")
+    else:
+        print(f"{HEADER} L2VNI key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
     return EXIT_SUCCESS
 

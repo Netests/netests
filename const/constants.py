@@ -98,6 +98,7 @@ MLAG_SRC_FILENAME = "mlag.yml"
 STATIC_SRC_FILENAME = "static.yml"
 INFOS_SRC_FILENAME = "sys_infos.yml"
 MTU_SRC_FILENAME = "mtu.yml"
+L2VNI_SRC_FILENAME = "l2vni.yml"
 TEST_TO_EXC_BGP_KEY = 'bgp'
 TEST_TO_EXC_BGP_UP_KEY = 'bgp_all_up'
 TEST_TO_EXC_VRF_KEY = 'vrf'
@@ -112,6 +113,7 @@ TEST_TO_EXC_STATIC_KEY = 'static'
 TEST_TO_EXC_INFOS_KEY = 'sys_infos'
 TEST_TO_EXC_MTU_KEY = "mtu"
 TEST_TO_EXC_MLAG_KEY = "mlag"
+TEST_TO_EXC_L2VNI_KEY = "l2vni"
 
 YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
@@ -298,3 +300,7 @@ MTU_GLOBAL_YAML_KEY = "global_mtu"
 #### MLAG
 MLAG_DATA_HOST_KEY = "mlag_data"
 MLAG_WORKS_KEY = "mlag_works"
+
+#### L2VNI
+L2VNI_DATA_HOST_KEY = "l2vni_data"
+L2VNI_WORKS_KEY = "l2vni_works"

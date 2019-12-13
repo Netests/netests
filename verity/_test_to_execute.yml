@@ -43,3 +43,5 @@ static:
 sys_infos: false
 # Check Interfaces MTU
 mtu: false
+# Check L2VNI
+l2vni: false
