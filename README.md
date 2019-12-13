@@ -219,9 +219,9 @@ leaf03:
 | CDP       |      :sleepy:      | :white_check_mark: | :sleepy:           | :white_check_mark: | :white_check_mark: |        :x:         |      :sleepy:      | :sleepy:           |
 | IPv4      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |       :white_check_mark:         | :white_check_mark: |
 | IPv6      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:*       |
+| MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:***     |
 | MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| L2VNI | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
+| L2VNI | :x: | :sleepy:** | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | VLAN | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
 |  | | | | | | | | |
 | MVP ^^^   |                    |                    |                    |                    |                    |                    |                    |                    |
@@ -243,7 +243,7 @@ leaf03:
 
 *`[Cumulus - Socket]` => netcat must be installed on Cumulus devices ``sudo apt install netcat``.
 
-
+**`[Cumulus - L2VNI]` => `net show evpn vni detail json` command give a wrong JSON output...
 
 ## Devices supported by NAPALM
 
@@ -289,7 +289,7 @@ Some templates have be retreieve on :
 
 
 
-## *NAPALM
+## ***NAPALM
 
 In the documentation MTU is retrieve with `get_interfaces()` function : 
 https://napalm.readthedocs.io/en/latest/base.html#napalm.base.base.NetworkDriver.get_interfaces

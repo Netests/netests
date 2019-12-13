@@ -39,6 +39,14 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.vlan.vlan_compare import compare_vlan
+    from functions.vlan.vlan_get import get_vlan
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.vlan")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.l2vni.l2vni_compare import compare_l2vni
     from functions.l2vni.l2vni_get import get_l2vni
 except ImportError as importError:
@@ -586,6 +594,28 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
             print(f"{HEADER} L2VNI have not been executed !!")
     else:
         print(f"{HEADER} L2VNI key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 13. Check VLAN
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_VLAN_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_VLAN_KEY] is True:
+
+            get_vlan(nr)
+            same = compare_vlan(
+                nr=nr,
+                vlan_yaml_data=open_file(f"{PATH_TO_VERITY_FILES}{VLAN_SRC_FILENAME}")
+            )
+
+            if test_to_execute[TEST_TO_EXC_VLAN_KEY] is True and works is False:
+                exit_value = False
+            print(f"{HEADER} VLAN defined in {PATH_TO_VERITY_FILES}{VLAN_SRC_FILENAME} work = {works} !!")
+        else:
+            print(f"{HEADER} VLAN have not been executed !!")
+    else:
+        print(f"{HEADER} VLAN key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
+
+
 
     return EXIT_SUCCESS
 

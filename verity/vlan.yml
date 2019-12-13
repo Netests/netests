@@ -1,0 +1,10 @@
+leaf01:
+  1001:
+    ip_address: 10.0.0.11
+    fhrp_ip_address: 10.0.0.1
+    netmask: 255.255.255.0
+    ports_members:
+      - swp1
+      - swp2
+      - swp3
+
