@@ -39,6 +39,13 @@ except ImportError as importError:
     print(importError)
 
 try:
+    from protocols.ip import IPAddress, ListIPAddress
+except ImportError as importError:
+    print(f"{ERROR_HEADER} protocols.ip")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
     import json
 except ImportError as importError:
     print(f"{ERROR_HEADER} json")
@@ -107,11 +114,55 @@ def _compare_vlan(host_keys, hostname, vlan_host_data:None, vlan_yaml_data:json)
     if vlan_yaml_data is None:
         return False
 
+    verity_vlans_lst = ListVLAN(
+        vlans_lst=list()
+    )
+
     if VLAN_DATA_HOST_KEY in host_keys and hostname in vlan_yaml_data.keys():
-        pass
+        for vlan in vlan_yaml_data.get(hostname):
+
+            fhrp_ip = "0.0.0.0"
+            ip_addresses_lst = ListIPAddress(
+                ip_addresses_lst=list()
+            )
+
+            if isinstance(vlan.get("ip_address"), list):
+                for ip_address in vlan.get("ip_address"):
+                    index_slash = str(ip_address).find("/")
+                    ip_addresses_lst.ip_addresses_lst.append(
+                        IPAddress(
+                            ip_address=str(ip_addresses_lst)[:index_slash],
+                            netmask=str(ip_addresses_lst)[index_slash+1:]
+                        )
+                    )
+            elif isinstance(vlan.get("ip_address"), str):
+                index_slash = str(vlan.get("ip_address")).find("/")
+                ip_addresses_lst.ip_addresses_lst.append(
+                    IPAddress(
+                        ip_address=str(vlan.get("ip_address"))[:index_slash],
+                        netmask=str(vlan.get("ip_address"))[index_slash + 1:]
+                    )
+                )
+
+            verity_vlans_lst.vlans_lst.append(
+                VLAN(
+                    vlan_name=vlan.get("vlan_name", NOT_SET),
+                    vlan_id=vlan.get("vlan_id", NOT_SET),
+                    vlan_descr=vlan.get("vlan_descr", NOT_SET),
+                    vrf_name=vlan.get("vrf_name", NOT_SET),
+                    ip_address=ip_addresses_lst,
+                    fhrp_ip_address=vlan.get("fhrp_ip_address", "0.0.0.0"),
+                    ports_members=vlan.get("ports_members", list()),
+                    mac_address=vlan.get("mac_address", NOT_SET)
+
+                )
+            )
+
+        return verity_vlans_lst == vlan_host_data
 
     else:
         print(f"[{HEADER_GET}] {hostname} is not present in {PATH_TO_VERITY_FILES}/{TEST_TO_EXC_VLAN_KEY}.")
+        return False
 
 
 

@@ -1,10 +1,72 @@
+---
+# vlan_name
+# vlan_id
+# vrf_name
+# ip_address
+# fhrp_ip_address
+# ports_members
+# mac_address
 leaf01:
-  1001:
-    ip_address: 10.0.0.11
-    fhrp_ip_address: 10.0.0.1
-    netmask: 255.255.255.0
-    ports_members:
-      - swp1
-      - swp2
-      - swp3
+  - vlan_name: vlan1000
+    vlan_id: 1000
+    vrf_name: tenant0
+    ip_address: 192.168.10.11/24
+    fhrp_ip_address: 192.168.10.1
 
+  - vlan_name: vlan4000
+    vlan_id: 4000
+    vrf_name: tenant0
+
+  - vlan_name: vlan1001
+    vlan_id: 1001
+    vrf_name: tenant1
+    ip_address: 192.168.11.11/24
+    fhrp_ip_address: 192.168.11.1
+
+  - vlan_name: vlan4001
+    vlan_id: 4001
+    vrf_name: tenant1
+
+  - vlan_name: vlan1002
+    vlan_id: 1002
+    vrf_name: tenant2
+    ip_address: 192.168.12.11/24
+    fhrp_ip_address: 192.168.12.1
+
+  - vlan_name: vlan4002
+    vlan_id: 4002
+    vrf_name: tenant2
+
+  - vlan_name: vlan1003
+    vlan_id: 1003
+    vrf_name: tenant3
+    ip_address: 192.168.13.11/24
+    fhrp_ip_address: 192.168.13.1
+
+  - vlan_name: vlan4003
+    vlan_id: 4003
+    vrf_name: tenant3
+
+  - vlan_name: vlan1004
+    vlan_id: 1004
+    vrf_name: tenant4
+    ip_address: 192.168.14.11/24
+    fhrp_ip_address: 192.168.14.1
+
+  - vlan_name: vlan4004
+    vlan_id: 4004
+    vrf_name: tenant4
+
+  - vlan_name: vlan1005
+    vlan_id: 1005
+    vrf_name: tenant5
+    ip_address: 192.168.15.11/24
+    fhrp_ip_address: 192.168.15.1
+
+  - vlan_name: vlan4005
+    vlan_id: 4005
+    vrf_name: tenant5
+
+  - vlan_name: vlan998
+    vlan_id: 998
+    vrf_name: default

@@ -31,11 +31,105 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.global_tools import *
+except ImportError as importError:
+    print(f"{ERROR_HEADER} const.constants")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from abc import ABC, abstractmethod
 except ImportError as importError:
     print(f"{ERROR_HEADER} abc")
     print(importError)
     exit(EXIT_FAILURE)
+
+########################################################################################################################
+#
+# IP Address
+#
+class IPAddress():
+
+    ip_address: str
+    netmask: str
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __init__(self, ip_address="0.0.0.0", netmask="0.0.0.0"):
+        self.ip_address = ip_address
+
+        if is_cidr_notation(netmask):
+            self.netmask = convert_cidr_to_netmask(netmask)
+        else:
+            self.netmask = netmask
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __eq__(self, other):
+        if not isinstance(other, IP):
+            return NotImplemented
+
+        return (str(self.ip_address) == str(other.ip_address) and
+                str(self.netmask) == str(other.netmask))
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __repr__(self):
+        return f"<{type(self)} ip_address={self.ip_address} " \
+               f"netmask={self.netmask}>\n"
+
+########################################################################################################################
+#
+# IPAddress LIST CLASS
+#
+class ListIPAddress:
+
+    ip_addresses_lst: list
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __init__(self, ip_addresses_lst: list()):
+        self.ip_addresses_lst = ip_addresses_lst
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __eq__(self, others):
+        if not isinstance(others, ListIPAddress):
+            raise NotImplemented
+
+        for ip_address in self.ip_addresses_lst:
+            if ip_address not in others.ip_addresses_lst:
+                print(
+                    f"[ListIPAddress - __eq__] - The following IPAddress is not in the list \n {ip_address}")
+                print(
+                    f"[ListIPAddress - __eq__] - List: \n {others.ip_addresses_lst}")
+                return False
+
+        for ip_address in others.ip_addresses_lst:
+            if ip_address not in self.ip_addresses_lst:
+                print(
+                    f"[ListIPAddress - __eq__] - The following IPAddress is not in the list \n {ip_address}")
+                print(
+                    f"[ListIPAddress - __eq__] - List: \n {self.ip_addresses_lst}")
+                return False
+
+        return True
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __repr__(self):
+        result = "<ListIPAddress \n"
+        for ip_address in self.ip_addresses_lst:
+            result = result + f"{ip_address}"
+        return result + ">"
+
+
 
 ########################################################################################################################
 #

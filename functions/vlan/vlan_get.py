@@ -150,7 +150,45 @@ def _generic_vlan_napalm(task):
 # Cumulus Networks
 #
 def _cumulus_get_vlan(task):
-    pass
+
+    outputs_dict = dict()
+
+    output = task.run(
+        name=f"{CUMULUS_GET_VLAN_VRF}",
+        task=netmiko_send_command,
+        command_string=CUMULUS_GET_VLAN_VRF
+    )
+    # print(output.result)
+
+    if output.result != "":
+        template = open(
+            f"{TEXTFSM_PATH}cumulus_net_show_vrf_list.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(output.result)
+        # Result Example = [
+        # ['tenant5', ['vlan1005']], ['tenant5', ['vlan1005-v0']], ['tenant5', ['vlan4005']],
+        # ['tenant4', ['vlan1004']], ['tenant4', ['vlan1004-v0']], ['tenant4', ['vlan4004']],
+        # ['mgmt', []]]
+        # type = list() of list()
+        outputs_dict[VLAN_VRF_LIST_KEY] = parsed_results
+
+    output = task.run(
+        name=f"{CUMULUS_GET_VLAN}",
+        task=netmiko_send_command,
+        command_string=CUMULUS_GET_VLAN
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[VLAN_VRF_DETAIL_KEY] = json.loads(output.result)
+
+    vlans = _cumulus_vlan_converter(
+        hostname=task.host.name,
+        cmd_output=outputs_dict
+    )
+
+    task.host[VLAN_DATA_HOST_KEY] = vlans
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

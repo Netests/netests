@@ -94,19 +94,19 @@ def create_an_mlag_object_manually(context) -> None:
     """
 
     context.object_01 = MLAG(
-            hostname="leaf01",
-            local_id="50:00:00:03:00:06",
-            peer_id="50:00:00:04:00:06",
-            peer_alive=True,
-            peer_int="peerlink.4094",
-            peer_ip="169.254.1.2",
-            sys_mac="44:38:39:ff:01:02",
-            local_role="primary",
-            peer_role="secondary",
-            local_priority=100,
-            peer_priority=32768,
-            vxlan_anycast_ip="10.100.100.12",
-        )
+        hostname="leaf01",
+        local_id="50:00:00:03:00:06",
+        peer_id="50:00:00:04:00:06",
+        peer_alive=True,
+        peer_int="peerlink.4094",
+        peer_ip="169.254.1.2",
+        sys_mac="44:38:39:ff:01:02",
+        local_role="primary",
+        peer_role="secondary",
+        local_priority=100,
+        peer_priority=32768,
+        vxlan_anycast_ip="10.100.100.12",
+    )
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

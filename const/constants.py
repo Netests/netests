@@ -156,6 +156,8 @@ CUMULUS_GET_INFOS = "net show system json"
 CUMULUS_GET_SNMP = "net show snmp-server status json"
 CUMULUS_GET_MTU = "net show interface all json"
 CUMULUS_GET_MLAG = "net show clag json"
+CUMULUS_GET_VLAN_VRF = "net show vrf list"
+CUMULUS_GET_VLAN = "net show interface json"
 
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
@@ -310,3 +312,5 @@ L2VNI_WORKS_KEY = "l2vni_works"
 #### VLAN
 VLAN_DATA_HOST_KEY = "vlan_data"
 VLAN_WORKS_KEY = "vlan_works"
+VLAN_VRF_LIST_KEY = "get_vlan_vrf"
+VLAN_VRF_DETAIL_KEY = "get_vlan_detail"

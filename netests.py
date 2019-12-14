@@ -565,10 +565,10 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_SOCKET_KEY in test_to_execute.keys():
         if test_to_execute[TEST_TO_EXC_SOCKET_KEY] is True:
-            works = execute_socket(nr)
-            if test_to_execute[TEST_TO_EXC_SOCKET_KEY] is True and works is False:
+            same = execute_socket(nr)
+            if test_to_execute[TEST_TO_EXC_SOCKET_KEY] is True and same is False:
                 exit_value = False
-            print(f"{HEADER} Sockets defined in {PATH_TO_VERITY_FILES}{SOCKET_SRC_FILENAME} work = {works} !!")
+            print(f"{HEADER} Sockets defined in {PATH_TO_VERITY_FILES}{SOCKET_SRC_FILENAME} work = {same} !!")
         else:
             print(f"{HEADER} Sockets have not been executed !!")
     else:
@@ -587,9 +587,9 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
                 l2vni_yaml_data=open_file(f"{PATH_TO_VERITY_FILES}{L2VNI_SRC_FILENAME}")
             )
 
-            if test_to_execute[TEST_TO_EXC_L2VNI_KEY] is True and works is False:
+            if test_to_execute[TEST_TO_EXC_L2VNI_KEY] is True and same is False:
                 exit_value = False
-            print(f"{HEADER} L2VNI defined in {PATH_TO_VERITY_FILES}{L2VNI_SRC_FILENAME} work = {works} !!")
+            print(f"{HEADER} L2VNI defined in {PATH_TO_VERITY_FILES}{L2VNI_SRC_FILENAME} work = {same} !!")
         else:
             print(f"{HEADER} L2VNI have not been executed !!")
     else:
@@ -607,9 +607,9 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
                 vlan_yaml_data=open_file(f"{PATH_TO_VERITY_FILES}{VLAN_SRC_FILENAME}")
             )
 
-            if test_to_execute[TEST_TO_EXC_VLAN_KEY] is True and works is False:
+            if test_to_execute[TEST_TO_EXC_VLAN_KEY] is True and same is False:
                 exit_value = False
-            print(f"{HEADER} VLAN defined in {PATH_TO_VERITY_FILES}{VLAN_SRC_FILENAME} work = {works} !!")
+            print(f"{HEADER} VLAN defined in {PATH_TO_VERITY_FILES}{VLAN_SRC_FILENAME} work = {same} !!")
         else:
             print(f"{HEADER} VLAN have not been executed !!")
     else:

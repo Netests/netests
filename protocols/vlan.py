@@ -31,6 +31,13 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from protocols.ip import IPAddress, ListIPAddress
+except ImportError as importError:
+    print(f"{ERROR_HEADER} protocols.ip")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.global_tools import *
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.global_tools")
@@ -45,29 +52,29 @@ class VLAN:
 
     vlan_id: str
     vrf_name: str
-    ip_address: str
+    ip_addresses: ListIPAddress
     fhrp_ip_address: str
-    netmask: str
     ports_members: list
 
     # The following values are not used by the __eq__ function !!
     vlan_name: str
+    vlan_descr: str
     mac_address: str
 
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, vlan_id=NOT_SET, vrf_name="default", ip_address=NOT_SET, fhrp_ip_address=NOT_SET,
-                 netmask=NOT_SET, mac_address=NOT_SET, vlan_name=NOT_SET, ports_members=list()):
+    def __init__(self, vlan_name=NOT_SET, vlan_id=NOT_SET, vrf_name="default", ip_address=NOT_SET,
+                 fhrp_ip_address=NOT_SET, mac_address=NOT_SET, vlan_descr=NOT_SET, ports_members=list()):
 
+        self.vlan_name = vlan_name
         self.vlan_id = vlan_id
         self.vrf_name = vrf_name
         self.ip_address = ip_address
         self.fhrp_ip_address = fhrp_ip_address
-        self.netmask = netmask
         self.mac_address = mac_address
-        self.vlan_name = vlan_name
+        self.vlan_descr = vlan_descr
         self.ports_members = ports_members
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -78,33 +85,23 @@ class VLAN:
             return NotImplemented
 
         # Basic
-        if (str(self.vlan_id) == str(self.vlan_id) and
+        return (str(self.vlan_id) == str(other.vlan_id) and
                 str(self.vrf_name) == str(other.vrf_name) and
                 str(self.ip_address) == str(other.ip_address) and
-                str(self.fhrp_ip_address) == str(other.fhrp_ip_address) and
-                str(self.netmask) == str(other.netmask)):
-            return True
-
-        else:
-            printline()
-            print(self)
-            print("IS NOT EQUAL TO\n")
-            print(other)
-            printline()
-            return False
+                str(self.fhrp_ip_address) == str(other.fhrp_ip_address))
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
     def __repr__(self):
-        return f"<VLAN vlan_id={self.vlan_id} " \
-               f"vrf_name={self.vrf_name} " \
-               f"ip_address={self.ip_address} " \
-               f"fhrp_ip_address={self.fhrp_ip_address} " \
-               f"netmask={self.netmask} " \
-               f"vlan_name={self.vlan_name} " \
-               f"mac_address={self.mac_address} " \
-               f"ports_members={self.ports_members}>\n"
+        return f"<VLAN vlan_id={self.vlan_id} \n" \
+               f"vlan_name={self.vlan_name} \n" \
+               f"vrf_name={self.vrf_name} \n" \
+               f"ip_address={self.ip_address} \n" \
+               f"fhrp_ip_address={self.fhrp_ip_address} \n" \
+               f"vlan_descr={self.vlan_descr} \n" \
+               f"mac_address={self.mac_address} \n" \
+               f"ports_members={self.ports_members}>\n --- \n" \
 
 
 ########################################################################################################################
