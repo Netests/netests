@@ -40,6 +40,30 @@ leaf03:
     netmask: 255.255.255.254
 
 # ----------------------------------------------------------------------------------------------------------------------
+leaf04:
+  - interface_name: em1.0
+    ip_address: 10.0.0.4
+    netmask: 255.0.0.0
+  - interface_name: em3.0
+    ip_address: 10.1.4.2
+    netmask: 255.255.255.252
+  - interface_name: em5.0
+    ip_address: 10.0.0.1
+    netmask: 255.255.255.252
+  - interface_name: em5.0
+    ip_address: 10.3.4.2
+    netmask: 255.255.255.252
+  - interface_name: em6.0
+    ip_address: 10.2.4.2
+    netmask: 255.255.255.252
+  - interface_name: fxp0.0
+    ip_address: 10.0.5.204
+    netmask: 255.255.255.0
+  - interface_name: lo0.0
+    ip_address: 10.255.255.204
+    netmask: 255.255.255.255
+
+# ----------------------------------------------------------------------------------------------------------------------
 leaf05:
   - interface_name: GigabitEthernet0/5.100
     ip_address: 10.250.100.1

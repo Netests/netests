@@ -55,14 +55,14 @@ class IP(ABC):
 
 |             | Filtering available |
 | ----------- | ------------------- |
-| NAPALM      | :cry:               |
-| Junos       | :cry:               |
+| NAPALM      | ✅                   |
+| Junos       | ✅                   |
 | Cumulus     | ✅                   |
 | Arista      | ✅                   |
 | Cisco Nexus | ✅                   |
 | Cisco IOSXR | :cry:               |
 | Cisco IOS   | ✅                   |
-| Extreme VSP | :cry:               |
+| Extreme VSP | ✅                   |
 |             |                     |
 |             |                     |
 |             |                     |

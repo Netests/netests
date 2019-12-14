@@ -86,6 +86,13 @@ def _generic_interface_filter(plateform, interface_name,*, get_vlan=True, get_lo
              (get_physical and ("GI" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
         return True
 
+    elif "junos" in plateform and \
+            ((get_vlan and "VLAN" in str(interface_name).upper()) or \
+             (get_loopback and "LO" in str(interface_name).upper()) or \
+             (get_physical and ("EM" in str(interface_name).upper() or "FXP" in str(interface_name).upper() or \
+                     "GE" in str(interface_name).upper()))):
+        return True
+
     return False
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -394,45 +401,58 @@ def _juniper_ipv4_converter(hostname:str(), plateform:str(), cmd_output:dict, *,
             for interface in cmd_output.get('interface-information')[0].get(key):
                 if "logical-interface" in interface.keys():
                     for logic_interface in interface.get("logical-interface"):
-                        if "address-family" in logic_interface.keys():
-                            if "address-family-name" in logic_interface.get("address-family")[0]:
-                                if logic_interface.get("address-family")[0].get("address-family-name")[0].get("data") == "inet" and \
-                                        logic_interface.get("address-family")[0].get("interface-address") is not None:
+                        if _generic_interface_filter(
+                            interface_name=_mapping_interface_name(
+                                logic_interface.get("name")[0].get("data", NOT_SET)
+                            ),
+                            plateform=plateform,
+                            get_vlan=get_vlan,
+                            get_peerlink=get_peerlink,
+                            get_physical=get_physical,
+                            get_loopback=get_loopback,
+                            get_vni=get_vni
+                        ):
 
-                                    for interface_ip in logic_interface.get("address-family")[0].get("interface-address"):
+                            if "address-family" in logic_interface.keys():
+                                if "address-family-name" in logic_interface.get("address-family")[0]:
+                                    if logic_interface.get("address-family")[0].get("address-family-name")[0].get("data") == "inet" and \
+                                            logic_interface.get("address-family")[0].get("interface-address") is not None:
 
-                                        ip_addr = interface_ip.get("ifa-local")[0].get("data", NOT_SET)
+                                        for interface_ip in logic_interface.get("address-family")[0].get("interface-address"):
 
-                                        if ip_addr != NOT_SET and \
-                                                "/128" not in ip_addr and \
-                                                "/64" not in ip_addr and \
-                                                "/48" not in ip_addr and \
-                                                "::" not in ip_addr and \
-                                                "127.0.0.1" not in ip_addr and \
-                                                "::1/128" not in ip_addr and \
-                                                "128.0.0." not in ip_addr and \
-                                                ".32768" not in logic_interface.get("name")[0].get("data", NOT_SET):
+                                            ip_addr = interface_ip.get("ifa-local")[0].get("data", NOT_SET)
 
-                                            if "lo" in logic_interface.get("name")[0].get("data", NOT_SET) :
-                                                ipv4_addresses_lst.ipv4_addresses_lst.append(
-                                                    IPV4(
-                                                        interface_name=_mapping_interface_name(
-                                                            logic_interface.get("name")[0].get("data",NOT_SET)
-                                                        ),
-                                                        ip_address_with_mask=ip_addr,
-                                                        netmask="255.255.255.255"
+                                            if ip_addr != NOT_SET and \
+                                                    "/128" not in ip_addr and \
+                                                    "/64" not in ip_addr and \
+                                                    "/48" not in ip_addr and \
+                                                    "::" not in ip_addr and \
+                                                    "127.0.0.1" not in ip_addr and \
+                                                    "::1/128" not in ip_addr and \
+                                                    "128.0.0." not in ip_addr and \
+                                                    ".32768" not in logic_interface.get("name")[0].get("data", NOT_SET):
+
+                                                if "lo" in logic_interface.get("name")[0].get("data", NOT_SET) :
+                                                    ipv4_addresses_lst.ipv4_addresses_lst.append(
+                                                        IPV4(
+                                                            interface_name=_mapping_interface_name(
+                                                                logic_interface.get("name")[0].get("data",NOT_SET)
+                                                            ),
+                                                            ip_address_with_mask=ip_addr,
+                                                            netmask="255.255.255.255"
+                                                        )
                                                     )
-                                                )
-                                            else:
-                                                ipv4_addresses_lst.ipv4_addresses_lst.append(
-                                                    IPV4(
-                                                        interface_name=_mapping_interface_name(
-                                                            logic_interface.get("name")[0].get("data", NOT_SET)
-                                                        ),
-                                                        ip_address_with_mask=ip_addr,
+                                                else:
+                                                    ipv4_addresses_lst.ipv4_addresses_lst.append(
+                                                        IPV4(
+                                                            interface_name=_mapping_interface_name(
+                                                                logic_interface.get("name")[0].get("data", NOT_SET)
+                                                            ),
+                                                            ip_address_with_mask=ip_addr,
+                                                        )
                                                     )
-                                                )
 
+    print(ipv4_addresses_lst)
     return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
