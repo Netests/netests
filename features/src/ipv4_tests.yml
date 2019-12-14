@@ -3,6 +3,7 @@ leaf01:
     ip_address: 10.0.4.201
     netmask: 255.255.255.0
 
+# ----------------------------------------------------------------------------------------------------------------------
 leaf02:
   - interface_name: Vlan100
     ip_address: 10.250.10.12
@@ -13,3 +14,27 @@ leaf02:
   - interface_name: Vlan200
     ip_address: 10.0.0.5
     netmask: 255.255.255.252
+
+# ----------------------------------------------------------------------------------------------------------------------
+leaf03:
+  - interface_name: Loopback1
+    ip_address: 10.255.255.203
+    netmask: 255.255.255.255
+  - interface_name: Ethernet1
+    ip_address: 10.1.3.2
+    netmask: 255.255.255.252
+  - interface_name: Ethernet2
+    ip_address: 10.2.3.2
+    netmask: 255.255.255.252
+  - interface_name: Ethernet3
+    ip_address: 10.22.33.2
+    netmask: 255.255.255.252
+  - interface_name: Management1
+    ip_address: 10.0.5.203
+    netmask: 255.255.255.0
+  - interface_name: Vlan1000
+    ip_address: 2.22.222.222
+    netmask: 255.255.255.254
+  - interface_name: Vlan1000
+    ip_address: 3.33.33.33
+    netmask: 255.255.255.254

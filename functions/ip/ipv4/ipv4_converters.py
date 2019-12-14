@@ -74,6 +74,12 @@ def _generic_interface_filter(plateform, interface_name,*, get_vlan=True, get_lo
              (get_physical and ("ETH" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
         return True
 
+    elif "eos" in plateform and \
+            ((get_vlan and "VLAN" in str(interface_name).upper()) or \
+             (get_loopback and "LO" in str(interface_name).upper()) or \
+             (get_physical and ("ETH" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
+        return True
+
     return False
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -137,7 +143,9 @@ def _cumulus_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *,
                         "127.0.0.1" not in ip_address_in_interface and "::1/128" not in ip_address_in_interface:
 
                     ipv4_obj = IPV4(
-                        interface_name=_mapping_interface_name(interface_name),
+                        interface_name=_mapping_interface_name(
+                            interface_name
+                        ),
                         ip_address_with_mask=ip_address_in_interface
                     )
 
@@ -303,43 +311,53 @@ def _arista_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, 
     )
 
     for interface_name, facts in cmd_output.get('interfaces').items():
+        if _generic_interface_filter(
+                interface_name=_mapping_interface_name(
+                    interface_name
+                ),
+                plateform=plateform,
+                get_vlan=get_vlan,
+                get_peerlink=get_peerlink,
+                get_physical=get_physical,
+                get_loopback=get_loopback,
+                get_vni=get_vni
+        ):
+            ip_address = facts.get('interfaceAddress').get('primaryIp').get('address', NOT_SET)
 
-        ip_address = facts.get('interfaceAddress').get('primaryIp').get('address', NOT_SET)
+            if ip_address != NOT_SET and "/128" not in ip_address and "/64" not in ip_address and \
+                    "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
+                    "::1/128" not in ip_address:
 
-        if ip_address != NOT_SET and "/128" not in ip_address and "/64" not in ip_address and \
-                "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
-                "::1/128" not in ip_address:
-
-            ipv4_addresses_lst.ipv4_addresses_lst.append(
-                IPV4(
-                    interface_name=_mapping_interface_name(
-                        interface_name
-                    ),
-                    ip_address_with_mask=ip_address,
-                    netmask=facts.get('interfaceAddress').get('primaryIp').get('maskLen', NOT_SET)
-                )
-            )
-
-        if len(facts.get('interfaceAddress').get('secondaryIpsOrderedList')) > 0:
-
-            for ip_addr in facts.get('interfaceAddress').get('secondaryIpsOrderedList'):
-                secondary_ip = ip_addr.get('address', NOT_SET)
-
-                if secondary_ip != NOT_SET and "/128" not in secondary_ip and "/64" not in secondary_ip and \
-                        "/48" not in secondary_ip and "::" not in secondary_ip and "127.0.0.1" not in secondary_ip and \
-                        "::1/128" not in secondary_ip:
-
-                    ipv4_addresses_lst.ipv4_addresses_lst.append(
-                        IPV4(
-                            interface_name=_mapping_interface_name(
-                                interface_name
-                            ),
-                            ip_address_with_mask=secondary_ip,
-                            netmask=ip_addr.get('maskLen', NOT_SET)
-                        )
+                ipv4_addresses_lst.ipv4_addresses_lst.append(
+                    IPV4(
+                        interface_name=_mapping_interface_name(
+                            interface_name
+                        ),
+                        ip_address_with_mask=ip_address,
+                        netmask=facts.get('interfaceAddress').get('primaryIp').get('maskLen', NOT_SET)
                     )
+                )
 
+            if len(facts.get('interfaceAddress').get('secondaryIpsOrderedList')) > 0:
 
+                for ip_addr in facts.get('interfaceAddress').get('secondaryIpsOrderedList'):
+                    secondary_ip = ip_addr.get('address', NOT_SET)
+
+                    if secondary_ip != NOT_SET and "/128" not in secondary_ip and "/64" not in secondary_ip and \
+                            "/48" not in secondary_ip and "::" not in secondary_ip and "127.0.0.1" not in secondary_ip and \
+                            "::1/128" not in secondary_ip:
+
+                        ipv4_addresses_lst.ipv4_addresses_lst.append(
+                            IPV4(
+                                interface_name=_mapping_interface_name(
+                                    interface_name
+                                ),
+                                ip_address_with_mask=secondary_ip,
+                                netmask=ip_addr.get('maskLen', NOT_SET)
+                            )
+                        )
+
+    print(ipv4_addresses_lst)
     return ipv4_addresses_lst
 
 

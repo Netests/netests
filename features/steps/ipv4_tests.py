@@ -32,7 +32,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.ip.ipv4.ipv4_converters import _cumulus_ipv4_converter, _nexus_ipv4_converter
+    from functions.ip.ipv4.ipv4_converters import _cumulus_ipv4_converter, _nexus_ipv4_converter, _arista_ipv4_converter
     from functions.ip.ipv4.ipv4_compare import _compare_ipv4
     from protocols.ipv4 import IPV4, ListIPV4
 except ImportError as importError:
@@ -208,6 +208,32 @@ def create_an_ipv4_object_from_a_nexus_output_command(context) -> None:
 #
 #
 #
+@given('I create an IPV4 python object from a Arista output command named object_05')
+def create_an_ipv4_object_from_a_arista_output_command(context) -> None:
+    """
+    Create an IPV4 object from a Arista output
+
+    :param context:
+    :return None:
+    """
+
+    context.object_05 = _arista_ipv4_converter(
+        hostname="leaf03",
+        plateform="eos",
+        cmd_output=open_file(
+            path=f"{FEATURES_OUTPUT_PATH}arista_show_ip_interface.json"
+        ),
+        get_loopback=True,
+        get_physical=True,
+        get_vni=False,
+        get_peerlink=False,
+        get_vlan=True
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @then('IPV4 object_01 should be equal to object_02')
 def compare_ipv4_object_01_and_object_02(context) -> None:
     """
@@ -284,7 +310,7 @@ def compare_ipv4_object_03_and_object_01(context) -> None:
 @then('IPV4 object_02 should be equal to object_04')
 def compare_ipv4_object_02_and_object_04(context) -> None:
     """
-    Compare object_02 and object_03
+    Compare object_02 and object_04
 
     :param context:
     :return:
@@ -295,5 +321,26 @@ def compare_ipv4_object_02_and_object_04(context) -> None:
         hostname="leaf02",
         groups=['leaf'],
         ipv4_host_data=context.object_04,
+        ipv4_yaml_data=context.object_02
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('IPV4 object_02 should be equal to object_05')
+def compare_ipv4_object_02_and_object_05(context) -> None:
+    """
+    Compare object_02 and object_05
+
+    :param context:
+    :return:
+    """
+
+    assert _compare_ipv4(
+        host_keys=IPV4_DATA_HOST_KEY,
+        hostname="leaf03",
+        groups=['leaf'],
+        ipv4_host_data=context.object_05,
         ipv4_yaml_data=context.object_02
     )

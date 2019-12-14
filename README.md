@@ -269,7 +269,7 @@ Join the Telegram channel to have access to Trello
 | Juniper     |                    |                    |      |                    |      | :white_check_mark: |                    | :white_check_mark: |                    |      |      |      |      |        |
 | Cumulus     | :white_check_mark: | :white_check_mark: |      | :white_check_mark: |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
 | Arista      | :white_check_mark: |                    |      |                    |      | :white_check_mark: |                    |                    |                    |      |      |      |      |        |
-| Nexus       | :white_check_mark: |                    |      |                    |      |                    |                    |                    | :white_check_mark: |      |      |      |      |        |
+| Nexus       | :white_check_mark: |                    |      | :white_check_mark: |      |                    |                    |                    | :white_check_mark: |      |      |      |      |        |
 | IOS         |                    |                    |      |                    |      |                    |                    | :white_check_mark: |                    |      |      |      |      |        |
 | Extreme VSP |                    |                    |      |                    |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
 
