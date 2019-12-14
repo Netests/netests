@@ -60,7 +60,6 @@ except ImportError as importError:
 def _generic_interface_filter(plateform, interface_name,*, get_vlan=True, get_loopback=True,
                               get_peerlink=True, get_vni=False, get_physical=True) -> bool:
 
-
     if "linux" in plateform and "bridge" not in interface_name and "v0" not in interface_name and \
             ((get_vlan and "vlan" in interface_name) or \
              (get_loopback and "lo" in interface_name) or \
@@ -68,6 +67,14 @@ def _generic_interface_filter(plateform, interface_name,*, get_vlan=True, get_lo
              (get_vni and "vni" in interface_name) or \
              (get_physical and ("swp" in interface_name or "eth" in interface_name))):
         return True
+
+    elif "nxos" in plateform and \
+            ((get_vlan and "VLAN" in str(interface_name).upper()) or \
+             (get_loopback and "LO" in str(interface_name).upper()) or \
+             (get_physical and ("ETH" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
+        return True
+
+    return False
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # NAPALM IPv4 addresses converter
@@ -145,6 +152,9 @@ def _cumulus_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *,
 def _nexus_ipv4_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, get_vlan=True, get_loopback=True,
                             get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV4:
 
+    if cmd_outputs is None:
+        return False
+
     ipv4_addresses_lst = ListIPV4(
         hostname=hostname,
         ipv4_addresses_lst=list()
@@ -152,71 +162,92 @@ def _nexus_ipv4_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, 
 
     for cmd_output in cmd_outputs:
 
-        if 'TABLE_intf' in cmd_output.keys():
+        if cmd_output is not None and 'TABLE_intf' in cmd_output.keys():
 
             if isinstance(cmd_output.get('TABLE_intf'), list):
                 for interface in cmd_output.get('TABLE_intf'):
-                    if isinstance(interface, dict):
+                    if _generic_interface_filter(
+                        interface_name=_mapping_interface_name(
+                            interface.get('ROW_intf').get('intf-name')
+                        ),
+                        plateform=plateform,
+                        get_vlan=get_vlan,
+                        get_peerlink=get_peerlink,
+                        get_physical=get_physical,
+                        get_loopback=get_loopback,
+                        get_vni=get_vni
+                    ):
+                        if isinstance(interface, dict):
 
-                        ip_address = interface.get('ROW_intf').get('prefix', NOT_SET)
+                            ip_address = interface.get('ROW_intf').get('prefix', NOT_SET)
+
+                            if ip_address != NOT_SET and "/128" not in ip_address and "/64" not in ip_address and \
+                                    "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
+                                    "::1/128" not in ip_address:
+
+                                ipv4_obj = IPV4(
+                                    interface_name=_mapping_interface_name(
+                                        interface.get('ROW_intf').get('intf-name')
+                                    ),
+                                    ip_address_with_mask=ip_address,
+                                    netmask=interface.get('ROW_intf').get('masklen')
+                                )
+
+                                ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
+
+                            if 'TABLE_secondary_address' in interface.get('ROW_intf').keys():
+                                ipv4_addresses_lst.ipv4_addresses_lst.append(
+                                    IPV4(
+                                        interface_name=_mapping_interface_name(
+                                            interface.get('ROW_intf').get('intf-name')
+                                        ),
+                                        ip_address_with_mask=interface.get('ROW_intf').get('TABLE_secondary_address').get(
+                                            'ROW_secondary_address').get('prefix1'),
+                                        netmask=interface.get('ROW_intf').get('TABLE_secondary_address').get(
+                                            'ROW_secondary_address').get('masklen1')
+                                    )
+                                )
+
+            elif isinstance(cmd_output.get('TABLE_intf'), dict):
+                for interface, facts in cmd_output.get('TABLE_intf').items():
+                    if _generic_interface_filter(
+                            interface_name=_mapping_interface_name(
+                                facts.get('intf-name')
+                            ),
+                            plateform=plateform,
+                            get_vlan=get_vlan,
+                            get_peerlink=get_peerlink,
+                            get_physical=get_physical,
+                            get_loopback=get_loopback,
+                            get_vni=get_vni
+                    ):
+                        ip_address = facts.get('prefix', NOT_SET)
 
                         if ip_address != NOT_SET and "/128" not in ip_address and "/64" not in ip_address and \
                                 "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
                                 "::1/128" not in ip_address:
-
                             ipv4_obj = IPV4(
                                 interface_name=_mapping_interface_name(
-                                    interface.get('ROW_intf').get('intf-name')
+                                    facts.get('intf-name')
                                 ),
                                 ip_address_with_mask=ip_address,
-                                netmask=interface.get('ROW_intf').get('masklen')
+                                netmask=facts.get('masklen')
                             )
 
                             ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
 
-                        if 'TABLE_secondary_address' in interface.get('ROW_intf').keys():
+                        if 'TABLE_secondary_address' in facts.keys():
                             ipv4_addresses_lst.ipv4_addresses_lst.append(
                                 IPV4(
                                     interface_name=_mapping_interface_name(
-                                        interface.get('ROW_intf').get('intf-name')
+                                        facts.get('intf-name')
                                     ),
-                                    ip_address_with_mask=interface.get('ROW_intf').get('TABLE_secondary_address').get(
+                                    ip_address_with_mask=facts.get('TABLE_secondary_address').get(
                                         'ROW_secondary_address').get('prefix1'),
-                                    netmask=interface.get('ROW_intf').get('TABLE_secondary_address').get(
-                                        'ROW_secondary_address').get('masklen1')
+                                    netmask=facts.get('TABLE_secondary_address').get('ROW_secondary_address').get(
+                                        'masklen1')
                                 )
                             )
-
-            elif isinstance(cmd_output.get('TABLE_intf'), dict):
-                for interface, facts in cmd_output.get('TABLE_intf').items():
-
-                    ip_address = facts.get('prefix', NOT_SET)
-
-                    if ip_address != NOT_SET and "/128" not in ip_address and "/64" not in ip_address and \
-                            "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
-                            "::1/128" not in ip_address:
-                        ipv4_obj = IPV4(
-                            interface_name=_mapping_interface_name(
-                                facts.get('intf-name')
-                            ),
-                            ip_address_with_mask=ip_address,
-                            netmask=facts.get('masklen')
-                        )
-
-                        ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
-
-                    if 'TABLE_secondary_address' in facts.keys():
-                        ipv4_addresses_lst.ipv4_addresses_lst.append(
-                            IPV4(
-                                interface_name=_mapping_interface_name(
-                                    facts.get('intf-name')
-                                ),
-                                ip_address_with_mask=facts.get('TABLE_secondary_address').get(
-                                    'ROW_secondary_address').get('prefix1'),
-                                netmask=facts.get('TABLE_secondary_address').get('ROW_secondary_address').get(
-                                    'masklen1')
-                            )
-                        )
 
     return ipv4_addresses_lst
 

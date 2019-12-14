@@ -32,7 +32,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.ip.ipv4.ipv4_converters import _cumulus_ipv4_converter
+    from functions.ip.ipv4.ipv4_converters import _cumulus_ipv4_converter, _nexus_ipv4_converter
     from functions.ip.ipv4.ipv4_compare import _compare_ipv4
     from protocols.ipv4 import IPV4, ListIPV4
 except ImportError as importError:
@@ -151,6 +151,58 @@ def create_an_ipv4_object_from_a_cumulus_output_command(context) -> None:
         get_vlan=False
     )
 
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@given('I create an IPV4 python object from a Cisco Nexus output command named object_04')
+def create_an_ipv4_object_from_a_nexus_output_command(context) -> None:
+    """
+    Create an IPV4 object from a Cisco Nexus output
+
+    :param context:
+    :return None:
+    """
+
+    outputs_lst = list()
+
+    outputs_lst.append(
+        open_file(
+            path=f"{FEATURES_OUTPUT_PATH}nexus_show_ip_interface.json"
+        )
+    )
+
+    data = open_file(
+            path=f"{FEATURES_OUTPUT_PATH}nexus_show_ip_interface_vrf_client_00.json"
+        )
+
+    if data != "" and data is not None:
+        outputs_lst.append(data)
+
+    outputs_lst.append(
+        open_file(
+            path=f"{FEATURES_OUTPUT_PATH}nexus_show_ip_interface_vrf_management.json"
+        )
+    )
+
+    outputs_lst.append(
+        open_file(
+            path=f"{FEATURES_OUTPUT_PATH}nexus_show_ip_interface_vrf_test_dylan.json"
+        )
+    )
+
+    print(outputs_lst)
+
+    context.object_04 = _nexus_ipv4_converter(
+        hostname="leaf01",
+        plateform="nxos",
+        cmd_outputs=outputs_lst,
+        get_loopback=False,
+        get_physical=False,
+        get_vni=False,
+        get_peerlink=False,
+        get_vlan=True
+    )
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -170,6 +222,27 @@ def compare_ipv4_object_01_and_object_02(context) -> None:
         hostname="leaf01",
         groups=['leaf'],
         ipv4_host_data=context.object_01,
+        ipv4_yaml_data=context.object_02
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('IPV4 object_02 should be equal to object_03')
+def compare_ipv4_object_02_and_object_03(context) -> None:
+    """
+    Compare object_02 and object_03
+
+    :param context:
+    :return:
+    """
+
+    assert _compare_ipv4(
+        host_keys=IPV4_DATA_HOST_KEY,
+        hostname="leaf01",
+        groups=['leaf'],
+        ipv4_host_data=context.object_03,
         ipv4_yaml_data=context.object_02
     )
 
@@ -203,3 +276,24 @@ def compare_ipv4_object_03_and_object_01(context) -> None:
     """
 
     assert context.object_03 == context.object_01
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('IPV4 object_02 should be equal to object_04')
+def compare_ipv4_object_02_and_object_04(context) -> None:
+    """
+    Compare object_02 and object_03
+
+    :param context:
+    :return:
+    """
+
+    assert _compare_ipv4(
+        host_keys=IPV4_DATA_HOST_KEY,
+        hostname="leaf02",
+        groups=['leaf'],
+        ipv4_host_data=context.object_04,
+        ipv4_yaml_data=context.object_02
+    )

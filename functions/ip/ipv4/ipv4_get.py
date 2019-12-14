@@ -107,7 +107,7 @@ def get_ipv4(nr: Nornir, *, get_vlan=True, get_loopback=True, get_peerlink=True,
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -187,7 +187,6 @@ def _generic_ipv4_napalm(task, *, get_vlan=True, get_loopback=True, get_peerlink
         )
 
         task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
