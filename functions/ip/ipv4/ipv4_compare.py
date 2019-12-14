@@ -65,7 +65,7 @@ except ImportError as importError:
 # Functions
 #
 
-def compare_ipv4(nr, ipv4_data:json) -> bool:
+def compare_ipv4(nr, ipv4_yaml_data:json) -> bool:
 
     devices = nr.filter()
 
@@ -73,8 +73,8 @@ def compare_ipv4(nr, ipv4_data:json) -> bool:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     data = devices.run(
-        task=_compare_ipv4,
-        ipv4_data=ipv4_data,
+        task=_compare_transit_ipv4,
+        ipv4_yaml_data=ipv4_yaml_data,
         on_failed=True,
         num_workers=10
     )
@@ -91,26 +91,40 @@ def compare_ipv4(nr, ipv4_data:json) -> bool:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Compare function
+# Compare Transit function
 #
-def _compare_ipv4(task, ipv4_data:json):
+def _compare_transit_ipv4(task, ipv4_yaml_data:json):
 
-    verity_ipv4 = retrieve_ipv4_for_host(
+    task.host[IPV4_WORKS_KEY] = _compare_ipv4(
+        host_keys=task.host.keys(),
         hostname=task.host.name,
         groups=task.host.groups,
-        ipv4_data=ipv4_data
+        ipv4_host_data=task.host[IPV4_DATA_HOST_KEY],
+        ipv4_yaml_data=ipv4_yaml_data,
     )
 
-    is_same = verity_ipv4 == task.host[IPV4_DATA_HOST_KEY]
+    return task.host[IPV4_WORKS_KEY]
 
-    task.host[IPV4_WORKS_KEY] = is_same
 
-    return is_same
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Compare function
+#
+def _compare_ipv4(host_keys, hostname:str, groups:list, ipv4_host_data:ListIPV4, ipv4_yaml_data:dict) -> bool:
+
+    verity_ipv4 = retrieve_ipv4_for_host(
+        hostname=hostname,
+        groups=groups,
+        ipv4_yaml_data=ipv4_yaml_data
+    )
+
+    return verity_ipv4 == ipv4_host_data
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 #
-def retrieve_ipv4_for_host(hostname:str, groups:list, ipv4_data:dict) -> ListIPV4:
+def retrieve_ipv4_for_host(hostname:str, groups, ipv4_yaml_data:dict) -> ListIPV4:
 
     ip_addresses_lst = ListIPV4(
         hostname=hostname,
@@ -118,8 +132,8 @@ def retrieve_ipv4_for_host(hostname:str, groups:list, ipv4_data:dict) -> ListIPV
     )
 
     # Retrieve data in "all:"
-    if YAML_ALL_GROUPS_KEY in ipv4_data.keys():
-        for ip_infos in ipv4_data.get(YAML_ALL_GROUPS_KEY, NOT_SET):
+    if YAML_ALL_GROUPS_KEY in ipv4_yaml_data.keys():
+        for ip_infos in ipv4_yaml_data.get(YAML_ALL_GROUPS_KEY, NOT_SET):
 
             ipv4_obj = IPV4(
                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
@@ -131,12 +145,12 @@ def retrieve_ipv4_for_host(hostname:str, groups:list, ipv4_data:dict) -> ListIPV
 
 
     # Retrieve data in "groups:"
-    if YAML_GROUPS_KEY in ipv4_data.keys():
-        for value_key_groups in ipv4_data.get(YAML_GROUPS_KEY, NOT_SET).keys():
+    if YAML_GROUPS_KEY in ipv4_yaml_data.keys():
+        for value_key_groups in ipv4_yaml_data.get(YAML_GROUPS_KEY, NOT_SET).keys():
             for host_group in groups:
                 if "," in value_key_groups:
                     if host_group in value_key_groups.split(","):
-                        for ip_infos in ipv4_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_groups):
+                        for ip_infos in ipv4_yaml_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_groups):
 
                             ipv4_obj = IPV4(
                                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
@@ -148,7 +162,7 @@ def retrieve_ipv4_for_host(hostname:str, groups:list, ipv4_data:dict) -> ListIPV
 
                 else:
                     if host_group == value_key_groups:
-                        for ip_infos in ipv4_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_groups):
+                        for ip_infos in ipv4_yaml_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_groups):
 
                             ipv4_obj = IPV4(
                                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
@@ -159,11 +173,11 @@ def retrieve_ipv4_for_host(hostname:str, groups:list, ipv4_data:dict) -> ListIPV
                             ip_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
 
     # Retrieve data in "devices:"
-    if YAML_DEVICES_KEY in ipv4_data.keys():
-        for value_key_devices in ipv4_data.get(YAML_DEVICES_KEY, NOT_SET).keys():
+    if YAML_DEVICES_KEY in ipv4_yaml_data.keys():
+        for value_key_devices in ipv4_yaml_data.get(YAML_DEVICES_KEY, NOT_SET).keys():
             if "," in value_key_devices:
                 if hostname in value_key_devices.split(","):
-                    for ip_infos in ipv4_data.get(YAML_DEVICES_KEY, NOT_SET).get(value_key_devices, NOT_SET):
+                    for ip_infos in ipv4_yaml_data.get(YAML_DEVICES_KEY, NOT_SET).get(value_key_devices, NOT_SET):
 
                         ipv4_obj = IPV4(
                             interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
@@ -176,7 +190,7 @@ def retrieve_ipv4_for_host(hostname:str, groups:list, ipv4_data:dict) -> ListIPV
             else:
                 if hostname == value_key_devices:
 
-                    for ip_infos in ipv4_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_devices):
+                    for ip_infos in ipv4_yaml_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_devices):
 
                         ipv4_obj = IPV4(
                             interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
@@ -188,9 +202,9 @@ def retrieve_ipv4_for_host(hostname:str, groups:list, ipv4_data:dict) -> ListIPV
 
 
     # Retrieve data per device
-    if hostname in ipv4_data.keys():
+    if hostname in ipv4_yaml_data.keys():
 
-        for ip_infos in ipv4_data.get(hostname, NOT_SET):
+        for ip_infos in ipv4_yaml_data.get(hostname, NOT_SET):
             ipv4_obj = IPV4(
                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
                 ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),

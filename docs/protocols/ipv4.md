@@ -47,7 +47,41 @@ class IP(ABC):
 
 :cry: => Not Implemented
 
+:x: => Not available
 
+
+
+## Filtering
+
+|             | Filtering available |
+| ----------- | ------------------- |
+| NAPALM      | :cry:               |
+| Junos       | :cry:               |
+| Cumulus     | ✅                   |
+| Arista      | :cry:               |
+| Cisco Nexus | ✅                   |
+| Cisco IOSXR | :cry:               |
+| Cisco IOS   | :cry:               |
+| Extreme VSP | :cry:               |
+|             |                     |
+|             |                     |
+|             |                     |
+
+✅ => Implemented​
+
+😢 => Not Implemented
+
+❌ => Not available
+
+```yaml
+ipv4:
+  test: true
+  get_physical: true
+  get_vlan: false
+  get_loopback: false
+  get_peerlink: false
+  get_vni: false
+```
 
 
 

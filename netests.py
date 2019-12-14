@@ -478,10 +478,10 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
                 get_physical=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_physical", True)
             )
 
-            ipv4_data = open_file(
+            ipv4_yaml_data = open_file(
                 path=f"{PATH_TO_VERITY_FILES}{IPV4_SRC_FILENAME}"
             )
-            same = compare_ipv4(nr, ipv4_data)
+            same = compare_ipv4(nr, ipv4_yaml_data)
             if test_to_execute[TEST_TO_EXC_IPV4_KEY] is True and same is False:
                 exit_value = False
             print(f"{HEADER} IPv4 addresses defined in {PATH_TO_VERITY_FILES}{IPV4_SRC_FILENAME} work = {same} !!")

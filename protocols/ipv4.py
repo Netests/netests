@@ -51,6 +51,10 @@ except ImportError as importError:
 #
 class IPV4(IP):
 
+    ip_address: str
+    netmask: str
+    interface_name: str
+
     # ------------------------------------------------------------------------------------------------------------------
     #
     #

@@ -222,7 +222,7 @@ leaf03:
 | MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:***     |
 | MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | L2VNI | :x: | :sleepy:** | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| VLAN | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
+| VLAN | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: |
 |  | | | | | | | | |
 | MVP ^^^   |                    |                    |                    |                    |                    |                    |                    |                    |
 |           |                    |                    |                    |                    |                    |                    |                    |                    |
@@ -264,14 +264,14 @@ Join the Telegram channel to have access to Trello
 
 ## Pipeline
 
-|             | MTU                | MLAG               | IPv4 | IPv6 | Static             | BGP                | OSPF               | SysInfos           | CDP  | LLDP | VRF  | Ping | Socket |
-| ----------- | ------------------ | ------------------ | ---- | ---- | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ---- | ---- | ---- | ------ |
-| Juniper     |                    |                    |      |      | :white_check_mark: |                    | :white_check_mark: |                    |      |      |      |      |        |
-| Cumulus     | :white_check_mark: | :white_check_mark: |      |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
-| Arista      | :white_check_mark: |                    |      |      | :white_check_mark: |                    |                    |                    |      |      |      |      |        |
-| Nexus       | :white_check_mark: |                    |      |      |                    |                    |                    | :white_check_mark: |      |      |      |      |        |
-| IOS         |                    |                    |      |      |                    |                    | :white_check_mark: |                    |      |      |      |      |        |
-| Extreme VSP |                    |                    |      |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
+|             | MTU                | MLAG               | VLAN | IPv4               | IPv6 | Static             | BGP                | OSPF               | SysInfos           | CDP  | LLDP | VRF  | Ping | Socket |
+| ----------- | ------------------ | ------------------ | ---- | ------------------ | ---- | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ---- | ---- | ---- | ------ |
+| Juniper     |                    |                    |      |                    |      | :white_check_mark: |                    | :white_check_mark: |                    |      |      |      |      |        |
+| Cumulus     | :white_check_mark: | :white_check_mark: |      | :white_check_mark: |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
+| Arista      | :white_check_mark: |                    |      |                    |      | :white_check_mark: |                    |                    |                    |      |      |      |      |        |
+| Nexus       | :white_check_mark: |                    |      |                    |      |                    |                    |                    | :white_check_mark: |      |      |      |      |        |
+| IOS         |                    |                    |      |                    |      |                    |                    | :white_check_mark: |                    |      |      |      |      |        |
+| Extreme VSP |                    |                    |      |                    |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
 
 
 
