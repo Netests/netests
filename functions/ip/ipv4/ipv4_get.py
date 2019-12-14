@@ -107,7 +107,7 @@ def get_ipv4(nr: Nornir, *, get_vlan=True, get_loopback=True, get_peerlink=True,
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -277,9 +277,9 @@ def _ios_get_ipv4(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, 
         results_template = textfsm.TextFSM(template)
          
         parsed_results = results_template.ParseText(output.result)
-        # Result Example =
-        #
-        #
+        # Result Example = [
+        # ['GigabitEthernet0/0', 'up', 'up', ['10.0.5.205'], ['24'], 'mgmt', '1500', [], '', ''],
+        # ['GigabitEthernet0/1', 'up', 'up', ['10.1.5.2'], ['30'], '', '1500', [], '', '']]
         # type = list() of list()
 
     ipv4_addresses = _ios_ipv4_converter(
@@ -380,7 +380,6 @@ def _extreme_vsp_get_ipv4(task, *, get_vlan=True, get_loopback=True, get_peerlin
         # Result Example =[
         # ['Port1/5', '10.2.5.1', '255.255.255.252', 'ones', '1500', '5', 'true', 'disable']]
         # type = list() of list()
-        print(parsed_results)
         outputs_dict['default'] = parsed_results
     
 
@@ -404,7 +403,6 @@ def _extreme_vsp_get_ipv4(task, *, get_vlan=True, get_loopback=True, get_peerlin
                 # Result Example =[
                 # ['Port1/5', '10.2.5.1', '255.255.255.252', 'ones', '1500', '5', 'true', 'disable']]
                 # type = list() of list()
-                print(parsed_results)
                 outputs_dict[vrf] = parsed_results
 
     ipv4_addresses = _extreme_vsp_ipv4_converter(

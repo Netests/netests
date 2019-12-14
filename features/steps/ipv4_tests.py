@@ -33,6 +33,7 @@ except ImportError as importError:
 
 try:
     from functions.ip.ipv4.ipv4_converters import _cumulus_ipv4_converter, _nexus_ipv4_converter, _arista_ipv4_converter
+    from functions.ip.ipv4.ipv4_converters import _ios_ipv4_converter
     from functions.ip.ipv4.ipv4_compare import _compare_ipv4
     from protocols.ipv4 import IPV4, ListIPV4
 except ImportError as importError:
@@ -191,8 +192,6 @@ def create_an_ipv4_object_from_a_nexus_output_command(context) -> None:
         )
     )
 
-    print(outputs_lst)
-
     context.object_04 = _nexus_ipv4_converter(
         hostname="leaf01",
         plateform="nxos",
@@ -225,6 +224,41 @@ def create_an_ipv4_object_from_a_arista_output_command(context) -> None:
         ),
         get_loopback=True,
         get_physical=True,
+        get_vni=False,
+        get_peerlink=False,
+        get_vlan=True
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@given('I create an IPV4 python object from a Cisco IOS output command named object_06')
+def create_an_ipv4_object_from_a_ios_output_command(context) -> None:
+    """
+    Create an IPV4 object from a Cisco IOS output
+
+    :param context:
+    :return None:
+    """
+
+    ipv4_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}cisco_ios_show_ip_interface.output"
+    )
+
+    if ipv4_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_interface.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ipv4_data)
+
+    context.object_06 = _ios_ipv4_converter(
+        hostname="leaf05",
+        plateform="ios",
+        cmd_output=parsed_results,
+        get_loopback=True,
+        get_physical=False,
         get_vni=False,
         get_peerlink=False,
         get_vlan=True
@@ -342,5 +376,28 @@ def compare_ipv4_object_02_and_object_05(context) -> None:
         hostname="leaf03",
         groups=['leaf'],
         ipv4_host_data=context.object_05,
+        ipv4_yaml_data=context.object_02
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('IPV4 object_02 should be equal to object_06')
+def compare_ipv4_object_02_and_object_06(context) -> None:
+    """
+    Compare object_02 and object_06
+
+    :param context:
+    :return:
+    """
+
+    print(context.object_06)
+
+    assert _compare_ipv4(
+        host_keys=IPV4_DATA_HOST_KEY,
+        hostname="leaf05",
+        groups=['leaf'],
+        ipv4_host_data=context.object_06,
         ipv4_yaml_data=context.object_02
     )

@@ -58,10 +58,10 @@ class IP(ABC):
 | NAPALM      | :cry:               |
 | Junos       | :cry:               |
 | Cumulus     | ✅                   |
-| Arista      | :cry:               |
+| Arista      | ✅                   |
 | Cisco Nexus | ✅                   |
 | Cisco IOSXR | :cry:               |
-| Cisco IOS   | :cry:               |
+| Cisco IOS   | ✅                   |
 | Extreme VSP | :cry:               |
 |             |                     |
 |             |                     |

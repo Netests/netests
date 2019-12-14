@@ -266,11 +266,11 @@ Join the Telegram channel to have access to Trello
 
 |             | MTU                | MLAG               | VLAN | IPv4               | IPv6 | Static             | BGP                | OSPF               | SysInfos           | CDP  | LLDP | VRF  | Ping | Socket |
 | ----------- | ------------------ | ------------------ | ---- | ------------------ | ---- | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ---- | ---- | ---- | ------ |
-| Juniper     |                    |                    |      |                    |      | :white_check_mark: |                    | :white_check_mark: |                    |      |      |      |      |        |
+| Juniper     |                    |                    |      | :white_check_mark: |      | :white_check_mark: |                    | :white_check_mark: |                    |      |      |      |      |        |
 | Cumulus     | :white_check_mark: | :white_check_mark: |      | :white_check_mark: |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
-| Arista      | :white_check_mark: |                    |      |                    |      | :white_check_mark: |                    |                    |                    |      |      |      |      |        |
+| Arista      | :white_check_mark: |                    |      | :white_check_mark: |      | :white_check_mark: |                    |                    |                    |      |      |      |      |        |
 | Nexus       | :white_check_mark: |                    |      | :white_check_mark: |      |                    |                    |                    | :white_check_mark: |      |      |      |      |        |
-| IOS         |                    |                    |      |                    |      |                    |                    | :white_check_mark: |                    |      |      |      |      |        |
+| IOS         |                    |                    |      | :white_check_mark: |      |                    |                    | :white_check_mark: |                    |      |      |      |      |        |
 | Extreme VSP |                    |                    |      |                    |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
 
 

@@ -80,6 +80,12 @@ def _generic_interface_filter(plateform, interface_name,*, get_vlan=True, get_lo
              (get_physical and ("ETH" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
         return True
 
+    elif "ios" in plateform and \
+            ((get_vlan and "." in str(interface_name).upper()) or \
+             (get_loopback and "LO" in str(interface_name).upper()) or \
+             (get_physical and ("GI" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
+        return True
+
     return False
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -277,16 +283,27 @@ def _ios_ipv4_converter(hostname:str(), plateform:str(), cmd_output:list, *, get
         # Value List IPADDR (\S+?)
         # Value List MASK (\d*)        
         for index, ip_addr in enumerate(interface[3]):
-        
-            ipv4_addresses_lst.ipv4_addresses_lst.append(
-                IPV4(
+            if _generic_interface_filter(
                     interface_name=_mapping_interface_name(
                         interface[0]
                     ),
-                    ip_address_with_mask=ip_addr,
-                    netmask=interface[4][index]
+                    plateform=plateform,
+                    get_vlan=get_vlan,
+                    get_peerlink=get_peerlink,
+                    get_physical=get_physical,
+                    get_loopback=get_loopback,
+                    get_vni=get_vni
+            ):
+        
+                ipv4_addresses_lst.ipv4_addresses_lst.append(
+                    IPV4(
+                        interface_name=_mapping_interface_name(
+                            interface[0]
+                        ),
+                        ip_address_with_mask=ip_addr,
+                        netmask=interface[4][index]
+                    )
                 )
-            )
 
     return ipv4_addresses_lst
 
@@ -357,7 +374,6 @@ def _arista_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, 
                             )
                         )
 
-    print(ipv4_addresses_lst)
     return ipv4_addresses_lst
 
 

@@ -38,3 +38,12 @@ leaf03:
   - interface_name: Vlan1000
     ip_address: 3.33.33.33
     netmask: 255.255.255.254
+
+# ----------------------------------------------------------------------------------------------------------------------
+leaf05:
+  - interface_name: GigabitEthernet0/5.100
+    ip_address: 10.250.100.1
+    netmask: 255.255.255.252
+  - interface_name: Loopback0
+    ip_address: 10.255.255.205
+    netmask: 255.255.255.255
