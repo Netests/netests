@@ -438,13 +438,21 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
     # 6. Check OSPF sessions
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_OSPF_KEY in test_to_execute.keys():
-        if test_to_execute[TEST_TO_EXC_OSPF_KEY]['test'] is True:
+        if test_to_execute[TEST_TO_EXC_OSPF_KEY].get('test') is True:
 
             get_ospf(nr)
 
-            ospf_data = open_file(f"{PATH_TO_VERITY_FILES}{OSPF_SRC_FILENAME}")
+            ospf_data = open_file(
+                path=f"{PATH_TO_VERITY_FILES}{OSPF_SRC_FILENAME}"
+            )
 
-            works = compare_ospf(nr, ospf_data, _get_level_test(test_to_execute.get(TEST_TO_EXC_OSPF_KEY).get('level', NOT_SET)))
+            works = compare_ospf(
+                nr=nr,
+                ospf_data=ospf_data,
+                level_test=_get_level_test(
+                    level_value=test_to_execute.get(TEST_TO_EXC_OSPF_KEY).get('level', NOT_SET)
+                )
+            )
 
             if test_to_execute[TEST_TO_EXC_OSPF_KEY] is True and works is False:
                 exit_value = False
@@ -459,11 +467,20 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
     # 6. Check IPv4 addresses
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_IPV4_KEY in test_to_execute.keys():
-        if test_to_execute[TEST_TO_EXC_IPV4_KEY] is True:
+        if test_to_execute[TEST_TO_EXC_IPV4_KEY].get('test') is True:
 
-            get_ipv4(nr)
+            get_ipv4(
+                nr=nr,
+                get_vlan=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_vlan", True),
+                get_loopback=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_loopback", True),
+                get_peerlink=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_peerlink", True),
+                get_vni=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_vni", True),
+                get_physical=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_physical", True)
+            )
 
-            ipv4_data = open_file(f"{PATH_TO_VERITY_FILES}{IPV4_SRC_FILENAME}")
+            ipv4_data = open_file(
+                path=f"{PATH_TO_VERITY_FILES}{IPV4_SRC_FILENAME}"
+            )
             same = compare_ipv4(nr, ipv4_data)
             if test_to_execute[TEST_TO_EXC_IPV4_KEY] is True and same is False:
                 exit_value = False

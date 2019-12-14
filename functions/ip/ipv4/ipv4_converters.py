@@ -57,11 +57,23 @@ except ImportError as importError:
 # Functions
 #
 
+def _generic_interface_filter(plateform, interface_name,*, get_vlan=True, get_loopback=True,
+                              get_peerlink=True, get_vni=False, get_physical=True) -> bool:
+
+
+    if "linux" in plateform and "bridge" not in interface_name and "v0" not in interface_name and \
+            ((get_vlan and "vlan" in interface_name) or \
+             (get_loopback and "lo" in interface_name) or \
+             (get_peerlink and "peerlink" in interface_name) or \
+             (get_vni and "vni" in interface_name) or \
+             (get_physical and ("swp" in interface_name or "eth" in interface_name))):
+        return True
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # NAPALM IPv4 addresses converter
 #
-def _napalm_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
+def _napalm_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, get_vlan=True, get_loopback=True,
+                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV4:
 
     ipv4_addresses_lst = ListIPV4(
         hostname=hostname,
@@ -88,7 +100,8 @@ def _napalm_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
 #
 # Cumulus IPv4 addresses converter
 #
-def _cumulus_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
+def _cumulus_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, get_vlan=True, get_loopback=True,
+                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV4:
 
     ipv4_addresses_lst = ListIPV4(
         hostname=hostname,
@@ -99,7 +112,16 @@ def _cumulus_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
 
         # v0 = vrrp / vrr / hsrp / HA ip address
         # bridge is a Linux bridge
-        if "bridge" not in interface_name or "v0" not in interface_name:
+
+        if _generic_interface_filter(
+            plateform=plateform,
+            interface_name=interface_name,
+            get_vlan=get_vlan,
+            get_loopback=get_loopback,
+            get_peerlink=get_peerlink,
+            get_vni=get_vni,
+            get_physical=get_physical
+        ):
 
             for ip_address_in_interface in facts.get("iface_obj").get('ip_address').get('allentries'):
 
@@ -114,14 +136,14 @@ def _cumulus_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
 
                     ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
 
-    print(ipv4_addresses_lst)
     return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco Nexus IPv4 addresses Converter
 #
-def _nexus_ipv4_converter(hostname:str(), cmd_outputs:list) -> ListIPV4:
+def _nexus_ipv4_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, get_vlan=True, get_loopback=True,
+                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV4:
 
     ipv4_addresses_lst = ListIPV4(
         hostname=hostname,
@@ -202,7 +224,8 @@ def _nexus_ipv4_converter(hostname:str(), cmd_outputs:list) -> ListIPV4:
 #
 # Cisco IOS IPv4 addresses Converter
 #
-def _ios_ipv4_converter(hostname:str(), cmd_output:list) -> ListIPV4:
+def _ios_ipv4_converter(hostname:str(), plateform:str(), cmd_output:list, *, get_vlan=True, get_loopback=True,
+                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV4:
     
     ipv4_addresses_lst = ListIPV4(
         hostname=hostname,
@@ -232,14 +255,16 @@ def _ios_ipv4_converter(hostname:str(), cmd_output:list) -> ListIPV4:
 #
 # Cisco IOS XR IPv4 addresses Converter
 #
-def _iosxr_ipv4_converter(hostname:str(), cmd_output:list) -> ListIPV4:
+def _iosxr_ipv4_converter(hostname:str(), plateform:str(), cmd_output:list, *, get_vlan=True, get_loopback=True,
+                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV4:
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Arista IPv4 addresses Converter
 #
-def _arista_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
+def _arista_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, get_vlan=True, get_loopback=True,
+                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV4:
 
     ipv4_addresses_lst = ListIPV4(
         hostname=hostname,
@@ -291,7 +316,8 @@ def _arista_ipv4_converter(hostname:str(), cmd_output:json) -> ListIPV4:
 #
 # Juniper IPv4 addresses Converter
 #
-def _juniper_ipv4_converter(hostname:str(), cmd_output:dict) -> ListIPV4:
+def _juniper_ipv4_converter(hostname:str(), plateform:str(), cmd_output:dict, *, get_vlan=True, get_loopback=True,
+                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV4:
 
     ipv4_addresses_lst = ListIPV4(
         hostname=hostname,
@@ -348,7 +374,8 @@ def _juniper_ipv4_converter(hostname:str(), cmd_output:dict) -> ListIPV4:
 #
 # Extreme Networks VSP IPv4 addresses Converter
 #
-def _extreme_vsp_ipv4_converter(hostname:str(), cmd_output:dict) -> ListIPV4:
+def _extreme_vsp_ipv4_converter(hostname: str(), plateform:str(), cmd_output: dict, *, get_vlan=True, get_loopback=True,
+                                get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV4:
     
     ipv4_addresses_lst = ListIPV4(
         hostname=hostname,

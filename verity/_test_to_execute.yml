@@ -21,7 +21,13 @@ socket: false
 lldp: false
 cdp: false
 # Check IPv4 addresses
-ipv4: false
+ipv4:
+  test: true
+  get_physical: true
+  get_vlan: false
+  get_loopback: false
+  get_peerlink: false
+  get_vni: false
 # Check IPv6 addresses
 ipv6: false
 # Check static routes

@@ -88,7 +88,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_ipv4(nr: Nornir):
+def get_ipv4(nr: Nornir, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
 
     devices = nr.filter()
 
@@ -99,16 +99,21 @@ def get_ipv4(nr: Nornir):
 
     data = devices.run(
         task=generic_ipv4_get,
+        get_vlan=get_vlan,
+        get_loopback=get_loopback,
+        get_peerlink=get_peerlink,
+        get_vni=get_vni,
+        get_physical=get_physical,
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Generic function
 #
-def generic_ipv4_get(task):
+def generic_ipv4_get(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
 
     use_ssh = False
 
@@ -120,29 +125,35 @@ def generic_ipv4_get(task):
                 use_ssh = True
 
     if task.host.platform == CUMULUS_PLATEFORM_NAME:
-        _cumulus_get_ipv4(task)
+        _cumulus_get_ipv4(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
 
     elif task.host.platform == EXTREME_PLATEFORM_NAME:
-        _extreme_vsp_get_ipv4(task)
+        _extreme_vsp_get_ipv4(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
 
     elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
         if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
-            _nexus_get_ipv4(task)
+            _nexus_get_ipv4(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
 
         elif use_ssh and CISCO_IOS_PLATEFORM_NAME == task.host.platform:
-            _ios_get_ipv4(task)
+            _ios_get_ipv4(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
 
         elif use_ssh and CISCO_IOSXR_PLATEFORM_NAME == task.host.platform:
-            _iosxr_get_ipv4(task)
+            _iosxr_get_ipv4(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
 
         elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
-            _arista_get_ipv4(task)
+            _arista_get_ipv4(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
         
         elif use_ssh and JUNOS_PLATEFORM_NAME == task.host.platform:
-            _juniper_get_ipv4(task)
+            _juniper_get_ipv4(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
 
         else:
-            _generic_ipv4_napalm(task)
+            _generic_ipv4_napalm(task,
+                                 get_vlan=get_vlan,
+                                 get_loopback=get_loopback,
+                                 get_peerlink=get_peerlink,
+                                 get_vni=get_vni,
+                                 get_physical=get_physical
+            )
 
     else:
         # RAISE EXCEPTIONS
@@ -152,7 +163,7 @@ def generic_ipv4_get(task):
 #
 # Generic IPv4 Napalm
 #
-def _generic_ipv4_napalm(task):
+def _generic_ipv4_napalm(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
 
     print(f"Start _generic_ipv4_napalm with {task.host.name} ")
 
@@ -164,7 +175,16 @@ def _generic_ipv4_napalm(task):
     # print(output.result)
 
     if output.result != "":
-        ipv4_addresses = _napalm_ipv4_converter(task.host.name, output.result)
+        ipv4_addresses = _napalm_ipv4_converter(
+            hostname=task.host.name,
+            plateform=task.host.platform,
+            cmd_output=output.result,
+            get_vlan=get_vlan,
+            get_loopback=get_loopback,
+            get_peerlink=get_peerlink,
+            get_vni=get_vni,
+            get_physical=get_physical
+        )
 
         task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
 
@@ -173,7 +193,7 @@ def _generic_ipv4_napalm(task):
 #
 # Cumulus Networks
 #
-def _cumulus_get_ipv4(task):
+def _cumulus_get_ipv4(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
 
     output = task.run(
             name=f"{CUMULUS_GET_IPV4}",
@@ -182,7 +202,16 @@ def _cumulus_get_ipv4(task):
     )
     #print_result(output)
 
-    ipv4_addresses = _cumulus_ipv4_converter(task.host.name, json.loads(output.result))
+    ipv4_addresses = _cumulus_ipv4_converter(
+        hostname=task.host.name,
+        plateform=task.host.platform,
+        cmd_output=json.loads(output.result),
+        get_vlan=get_vlan,
+        get_loopback=get_loopback,
+        get_peerlink=get_peerlink,
+        get_vni=get_vni,
+        get_physical=get_physical
+    )
 
     task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
 
@@ -190,7 +219,7 @@ def _cumulus_get_ipv4(task):
 #
 # Cisco Nexus (NXOS)
 #
-def _nexus_get_ipv4(task):
+def _nexus_get_ipv4(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
 
     outputs_lst = list()
 
@@ -217,7 +246,16 @@ def _nexus_get_ipv4(task):
             if output.result != "":
                 outputs_lst.append(json.loads(output.result))
 
-    ipv4_addresses = _nexus_ipv4_converter(task.host.name, outputs_lst)
+    ipv4_addresses = _nexus_ipv4_converter(
+        hostname=task.host.name,
+        plateform=task.host.platform,
+        cmd_outputs=outputs_lst,
+        get_vlan=get_vlan,
+        get_loopback=get_loopback,
+        get_peerlink=get_peerlink,
+        get_vni=get_vni,
+        get_physical=get_physical
+    )
 
     task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
 
@@ -225,7 +263,7 @@ def _nexus_get_ipv4(task):
 #
 # Cisco IOS
 #
-def _ios_get_ipv4(task):
+def _ios_get_ipv4(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
     
     output = task.run(
             name=f"{IOS_GET_IPV4}",
@@ -245,7 +283,16 @@ def _ios_get_ipv4(task):
         #
         # type = list() of list()
 
-    ipv4_addresses = _ios_ipv4_converter(task.host.name, parsed_results)
+    ipv4_addresses = _ios_ipv4_converter(
+        hostname=task.host.name,
+        plateform=task.host.platform,
+        cmd_output=parsed_results,
+        get_vlan=get_vlan,
+        get_loopback=get_loopback,
+        get_peerlink=get_peerlink,
+        get_vni=get_vni,
+        get_physical=get_physical
+    )
 
     task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
 
@@ -253,14 +300,14 @@ def _ios_get_ipv4(task):
 #
 # Cisco IOSXR
 #
-def _iosxr_get_ipv4(task):
+def _iosxr_get_ipv4(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Arista vEOS
 #
-def _arista_get_ipv4(task):
+def _arista_get_ipv4(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
 
     output = task.run(
             name=f"{ARISTA_GET_IPV4}",
@@ -270,7 +317,16 @@ def _arista_get_ipv4(task):
     #print_result(output)
 
     if output.result != "":
-        ipv4_addresses = _arista_ipv4_converter(task.host.name, json.loads(output.result))
+        ipv4_addresses = _arista_ipv4_converter(
+            hostname=task.host.name,
+            plateform=task.host.platform,
+            cmd_output=json.loads(output.result),
+            get_vlan=get_vlan,
+            get_loopback=get_loopback,
+            get_peerlink=get_peerlink,
+            get_vni=get_vni,
+            get_physical=get_physical
+        )
 
         task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
 
@@ -278,7 +334,7 @@ def _arista_get_ipv4(task):
 #
 # Juniper Networks
 #
-def _juniper_get_ipv4(task):
+def _juniper_get_ipv4(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
 
     output = task.run(
         name=f"{JUNOS_GET_IPV4}",
@@ -288,7 +344,16 @@ def _juniper_get_ipv4(task):
     # print_result(output)
 
     if output.result != "":
-        ipv4_addresses = _juniper_ipv4_converter(task.host.name, json.loads(output.result))
+        ipv4_addresses = _juniper_ipv4_converter(
+            hostname=task.host.name,
+            plateform=task.host.platform,
+            cmd_output=json.loads(output.result),
+            get_vlan=get_vlan,
+            get_loopback=get_loopback,
+            get_peerlink=get_peerlink,
+            get_vni=get_vni,
+            get_physical=get_physical
+        )
 
         task.host[IPV4_DATA_HOST_KEY] = ipv4_addresses
 
@@ -296,7 +361,7 @@ def _juniper_get_ipv4(task):
 #
 # Extreme Networks
 #
-def _extreme_vsp_get_ipv4(task):
+def _extreme_vsp_get_ipv4(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
     
     outputs_dict = dict()
 
@@ -343,7 +408,16 @@ def _extreme_vsp_get_ipv4(task):
                 print(parsed_results)
                 outputs_dict[vrf] = parsed_results
 
-    ipv4_addresses = _extreme_vsp_ipv4_converter(task.host.name, outputs_dict)
+    ipv4_addresses = _extreme_vsp_ipv4_converter(
+        hostname=task.host.name,
+        plateform=task.host.platform,
+        cmd_output=outputs_dict,
+        get_vlan=get_vlan,
+        get_loopback=get_loopback,
+        get_peerlink=get_peerlink,
+        get_vni=get_vni,
+        get_physical=get_physical
+    )
 
     task.host[STATIC_DATA_HOST_KEY] = ipv4_addresses
     
