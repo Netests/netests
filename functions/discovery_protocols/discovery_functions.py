@@ -144,6 +144,12 @@ def _mapping_interface_name(int_name) -> str():
         index = get_first_digit_index(int_name)
         return str("Gi") + str(int_name)[index:]
 
+    # Extreme VSP - Loopback converter
+    # (Clip1        10.255.255.102 255.255.255.255)
+    elif "Clip" in str(int_name):
+        index = get_first_digit_index(int_name)
+        return str("lo") + str(int_name)[index:]
+
     elif str(int_name) == NOT_SET:
         return int_name
 

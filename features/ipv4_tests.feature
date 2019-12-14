@@ -10,6 +10,7 @@ Feature: Test protocols IPV4 python class ./protocols/ipv4.py
     And I create an IPV4 python object from a Arista output command named object_05
     And I create an IPV4 python object from a Cisco IOS output command named object_06
     And I create an IPV4 python object from a Juniper output command named object_07
+    And I create an IPV4 python object from a Extreme VSP output command named object_08
     # Add device
     Then IPV4 object_01 should be equal to object_02
     And IPV4 object_02 should be equal to object_03
@@ -19,3 +20,4 @@ Feature: Test protocols IPV4 python class ./protocols/ipv4.py
     And IPV4 object_02 should be equal to object_05
     And IPV4 object_02 should be equal to object_06
     And IPV4 object_02 should be equal to object_07
+    And IPV4 object_02 should be equal to object_08

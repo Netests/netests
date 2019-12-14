@@ -93,6 +93,12 @@ def _generic_interface_filter(plateform, interface_name,*, get_vlan=True, get_lo
                      "GE" in str(interface_name).upper()))):
         return True
 
+    elif "extreme_vsp" in plateform and \
+            ((get_vlan and "VLAN" in str(interface_name).upper()) or \
+             (get_loopback and "LO" in str(interface_name).upper()) or \
+             (get_physical and ("PORT" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
+        return True
+
     return False
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -452,7 +458,6 @@ def _juniper_ipv4_converter(hostname:str(), plateform:str(), cmd_output:dict, *,
                                                         )
                                                     )
 
-    print(ipv4_addresses_lst)
     return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -470,15 +475,25 @@ def _extreme_vsp_ipv4_converter(hostname: str(), plateform:str(), cmd_output: di
     for vrf in cmd_output:
         
         for interface in cmd_output.get(vrf):
-            
-            ipv4_addresses_lst.ipv4_addresses_lst.append(
-                IPV4(
+            if _generic_interface_filter(
                     interface_name=_mapping_interface_name(
                         interface[0]
                     ),
-                    ip_address_with_mask=interface[1],
-                    netmask=interface[2]
+                    plateform=plateform,
+                    get_vlan=get_vlan,
+                    get_peerlink=get_peerlink,
+                    get_physical=get_physical,
+                    get_loopback=get_loopback,
+                    get_vni=get_vni
+            ):
+                ipv4_addresses_lst.ipv4_addresses_lst.append(
+                    IPV4(
+                        interface_name=_mapping_interface_name(
+                            interface[0]
+                        ),
+                        ip_address_with_mask=interface[1],
+                        netmask=interface[2]
+                    )
                 )
-            )
 
     return ipv4_addresses_lst

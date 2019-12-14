@@ -24,7 +24,7 @@ cdp: false
 ipv4:
   test: true
   get_physical: true
-  get_vlan: false
+  get_vlan: true
   get_loopback: true
   get_peerlink: false
   get_vni: false

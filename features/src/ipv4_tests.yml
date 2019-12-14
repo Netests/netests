@@ -1,3 +1,27 @@
+spine01:
+  - interface_name: Port1/1
+    ip_address: 10.2.1.1
+    netmask: 255.255.255.252
+  - interface_name: Port1/2
+    ip_address: 10.2.2.1
+    netmask: 255.255.255.252
+  - interface_name: Port1/3
+    ip_address: 10.2.3.1
+    netmask: 255.255.255.252
+  - interface_name: Port1/4
+    ip_address: 10.2.4.1
+    netmask: 255.255.255.252
+  - interface_name: Port1/5
+    ip_address: 10.2.5.1
+    netmask: 255.255.255.252
+  - interface_name: Clip1
+    ip_address: 10.255.255.102
+    netmask: 255.255.255.255
+  - interface_name: Portmgmt
+    ip_address: 10.0.5.102
+    netmask: 255.255.255.0
+
+# ----------------------------------------------------------------------------------------------------------------------
 leaf01:
   - interface_name: eth0
     ip_address: 10.0.4.201

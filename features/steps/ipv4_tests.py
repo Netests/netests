@@ -294,6 +294,68 @@ def create_an_ipv4_object_from_a_juniper_output_command(context) -> None:
 #
 #
 #
+@given('I create an IPV4 python object from a Extreme VSP output command named object_08')
+def create_an_ipv4_object_from_a_extreme_vsp_output_command(context) -> None:
+    """
+    Create an IPV4 object from a Extreme VSP output
+
+    :param context:
+    :return None:
+    """
+
+    outputs_dict = dict()
+
+    ipv4_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_interface_default.output"
+    )
+
+    if ipv4_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ipv4_data)
+        outputs_dict['default'] = parsed_results
+
+    ipv4_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_interface_vrf.output"
+    )
+
+    if ipv4_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ipv4_data)
+        outputs_dict['MgmtRouter'] = parsed_results
+
+    ipv4_data = open_txt_file(
+        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_interface_tenant.output"
+    )
+
+    if ipv4_data != "":
+        template = open(
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+        results_template = textfsm.TextFSM(template)
+
+        parsed_results = results_template.ParseText(ipv4_data)
+        outputs_dict['tenant01'] = parsed_results
+
+
+    context.object_08 = _extreme_vsp_ipv4_converter(
+        hostname="spine02",
+        plateform="extreme_vsp",
+        cmd_output=outputs_dict,
+        get_vlan=False,
+        get_loopback=True,
+        get_peerlink=False,
+        get_vni=False,
+        get_physical=True
+    )
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 @then('IPV4 object_01 should be equal to object_02')
 def compare_ipv4_object_01_and_object_02(context) -> None:
     """
@@ -444,5 +506,26 @@ def compare_ipv4_object_02_and_object_07(context) -> None:
         hostname="leaf04",
         groups=['leaf'],
         ipv4_host_data=context.object_07,
+        ipv4_yaml_data=context.object_02
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('IPV4 object_02 should be equal to object_08')
+def compare_ipv4_object_02_and_object_08(context) -> None:
+    """
+    Compare object_02 and object_08
+
+    :param context:
+    :return:
+    """
+
+    assert _compare_ipv4(
+        host_keys=IPV4_DATA_HOST_KEY,
+        hostname="spine01",
+        groups=['spine'],
+        ipv4_host_data=context.object_08,
         ipv4_yaml_data=context.object_02
     )
