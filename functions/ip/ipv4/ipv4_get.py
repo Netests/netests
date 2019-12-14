@@ -121,7 +121,7 @@ def generic_ipv4_get(task, *, get_vlan=True, get_loopback=True, get_peerlink=Tru
             CISCO_IOSXR_PLATEFORM_NAME in task.host.platform or CISCO_IOS_PLATEFORM_NAME in task.host.platform or \
             JUNOS_PLATEFORM_NAME in task.host.platform:
         if 'connexion' in task.host.keys():
-            if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET):
+            if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET) == 'ssh':
                 use_ssh = True
 
     if task.host.platform == CUMULUS_PLATEFORM_NAME:

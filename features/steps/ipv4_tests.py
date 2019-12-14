@@ -33,7 +33,8 @@ except ImportError as importError:
 
 try:
     from functions.ip.ipv4.ipv4_converters import _cumulus_ipv4_converter, _nexus_ipv4_converter, _arista_ipv4_converter
-    from functions.ip.ipv4.ipv4_converters import _ios_ipv4_converter, _juniper_ipv4_converter, _extreme_vsp_ipv4_converter
+    from functions.ip.ipv4.ipv4_converters import _ios_ipv4_converter, _juniper_ipv4_converter
+    from functions.ip.ipv4.ipv4_converters import _napalm_ipv4_converter, _extreme_vsp_ipv4_converter
     from functions.ip.ipv4.ipv4_compare import _compare_ipv4
     from protocols.ipv4 import IPV4, ListIPV4
 except ImportError as importError:
@@ -352,6 +353,33 @@ def create_an_ipv4_object_from_a_extreme_vsp_output_command(context) -> None:
         get_vni=False,
         get_physical=True
     )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@given('I create an IPV4 python object from a NAPALM output command named object_09')
+def create_an_ipv4_object_from_a_napalm_output_command(context) -> None:
+    """
+    Create an IPV4 object from a NAPALM output
+
+    :param context:
+    :return None:
+    """
+
+    context.object_09 = _napalm_ipv4_converter(
+        hostname="napalm01",
+        plateform="eos",
+        cmd_output=open_file(
+            path=f"{FEATURES_OUTPUT_PATH}napalm_get_interfaces.json"
+        ),
+        get_loopback=True,
+        get_physical=True,
+        get_vni=False,
+        get_peerlink=False,
+        get_vlan=False
+    )
+
 # ----------------------------------------------------------------------------------------------------------------------
 #
 #
@@ -527,5 +555,26 @@ def compare_ipv4_object_02_and_object_08(context) -> None:
         hostname="spine01",
         groups=['spine'],
         ipv4_host_data=context.object_08,
+        ipv4_yaml_data=context.object_02
+    )
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+#
+#
+@then('IPV4 object_02 should be equal to object_09')
+def compare_ipv4_object_02_and_object_09(context) -> None:
+    """
+    Compare object_02 and object_09
+
+    :param context:
+    :return:
+    """
+
+    assert _compare_ipv4(
+        host_keys=IPV4_DATA_HOST_KEY,
+        hostname="napalm01",
+        groups=['napalm'],
+        ipv4_host_data=context.object_09,
         ipv4_yaml_data=context.object_02
     )

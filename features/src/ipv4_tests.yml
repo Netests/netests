@@ -1,3 +1,21 @@
+napalm01:
+  - interface_name: Loopback1
+    ip_address: 10.255.255.203
+    netmask: 255.255.255.255
+  - interface_name: Ethernet1
+    ip_address: 10.1.3.2
+    netmask: 255.255.255.252
+  - interface_name: Ethernet2
+    ip_address: 10.2.3.2
+    netmask: 255.255.255.252
+  - interface_name: Ethernet3
+    ip_address: 10.22.33.2
+    netmask: 255.255.255.252
+  - interface_name: Management1
+    ip_address: 10.0.5.203
+    netmask: 255.255.255.0
+    
+# ----------------------------------------------------------------------------------------------------------------------
 spine01:
   - interface_name: Port1/1
     ip_address: 10.2.1.1

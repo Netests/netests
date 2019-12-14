@@ -23,8 +23,8 @@ cdp: false
 # Check IPv4 addresses
 ipv4:
   test: true
-  get_physical: true
-  get_vlan: true
+  get_physical: false
+  get_vlan: false
   get_loopback: true
   get_peerlink: false
   get_vni: false

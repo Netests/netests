@@ -113,19 +113,30 @@ def _napalm_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, 
     )
 
     for interface_name in cmd_output.get('get_interfaces_ip'):
+        if _generic_interface_filter(
+                plateform=plateform,
+                interface_name=_mapping_interface_name(
+                    interface_name
+                ),
+                get_vlan=get_vlan,
+                get_loopback=get_loopback,
+                get_peerlink=get_peerlink,
+                get_vni=get_vni,
+                get_physical=get_physical
+        ):
+            for ip_addr in cmd_output.get('get_interfaces_ip').get(interface_name).get('ipv4'):
 
-        for ip_addr in cmd_output.get('get_interfaces_ip').get(interface_name).get('ipv4'):
-
-            ipv4_addresses_lst.ipv4_addresses_lst.append(
-                IPV4(
-                    interface_name=_mapping_interface_name(
-                        interface_name
-                    ),
-                    ip_address_with_mask=ip_addr,
-                    netmask=cmd_output.get('get_interfaces_ip').get(interface_name).get('ipv4').get(ip_addr).get('prefix_length')
+                ipv4_addresses_lst.ipv4_addresses_lst.append(
+                    IPV4(
+                        interface_name=_mapping_interface_name(
+                            interface_name
+                        ),
+                        ip_address_with_mask=ip_addr,
+                        netmask=cmd_output.get('get_interfaces_ip').get(interface_name).get('ipv4').get(ip_addr).get('prefix_length')
+                    )
                 )
-            )
 
+    print(ipv4_addresses_lst)
     return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -141,13 +152,13 @@ def _cumulus_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *,
     )
 
     for interface_name, facts in cmd_output.items():
-
         # v0 = vrrp / vrr / hsrp / HA ip address
         # bridge is a Linux bridge
-
         if _generic_interface_filter(
             plateform=plateform,
-            interface_name=interface_name,
+            interface_name=_mapping_interface_name(
+                interface_name
+            ),
             get_vlan=get_vlan,
             get_loopback=get_loopback,
             get_peerlink=get_peerlink,
