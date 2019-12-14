@@ -87,6 +87,14 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.ip.ipv6.ipv6_get import *
+    from functions.ip.ipv6.ipv6_compare import compare_ipv6
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.ip.ipv6")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.ip.ipv4.ipv4_get import *
     from functions.ip.ipv4.ipv4_compare import compare_ipv4
 except ImportError as importError:
@@ -632,7 +640,32 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
     else:
         print(f"{HEADER} VLAN key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 14. Check IPv6 addresses
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_IPV6_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_IPV6_KEY].get('test') is True:
 
+            get_ipv6(
+                nr=nr,
+                get_vlan=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("get_vlan", True),
+                get_loopback=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("get_loopback", True),
+                get_peerlink=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("get_peerlink", True),
+                get_vni=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("get_vni", True),
+                get_physical=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("get_physical", True)
+            )
+
+            ipv6_yaml_data = open_file(
+                path=f"{PATH_TO_VERITY_FILES}{IPV6_SRC_FILENAME}"
+            )
+            same = compare_ipv6(nr, ipv6_yaml_data)
+            if test_to_execute[TEST_TO_EXC_IPV6_KEY] is True and same is False:
+                exit_value = False
+            print(f"{HEADER} IPv6 addresses defined in {PATH_TO_VERITY_FILES}{IPV6_SRC_FILENAME} work = {same} !!")
+        else:
+            print(f"{HEADER} IPv6 addresses have not been executed !!")
+    else:
+        print(f"{HEADER} IPv6 addresses key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
     return EXIT_SUCCESS
 

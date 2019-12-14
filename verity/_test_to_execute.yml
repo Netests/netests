@@ -22,14 +22,20 @@ lldp: false
 cdp: false
 # Check IPv4 addresses
 ipv4:
-  test: true
+  test: false
   get_physical: false
   get_vlan: false
   get_loopback: true
   get_peerlink: false
   get_vni: false
 # Check IPv6 addresses
-ipv6: false
+ipv6:
+  test: true
+  get_physical: true
+  get_vlan: true
+  get_loopback: false
+  get_peerlink: false
+  get_vni: false
 # Check static routes
 static:
   test: false
@@ -50,4 +56,4 @@ mtu: false
 # Check L2VNI
 l2vni: false
 # Check L2VNI
-vlan: true
+vlan: false

@@ -150,6 +150,7 @@ CUMULUS_GET_OSPF_VRF = "net show ospf vrf {} neighbor detail json"
 CUMULUS_GET_OSPF_RID = "net show ospf json"
 CUMULUS_GET_OSPF_RID_VRF = "net show ospf vrf {} json"
 CUMULUS_GET_IPV4 = "net show interface json"
+CUMULUS_GET_IPV6 = CUMULUS_GET_IPV4
 CUMULUS_GET_STATIC = "net show route static json"
 CUMULUS_GET_STATIC_VRF = "net show route vrf {} static json"
 CUMULUS_GET_INFOS = "net show system json"
@@ -279,6 +280,10 @@ CDP_WORKS_KEY = 'cdp_works'
 ##### IPv4 CONSTANTES
 IPV4_DATA_HOST_KEY = 'ipv4_data'
 IPV4_WORKS_KEY = 'ipv4_works'
+
+##### IPv6 CONSTANTES
+IPV6_DATA_HOST_KEY = 'ipv6_data'
+IPV6_WORKS_KEY = 'ipv6_works'
 
 ##### STATIC CONSTANTES
 STATIC_DATA_HOST_KEY = "static_data"
