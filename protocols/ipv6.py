@@ -54,14 +54,20 @@ class IPV6(IPAddress):
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, ip_address_with_mask=NOT_SET,):
+    def __init__(self, ip_address_with_mask=NOT_SET, netmask=NOT_SET):
 
-        index_slash = str(ip_address_with_mask).find("/")
+        if NOT_SET == netmask:
+            index_slash = str(ip_address_with_mask).find("/")
 
-        super().__init__(
-            ip_address=ip_address_with_mask[:index_slash],
-            netmask=ip_address_with_mask[index_slash+1:]
-        )
+            super().__init__(
+                ip_address=ip_address_with_mask[:index_slash],
+                netmask=ip_address_with_mask[index_slash+1:]
+            )
+        else:
+            super().__init__(
+                ip_address=ip_address_with_mask,
+                netmask=netmask
+            )
 
     # ------------------------------------------------------------------------------------------------------------------
     #

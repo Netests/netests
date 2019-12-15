@@ -1,0 +1,78 @@
+{
+    "interfaces": {
+        "Vlan1000": {
+            "directedBroadcastEnabled": false,
+            "interfaceAddress": {
+                "secondaryIpsOrderedList": [
+                    {
+                        "maskLen": 31,
+                        "address": "3.33.33.33"
+                    }
+                ],
+                "broadcastAddress": "255.255.255.255",
+                "virtualSecondaryIps": {},
+                "dhcp": false,
+                "secondaryIps": {},
+                "primaryIp": {
+                    "maskLen": 31,
+                    "address": "2.22.222.222"
+                },
+                "virtualSecondaryIpsOrderedList": [],
+                "virtualIp": {
+                    "maskLen": 0,
+                    "address": "0.0.0.0"
+                }
+            },
+            "name": "Vlan1000",
+            "urpf": "disable",
+            "interfaceStatus": "connected",
+            "maxMssEgress": 0,
+            "maxMssIngress": 0,
+            "enabled": true,
+            "mtu": 1500,
+            "addresslessForwarding": "isInvalid",
+            "vrf": "default",
+            "localProxyArp": false,
+            "proxyArp": false,
+            "gratuitousArp": false,
+            "lineProtocolStatus": "up",
+            "description": ""
+        },
+        "Vlan2000": {
+            "directedBroadcastEnabled": false,
+            "interfaceAddress": {
+                "secondaryIpsOrderedList": [],
+                "broadcastAddress": "255.255.255.255",
+                "virtualSecondaryIps": {},
+                "dhcp": false,
+                "secondaryIps": {},
+                "primaryIp": {
+                    "maskLen": 24,
+                    "address": "10.250.20.1"
+                },
+                "virtualSecondaryIpsOrderedList": [],
+                "virtualIp": {
+                    "maskLen": 0,
+                    "address": "0.0.0.0"
+                }
+            },
+            "name": "Vlan2000",
+            "urpf": "disable",
+            "interfaceStatus": "connected",
+            "maxMssEgress": 0,
+            "maxMssIngress": 0,
+            "enabled": true,
+            "mtu": 1500,
+            "addresslessForwarding": "isInvalid",
+            "vrf": "tenant01",
+            "localProxyArp": false,
+            "proxyArp": false,
+            "gratuitousArp": false,
+            "lineProtocolStatus": "up",
+            "description": ""
+        }
+    },
+    "warnings": [
+        "Some interfaces do not exist"
+    ]
+}

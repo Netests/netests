@@ -91,7 +91,7 @@ def get_vlan(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -219,8 +219,41 @@ def _ios_get_vlan(task):
 # Arista vEOS
 #
 def _arista_get_vlan(task):
-    pass
 
+    outputs_dict = dict()
+
+    output_get = task.run(
+        name=f"{ARISTA_GET_VLAN}",
+        task=netmiko_send_command,
+        command_string=ARISTA_GET_VLAN
+    )
+    # print(output.result)
+
+    output_get_ip = task.run(
+        name=f"{ARISTA_GET_IP_VLAN}",
+        task=netmiko_send_command,
+        command_string=ARISTA_GET_IP_VLAN
+    )
+    # print(output.result)
+
+    output_get_int = task.run(
+        name=f"{ARISTA_GET_INT_VLAN}",
+        task=netmiko_send_command,
+        command_string=ARISTA_GET_INT_VLAN
+    )
+    # print(output.result)
+
+    if output_get.result != "" and output_get_ip.result != "" and output_get_int.result != "" :
+        outputs_dict[VLAN_GET_L2] = json.loads(output_get.result)
+        outputs_dict[VLAN_GET_L3] = json.loads(output_get_ip.result)
+        outputs_dict[VLAN_GET_INT] = json.loads(output_get_int.result)
+
+    vlans = _arista_vlan_converter(
+        hostname=task.host.name,
+        cmd_output=outputs_dict
+    )
+
+    task.host[VLAN_DATA_HOST_KEY] = vlans
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

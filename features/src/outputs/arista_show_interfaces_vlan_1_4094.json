@@ -1,0 +1,104 @@
+{
+    "interfaces": {
+        "Vlan1000": {
+            "lastStatusChangeTimestamp": 1576409336.6649168,
+            "name": "Vlan1000",
+            "interfaceStatus": "connected",
+            "burnedInAddress": "50:00:00:03:37:66",
+            "mtu": 1500,
+            "hardware": "vlan",
+            "bandwidth": 0,
+            "forwardingModel": "routed",
+            "lineProtocolStatus": "up",
+            "l3MtuConfigured": false,
+            "interfaceAddress": [
+                {
+                    "secondaryIpsOrderedList": [
+                        {
+                            "maskLen": 31,
+                            "address": "3.33.33.33"
+                        }
+                    ],
+                    "broadcastAddress": "255.255.255.255",
+                    "virtualSecondaryIps": {},
+                    "dhcp": false,
+                    "secondaryIps": {
+                        "3.33.33.33": {
+                            "maskLen": 31,
+                            "address": "3.33.33.33"
+                        }
+                    },
+                    "primaryIp": {
+                        "maskLen": 31,
+                        "address": "2.22.222.222"
+                    },
+                    "virtualSecondaryIpsOrderedList": [],
+                    "virtualIp": {
+                        "maskLen": 0,
+                        "address": "0.0.0.0"
+                    }
+                }
+            ],
+            "physicalAddress": "50:00:00:03:37:66",
+            "description": ""
+        },
+        "Vlan2000": {
+            "lastStatusChangeTimestamp": 1576409386.5639257,
+            "name": "Vlan2000",
+            "interfaceStatus": "connected",
+            "burnedInAddress": "50:00:00:03:37:66",
+            "mtu": 1500,
+            "hardware": "vlan",
+            "bandwidth": 0,
+            "forwardingModel": "routed",
+            "lineProtocolStatus": "up",
+            "l3MtuConfigured": false,
+            "interfaceAddress": [
+                {
+                    "secondaryIpsOrderedList": [],
+                    "broadcastAddress": "255.255.255.255",
+                    "virtualSecondaryIps": {},
+                    "dhcp": false,
+                    "secondaryIps": {},
+                    "primaryIp": {
+                        "maskLen": 24,
+                        "address": "10.250.20.1"
+                    },
+                    "virtualSecondaryIpsOrderedList": [],
+                    "virtualIp": {
+                        "maskLen": 0,
+                        "address": "0.0.0.0"
+                    }
+                }
+            ],
+            "interfaceAddressIp6": {
+                "linkLocalIp6": {
+                    "subnet": "fe80::/64",
+                    "dadfailed": false,
+                    "active": true,
+                    "address": "fe80::5200:ff:fe03:3766"
+                },
+                "addrSource": "manual",
+                "globalUnicastIp6s": [
+                    {
+                        "subnet": "2001:a:a:a::/64",
+                        "dadfailed": false,
+                        "active": true,
+                        "address": "2001:a:a:a::1"
+                    },
+                    {
+                        "subnet": "2001:b:b:b::/64",
+                        "dadfailed": false,
+                        "active": true,
+                        "address": "2001:b:b:b::1"
+                    }
+                ]
+            },
+            "physicalAddress": "50:00:00:03:37:66",
+            "description": ""
+        }
+    },
+    "warnings": [
+        "Some interfaces do not exist"
+    ]
+}

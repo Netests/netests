@@ -60,21 +60,24 @@ class VLAN:
     vlan_descr: str
     mac_address: str
     ipv4_addresses: ListIPV4
+    fhrp_ipv4_address: str
     ipv6_addresses: ListIPV6
-    fhrp_ip_address: str
+    fhrp_ipv6_address: str
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
     def __init__(self, vlan_name=NOT_SET, vlan_id=NOT_SET, vrf_name="default", vlan_descr=NOT_SET, ports_members=list(),
-                 ipv4_addresses=ListIPV4, ipv6_addresses=ListIPV6, fhrp_ip_address=NOT_SET, mac_address=NOT_SET):
+                 ipv4_addresses=ListIPV4, fhrp_ipv4_address=NOT_SET, ipv6_addresses=ListIPV6,
+                 fhrp_ipv6_address=NOT_SET, mac_address=NOT_SET):
 
         self.vlan_name = vlan_name
         self.vlan_id = vlan_id
         self.vrf_name = vrf_name
         self.ipv4_addresses = ipv4_addresses
+        self.fhrp_ipv4_address = fhrp_ipv4_address
         self.ipv6_addresses = ipv6_addresses
-        self.fhrp_ip_address = fhrp_ip_address
+        self.fhrp_ipv6_address = fhrp_ipv6_address
         self.mac_address = mac_address
         self.vlan_descr = vlan_descr
         self.ports_members = ports_members
@@ -87,9 +90,17 @@ class VLAN:
             return NotImplemented
 
         # Basic
+        ports_members_work = True
+        for port in self.ports_members:
+            if port not in other.ports_members:
+                ports_members_work = False
+
+        for port in other.ports_members:
+            if port not in self.ports_members:
+                ports_members_work = False
+
         return (str(self.vlan_id) == str(other.vlan_id) and
-                str(self.vrf_name) == str(other.vrf_name) and
-                (self.ports_members) == str(other.ports_members))
+                ports_members_work)
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -99,12 +110,12 @@ class VLAN:
                f"vlan_name={self.vlan_name} \n" \
                f"vrf_name={self.vrf_name} \n" \
                f"ipv6_addresses={self.ipv6_addresses} \n" \
+               f"fhrp_ipv6_address={self.fhrp_ipv6_address} \n" \
                f"ipv4_addresses={self.ipv4_addresses} \n" \
-               f"fhrp_ip_address={self.fhrp_ip_address} \n" \
+               f"fhrp_ipv4_address={self.fhrp_ipv4_address} \n" \
                f"vlan_descr={self.vlan_descr} \n" \
                f"mac_address={self.mac_address} \n" \
                f"ports_members={self.ports_members}>\n --- \n" \
-
 
 ########################################################################################################################
 #

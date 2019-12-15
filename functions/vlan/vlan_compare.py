@@ -47,6 +47,13 @@ except ImportError as importError:
     print(importError)
 
 try:
+    from functions.discovery_protocols.discovery_functions import _mapping_interface_name
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.discovery_protocols.discovery_functions")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     import json
 except ImportError as importError:
     print(f"{ERROR_HEADER} json")
@@ -79,7 +86,7 @@ def compare_vlan(nr, vlan_yaml_data:json) -> bool:
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
     return_value = True
 
@@ -122,7 +129,6 @@ def _compare_vlan(host_keys, hostname, vlan_host_data:None, vlan_yaml_data:json)
     if VLAN_DATA_HOST_KEY in host_keys and hostname in vlan_yaml_data.keys():
         for vlan in vlan_yaml_data.get(hostname):
 
-            fhrp_ip = "0.0.0.0"
             ipv4_addresses_lst = ListIPV4(
                 ipv4_addresses_lst=list()
             )
@@ -166,6 +172,16 @@ def _compare_vlan(host_keys, hostname, vlan_host_data:None, vlan_yaml_data:json)
                         )
                     )
 
+
+            ports_members = list()
+            if "ports_members" in vlan.keys():
+                for port in vlan.get("ports_members"):
+                    ports_members.append(
+                        _mapping_interface_name(
+                            port
+                        )
+                    )
+
             verity_vlans_lst.vlans_lst.append(
                 VLAN(
                     vlan_name=vlan.get("vlan_name", NOT_SET),
@@ -173,11 +189,11 @@ def _compare_vlan(host_keys, hostname, vlan_host_data:None, vlan_yaml_data:json)
                     vlan_descr=vlan.get("vlan_descr", NOT_SET),
                     vrf_name=vlan.get("vrf_name", NOT_SET),
                     ipv6_addresses=ipv6_addresses_lst,
+                    fhrp_ipv6_address=vlan.get("fhrp_ipv6_address", "0.0.0.0"),
                     ipv4_addresses=ipv4_addresses_lst,
-                    fhrp_ip_address=vlan.get("fhrp_ip_address", "0.0.0.0"),
-                    ports_members=vlan.get("ports_members", list()),
+                    fhrp_ipv4_address=vlan.get("fhrp_ipv4_address", "0.0.0.0"),
+                    ports_members=ports_members,
                     mac_address=vlan.get("mac_address", NOT_SET)
-
                 )
             )
 
