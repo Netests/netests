@@ -212,16 +212,16 @@ leaf03:
 | OSPF      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
 | SysInfos  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | Ping      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| Socket    |        :x:         | :white_check_mark:* | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+| Socket v4 |        :x:         | :white_check_mark:(1) | :white_check_mark:(4) |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | Static    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
 | VRF       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :white_check_mark:         | :white_check_mark: |
 | LLDP      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | CDP       |      :sleepy:      | :white_check_mark: | :sleepy:           | :white_check_mark: | :white_check_mark: |        :x:         |      :sleepy:      | :sleepy:           |
 | IPv4      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |       :white_check_mark:         | :white_check_mark: |
 | IPv6      |        :x:         | :white_check_mark: | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:***     |
+| MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:(3)  |
 | MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| L2VNI | :x: | :sleepy:** | :x: | :x: | :x: | :x: | :x: | :sleepy: |
+| L2VNI | :x: | :sleepy:(2) | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | VLAN | :x: | :white_check_mark: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: |
 |  | | | | | | | | |
 | MVP ^^^   |                    |                    |                    |                    |                    |                    |                    |                    |
@@ -241,9 +241,13 @@ leaf03:
 
 :sleepy: = Impossible to implement
 
-*`[Cumulus - Socket]` => netcat must be installed on Cumulus devices ``sudo apt install netcat``.
+(1)`[Cumulus - Socket]` => netcat must be installed on Cumulus devices ``sudo apt install netcat``.
 
-**`[Cumulus - L2VNI]` => `net show evpn vni detail json` command give a wrong JSON output...
+(2)`[Cumulus - L2VNI]` => `net show evpn vni detail json` command give a wrong JSON output...
+
+(4)`[Arista - Socket]` => Works only from "default" vrf => `bash nc  -w 1  -i 2s  8.8.8.8 80`
+
+
 
 ## Devices supported by NAPALM
 

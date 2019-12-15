@@ -1,0 +1,29 @@
+{% for socket in host["socket_data"].socket_lst %}
+{% if  socket['ip'] is defined %}
+{% if  socket['work'] is defined %}
+{% if  socket['work'] == false %}
+{% if socket['protocol'] is defined %}
+{% if socket['protocol'] == 'udp' %}
+bash nc {% if socket['protocol'] is defined %} -u {% endif %} {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %} -i 2s {{ socket['ip'] }} {{ socket['port'] }} !
+{% elif socket['protocol'] == 'both' %}
+bash nc {% if socket['protocol'] is defined %} -u {% endif %} {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %} -i 2s {{ socket['ip'] }} {{ socket['port'] }} !
+bash nc {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %} -i 2s  {{ socket['ip'] }} {{ socket['port'] }} !
+{% else %}
+bash nc {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %} -i 2s  {{ socket['ip'] }} {{ socket['port'] }} !
+{% endif %}
+{% endif %}
+{% else %}
+{% if socket['protocol'] is defined %}
+{% if socket['protocol'] == 'udp' %}
+bash nc {% if socket['protocol'] is defined %} -u {% endif %} {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %} -i 2s {{ socket['ip'] }} {{ socket['port'] }}
+{% elif socket['protocol'] == 'both' %}
+bash nc {% if socket['protocol'] is defined %} -u {% endif %} {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %} -i 2s {{ socket['ip'] }} {{ socket['port'] }}
+bash nc {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %} -i 2s  {{ socket['ip'] }} {{ socket['port'] }}
+{% else %}
+bash nc {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %} -i 2s  {{ socket['ip'] }} {{ socket['port'] }}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}

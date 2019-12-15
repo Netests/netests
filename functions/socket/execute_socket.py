@@ -105,7 +105,12 @@ def execute_socket(nr: Nornir):
     )
     #print_result(execute_cmd)
 
-    return (not execute_cmd.failed)
+    socket_works = True
+    for device in nr.inventory.hosts:
+        if nr.inventory.hosts[device][SOCKET_WORKS_KEY] is False:
+            socket_works = False
+
+    return (not execute_cmd.failed and socket_works)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -155,6 +160,13 @@ def _execute_socket_cmd(task):
             enable=False
         )
 
+    elif task.host.platform == ARISTA_PLATEFORM_NAME:
+        _execute_generic_socket_cmd(
+            task,
+            use_netmiko=False,
+            enable=True
+        )
+
     else:
         print(f"{HEADER_GET} Socket is not implemented for {task.host.platform}")
 
@@ -166,9 +178,15 @@ def _execute_generic_socket_cmd(task, *, use_netmiko=False, enable=False):
 
     file = open(f"{JINJA2_SOCKET_RESULT}{task.host.name}_socket_cmd", "r")
     error = False
-
     for socket_line in file:
         try:
+            work = True
+            if "!" in socket_line:
+                work = False
+                socket_line = socket_line[:-2]
+
+            if enable:
+                socket_line = f"enable \n {socket_line}"
 
             output = task.run(
                 name=f"Execute socket test",
@@ -177,9 +195,39 @@ def _execute_generic_socket_cmd(task, *, use_netmiko=False, enable=False):
             )
             #print_result(output)
 
+            if task.host.platform != CUMULUS_PLATEFORM_NAME:
+                _raise_exception_on_socket_cmd(
+                    output=output,
+                    plateform=task.host.platform,
+                    hostname=task.host.hostname,
+                    socket_line=socket_line,
+                    must_work=work
+                )
+
         except Exception as e:
-            print(f"{HEADER_GET} Error with {task.host.name} with the command _> {socket_line}")
+            print(f"{HEADER_GET} Error with {task.host.name} with the command (must_work={work})_> {socket_line}")
             error = True
 
-    if error:
+    if error and task.host.platform == CUMULUS_PLATEFORM_NAME:
         print(f"{HEADER_GET} Netcat is not installed on the device. Please install nc [sudo apt install netcat]")
+
+    task.host[SOCKET_WORKS_KEY] = not error
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Raise a exception if output is not
+#
+def _raise_exception_on_socket_cmd(output:MultiResult, plateform:str, hostname:str, socket_line:str, must_work:bool) -> None :
+
+    if plateform == ARISTA_PLATEFORM_NAME:
+        if must_work and \
+            ("Network is unreachable." in output.result or
+             "Connection refused." in output.result):
+
+            raise Exception("ERROR")
+
+        elif must_work is False and \
+            ("Network is unreachable." not in output.result and
+             "Connection refused." not in output.result):
+
+            raise Exception("ERROR")
