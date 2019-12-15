@@ -205,7 +205,11 @@ def is_valid_ipv4_address(ip_address) -> bool:
     :return bool: True if ip_address is a valid IP address
     """
 
-    return ipaddress.IPv4Address(ip_address)
+    try:
+        ipaddress.IPv4Address(ip_address)
+        return True
+    except ipaddress.AddressValueError as e:
+        return False
 
 
 # ------------------------------------------------------------------------------------------------------------------

@@ -36,7 +36,7 @@ try:
     from functions.ip.ipv4.ipv4_converters import _ios_ipv4_converter, _juniper_ipv4_converter
     from functions.ip.ipv4.ipv4_converters import _napalm_ipv4_converter, _extreme_vsp_ipv4_converter
     from functions.ip.ipv4.ipv4_compare import _compare_ipv4
-    from protocols.ipv4 import IPV4, ListIPV4
+    from protocols.ipv4 import IPV4Interface, ListIPV4Interface
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ip.ipv4 ")
     print(importError)
@@ -95,13 +95,13 @@ def create_an_ipv4_object_manually(context) -> None:
     :return None:
     """
 
-    ipv4_addresses_lst = ListIPV4(
+    ipv4_addresses_lst = ListIPV4Interface(
         hostname="leaf01",
         ipv4_addresses_lst=list()
     )
 
     ipv4_addresses_lst.ipv4_addresses_lst.append(
-        IPV4(
+        IPV4Interface(
             interface_name="eth0",
             ip_address_with_mask="10.0.4.201",
             netmask="255.255.255.0"

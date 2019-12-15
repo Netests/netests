@@ -32,7 +32,7 @@ except ImportError as importError:
     print(importError)
 
 try:
-    from protocols.ipv4 import IPV4, ListIPV4
+    from protocols.ipv4 import IPV4Interface, ListIPV4Interface
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ipv4")
     exit(EXIT_FAILURE)
@@ -68,9 +68,9 @@ except ImportError as importError:
 #
 # NAPALM IPv4 addresses converter
 #
-def _napalm_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV4:
+def _napalm_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV4Interface:
 
-    ipv4_addresses_lst = ListIPV4(
+    ipv4_addresses_lst = ListIPV4Interface(
         hostname=hostname,
         ipv4_addresses_lst=list()
     )
@@ -86,7 +86,7 @@ def _napalm_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, 
             for ip_addr in cmd_output.get('get_interfaces_ip').get(interface_name).get('ipv4'):
 
                 ipv4_addresses_lst.ipv4_addresses_lst.append(
-                    IPV4(
+                    IPV4Interface(
                         interface_name=_mapping_interface_name(
                             interface_name
                         ),
@@ -102,9 +102,9 @@ def _napalm_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, 
 #
 # Cumulus IPv4 addresses converter
 #
-def _cumulus_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV4:
+def _cumulus_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV4Interface:
 
-    ipv4_addresses_lst = ListIPV4(
+    ipv4_addresses_lst = ListIPV4Interface(
         hostname=hostname,
         ipv4_addresses_lst=list()
     )
@@ -126,7 +126,7 @@ def _cumulus_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *,
                         "/48" not in ip_address_in_interface and "::" not in ip_address_in_interface and \
                         "127.0.0.1" not in ip_address_in_interface and "::1/128" not in ip_address_in_interface:
 
-                    ipv4_obj = IPV4(
+                    ipv4_obj = IPV4Interface(
                         interface_name=_mapping_interface_name(
                             interface_name
                         ),
@@ -141,12 +141,12 @@ def _cumulus_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *,
 #
 # Cisco Nexus IPv4 addresses Converter
 #
-def _nexus_ipv4_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, filters=dict()) -> ListIPV4:
+def _nexus_ipv4_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, filters=dict()) -> ListIPV4Interface:
 
     if cmd_outputs is None:
         return False
 
-    ipv4_addresses_lst = ListIPV4(
+    ipv4_addresses_lst = ListIPV4Interface(
         hostname=hostname,
         ipv4_addresses_lst=list()
     )
@@ -172,7 +172,7 @@ def _nexus_ipv4_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, 
                                     "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
                                     "::1/128" not in ip_address:
 
-                                ipv4_obj = IPV4(
+                                ipv4_obj = IPV4Interface(
                                     interface_name=_mapping_interface_name(
                                         interface.get('ROW_intf').get('intf-name')
                                     ),
@@ -184,7 +184,7 @@ def _nexus_ipv4_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, 
 
                             if 'TABLE_secondary_address' in interface.get('ROW_intf').keys():
                                 ipv4_addresses_lst.ipv4_addresses_lst.append(
-                                    IPV4(
+                                    IPV4Interface(
                                         interface_name=_mapping_interface_name(
                                             interface.get('ROW_intf').get('intf-name')
                                         ),
@@ -209,7 +209,7 @@ def _nexus_ipv4_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, 
                         if ip_address != NOT_SET and "/128" not in ip_address and "/64" not in ip_address and \
                                 "/48" not in ip_address and "::" not in ip_address and "127.0.0.1" not in ip_address and \
                                 "::1/128" not in ip_address:
-                            ipv4_obj = IPV4(
+                            ipv4_obj = IPV4Interface(
                                 interface_name=_mapping_interface_name(
                                     facts.get('intf-name')
                                 ),
@@ -221,7 +221,7 @@ def _nexus_ipv4_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, 
 
                         if 'TABLE_secondary_address' in facts.keys():
                             ipv4_addresses_lst.ipv4_addresses_lst.append(
-                                IPV4(
+                                IPV4Interface(
                                     interface_name=_mapping_interface_name(
                                         facts.get('intf-name')
                                     ),
@@ -238,9 +238,9 @@ def _nexus_ipv4_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, 
 #
 # Cisco IOS IPv4 addresses Converter
 #
-def _ios_ipv4_converter(hostname:str(), plateform:str(), cmd_output:list, *, filters=dict()) -> ListIPV4:
+def _ios_ipv4_converter(hostname:str(), plateform:str(), cmd_output:list, *, filters=dict()) -> ListIPV4Interface:
     
-    ipv4_addresses_lst = ListIPV4(
+    ipv4_addresses_lst = ListIPV4Interface(
         hostname=hostname,
         ipv4_addresses_lst=list()
     )
@@ -260,7 +260,7 @@ def _ios_ipv4_converter(hostname:str(), plateform:str(), cmd_output:list, *, fil
             ):
         
                 ipv4_addresses_lst.ipv4_addresses_lst.append(
-                    IPV4(
+                    IPV4Interface(
                         interface_name=_mapping_interface_name(
                             interface[0]
                         ),
@@ -275,16 +275,16 @@ def _ios_ipv4_converter(hostname:str(), plateform:str(), cmd_output:list, *, fil
 #
 # Cisco IOS XR IPv4 addresses Converter
 #
-def _iosxr_ipv4_converter(hostname:str(), plateform:str(), cmd_output:list, *, filters=dict()) -> ListIPV4:
+def _iosxr_ipv4_converter(hostname:str(), plateform:str(), cmd_output:list, *, filters=dict()) -> ListIPV4Interface:
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Arista IPv4 addresses Converter
 #
-def _arista_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV4:
+def _arista_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV4Interface:
 
-    ipv4_addresses_lst = ListIPV4(
+    ipv4_addresses_lst = ListIPV4Interface(
         hostname=hostname,
         ipv4_addresses_lst=list()
     )
@@ -304,7 +304,7 @@ def _arista_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, 
                     "::1/128" not in ip_address:
 
                 ipv4_addresses_lst.ipv4_addresses_lst.append(
-                    IPV4(
+                    IPV4Interface(
                         interface_name=_mapping_interface_name(
                             interface_name
                         ),
@@ -323,7 +323,7 @@ def _arista_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, 
                             "::1/128" not in secondary_ip:
 
                         ipv4_addresses_lst.ipv4_addresses_lst.append(
-                            IPV4(
+                            IPV4Interface(
                                 interface_name=_mapping_interface_name(
                                     interface_name
                                 ),
@@ -339,9 +339,9 @@ def _arista_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *, 
 #
 # Juniper IPv4 addresses Converter
 #
-def _juniper_ipv4_converter(hostname:str(), plateform:str(), cmd_output:dict, *, filters=dict()) -> ListIPV4:
+def _juniper_ipv4_converter(hostname:str(), plateform:str(), cmd_output:dict, *, filters=dict()) -> ListIPV4Interface:
 
-    ipv4_addresses_lst = ListIPV4(
+    ipv4_addresses_lst = ListIPV4Interface(
         hostname=hostname,
         ipv4_addresses_lst=list()
     )
@@ -380,7 +380,7 @@ def _juniper_ipv4_converter(hostname:str(), plateform:str(), cmd_output:dict, *,
 
                                                 if "lo" in logic_interface.get("name")[0].get("data", NOT_SET) :
                                                     ipv4_addresses_lst.ipv4_addresses_lst.append(
-                                                        IPV4(
+                                                        IPV4Interface(
                                                             interface_name=_mapping_interface_name(
                                                                 logic_interface.get("name")[0].get("data",NOT_SET)
                                                             ),
@@ -390,7 +390,7 @@ def _juniper_ipv4_converter(hostname:str(), plateform:str(), cmd_output:dict, *,
                                                     )
                                                 else:
                                                     ipv4_addresses_lst.ipv4_addresses_lst.append(
-                                                        IPV4(
+                                                        IPV4Interface(
                                                             interface_name=_mapping_interface_name(
                                                                 logic_interface.get("name")[0].get("data", NOT_SET)
                                                             ),
@@ -404,9 +404,9 @@ def _juniper_ipv4_converter(hostname:str(), plateform:str(), cmd_output:dict, *,
 #
 # Extreme Networks VSP IPv4 addresses Converter
 #
-def _extreme_vsp_ipv4_converter(hostname: str(), plateform:str(), cmd_output: dict, *, filters=dict()) -> ListIPV4:
+def _extreme_vsp_ipv4_converter(hostname: str(), plateform:str(), cmd_output: dict, *, filters=dict()) -> IPV4Interface:
     
-    ipv4_addresses_lst = ListIPV4(
+    ipv4_addresses_lst = ListIPV4Interface(
         hostname=hostname,
         ipv4_addresses_lst=list()
     )
@@ -422,7 +422,7 @@ def _extreme_vsp_ipv4_converter(hostname: str(), plateform:str(), cmd_output: di
                     filters=filters
             ):
                 ipv4_addresses_lst.ipv4_addresses_lst.append(
-                    IPV4(
+                    IPV4Interface(
                         interface_name=_mapping_interface_name(
                             interface[0]
                         ),

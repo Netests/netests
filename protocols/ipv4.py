@@ -39,7 +39,7 @@ except ImportError as importError:
 
 
 try:
-    from protocols.ip import IP
+    from protocols.ip import IPAddress
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ip")
     print(importError)
@@ -49,16 +49,15 @@ except ImportError as importError:
 #
 # IPv4 NEIGHBORS CLASS
 #
-class IPV4(IP):
+class IPV4(IPAddress):
 
     ip_address: str
     netmask: str
-    interface_name: str
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, interface_name=NOT_SET, ip_address_with_mask=NOT_SET, netmask=NOT_SET):
+    def __init__(self, ip_address_with_mask=NOT_SET, netmask=NOT_SET):
 
         if netmask == NOT_SET:
             ip_address = self._extract_ip_address(ip_address_with_mask)
@@ -70,9 +69,9 @@ class IPV4(IP):
             netmask = self._convert_cidr_to_netmask(netmask)
 
         if self._is_valid_ip_and_mask(ip_address, netmask):
-            super().__init__(interface_name, ip_address, netmask)
+            super().__init__(ip_address, netmask)
         else:
-            super().__init__(NOT_SET, NOT_SET, NOT_SET)
+            super().__init__(NOT_SET, NOT_SET)
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
@@ -148,8 +147,11 @@ class IPV4(IP):
         :return bool: True if ip_address is a valid IP address
         """
 
-        return ipaddress.IPv4Address(ip_address)
-
+        try:
+            ipaddress.IPv4Address(ip_address)
+            return True
+        except ipaddress.AddressValueError as e:
+            return False
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -270,14 +272,13 @@ class IPV4(IP):
 #
 class ListIPV4:
 
-    hostname: str
     ipv4_addresses_lst: list
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, hostname:NOT_SET, ipv4_addresses_lst: list()):
-        self.hostname = hostname
+    def __init__(self, ipv4_addresses_lst: list()):
+
         self.ipv4_addresses_lst = ipv4_addresses_lst
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -309,7 +310,85 @@ class ListIPV4:
     #
     #
     def __repr__(self):
-        result = f"<ListIPV4 hostname={self.hostname} \n"
+        result = f"<ListIPV4 \n"
         for ipv4 in self.ipv4_addresses_lst:
             result = result + f"{ipv4}"
         return result + ">"
+
+
+########################################################################################################################
+#
+# IPv4 Interface CLASS
+#
+class IPV4Interface(IPV4):
+
+    interface_name: str
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __init__(self, interface_name=NOT_SET, ip_address_with_mask=NOT_SET, netmask=NOT_SET):
+
+        super().__init__(ip_address_with_mask, netmask)
+        self.interface_name = interface_name
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __eq__(self, other):
+        if not isinstance(other, IPV4Interface):
+            return NotImplemented
+
+        return (str(self.ip_address) == str(other.ip_address) and
+                str(self.netmask) == str(other.netmask) and
+                str(self.interface_name) == str(other.interface_name))
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __repr__(self):
+        return f"<{type(self)} ip_address={self.ip_address} " \
+               f"netmask={self.netmask} " \
+               f"interface_name={self.interface_name}>\n"
+
+
+########################################################################################################################
+#
+# IPv4 LIST CLASS
+#
+class ListIPV4Interface():
+
+    hostname: str
+    ipv4_addresses_lst: list
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __init__(self, hostname:NOT_SET, ipv4_addresses_lst: list()):
+        self.hostname = hostname
+        self.ipv4_addresses_lst = ipv4_addresses_lst
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __eq__(self, others):
+        if not isinstance(others, ListIPV4Interface):
+            raise NotImplemented
+
+        for ipv4 in self.ipv4_addresses_lst:
+            if ipv4 not in others.ipv4_addresses_lst:
+                print(
+                    f"[ListIPV4Interface - __eq__] - The following IPv4 address is not in the list \n {ipv4}")
+                print(
+                    f"[ListIPV4Interface - __eq__] - List: \n {others.ipv4_addresses_lst}")
+                return False
+
+        for ipv4 in others.ipv4_addresses_lst:
+            if ipv4 not in self.ipv4_addresses_lst:
+                print(
+                    f"[ListIPV4Interface - __eq__] - The following IPv4 address is not in the list \n {ipv4}")
+                print(
+                    f"[ListIPV4Interface - __eq__] - List: \n {self.ipv4_addresses_lst}")
+                return False
+
+        return True

@@ -31,7 +31,8 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from protocols.ip import IPAddress, ListIPAddress
+    from protocols.ipv4 import ListIPV4
+    from protocols.ipv6 import ListIPV6
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ip")
     print(importError)
@@ -52,26 +53,27 @@ class VLAN:
 
     vlan_id: str
     vrf_name: str
-    ip_addresses: ListIPAddress
-    fhrp_ip_address: str
     ports_members: list
 
     # The following values are not used by the __eq__ function !!
     vlan_name: str
     vlan_descr: str
     mac_address: str
-
+    ipv4_addresses: ListIPV4
+    ipv6_addresses: ListIPV6
+    fhrp_ip_address: str
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, vlan_name=NOT_SET, vlan_id=NOT_SET, vrf_name="default", ip_address=NOT_SET,
-                 fhrp_ip_address=NOT_SET, mac_address=NOT_SET, vlan_descr=NOT_SET, ports_members=list()):
+    def __init__(self, vlan_name=NOT_SET, vlan_id=NOT_SET, vrf_name="default", vlan_descr=NOT_SET, ports_members=list(),
+                 ipv4_addresses=ListIPV4, ipv6_addresses=ListIPV6, fhrp_ip_address=NOT_SET, mac_address=NOT_SET):
 
         self.vlan_name = vlan_name
         self.vlan_id = vlan_id
         self.vrf_name = vrf_name
-        self.ip_address = ip_address
+        self.ipv4_addresses = ipv4_addresses
+        self.ipv6_addresses = ipv6_addresses
         self.fhrp_ip_address = fhrp_ip_address
         self.mac_address = mac_address
         self.vlan_descr = vlan_descr
@@ -87,8 +89,7 @@ class VLAN:
         # Basic
         return (str(self.vlan_id) == str(other.vlan_id) and
                 str(self.vrf_name) == str(other.vrf_name) and
-                str(self.ip_address) == str(other.ip_address) and
-                str(self.fhrp_ip_address) == str(other.fhrp_ip_address))
+                (self.ports_members) == str(other.ports_members))
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -97,7 +98,8 @@ class VLAN:
         return f"<VLAN vlan_id={self.vlan_id} \n" \
                f"vlan_name={self.vlan_name} \n" \
                f"vrf_name={self.vrf_name} \n" \
-               f"ip_address={self.ip_address} \n" \
+               f"ipv6_addresses={self.ipv6_addresses} \n" \
+               f"ipv4_addresses={self.ipv4_addresses} \n" \
                f"fhrp_ip_address={self.fhrp_ip_address} \n" \
                f"vlan_descr={self.vlan_descr} \n" \
                f"mac_address={self.mac_address} \n" \

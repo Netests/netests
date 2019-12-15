@@ -48,7 +48,7 @@ except ImportError as importError:
 #
 # IP Address
 #
-class IPAddress():
+class IPAddress(ABC):
 
     ip_address: str
     netmask: str
@@ -56,11 +56,11 @@ class IPAddress():
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, ip_address="0.0.0.0", netmask="0.0.0.0"):
+    def __init__(self, ip_address="0.0.0.0", netmask="0"):
         self.ip_address = ip_address
 
-        if is_cidr_notation(netmask):
-            self.netmask = convert_cidr_to_netmask(netmask)
+        if is_cidr_notation(netmask) is False:
+            self.netmask = convert_netmask_to_cidr(netmask)
         else:
             self.netmask = netmask
 
@@ -68,7 +68,7 @@ class IPAddress():
     #
     #
     def __eq__(self, other):
-        if not isinstance(other, IP):
+        if not isinstance(other, IPAddress):
             return NotImplemented
 
         return (str(self.ip_address) == str(other.ip_address) and
@@ -81,92 +81,6 @@ class IPAddress():
         return f"<{type(self)} ip_address={self.ip_address} " \
                f"netmask={self.netmask}>\n"
 
-########################################################################################################################
-#
-# IPAddress LIST CLASS
-#
-class ListIPAddress:
-
-    ip_addresses_lst: list
-
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
-    def __init__(self, ip_addresses_lst: list()):
-        self.ip_addresses_lst = ip_addresses_lst
-
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
-    def __eq__(self, others):
-        if not isinstance(others, ListIPAddress):
-            raise NotImplemented
-
-        for ip_address in self.ip_addresses_lst:
-            if ip_address not in others.ip_addresses_lst:
-                print(
-                    f"[ListIPAddress - __eq__] - The following IPAddress is not in the list \n {ip_address}")
-                print(
-                    f"[ListIPAddress - __eq__] - List: \n {others.ip_addresses_lst}")
-                return False
-
-        for ip_address in others.ip_addresses_lst:
-            if ip_address not in self.ip_addresses_lst:
-                print(
-                    f"[ListIPAddress - __eq__] - The following IPAddress is not in the list \n {ip_address}")
-                print(
-                    f"[ListIPAddress - __eq__] - List: \n {self.ip_addresses_lst}")
-                return False
-
-        return True
-
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
-    def __repr__(self):
-        result = "<ListIPAddress \n"
-        for ip_address in self.ip_addresses_lst:
-            result = result + f"{ip_address}"
-        return result + ">"
-
-
-
-########################################################################################################################
-#
-# IP Abstract Class
-#
-class IP(ABC):
-
-    interface_name: str
-    ip_address: str
-    netmask: str
-
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
-    def __init__(self, interface_name=NOT_SET, ip_address=NOT_SET, netmask=NOT_SET):
-        self.interface_name = interface_name
-        self.ip_address = ip_address
-        self.netmask = netmask
-
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
-    def __eq__(self, other):
-        if not isinstance(other, IP):
-            return NotImplemented
-
-        return (str(self.interface_name) == str(other.interface_name) and
-                str(self.ip_address) == str(other.ip_address) and
-                str(self.netmask) == str(other.netmask))
-
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
-    def __repr__(self):
-        return f"<{type(self)} interface_name={self.interface_name} " \
-               f"ip_address={self.ip_address} " \
-               f"netmask={self.netmask}>\n"
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -174,7 +88,6 @@ class IP(ABC):
     @abstractmethod
     def _is_valid_ip_and_mask(self, ip_address, netmask) -> bool:
         pass
-
 
     # ------------------------------------------------------------------------------------------------------------------
     #

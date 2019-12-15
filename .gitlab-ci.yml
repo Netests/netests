@@ -7,12 +7,6 @@ tests:
   script:
     - pip install --upgrade pip
     - pip install -r requirements.txt
-    - behave features/mtu_tests.feature
-    - behave features/static_tests.feature
-    - behave features/infos_tests.feature
-    - behave features/bgp_tests.feature
-    - behave features/ospf_tests.feature
-    - behave features/mlag_tests.feature
-    - behave features/ipv4_tests.feature
+    - ./features/run_tests.sh
   tags:
     - docker

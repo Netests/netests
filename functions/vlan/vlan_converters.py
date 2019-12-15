@@ -39,12 +39,19 @@ except ImportError as importError:
     print(importError)
 
 try:
-    from protocols.ip import ListIPAddress, IPAddress
+    from protocols.ipv4 import IPV4, ListIPV4
+    from protocols.ipv6 import IPV6, ListIPV6
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ip")
     exit(EXIT_FAILURE)
     print(importError)
 
+try:
+    from functions.global_tools import is_valid_ipv4_address
+except ImportError as importError:
+    print(f"{ERROR_HEADER} json")
+    exit(EXIT_FAILURE)
+    print(importError)
 
 try:
     import json
@@ -88,19 +95,31 @@ def _cumulus_vlan_converter(hostname:str(), cmd_output:json) -> ListVLAN:
                         vrf_name = vrf[0]
 
                 fhrp_ip = "0.0.0.0"
-                ip_addresses_lst = ListIPAddress(
-                    ip_addresses_lst=list()
+                ipv4_addresses_lst = ListIPV4(
+                    ipv4_addresses_lst=list()
+                )
+
+                ipv6_addresses_lst = ListIPV6(
+                    ipv6_addresses_lst=list()
                 )
 
                 if "ip_address" in cmd_output.get(VLAN_VRF_DETAIL_KEY).get(vlan).get("iface_obj").keys():
                     for ip_addr in cmd_output.get(VLAN_VRF_DETAIL_KEY).get(vlan).get("iface_obj").get("ip_address").get("allentries"):
                         index_slash = str(ip_addr).find("/")
-                        ip_addresses_lst.ip_addresses_lst.append(
-                            IPAddress(
-                                ip_address=str(ip_addr)[:index_slash],
-                                netmask=str(ip_addr)[index_slash+1:]
+                        if is_valid_ipv4_address(str(ip_addr)[:index_slash]):
+                            ipv4_addresses_lst.ipv4_addresses_lst.append(
+                                IPV4(
+                                    ip_address_with_mask=str(ip_addr)[:index_slash],
+                                    netmask=str(ip_addr)[index_slash+1:]
+                                )
                             )
-                        )
+                        else:
+                            ipv6_addresses_lst.ipv6_addresses_lst.append(
+                                IPV6(
+                                    ip_address_with_mask=str(ip_addr)
+                                )
+                            )
+
 
                     if f"{vlan}-v0" in cmd_output.get(VLAN_VRF_DETAIL_KEY).keys():
                         temp_ip = cmd_output.get(VLAN_VRF_DETAIL_KEY).get(f"{vlan}-v0").get("iface_obj").get("ip_address").get("allentries")[0]
@@ -113,7 +132,8 @@ def _cumulus_vlan_converter(hostname:str(), cmd_output:json) -> ListVLAN:
                         vlan_id=str(vlan)[4:],
                         vlan_descr=cmd_output.get(VLAN_VRF_DETAIL_KEY).get(vlan).get("iface_obj").get("description", NOT_SET) if cmd_output.get(VLAN_VRF_DETAIL_KEY).get(vlan).get("iface_obj").get("description", NOT_SET) != "" else NOT_SET,
                         vrf_name=vrf_name,
-                        ip_address=ip_addresses_lst,
+                        ipv6_addresses=ipv6_addresses_lst,
+                        ipv4_addresses=ipv4_addresses_lst,
                         fhrp_ip_address=fhrp_ip,
                         ports_members=list(),
                         mac_address=cmd_output.get(VLAN_VRF_DETAIL_KEY).get(vlan).get("iface_obj").get("mac", NOT_SET)

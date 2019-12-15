@@ -39,7 +39,7 @@ except ImportError as importError:
 
 
 try:
-    from protocols.ip import IP
+    from protocols.ip import IPAddress
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ip")
     print(importError)
@@ -49,17 +49,16 @@ except ImportError as importError:
 #
 # IPV6 NEIGHBORS CLASS
 #
-class IPV6(IP):
+class IPV6(IPAddress):
 
-    ip_address: str
-    interface_name: str
-
-    def __init__(self, interface_name=NOT_SET, ip_address_with_mask=NOT_SET,):
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __init__(self, ip_address_with_mask=NOT_SET,):
 
         index_slash = str(ip_address_with_mask).find("/")
 
         super().__init__(
-            interface_name=interface_name,
             ip_address=ip_address_with_mask[:index_slash],
             netmask=ip_address_with_mask[index_slash+1:]
         )
@@ -101,14 +100,12 @@ class IPV6(IP):
 #
 class ListIPV6:
 
-    hostname: str
     ipv6_addresses_lst: list
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, hostname:NOT_SET, ipv6_addresses_lst: list()):
-        self.hostname = hostname
+    def __init__(self, ipv6_addresses_lst: list()):
         self.ipv6_addresses_lst = ipv6_addresses_lst
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -140,7 +137,85 @@ class ListIPV6:
     #
     #
     def __repr__(self):
-        result = f"<ListIPV6 hostname={self.hostname} \n"
+        result = f"<ListIPV6 \n"
         for ipv6 in self.ipv6_addresses_lst:
             result = result + f"{ipv6}"
         return result + ">"
+
+
+########################################################################################################################
+#
+# IPv6 Interface CLASS
+#
+class IPV6Interface(IPV6):
+
+    interface_name: str
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __init__(self, interface_name=NOT_SET, ip_address_with_mask=NOT_SET, netmask=NOT_SET):
+
+        super().__init__(ip_address_with_mask, netmask)
+        self.interface_name = interface_name
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __eq__(self, other):
+        if not isinstance(other, IPV6Interface):
+            return NotImplemented
+
+        return (str(self.ip_address) == str(other.ip_address) and
+                str(self.netmask) == str(other.netmask) and
+                str(self.interface_name) == str(other.interface_name))
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __repr__(self):
+        return f"<{type(self)} ip_address={self.ip_address} " \
+               f"netmask={self.netmask} " \
+               f"interface_name={self.interface_name}>\n"
+
+
+########################################################################################################################
+#
+# IPv6 LIST CLASS
+#
+class ListIPV6Interface():
+
+    hostname: str
+    ipv6_addresses_lst: list
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __init__(self, hostname:NOT_SET, ipv6_addresses_lst: list()):
+        self.hostname = hostname
+        self.ipv6_addresses_lst = ipv6_addresses_lst
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __eq__(self, others):
+        if not isinstance(others, ListIPV6Interface):
+            raise NotImplemented
+
+        for ipv6 in self.ipv6_addresses_lst:
+            if ipv6 not in others.ipv6_addresses_lst:
+                print(
+                    f"[ListIPV6Interface - __eq__] - The following IPv6 address is not in the list \n {ipv6}")
+                print(
+                    f"[ListIPV6Interface - __eq__] - List: \n {others.ipv6_addresses_lst}")
+                return False
+
+        for ipv6 in others.ipv6_addresses_lst:
+            if ipv6 not in self.ipv6_addresses_lst:
+                print(
+                    f"[ListIPV6Interface - __eq__] - The following IPv6 address is not in the list \n {ipv6}")
+                print(
+                    f"[ListIPV6Interface - __eq__] - List: \n {self.ipv6_addresses_lst}")
+                return False
+
+        return True

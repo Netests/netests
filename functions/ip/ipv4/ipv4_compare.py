@@ -32,7 +32,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from protocols.ipv4 import IPV4, ListIPV4
+    from protocols.ipv4 import IPV4Interface, ListIPV4Interface
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ipv4")
     exit(EXIT_FAILURE)
@@ -110,7 +110,7 @@ def _compare_transit_ipv4(task, ipv4_yaml_data:json):
 #
 # Compare function
 #
-def _compare_ipv4(host_keys, hostname:str, groups:list, ipv4_host_data:ListIPV4, ipv4_yaml_data:dict) -> bool:
+def _compare_ipv4(host_keys, hostname:str, groups:list, ipv4_host_data:ListIPV4Interface, ipv4_yaml_data:dict) -> bool:
 
     verity_ipv4 = retrieve_ipv4_for_host(
         hostname=hostname,
@@ -124,9 +124,9 @@ def _compare_ipv4(host_keys, hostname:str, groups:list, ipv4_host_data:ListIPV4,
 # ----------------------------------------------------------------------------------------------------------------------
 #
 #
-def retrieve_ipv4_for_host(hostname:str, groups, ipv4_yaml_data:dict) -> ListIPV4:
+def retrieve_ipv4_for_host(hostname:str, groups, ipv4_yaml_data:dict) -> ListIPV4Interface:
 
-    ip_addresses_lst = ListIPV4(
+    ip_addresses_lst = ListIPV4Interface(
         hostname=hostname,
         ipv4_addresses_lst=list()
     )
@@ -135,7 +135,7 @@ def retrieve_ipv4_for_host(hostname:str, groups, ipv4_yaml_data:dict) -> ListIPV
     if YAML_ALL_GROUPS_KEY in ipv4_yaml_data.keys():
         for ip_infos in ipv4_yaml_data.get(YAML_ALL_GROUPS_KEY, NOT_SET):
 
-            ipv4_obj = IPV4(
+            ipv4_obj = IPV4Interface(
                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
                 ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
                 netmask=ip_infos.get('netmask', NOT_SET),
@@ -152,7 +152,7 @@ def retrieve_ipv4_for_host(hostname:str, groups, ipv4_yaml_data:dict) -> ListIPV
                     if host_group in value_key_groups.split(","):
                         for ip_infos in ipv4_yaml_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_groups):
 
-                            ipv4_obj = IPV4(
+                            ipv4_obj = IPV4Interface(
                                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
                                 ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
                                 netmask=ip_infos.get('netmask', NOT_SET),
@@ -164,7 +164,7 @@ def retrieve_ipv4_for_host(hostname:str, groups, ipv4_yaml_data:dict) -> ListIPV
                     if host_group == value_key_groups:
                         for ip_infos in ipv4_yaml_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_groups):
 
-                            ipv4_obj = IPV4(
+                            ipv4_obj = IPV4Interface(
                                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
                                 ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
                                 netmask=ip_infos.get('netmask', NOT_SET),
@@ -179,7 +179,7 @@ def retrieve_ipv4_for_host(hostname:str, groups, ipv4_yaml_data:dict) -> ListIPV
                 if hostname in value_key_devices.split(","):
                     for ip_infos in ipv4_yaml_data.get(YAML_DEVICES_KEY, NOT_SET).get(value_key_devices, NOT_SET):
 
-                        ipv4_obj = IPV4(
+                        ipv4_obj = IPV4Interface(
                             interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
                             ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
                             netmask=ip_infos.get('netmask', NOT_SET),
@@ -192,7 +192,7 @@ def retrieve_ipv4_for_host(hostname:str, groups, ipv4_yaml_data:dict) -> ListIPV
 
                     for ip_infos in ipv4_yaml_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_devices):
 
-                        ipv4_obj = IPV4(
+                        ipv4_obj = IPV4Interface(
                             interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
                             ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
                             netmask=ip_infos.get('netmask', NOT_SET),
@@ -205,7 +205,7 @@ def retrieve_ipv4_for_host(hostname:str, groups, ipv4_yaml_data:dict) -> ListIPV
     if hostname in ipv4_yaml_data.keys():
 
         for ip_infos in ipv4_yaml_data.get(hostname, NOT_SET):
-            ipv4_obj = IPV4(
+            ipv4_obj = IPV4Interface(
                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
                 ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
                 netmask=ip_infos.get('netmask', NOT_SET),

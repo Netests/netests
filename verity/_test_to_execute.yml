@@ -31,7 +31,7 @@ ipv4:
     get_vni: false
 # Check IPv6 addresses
 ipv6:
-  test: true
+  test: false
   filters:
     get_physical: true
     get_vlan: true
@@ -58,4 +58,4 @@ mtu: false
 # Check L2VNI
 l2vni: false
 # Check L2VNI
-vlan: false
+vlan: true
