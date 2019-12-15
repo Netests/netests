@@ -33,7 +33,7 @@ ipv4:
 ipv6:
   test: true
   filters:
-    get_physical: false
+    get_physical: true
     get_vlan: true
     get_loopback: false
     get_peerlink: false

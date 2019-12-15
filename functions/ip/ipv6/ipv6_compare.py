@@ -118,8 +118,11 @@ def _compare_ipv6(host_keys, hostname:str, groups:list, ipv6_host_data:ListIPV6,
         ipv6_yaml_data=ipv6_yaml_data
     )
 
-    return verity_ipv6 == ipv6_host_data
+    if len(verity_ipv6.ipv6_addresses_lst) == 0:
+        print(f"{HEADER_GET} No IPv6 IP address has been found ...")
+        return False
 
+    return verity_ipv6 == ipv6_host_data
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -137,8 +140,7 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
 
             ipv6_obj = IPV6(
                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
-                ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
-                netmask=ip_infos.get('netmask', NOT_SET),
+                ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
             )
 
             ip_addresses_lst.ipv6_addresses_lst.append(ipv6_obj)
@@ -154,8 +156,7 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
 
                             ipv6_obj = IPV6(
                                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
-                                ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
-                                netmask=ip_infos.get('netmask', NOT_SET),
+                                ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
                             )
 
                             ip_addresses_lst.ipv6_addresses_lst.append(ipv6_obj)
@@ -166,8 +167,7 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
 
                             ipv6_obj = IPV6(
                                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
-                                ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
-                                netmask=ip_infos.get('netmask', NOT_SET),
+                                ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
                             )
 
                             ip_addresses_lst.ipv6_addresses_lst.append(ipv6_obj)
@@ -181,8 +181,7 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
 
                         ipv6_obj = IPV6(
                             interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
-                            ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
-                            netmask=ip_infos.get('netmask', NOT_SET),
+                            ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
                         )
 
                         ip_addresses_lst.ipv6_addresses_lst.append(ipv6_obj)
@@ -194,8 +193,7 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
 
                         ipv6_obj = IPV6(
                             interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
-                            ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
-                            netmask=ip_infos.get('netmask', NOT_SET),
+                            ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
                         )
 
                         ip_addresses_lst.ipv6_addresses_lst.append(ipv6_obj)
@@ -207,8 +205,7 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
         for ip_infos in ipv6_yaml_data.get(hostname, NOT_SET):
             ipv6_obj = IPV6(
                 interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
-                ip_address_with_mask=ip_infos.get('ip_address', NOT_SET),
-                netmask=ip_infos.get('netmask', NOT_SET),
+                ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
             )
 
             ip_addresses_lst.ipv6_addresses_lst.append(ipv6_obj)

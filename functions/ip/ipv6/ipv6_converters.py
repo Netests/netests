@@ -123,7 +123,6 @@ def _cumulus_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *,
                                 )
                             )
 
-    print(ipv6_addresses_lst)
     return ipv6_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------

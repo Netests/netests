@@ -135,7 +135,6 @@ def _cumulus_ipv4_converter(hostname:str(), plateform:str(), cmd_output:json, *,
 
                     ipv4_addresses_lst.ipv4_addresses_lst.append(ipv4_obj)
 
-    print(ipv4_addresses_lst)
     return ipv4_addresses_lst
 
 # ----------------------------------------------------------------------------------------------------------------------
