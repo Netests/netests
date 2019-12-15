@@ -83,8 +83,7 @@ def _napalm_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *, 
 #
 # Cumulus ipv6 addresses converter
 #
-def _cumulus_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *, get_vlan=True, get_loopback=True,
-                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV6:
+def _cumulus_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV6:
 
     ipv6_addresses_lst = ListIPV6(
         hostname=hostname,
@@ -99,11 +98,7 @@ def _cumulus_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *,
                 interface_name=_mapping_interface_name(
                     interface_name
                 ),
-                get_vlan=get_vlan,
-                get_loopback=get_loopback,
-                get_peerlink=get_peerlink,
-                get_vni=get_vni,
-                get_physical=get_physical
+                filters=filters
         ):
 
             for ip_address_in_interface in facts.get("iface_obj").get('ip_address').get('allentries'):

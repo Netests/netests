@@ -88,7 +88,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_ipv6(nr: Nornir, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
+def get_ipv6(nr: Nornir, *, filters=dict()):
 
     devices = nr.filter()
 
@@ -99,11 +99,7 @@ def get_ipv6(nr: Nornir, *, get_vlan=True, get_loopback=True, get_peerlink=True,
 
     data = devices.run(
         task=generic_ipv6_get,
-        get_vlan=get_vlan,
-        get_loopback=get_loopback,
-        get_peerlink=get_peerlink,
-        get_vni=get_vni,
-        get_physical=get_physical,
+        filters=filters,
         on_failed=True,
         num_workers=10
     )
@@ -113,7 +109,7 @@ def get_ipv6(nr: Nornir, *, get_vlan=True, get_loopback=True, get_peerlink=True,
 #
 # Generic function
 #
-def generic_ipv6_get(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
+def generic_ipv6_get(task, *, filters=dict()):
 
     use_ssh = False
 
@@ -125,35 +121,29 @@ def generic_ipv6_get(task, *, get_vlan=True, get_loopback=True, get_peerlink=Tru
                 use_ssh = True
 
     if task.host.platform == CUMULUS_PLATEFORM_NAME:
-        _cumulus_get_ipv6(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
+        _cumulus_get_ipv6(task, filters=filters)
 
     elif task.host.platform == EXTREME_PLATEFORM_NAME:
-        _extreme_vsp_get_ipv6(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
+        _extreme_vsp_get_ipv6(task, filters=filters)
 
     elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
         if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
-            _nexus_get_ipv6(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
+            _nexus_get_ipv6(task, filters=filters)
 
         elif use_ssh and CISCO_IOS_PLATEFORM_NAME == task.host.platform:
-            _ios_get_ipv6(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
+            _ios_get_ipv6(task, filters=filters)
 
         elif use_ssh and CISCO_IOSXR_PLATEFORM_NAME == task.host.platform:
-            _iosxr_get_ipv6(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
+            _iosxr_get_ipv6(task, filters=filters)
 
         elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
-            _arista_get_ipv6(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
+            _arista_get_ipv6(task, filters=filters)
         
         elif use_ssh and JUNOS_PLATEFORM_NAME == task.host.platform:
-            _juniper_get_ipv6(task, get_vlan=get_vlan, get_loopback=get_loopback, get_peerlink=get_peerlink, get_vni=get_vni, get_physical=get_physical)
+            _juniper_get_ipv6(task, filters=filters)
 
         else:
-            _generic_ipv6_napalm(task,
-                                 get_vlan=get_vlan,
-                                 get_loopback=get_loopback,
-                                 get_peerlink=get_peerlink,
-                                 get_vni=get_vni,
-                                 get_physical=get_physical
-            )
+            _generic_ipv6_napalm(task, filters=filters)
 
     else:
         # RAISE EXCEPTIONS
@@ -163,7 +153,7 @@ def generic_ipv6_get(task, *, get_vlan=True, get_loopback=True, get_peerlink=Tru
 #
 # Generic ipv6 Napalm
 #
-def _generic_ipv6_napalm(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
+def _generic_ipv6_napalm(task, *, filters=dict()):
     pass
 
 
@@ -171,7 +161,7 @@ def _generic_ipv6_napalm(task, *, get_vlan=True, get_loopback=True, get_peerlink
 #
 # Cumulus Networks
 #
-def _cumulus_get_ipv6(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
+def _cumulus_get_ipv6(task, *, filters=dict()):
 
     output = task.run(
         name=f"{CUMULUS_GET_IPV6}",
@@ -184,11 +174,7 @@ def _cumulus_get_ipv6(task, *, get_vlan=True, get_loopback=True, get_peerlink=Tr
         hostname=task.host.name,
         plateform=task.host.platform,
         cmd_output=json.loads(output.result),
-        get_vlan=get_vlan,
-        get_loopback=get_loopback,
-        get_peerlink=get_peerlink,
-        get_vni=get_vni,
-        get_physical=get_physical
+        filters=filters
     )
 
     task.host[IPV6_DATA_HOST_KEY] = ipv6_addresses
@@ -197,35 +183,35 @@ def _cumulus_get_ipv6(task, *, get_vlan=True, get_loopback=True, get_peerlink=Tr
 #
 # Cisco Nexus (NXOS)
 #
-def _nexus_get_ipv6(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
+def _nexus_get_ipv6(task, *, filters=dict()):
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco IOS
 #
-def _ios_get_ipv6(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
+def _ios_get_ipv6(task, *, filters=dict()):
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco IOSXR
 #
-def _iosxr_get_ipv6(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
+def _iosxr_get_ipv6(task, *, filters=dict()):
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Arista vEOS
 #
-def _arista_get_ipv6(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
+def _arista_get_ipv6(task, *, filters=dict()):
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Juniper Networks
 #
-def _juniper_get_ipv6(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
+def _juniper_get_ipv6(task, *, filters=dict()):
     pass
 
 
@@ -233,7 +219,7 @@ def _juniper_get_ipv6(task, *, get_vlan=True, get_loopback=True, get_peerlink=Tr
 #
 # Extreme Networks
 #
-def _extreme_vsp_get_ipv6(task, *, get_vlan=True, get_loopback=True, get_peerlink=True, get_vni=False, get_physical=True):
+def _extreme_vsp_get_ipv6(task, *, filters=dict()):
     pass
     
 # ----------------------------------------------------------------------------------------------------------------------

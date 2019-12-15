@@ -146,11 +146,13 @@ def create_an_ipv4_object_from_a_cumulus_output_command(context) -> None:
         cmd_output=open_file(
             path=f"{FEATURES_OUTPUT_PATH}cumulus_show_interface.json"
         ),
-        get_loopback=False,
-        get_physical=True,
-        get_vni=False,
-        get_peerlink=False,
-        get_vlan=False
+        filters={
+            "get_loopback": False,
+            "get_physical": True,
+            "get_vlan": False,
+            "get_peerlink": False,
+            "get_vni": False
+        }
     )
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -197,11 +199,13 @@ def create_an_ipv4_object_from_a_nexus_output_command(context) -> None:
         hostname="leaf01",
         plateform="nxos",
         cmd_outputs=outputs_lst,
-        get_loopback=False,
-        get_physical=False,
-        get_vni=False,
-        get_peerlink=False,
-        get_vlan=True
+        filters={
+            "get_loopback": False,
+            "get_physical": False,
+            "get_vlan": True,
+            "get_peerlink": False,
+            "get_vni": False
+        }
     )
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -223,11 +227,13 @@ def create_an_ipv4_object_from_a_arista_output_command(context) -> None:
         cmd_output=open_file(
             path=f"{FEATURES_OUTPUT_PATH}arista_show_ip_interface.json"
         ),
-        get_loopback=True,
-        get_physical=True,
-        get_vni=False,
-        get_peerlink=False,
-        get_vlan=True
+        filters={
+            "get_loopback": True,
+            "get_physical": True,
+            "get_vlan": True,
+            "get_peerlink": False,
+            "get_vni": False
+        }
     )
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -258,11 +264,13 @@ def create_an_ipv4_object_from_a_ios_output_command(context) -> None:
         hostname="leaf05",
         plateform="ios",
         cmd_output=parsed_results,
-        get_loopback=True,
-        get_physical=False,
-        get_vni=False,
-        get_peerlink=False,
-        get_vlan=True
+        filters={
+            "get_loopback": True,
+            "get_physical": False,
+            "get_vlan": True,
+            "get_peerlink": False,
+            "get_vni": False
+        }
     )
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -284,11 +292,13 @@ def create_an_ipv4_object_from_a_juniper_output_command(context) -> None:
         cmd_output=open_file(
             path=f"{FEATURES_OUTPUT_PATH}juniper_show_interfaces_brief.json"
         ),
-        get_loopback=True,
-        get_physical=True,
-        get_vni=False,
-        get_peerlink=False,
-        get_vlan=True
+        filters={
+            "get_loopback": True,
+            "get_physical": True,
+            "get_vlan": True,
+            "get_peerlink": False,
+            "get_vni": False
+        }
     )
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -347,11 +357,13 @@ def create_an_ipv4_object_from_a_extreme_vsp_output_command(context) -> None:
         hostname="spine02",
         plateform="extreme_vsp",
         cmd_output=outputs_dict,
-        get_vlan=False,
-        get_loopback=True,
-        get_peerlink=False,
-        get_vni=False,
-        get_physical=True
+        filters={
+            "get_loopback": True,
+            "get_physical": True,
+            "get_vlan": False,
+            "get_peerlink": False,
+            "get_vni": False
+        }
     )
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -373,11 +385,13 @@ def create_an_ipv4_object_from_a_napalm_output_command(context) -> None:
         cmd_output=open_file(
             path=f"{FEATURES_OUTPUT_PATH}napalm_get_interfaces.json"
         ),
-        get_loopback=True,
-        get_physical=True,
-        get_vni=False,
-        get_peerlink=False,
-        get_vlan=False
+        filters={
+            "get_loopback": True,
+            "get_physical": True,
+            "get_vlan": False,
+            "get_peerlink": False,
+            "get_vni": False
+        }
     )
 
 # ----------------------------------------------------------------------------------------------------------------------

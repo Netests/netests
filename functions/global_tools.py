@@ -61,46 +61,45 @@ except ImportError as importError:
 # ------------------------------------------------------------------------------------------------------------------
 #
 #
-def _generic_interface_filter(plateform, interface_name,*, get_vlan=True, get_loopback=True,
-                              get_peerlink=True, get_vni=False, get_physical=True) -> bool:
+def _generic_interface_filter(plateform, interface_name,* , filters=dict()) -> bool:
 
     if "linux" in plateform and "bridge" not in interface_name and "v0" not in interface_name and \
-            ((get_vlan and "vlan" in interface_name) or \
-             (get_loopback and "lo" in interface_name) or \
-             (get_peerlink and "peerlink" in interface_name) or \
-             (get_vni and "vni" in interface_name) or \
-             (get_physical and ("swp" in interface_name or "eth" in interface_name))):
+            ((filters.get('get_vlan', True) and "vlan" in interface_name) or \
+             (filters.get('get_loopback', True) and "lo" in interface_name) or \
+             (filters.get('get_peerlink', True) and "peerlink" in interface_name) or \
+             (filters.get('get_vni', True) and "vni" in interface_name) or \
+             (filters.get('get_physical', True) and ("swp" in interface_name or "eth" in interface_name))):
         return True
 
     elif "nxos" in plateform and \
-            ((get_vlan and "VLAN" in str(interface_name).upper()) or \
-             (get_loopback and "LO" in str(interface_name).upper()) or \
-             (get_physical and ("ETH" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
+            ((filters.get('get_vlan', True) and "VLAN" in str(interface_name).upper()) or \
+             (filters.get('get_loopback', True) and "LO" in str(interface_name).upper()) or \
+             (filters.get('get_physical', True) and ("ETH" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
         return True
 
     elif "eos" in plateform and \
-            ((get_vlan and "VLAN" in str(interface_name).upper()) or \
-             (get_loopback and "LO" in str(interface_name).upper()) or \
-             (get_physical and ("ETH" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
+            ((filters.get('get_vlan', True) and "VLAN" in str(interface_name).upper()) or \
+             (filters.get('get_loopback', True) and "LO" in str(interface_name).upper()) or \
+             (filters.get('get_physical', True) and ("ETH" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
         return True
 
     elif "ios" in plateform and \
-            ((get_vlan and "." in str(interface_name).upper()) or \
-             (get_loopback and "LO" in str(interface_name).upper()) or \
-             (get_physical and ("GI" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
+            ((filters.get('get_vlan', True) and "." in str(interface_name).upper()) or \
+             (filters.get('get_loopback', True) and "LO" in str(interface_name).upper()) or \
+             (filters.get('get_physical', True) and ("GI" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
         return True
 
     elif "junos" in plateform and \
-            ((get_vlan and "VLAN" in str(interface_name).upper()) or \
-             (get_loopback and "LO" in str(interface_name).upper()) or \
-             (get_physical and ("EM" in str(interface_name).upper() or "FXP" in str(interface_name).upper() or \
+            ((filters.get('get_vlan', True) and "VLAN" in str(interface_name).upper()) or \
+             (filters.get('get_loopback', True) and "LO" in str(interface_name).upper()) or \
+             (filters.get('get_physical', True) and ("EM" in str(interface_name).upper() or "FXP" in str(interface_name).upper() or \
                      "GE" in str(interface_name).upper()))):
         return True
 
     elif "extreme_vsp" in plateform and \
-            ((get_vlan and "VLAN" in str(interface_name).upper()) or \
-             (get_loopback and "LO" in str(interface_name).upper()) or \
-             (get_physical and ("PORT" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
+            ((filters.get('get_vlan', True) and "VLAN" in str(interface_name).upper()) or \
+             (filters.get('get_loopback', True) and "LO" in str(interface_name).upper()) or \
+             (filters.get('get_physical', True) and ("PORT" in str(interface_name).upper() or "MGMT" in str(interface_name).upper()))):
         return True
 
     return False

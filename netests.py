@@ -479,11 +479,7 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
 
             get_ipv4(
                 nr=nr,
-                get_vlan=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_vlan", True),
-                get_loopback=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_loopback", True),
-                get_peerlink=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_peerlink", True),
-                get_vni=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_vni", True),
-                get_physical=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("get_physical", True)
+                filters=test_to_execute.get(TEST_TO_EXC_IPV4_KEY).get("filters", dict({})),
             )
 
             ipv4_yaml_data = open_file(
@@ -648,11 +644,7 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
 
             get_ipv6(
                 nr=nr,
-                get_vlan=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("get_vlan", True),
-                get_loopback=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("get_loopback", True),
-                get_peerlink=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("get_peerlink", True),
-                get_vni=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("get_vni", True),
-                get_physical=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("get_physical", True)
+                filters=test_to_execute.get(TEST_TO_EXC_IPV6_KEY).get("filters", dict({})),
             )
 
             ipv6_yaml_data = open_file(
