@@ -159,6 +159,7 @@ CUMULUS_GET_MTU = "net show interface all json"
 CUMULUS_GET_MLAG = "net show clag json"
 CUMULUS_GET_VLAN_VRF = "net show vrf list"
 CUMULUS_GET_VLAN = "net show interface json"
+CUMULUS_GET_VLAN_MEM = "net show bridge vlan json"
 
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
@@ -322,6 +323,7 @@ VLAN_DATA_HOST_KEY = "vlan_data"
 VLAN_WORKS_KEY = "vlan_works"
 VLAN_VRF_LIST_KEY = "get_vlan_vrf"
 VLAN_VRF_DETAIL_KEY = "get_vlan_detail"
+VLAN_VRF_MEMBERS_KEY = "get_vlan_members"
 VLAN_GET_L2 = "get_vlan_l2"
 VLAN_GET_L3 = "get_vlan_l3"
 VLAN_GET_INT = "get_vlan_int"

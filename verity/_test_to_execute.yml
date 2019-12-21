@@ -58,4 +58,11 @@ mtu: false
 # Check L2VNI
 l2vni: false
 # Check L2VNI
-vlan: false
+vlan:
+  test: true
+  filters:
+    get_default: false
+    get_bridge: false
+    get_vni: false
+    get_peerlink: false
+    get_lag: true

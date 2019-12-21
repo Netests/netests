@@ -1,0 +1,106 @@
+{
+    "vni101004": [
+        {
+            "vlan": 1004,
+            "flags": [
+                "PVID",
+                "Egress Untagged"
+            ],
+            "vni": 101004
+        }
+    ],
+    "vni101005": [
+        {
+            "vlan": 1005,
+            "flags": [
+                "PVID",
+                "Egress Untagged"
+            ],
+            "vni": 101005
+        }
+    ],
+    "peerlink": [
+        {
+            "vlan": 1,
+            "flags": [
+                "PVID",
+                "Egress Untagged"
+            ]
+        },
+        {
+            "vlanEnd": 1005,
+            "vlan": 1000,
+            "flags": []
+        }
+    ],
+    "vni101001": [
+        {
+            "vlan": 1001,
+            "flags": [
+                "PVID",
+                "Egress Untagged"
+            ],
+            "vni": 101001
+        }
+    ],
+    "vni101002": [
+        {
+            "vlan": 1002,
+            "flags": [
+                "PVID",
+                "Egress Untagged"
+            ],
+            "vni": 101002
+        }
+    ],
+    "vni101003": [
+        {
+            "vlan": 1003,
+            "flags": [
+                "PVID",
+                "Egress Untagged"
+            ],
+            "vni": 101003
+        }
+    ],
+    "bond01": [
+        {
+            "vlan": 1,
+            "flags": [
+                "PVID",
+                "Egress Untagged"
+            ]
+        }
+    ],
+    "bridge": [
+        {
+            "vlanEnd": 1005,
+            "vlan": 1000,
+            "flags": []
+        },
+        {
+            "vlanEnd": 4005,
+            "vlan": 4000,
+            "flags": []
+        }
+    ],
+    "bond02": [
+        {
+            "vlan": 1000,
+            "flags": [
+                "PVID",
+                "Egress Untagged"
+            ]
+        }
+    ],
+    "vni101000": [
+        {
+            "vlan": 1000,
+            "flags": [
+                "PVID",
+                "Egress Untagged"
+            ],
+            "vni": 101000
+        }
+    ]
+}

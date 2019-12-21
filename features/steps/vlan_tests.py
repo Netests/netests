@@ -221,9 +221,20 @@ def create_an_vlan_object_from_a_cumulus_output_command(context) -> None:
         path=f"{FEATURES_OUTPUT_PATH}cumulus_net_show_interface.json"
     )
 
+    outputs_dict[VLAN_VRF_MEMBERS_KEY] = open_file(
+        path=f"{FEATURES_OUTPUT_PATH}cumulus_net_show_bridge_vlan.json"
+    )
+
     context.object_04 = _cumulus_vlan_converter(
         hostname="leaf01",
-        cmd_output=outputs_dict
+        cmd_output=outputs_dict,
+        filters={
+            "get_default": False,
+            "get_bridge": False,
+            "get_vni": False,
+            "get_peerlink": False,
+            "get_lag": True
+        }
     )
 
 

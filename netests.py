@@ -620,9 +620,13 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
     # 13. Check VLAN
     # ''''''''''''''''''''''''''''''''''''''''''''
     if TEST_TO_EXC_VLAN_KEY in test_to_execute.keys():
-        if test_to_execute[TEST_TO_EXC_VLAN_KEY] is True:
+        if test_to_execute.get(TEST_TO_EXC_VLAN_KEY).get('test', False) is True:
 
-            get_vlan(nr)
+            get_vlan(
+                nr=nr,
+                filters=test_to_execute.get(TEST_TO_EXC_VLAN_KEY).get("filters", dict({}))
+            )
+
             same = compare_vlan(
                 nr=nr,
                 vlan_yaml_data=open_file(f"{PATH_TO_VERITY_FILES}{VLAN_SRC_FILENAME}")

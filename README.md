@@ -212,7 +212,7 @@ leaf03:
 | OSPF      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
 | SysInfos  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | Ping      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| Socket v4 |        :x:         | :white_check_mark:(1) | :white_check_mark:(4) |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+| Socket v4 |        :x:         | :white_check_mark:(1) | :white_check_mark:(4) |        :x:         |        :x:         |        :x:         |        :x:         | :sleepy:        |
 | Static    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
 | VRF       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :white_check_mark:         | :white_check_mark: |
 | LLDP      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
@@ -222,7 +222,8 @@ leaf03:
 | MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:(3)  |
 | MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | L2VNI | :x: | :sleepy:(2) | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| VLAN | :x: | :white_check_mark: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: |
+| LACP | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
+| VLAN | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: |
 |  | | | | | | | | |
 | MVP ^^^   |                    |                    |                    |                    |                    |                    |                    |                    |
 |           |                    |                    |                    |                    |                    |                    |                    |                    |

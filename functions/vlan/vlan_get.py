@@ -79,7 +79,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_vlan(nr: Nornir):
+def get_vlan(nr: Nornir, filters:dict):
 
     devices = nr.filter()
 
@@ -88,16 +88,17 @@ def get_vlan(nr: Nornir):
 
     data = devices.run(
         task=generic_vlan_get,
+        filters=filters,
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Generic function
 #
-def generic_vlan_get(task):
+def generic_vlan_get(task, filters:dict):
 
 
     if VLAN_DATA_HOST_KEY not in task.host.keys():
@@ -112,26 +113,26 @@ def generic_vlan_get(task):
                     use_ssh = True
 
         if task.host.platform == CUMULUS_PLATEFORM_NAME:
-            _cumulus_get_vlan(task)
+            _cumulus_get_vlan(task, filters)
 
         elif task.host.platform == EXTREME_PLATEFORM_NAME:
-            _extreme_vsp_get_vlan(task)
+            _extreme_vsp_get_vlan(task, filters)
 
         elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
             if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
-                _nexus_get_vlan(task)
+                _nexus_get_vlan(task, filters)
 
             if use_ssh and CISCO_IOS_PLATEFORM_NAME == task.host.platform:
-                _ios_get_vlan(task)
+                _ios_get_vlan(task, filters)
 
             elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
-                _arista_get_vlan(task)
+                _arista_get_vlan(task, filters)
 
             elif use_ssh and JUNOS_PLATEFORM_NAME == task.host.platform:
-                _juniper_get_vlan(task)
+                _juniper_get_vlan(task, filters)
 
             else:
-                _generic_vlan_napalm(task)
+                _generic_vlan_napalm(task, filters)
 
         else:
             # RAISE EXCEPTIONS
@@ -141,7 +142,7 @@ def generic_vlan_get(task):
 #
 # Function for devices which are compatible with NAPALM
 #
-def _generic_vlan_napalm(task):
+def _generic_vlan_napalm(task, filters):
     pass
 
 
@@ -149,7 +150,7 @@ def _generic_vlan_napalm(task):
 #
 # Cumulus Networks
 #
-def _cumulus_get_vlan(task):
+def _cumulus_get_vlan(task, filters:dict):
 
     outputs_dict = dict()
 
@@ -183,9 +184,21 @@ def _cumulus_get_vlan(task):
     if output.result != "":
         outputs_dict[VLAN_VRF_DETAIL_KEY] = json.loads(output.result)
 
+
+    output = task.run(
+        name=f"{CUMULUS_GET_VLAN_MEM}",
+        task=netmiko_send_command,
+        command_string=CUMULUS_GET_VLAN_MEM
+    )
+    # print(output.result)
+
+    if output.result != "":
+        outputs_dict[VLAN_VRF_MEMBERS_KEY] = json.loads(output.result)
+
     vlans = _cumulus_vlan_converter(
         hostname=task.host.name,
-        cmd_output=outputs_dict
+        cmd_output=outputs_dict,
+        filters=filters
     )
 
     task.host[VLAN_DATA_HOST_KEY] = vlans
@@ -194,7 +207,7 @@ def _cumulus_get_vlan(task):
 #
 # Extreme Networks (VSP)
 #
-def _extreme_vsp_get_vlan(task):
+def _extreme_vsp_get_vlan(task, filters:dict):
     pass
 
 
@@ -202,7 +215,7 @@ def _extreme_vsp_get_vlan(task):
 #
 # Cisco Nexus NXOS
 #
-def _nexus_get_vlan(task):
+def _nexus_get_vlan(task, filters:dict):
     pass
 
 
@@ -210,7 +223,7 @@ def _nexus_get_vlan(task):
 #
 # Cisco IOS
 #
-def _ios_get_vlan(task):
+def _ios_get_vlan(task, filters:dict):
     pass
 
 
@@ -218,7 +231,7 @@ def _ios_get_vlan(task):
 #
 # Arista vEOS
 #
-def _arista_get_vlan(task):
+def _arista_get_vlan(task, filters:dict):
 
     outputs_dict = dict()
 
@@ -250,7 +263,8 @@ def _arista_get_vlan(task):
 
     vlans = _arista_vlan_converter(
         hostname=task.host.name,
-        cmd_output=outputs_dict
+        cmd_output=outputs_dict,
+        filters=filters
     )
 
     task.host[VLAN_DATA_HOST_KEY] = vlans
@@ -259,5 +273,5 @@ def _arista_get_vlan(task):
 #
 # Juniper JunOS
 #
-def _juniper_get_vlan(task):
+def _juniper_get_vlan(task, filters:dict):
     pass
