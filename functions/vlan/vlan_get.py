@@ -34,6 +34,13 @@ except ImportError as importError:
     print(importError)
 
 try:
+    from functions.bond.bond_get import get_bond
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.bond.bond_get")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
     from functions.vlan.vlan_converters import _napalm_vlan_converter
     from functions.vlan.vlan_converters import _cumulus_vlan_converter
     from functions.vlan.vlan_converters import _extreme_vsp_vlan_converter
@@ -86,13 +93,19 @@ def get_vlan(nr: Nornir, filters:dict):
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
+    if filters.get("get_bond", True):
+        get_bond(
+            nr=nr,
+            filters=filters
+        )
+
     data = devices.run(
         task=generic_vlan_get,
         filters=filters,
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -196,7 +209,7 @@ def _cumulus_get_vlan(task, filters:dict):
         outputs_dict[VLAN_VRF_MEMBERS_KEY] = json.loads(output.result)
 
     vlans = _cumulus_vlan_converter(
-        hostname=task.host.name,
+        bond_lst=task.host[BOND_DATA_LIST_KEY],
         cmd_output=outputs_dict,
         filters=filters
     )

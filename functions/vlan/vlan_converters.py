@@ -76,7 +76,7 @@ except ImportError as importError:
 #
 # Apply VLAN filters
 #
-def _filter_vlan_values(result_dict:dict, interface_name, vlan_id, filters:dict) -> dict:
+def _filter_vlan_values(bond_lst:list, result_dict:dict, interface_name, vlan_id, filters:dict) -> dict:
     """
     This function will apply filters defined in netests configurations file.
     vlan:
@@ -98,12 +98,16 @@ def _filter_vlan_values(result_dict:dict, interface_name, vlan_id, filters:dict)
             result_dict[str(vlan_id)] = list()
 
     if str(vlan_id) in result_dict.keys():
-        if (str(interface_name) == "bridge" and filters.get("get_bridge", True) is True) or \
-                (str(interface_name) == "peerlink" and filters.get("get_peerlink", True) is True) or \
-                ("vni" in str(interface_name) and filters.get("get_vni", True) is True) or \
-                ("bridge" not in str(interface_name) and "vni" not in str(interface_name) and "peerlink" not in str(interface_name)):
+        if ('bridge' in str(interface_name) and filters.get("get_bridge", True) is True) or \
+                (str(interface_name) in bond_lst and filters.get("get_lag", True) is True) or \
+                ('vni' in str(interface_name) and filters.get("get_vni", True) is True) or \
+                ("bridge" not in str(interface_name) and "vni" not in str(interface_name) and \
+                 "peerlink" not in str(interface_name) and str(interface_name) not in bond_lst):
 
-            result_dict.get(str(vlan_id)).append(str(interface_name))
+            if ('peerlink' in str(interface_name) and filters.get("get_peerlink", True) is True) or \
+                    "peerlink" not in str(interface_name):
+
+                result_dict.get(str(vlan_id)).append(str(interface_name))
 
     return result_dict
 
@@ -111,7 +115,7 @@ def _filter_vlan_values(result_dict:dict, interface_name, vlan_id, filters:dict)
 #
 # NAPALM vlan converter
 #
-def _napalm_vlan_converter(hostname:str(), cmd_output:json) -> ListVLAN:
+def _napalm_vlan_converter(bond_lst:list, cmd_output:json) -> ListVLAN:
     pass
 
 
@@ -119,7 +123,7 @@ def _napalm_vlan_converter(hostname:str(), cmd_output:json) -> ListVLAN:
 #
 # Cumulus vlan converter
 #
-def _cumulus_vlan_converter(hostname:str(), cmd_output:json, filters:dict) -> ListVLAN:
+def _cumulus_vlan_converter(bond_lst:list, cmd_output:json, filters:dict) -> ListVLAN:
 
     if cmd_output is None:
         return None
@@ -132,6 +136,7 @@ def _cumulus_vlan_converter(hostname:str(), cmd_output:json, filters:dict) -> Li
 
     if VLAN_VRF_MEMBERS_KEY in cmd_output.keys():
         vlan_members = _cumulus_vlan_members_converter(
+            bond_lst=bond_lst,
             cmd_output=cmd_output.get(VLAN_VRF_MEMBERS_KEY),
             filters=filters
         )
@@ -207,7 +212,7 @@ def _cumulus_vlan_converter(hostname:str(), cmd_output:json, filters:dict) -> Li
 #
 # Cumulus VLAN members converter
 #
-def _cumulus_vlan_members_converter(cmd_output:json, filters:dict) -> json:
+def _cumulus_vlan_members_converter(bond_lst:list, cmd_output:json, filters:dict) -> json:
     """
     On Cumulus devices with the command "net show bridge vlan json" you get the interface vlan members.
     Example :
@@ -237,6 +242,7 @@ def _cumulus_vlan_members_converter(cmd_output:json, filters:dict) -> json:
                 i = 0
                 while vlan.get("vlan") + i <=  vlan.get("vlanEnd"):
                     result_dict = _filter_vlan_values(
+                        bond_lst=bond_lst,
                         result_dict=result_dict,
                         interface_name=interface_name,
                         vlan_id=str(vlan.get("vlan")+i),
@@ -246,6 +252,7 @@ def _cumulus_vlan_members_converter(cmd_output:json, filters:dict) -> json:
 
             else:
                 result_dict = _filter_vlan_values(
+                    bond_lst=bond_lst,
                     result_dict=result_dict,
                     interface_name=interface_name,
                     vlan_id=str(vlan.get("vlan")),

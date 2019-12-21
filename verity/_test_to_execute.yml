@@ -59,7 +59,7 @@ mtu: false
 l2vni: false
 # Check L2VNI
 vlan:
-  test: false
+  test: true
   filters:
     get_default: false
     get_bridge: false

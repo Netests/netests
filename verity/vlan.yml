@@ -8,6 +8,7 @@
 # mac_address
 leaf01:
   - vlan_id: 1000
+    ports_members: ['test-server-01', 'bond02']
   - vlan_id: 4000
   - vlan_id: 1001
   - vlan_id: 4001
@@ -19,7 +20,6 @@ leaf01:
   - vlan_id: 4004
   - vlan_id: 1005
   - vlan_id: 4005
-  - vlan_id: 998
 
 
 leaf03:

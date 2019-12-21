@@ -226,7 +226,7 @@ def create_an_vlan_object_from_a_cumulus_output_command(context) -> None:
     )
 
     context.object_04 = _cumulus_vlan_converter(
-        hostname="leaf01",
+        bond_lst=["bond02"],
         cmd_output=outputs_dict,
         filters={
             "get_default": False,
