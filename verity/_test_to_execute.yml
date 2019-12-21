@@ -66,3 +66,6 @@ vlan:
     get_vni: false
     get_peerlink: false
     get_lag: true
+# Check BOND
+bond:
+  test: true

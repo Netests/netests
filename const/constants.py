@@ -100,6 +100,7 @@ INFOS_SRC_FILENAME = "sys_infos.yml"
 MTU_SRC_FILENAME = "mtu.yml"
 L2VNI_SRC_FILENAME = "l2vni.yml"
 VLAN_SRC_FILENAME = "vlan.yml"
+BOND_SRC_FILENAME = "bond.yml"
 TEST_TO_EXC_BGP_KEY = 'bgp'
 TEST_TO_EXC_BGP_UP_KEY = 'bgp_all_up'
 TEST_TO_EXC_VRF_KEY = 'vrf'
@@ -116,6 +117,7 @@ TEST_TO_EXC_MTU_KEY = "mtu"
 TEST_TO_EXC_MLAG_KEY = "mlag"
 TEST_TO_EXC_L2VNI_KEY = "l2vni"
 TEST_TO_EXC_VLAN_KEY = "vlan"
+TEST_TO_EXC_BOND_KEY = "bond"
 
 YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
@@ -160,6 +162,7 @@ CUMULUS_GET_MLAG = "net show clag json"
 CUMULUS_GET_VLAN_VRF = "net show vrf list"
 CUMULUS_GET_VLAN = "net show interface json"
 CUMULUS_GET_VLAN_MEM = "net show bridge vlan json"
+CUMULUS_GET_BOND = "net show interface bonds json"
 
 ##### NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
@@ -327,3 +330,8 @@ VLAN_VRF_MEMBERS_KEY = "get_vlan_members"
 VLAN_GET_L2 = "get_vlan_l2"
 VLAN_GET_L3 = "get_vlan_l3"
 VLAN_GET_INT = "get_vlan_int"
+
+
+#### BOND
+BOND_DATA_HOST_KEY = "bond_data"
+BOND_WORKS_KEY = "bond_works"
