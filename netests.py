@@ -39,6 +39,14 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from functions.bond.bond_compare import compare_bond
+    from functions.bond.bond_get import get_bond
+except ImportError as importError:
+    print(f"{ERROR_HEADER} functions.bond")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     from functions.vlan.vlan_compare import compare_vlan
     from functions.vlan.vlan_get import get_vlan
 except ImportError as importError:
@@ -662,6 +670,35 @@ def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
             print(f"{HEADER} IPv6 addresses have not been executed !!")
     else:
         print(f"{HEADER} IPv6 addresses key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
+
+
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    # 15. Check BOND
+    # ''''''''''''''''''''''''''''''''''''''''''''
+    if TEST_TO_EXC_BOND_KEY in test_to_execute.keys():
+        if test_to_execute[TEST_TO_EXC_BOND_KEY].get('test') is True:
+
+            get_bond(
+                nr=nr,
+                filters=test_to_execute.get(TEST_TO_EXC_BOND_KEY).get("filters", dict({})),
+            )
+
+            bond_yaml_data = open_file(
+                path=f"{PATH_TO_VERITY_FILES}{BOND_SRC_FILENAME}"
+            )
+
+            same = compare_bond(
+                nr=nr,
+                bond_yaml_data=bond_yaml_data
+            )
+
+            if test_to_execute[TEST_TO_EXC_BOND_KEY] is True and same is False:
+                exit_value = False
+            print(f"{HEADER} BOND defined in {PATH_TO_VERITY_FILES}{BOND_SRC_FILENAME} work = {same} !!")
+        else:
+            print(f"{HEADER} BOND have not been executed !!")
+    else:
+        print(f"{HEADER} BOND key is not defined in {PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!")
 
     return EXIT_SUCCESS
 

@@ -29,7 +29,7 @@ except ImportError as importError:
     print(f"{ERROR_HEADER} const.constants")
     print(importError)
     exit(EXIT_FAILURE)
-w
+
 try:
     from functions.global_tools import *
 except ImportError as importError:

@@ -222,7 +222,7 @@ leaf03:
 | MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:(3)  |
 | MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | L2VNI | :x: | :sleepy:(2) | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| LACP | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
+| LACP | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | VLAN | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: |
 |  | | | | | | | | |
 | MVP ^^^   |                    |                    |                    |                    |                    |                    |                    |                    |

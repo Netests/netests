@@ -16,7 +16,7 @@ mlag: false
 # Check pings
 ping: false
 # Test sockets
-socket: true
+socket: false
 # Check Link Discovery Protocols sessions
 lldp: false
 cdp: false
@@ -59,7 +59,7 @@ mtu: false
 l2vni: false
 # Check L2VNI
 vlan:
-  test: true
+  test: false
   filters:
     get_default: false
     get_bridge: false

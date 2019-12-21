@@ -1,0 +1,20 @@
+leaf01:
+  - bond_name: peerlink
+    ports_members: ['swp6', 'swp7']
+    vlans_members: ['1', '1000', '1001', '1002', '1003', '1004', '1005']
+    native_vlan: 1
+
+  - bond_name: test-server-01
+    ports_members: ['swp5']
+    vlans_members: ['1', '1000']
+    native_vlan: 1
+
+  - bond_name: bond01
+    ports_members: ['swp3']
+    vlans_members: ['1']
+    native_vlan: 1
+
+  - bond_name: bond02
+    ports_members: ['swp4']
+    vlans_members: ['1000']
+    native_vlan: 1000

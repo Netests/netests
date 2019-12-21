@@ -110,4 +110,37 @@ def _compare_transit_bond(task, bond_yaml_data:json):
 # Compare function
 #
 def _compare_bond(host_keys, hostname, bond_host_data:None, bond_yaml_data:json) -> bool:
-    pass
+
+    if bond_yaml_data is None:
+        return False
+
+    verity_bonds_lst = ListBOND(
+        bonds_lst=list()
+    )
+
+    if BOND_DATA_HOST_KEY in host_keys and hostname in bond_yaml_data.keys():
+        for bond in bond_yaml_data.get(hostname):
+
+            ports_members = list()
+            for port in bond.get("ports_members", NOT_SET):
+                ports_members.append(
+                    _mapping_interface_name(
+                        port
+                    )
+                )
+
+            verity_bonds_lst.bonds_lst.append(
+                BOND(
+                    bond_name=bond.get("bond_name", NOT_SET),
+                    ports_members=ports_members,
+                    vlans_members=bond.get("vlans_members", list()),
+                    native_vlan=bond.get("native_vlan", NOT_SET),
+                    mode=bond.get("mode", NOT_SET),
+                )
+            )
+
+        return verity_bonds_lst == bond_host_data
+
+    else:
+        print(f"{HEADER_GET} {hostname} is not present in {PATH_TO_VERITY_FILES}/{TEST_TO_EXC_BOND_KEY}.")
+        return False

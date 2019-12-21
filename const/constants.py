@@ -335,3 +335,4 @@ VLAN_GET_INT = "get_vlan_int"
 #### BOND
 BOND_DATA_HOST_KEY = "bond_data"
 BOND_WORKS_KEY = "bond_works"
+BOND_DATA_LIST_KEY = "bond_data_list"

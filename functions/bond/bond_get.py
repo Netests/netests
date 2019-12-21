@@ -34,6 +34,13 @@ except ImportError as importError:
     print(importError)
 
 try:
+    from protocols.bond import BOND, ListBOND
+except ImportError as importError:
+    print(f"{ERROR_HEADER} protocols.bond")
+    exit(EXIT_FAILURE)
+    print(importError)
+
+try:
     from functions.bond.bond_converters import _napalm_bond_converter
     from functions.bond.bond_converters import _cumulus_bond_converter
     from functions.bond.bond_converters import _arista_bond_converter
@@ -92,7 +99,7 @@ def get_bond(nr: Nornir, filters:dict):
         on_failed=True,
         num_workers=10
     )
-    print_result(data)
+    #print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -140,6 +147,24 @@ def generic_bond_get(task, filters:dict):
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Bond Name liste
+#
+def _create_bond_name_list(bond_lst:ListBOND) -> list:
+    """
+    This function will retrieve all Bond defined in a ListBOND object and return a list with all bond name
+
+    :param bond_lst:
+    :return list:
+    """
+    bond_name_lst = list()
+
+    for bond in bond_lst.bonds_lst:
+        bond_name_lst.append(bond.bond_name)
+
+    return bond_name_lst
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Function for devices which are compatible with NAPALM
 #
 def _generic_bond_napalm(task, filters):
@@ -152,8 +177,6 @@ def _generic_bond_napalm(task, filters):
 #
 def _cumulus_get_bond(task, filters:dict):
 
-    outputs_dict = dict()
-
     output = task.run(
         name=f"{CUMULUS_GET_BOND}",
         task=netmiko_send_command,
@@ -163,11 +186,12 @@ def _cumulus_get_bond(task, filters:dict):
 
     bonds = _cumulus_bond_converter(
         hostname=task.host.name,
-        cmd_output=outputs_dict,
+        cmd_output=json.loads(output.result),
         filters=filters
     )
 
     task.host[BOND_DATA_HOST_KEY] = bonds
+    task.host[BOND_DATA_LIST_KEY] = _create_bond_name_list(bonds)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
