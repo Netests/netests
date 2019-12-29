@@ -1,0 +1,78 @@
+{
+    "interfaces": {
+        "Ethernet2": {
+            "linkLocal": {
+                "subnet": "fe80::/64",
+                "dadfailed": false,
+                "active": true,
+                "address": "fe80::5200:ff:fe03:3766"
+            },
+            "dadStatus": "unavailable",
+            "vrf": "default",
+            "maxMssIngress": 0,
+            "name": "Ethernet2",
+            "ndReachableTime": 30000,
+            "interfaceStatus": "connected",
+            "autoConfigStatus": "stateless",
+            "multicastGroupAddresses": [
+                "ff02::1",
+                "ff02::1:ff00:2",
+                "ff02::1:ff03:3766"
+            ],
+            "urpf": "disable",
+            "maxMssEgress": 0,
+            "enhancedDad": false,
+            "urpfV4V6Mismatch": false,
+            "state": "enabled",
+            "lineProtocolStatus": "up",
+            "addrSource": "manual",
+            "dadAttempts": -1,
+            "ndRetransmitInterval": 1000,
+            "addresses": [
+                {
+                    "subnet": "2001:cafe:c0ca:203::/64",
+                    "dadfailed": false,
+                    "active": true,
+                    "address": "2001:cafe:c0ca:203::2"
+                }
+            ]
+        },
+        "Ethernet1": {
+            "linkLocal": {
+                "subnet": "fe80::/64",
+                "dadfailed": false,
+                "active": true,
+                "address": "fe80::5200:ff:fe03:3766"
+            },
+            "dadStatus": "unavailable",
+            "vrf": "default",
+            "maxMssIngress": 0,
+            "name": "Ethernet1",
+            "ndReachableTime": 30000,
+            "interfaceStatus": "connected",
+            "autoConfigStatus": "stateless",
+            "multicastGroupAddresses": [
+                "ff02::1",
+                "ff02::1:ff00:2",
+                "ff02::1:ff03:3766"
+            ],
+            "urpf": "disable",
+            "maxMssEgress": 0,
+            "enhancedDad": false,
+            "urpfV4V6Mismatch": false,
+            "state": "enabled",
+            "lineProtocolStatus": "up",
+            "addrSource": "manual",
+            "dadAttempts": -1,
+            "ndRetransmitInterval": 1000,
+            "addresses": [
+                {
+                    "subnet": "2001:cafe:c0ca:103::/64",
+                    "dadfailed": false,
+                    "active": true,
+                    "address": "2001:cafe:c0ca:103::2"
+                }
+            ]
+        }
+    }
+}

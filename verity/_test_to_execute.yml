@@ -23,6 +23,7 @@ cdp: false
 # Check IPv4 addresses
 ipv4:
   test: false
+  # By default, filters is true
   filters:
     get_physical: false
     get_vlan: true
@@ -31,8 +32,9 @@ ipv4:
     get_vni: false
 # Check IPv6 addresses
 ipv6:
-  test: false
+  test: true
   filters:
+    # By default, filters is true
     get_physical: true
     get_vlan: true
     get_loopback: false
@@ -59,7 +61,7 @@ mtu: false
 l2vni: false
 # Check L2VNI
 vlan:
-  test: true
+  test: false
   filters:
     get_default: false
     get_bridge: false
@@ -68,4 +70,4 @@ vlan:
     get_lag: true
 # Check BOND
 bond:
-  test: true
+  test: false

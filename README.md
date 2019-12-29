@@ -218,7 +218,7 @@ leaf03:
 | LLDP      |        :x:         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | CDP       |      :sleepy:      | :white_check_mark: | :sleepy:           | :white_check_mark: | :white_check_mark: |        :x:         |      :sleepy:      | :sleepy:           |
 | IPv4      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |       :white_check_mark:         | :white_check_mark: |
-| IPv6      |        :x:         | :white_check_mark: | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
+| IPv6      |        :x:         | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:(3)  |
 | MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | L2VNI | :x: | :sleepy:(2) | :x: | :x: | :x: | :x: | :x: | :sleepy: |
@@ -269,16 +269,16 @@ Join the Telegram channel to have access to Trello
 
 ## Pipeline
 
-|             | MTU                | MLAG               | VLAN               | IPv4               | IPv6 | Static             | BGP                | OSPF               | SysInfos           | CDP  | LLDP | VRF  | Ping | Socket |
-| ----------- | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ---- | ---- | ---- | ------ |
-| NAPALM      |                    |                    |                    | :white_check_mark: |      |                    |                    |                    |                    |      |      |      |      |        |
-| Juniper     |                    |                    |                    | :white_check_mark: |      | :white_check_mark: |                    | :white_check_mark: |                    |      |      |      |      |        |
-| Cumulus     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
-| Arista      | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: |      | :white_check_mark: |                    |                    |                    |      |      |      |      |        |
-| Nexus       | :white_check_mark: |                    |                    | :white_check_mark: |      |                    |                    |                    | :white_check_mark: |      |      |      |      |        |
-| IOS         |                    |                    |                    | :white_check_mark: |      |                    |                    | :white_check_mark: |                    |      |      |      |      |        |
-| Extreme VSP |                    |                    |                    | :white_check_mark: |      |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
-| IOS-XR      |                    |                    |                    |                    |      |                    |                    |                    |                    |      |      |      |      |        |
+|             | MTU                | MLAG               | VLAN               | IPv4               | IPv6               | Static             | BGP                | OSPF               | SysInfos           | CDP  | LLDP | VRF  | Ping | Socket |
+| ----------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ---- | ---- | ---- | ------ |
+| NAPALM      |                    |                    |                    | :white_check_mark: |                    |                    |                    |                    |                    |      |      |      |      |        |
+| Juniper     |                    |                    |                    | :white_check_mark: |                    | :white_check_mark: |                    | :white_check_mark: |                    |      |      |      |      |        |
+| Cumulus     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
+| Arista      | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |                    |      |      |      |      |        |
+| Nexus       | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |      |      |      |      |        |
+| IOS         |                    |                    |                    | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |      |      |      |      |        |
+| Extreme VSP |                    |                    |                    | :white_check_mark: |                    |                    | :white_check_mark: | :white_check_mark: |                    |      |      |      |      |        |
+| IOS-XR      |                    |                    |                    |                    |                    |                    |                    |                    |                    |      |      |      |      |        |
 
 
 

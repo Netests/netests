@@ -188,7 +188,6 @@ def create_an_vlan_object_from_a_arista_output_command(context) -> None:
     )
 
     context.object_03 = _arista_vlan_converter(
-        hostname="leaf01",
         cmd_output=outputs_dict
     )
 

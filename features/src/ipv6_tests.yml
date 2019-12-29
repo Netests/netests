@@ -1,0 +1,14 @@
+leaf01:
+  - interface_name: swp1
+    ipv6_address: 2001:a:b:c::1001/64
+  - interface_name: vlan1000-v1
+    ipv6_address: 2001:1000:1000:1000::ffff/64
+  - interface_name: vlan1000
+    ipv6_address: 2001:1000:1000:1000::1/64
+
+# ----------------------------------------------------------------------------------------------------------------------
+leaf03:
+  - interface_name: Ethernet1
+    ipv6_address: 2001:cafe:c0ca:103::2/64
+  - interface_name: Ethernet2
+    ipv6_address: 2001:cafe:c0ca:203::2/64
