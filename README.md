@@ -223,7 +223,7 @@ leaf03:
 | MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | L2VNI | :x: | :sleepy:(2) | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | LACP | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| VLAN | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :x: |
+| VLAN | :x: | :white_check_mark: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: |
 |  | | | | | | | | |
 | MVP ^^^   |                    |                    |                    |                    |                    |                    |                    |                    |
 |           |                    |                    |                    |                    |                    |                    |                    |                    |
