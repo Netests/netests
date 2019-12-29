@@ -40,7 +40,7 @@ except ImportError as importError:
 
 try:
     from protocols.ipv4 import IPV4, ListIPV4
-    from protocols.ipv6 import IPV6, ListIPV6
+    from protocols.ipv6 import IPV6, ListIPV6, IPV6Interface, ListIPV6Interface
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ip")
     exit(EXIT_FAILURE)
@@ -154,7 +154,7 @@ def _cumulus_vlan_converter(bond_lst:list, cmd_output:json, filters:dict) -> Lis
                     ipv4_addresses_lst=list()
                 )
 
-                ipv6_addresses_lst = ListIPV6(
+                ipv6_addresses_lst = ListIPV6Interface(
                     ipv6_addresses_lst=list()
                 )
 
@@ -170,7 +170,7 @@ def _cumulus_vlan_converter(bond_lst:list, cmd_output:json, filters:dict) -> Lis
                             )
                         else:
                             ipv6_addresses_lst.ipv6_addresses_lst.append(
-                                IPV6(
+                                IPV6Interface(
                                     ip_address_with_mask=str(ip_addr)
                                 )
                             )
@@ -286,7 +286,7 @@ def _nexus_vlan_converter(hostname:str(), cmd_output:json) -> ListVLAN:
 #
 # Arista vlan converter
 #
-def _arista_vlan_converter(hostname:str(), cmd_output:json) -> ListVLAN:
+def _arista_vlan_converter(cmd_output:json) -> ListVLAN:
 
     if cmd_output is None:
         return None
@@ -322,7 +322,7 @@ def _arista_vlan_converter(hostname:str(), cmd_output:json) -> ListVLAN:
                 ipv4_addresses_lst=list()
             )
 
-            ipv6_addresses_lst = ListIPV6(
+            ipv6_addresses_lst = ListIPV6Interface(
                 ipv6_addresses_lst=list()
             )
 
@@ -351,7 +351,7 @@ def _arista_vlan_converter(hostname:str(), cmd_output:json) -> ListVLAN:
                            index_slash = str(ipv6_addr.get("subnet")).find("/")
 
                            ipv6_addresses_lst.ipv6_addresses_lst.append(
-                               IPV6(
+                               IPV6Interface(
                                    ip_address_with_mask=ipv6_addr.get("address"),
                                    netmask=str(ipv6_addr.get("subnet"))[index_slash+1:]
                                )

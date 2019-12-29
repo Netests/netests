@@ -32,7 +32,7 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from protocols.ipv6 import IPV6, ListIPV6
+    from protocols.ipv6 import IPV6, ListIPV6, IPV6Interface, ListIPV6Interface
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ipv6")
     exit(EXIT_FAILURE)
@@ -129,8 +129,7 @@ def _compare_ipv6(host_keys, hostname:str, groups:list, ipv6_host_data:ListIPV6,
 #
 def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV6:
 
-    ip_addresses_lst = ListIPV6(
-        hostname=hostname,
+    ip_addresses_lst = ListIPV6Interface(
         ipv6_addresses_lst=list()
     )
 
@@ -138,8 +137,10 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
     if YAML_ALL_GROUPS_KEY in ipv6_yaml_data.keys():
         for ip_infos in ipv6_yaml_data.get(YAML_ALL_GROUPS_KEY, NOT_SET):
 
-            ipv6_obj = IPV6(
-                interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
+            ipv6_obj = IPV6Interface(
+                interface_name=_mapping_interface_name(
+                    ip_infos.get('interface_name', NOT_SET)
+                ),
                 ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
             )
 
@@ -154,8 +155,10 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
                     if host_group in value_key_groups.split(","):
                         for ip_infos in ipv6_yaml_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_groups):
 
-                            ipv6_obj = IPV6(
-                                interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
+                            ipv6_obj = IPV6Interface(
+                                interface_name=_mapping_interface_name(
+                                    ip_infos.get('interface_name', NOT_SET)
+                                ),
                                 ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
                             )
 
@@ -165,8 +168,10 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
                     if host_group == value_key_groups:
                         for ip_infos in ipv6_yaml_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_groups):
 
-                            ipv6_obj = IPV6(
-                                interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
+                            ipv6_obj = IPV6Interface(
+                                interface_name=_mapping_interface_name(
+                                    ip_infos.get('interface_name', NOT_SET)
+                                ),
                                 ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
                             )
 
@@ -179,8 +184,10 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
                 if hostname in value_key_devices.split(","):
                     for ip_infos in ipv6_yaml_data.get(YAML_DEVICES_KEY, NOT_SET).get(value_key_devices, NOT_SET):
 
-                        ipv6_obj = IPV6(
-                            interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
+                        ipv6_obj = IPV6Interface(
+                            interface_name=_mapping_interface_name(
+                                ip_infos.get('interface_name', NOT_SET)
+                            ),
                             ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
                         )
 
@@ -191,8 +198,10 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
 
                     for ip_infos in ipv6_yaml_data.get(YAML_GROUPS_KEY, NOT_SET).get(value_key_devices):
 
-                        ipv6_obj = IPV6(
-                            interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
+                        ipv6_obj = IPV6Interface(
+                            interface_name=_mapping_interface_name(
+                                ip_infos.get('interface_name', NOT_SET)
+                            ),
                             ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
                         )
 
@@ -203,8 +212,10 @@ def retrieve_ipv6_for_host(hostname:str, groups, ipv6_yaml_data:dict) -> ListIPV
     if hostname in ipv6_yaml_data.keys():
 
         for ip_infos in ipv6_yaml_data.get(hostname, NOT_SET):
-            ipv6_obj = IPV6(
-                interface_name=_mapping_interface_name(ip_infos.get('interface_name', NOT_SET)),
+            ipv6_obj = IPV6Interface(
+                interface_name=_mapping_interface_name(
+                    ip_infos.get('interface_name', NOT_SET)
+                ),
                 ip_address_with_mask=ip_infos.get('ipv6_address', NOT_SET),
             )
 

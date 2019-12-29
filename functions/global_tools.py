@@ -63,7 +63,7 @@ except ImportError as importError:
 #
 def _generic_interface_filter(plateform, interface_name,* , filters=dict()) -> bool:
 
-    if "linux" in plateform and "bridge" not in interface_name and "v0" not in interface_name and \
+    if "linux" in plateform and "bridge" not in interface_name and \
             ((filters.get('get_vlan', True) and "vlan" in interface_name) or \
              (filters.get('get_loopback', True) and "lo" in interface_name) or \
              (filters.get('get_peerlink', True) and "peerlink" in interface_name) or \

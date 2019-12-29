@@ -275,7 +275,6 @@ def _arista_get_vlan(task, filters:dict):
         outputs_dict[VLAN_GET_INT] = json.loads(output_get_int.result)
 
     vlans = _arista_vlan_converter(
-        hostname=task.host.name,
         cmd_output=outputs_dict,
         filters=filters
     )

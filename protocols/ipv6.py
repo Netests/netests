@@ -162,8 +162,9 @@ class IPV6Interface(IPV6):
     #
     def __init__(self, interface_name=NOT_SET, ip_address_with_mask=NOT_SET, netmask=NOT_SET):
 
-        super().__init__(ip_address_with_mask, netmask)
         self.interface_name = interface_name
+        super().__init__(ip_address_with_mask, netmask)
+
 
     # ------------------------------------------------------------------------------------------------------------------
     #
@@ -191,14 +192,12 @@ class IPV6Interface(IPV6):
 #
 class ListIPV6Interface():
 
-    hostname: str
     ipv6_addresses_lst: list
 
     # ------------------------------------------------------------------------------------------------------------------
     #
     #
-    def __init__(self, hostname:NOT_SET, ipv6_addresses_lst: list()):
-        self.hostname = hostname
+    def __init__(self, ipv6_addresses_lst: list()):
         self.ipv6_addresses_lst = ipv6_addresses_lst
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -225,3 +224,12 @@ class ListIPV6Interface():
                 return False
 
         return True
+
+    # ------------------------------------------------------------------------------------------------------------------
+    #
+    #
+    def __repr__(self):
+        result = "<ListIPV6Interface \n"
+        for ipv6 in self.ipv6_addresses_lst:
+            result = result + f"{ipv6}"
+        return result + ">"

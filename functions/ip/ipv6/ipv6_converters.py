@@ -32,7 +32,7 @@ except ImportError as importError:
     print(importError)
 
 try:
-    from protocols.ipv6 import IPV6, ListIPV6
+    from protocols.ipv6 import IPV6, ListIPV6, IPV6Interface, ListIPV6Interface
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ipv6")
     exit(EXIT_FAILURE)
@@ -75,18 +75,19 @@ except ImportError as importError:
 #
 # NAPALM ipv6 addresses converter
 #
-def _napalm_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *, get_vlan=True, get_loopback=True,
-                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV6:
+def _napalm_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV6Interface:
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cumulus ipv6 addresses converter
 #
-def _cumulus_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV6:
+def _cumulus_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV6Interface:
 
-    ipv6_addresses_lst = ListIPV6(
-        hostname=hostname,
+    if cmd_output is None or cmd_output == "":
+        return None
+
+    ipv6_addresses_lst = ListIPV6Interface(
         ipv6_addresses_lst=list()
     )
 
@@ -115,7 +116,7 @@ def _cumulus_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *,
                         if "::1/128" not in ip_address_in_interface:
 
                             ipv6_addresses_lst.ipv6_addresses_lst.append(
-                                IPV6(
+                                IPV6Interface(
                                     interface_name=_mapping_interface_name(
                                         interface_name
                                     ),
@@ -129,46 +130,70 @@ def _cumulus_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *,
 #
 # Cisco Nexus ipv6 addresses Converter
 #
-def _nexus_ipv6_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, get_vlan=True, get_loopback=True,
-                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV6:
+def _nexus_ipv6_converter(hostname:str(), plateform:str(), cmd_outputs:list, *, filters=dict()) -> ListIPV6Interface:
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco IOS ipv6 addresses Converter
 #
-def _ios_ipv6_converter(hostname:str(), plateform:str(), cmd_output:list, *, get_vlan=True, get_loopback=True,
-                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV6:
+def _ios_ipv6_converter(hostname:str(), plateform:str(), cmd_output:list, *, filters=dict()) -> ListIPV6Interface:
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco IOS XR ipv6 addresses Converter
 #
-def _iosxr_ipv6_converter(hostname:str(), plateform:str(), cmd_output:list, *, get_vlan=True, get_loopback=True,
-                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV6:
+def _iosxr_ipv6_converter(hostname:str(), plateform:str(), cmd_output:list, *, filters=dict()) -> ListIPV6Interface:
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Arista ipv6 addresses Converter
 #
-def _arista_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *, get_vlan=True, get_loopback=True,
-                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV6:
-    pass
+def _arista_ipv6_converter(hostname:str(), plateform:str(), cmd_output:json, *, filters=dict()) -> ListIPV6Interface:
 
+    if cmd_output is None or cmd_output == "":
+        return None
+
+    ipv6_addresses_lst = ListIPV6Interface(
+        ipv6_addresses_lst=list()
+    )
+    if "interfaces" in cmd_output.keys():
+        for interface_name in cmd_output.get("interfaces"):
+            if _generic_interface_filter(
+                plateform=plateform,
+                interface_name=_mapping_interface_name(
+                    interface_name
+                ),
+                filters=filters
+            ):
+
+                for address in cmd_output.get("interfaces").get(interface_name).get("addresses"):
+
+                    index_slash = str(address.get("subnet", NOT_SET)).find("/")
+
+                    ipv6_addresses_lst.ipv6_addresses_lst.append(
+                        IPV6Interface(
+                            interface_name=_mapping_interface_name(
+                                interface_name
+                            ),
+                            ip_address_with_mask=address.get("address", NOT_SET),
+                            netmask=str(address.get("subnet", NOT_SET))[index_slash+1:]
+                        )
+                    )
+
+    return ipv6_addresses_lst
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Juniper ipv6 addresses Converter
 #
-def _juniper_ipv6_converter(hostname:str(), plateform:str(), cmd_output:dict, *, get_vlan=True, get_loopback=True,
-                            get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV6:
+def _juniper_ipv6_converter(hostname:str(), plateform:str(), cmd_output:dict, *, filters=dict()) -> ListIPV6Interface:
     pass
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Extreme Networks VSP ipv6 addresses Converter
 #
-def _extreme_vsp_ipv6_converter(hostname: str(), plateform:str(), cmd_output: dict, *, get_vlan=True, get_loopback=True,
-                                get_peerlink=True, get_vni=False, get_physical=True) -> ListIPV6:
+def _extreme_vsp_ipv6_converter(hostname: str(), plateform:str(), cmd_output: dict, *, filters=dict()) -> ListIPV6Interface:
     pass

@@ -40,7 +40,7 @@ except ImportError as importError:
 
 try:
     from protocols.ipv4 import IPV4, ListIPV4
-    from protocols.ipv6 import IPV6, ListIPV6
+    from protocols.ipv6 import IPV6, ListIPV6, IPV6Interface, ListIPV6Interface
 except ImportError as importError:
     print(f"{ERROR_HEADER} protocols.ip")
     exit(EXIT_FAILURE)

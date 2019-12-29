@@ -203,6 +203,7 @@ ARISTA_GET_MTU = "show interfaces | json"
 ARISTA_GET_INT_VLAN = "show interfaces vlan 1-4094 | json"
 ARISTA_GET_VLAN = "show vlan | json"
 ARISTA_GET_IP_VLAN = "show ip interface vlan 1-4094 | json"
+ARISTA_GET_IPV6 = "show ipv6 interface | json"
 
 ##### EXTREME VSP COMMANDS
 EXTREME_VSP_GET_BGP = 'show ip bgp summary'
@@ -330,7 +331,6 @@ VLAN_VRF_MEMBERS_KEY = "get_vlan_members"
 VLAN_GET_L2 = "get_vlan_l2"
 VLAN_GET_L3 = "get_vlan_l3"
 VLAN_GET_INT = "get_vlan_int"
-
 
 #### BOND
 BOND_DATA_HOST_KEY = "bond_data"

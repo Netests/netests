@@ -170,14 +170,12 @@ def _cumulus_get_ipv6(task, *, filters=dict()):
     )
     # print_result(output)
 
-    ipv6_addresses = _cumulus_ipv6_converter(
+    task.host[IPV6_DATA_HOST_KEY] = _cumulus_ipv6_converter(
         hostname=task.host.name,
         plateform=task.host.platform,
         cmd_output=json.loads(output.result),
         filters=filters
     )
-
-    task.host[IPV6_DATA_HOST_KEY] = ipv6_addresses
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -205,7 +203,20 @@ def _iosxr_get_ipv6(task, *, filters=dict()):
 # Arista vEOS
 #
 def _arista_get_ipv6(task, *, filters=dict()):
-    pass
+
+    output = task.run(
+        name=f"{ARISTA_GET_IPV6}",
+        task=netmiko_send_command,
+        command_string=ARISTA_GET_IPV6
+    )
+    # print_result(output)
+
+    task.host[IPV6_DATA_HOST_KEY] = _arista_ipv6_converter(
+        hostname=task.host.name,
+        plateform=task.host.platform,
+        cmd_output=json.loads(output.result),
+        filters=filters
+    )
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
