@@ -107,8 +107,9 @@ def execute_socket(nr: Nornir):
 
     socket_works = True
     for device in nr.inventory.hosts:
-        if nr.inventory.hosts[device][SOCKET_WORKS_KEY] is False:
-            socket_works = False
+        if SOCKET_WORKS_KEY in nr.inventory.hosts[device].keys():
+            if nr.inventory.hosts[device][SOCKET_WORKS_KEY] is False:
+                socket_works = False
 
     return (not execute_cmd.failed and socket_works)
 
