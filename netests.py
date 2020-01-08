@@ -312,23 +312,53 @@ def is_alive(task) -> None:
 # Main function
 #
 @click.command()
-@click.option('--ansible', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY}")
-@click.option('--virtual', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}")
-@click.option('--netbox', default=False, help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}")
-@click.option('--reports', default=False, help=f"If TRUE, configuration reports will be create")
-@click.option('--verbose', default=False, help=f"If TRUE, print fome information about inventory")
-@click.option('--check-connectivity', default=False, help=f"If TRUE, check if devices are reachable")
+@click.option('-a','--ansible', 
+    default=False, 
+    show_default=True,
+    help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY}"
+)
+@click.option('-v', '--virtual', 
+    default=False,
+    show_default=True,
+    help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}"
+)
+@click.option('-n', '--netbox', 
+    default=False,
+    show_default=True,
+    help=f"If TRUE, inventory file {PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}"
+)
+@click.option('-r', '--reports', 
+    default=False, 
+    show_default=True,
+    help=f"If TRUE, configuration reports will be create"
+)
+@click.option('-v', '--verbose', 
+    default=False, 
+    show_default=True, 
+    help=f"If TRUE, print fome information about inventory"
+)
+@click.option('-c', '--check-connectivity', 
+    default=False,
+    show_default=True,
+    help=f"If TRUE, check if devices are reachable"
+)
 def main(ansible, virtual, netbox, reports, verbose, check_connectivity):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     # Create Nornir object
-    nr = init_nornir(
-        log_file="./nornir/nornir.log",
-        log_level="debug",
-        ansible=ansible,
-        virtual=virtual,
-        netbox=netbox
-    )
+    try:
+        nr = init_nornir(
+            log_file="./nornir/nornir.log",
+            log_level="debug",
+            ansible=ansible,
+            virtual=virtual,
+            netbox=netbox
+        )
+    except FileNotFoundError as e:
+        print(f"{HEADER} Inventory file not found ...")
+        print(f"{HEADER} {e}")
+        exit(EXIT_FAILURE)
+        
 
 
     printline_comment_json(
