@@ -64,7 +64,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def compare_lldp(nr, lldp_data:json) -> bool:
+def compare_lldp(nr, lldp_yaml_data:json) -> bool:
 
     devices = nr.filter()
 
@@ -72,8 +72,8 @@ def compare_lldp(nr, lldp_data:json) -> bool:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     data = devices.run(
-        task=_compare_lldp,
-        lldp_data=lldp_data,
+        task=_compare_transit_lldp,
+        lldp_yaml_data=lldp_yaml_data,
         on_failed=True,
         num_workers=10
     )
@@ -90,17 +90,32 @@ def compare_lldp(nr, lldp_data:json) -> bool:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
+# Compare Transit function
+#
+def _compare_transit_lldp(task, lldp_yaml_data:json):
+
+    task.host[LLDP_WORKS_KEY] = _compare_lldp(
+        host_keys=task.host.keys(),
+        hostname=task.host.name,
+        lldp_host_data=task.host[LLDP_DATA_HOST_KEY],
+        lldp_yaml_data=lldp_yaml_data,
+    )
+
+    return task.host[LLDP_WORKS_KEY]
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
 # Compare function
 #
-def _compare_lldp(task, lldp_data:json):
+def _compare_lldp(host_keys, hostname, lldp_host_data, lldp_yaml_data:json):
 
     verity_lldp = ListLLDP(list())
 
-    if LLDP_DATA_HOST_KEY in task.host.keys():
+    if LLDP_DATA_HOST_KEY in host_keys:
 
-        for lldp_neighbor in lldp_data.get(task.host.name, NOT_SET):
+        for lldp_neighbor in lldp_yaml_data.get(hostname, NOT_SET):
             lldp_obj = LLDP(
-                local_name=task.host.name,
+                local_name=hostname,
                 local_port=_mapping_interface_name(
                     lldp_neighbor.get("local_port", NOT_SET)
                 ),
@@ -112,7 +127,8 @@ def _compare_lldp(task, lldp_data:json):
 
             verity_lldp.lldp_neighbors_lst.append(lldp_obj)
 
-        is_same = verity_lldp == task.host[LLDP_DATA_HOST_KEY]
+        return verity_lldp == lldp_host_data
 
-        task.host[LLDP_WORKS_KEY] = is_same
-        return is_same
+    else:
+        print(f"[{HEADER_GET}] {hostname} is not present in {PATH_TO_VERITY_FILES}/{TEST_TO_EXC_LLDP_KEY}.")
+        return False

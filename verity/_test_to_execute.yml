@@ -18,7 +18,7 @@ ping: false
 # Test sockets
 socket: false
 # Check Link Discovery Protocols sessions
-lldp: false
+lldp: true
 cdp: false
 # Check IPv4 addresses
 ipv4:
@@ -32,7 +32,7 @@ ipv4:
     get_vni: false
 # Check IPv6 addresses
 ipv6:
-  test: true
+  test: false
   filters:
     # By default, filters is true
     get_physical: true

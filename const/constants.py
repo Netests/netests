@@ -36,7 +36,9 @@ except ImportError as importError:
 #
 # CONSTANTES
 #
-
+CONTEXT_SETTINGS = dict(
+    help_option_names=['-h', '--help']
+)
 NOT_SET = "NOT_SET"
 
 NETMIKO_NAPALM_MAPPING_PLATEFORM = {
@@ -141,6 +143,7 @@ JUNOS_GET_OSPF_NEI_VRF = "show ospf neighbor detail instance {} | display json"
 JUNOS_GET_OSPF_RID = "show ospf overview | display json"
 JUNOS_GET_OSPF_RID_VRF = "show ospf overview instance {} | display json"
 JUNOS_GET_STATIC = "show route protocol static | display json"
+JUNOS_GET_LLDP = "show lldp neighbors | display json"
 
 ###### CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'

@@ -12,6 +12,6 @@ Feature: Test protocols IPv6 python class ./protocols/IPv6.py
     Then IPv6 object_01 should be equal to object_02
     And IPv6 object_02 should be equal to object_03
     And IPv6 object_01 should be equal to object_03
-    And IPV4 object_03 should be equal to object_01
+    And IPv6 object_03 should be equal to object_01
     And IPv6 object_02 should be equal to object_04
     And IPv6 object_03 should not be equal to object_04

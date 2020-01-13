@@ -36,6 +36,7 @@ try:
     from functions.discovery_protocols.lldp.lldp_converters import _arista_lldp_converter
     from functions.discovery_protocols.lldp.lldp_converters import _ios_lldp_converter
     from functions.discovery_protocols.lldp.lldp_converters import _extreme_vsp_lldp_converter
+    from functions.discovery_protocols.lldp.lldp_converters import _juniper_lldp_converter
     from functions.discovery_protocols.lldp.lldp_converters import _napalm_lldp_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.discovery_protocols.lldp")
@@ -89,7 +90,6 @@ def get_lldp(nr: Nornir):
         num_workers=1
     )
     #print_result(data)
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -152,7 +152,10 @@ def _generic_lldp_napalm(task):
     # print(output.result)
 
     if output.result != "":
-        bgp_sessions = _napalm_lldp_converter(task.host.name, output.result)
+        bgp_sessions = _napalm_lldp_converter(
+            hostname=task.host.name,
+            cmd_output=output.result
+        )
 
         task.host[LLDP_DATA_HOST_KEY] = bgp_sessions
 
@@ -169,7 +172,10 @@ def _cumulus_get_lldp(task):
     )
     #print_result(output)
 
-    lldp_sessions = _cumulus_lldp_converter(task.host.name, json.loads(output.result))
+    lldp_sessions = _cumulus_lldp_converter(
+        hostname=task.host.name,
+        cmd_output=json.loads(output.result)
+    )
 
     task.host[LLDP_DATA_HOST_KEY] = lldp_sessions
 
@@ -186,7 +192,10 @@ def _nexus_get_lldp(task):
     )
     #print_result(output)
 
-    lldp_sessions = _nexus_lldp_converter(task.host.name, json.loads(output.result))
+    lldp_sessions = _nexus_lldp_converter(
+        hostname=task.host.name,
+        cmd_output=json.loads(output.result)
+    )
 
     task.host[LLDP_DATA_HOST_KEY] = lldp_sessions
 
@@ -203,7 +212,10 @@ def _arista_get_lldp(task):
     )
     #print_result(output)
 
-    lldp_sessions = _arista_lldp_converter(task.host.name, json.loads(output.result))
+    lldp_sessions = _arista_lldp_converter(
+        hostname=task.host.name,
+        cmd_output=json.loads(output.result)
+    )
 
     task.host[LLDP_DATA_HOST_KEY] = lldp_sessions
 
@@ -233,7 +245,10 @@ def _ios_get_lldp(task):
         # 'R', '10.0.5.103', '']]
         # type = list() of list()
 
-    lldp_sessions = _ios_lldp_converter(task.host.name, parsed_results)
+    lldp_sessions = _ios_lldp_converter(
+        hostname=task.host.name,
+        cmd_output=parsed_results
+    )
 
     task.host[LLDP_DATA_HOST_KEY] = lldp_sessions
 
@@ -249,8 +264,21 @@ def _iosxr_get_lldp(task):
 # Juniper Networks Junos
 #
 def _juniper_get_lldp(task):
-    pass
 
+    output = task.run(
+        name=f"{JUNOS_GET_LLDP}",
+        task=netmiko_send_command,
+        command_string=JUNOS_GET_LLDP,
+        enable=True
+    )
+    #print_result(output)
+
+    lldp_sessions = _juniper_lldp_converter(
+        hostname=task.host.name,
+        cmd_output=json.loads(output.result)
+    )
+
+    task.host[LLDP_DATA_HOST_KEY] = lldp_sessions
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -277,7 +305,10 @@ def _extreme_vsp_get_lldp(task):
         # 'Cumulus Linux version 3.7.9 running on Bochs Bochs', '10.255.255.201']]
         # type = list() of list()
 
-        lldp_sessions = _extreme_vsp_lldp_converter(task.host.name, parsed_results)
+        lldp_sessions = _extreme_vsp_lldp_converter(
+            hostname=task.host.name,
+            cmd_output=parsed_results
+        )
 
         task.host[LLDP_DATA_HOST_KEY] = lldp_sessions
 
