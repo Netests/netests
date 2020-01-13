@@ -8,3 +8,4 @@ behave features/mlag_tests.feature
 behave features/ipv4_tests.feature
 behave features/ipv6_tests.feature
 behave features/vlan_tests.feature
+behave features/lldp_tests.feature

@@ -6,6 +6,11 @@ spine01:
     neighbor_name: leaf03.dh.local
     neighbor_port: Eth1/1
 
+leaf03:
+  - local_port: Ethernet1
+    neighbor_name: spine01
+    neighbor_port: swp3
+
 leaf04:
   - local_port: et-0/0/0
     neighbor_name: router-core-01

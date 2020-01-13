@@ -113,6 +113,8 @@ def _mapping_interface_name(int_name) -> str():
     :return:
     """
 
+    print(">>>>>>>", int_name)
+
     if "Ethernet1/" in int_name and "GIGABITETHERNET" not in str(int_name).upper():
         number = ""
         slash_index = int_name.find("/")

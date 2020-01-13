@@ -7,6 +7,7 @@ Feature: Test protocols LLDP python class ./protocols/lldp.py
     And I retrieve data from a YAML file corresponding to devices to create an LLDP python object named object_02
     And I create an LLDP python object from a Juniper output command named object_03
     And I create an LLDP python object from a Cumulus output command named object_04
+    And I create an LLDP python object from a Arista output command named object_05
 
     # Add device
     Then LLDP object_01 should be equal to object_02
@@ -15,3 +16,5 @@ Feature: Test protocols LLDP python class ./protocols/lldp.py
     And LLDP object_03 should be equal to object_01
     And LLDP object_03 should not be equal to object_04
     And LLDP object_02 should be equal to object_04
+    And LLDP object_02 should be equal to object_05
+    And LLDP object_03 should not be equal to object_05

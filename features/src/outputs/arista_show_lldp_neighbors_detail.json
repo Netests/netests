@@ -1,0 +1,92 @@
+{
+    "lldpNeighbors": {
+        "Management1": {
+            "lldpNeighborInfo": []
+        },
+        "Ethernet2": {
+            "lldpNeighborInfo": []
+        },
+        "Ethernet3": {
+            "lldpNeighborInfo": []
+        },
+        "Ethernet1": {
+            "lldpNeighborInfo": [
+                {
+                    "systemCapabilities": {
+                        "bridge": true,
+                        "router": true
+                    },
+                    "lastChangeTime": 1578934216.193831,
+                    "neighborInterfaceInfo": {
+                        "portAndProtocolVlanEnabled": {},
+                        "linkAggregationStatus": "capableAndDisabled",
+                        "unknownTlvs": [],
+                        "interfaceIdType": "interfaceName",
+                        "interfaceId": "\"swp3\"",
+                        "interfaceDescription": "swp3",
+                        "autoNegCapability": "notCapable",
+                        "autoNegAdvertisedCapabilities": [],
+                        "protocolIdentityInfo": [],
+                        "portAndProtocolVlanSupported": {},
+                        "operMauType": "1000BASE-T (full-duplex)",
+                        "medInfo": {
+                            "serialNumberTlvInfo": "Not Specified",
+                            "softwareRevisionTlvInfo": "3.7.9",
+                            "modelNameTlvInfo": "Bochs",
+                            "networkPolicies": [],
+                            "firmwareRevisionTlvInfo": "Bochs",
+                            "capabilities": {
+                                "deviceType": "networkConnectivity",
+                                "networkPolicy": true,
+                                "inventory": true,
+                                "capabilities": true,
+                                "extendedPd": true,
+                                "extendedPse": true,
+                                "location": true
+                            },
+                            "manufacturerNameTlvInfo": "Bochs"
+                        },
+                        "vlanNames": {},
+                        "linkAggregationInterfaceId": 0,
+                        "unknownOrgDefinedTlvs": []
+                    },
+                    "neighborDiscoveryTime": 1578934216.193831,
+                    "lastContactTime": 1578935836.2694016,
+                    "chassisId": "5000.0001.0000",
+                    "systemName": "spine01",
+                    "systemDescription": "Cumulus Linux version 3.7.9 running on Bochs Bochs",
+                    "ttl": 120,
+                    "managementAddresses": [
+                        {
+                            "oidString": "",
+                            "interfaceNumType": "ifIndex",
+                            "interfaceNum": 1,
+                            "address": "10.255.255.101",
+                            "addressType": "ipv4"
+                        },
+                        {
+                            "oidString": "",
+                            "interfaceNumType": "ifIndex",
+                            "interfaceNum": 2,
+                            "address": "fe80::5200:ff:fe01:0",
+                            "addressType": "ipv6"
+                        }
+                    ],
+                    "chassisIdType": "macAddress"
+                }
+            ]
+        },
+        "Ethernet6": {
+            "lldpNeighborInfo": []
+        },
+        "Ethernet7": {
+            "lldpNeighborInfo": []
+        },
+        "Ethernet4": {
+            "lldpNeighborInfo": []
+        },
+        "Ethernet5": {
+            "lldpNeighborInfo": []
+        }
+    }
+}
