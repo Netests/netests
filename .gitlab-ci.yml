@@ -1,5 +1,6 @@
 stages:
   - test_pip_install_requirements
+  - test_setup_install
 #  - test_netests_main_function
   - test_functions_protocols
 #  - create_merge_request_to_master
@@ -23,6 +24,22 @@ test_pip36_install_requirements:
     - pip install --upgrade pip
     - pip install -r requirements.txt
     - pip freeze
+  tags:
+    - docker
+
+test_functions_protocols_with_setup_36:
+  image: "python:3.6"
+  stage: test_setup_install
+  script:
+    - python setup.py install
+  tags:
+    - docker
+
+test_functions_protocols_with_setup_37:
+  image: "python:3.7"
+  stage: test_setup_install
+  script:
+    - python setup.py install
   tags:
     - docker
 
@@ -59,21 +76,6 @@ test_functions_protocols_with_python_36:
   tags:
     - docker
 
-test_functions_protocols_with_setup_36:
-  image: "python:3.6"
-  stage: test_functions_protocols
-  script:
-    - python setup.py install
-  tags:
-    - docker
-
-test_functions_protocols_with_setup_37:
-  image: "python:3.7"
-  stage: test_functions_protocols
-  script:
-    - python setup.py install
-  tags:
-    - docker
 
 #create_merge_request_to_master:
 #  stage: create_merge_request_to_master
