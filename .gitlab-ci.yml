@@ -8,7 +8,7 @@ test_pip37_install_requirements:
   image: "python:3.7"
   stage: test_pip_install_requirements
   script:
-    - pip version
+    - pip --version
     - pip install --upgrade pip
     - pip install -r requirements.txt
     - pip freeze
@@ -19,7 +19,7 @@ test_pip36_install_requirements:
   image: "python:3.6"
   stage: test_pip_install_requirements
   script:
-    - pip version
+    - pip --version
     - pip install --upgrade pip
     - pip install -r requirements.txt
     - pip freeze
