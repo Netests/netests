@@ -338,7 +338,22 @@ def is_alive(task) -> None:
     show_default=True,
     help=f"If TRUE, check if devices are reachable"
 )
-def main(ansible, virtual, netbox, reports, check_connectivity):
+@click.option('--devices-number',
+    default=-1,
+    show_default=True,
+    help=f"Define how many devices will be selected from the inventory. Can be combined with --device-group"
+)
+@click.option('--devices-group',
+    default=[],
+    show_default="#",
+    help=f"Filter devices based on the group. Allow you to select device only from a group. Several groups can be given separate by a \",\"'
+)
+@click.option('--devices',
+    default=[],
+    show_default="#",
+    help=f"Filter devices based on the hostname. Several hostname can be given separate by a \",\"'
+)
+def main(ansible, virtual, netbox, reports, check_connectivity, devices_number, devices_group, devices):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     # Create Nornir object
@@ -354,8 +369,6 @@ def main(ansible, virtual, netbox, reports, check_connectivity):
         print(f"{HEADER} Inventory file not found ...")
         print(f"{HEADER} {e}")
         exit(EXIT_FAILURE)
-
-
 
     printline_comment_json(
         comment="Devices selected",
