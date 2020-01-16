@@ -39,10 +39,41 @@ test_pip36_install_requirements:
 #    - netests.py --reports True --test True
 #    - netests.py --check-connectivity True --test True   
 
-test_functions_protocols:
+test_functions_protocols_with_python_37:
+  image: "python:3.7"
   stage: test_functions_protocols
   script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
     - ./features/run_tests.sh
+  tags:
+    - docker
+
+test_functions_protocols_with_python_36:
+  image: "python:3.6"
+  stage: test_functions_protocols
+  script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - ./features/run_tests.sh
+  tags:
+    - docker
+
+test_functions_protocols_with_setup_36:
+  image: "python:3.6"
+  stage: test_functions_protocols
+  script:
+    - python setup.py
+  tags:
+    - docker
+
+test_functions_protocols_with_setup_37:
+  image: "python:3.7"
+  stage: test_functions_protocols
+  script:
+    - python setup.py
+  tags:
+    - docker
 
 #create_merge_request_to_master:
 #  stage: create_merge_request_to_master
