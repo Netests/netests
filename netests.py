@@ -245,22 +245,38 @@ def is_alive(task) -> None:
     show_default=True,
     help=f"If TRUE, check if devices are reachable",
 )
-@click.option('--devices-number',
+@click.option(
+    '--devices-number',
     default=-1,
     show_default=True,
-    help=f"Define how many devices will be selected from the inventory. Can be combined with --device-group"
+    help=f"Define how many devices will be selected from the inventory."
+         f"Can be combined with --device-group"
 )
-@click.option('--devices-group',
+@click.option(
+    '--devices-group',
     default=[],
     show_default="#",
-    help=f"Filter devices based on the group. Allow you to select device only from a group. Several groups can be given separate by a \",\"'
+    help=f"Filter devices based on the group."
+         f"Allow you to select device only from a group."
+         f"Several groups can be given separate by a \",\""
 )
-@click.option('--devices',
+@click.option(
+    '--devices',
     default=[],
     show_default="#",
-    help=f"Filter devices based on the hostname. Several hostname can be given separate by a \",\"'
+    help=f"Filter devices based on the hostname."
+         f"Several hostname can be given separate by a \",\""
 )
-def main(ansible, virtual, netbox, reports, check_connectivity, devices_number, devices_group, devices):
+def main(
+    ansible,
+    virtual,
+    netbox,
+    reports,
+    check_connectivity,
+    devices_number,
+    devices_group,
+    devices
+):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     # Create Nornir object
