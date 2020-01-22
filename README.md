@@ -265,11 +265,28 @@ leaf03:
 For the moment Cumulus Linux is only compatible with SSH. Utilization with REST API is int development.
 
 
+## Alternative to NAPALM ??
+
+The answer is definitely NO !!
+
+NAPALM has many many more functions about configuration management.
+
+Netests only gets data from devices convert in object and compares to your source of truth.
+
+Moreover, Nestests uses NAPALM.
+
+To have more informations about all posibilities offered by NAPALM have look on the following links :
+
+https://gitlab.com/DylanHamel/netests
+
+https://github.com/napalm-automation
+
+https://napalm.readthedocs.io/en/latest/
+
 
 ## Road Map
 
 Join the Telegram channel to have access to Trello
-
 
 
 ## Pipeline
@@ -294,11 +311,9 @@ Some templates have be retreieve on :
 **https://github.com/networktocode/ntc-templates/tree/master/templates**
 
 
-
 ## Contributor
 
 **Become a contributor** !!!
-
 
 
 ## *(3) NAPALM

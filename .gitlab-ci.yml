@@ -1,12 +1,83 @@
 stages:
-  - test
+  - test_pip_install_requirements
+  - test_setup_install
+#  - test_netests_main_function
+  - test_functions_protocols
+#  - create_merge_request_to_master
 
-tests:
+test_pip37_install_requirements:
   image: "python:3.7"
-  stage: test
+  stage: test_pip_install_requirements
+  script:
+    - pip --version
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - pip freeze
+  tags:
+    - docker
+
+test_pip36_install_requirements:
+  image: "python:3.6"
+  stage: test_pip_install_requirements
+  script:
+    - pip --version
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - pip freeze
+  tags:
+    - docker
+
+test_functions_protocols_with_setup_36:
+  image: "python:3.6"
+  stage: test_setup_install
+  script:
+    - python setup.py install
+  tags:
+    - docker
+
+test_functions_protocols_with_setup_37:
+  image: "python:3.7"
+  stage: test_setup_install
+  script:
+    - python setup.py install
+  tags:
+    - docker
+
+#test_netests_main_function:
+#  stage: test_netests_main_function
+#  script:
+#    - netests.py -v
+#    - netests.py --ansible True --test True 
+#    - netests.py --ansible True --virtual True --test True
+#    - netests.py --netbox True --test True 
+#    - netests.py --netbox True --virtual True --test True
+#    - netests.py --virtual True --test True
+#    - netests.py --test True
+#    - netests.py --reports True --test True
+#    - netests.py --check-connectivity True --test True   
+
+test_functions_protocols_with_python_37:
+  image: "python:3.7"
+  stage: test_functions_protocols
   script:
     - pip install --upgrade pip
     - pip install -r requirements.txt
     - ./features/run_tests.sh
   tags:
     - docker
+
+test_functions_protocols_with_python_36:
+  image: "python:3.6"
+  stage: test_functions_protocols
+  script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - ./features/run_tests.sh
+  tags:
+    - docker
+
+
+#create_merge_request_to_master:
+#  stage: create_merge_request_to_master
+
+
