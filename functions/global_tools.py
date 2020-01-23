@@ -38,6 +38,14 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
+    from nornir.core import Nornir
+    from nornir import InitNornir
+except ImportError as importError:
+    print(f"{ERROR_HEADER} yaml")
+    print(importError)
+    exit(EXIT_FAILURE)
+
+try:
     import yaml
 except ImportError as importError:
     print(f"{ERROR_HEADER} yaml")
