@@ -5,10 +5,7 @@
 #
 # Import Library
 #
-from functions.bgp.bgp_run import (
-    run_bgp,
-    run_bgp_up
-)
+from functions.bgp.bgp_run import run_bgp, run_bgp_up
 from functions.bond.bond_run import run_bond
 from functions.discovery_protocols.lldp.lldp_run import run_lldp
 from functions.discovery_protocols.cdp.cdp_run import run_cdp
@@ -25,10 +22,10 @@ from functions.static.static_run import run_static
 from functions.vlan.vlan_run import run_vlan
 from functions.vrf.vrf_run import run_vrf
 from functions.global_tools import (
-    printline_comment_json,
+    printline_comment_json as p,
     open_file,
     init_nornir,
-    check_devices_connectivity
+    check_devices_connectivity,
 )
 from const.constants import (
     PATH_TO_INVENTORY_FILES,
@@ -88,26 +85,26 @@ HEADER = "[netests - main.py]"
     help=f"If TRUE, check if devices are reachable",
 )
 @click.option(
-    '--devices-number',
+    "--devices-number",
     default=-1,
     show_default=True,
     help=f"Define how many devices will be selected from the inventory."
-         f"Can be combined with --device-group"
+    f"Can be combined with --device-group",
 )
 @click.option(
-    '--devices-group',
+    "--devices-group",
     default=[],
     show_default="#",
     help=f"Filter devices based on the group."
-         f"Allow you to select device only from a group."
-         f"Several groups can be given separate by a \",\""
+    f"Allow you to select device only from a group."
+    f'Several groups can be given separate by a ","',
 )
 @click.option(
-    '--devices',
+    "--devices",
     default=[],
     show_default="#",
     help=f"Filter devices based on the hostname."
-         f"Several hostname can be given separate by a \",\""
+    f'Several hostname can be given separate by a ","',
 )
 def main(
     ansible,
@@ -117,7 +114,7 @@ def main(
     check_connectivity,
     devices_number,
     devices_group,
-    devices
+    devices,
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -135,10 +132,7 @@ def main(
         print(f"{HEADER} {e}")
         exit(EXIT_FAILURE)
 
-    printline_comment_json(
-        comment="Devices selected",
-        json_to_print=nr.inventory.hosts
-    )
+    p(comment="Devices selected", json_to_print=nr.inventory.hosts)
 
     if check_connectivity:
         if check_devices_connectivity(nr):
@@ -146,28 +140,26 @@ def main(
         else:
             exit(EXIT_FAILURE)
 
-    test_to_execute = open_file(
-        f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}"
-    )
+    t = open_file(f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}")
 
     return (
-        run_bgp(nr=nr, test_to_execute=test_to_execute, reports=reports) and
-        run_bgp_up(nr=nr, test_to_execute=test_to_execute) and
-        run_bond(nr=nr, test_to_execute=test_to_execute) and
-        run_lldp(nr=nr, test_to_execute=test_to_execute) and
-        run_cdp(nr=nr, test_to_execute=test_to_execute) and
-        run_info(nr=nr, test_to_execute=test_to_execute) and
-        run_ipv4(nr=nr, test_to_execute=test_to_execute) and
-        run_ipv6(nr=nr, test_to_execute=test_to_execute) and
-        run_l2vni(nr=nr, test_to_execute=test_to_execute) and
-        run_mlag(nr=nr, test_to_execute=test_to_execute) and
-        run_mtu(nr=nr, test_to_execute=test_to_execute) and
-        run_ospf(nr=nr, test_to_execute=test_to_execute) and
-        run_ping(nr=nr, test_to_execute=test_to_execute) and
-        run_socket(nr=nr, test_to_execute=test_to_execute) and
-        run_static(nr=nr, test_to_execute=test_to_execute) and
-        run_vlan(nr=nr, test_to_execute=test_to_execute) and
-        run_vrf(nr=nr, test_to_execute=test_to_execute)
+        run_bgp(nr=nr, test_to_execute=t, reports=reports)
+        and run_bgp_up(nr=nr, test_to_execute=t)
+        and run_bond(nr=nr, test_to_execute=t)
+        and run_lldp(nr=nr, test_to_execute=t)
+        and run_cdp(nr=nr, test_to_execute=t)
+        and run_info(nr=nr, test_to_execute=t)
+        and run_ipv4(nr=nr, test_to_execute=t)
+        and run_ipv6(nr=nr, test_to_execute=t)
+        and run_l2vni(nr=nr, test_to_execute=t)
+        and run_mlag(nr=nr, test_to_execute=t)
+        and run_mtu(nr=nr, test_to_execute=t)
+        and run_ospf(nr=nr, test_to_execute=t)
+        and run_ping(nr=nr, test_to_execute=t)
+        and run_socket(nr=nr, test_to_execute=t)
+        and run_static(nr=nr, test_to_execute=t)
+        and run_vlan(nr=nr, test_to_execute=t)
+        and run_vrf(nr=nr, test_to_execute=t)
     )
 
 
