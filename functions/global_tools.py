@@ -58,6 +58,98 @@ except ImportError as importError:
     print(importError)
     exit(EXIT_FAILURE)
 
+
+# -------------------------------------------------------------------------------
+#
+# Test devices connectivity function
+#
+def check_devices_connectivity(nr: Nornir) -> bool:
+    """
+    This function will test the connectivity to each devices
+
+    :param nr:
+    :return bool: True if ALL devices are reachable
+    """
+
+    devices = nr.filter()
+
+    if len(devices.inventory.hosts) == 0:
+        raise Exception(f"[{HEADER}] no device selected.")
+
+    data = devices.run(task=is_alive, num_workers=100)
+    # print_result(data)
+
+    for device in devices.inventory.hosts:
+        if data[device].failed:
+            print(f"\t--> Connection to {device} has failed.")
+
+    if not data.failed:
+        print("All devices are reachable :) !")
+    else:
+        print(f"\nPlease check credentials in the inventory")
+
+    printline()
+    return not data.failed
+
+# -------------------------------------------------------------------------------
+#
+# Test devices connectivity Nornir function
+#
+def is_alive(task) -> None:
+    """
+    This function will use Netmiko find_prompt() function to test connectivity
+    :param task:
+    :return None:
+    """
+
+    if task.host.platform in NETMIKO_NAPALM_MAPPING_PLATEFORM.keys():
+        plateform = NETMIKO_NAPALM_MAPPING_PLATEFORM.get(task.host.platform)
+    else:
+        plateform = task.host.platform
+
+    device = ConnectHandler(
+        device_type=plateform,
+        host=task.host.hostname,
+        username=task.host.username,
+        password=task.host.password,
+    )
+
+    device.find_prompt()
+
+# ------------------------------------------------------------------------------------------------------------------
+#
+#
+def init_nornir(
+    log_file="./nornir/nornir.log",
+    log_level=NORNIR_DEBUG_MODE,
+    ansible=False,
+    virtual=False,
+    netbox=False,
+) -> Nornir:
+    """
+    Initialize Nornir object with the following files
+    """
+
+    config_file = str()
+    if netbox:
+        config_file = "./nornir/config_netbox.yml"
+    elif ansible:
+        if virtual:
+            config_file = "./nornir/config_ansible_virt.yml"
+        else:
+            config_file = "./nornir/config_ansible.yml"
+    else:
+        if virtual:
+            config_file = "./nornir/config_std_virt.yml"
+        else:
+            config_file = "./nornir/config_std.yml"
+
+    nr = InitNornir(
+        config_file=config_file, logging={"file": log_file, "level": log_level}
+    )
+
+    return nr
+
 # ------------------------------------------------------------------------------------------------------------------
 #
 #
@@ -423,3 +515,14 @@ def printline_comment_json(comment:str, json_to_print) -> None:
     printline()
     PP.pprint(json_to_print)
     printline()
+
+# -------------------------------------------------------------------------------
+#
+# Get level test function
+#
+def get_level_test(level_value: int) -> int:
+
+    if level_value != 1 and level_value != 2:
+        return 0
+    else:
+        return level_value
