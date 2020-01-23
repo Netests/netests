@@ -3,6 +3,7 @@ stages:
   - test_setup_install
 #  - test_netests_main_function
   - test_functions_protocols
+  - test_code_format
 #  - create_merge_request_to_master
 
 test_pip37_install_requirements:
@@ -76,6 +77,15 @@ test_functions_protocols_with_python_36:
   tags:
     - docker
 
+test_code_format:
+  image: "python:3.7"
+  stage: test_code_format
+  script:
+    - pip install --upgrade pip
+    - pip install black==19.10b0 pylama==7.7.1
+    - pip freeze | grep -i "pylama\|black"
+    - pylama netests.py
+    - black --check netests.py
 
 #create_merge_request_to_master:
 #  stage: create_merge_request_to_master
