@@ -63,7 +63,7 @@ test_functions_protocols_with_python_37:
   script:
     - pip install --upgrade pip
     - pip install -r requirements.txt
-    - ./features/run_tests.sh
+    - ./features/run_behave.sh
   tags:
     - docker
 
