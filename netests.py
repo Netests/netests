@@ -59,14 +59,14 @@ HEADER = "[netests - main.py]"
 @click.option(
     "-v",
     "--virtual",
-    default=f"{PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY_VIRTUAL}",
+    default=False,
     show_default=True,
     help=f"Define path to the virtual Ansible inventory file",
 )
 @click.option(
     "-n",
     "--netbox",
-    default=f"/",
+    default=False,
     show_default=True,
     help=f"Define path to retrieve inventory from netbox (in progress)",
 )

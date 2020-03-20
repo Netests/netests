@@ -244,7 +244,7 @@ def _extreme_vsp_get_ospf(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_neighbor.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_neighbor.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -264,7 +264,7 @@ def _extreme_vsp_get_ospf(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_interface.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_interface.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -284,7 +284,7 @@ def _extreme_vsp_get_ospf(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -303,7 +303,7 @@ def _extreme_vsp_get_ospf(task):
 
     if output.result != "" and "All 0 out of 0" not in output.result:
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -326,7 +326,7 @@ def _extreme_vsp_get_ospf(task):
 
             if output.result != "" and "OSPF instance does not exist" not in output.result:
                 template = open(
-                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_neighbor.template")
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_neighbor.textfsm")
                 results_template = textfsm.TextFSM(template)
 
                 parsed_results = results_template.ParseText(output.result)
@@ -345,7 +345,7 @@ def _extreme_vsp_get_ospf(task):
 
             if output.result != "" and "OSPF instance does not exist" not in output.result:
                 template = open(
-                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_interface.template")
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_interface.textfsm")
                 results_template = textfsm.TextFSM(template)
 
                 parsed_results = results_template.ParseText(output.result)
@@ -363,7 +363,7 @@ def _extreme_vsp_get_ospf(task):
 
             if output.result != "" and "OSPF instance does not exist" not in output.result:
                 template = open(
-                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf.template")
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf.textfsm")
                 results_template = textfsm.TextFSM(template)
 
                 parsed_results = results_template.ParseText(output.result)
@@ -381,7 +381,7 @@ def _extreme_vsp_get_ospf(task):
 
                 if output.result != "" and "All 0 out of 0" not in output.result:
                     template = open(
-                        f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+                        f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.textfsm")
                     results_template = textfsm.TextFSM(template)
 
                     parsed_results = results_template.ParseText(output.result)
@@ -472,7 +472,7 @@ def _ios_get_ospf(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -493,7 +493,7 @@ def _ios_get_ospf(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf_neighbor_detail.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf_neighbor_detail.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -513,7 +513,7 @@ def _ios_get_ospf(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf_interface_brief.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf_interface_brief.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)

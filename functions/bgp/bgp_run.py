@@ -1,10 +1,7 @@
 #!/usr/bin/env python3.7
 # -*- coding: utf-8 -*-
 
-# #############################################################################
-#
-# Import Library
-#
+
 from nornir.core import Nornir
 from functions.bgp.bgp_compare import compare_bgp
 from functions.bgp.bgp_checks import get_bgp_up
@@ -19,18 +16,11 @@ from const.constants import (
     TEST_TO_EXC_BGP_UP_KEY,
 )
 
-# #############################################################################
-#
-# Constantes
-#
+
 ERROR_HEADER = "Error import [bgp_run.py]"
 HEADER = "[bgp_run.py]"
 
 
-# #############################################################################
-#
-# Functions
-#
 def run_bgp(nr: Nornir, test_to_execute: dict, *, reports=False) -> bool:
 
     exit_value = True

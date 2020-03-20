@@ -235,7 +235,7 @@ def _ios_get_lldp(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_lldp_neighbors_detail.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_lldp_neighbors_detail.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -296,7 +296,7 @@ def _extreme_vsp_get_lldp(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_lldp_neighbor.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_lldp_neighbor.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)

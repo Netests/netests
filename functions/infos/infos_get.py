@@ -253,7 +253,7 @@ def _extreme_vsp_get_infos(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_tech.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_tech.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -273,7 +273,7 @@ def _extreme_vsp_get_infos(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_snmp_server_host.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_snmp_server_host.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -293,7 +293,7 @@ def _extreme_vsp_get_infos(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_sys_dns.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_sys_dns.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -314,7 +314,7 @@ def _extreme_vsp_get_infos(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}extrme_vsp_show_int_gi_name.template")
+            f"{TEXTFSM_PATH}extrme_vsp_show_int_gi_name.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -398,7 +398,7 @@ def _ios_get_infos(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_version.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_version.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -419,7 +419,7 @@ def _ios_get_infos(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_snmp.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_snmp.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -439,7 +439,7 @@ def _ios_get_infos(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_int_brief.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_int_brief.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)

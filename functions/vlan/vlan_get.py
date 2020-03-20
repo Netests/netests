@@ -176,7 +176,7 @@ def _cumulus_get_vlan(task, filters:dict):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cumulus_net_show_vrf_list.template")
+            f"{TEXTFSM_PATH}cumulus_net_show_vrf_list.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)

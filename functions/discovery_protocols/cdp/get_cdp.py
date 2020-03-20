@@ -180,7 +180,7 @@ def _ios_get_cdp(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_cdp_neighbors_detail.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_cdp_neighbors_detail.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)

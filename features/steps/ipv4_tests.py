@@ -255,7 +255,7 @@ def create_an_ipv4_object_from_a_ios_output_command(context) -> None:
 
     if ipv4_data != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_interface.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_interface.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(ipv4_data)
@@ -322,7 +322,7 @@ def create_an_ipv4_object_from_a_extreme_vsp_output_command(context) -> None:
 
     if ipv4_data != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(ipv4_data)
@@ -334,7 +334,7 @@ def create_an_ipv4_object_from_a_extreme_vsp_output_command(context) -> None:
 
     if ipv4_data != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(ipv4_data)
@@ -346,7 +346,7 @@ def create_an_ipv4_object_from_a_extreme_vsp_output_command(context) -> None:
 
     if ipv4_data != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(ipv4_data)

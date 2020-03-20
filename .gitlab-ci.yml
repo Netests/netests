@@ -85,9 +85,4 @@ test_code_format:
     - pip install black==19.10b0 pylama==7.7.1
     - pip freeze | grep -i "pylama\|black"
     - pylama netests.py
-    - black --check netests.py
-
-#create_merge_request_to_master:
-#  stage: create_merge_request_to_master
-
-
+    - pylama functions/bgp/*

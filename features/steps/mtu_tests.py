@@ -188,7 +188,7 @@ def create_a_mtu_object_from_a_network_device(context) -> None:
 
     if mtu_data != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_interface.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_interface.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(mtu_data)

@@ -239,7 +239,7 @@ def _cumulus_get_vrf(task):
         )
 
         template = open(
-            f"{TEXTFSM_PATH}cumulus_net_show_bgp_vrf.template")
+            f"{TEXTFSM_PATH}cumulus_net_show_bgp_vrf.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -307,7 +307,7 @@ def _extreme_vsp_get_vrf(task):
         )
 
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_vrf.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_vrf.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -352,7 +352,7 @@ def _iosxr_get_vrf(task):
         )
 
         template = open(
-            f"{TEXTFSM_PATH}cisco_xr_show_vrf_detail.template")
+            f"{TEXTFSM_PATH}cisco_xr_show_vrf_detail.textfsm")
         results_template = textfsm.TextFSM(template)
 
         # Return value
@@ -379,7 +379,7 @@ def _ios_get_vrf(task):
         )
 
         template = open(
-            f"{TEXTFSM_PATH}cisco_xr_show_vrf_detail.template")
+            f"{TEXTFSM_PATH}cisco_xr_show_vrf_detail.textfsm")
         results_template = textfsm.TextFSM(template)
 
         # Return value

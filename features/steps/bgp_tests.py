@@ -223,7 +223,7 @@ def create_a_bgp_object_from_a_extreme_vsp_output_command(context) -> None:
 
     if bgp_data != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_bgp_summary.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_bgp_summary.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(bgp_data)
@@ -237,7 +237,7 @@ def create_a_bgp_object_from_a_extreme_vsp_output_command(context) -> None:
 
     if bgp_data != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_bgp_summary.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_bgp_summary.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(bgp_data)

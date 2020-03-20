@@ -211,7 +211,7 @@ def create_an_vlan_object_from_a_cumulus_output_command(context) -> None:
 
     if vlan_data != "":
         template = open(
-            f"{TEXTFSM_PATH}cumulus_net_show_vrf_list.template")
+            f"{TEXTFSM_PATH}cumulus_net_show_vrf_list.textfsm")
         results_template = textfsm.TextFSM(template)
 
         outputs_dict[VLAN_VRF_LIST_KEY] = results_template.ParseText(vlan_data)

@@ -251,7 +251,7 @@ def _ios_get_ipv4(task, *, filters=dict()):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_interface.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_interface.textfsm")
         results_template = textfsm.TextFSM(template)
          
         parsed_results = results_template.ParseText(output.result)
@@ -339,7 +339,7 @@ def _extreme_vsp_get_ipv4(task, *, filters=dict()):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -362,7 +362,7 @@ def _extreme_vsp_get_ipv4(task, *, filters=dict()):
 
             if output.result != "":
                 template = open(
-                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.template")
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.textfsm")
                 results_template = textfsm.TextFSM(template)
 
                 parsed_results = results_template.ParseText(output.result)

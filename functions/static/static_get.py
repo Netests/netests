@@ -225,7 +225,7 @@ def _extreme_vsp_get_static(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_route_static.template")
+            f"{TEXTFSM_PATH}extreme_vsp_show_ip_route_static.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -247,7 +247,7 @@ def _extreme_vsp_get_static(task):
 
             if output.result != "":
                 template = open(
-                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_route_static.template")
+                    f"{TEXTFSM_PATH}extreme_vsp_show_ip_route_static.textfsm")
                 results_template = textfsm.TextFSM(template)
 
                 parsed_results = results_template.ParseText(output.result)
@@ -313,7 +313,7 @@ def _ios_get_static(task):
 
     if output.result != "":
         template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_route_static.template")
+            f"{TEXTFSM_PATH}cisco_ios_show_ip_route_static.textfsm")
         results_template = textfsm.TextFSM(template)
 
         parsed_results = results_template.ParseText(output.result)
@@ -336,7 +336,7 @@ def _ios_get_static(task):
 
             if output.result != "":
                 template = open(
-                    f"{TEXTFSM_PATH}cisco_ios_show_ip_route_static.template")
+                    f"{TEXTFSM_PATH}cisco_ios_show_ip_route_static.textfsm")
                 results_template = textfsm.TextFSM(template)
 
                 parsed_results = results_template.ParseText(output.result)

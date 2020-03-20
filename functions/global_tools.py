@@ -1,11 +1,6 @@
 #!/usr/bin/env python3.7
 # -*- coding: utf-8 -*-
 
-"""
-Description ...
-
-"""
-
 __author__ = "Dylan Hamel"
 __maintainer__ = "Dylan Hamel"
 __version__ = "0.1"
@@ -13,64 +8,23 @@ __email__ = "dylan.hamel@protonmail.com"
 __status__ = "Prototype"
 __copyright__ = "Copyright 2019"
 
-########################################################################################################################
-#
-# HEADERS
-#
+
+import yaml
+import json
+from nornir import InitNornir
+from nornir.core import Nornir
+from netmiko import ConnectHandler
+from jnpr.junos.device import Device
+import ipaddress
+from const.constants import (
+    NETMIKO_NAPALM_MAPPING_PLATEFORM,
+    NORNIR_DEBUG_MODE,
+)
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 ERROR_HEADER = "Error import [global.py]"
 
-########################################################################################################################
-#
-# Default value used for exit()
-#
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    print(importError)
-    exit(EXIT_FAILURE)
 
-try:
-    import ipaddress
-except ImportError as importError:
-    print(f"{ERROR_HEADER} ipaddress")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from nornir.core import Nornir
-    from nornir import InitNornir
-except ImportError as importError:
-    print(f"{ERROR_HEADER} yaml")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import yaml
-except ImportError as importError:
-    print(f"{ERROR_HEADER} yaml")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import json
-except ImportError as importError:
-    print(f"{ERROR_HEADER} json")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from jnpr.junos.device import Device
-except ImportError as importError:
-    print(f"{ERROR_HEADER} jnpr.junos")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-
-# -------------------------------------------------------------------------------
-#
-# Test devices connectivity function
-#
 def check_devices_connectivity(nr: Nornir) -> bool:
     """
     This function will test the connectivity to each devices
@@ -82,7 +36,7 @@ def check_devices_connectivity(nr: Nornir) -> bool:
     devices = nr.filter()
 
     if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER}] no device selected.")
+        raise Exception(f"[{ERROR_HEADER}] no device selected.")
 
     data = devices.run(task=is_alive, num_workers=100)
     # print_result(data)
@@ -115,6 +69,7 @@ def is_alive(task) -> None:
     else:
         plateform = task.host.platform
 
+    print(plateform)
     device = ConnectHandler(
         device_type=plateform,
         host=task.host.hostname,
@@ -122,7 +77,8 @@ def is_alive(task) -> None:
         password=task.host.password,
     )
 
-    device.find_prompt()
+    return True
+
 
 # ------------------------------------------------------------------------------------------------------------------
 #
@@ -137,6 +93,9 @@ def init_nornir(
     """
     Initialize Nornir object with the following files
     """
+
+    print(netbox)
+    print(ansible)
 
     config_file = str()
     if netbox:
