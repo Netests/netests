@@ -9,3 +9,4 @@ pip-selfcheck.json
 __pycache__/
 *.pyc
 **/bck.*
+req.txt

@@ -73,7 +73,7 @@ test_functions_protocols_with_python_36:
   script:
     - pip install --upgrade pip
     - pip install -r requirements.txt
-    - ./features/run_tests.sh
+    - ./features/run_behave.sh
   tags:
     - docker
 
@@ -84,5 +84,4 @@ test_code_format:
     - pip install --upgrade pip
     - pip install black==19.10b0 pylama==7.7.1
     - pip freeze | grep -i "pylama\|black"
-    - pylama netests.py
-    - pylama functions/bgp/*
+    - ./features/run_syntax.sh

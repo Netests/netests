@@ -1,41 +1,12 @@
 #!/usr/bin/env python3.7
 # -*- coding: utf-8 -*-
 
-"""
-Add a description ....
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 
-"""
-
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "1.0"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
-
-########################################################################################################################
-#
-# Default value used for exit()
-#
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
 
-########################################################################################################################
-#
-# Import Library
-#
-try:
-    import pprint
-    PP = pprint.PrettyPrinter(indent=4)
-except ImportError as importError:
-    print(f"const pprint")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-########################################################################################################################
-#
-# CONSTANTES
-#
 CONTEXT_SETTINGS = dict(
     help_option_names=['-h', '--help']
 )
@@ -49,7 +20,13 @@ NETMIKO_NAPALM_MAPPING_PLATEFORM = {
     'iosxr': 'cisco_xr'
 }
 
-##### REPORT PATH #####
+# CONNEXION MODE
+NETCONF_CONNECTION = "netconf"
+SSH_CONNECTION = "ssh"
+API_CONNECTION = "api"
+NAPALM_CONNECTION = "napalm"
+
+# REPORT PATH
 REPORT_FOLDER = "reports/"
 TEMPLATES_PATH = "templates/"
 FEATURES_PATH = "features/"
@@ -62,18 +39,20 @@ JINJA2_PING_RESULT = f"{JINJA2_PING_PATH}result/"
 JINJA2_SOCKET_PATH = f"{JINJA2_PATH}socket/"
 JINJA2_SOCKET_RESULT = f"{JINJA2_SOCKET_PATH}result/"
 
-###### NORNIR INIT ######
+# NORNIR INIT
 NORNIR_DEBUG_MODE = 'debug'
 
 PATH_TO_VERITY_FILES = "./verity/"
 PATH_TO_INVENTORY_FILES = "./inventory/"
 
-###### INVENTORY ######
+# INVENTORY
 ANSIBLE_INVENTORY = "hosts"
 ANSIBLE_INVENTORY_VIRTUAL = "hosts_virtual"
 
 NAPALM_COMPATIBLE_PLATEFORM = [
-    'junos', 'cisco_nxos', 'nxos', 'cisco_ios', 'ios', 'iosxr', 'cisco_iosxr', 'arista_eos', 'eos'
+    'junos', 'cisco_nxos', 'nxos',
+    'cisco_ios', 'ios', 'iosxr',
+    'cisco_iosxr', 'arista_eos', 'eos'
 ]
 JUNOS_PLATEFORM_NAME = 'junos'
 CUMULUS_PLATEFORM_NAME = 'linux'
@@ -83,7 +62,7 @@ CISCO_IOSXR_PLATEFORM_NAME = 'iosxr'
 ARISTA_PLATEFORM_NAME = 'eos'
 EXTREME_PLATEFORM_NAME = 'extreme_vsp'
 
-###### TESTS TO EXECUTE FILE ######
+# TESTS TO EXECUTE FILE
 TEST_TO_EXECUTE_FILENAME = "_test_to_execute.yml"
 TO_EXECUTE_FILE_VALUE = ['INFO', 'TRUE', 'FALSE']
 YAML_BGKP_ASN_KEY = 'asn'
@@ -125,16 +104,22 @@ YAML_ALL_GROUPS_KEY = 'all'
 YAML_GROUPS_KEY = 'groups'
 YAML_DEVICES_KEY = 'devices'
 
-##### JUNOS COMMANDS
+# JUNOS COMMANDS
 JUNOS_GET_INFOS = "show version | display json"
 JUNOS_GET_IPV4 = JUNOS_GET_INT = "show interfaces brief | display json"
 JUNOS_GET_MEMORY = "show system memory | display json"
 JUNOS_GET_CONFIG_SYSTEM = "show configuration system | display json"
 JUNOS_GET_SERIAL = "show chassis hardware detail | display json"
 JUNOS_GET_BGP = "show bgp neighbor exact-instance master | display json"
-JUNOS_GET_BGP_RID = "show configuration routing-options router-id | display json"
+JUNOS_GET_BGP_RID = (
+    "show configuration routing-options router-id "
+    "| display json"
+)
 JUNOS_GET_BGP_VRF = "show bgp neighbor exact-instance {} | display json"
-JUNOS_GET_BGP_VRF_RID = "show configuration routing-instances {} routing-options router-id | display json"
+JUNOS_GET_BGP_VRF_RID = (
+    "show configuration routing-instances {} "
+    "routing-options router-id | display json"
+)
 JUNOS_GET_VRF_DETAIL = "show route instance detail | display json"
 JUNOS_GET_VRF = "show route instance | display json"
 JUNOS_GET_MTU = "show interfaces | display json"
@@ -145,7 +130,7 @@ JUNOS_GET_OSPF_RID_VRF = "show ospf overview instance {} | display json"
 JUNOS_GET_STATIC = "show route protocol static | display json"
 JUNOS_GET_LLDP = "show lldp neighbors | display json"
 
-###### CUMULUS COMMANDS
+# CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
 CUMULUS_GET_BGP_VRF = "net show bgp vrf {} summary json"
 CUMULUS_GET_VRF = "net show bgp vrf"
@@ -167,7 +152,7 @@ CUMULUS_GET_VLAN = "net show interface json"
 CUMULUS_GET_VLAN_MEM = "net show bridge vlan json"
 CUMULUS_GET_BOND = "net show interface bonds json"
 
-##### NEXUS COMMANDS
+# NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
 NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
 NEXUS_GET_VRF = "show vrf all | json"
@@ -187,7 +172,7 @@ NEXUS_GET_SNMP = "show snmp host | json"
 NEXUS_GET_DOMAIN = "show hostname | json"
 NEXUS_GET_MTU = "show interface | json"
 
-##### ARISTA COMMANDS
+# ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
 ARISTA_GET_BGP_VRF = "show ip bgp summary vrf {} | json"
 ARISTA_GET_VRF = "show vrf | json"
@@ -208,7 +193,7 @@ ARISTA_GET_VLAN = "show vlan | json"
 ARISTA_GET_IP_VLAN = "show ip interface vlan 1-4094 | json"
 ARISTA_GET_IPV6 = "show ipv6 interface | json"
 
-##### EXTREME VSP COMMANDS
+# EXTREME VSP COMMANDS
 EXTREME_VSP_GET_BGP = 'show ip bgp summary'
 EXTREME_VSP_GET_BGP_VRF = "show ip bgp summary vrf {}"
 EXTREME_VSP_GET_VRF = "show ip vrf"
@@ -229,7 +214,7 @@ EXTREME_VSP_GET_DOMAIN = "show sys dns"
 EXTREME_VSP_GET_INT = "show interfaces gigabitEthernet name"
 EXTREME_VSP_GET_MTU = "show interfaces gigabitEthernet"
 
-##### CISCO IOS
+# CISCO IOS
 IOS_GET_INFOS = "show version"
 IOS_GET_SNMP = "show snmp"
 IOS_GET_INT = "show ip interface brief"
@@ -247,19 +232,21 @@ IOS_GET_OSPF = "show ip ospf"
 IOS_GET_OSPF_NEI = "show ip ospf neighbor detail"
 IOS_GET_OSPF_INT = "show ip ospf interface brief"
 
-##### CISCO IOSXR
+# CISCO IOSXR
 IOSXR_GET_VRF = "show vrf detail"
 
-##### BGP CONSTANTES
+# BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
 BGP_WORKS_KEY = 'bgp_works'
 BGP_ALL_BGP_UP_KEY = 'bgp_all_up'
 
-BGP_STATE_UP_LIST = ['ESTABLISHED','established', 'Established', 'Estab','UP', 'up', 'Up']
+BGP_STATE_UP_LIST = [
+    'ESTABLISHED', 'established', 'Established', 'Estab', 'UP', 'up', 'Up'
+]
 BGP_STATE_BRIEF_UP = "UP"
 BGP_STATE_BRIEF_DOWN = "DOWN"
 
-##### OSPF CONSTANTES
+# OSPF CONSTANTES
 OSPF_SESSIONS_HOST_KEY = 'ospf_sessions'
 OSPF_WORKS_KEY = 'ospf_works'
 OSPF_RIB_KEY = 'ospf'
@@ -267,40 +254,41 @@ OSPF_INT_NAME_KEY = 'int_name'
 OSPF_INT_KEY = 'interfaces'
 OSPF_NEI_KEY = 'neighbors'
 
-##### VRF CONSTANTES
+# VRF CONSTANTES
 VRF_DATA_KEY = 'vrf_data'
 VRF_NAME_DATA_KEY = 'vrf_name_data'
 VRF_WORKS_KEY = 'vrf_works'
+VRF_DEFAULT_RT_LST = ["default", "global", "GlobalRouter"]
 
-##### PING CONSTANTES
+# PING CONSTANTES
 PING_DATA_HOST_KEY = 'ping_data'
 PING_WORKS_KEY = 'ping_works'
 
-##### SOCKET CONSTANTES
+# SOCKET CONSTANTES
 SOCKET_DATA_HOST_KEY = "socket_data"
 SOCKET_WORKS_KEY = "socket_works"
 
-##### LLDP CONSTANTES
+# LLDP CONSTANTES
 LLDP_DATA_HOST_KEY = 'lldp_data'
 LLDP_WORKS_KEY = 'lldp_works'
 
-##### CDP CONSTANTES
+# CDP CONSTANTES
 CDP_DATA_HOST_KEY = 'cdp_data'
 CDP_WORKS_KEY = 'cdp_works'
 
-##### IPv4 CONSTANTES
+# IPv4 CONSTANTES
 IPV4_DATA_HOST_KEY = 'ipv4_data'
 IPV4_WORKS_KEY = 'ipv4_works'
 
-##### IPv6 CONSTANTES
+# IPv6 CONSTANTES
 IPV6_DATA_HOST_KEY = 'ipv6_data'
 IPV6_WORKS_KEY = 'ipv6_works'
 
-##### STATIC CONSTANTES
+# STATIC CONSTANTES
 STATIC_DATA_HOST_KEY = "static_data"
 STATIC_WORKS_KEY = "static_works"
 
-##### INFOS / FACTS CONST
+# INFOS / FACTS CONST
 INFOS_DATA_HOST_KEY = "infos_data"
 INFOS_WORKS_KEY = "infos_works"
 INFOS_SYS_DICT_KEY = "get_infos_sys"
@@ -311,21 +299,21 @@ INFOS_MEMORY_DICT_KEY = "get_infos_memory"
 INFOS_CONFIG_DICT_KEY = "get_infos_config"
 INFOS_SERIAL_DICT_KEY = "get_infos_serial"
 
-##### MTU
+# MTU
 MTU_DATA_HOST_KEY = "mtu_data"
 MTU_WORKS_HOST_KEY = "mtu_works"
 MTU_INTER_YAML_KEY = "interfaces"
 MTU_GLOBAL_YAML_KEY = "global_mtu"
 
-#### MLAG
+# MLAG
 MLAG_DATA_HOST_KEY = "mlag_data"
 MLAG_WORKS_KEY = "mlag_works"
 
-#### L2VNI
+# L2VNI
 L2VNI_DATA_HOST_KEY = "l2vni_data"
 L2VNI_WORKS_KEY = "l2vni_works"
 
-#### VLAN
+# VLAN
 VLAN_DATA_HOST_KEY = "vlan_data"
 VLAN_WORKS_KEY = "vlan_works"
 VLAN_VRF_LIST_KEY = "get_vlan_vrf"
@@ -335,7 +323,7 @@ VLAN_GET_L2 = "get_vlan_l2"
 VLAN_GET_L3 = "get_vlan_l3"
 VLAN_GET_INT = "get_vlan_int"
 
-#### BOND
+# BOND
 BOND_DATA_HOST_KEY = "bond_data"
 BOND_WORKS_KEY = "bond_works"
 BOND_DATA_LIST_KEY = "bond_data_list"

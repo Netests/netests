@@ -94,9 +94,6 @@ def init_nornir(
     Initialize Nornir object with the following files
     """
 
-    print(netbox)
-    print(ansible)
-
     config_file = str()
     if netbox:
         config_file = "./nornir/config_netbox.yml"
@@ -403,7 +400,7 @@ def open_file(path: str()) -> dict():
 
     with open(path, 'r') as yamlFile:
         try:
-            data = yaml.load(yamlFile)
+            data = yaml.load(yamlFile, Loader=yaml.FullLoader)
         except yaml.YAMLError as exc:
             print(exc)
 

@@ -1,10 +1,7 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# #############################################################################
-#
-# Import Library
-#
+import os
 from functions.bgp.bgp_run import run_bgp, run_bgp_up
 from functions.bond.bond_run import run_bond
 from functions.discovery_protocols.lldp.lldp_run import run_lldp
@@ -29,7 +26,6 @@ from functions.global_tools import (
 )
 from const.constants import (
     PATH_TO_INVENTORY_FILES,
-    ANSIBLE_INVENTORY_VIRTUAL,
     ANSIBLE_INVENTORY,
     PATH_TO_VERITY_FILES,
     TEST_TO_EXECUTE_FILENAME,
@@ -39,10 +35,7 @@ from const.constants import (
 import urllib3
 import click
 
-# #############################################################################
-#
-# Constantes
-#
+
 ERROR_HEADER = "Error import [main.py]"
 HEADER = "[netests - main.py]"
 
@@ -57,7 +50,7 @@ HEADER = "[netests - main.py]"
     help=f"Define path to the production Ansible inventory file",
 )
 @click.option(
-    "-v",
+    "-o",
     "--virtual",
     default=False,
     show_default=True,
@@ -85,6 +78,7 @@ HEADER = "[netests - main.py]"
     help=f"If TRUE, check if devices are reachable",
 )
 @click.option(
+    "-s",
     "--devices-number",
     default=-1,
     show_default=True,
@@ -92,17 +86,27 @@ HEADER = "[netests - main.py]"
     f"Can be combined with --device-group",
 )
 @click.option(
+    "-g",
     "--devices-group",
-    default=[],
-    show_default="#",
+    default="#",
+    show_default=True,
     help=f"Filter devices based on the group."
     f"Allow you to select device only from a group."
     f'Several groups can be given separate by a ","',
 )
 @click.option(
+    "-d",
     "--devices",
-    default=[],
-    show_default="#",
+    default="#",
+    show_default=True,
+    help=f"Filter devices based on the hostname."
+    f'Several hostname can be given separate by a ","',
+)
+@click.option(
+    "-v",
+    "--verbose",
+    default=False,
+    show_default=True,
     help=f"Filter devices based on the hostname."
     f'Several hostname can be given separate by a ","',
 )
@@ -115,8 +119,11 @@ def main(
     devices_number,
     devices_group,
     devices,
+    verbose
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    os.environ["NETESTS_VERBOSE"] = f"{verbose}"
 
     # Create Nornir object
     try:
@@ -163,9 +170,5 @@ def main(
     )
 
 
-# ############################################################################
-#
-# Entry Point
-#
 if __name__ == "__main__":
     main()
