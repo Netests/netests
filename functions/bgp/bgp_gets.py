@@ -54,9 +54,11 @@ from const.constants import (
     CISCO_IOS_PLATEFORM_NAME,
     CUMULUS_PLATEFORM_NAME,
     EXTREME_PLATEFORM_NAME,
-    NAPALM_COMPATIBLE_PLATEFORM,
 )
-from functions.base_selection import base_selection
+from functions.base_selection import (
+    base_selection,
+    device_not_compatible_with_napalm
+)
 from functions.vrf.vrf_get import get_vrf_name_list
 
 
@@ -74,7 +76,7 @@ MAPPING_FUNCTION = {
        API_CONNECTION: _cumulus_get_bgp_api,
        SSH_CONNECTION: _cumulus_get_bgp_ssh,
        NETCONF_CONNECTION: _cumulus_get_bgp_netconf,
-       NAPALM_CONNECTION: _generic_bgp_napalm
+       NAPALM_CONNECTION: device_not_compatible_with_napalm
     },
     ARISTA_PLATEFORM_NAME: {
        API_CONNECTION: _arista_get_bgp_api,
@@ -104,7 +106,7 @@ MAPPING_FUNCTION = {
         API_CONNECTION: _extreme_vsp_get_bgp_api,
         SSH_CONNECTION: _extreme_vsp_get_bgp_ssh,
         NETCONF_CONNECTION: _extreme_vsp_get_bgp_netconf,
-        NAPALM_CONNECTION: _generic_bgp_napalm
+        NAPALM_CONNECTION: device_not_compatible_with_napalm
     }
 }
 
@@ -121,7 +123,8 @@ def get_bgp(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    if bool(os.environ["NETESTS_VERBOSE"] == "True" ): print_result(data)
+    if bool(os.environ["NETESTS_VERBOSE"] == "True"):
+        print_result(data)
 
 
 def generic_bgp_get(task):

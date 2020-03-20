@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
 class NetestsException(Exception):
     pass
 
@@ -10,4 +11,8 @@ class NetestsFunctionNotImplemented(NetestsException):
 
 
 class NetestsFunctionNotPossible(NetestsException):
+    pass
+
+
+class NetestsDeviceNotCompatibleWithNapalm(NetestsException):
     pass
