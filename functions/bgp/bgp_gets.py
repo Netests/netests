@@ -43,6 +43,7 @@ from functions.bgp.napalm.bgp_napalm import (
     _generic_bgp_napalm
 )
 from const.constants import (
+    LEVEL1,
     SSH_CONNECTION,
     API_CONNECTION,
     NETCONF_CONNECTION,
@@ -59,6 +60,7 @@ from functions.base_selection import (
     base_selection,
     device_not_compatible_with_napalm
 )
+from functions.verbose_mode import verbose_mode
 from functions.vrf.vrf_get import get_vrf_name_list
 
 
@@ -123,7 +125,11 @@ def get_bgp(nr: Nornir):
         on_failed=True,
         num_workers=10
     )
-    if bool(os.environ["NETESTS_VERBOSE"] == "True"):
+
+    if verbose_mode(
+        user_value=os.environ["NETESTS_VERBOSE"],
+        needed_value=LEVEL1
+    ):
         print_result(data)
 
 

@@ -10,6 +10,7 @@ declare -a commands_lst=(
     'pylama exceptions/'
     'pylama functions/bgp/*'
     'pylama functions/base_selection.py'
+    'pylama functions/verbose_mode.py'
     'pylama const/constants.py'
 )
 

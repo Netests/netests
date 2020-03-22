@@ -54,5 +54,7 @@ def _cumulus_get_bgp_ssh(task):
             if output.result != "":
                 outputs_lst.append(json.loads(output.result))
 
-    bgp_sessions = _cumulus_bgp_converter(task.host.name, outputs_lst)
-    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
+    task.host[BGP_SESSIONS_HOST_KEY] = _cumulus_bgp_converter(
+        hostname=task.host.name,
+        cmd_outputs=outputs_lst
+    )

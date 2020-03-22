@@ -105,7 +105,7 @@ HEADER = "[netests - main.py]"
 @click.option(
     "-v",
     "--verbose",
-    default=False,
+    default="level0",
     show_default=True,
     help=f"Filter devices based on the hostname."
     f'Several hostname can be given separate by a ","',

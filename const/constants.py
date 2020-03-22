@@ -12,6 +12,12 @@ CONTEXT_SETTINGS = dict(
 )
 NOT_SET = "NOT_SET"
 
+# VERBOSE MODE VALUES
+LEVEL0 = "level0"
+LEVEL1 = "level1"
+LEVEL2 = "level2"
+LEVEL3 = "level3"
+
 NETMIKO_NAPALM_MAPPING_PLATEFORM = {
     'ios': 'cisco_ios',
     'nxos': 'cisco_nxos',
@@ -25,6 +31,8 @@ NETCONF_CONNECTION = "netconf"
 SSH_CONNECTION = "ssh"
 API_CONNECTION = "api"
 NAPALM_CONNECTION = "napalm"
+
+NETCONF_FILTER = "<filter>{}</filter>"
 
 # REPORT PATH
 REPORT_FOLDER = "reports/"
