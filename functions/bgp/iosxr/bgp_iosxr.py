@@ -13,9 +13,9 @@ from exceptions.netests_exceptions import (
     NetestsFunctionNotImplemented,
     NetestsFunctionNotPossible
 )
-from functions.bgp.iosxr.bgp_iosxr_converter import (
-    _iosxr_bgp_netconf_converter,
-)
+# from functions.bgp.iosxr.api.converter import _iosxr_bgp_api_converter
+from functions.bgp.iosxr.netconf.converter import _iosxr_bgp_netconf_converter
+# from functions.bgp.iosxr.ssh.converter import _iosxr_bgp_ssh_converter
 
 
 def _iosxr_get_bgp_api(task):

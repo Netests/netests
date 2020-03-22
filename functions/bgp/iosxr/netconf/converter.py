@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -11,7 +11,8 @@ from exceptions.netests_iosxr_exceptions import (
 )
 from protocols.bgp import (
     LEVEL2,
-    LEVEL3,
+    LEVEL4,
+    LEVEL5,
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
@@ -26,17 +27,13 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _iosxr_bgp_api_converter(hostname: str, cmd_outputs: list) -> BGP:
-    print("_iosxr_bgp_api_converter")
-
-
 def _iosxr_bgp_netconf_converter(hostname: str, cmd_outputs: dict) -> BGP:
     cmd_outputs = json.loads(cmd_outputs)
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
 
     if verbose_mode(
         user_value=os.environ["NETESTS_VERBOSE"],
-        needed_value=LEVEL3
+        needed_value=LEVEL5
     ):
         printline()
         PP.pprint(cmd_outputs)
@@ -55,7 +52,7 @@ def _iosxr_bgp_netconf_converter(hostname: str, cmd_outputs: dict) -> BGP:
 
         if verbose_mode(
             user_value=os.environ["NETESTS_VERBOSE"],
-            needed_value=LEVEL2
+            needed_value=LEVEL4
         ):
             printline()
             PP.pprint(w)
@@ -323,22 +320,12 @@ def _iosxr_bgp_netconf_converter(hostname: str, cmd_outputs: dict) -> BGP:
             f"Netconf call output does not have all keys for device {hostname}"
         )
 
-    return BGP(hostname=hostname, bgp_sessions_vrf_lst=bgp_sessions_vrf_lst)
+    bgp = BGP(hostname=hostname, bgp_sessions_vrf_lst=bgp_sessions_vrf_lst)
 
+    if verbose_mode(
+        user_value=os.environ["NETESTS_VERBOSE"],
+        needed_value=LEVEL2
+    ):
+        print(bgp)
 
-def _iosxr_bgp_ssh_converter(hostname: str(), cmd_outputs: list) -> BGP:
-    print("_iosxr_bgp_ssh_converter")
-
-
-"""
-    src_hostname: str
-    peer_ip: str
-    remote_as: str
-    state_brief: str
-
-    # The following values are not used by the __eq__ function !!
-    peer_hostname: str
-    session_state: str
-    state_time: str
-    prefix_received: str
-"""
+    return bgp

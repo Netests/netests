@@ -16,6 +16,7 @@ declare -a commands_lst=(
     'behave features/ipv6_tests.feature'
     'behave features/vlan_tests.feature'
     'behave features/lldp_tests.feature'
+    'behave features/verbose.feature'
 )
 
 for command in "${commands_lst[@]}"

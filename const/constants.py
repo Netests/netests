@@ -17,6 +17,8 @@ LEVEL0 = "level0"
 LEVEL1 = "level1"
 LEVEL2 = "level2"
 LEVEL3 = "level3"
+LEVEL4 = "level4"
+LEVEL5 = "level5"
 
 NETMIKO_NAPALM_MAPPING_PLATEFORM = {
     'ios': 'cisco_ios',

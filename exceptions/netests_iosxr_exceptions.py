@@ -8,3 +8,11 @@ from exceptions.netests_exceptions import (
 
 class NetestsIOSXRNetconfOutputError(NetestsException):
     pass
+
+
+class NetestsIOSXRApiOutputError(NetestsException):
+    pass
+
+
+class NetestsIOSXRSshOutputError(NetestsException):
+    pass
