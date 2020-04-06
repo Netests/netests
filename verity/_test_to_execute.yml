@@ -1,9 +1,9 @@
 # Each test can be in 3 types.
-# 1) yes || true => (Mandatory) - If test failed Pipeline will be stopped
+# 1) yes || false => (Mandatory) - If test failed Pipeline will be stopped
 # 2) info =>  (Informations) - If test failed you will only see a message
 # 3) no || false => (Exclude) - Test will not be executed
 # Check that BGP sessions regarding bgp.yml are the same
-bgp: false
+bgp: true
 bgp_all_up: false
 # Check OSPF sessions
 ospf:
@@ -18,25 +18,25 @@ ping: false
 # Test sockets
 socket: false
 # Check Link Discovery Protocols sessions
-lldp: true
+lldp: false
 cdp: false
 # Check IPv4 addresses
 ipv4:
   test: false
-  # By default, filters is true
+  # By default, filters is false
   filters:
     get_physical: false
-    get_vlan: true
-    get_loopback: true
-    get_peerlink: true
+    get_vlan: false
+    get_loopback: false
+    get_peerlink: false
     get_vni: false
 # Check IPv6 addresses
 ipv6:
   test: false
   filters:
-    # By default, filters is true
-    get_physical: true
-    get_vlan: true
+    # By default, filters is false
+    get_physical: false
+    get_vlan: false
     get_loopback: false
     get_peerlink: false
     get_vni: false
@@ -67,7 +67,7 @@ vlan:
     get_bridge: false
     get_vni: false
     get_peerlink: false
-    get_lag: true
+    get_lag: false
 # Check BOND
 bond:
   test: false

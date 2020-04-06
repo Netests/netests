@@ -17,12 +17,32 @@ from netmiko import ConnectHandler
 from jnpr.junos.device import Device
 import ipaddress
 from const.constants import (
+    NOT_SET,
     NETMIKO_NAPALM_MAPPING_PLATEFORM,
     NORNIR_DEBUG_MODE,
+    BGP_STATE_UP_LIST,
+    BGP_STATE_BRIEF_UP,
+    BGP_STATE_BRIEF_DOWN
 )
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 ERROR_HEADER = "Error import [global.py]"
+
+
+def _generic_state_converter(state: str) -> str:
+    """
+    This function will convert session state in a session state brief.
+    The result can be UP or DOWN.
+    Example : Idle => Down
+
+    :param state:
+    :return str: State brief
+    """
+
+    if state in BGP_STATE_UP_LIST or state == NOT_SET:
+        return BGP_STATE_BRIEF_UP
+    else:
+        return BGP_STATE_BRIEF_DOWN
 
 
 def check_devices_connectivity(nr: Nornir) -> bool:

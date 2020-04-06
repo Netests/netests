@@ -2,8 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import json
+import xmltodict
+from ncclient import manager
+from xml.etree import ElementTree
 from nornir.plugins.tasks.networking import netmiko_send_command
 from const.constants import (
+    NETCONF_FILTER,
     BGP_SESSIONS_HOST_KEY,
     JUNOS_GET_BGP,
     JUNOS_GET_BGP_RID,
@@ -12,8 +16,11 @@ from const.constants import (
     VRF_NAME_DATA_KEY,
     VRF_DEFAULT_RT_LST
 )
-from functions.bgp.bgp_converters import (
-    _juniper_bgp_converter
+from functions.bgp.juniper.ssh.converter import (
+    _juniper_bgp_ssh_converter
+)
+from functions.bgp.juniper.netconf.converter import (
+    _juniper_bgp_netconf_converter
 )
 from exceptions.netests_exceptions import (
     NetestsFunctionNotImplemented
@@ -27,13 +34,36 @@ def _juniper_get_bgp_api(task):
 
 
 def _juniper_get_bgp_netconf(task):
-    raise NetestsFunctionNotImplemented(
-        "Juniper Networks Netconf functions is not implemented..."
+    with manager.connect(
+        host=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        hostkey_verify=False
+    ) as m:
+
+        bgp_config = m.get_config(
+            source='running',
+            filter=NETCONF_FILTER.format(
+                (
+                    "<configuration>"
+                    "<protocols>"
+                    "<bgp/>"
+                    "</protocols>"
+                    "</configuration>"
+                )
+            )
+        ).data_xml
+
+    ElementTree.fromstring(bgp_config)
+
+    task.host[BGP_SESSIONS_HOST_KEY] = _juniper_bgp_netconf_converter(
+        hostname=task.host.name,
+        cmd_outputs=json.dumps(xmltodict.parse(bgp_config))
     )
 
 
 def _juniper_get_bgp_ssh(task):
-
     outputs_lst = dict()
     outputs_lst["default"] = dict()
     output = task.run(
@@ -74,5 +104,5 @@ def _juniper_get_bgp_ssh(task):
                 if output.result != "" and "router-id" in output.result:
                     outputs_lst[vrf]["conf"] = json.loads(output.result)
 
-    bgp_sessions = _juniper_bgp_converter(task.host.name, outputs_lst)
+    bgp_sessions = _juniper_bgp_ssh_converter(task.host.name, outputs_lst)
     task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
