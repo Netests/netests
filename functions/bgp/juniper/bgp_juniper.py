@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import json
 import xmltodict
-from ncclient import manager
+from jnpr.junos import Device
 from xml.etree import ElementTree
 from nornir.plugins.tasks.networking import netmiko_send_command
 from const.constants import (
-    NETCONF_FILTER,
+    LEVEL5,
     BGP_SESSIONS_HOST_KEY,
     JUNOS_GET_BGP,
     JUNOS_GET_BGP_RID,
@@ -25,6 +26,10 @@ from functions.bgp.juniper.netconf.converter import (
 from exceptions.netests_exceptions import (
     NetestsFunctionNotImplemented
 )
+from functions.global_tools import printline
+from functions.verbose_mode import verbose_mode
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_get_bgp_api(task):
@@ -34,32 +39,28 @@ def _juniper_get_bgp_api(task):
 
 
 def _juniper_get_bgp_netconf(task):
-    with manager.connect(
+    with Device(
         host=task.host.hostname,
         port=task.host.port,
-        username=task.host.username,
-        password=task.host.password,
-        hostkey_verify=False
+        user=task.host.username,
+        passwd=task.host.password,
     ) as m:
 
-        bgp_config = m.get_config(
-            source='running',
-            filter=NETCONF_FILTER.format(
-                (
-                    "<configuration>"
-                    "<protocols>"
-                    "<bgp/>"
-                    "</protocols>"
-                    "</configuration>"
-                )
-            )
-        ).data_xml
+        bgp_conf = m.rpc.get_bgp_neighbor_information(exact_instance="master")
 
-    ElementTree.fromstring(bgp_config)
+    if verbose_mode(
+        user_value=os.environ["NETESTS_VERBOSE"],
+        needed_value=LEVEL5
+    ):
+        printline()
+        print(ElementTree.tostring(bgp_conf))
+
+    ElementTree.fromstring(ElementTree.tostring(bgp_conf))
 
     task.host[BGP_SESSIONS_HOST_KEY] = _juniper_bgp_netconf_converter(
         hostname=task.host.name,
-        cmd_outputs=json.dumps(xmltodict.parse(bgp_config))
+        cmd_outputs=json.dumps(xmltodict.parse(
+            ElementTree.tostring(bgp_conf)))
     )
 
 

@@ -61,7 +61,7 @@ from functions.base_selection import (
     device_not_compatible_with_napalm
 )
 from functions.verbose_mode import verbose_mode
-from functions.vrf.vrf_get import get_vrf_name_list
+from functions.vrf.vrf_get import get_vrf
 
 
 ERROR_HEADER = "Error import [bgp_gets.py]"
@@ -119,7 +119,7 @@ def get_bgp(nr: Nornir):
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
-    get_vrf_name_list(nr)
+    get_vrf(nr, save_vrf_name_as_list=True)
     data = devices.run(
         task=generic_bgp_get,
         on_failed=True,

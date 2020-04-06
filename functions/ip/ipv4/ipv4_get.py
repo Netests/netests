@@ -63,7 +63,6 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.vrf.vrf_get import get_vrf_name_list
     from functions.vrf.vrf_get import get_vrf
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.vrf")
@@ -95,7 +94,7 @@ def get_ipv4(nr: Nornir, *, filters=dict()):
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
-    get_vrf_name_list(nr)
+    get_vrf(nr, save_vrf_name_as_list=True)
 
     data = devices.run(
         task=generic_ipv4_get,

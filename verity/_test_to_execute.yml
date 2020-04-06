@@ -3,14 +3,14 @@
 # 2) info =>  (Informations) - If test failed you will only see a message
 # 3) no || false => (Exclude) - Test will not be executed
 # Check that BGP sessions regarding bgp.yml are the same
-bgp: true
+bgp: false
 bgp_all_up: false
 # Check OSPF sessions
 ospf:
   test: false
   level: NOT_IMPLEMENTED
 # Check that all VRF are defined
-vrf: false
+vrf: true
 # Check MLAG
 mlag: false
 # Check pings

@@ -12,7 +12,6 @@ from exceptions.netests_iosxr_exceptions import (
 from protocols.bgp import (
     LEVEL2,
     LEVEL4,
-    LEVEL5,
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
@@ -33,7 +32,7 @@ def _iosxr_bgp_netconf_converter(hostname: str, cmd_outputs: dict) -> BGP:
 
     if verbose_mode(
         user_value=os.environ["NETESTS_VERBOSE"],
-        needed_value=LEVEL5
+        needed_value=LEVEL4
     ):
         printline()
         PP.pprint(cmd_outputs)
