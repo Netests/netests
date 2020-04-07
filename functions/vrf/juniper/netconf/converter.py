@@ -3,7 +3,9 @@
 
 import os
 import json
+import lxml
 import xmltodict
+from xml.etree import ElementTree
 from const.constants import (
     NOT_SET,
     LEVEL3,
@@ -24,7 +26,11 @@ PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_vrf_netconf_converter(hostname: str, cmd_output: list) -> ListVRF:
-    cmd_output = json.dumps(xmltodict.parse(cmd_output))
+    if isinstance(cmd_output, lxml.etree._Element):
+        cmd_output = json.dumps(xmltodict.parse(ElementTree.tostring(cmd_output)))
+    elif isinstance(cmd_output, str):
+        cmd_output = json.dumps(xmltodict.parse(cmd_output))
+    
     cmd_output = json.loads(cmd_output)
 
     if verbose_mode(
