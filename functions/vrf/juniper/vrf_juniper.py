@@ -54,7 +54,7 @@ def _juniper_get_vrf_netconf(task):
 
     task.host[VRF_DATA_KEY] = _juniper_vrf_netconf_converter(
         hostname=task.host.name,
-        cmd_outputs=json.dumps(xmltodict.parse(
+        cmd_output=json.dumps(xmltodict.parse(
             ElementTree.tostring(vrf_config)))
     )
 

@@ -2,8 +2,8 @@
 
 declare -i return_value=0
 declare -a commands_lst=(
-    'sh features/run_behave.sh'
-    'sh features/run_syntax.sh'
+    'sh tests/run_behave.sh'
+    'sh tests/run_syntax.sh'
 )
 
 for command in "${commands_lst[@]}"
