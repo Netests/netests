@@ -15,5 +15,10 @@ do
     fi
 done
 
+echo "------------------------------------------"
+echo ">>> Tests finished result is ... [$return_value]"
+echo "[0] = Success!"
+echo "[X] = Failed!"
+echo "------------------------------------------"
 
 exit $return_value
