@@ -78,7 +78,7 @@ class ListVRF:
         for vrf in self.vrf_lst:
             if vrf not in others.vrf_lst:
                 if verbose_mode(
-                    user_value=os.environ["NETESTS_VERBOSE"],
+                    user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
                     needed_value=LEVEL1
                 ):
                     printline()
@@ -89,7 +89,7 @@ class ListVRF:
         for vrf in others.vrf_lst:
             if vrf not in self.vrf_lst:
                 if verbose_mode(
-                    user_value=os.environ["NETESTS_VERBOSE"],
+                    user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
                     needed_value=LEVEL1
                 ):
                     printline()

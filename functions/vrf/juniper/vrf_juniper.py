@@ -3,11 +3,13 @@
 
 import os
 import json
-import xmltodict
 from jnpr.junos import Device
 from xml.etree import ElementTree
+from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import netmiko_send_command
 from const.constants import (
+    NOT_SET,
+    LEVEL2,
     LEVEL5,
     VRF_DATA_KEY,
     JUNOS_GET_VRF_DETAIL
@@ -44,7 +46,7 @@ def _juniper_get_vrf_netconf(task):
         vrf_config = m.rpc.get_instance_information(detail=True)
 
     if verbose_mode(
-        user_value=os.environ["NETESTS_VERBOSE"],
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL5
     ):
         printline()
@@ -54,22 +56,26 @@ def _juniper_get_vrf_netconf(task):
 
     task.host[VRF_DATA_KEY] = _juniper_vrf_netconf_converter(
         hostname=task.host.name,
-        cmd_output=json.dumps(xmltodict.parse(
-            ElementTree.tostring(vrf_config)))
+        cmd_output=vrf_config
     )
 
 
 def _juniper_get_vrf_ssh(task):
-
     if VRF_DATA_KEY not in task.host.keys():
-
-        output = task.run(
+        data = task.run(
             name=f"{JUNOS_GET_VRF_DETAIL}",
             task=netmiko_send_command,
             command_string=f"{JUNOS_GET_VRF_DETAIL}",
         )
 
+        if verbose_mode(
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+            needed_value=LEVEL2
+        ):
+            printline()
+            print_result(data)
+
         task.host[VRF_DATA_KEY] = _juniper_vrf_ssh_converter(
             hostname=task.host.name,
-            cmd_output=json.loads(output.result)
+            cmd_output=json.loads(data.result)
         )

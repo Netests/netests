@@ -8,6 +8,7 @@ from jnpr.junos import Device
 from xml.etree import ElementTree
 from nornir.plugins.tasks.networking import netmiko_send_command
 from const.constants import (
+    NOT_SET,
     LEVEL5,
     BGP_SESSIONS_HOST_KEY,
     JUNOS_GET_BGP,
@@ -49,7 +50,7 @@ def _juniper_get_bgp_netconf(task):
         bgp_conf = m.rpc.get_bgp_neighbor_information(exact_instance="master")
 
     if verbose_mode(
-        user_value=os.environ["NETESTS_VERBOSE"],
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL5
     ):
         printline()

@@ -1,0 +1,5 @@
+---
+leaf04:
+  - vrf_name: default
+  - vrf_name: mgmt_junos
+  - vrf_name: INTERNAL_PEERING_VRF

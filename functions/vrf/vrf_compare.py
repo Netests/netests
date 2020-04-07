@@ -1,67 +1,23 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Description ...
+import json
+from nornir.plugins.functions.text import print_result
+from const.constants import (
+    NOT_SET,
+    VRF_DATA_KEY,
+    VRF_WORKS_KEY
+)
+from protocols.vrf import (
+    VRF,
+    ListVRF
+)
 
-"""
+    
 
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "0.1"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
-
-########################################################################################################################
-#
-# HEADERS
-#
 ERROR_HEADER = "Error import [vrf_compare.py]"
 HEADER_GET = "[netests - compare_vrf]"
 
-########################################################################################################################
-#
-# Default value used for exit()
-#
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from protocols.vrf import VRF, ListVRF
-except ImportError as importError:
-    print(f"{ERROR_HEADER} protocols.bgp")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    import json
-except ImportError as importError:
-    print(f"{ERROR_HEADER} json")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    # To print task results
-    from nornir.plugins.functions.text import print_result
-except ImportError as importError:
-    print(f"{ERROR_HEADER} nornir")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-########################################################################################################################
-#
-# Functions
-#
-
-########################################################################################################################
-#
-# Functions
-#
 def compare_vrf(nr, vrf_data:json) -> bool:
 
     devices = nr.filter()
@@ -71,7 +27,7 @@ def compare_vrf(nr, vrf_data:json) -> bool:
 
     data = devices.run(
         task=_compare_vrf,
-        vrf_data=vrf_data,
+        vrf_yaml_data=vrf_data,
         on_failed=True,
         num_workers=10
     )
@@ -81,21 +37,37 @@ def compare_vrf(nr, vrf_data:json) -> bool:
 
     for value in data.values():
         if value.result is False:
-            print(f"{HEADER_GET} Task '_compare' has failed for {value.host} (value.result={value.result}).")
+            print(
+                f"{HEADER_GET} Task '_compare' has failed for {value.host}"
+                f"(value.result={value.result})."
+            )
             return_value = False
 
     return (not data.failed and return_value)
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Compare function
-#
-def _compare_vrf(task, vrf_data:json):
 
+def _compare_transit_vrf(task, vrf_yaml_data: json):
+    task.host[VRF_WORKS_KEY] = _compare_vrf(
+        host_keys=task.host.keys(),
+        hostname=task.host.name,
+        groups=task.host.groups,
+        ipv4_host_data=task.host[VRF_DATA_KEY],
+        ipv4_yaml_data=vrf_yaml_data,
+    )
+
+    return task.host[VRF_WORKS_KEY]
+
+def _compare_vrf(
+    host_keys,
+    hostname: str,
+    groups: list,
+    vrf_host_data: ListVRF,
+    vrf_yaml_data: json
+):
     verity_vrf = ListVRF(list())
 
-    if VRF_DATA_KEY in task.host.keys():
-        for vrf in vrf_data.get(task.host.name, NOT_SET):
+    if VRF_DATA_KEY in host_keys:
+        for vrf in vrf_yaml_data.get(hostname, NOT_SET):
 
             vrf_obj = VRF(
                 vrf_name=vrf.get('vrf_name', NOT_SET),
@@ -104,16 +76,14 @@ def _compare_vrf(task, vrf_data:json):
                 rd=vrf.get('rd', NOT_SET),
                 rt_imp=vrf.get('rt_imp', NOT_SET),
                 rt_exp=vrf.get('rt_exp', NOT_SET),
-
+                imp_targ=vrf.get('imp_targ', NOT_SET),
+                exp_targ=vrf.get('exp_targ', NOT_SET),
             )
 
             verity_vrf.vrf_lst.append(vrf_obj)
 
-        is_same = verity_vrf == task.host[VRF_DATA_KEY]
-
-        task.host[VRF_WORKS_KEY] = is_same
-        return is_same
+        return verity_vrf == vrf_host_data
 
     else:
-        print(f"Key {VRF_DATA_KEY} is missing for {task.host.name}")
+        print(f"Key {VRF_DATA_KEY} is missing for {hostname}")
         return False

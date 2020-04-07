@@ -4,14 +4,14 @@
 import os
 import json
 from const.constants import (
-    NOT_SET
+    NOT_SET,
+    LEVEL2,
+    LEVEL4,
 )
 from exceptions.netests_iosxr_exceptions import (
     NetestsIOSXRNetconfOutputError
 )
 from protocols.bgp import (
-    LEVEL2,
-    LEVEL4,
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
@@ -31,7 +31,7 @@ def _iosxr_bgp_netconf_converter(hostname: str, cmd_outputs: dict) -> BGP:
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
 
     if verbose_mode(
-        user_value=os.environ["NETESTS_VERBOSE"],
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL4
     ):
         printline()
@@ -50,7 +50,7 @@ def _iosxr_bgp_netconf_converter(hostname: str, cmd_outputs: dict) -> BGP:
             "instance-as").get("four-byte-as")
 
         if verbose_mode(
-            user_value=os.environ["NETESTS_VERBOSE"],
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
             needed_value=LEVEL4
         ):
             printline()
@@ -322,7 +322,7 @@ def _iosxr_bgp_netconf_converter(hostname: str, cmd_outputs: dict) -> BGP:
     bgp = BGP(hostname=hostname, bgp_sessions_vrf_lst=bgp_sessions_vrf_lst)
 
     if verbose_mode(
-        user_value=os.environ["NETESTS_VERBOSE"],
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL2
     ):
         print(bgp)

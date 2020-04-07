@@ -3,6 +3,7 @@
 
 import os
 import json
+import xmltodict
 from const.constants import (
     NOT_SET,
     LEVEL3,
@@ -23,9 +24,11 @@ PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_vrf_netconf_converter(hostname: str, cmd_output: list) -> ListVRF:
+    cmd_output = json.dumps(xmltodict.parse(cmd_output))
     cmd_output = json.loads(cmd_output)
+
     if verbose_mode(
-        user_value=os.environ["NETESTS_VERBOSE"],
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL4
     ):
         printline()
@@ -59,7 +62,7 @@ def _juniper_vrf_netconf_converter(hostname: str, cmd_output: list) -> ListVRF:
             vrf_list.vrf_lst.append(vrf_obj)
 
     if verbose_mode(
-        user_value=os.environ["NETESTS_VERBOSE"],
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL3
     ):
         printline()

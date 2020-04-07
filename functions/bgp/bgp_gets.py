@@ -43,6 +43,7 @@ from functions.bgp.napalm.bgp_napalm import (
     _generic_bgp_napalm
 )
 from const.constants import (
+    NOT_SET,
     LEVEL1,
     SSH_CONNECTION,
     API_CONNECTION,
@@ -127,7 +128,7 @@ def get_bgp(nr: Nornir):
     )
 
     if verbose_mode(
-        user_value=os.environ["NETESTS_VERBOSE"],
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL1
     ):
         print_result(data)

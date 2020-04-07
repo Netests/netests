@@ -4,6 +4,7 @@
 import os
 import json
 from protocols.bgp import (
+    NOT_SET,
     LEVEL4,
     BGP
 )
@@ -15,7 +16,7 @@ PP = pprint.PrettyPrinter(indent=4)
 
 def _juniper_bgp_netconf_converter(hostname: str(), cmd_outputs: dict) -> BGP:
     if verbose_mode(
-        user_value=os.environ["NETESTS_VERBOSE"],
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL4
     ):
         printline()

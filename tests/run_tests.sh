@@ -4,6 +4,7 @@ declare -i return_value=0
 declare -a commands_lst=(
     'sh tests/run_behave.sh'
     'sh tests/run_syntax.sh'
+    'sh tests/run_verbose.sh'
 )
 
 for command in "${commands_lst[@]}"
@@ -13,5 +14,6 @@ do
         return_value=1
     fi
 done
+
 
 exit $return_value

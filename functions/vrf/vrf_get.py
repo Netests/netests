@@ -43,6 +43,7 @@ from functions.vrf.nxos.vrf_nxos import (
     _nxos_get_vrf_ssh
 )
 from const.constants import (
+    NOT_SET,
     LEVEL1,
     VRF_DATA_KEY,
     VRF_NAME_DATA_KEY,
@@ -127,7 +128,7 @@ def get_vrf(nr: Nornir, save_vrf_name_as_list=True):
     )
 
     if verbose_mode(
-        user_value=os.environ["NETESTS_VERBOSE"],
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL1
     ):
         print_result(data)
@@ -139,7 +140,7 @@ def get_vrf(nr: Nornir, save_vrf_name_as_list=True):
             num_workers=10
         )
         if verbose_mode(
-            user_value=os.environ["NETESTS_VERBOSE"],
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
             needed_value=LEVEL1
         ):
             print_result(data)
