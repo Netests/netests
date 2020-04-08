@@ -16,6 +16,7 @@ from functions.vrf.juniper.netconf.converter import (
 )
 from functions.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
 from functions.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
+from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
 from protocols.vrf import (
     VRF,
     ListVRF
@@ -146,9 +147,56 @@ def step_impl(context):
     )
 
 
+@given(u'I create a VRF object equals to IOS-XR manually named o07')
+def step_impl(context):
+    context.o07 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o07.vrf_lst.append(
+        VRF(
+            vrf_name="EXTERNAL_PEERING",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd="65000:100",
+            rt_imp="65000:1",
+            rt_exp="65000:1",
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o07.vrf_lst.append(
+        VRF(
+            vrf_name="MGMT_VRF",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS-XR SSH output named o08')
+def step_impl(context):
+    context.o08 = _iosxr_vrf_ssh_converter(
+        hostname="spine03",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/ssh/"
+                "cisco_iosxr_show_vrf_all_detail.txt"
+            )
+        )
+    )
+
+
 @then(u'VRF object_01 should be equal to object_02')
 def step_impl(context):
-
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="leaf04",
@@ -163,9 +211,8 @@ def step_impl(context):
     assert context.o01 == context.o03
 
 
-@then(u'VRF object_02 should be not equal to object_03')
+@then(u'VRF object_02 should be equal to object_03')
 def step_impl(context):
-    
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="leaf04",
@@ -175,7 +222,7 @@ def step_impl(context):
     )
 
 
-@then(u'VRF object_02 should be not equal to object_04')
+@then(u'VRF object_02 should be equal to object_04')
 def step_impl(context):
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
@@ -186,9 +233,8 @@ def step_impl(context):
     )
 
 
-@then(u'VRF object_02 should be not equal to object_05')
+@then(u'VRF object_02 should be equal to object_05')
 def step_impl(context):
-    print(context.o05)
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="leaf01",
@@ -198,7 +244,7 @@ def step_impl(context):
     )
 
 
-@then(u'VRF object_02 should be not equal to object_06')
+@then(u'VRF object_02 should be equal to object_06')
 def step_impl(context):
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
@@ -209,11 +255,38 @@ def step_impl(context):
     )
 
 
-@then(u'VRF object_04 should be not equal to object_05')
+@then(u'VRF object_04 should be equal to object_05')
 def step_impl(context):
     assert context.o04 == context.o05
 
 
-@then(u'VRF object_04 should be not equal to object_06')
+@then(u'VRF object_04 should be equal to object_06')
 def step_impl(context):
     assert context.o04 == context.o06
+
+
+@then(u'VRF object_02 should be equal to object_07')
+def step_impl(context):
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="spine03",
+        groups=['iosxr'],
+        vrf_host_data=context.o07,
+        vrf_yaml_data=context.o02
+    )
+
+
+@then(u'VRF object_02 should be equal to object_08')
+def step_impl(context):
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="spine03",
+        groups=['iosxr'],
+        vrf_host_data=context.o08,
+        vrf_yaml_data=context.o02
+    )
+
+
+@then(u'VRF object_07 should be equal to object_08')
+def step_impl(context):
+    assert context.o07 == context.o08

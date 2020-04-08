@@ -7,3 +7,8 @@ leaf04:
   - vrf_name: default
   - vrf_name: mgmt_junos
   - vrf_name: INTERNAL_PEERING_VRF
+
+
+spine03:
+  - vrf_name: MGMT_VRF
+  - vrf_name: EXTERNAL_PEERING
