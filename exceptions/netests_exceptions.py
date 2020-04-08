@@ -16,3 +16,7 @@ class NetestsFunctionNotPossible(NetestsException):
 
 class NetestsDeviceNotCompatibleWithNapalm(NetestsException):
     pass
+
+
+class NetestsHTTPStatusCodeError(NetestsException):
+    pass

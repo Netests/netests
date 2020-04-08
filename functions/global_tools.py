@@ -129,7 +129,12 @@ def init_nornir(
             config_file = "./nornir/config_std.yml"
 
     nr = InitNornir(
-        config_file=config_file, logging={"file": log_file, "level": log_level}
+        config_file=config_file,
+        logging=
+            {
+                "file": log_file,
+                "level": log_level
+            }
     )
 
     return nr
@@ -425,6 +430,29 @@ def open_file(path: str()) -> dict():
             print(exc)
 
     return data
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Open a Text File
+#
+def open_txt_file_as_bytes(path: str()) -> str():
+    """
+    This function  will open a yaml file and return is data
+
+    Args:
+        param1 (str): Path to the string file
+
+    Returns:
+        str: file content
+    """
+
+    with open(path, 'rb') as content_file   :
+        try:
+            content = content_file.read()
+        except Exception as exc:
+            print(exc)
+
+    return content
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

@@ -113,7 +113,24 @@ vvvv show route instance detail | display json ** changed : False vvvvvvvvvvvvvv
 
 ## Level3
 
-*TO_DEFINED*
+Use to print result of a command like TextFSM parsing :
+
+```python
+def _cumulus_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:
+    list_vrf = ListVRF(list())
+
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL3
+    ):  
+        printline()
+        print(cmd_output)
+```
+
+```shell
+////////////////////////////////////////////////////////////////////////////////////////
+[['mgmt', '1001']]
+```
 
 ## Level4
 

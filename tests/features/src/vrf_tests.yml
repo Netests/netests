@@ -1,4 +1,8 @@
 ---
+leaf01:
+  - vrf_name: mgmt
+    vrf_id: 1001
+
 leaf04:
   - vrf_name: default
   - vrf_name: mgmt_junos

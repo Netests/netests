@@ -125,6 +125,7 @@ def main(
 
     os.environ["NETESTS_VERBOSE"] = f"{verbose}"
 
+    print(ansible, netbox)
     # Create Nornir object
     try:
         nr = init_nornir(
