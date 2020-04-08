@@ -5,7 +5,7 @@ import os
 import json
 from const.constants import (
     NOT_SET,
-    LEVEL3,
+    LEVEL1,
 )
 from protocols.vrf import (
     VRF,
@@ -60,9 +60,9 @@ def _juniper_vrf_ssh_converter(hostname: str(), cmd_output: json) -> ListVRF:
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
+        needed_value=LEVEL1
     ):
         printline()
-        PP.pprint(json.loads(vrf_list))
+        PP.pprint(vrf_list)
 
     return vrf_list

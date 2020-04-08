@@ -44,7 +44,7 @@ from functions.vrf.nxos.vrf_nxos import (
 )
 from const.constants import (
     NOT_SET,
-    LEVEL1,
+    LEVEL2,
     VRF_DATA_KEY,
     VRF_NAME_DATA_KEY,
     SSH_CONNECTION,
@@ -129,7 +129,7 @@ def get_vrf(nr: Nornir, save_vrf_name_as_list=True):
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
+        needed_value=LEVEL2
     ):
         print_result(data)
 
@@ -141,7 +141,7 @@ def get_vrf(nr: Nornir, save_vrf_name_as_list=True):
         )
         if verbose_mode(
             user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-            needed_value=LEVEL1
+            needed_value=LEVEL2
         ):
             print_result(data)
 
