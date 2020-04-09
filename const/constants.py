@@ -36,6 +36,9 @@ NAPALM_CONNECTION = "napalm"
 
 NETCONF_FILTER = "<filter>{}</filter>"
 
+# CONFIG FILE
+NETESTS_CONFIG = "netests.yml"
+
 # REPORT PATH
 REPORT_FOLDER = "reports/"
 TEMPLATES_PATH = "templates/"

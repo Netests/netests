@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
+import click
+import urllib3
 from functions.base_run import run_base
 from functions.global_tools import (
     printline_comment_json as p,
@@ -10,18 +12,14 @@ from functions.global_tools import (
     check_devices_connectivity,
 )
 from const.constants import (
+    NETESTS_CONFIG,
     PATH_TO_INVENTORY_FILES,
     ANSIBLE_INVENTORY,
-    PATH_TO_VERITY_FILES,
-    TEST_TO_EXECUTE_FILENAME,
     EXIT_FAILURE,
     EXIT_SUCCESS,
 )
-import urllib3
-import click
 
 
-ERROR_HEADER = "Error import [main.py]"
 HEADER = "[netests - main.py]"
 
 
@@ -95,6 +93,13 @@ HEADER = "[netests - main.py]"
     help=f"Filter devices based on the hostname."
     f'Several hostname can be given separate by a ","',
 )
+@click.option(
+    "-C",
+    "--config",
+    default=f"{NETESTS_CONFIG}",
+    show_default=True,
+    help=f"Path to Netests configuration file"
+)
 def main(
     ansible,
     virtual,
@@ -104,9 +109,12 @@ def main(
     devices_number,
     devices_group,
     devices,
-    verbose
+    verbose,
+    config
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    t = open_file(path=config)
 
     os.environ["NETESTS_VERBOSE"] = f"{verbose}"
 
@@ -133,10 +141,8 @@ def main(
         else:
             exit(EXIT_FAILURE)
 
-    t = open_file(f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}")
     exit_value = True
-
-    for k, v in t.items():
+    for k, v in t.get('config').get('protocols').items():
         if (
             run_base(nr=nr, protocol=k, parameters=v) is False and
             exit_value is True

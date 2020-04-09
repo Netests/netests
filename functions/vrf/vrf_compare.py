@@ -3,9 +3,10 @@
 
 import os 
 import json
-from nornir.plugins.functions.text import print_result
 from functions.verbose_mode import verbose_mode
-
+from functions.select_vars import select_host_vars
+from functions.global_tools import open_file
+from nornir.plugins.functions.text import print_result
 from const.constants import (
     NOT_SET,
     LEVEL2,
@@ -22,7 +23,7 @@ from protocols.vrf import (
 ERROR_HEADER = "Error import [vrf_compare.py]"
 HEADER_GET = "[netests - compare_vrf]"
 
-def compare_vrf(nr, yaml_data:json) -> bool:
+def compare_vrf(nr) -> bool:
 
     devices = nr.filter()
 
@@ -31,7 +32,6 @@ def compare_vrf(nr, yaml_data:json) -> bool:
 
     data = devices.run(
         task=_compare_transit_vrf,
-        vrf_yaml_data=yaml_data,
         on_failed=True,
         num_workers=10
     )
@@ -54,13 +54,12 @@ def compare_vrf(nr, yaml_data:json) -> bool:
     return (not data.failed and return_value)
 
 
-def _compare_transit_vrf(task, vrf_yaml_data: json):
+def _compare_transit_vrf(task):
     task.host[VRF_WORKS_KEY] = _compare_vrf(
         host_keys=task.host.keys(),
         hostname=task.host.name,
         groups=task.host.groups,
-        vrf_host_data=task.host[VRF_DATA_KEY],
-        vrf_yaml_data=vrf_yaml_data,
+        vrf_host_data=task.host[VRF_DATA_KEY]
     )
 
     return task.host[VRF_WORKS_KEY]
@@ -70,9 +69,20 @@ def _compare_vrf(
     hostname: str,
     groups: list,
     vrf_host_data: ListVRF,
-    vrf_yaml_data: json
+    test=False
 ):
     verity_vrf = ListVRF(list())
+
+    if test:
+        vrf_yaml_data = open_file(
+            path="tests/features/src/vrf_tests.yml"
+        )
+    else:
+        vrf_yaml_data = select_host_vars(
+            hostname=hostname,
+            groups=groups,
+            protocol="vrf"
+        )
 
     if VRF_DATA_KEY in host_keys:
         for vrf in vrf_yaml_data.get(hostname, NOT_SET):

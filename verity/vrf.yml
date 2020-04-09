@@ -5,11 +5,6 @@ spine01:
   - vrf_name: test
     vrf_id: 1002
 
-
-spine03:
-  - vrf_name: MGMT_VRF
-  - vrf_name: EXTERNAL_PEERING
-
 leaf02:
   - vrf_name: default
     vrf_id: 1

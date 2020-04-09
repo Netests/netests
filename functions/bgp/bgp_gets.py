@@ -120,7 +120,7 @@ def get_bgp(nr: Nornir, filters={}, level=None, vars={}):
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
-    get_vrf(nr, save_vrf_name_as_list=True)
+    get_vrf(nr)
     data = devices.run(
         task=generic_bgp_get,
         on_failed=True,

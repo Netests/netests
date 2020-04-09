@@ -33,7 +33,6 @@ from functions.vlan.vlan_get import get_vlan
 from functions.vlan.vlan_compare import compare_vlan
 from functions.vrf.vrf_get import get_vrf
 from functions.vrf.vrf_compare import compare_vrf
-from functions.global_tools import open_file
 from const.constants import (
     BGP_SRC_FILENAME,
     BOND_SRC_FILENAME,
@@ -152,15 +151,12 @@ def run_base(nr: Nornir, protocol: str, parameters: dict) -> bool:
             level=parameters.get('compare'),
             vars=parameters.get('ansible_vars')
         )
-        if protocol != "ping" and protocol != "socket":
-            yaml_data = open_file(
-                path=f"{PATH_TO_VERITY_FILES}{RUN.get(protocol).get('file')}"
-            )
-
-            same = RUN.get(protocol).get('compare')(
-                nr=nr,
-                yaml_data=yaml_data
-            )
+        if (
+            protocol != "ping" and
+            protocol != "socket" and
+            protocol != "bgp_all_up"
+        ):
+            same = RUN.get(protocol).get('compare')(nr=nr)
 
         print(
             f"{HEADER} ({protocol}) defined in {PATH_TO_VERITY_FILES}"

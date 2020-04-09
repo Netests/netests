@@ -79,15 +79,6 @@ def step_impl(context):
     )
 
 
-@given(u'I open YAML to create a VRF object equals to Juniper named o02')
-def step_impl(context):
-    context.o02 = open_file(
-        path=(
-            f"{FEATURES_SRC_PATH}vrf_tests.yml"
-        )
-    )
-
-
 @given(u'I create a VRF object from a Juniper Netconf output named o03')
 def step_impl(context):
     context.o03 = _juniper_vrf_netconf_converter(
@@ -229,14 +220,14 @@ def step_impl(context):
     pass
 
 
-@then(u'VRF object_01 should be equal to object_02')
+@then(u'VRF object_01 should be equal to YAML file')
 def step_impl(context):
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="leaf04",
         groups=['junos'],
         vrf_host_data=context.o01,
-        vrf_yaml_data=context.o02
+        test=True
     )
 
 
@@ -245,47 +236,47 @@ def step_impl(context):
     assert context.o01 == context.o03
 
 
-@then(u'VRF object_02 should be equal to object_03')
+@then(u'VRF YAML file should be equal to object_03')
 def step_impl(context):
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="leaf04",
         groups=['junos'],
         vrf_host_data=context.o03,
-        vrf_yaml_data=context.o02
+        test=True
     )
 
 
-@then(u'VRF object_02 should be equal to object_04')
+@then(u'VRF YAML file should be equal to object_04')
 def step_impl(context):
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="leaf01",
         groups=['linux'],
         vrf_host_data=context.o04,
-        vrf_yaml_data=context.o02
+        test=True
     )
 
 
-@then(u'VRF object_02 should be equal to object_05')
+@then(u'VRF YAML file should be equal to object_05')
 def step_impl(context):
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="leaf01",
         groups=['linux'],
         vrf_host_data=context.o05,
-        vrf_yaml_data=context.o02
+        test=True
     )
 
 
-@then(u'VRF object_02 should be equal to object_06')
+@then(u'VRF YAML file should be equal to object_06')
 def step_impl(context):
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="leaf01",
         groups=['linux'],
         vrf_host_data=context.o06,
-        vrf_yaml_data=context.o02
+        test=True
     )
 
 
@@ -299,25 +290,25 @@ def step_impl(context):
     assert context.o04 == context.o06
 
 
-@then(u'VRF object_02 should be equal to object_07')
+@then(u'VRF YAML file should be equal to object_07')
 def step_impl(context):
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="spine03",
         groups=['iosxr'],
         vrf_host_data=context.o07,
-        vrf_yaml_data=context.o02
+        test=True
     )
 
 
-@then(u'VRF object_02 should be equal to object_08')
+@then(u'VRF YAML file should be equal to object_08')
 def step_impl(context):
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="spine03",
         groups=['iosxr'],
         vrf_host_data=context.o08,
-        vrf_yaml_data=context.o02
+        test=True
     )
 
 
@@ -326,14 +317,14 @@ def step_impl(context):
     assert context.o07 == context.o08
 
 
-@then(u'VRF object_02 should be equal to object_09')
+@then(u'VRF YAML file should be equal to object_09')
 def step_impl(context):
     assert _compare_vrf(
         host_keys=VRF_DATA_KEY,
         hostname="spine03",
         groups=['iosxr'],
         vrf_host_data=context.o09,
-        vrf_yaml_data=context.o02
+        test=True
     )
 
 

@@ -1,0 +1,40 @@
+config:
+  nornir_cfg: ./nornir/config_ansible.yml
+  inventory: ./inventory/ansible/hosts
+  protocols:
+    bgp:
+      test: false
+      compare:
+        src_hostname: true
+        peer_ip: true
+        remote_as: true
+        state_brief: true
+        peer_hostname: false
+        session_state: false
+        state_time: false
+        prefix_received: false
+    bgp_all_up:
+      test: false
+    
+    ospf:
+      test: false
+      compare:
+        hostname: true
+        peer_rid: true
+        local_interface: true
+        peer_ip: true
+        session_state: true
+        peer_hostname: true
+        
+    vrf:
+      test: true
+      compare:
+        vrf_name: true
+        vrf_id: false
+        vrf_type: false
+        l3_vni: false
+        rd: false
+        rt_imp: false
+        rt_exp: false
+        imp_targ: false
+        exp_targ: false

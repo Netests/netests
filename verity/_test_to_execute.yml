@@ -5,7 +5,7 @@
 # Check that BGP sessions regarding bgp.yml are the same
 bgp: 
   test: false
-bgp_all_up: 
+bgp_all_up:  
   test: false
 # Check OSPF sessions
 ospf:
