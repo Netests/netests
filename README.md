@@ -302,7 +302,8 @@ Join the Telegram channel to have access to Trello
 | Nexus           |                    | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |      |                    |      |      |        |
 | IOS             |                    |                    |                    |                    | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |      |                    |      |      |        |
 | Extreme VSP     |                    |                    |                    |                    | :white_check_mark: |                    |                    | :white_check_mark: | :white_check_mark: |                    |      |                    |      |      |        |
-| IOS-XR          |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |      |                    |      |      |        |
+| IOSXR SSH       | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |      |                    |      |      |        |
+| IOSXR Netconf   | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |      |                    |      |      |        |
 
 
 

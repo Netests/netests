@@ -27,3 +27,6 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And VRF object_02 should be equal to object_07
     And VRF object_02 should be equal to object_08
     And VRF object_07 should be equal to object_08
+    And VRF object_02 should be equal to object_09
+    And VRF object_07 should be equal to object_09
+    And VRF object_08 should be equal to object_09

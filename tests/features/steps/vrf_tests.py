@@ -17,6 +17,7 @@ from functions.vrf.juniper.netconf.converter import (
 from functions.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
 from functions.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
 from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
+from functions.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
 from protocols.vrf import (
     VRF,
     ListVRF
@@ -197,7 +198,15 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a IOS-XR Netconf output named o09')
 def step_impl(context):
-    pass
+    context.o09 = _iosxr_vrf_netconf_converter(
+        hostname="spine03",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/netconf/"
+                "cisco_iosxr_nc_get_vrf.xml"
+            )
+        )
+    )
 
 
 @given(u'I create a VRF object equals to Arista manually named o10')
@@ -315,3 +324,24 @@ def step_impl(context):
 @then(u'VRF object_07 should be equal to object_08')
 def step_impl(context):
     assert context.o07 == context.o08
+
+
+@then(u'VRF object_02 should be equal to object_09')
+def step_impl(context):
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="spine03",
+        groups=['iosxr'],
+        vrf_host_data=context.o09,
+        vrf_yaml_data=context.o02
+    )
+
+
+@then(u'VRF object_07 should be equal to object_09')
+def step_impl(context):
+    assert context.o07 == context.o09
+
+
+@then(u'VRF object_08 should be equal to object_09')
+def step_impl(context):
+    assert context.o08 == context.o09
