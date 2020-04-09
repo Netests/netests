@@ -11,6 +11,11 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And I create a VRF object from a Cumulus SSH output named o06
     And I create a VRF object equals to IOS-XR manually named o07
     And I create a VRF object from a IOS-XR SSH output named o08
+    And I create a VRF object from a IOS-XR Netconf output named o09
+    And I create a VRF object equals to Arista manually named o10
+    And I create a VRF object from an Arista API output named o11
+    And I create a VRF object from an Arista SSH output named o12
+    And I create a VRF object from an Arista Netconf output named o13
     Then VRF object_01 should be equal to object_03
     And VRF object_01 should be equal to object_02
     And VRF object_02 should be equal to object_03

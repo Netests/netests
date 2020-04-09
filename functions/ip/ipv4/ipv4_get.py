@@ -87,7 +87,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_ipv4(nr: Nornir, *, filters=dict()):
+def get_ipv4(nr: Nornir, filters={}, level=None, vars={}):
 
     devices = nr.filter()
 

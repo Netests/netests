@@ -2,22 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from functions.bgp.bgp_run import run_bgp, run_bgp_up
-from functions.bond.bond_run import run_bond
-from functions.discovery_protocols.lldp.lldp_run import run_lldp
-from functions.discovery_protocols.cdp.cdp_run import run_cdp
-from functions.infos.info_run import run_info
-from functions.ip.ipv4.ipv4_run import run_ipv4
-from functions.ip.ipv6.ipv6_run import run_ipv6
-from functions.l2vni.l2vni_run import run_l2vni
-from functions.mlag.mlag_run import run_mlag
-from functions.mtu.mtu_run import run_mtu
-from functions.ospf.ospf_run import run_ospf
-from functions.ping.ping_run import run_ping
-from functions.socket.socket_run import run_socket
-from functions.static.static_run import run_static
-from functions.vlan.vlan_run import run_vlan
-from functions.vrf.vrf_run import run_vrf
+from functions.base_run import run_base
 from functions.global_tools import (
     printline_comment_json as p,
     open_file,
@@ -149,26 +134,16 @@ def main(
             exit(EXIT_FAILURE)
 
     t = open_file(f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}")
+    exit_value = True
 
-    return (
-        run_bgp(nr=nr, test_to_execute=t, reports=reports)
-        and run_bgp_up(nr=nr, test_to_execute=t)
-        and run_bond(nr=nr, test_to_execute=t)
-        and run_lldp(nr=nr, test_to_execute=t)
-        and run_cdp(nr=nr, test_to_execute=t)
-        and run_info(nr=nr, test_to_execute=t)
-        and run_ipv4(nr=nr, test_to_execute=t)
-        and run_ipv6(nr=nr, test_to_execute=t)
-        and run_l2vni(nr=nr, test_to_execute=t)
-        and run_mlag(nr=nr, test_to_execute=t)
-        and run_mtu(nr=nr, test_to_execute=t)
-        and run_ospf(nr=nr, test_to_execute=t)
-        and run_ping(nr=nr, test_to_execute=t)
-        and run_socket(nr=nr, test_to_execute=t)
-        and run_static(nr=nr, test_to_execute=t)
-        and run_vlan(nr=nr, test_to_execute=t)
-        and run_vrf(nr=nr, test_to_execute=t)
-    )
+    for k, v in t.items():
+        if (
+            run_base(nr=nr, protocol=k, parameters=v) is False and
+            exit_value is True
+        ):
+            exit_value = False
+
+    return exit_value
 
 
 if __name__ == "__main__":

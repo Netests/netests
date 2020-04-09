@@ -7,10 +7,8 @@ spine01:
 
 
 spine03:
-  - vrf_name: mgmt
-    vrf_id: 1
-  - vrf_name: tenant-12
-    vrf_id: 2
+  - vrf_name: MGMT_VRF
+  - vrf_name: EXTERNAL_PEERING
 
 leaf02:
   - vrf_name: default

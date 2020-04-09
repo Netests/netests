@@ -80,7 +80,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_mtu(nr: Nornir):
+def get_mtu(nr: Nornir, filters={}, level=None, vars={}):
 
     devices = nr.filter()
 

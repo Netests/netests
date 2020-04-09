@@ -116,7 +116,7 @@ MAPPING_FUNCTION = {
 }
 
 
-def get_vrf(nr: Nornir, save_vrf_name_as_list=True):
+def get_vrf(nr: Nornir, filters={}, level=None, vars={}):
     devices = nr.filter()
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
@@ -133,17 +133,16 @@ def get_vrf(nr: Nornir, save_vrf_name_as_list=True):
     ):
         print_result(data)
 
-    if save_vrf_name_as_list:
-        data = devices.run(
-            task=save_vrf_name_in_a_list,
-            on_failed=True,
-            num_workers=10
-        )
-        if verbose_mode(
-            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-            needed_value=LEVEL2
-        ):
-            print_result(data)
+    data = devices.run(
+        task=save_vrf_name_in_a_list,
+        on_failed=True,
+        num_workers=10
+    )
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print_result(data)
 
 
 def generic_vrf_get(task):

@@ -77,7 +77,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_lldp(nr: Nornir):
+def get_lldp(nr: Nornir, filters={}, level=None, vars={}):
 
     devices = nr.filter()
 

@@ -1,7 +1,7 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
+import os
 from nornir.core import Nornir
 from functions.bgp.bgp_compare import compare_bgp
 from functions.bgp.bgp_checks import get_bgp_up
@@ -9,12 +9,15 @@ from functions.bgp.bgp_reports import create_reports
 from functions.bgp.bgp_gets import get_bgp
 from functions.global_tools import open_file
 from const.constants import (
+    NOT_SET,
+    LEVEL1,
     PATH_TO_VERITY_FILES,
     TEST_TO_EXECUTE_FILENAME,
     BGP_SRC_FILENAME,
     TEST_TO_EXC_BGP_KEY,
     TEST_TO_EXC_BGP_UP_KEY,
 )
+from functions.verbose_mode import verbose_mode
 
 
 ERROR_HEADER = "Error import [bgp_run.py]"
@@ -43,10 +46,14 @@ def run_bgp(nr: Nornir, test_to_execute: dict, *, reports=False) -> bool:
             f"{PATH_TO_VERITY_FILES}{BGP_SRC_FILENAME} = {same} !!"
         )
     else:
-        print(
-            f"{HEADER} BGP key not found in"
-            f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!"
-        )
+        if verbose_mode(
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+            needed_value=LEVEL1
+        ):
+            print(
+                f"{HEADER} BGP key not found in"
+                f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!"
+            )
     return exit_value
 
 
@@ -66,8 +73,12 @@ def run_bgp_up(nr: Nornir, test_to_execute: dict) -> bool:
 
         print(f"{HEADER} All BGP sessions on devices are UP = {works} !!")
     else:
-        print(
-            f"{HEADER} BGP_UP key not found in"
-            f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!"
-        )
+        if verbose_mode(
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+            needed_value=LEVEL1
+        ):
+            print(
+                f"{HEADER} BGP_UP key not found in"
+                f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!"
+            )
     return exit_value

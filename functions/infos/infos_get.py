@@ -93,7 +93,9 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_infos(nr: Nornir):
+
+
+def get_infos(nr: Nornir, filters={}, level=None, vars={}):
 
     devices = nr.filter()
 

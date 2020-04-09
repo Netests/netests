@@ -195,6 +195,31 @@ def step_impl(context):
     )
 
 
+@given(u'I create a VRF object from a IOS-XR Netconf output named o09')
+def step_impl(context):
+    pass
+
+
+@given(u'I create a VRF object equals to Arista manually named o10')
+def step_impl(context):
+    pass
+
+
+@given(u'I create a VRF object from an Arista API output named o11')
+def step_impl(context):
+    pass
+
+
+@given(u'I create a VRF object from an Arista SSH output named o12')
+def step_impl(context):
+    pass
+
+
+@given(u'I create a VRF object from an Arista Netconf output named o13')
+def step_impl(context):
+    pass
+
+
 @then(u'VRF object_01 should be equal to object_02')
 def step_impl(context):
     assert _compare_vrf(

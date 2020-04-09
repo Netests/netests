@@ -1,33 +1,26 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# #############################################################################
-#
-# Import Library
-#
+import os
 from nornir.core import Nornir
 from functions.discovery_protocols.lldp.get_lldp import get_lldp
 from functions.discovery_protocols.lldp.lldp_compare import compare_lldp
 from functions.global_tools import open_file
 from const.constants import (
+    NOT_SET,
+    LEVEL1,
     TEST_TO_EXECUTE_FILENAME,
     PATH_TO_VERITY_FILES,
     LLDP_SRC_FILENAME,
     TEST_TO_EXC_LLDP_KEY,
 )
+from functions.verbose_mode import verbose_mode
 
-# #############################################################################
-#
-# Constantes
-#
+
 ERROR_HEADER = "Error import [lldp_run.py]"
 HEADER = "[lldp_run.py]"
 
 
-# #############################################################################
-#
-# Functions
-#
 def run_lldp(nr: Nornir, test_to_execute: dict) -> bool:
     exit_value = True
     if TEST_TO_EXC_LLDP_KEY in test_to_execute.keys():
@@ -49,9 +42,13 @@ def run_lldp(nr: Nornir, test_to_execute: dict) -> bool:
         else:
             print(f"{HEADER} LLDP sessions tests are not executed !!")
     else:
-        print(
-            f"{HEADER} LLDP sessions key is not defined in"
-            f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!"
-        )
+        if verbose_mode(
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+            needed_value=LEVEL1
+        ):
+            print(
+                f"{HEADER} LLDP sessions key is not defined in"
+                f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!"
+            )
 
     return exit_value

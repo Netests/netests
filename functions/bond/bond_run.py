@@ -1,33 +1,25 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# #############################################################################
-#
-# Import Library
-#
+import os
 from nornir.core import Nornir
 from functions.bond.bond_get import get_bond
 from functions.bond.bond_compare import compare_bond
 from functions.global_tools import open_file
 from const.constants import (
+    NOT_SET,
+    LEVEL1,
     TEST_TO_EXECUTE_FILENAME,
     PATH_TO_VERITY_FILES,
     BOND_SRC_FILENAME,
     TEST_TO_EXC_BOND_KEY,
 )
+from functions.verbose_mode import verbose_mode
 
-# #############################################################################
-#
-# Constantes
-#
 ERROR_HEADER = "Error import [bond_run.py]"
 HEADER = "[bond_run.py]"
 
 
-# #############################################################################
-#
-# Functions
-#
 def run_bond(nr: Nornir, test_to_execute: dict):
     exit_value = True
     if TEST_TO_EXC_BOND_KEY in test_to_execute.keys():
@@ -54,9 +46,13 @@ def run_bond(nr: Nornir, test_to_execute: dict):
         else:
             print(f"{HEADER} BOND have not been executed !!")
     else:
-        print(
-            f"{HEADER} BOND key not found in"
-            f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!"
-        )
+        if verbose_mode(
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+            needed_value=LEVEL1
+        ):
+            print(
+                f"{HEADER} BOND key not found in"
+                f"{PATH_TO_VERITY_FILES}{TEST_TO_EXECUTE_FILENAME}  !!"
+            )
 
     return exit_value

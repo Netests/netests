@@ -19,6 +19,7 @@ declare -a commands_lst=(
     'pylama functions/vrf/napalm'
     'pylama functions/vrf/vrf_get.py'
     'pylama functions/base_selection.py'
+    'pylama functions/base_run.py'
     'pylama functions/verbose_mode.py'
     'pylama const/constants.py'
     'pylama protocols/vrf.py',

@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import textfsm
 from nornir.plugins.tasks.networking import netmiko_send_command
 from const.constants import (
-    TEXTFSM_PATH,
     VRF_DATA_KEY,
     IOSXR_GET_VRF
 )
-from functions.vrf.vrf_converter import (
-    _iosxr_vrf_converter
-)
-from exceptions.netests_exceptions import (
-    NetestsFunctionNotImplemented
-)
+from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
+from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 
 
 def _iosxr_get_vrf_api(task):
@@ -36,20 +30,9 @@ def _iosxr_get_vrf_ssh(task):
             command_string=f"{IOSXR_GET_VRF}",
         )
 
-        template = open(
-            f"{TEXTFSM_PATH}cisco_xr_show_vrf_detail.textfsm")
-        results_template = textfsm.TextFSM(template)
-
-        # Return value
-        # Example : [
-        #   ['mgmt', '1', '<not set>'],
-        #   ['tenant-1', '2', '10.255.255.103:103']
-        # ]
-
-        parsed_results = results_template.ParseText(output.result)
-        vrf_list = _iosxr_vrf_converter(
+        vrf_list = _iosxr_vrf_ssh_converter(
             hostname=task.host.name,
-            cmd_output=parsed_results
+            cmd_output=output.result
         )
 
         task.host[VRF_DATA_KEY] = vrf_list

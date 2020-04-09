@@ -83,7 +83,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_static(nr: Nornir):
+def get_static(nr: Nornir, filters={}, level=None, vars={}):
 
     devices = nr.filter()
 

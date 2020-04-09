@@ -79,7 +79,9 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_l2vni(nr: Nornir):
+
+
+def get_l2vni(nr: Nornir, filters={}, level=None, vars={}):
 
     devices = nr.filter()
 

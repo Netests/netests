@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os 
 import json
 from nornir.plugins.functions.text import print_result
+from functions.verbose_mode import verbose_mode
+
 from const.constants import (
     NOT_SET,
+    LEVEL2,
     VRF_DATA_KEY,
     VRF_WORKS_KEY
 )
@@ -18,7 +22,7 @@ from protocols.vrf import (
 ERROR_HEADER = "Error import [vrf_compare.py]"
 HEADER_GET = "[netests - compare_vrf]"
 
-def compare_vrf(nr, vrf_data:json) -> bool:
+def compare_vrf(nr, yaml_data:json) -> bool:
 
     devices = nr.filter()
 
@@ -26,12 +30,16 @@ def compare_vrf(nr, vrf_data:json) -> bool:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
     data = devices.run(
-        task=_compare_vrf,
-        vrf_yaml_data=vrf_data,
+        task=_compare_transit_vrf,
+        vrf_yaml_data=yaml_data,
         on_failed=True,
         num_workers=10
     )
-    # print_result(data)
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print_result(data)
 
     return_value = True
 
@@ -51,8 +59,8 @@ def _compare_transit_vrf(task, vrf_yaml_data: json):
         host_keys=task.host.keys(),
         hostname=task.host.name,
         groups=task.host.groups,
-        ipv4_host_data=task.host[VRF_DATA_KEY],
-        ipv4_yaml_data=vrf_yaml_data,
+        vrf_host_data=task.host[VRF_DATA_KEY],
+        vrf_yaml_data=vrf_yaml_data,
     )
 
     return task.host[VRF_WORKS_KEY]

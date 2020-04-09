@@ -75,7 +75,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def execute_ping(nr: Nornir):
+def execute_ping(nr: Nornir, filters={}, level=None, vars={}):
 
     devices = nr.filter()
 
