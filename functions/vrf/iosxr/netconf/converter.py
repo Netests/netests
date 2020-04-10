@@ -4,6 +4,7 @@
 import os
 from const.constants import (
     NOT_SET,
+    LEVEL1,
     LEVEL3,
     LEVEL4,
 )
@@ -84,9 +85,10 @@ def _iosxr_vrf_netconf_converter(hostname: str, cmd_output) -> ListVRF:
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
+        needed_value=LEVEL1
     ):
         printline()
+        print(f">>>>> {hostname}")
         print(vrf_list)
 
     return vrf_list

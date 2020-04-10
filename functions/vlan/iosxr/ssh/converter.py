@@ -19,35 +19,5 @@ from functions.verbose_mode import (
 )
 
 
-def _cumulus_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:
-    template = open(
-        f"{TEXTFSM_PATH}cumulus_net_show_vrf.textfsm"
-    )
-    results_template = textfsm.TextFSM(template)
-    parsed_results = results_template.ParseText(cmd_output)
-
-    list_vrf = ListVRF(list())
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
-    ):
-        printline()
-        print(parsed_results)
-
-    for line in parsed_results:
-        vrf = VRF(
-            vrf_name=line[0],
-            vrf_id=line[1]
-        )
-
-        list_vrf.vrf_lst.append(vrf)
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(list_vrf)
-
-    return list_vrf
+def _iosxr_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:
+    pass

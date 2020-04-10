@@ -5,6 +5,7 @@ import os
 import click
 import urllib3
 from functions.base_run import run_base
+from functions.base_cli import netests_cli
 from functions.global_tools import (
     printline_comment_json as p,
     open_file,
@@ -100,6 +101,13 @@ HEADER = "[netests - main.py]"
     show_default=True,
     help=f"Path to Netests configuration file"
 )
+@click.option(
+    "-t",
+    "--terminal",
+    default=False,
+    show_default=True,
+    help=f"Start the terminal Netests application"
+)
 def main(
     ansible,
     virtual,
@@ -110,9 +118,15 @@ def main(
     devices_group,
     devices,
     verbose,
-    config
+    config,
+    terminal
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    
+    if terminal:
+        netests_cli(ansible, virtual, netbox)
+        exit(EXIT_SUCCESS)
+    
 
     t = open_file(path=config)
 

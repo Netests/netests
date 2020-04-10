@@ -3,6 +3,7 @@
 
 import os
 from nornir.core import Nornir
+from nornir.core.filter import F
 from nornir.plugins.functions.text import print_result
 from functions.vrf.arista.vrf_arista import (
     _arista_get_vrf_api,
@@ -44,6 +45,7 @@ from functions.vrf.nxos.vrf_nxos import (
 )
 from const.constants import (
     NOT_SET,
+    LEVEL1,
     LEVEL2,
     VRF_DATA_KEY,
     VRF_NAME_DATA_KEY,
@@ -116,7 +118,17 @@ MAPPING_FUNCTION = {
 
 
 def get_vrf(nr: Nornir, filters={}, level=None, own_vars={}):
-    devices = nr.filter()
+    
+    if (
+        own_vars is not None and
+        own_vars.get("from_cli") is True and
+        isinstance(own_vars.get("from_cli"), bool)
+    ):
+        devices = nr.filter(F(groups__contains="deviceSelec"))
+        os.environ["NETESTS_VERBOSE"] = LEVEL1
+    else:
+        devices = nr.filter()
+    
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER}] no device selected.")
 

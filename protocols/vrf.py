@@ -53,15 +53,15 @@ class VRF:
         return ((str(self.vrf_name) == str(other.vrf_name)))
 
     def __repr__(self):
-        return f"<VRF vrf_name={self.vrf_name} " \
-               f"vrf_id={self.vrf_id} " \
-               f"vrf_type={self.vrf_type} " \
-               f"l3_vni={self.l3_vni} " \
-               f"rd={self.rd} " \
-               f"rt_imp={self.rt_imp} " \
-               f"rt_exp={self.rt_exp} " \
-               f"imp_targ={self.imp_targ} " \
-               f"exp_targ={self.exp_targ}>\n"
+        return f"\t<VRF vrf_name={self.vrf_name}\n" \
+               f"\t\tvrf_id={self.vrf_id}\n" \
+               f"\t\tvrf_type={self.vrf_type}\n" \
+               f"\t\tl3_vni={self.l3_vni}\n" \
+               f"\t\trd={self.rd}\n" \
+               f"\t\trt_imp={self.rt_imp}\n" \
+               f"\t\trt_exp={self.rt_exp}\n" \
+               f"\t\timp_targ={self.imp_targ}\n" \
+               f"\t\texp_targ={self.exp_targ}>\n"
 
 
 class ListVRF:

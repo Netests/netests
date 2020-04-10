@@ -73,7 +73,6 @@ def _cumulus_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
             task=netmiko_send_command,
             command_string=f"{CUMULUS_GET_VRF}",
         )
-
         if verbose_mode(
             user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
             needed_value=LEVEL2
@@ -85,3 +84,5 @@ def _cumulus_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
             hostname=task.host.name,
             cmd_output=output.result
         )
+
+        
