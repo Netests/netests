@@ -114,7 +114,7 @@ MAPPING_FUNCTION = {
 }
 
 
-def get_bgp(nr: Nornir, filters={}, level=None, vars={}):
+def get_bgp(nr: Nornir, filters={}, level=None, own_vars={}):
 
     devices = nr.filter()
     if len(devices.inventory.hosts) == 0:

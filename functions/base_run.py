@@ -149,14 +149,17 @@ def run_base(nr: Nornir, protocol: str, parameters: dict) -> bool:
             nr=nr,
             filters=parameters.get('filters'),
             level=parameters.get('compare'),
-            vars=parameters.get('ansible_vars')
+            own_vars=parameters.get('own_vars')
         )
         if (
             protocol != "ping" and
             protocol != "socket" and
             protocol != "bgp_all_up"
-        ):
-            same = RUN.get(protocol).get('compare')(nr=nr)
+        ):  
+            same = RUN.get(protocol).get('compare')(
+                nr=nr,
+                own_vars=parameters.get('own_vars')
+            )
 
         print(
             f"{HEADER} ({protocol}) defined in {PATH_TO_VERITY_FILES}"

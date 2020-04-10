@@ -1,89 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-This file is used for CI test to validate MTU protocols usage
+import json
+import yaml
+import textfsm
+from behave import given, when, then
+from const.constants import (
+    STATIC_DATA_HOST_KEY,
+    FEATURES_SRC_PATH,
+    FEATURES_OUTPUT_PATH
+)
+from functions.static.static_converters import _arista_static_converter, _juniper_static_converter
+from functions.static.static_compare import _compare_static
+from protocols.static import ListNexthop, Nexthop, ListStatic, Static
+from functions.global_tools import open_file
+    
 
-"""
-
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "1.0"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
-
-########################################################################################################################
-#
-# Constantes
-#
-ERROR_HEADER = "Error import [bgp_tests.py]"
-HEADER = "[netests - bgp_tests.py]"
-########################################################################################################################
-#
-# Import Library
-#
-
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from functions.static.static_converters import _arista_static_converter, _juniper_static_converter
-    from functions.static.static_compare import _compare_static
-    from protocols.static import ListNexthop, Nexthop, ListStatic, Static
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.static")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from functions.global_tools import open_file
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.global_tools")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from behave import given, when, then
-except ImportError as importError:
-    print(f"{ERROR_HEADER} behave")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import json
-except ImportError as importError:
-    print(f"{ERROR_HEADER} json")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import yaml
-except ImportError as importError:
-    print(f"{ERROR_HEADER} yaml")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import textfsm
-except ImportError as importError:
-    print(f"{ERROR_HEADER} textfsm")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-########################################################################################################################
-#
-# Functions
-#
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
 @given(u'I create a Static python object manually named object_01')
 def create_a_static_object_manually(context) -> None:
     """
@@ -179,10 +111,7 @@ def create_a_static_object_manually(context) -> None:
 
     context.object_01 = static_routes_lst
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
+
 @given('I retrieve data from a YAML file corresponding to devices to create an Static python object named object_02')
 def create_a_static_object_from_a_json(context) -> None:
     """
@@ -198,10 +127,7 @@ def create_a_static_object_from_a_json(context) -> None:
 
     context.object_02 = yaml_content
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
+
 @given('I create a Static python object from a Arista output command named object_03')
 def create_a_static_object_from_a_arista_output_command(context) -> None:
     """
@@ -230,10 +156,7 @@ def create_a_static_object_from_a_arista_output_command(context) -> None:
         cmd_outputs=cmd_outputs
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
+
 @given('I create a Static python object from a Juniper output command named object_04')
 def create_a_static_object_from_a_juniper_output_command(context) -> None:
     """
@@ -252,33 +175,26 @@ def create_a_static_object_from_a_juniper_output_command(context) -> None:
         cmd_outputs=cmd_outputs
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
+
 @then('Static object_01 should be equal to object_02')
-def compare_static_object_01_and_object_02(context) -> None:
+def step_impl(context) -> None:
     """
     Compare object_01 and object_02
 
     :param context:
     :return:
     """
-
     assert _compare_static(
+        host_keys=STATIC_DATA_HOST_KEY,
         hostname="leaf03",
+        groups=['eos'],
         static_host_data=context.object_01,
-        static_data=context.object_02,
-        ansible_vars=False,
-        dict_keys="",
-        your_keys={},
+        test=True,
+        own_vars={},
         task=None
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
+
 @then('Static object_01 should be equal to object_03')
 def compare_static_object_01_and_object_03(context) -> None:
     """
@@ -289,63 +205,51 @@ def compare_static_object_01_and_object_03(context) -> None:
     """
     assert context.object_01 == context.object_03
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
+
 @then('Static object_02 should be equal to object_03')
-def compare_static_object_02_and_object_03(context) -> None:
+def step_impl(context) -> None:
     """
     Compare object_02 and object_03
 
     :param context:
     :return:
     """
-
     assert _compare_static(
+        host_keys=STATIC_DATA_HOST_KEY,
         hostname="leaf03",
+        groups=['eos'],
         static_host_data=context.object_03,
-        static_data=context.object_02,
-        ansible_vars=False,
-        dict_keys="",
-        your_keys={},
+        test=True,
+        own_vars={},
         task=None
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
+
 @then('Static object_02 should be equal to object_04')
-def compare_static_object_02_and_object_04(context) -> None:
+def step_impl(context) -> None:
     """
     Compare object_02 and object_04
 
     :param context:
     :return:
     """
-
     assert _compare_static(
-        hostname="leaf04",
-        static_host_data=context.object_04,
-        static_data=context.object_02,
-        ansible_vars=False,
-        dict_keys="",
-        your_keys={},
+        host_keys=STATIC_DATA_HOST_KEY,
+        hostname="leaf03",
+        groups=['junos'],
+        static_host_data=context.object_03,
+        test=True,
+        own_vars={},
         task=None
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
+
 @then('Static object_03 should not be equal to object_04')
-def compare_static_object_03_and_object_04(context) -> None:
+def step_impl(context) -> None:
     """
     Compare object_03 and object_04
 
     :param context:
     :return:
     """
-
     assert context.object_03 != context.object_04

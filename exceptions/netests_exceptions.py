@@ -20,3 +20,7 @@ class NetestsDeviceNotCompatibleWithNapalm(NetestsException):
 
 class NetestsHTTPStatusCodeError(NetestsException):
     pass
+
+
+class NetestsOverideTruthVarsKeyUnsupported(NetestsException):
+    pass

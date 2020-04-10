@@ -1,143 +1,119 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Description ...
+import os
+import json
+from nornir.core.task import Task
+from nornir.plugins.functions.text import print_result
+from functions.verbose_mode import verbose_mode
+from functions.global_tools import (
+    open_file,
+    is_cidr_notation,
+    is_valid_cidr_netmask,
+    convert_cidr_to_netmask
+)
+from functions.select_vars import select_host_vars
+from const.constants import (
+    NOT_SET,
+    LEVEL2,
+    STATIC_WORKS_KEY,
+    STATIC_DATA_HOST_KEY,
+    STATIC_SRC_FILENAME,
+    PATH_TO_VERITY_FILES,
+    TEST_TO_EXC_STATIC_KEY
+)
+from protocols.static import (
+    Nexthop,
+    ListNexthop,
+    Static,
+    ListStatic
+)
 
-"""
 
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "0.1"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
+HEADER = "[netests - static_compare]"
 
-########################################################################################################################
-#
-# HEADERS
-#
-ERROR_HEADER = "Error import [static_compare.py]"
-HEADER_GET = "[netests - compare_static]"
 
-########################################################################################################################
-#
-# Default value used for exit()
-#
-
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from protocols.static import Nexthop, ListNexthop, Static, ListStatic
-except ImportError as importError:
-    print(f"{ERROR_HEADER} protocols.static")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    import json
-except ImportError as importError:
-    print(f"{ERROR_HEADER} json")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    # To print task results
-    from nornir.plugins.functions.text import print_result
-    # Import Task class
-    from nornir.core.task import Task
-except ImportError as importError:
-    print(f"{ERROR_HEADER} nornir")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from functions.global_tools import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.global_tools")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-########################################################################################################################
-#
-# Functions
-#
-def compare_static(nr, ansible_vars=False, dict_keys="", your_keys={} ) -> bool:
-
+def compare_static(nr, own_vars={}) -> bool:
     devices = nr.filter()
 
     if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER_GET}] no device selected.")
-
-    if ansible_vars is False:
-        static_data = open_file(f"{PATH_TO_VERITY_FILES}{STATIC_SRC_FILENAME}")
-    else:
-        static_data = dict
+        raise Exception(f"[{HEADER}] no device selected.")
 
     data = devices.run(
         task=_compare_transit_static,
-        static_data=static_data,
-        ansible_vars=ansible_vars,
-        dict_keys=dict_keys,
-        your_keys=your_keys,
+        own_vars=own_vars,
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print_result(data)
 
     return_value = True
 
     for value in data.values():
         if value.result is False:
-            print(f"{HEADER_GET} Task '_compare' has failed for {value.host} (value.result={value.result}).")
+            print(
+                f"{HEADER} Task '_compare' has failed for {value.host}"
+                f"(value.result={value.result})."
+            )
             return_value = False
 
     return (not data.failed and return_value)
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Transit function
-#
-def _compare_transit_static(task, static_data:json, *, ansible_vars=False, dict_keys="", your_keys={}):
 
+def _compare_transit_static(task, own_vars={}):
     task.host[STATIC_WORKS_KEY] =  _compare_static(
+        host_keys=task.host.keys(),
         hostname=task.host.name,
+        groups=task.host.groups,
         static_host_data=task.host[STATIC_DATA_HOST_KEY],
-        static_data=static_data,
-        ansible_vars=ansible_vars,
-        dict_keys=dict_keys,
-        your_keys=your_keys,
+        test=False,
+        own_vars=own_vars,
         task=task
     )
 
     return task.host[STATIC_WORKS_KEY]
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Compare function
-#
-def _compare_static(hostname:str, static_host_data:Static, static_data:json, *,
-                    ansible_vars=False, dict_keys="", your_keys={}, task:Task):
 
-    verity_static = ListStatic(
-        static_routes_lst=list()
-    )
+def _compare_static(
+    host_keys,
+    hostname: str,
+    groups: list,
+    static_host_data: ListStatic,
+    test=False,
+    own_vars={},
+    task=Task
+) -> bool:
 
-    if ansible_vars:
-        verity_static =  _retrieve_in_ansible_vars(
-            task=task,
-            dict_keys=dict_keys,
-            your_keys=your_keys
+    verity_static = ListStatic(static_routes_lst=list())
+
+    if (
+        own_vars is not None and
+        'enable' in own_vars.keys() and
+        own_vars.get('enable') is True
+    ):
+        verity_static = _retrieve_in_ansible_vars(
+            task = task,
+            dict_keys=own_vars.get('dict_keys', str()),
+            your_keys=own_vars.get('your_keys', list())
         )
-
     else:
-        if hostname in static_data.keys():
-            for vrf_name, facts_lst in static_data.get(hostname).items():
+        if test:
+            static_yaml_data = open_file(
+                path="tests/features/src/static_tests.yml"
+            )
+        else:
+            static_yaml_data = select_host_vars(
+                hostname=hostname,
+                groups=groups,
+                protocol="static" 
+            )
+
+        if STATIC_DATA_HOST_KEY in host_keys and hostname in static_yaml_data.keys():
+            for vrf_name, facts_lst in static_yaml_data.get(hostname).items():
                 for facts in facts_lst:
 
                     if facts.get('netmask', NOT_SET) == NOT_SET:
@@ -211,18 +187,12 @@ def _compare_static(hostname:str, static_host_data:Static, static_data:json, *,
                         )
 
                     verity_static.static_routes_lst.append(static_obj)
-
-            is_same = verity_static == static_host_data
-
         else:
-            print(f"[{HEADER_GET}] {hostname} is not present in {PATH_TO_VERITY_FILES}/{TEST_TO_EXC_STATIC_KEY}.")
+            print(f"Key {STATIC_DATA_HOST_KEY} is missing for {hostname}")
 
-    return is_same
+    return verity_static == static_host_data
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Compare function
-#
+
 def _retrieve_in_ansible_vars(task, dict_keys="", your_keys={}) -> ListStatic:
     """
     This function will automatically retrieve data in Ansible vars.

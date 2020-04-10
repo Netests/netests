@@ -89,13 +89,8 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
     print(importError)
 
-########################################################################################################################
-#
-# Functions
-#
 
-
-def get_infos(nr: Nornir, filters={}, level=None, vars={}):
+def get_infos(nr: Nornir, filters={}, level=None, own_vars={}):
 
     devices = nr.filter()
 

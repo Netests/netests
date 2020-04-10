@@ -253,8 +253,9 @@ def compare_vlan_object_01_and_object_02(context) -> None:
     assert _compare_vlan(
         host_keys=VLAN_DATA_HOST_KEY,
         hostname="leaf03",
+        groups=['eos'],
         vlan_host_data=context.object_01,
-        vlan_yaml_data=context.object_02
+        test=True
     )
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -273,8 +274,9 @@ def compare_vlan_object_02_and_object_03(context) -> None:
     assert _compare_vlan(
         host_keys=VLAN_DATA_HOST_KEY,
         hostname="leaf03",
+        groups=['eos'],
         vlan_host_data=context.object_03,
-        vlan_yaml_data=context.object_02
+        test=True
     )
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -324,6 +326,7 @@ def compare_vlan_object_02_and_object_04(context) -> None:
     assert _compare_vlan(
         host_keys=VLAN_DATA_HOST_KEY,
         hostname="leaf01",
+        groups=['linux'],
         vlan_host_data=context.object_04,
-        vlan_yaml_data=context.object_02
+        test=True
     )

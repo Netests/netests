@@ -75,7 +75,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def execute_socket(nr: Nornir, filters={}, level=None, vars={}):
+def execute_socket(nr: Nornir, filters={}, level=None, own_vars={}):
 
     devices = nr.filter()
 

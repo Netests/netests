@@ -13,6 +13,7 @@ config:
         session_state: false
         state_time: false
         prefix_received: false
+
     bgp_all_up:
       test: false
     
@@ -25,7 +26,27 @@ config:
         peer_ip: true
         session_state: true
         peer_hostname: true
-        
+
+    static:
+      test: false
+      compare:
+        vrf_name: true
+        prefix: true
+        netmask: true
+        nexthop: true
+      own_vars:
+        enable: false
+        dict_keys: routing>static>ipv4
+        your_keys:
+          prefix: subnet
+          ip_address: ip
+          nexthop: via
+          netmask: mask
+          preference: pref
+
+    vlan:
+      test: false
+      
     vrf:
       test: true
       compare:

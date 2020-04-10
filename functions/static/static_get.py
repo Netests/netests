@@ -83,14 +83,14 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_static(nr: Nornir, filters={}, level=None, vars={}):
+def get_static(nr: Nornir, filters={}, level=None, own_vars={}):
 
     devices = nr.filter()
 
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
-    get_vrf(nr, save_vrf_name_as_list=True)
+    get_vrf(nr)
 
     data = devices.run(
         task=generic_static_get,

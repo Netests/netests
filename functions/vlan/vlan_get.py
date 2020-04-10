@@ -1,99 +1,37 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Add a description ....
+import os
+from const.constants import *
+from functions.verbose_mode import verbose_mode
+from functions.bond.bond_get import get_bond
+from functions.vlan.vlan_converters import _napalm_vlan_converter
+from functions.vlan.vlan_converters import _cumulus_vlan_converter
+from functions.vlan.vlan_converters import _extreme_vsp_vlan_converter
+from functions.vlan.vlan_converters import _ios_vlan_converter
+from functions.vlan.vlan_converters import _nexus_vlan_converter
+from functions.vlan.vlan_converters import _arista_vlan_converter
+from functions.vlan.vlan_converters import _juniper_vlan_converter
+from nornir.core import Nornir
+from nornir.core.filter import F
+from nornir.plugins.tasks.networking import netmiko_send_command
+from nornir.plugins.tasks.networking import napalm_get
+from nornir.plugins.functions.text import print_result
+import json
+import textfsm
 
-"""
 
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "1.0"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
+HEADER = "[netests - get_vrf]"
 
-########################################################################################################################
-#
-# HEADERS
-#
 
-ERROR_HEADER = "Error import [vlan_gets.py]"
-HEADER_GET = "[netests - get_vlan]"
-
-########################################################################################################################
-#
-# Import Library
-#
-
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    from functions.bond.bond_get import get_bond
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.bond.bond_get")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    from functions.vlan.vlan_converters import _napalm_vlan_converter
-    from functions.vlan.vlan_converters import _cumulus_vlan_converter
-    from functions.vlan.vlan_converters import _extreme_vsp_vlan_converter
-    from functions.vlan.vlan_converters import _ios_vlan_converter
-    from functions.vlan.vlan_converters import _nexus_vlan_converter
-    from functions.vlan.vlan_converters import _arista_vlan_converter
-    from functions.vlan.vlan_converters import _juniper_vlan_converter
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.vlan.vlan_converters")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    from nornir.core import Nornir
-    # To use advanced filters
-    from nornir.core.filter import F
-    # To execute netmiko commands
-    from nornir.plugins.tasks.networking import netmiko_send_command
-    # To execute napalm get config
-    from nornir.plugins.tasks.networking import napalm_get
-    # To print task results
-    from nornir.plugins.functions.text import print_result
-except ImportError as importError:
-    print(f"{ERROR_HEADER} nornir")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import json
-except ImportError as importError:
-    print(f"{ERROR_HEADER} json")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    import textfsm
-except ImportError as importError:
-    print(f"{ERROR_HEADER} textfsm")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-########################################################################################################################
-#
-# Functions
-#
-def get_vlan(nr: Nornir, filters={}, level=None, vars={}):
+def get_vlan(nr: Nornir, filters={}, level=None, own_vars={}):
 
     devices = nr.filter()
 
     if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER_GET}] no device selected.")
+        raise Exception(f"[{HEADER}] no device selected.")
 
-    if filters.get("get_bond", True):
+    if filters is not None and filters.get("get_bond", True):
         get_bond(
             nr=nr,
             filters=filters
@@ -105,7 +43,11 @@ def get_vlan(nr: Nornir, filters={}, level=None, vars={}):
         on_failed=True,
         num_workers=10
     )
-    #print_result(data)
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print_result(data)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -113,17 +55,20 @@ def get_vlan(nr: Nornir, filters={}, level=None, vars={}):
 #
 def generic_vlan_get(task, filters:dict):
 
-
     if VLAN_DATA_HOST_KEY not in task.host.keys():
-
         use_ssh = False
+        use_napalm = False
 
-        if NEXUS_PLATEFORM_NAME in task.host.platform or JUNOS_PLATEFORM_NAME in task.host.platform or \
-                ARISTA_PLATEFORM_NAME in task.host.platform or CISCO_IOSXR_PLATEFORM_NAME in task.host.platform or \
-                CISCO_IOS_PLATEFORM_NAME in task.host.platform:
-            if 'connexion' in task.host.keys():
+        if NEXUS_PLATEFORM_NAME in task.host.platform or \
+            JUNOS_PLATEFORM_NAME in task.host.platform or \
+            ARISTA_PLATEFORM_NAME in task.host.platform or \
+            CISCO_IOSXR_PLATEFORM_NAME in task.host.platform or \
+            CISCO_IOS_PLATEFORM_NAME in task.host.platform:
+            if 'connexion' in task.host.keys(): 
                 if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET):
                     use_ssh = True
+                elif task.host.data.get('connexion', NOT_SET) == 'napalm' or task.host.get('connexion', NOT_SET):
+                    use_napalm = True
 
         if task.host.platform == CUMULUS_PLATEFORM_NAME:
             _cumulus_get_vlan(task, filters)
@@ -144,12 +89,16 @@ def generic_vlan_get(task, filters:dict):
             elif use_ssh and JUNOS_PLATEFORM_NAME == task.host.platform:
                 _juniper_get_vlan(task, filters)
 
-            else:
+            elif use_napalm:
                 _generic_vlan_napalm(task, filters)
 
+            else:
+                print(f"{HEADER} No plateform selected for {task.host.name}...")
+                raise Exception
         else:
-            # RAISE EXCEPTIONS
-            print(f"{HEADER_GET} No plateform selected for {task.host.name}...")
+            print(f"{HEADER} No plateform selected for {task.host.name}...")
+
+        
 
 # ----------------------------------------------------------------------------------------------------------------------
 #

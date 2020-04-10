@@ -83,7 +83,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_ospf(nr: Nornir, filters={}, level=None, vars={}):
+def get_ospf(nr: Nornir, filters={}, level=None, own_vars={}):
 
     devices = nr.filter()
 

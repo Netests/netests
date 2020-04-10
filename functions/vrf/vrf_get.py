@@ -66,8 +66,7 @@ from functions.base_selection import (
 from functions.verbose_mode import verbose_mode
 
 
-ERROR_HEADER = "Error import [vrf_get.py]"
-HEADER_GET = "[netests - get_vrf]"
+HEADER = "[netests - get_vrf]"
 
 
 MAPPING_FUNCTION = {
@@ -116,10 +115,10 @@ MAPPING_FUNCTION = {
 }
 
 
-def get_vrf(nr: Nornir, filters={}, level=None, vars={}):
+def get_vrf(nr: Nornir, filters={}, level=None, own_vars={}):
     devices = nr.filter()
     if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER_GET}] no device selected.")
+        raise Exception(f"[{HEADER}] no device selected.")
 
     data = devices.run(
         task=generic_vrf_get,
