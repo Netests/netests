@@ -45,7 +45,7 @@ config:
           preference: pref
 
     vlan:
-      test: false
+      test: true
       
     vrf:
       test: true

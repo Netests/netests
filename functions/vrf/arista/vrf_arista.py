@@ -16,19 +16,19 @@ from exceptions.netests_exceptions import (
 )
 
 
-def _arista_get_vrf_api(task):
+def _arista_get_vrf_api(task, filters={}, level=None, own_vars={}):
     raise NetestsFunctionNotImplemented(
         "Arista Networks API functions is not implemented..."
     )
 
 
-def _arista_get_vrf_netconf(task):
+def _arista_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
     raise NetestsFunctionNotPossible(
         "Arista Networks Netconf functions is not implemented..."
     )
 
 
-def _arista_get_vrf_ssh(task):
+def _arista_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
     if VRF_DATA_KEY not in task.host.keys():
         output = task.run(
             name=f"{ARISTA_GET_VRF}",

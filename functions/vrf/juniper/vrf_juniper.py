@@ -29,13 +29,13 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _juniper_get_vrf_api(task):
+def _juniper_get_vrf_api(task, filters={}, level=None, own_vars={}):
     raise NetestsFunctionNotImplemented(
         "Juniper Networks API functions is not implemented..."
     )
 
 
-def _juniper_get_vrf_netconf(task):
+def _juniper_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
     with Device(
         host=task.host.hostname,
         port=task.host.port,
@@ -60,7 +60,7 @@ def _juniper_get_vrf_netconf(task):
     )
 
 
-def _juniper_get_vrf_ssh(task):
+def _juniper_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
     if VRF_DATA_KEY not in task.host.keys():
         data = task.run(
             name=f"{JUNOS_GET_VRF_DETAIL}",

@@ -8,7 +8,7 @@ from functions.vrf.vrf_converter import (
 )
 
 
-def _generic_vrf_napalm(task):
+def _generic_vrf_napalm(task, filters={}, level=None, own_vars={}):
     print(f"Start _generic_napalm_vrf with {task.host.name} ")
 
     output = task.run(

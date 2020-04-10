@@ -14,13 +14,13 @@ from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
 from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 
 
-def _iosxr_get_vrf_api(task):
+def _iosxr_get_vrf_api(task, filters={}, level=None, own_vars={}):
     raise NetestsFunctionNotImplemented(
         "Cisco IOSXR API functions is not implemented...."
     )
 
 
-def _iosxr_get_vrf_netconf(task):
+def _iosxr_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
     with manager.connect(
         host=task.host.hostname,
         port=task.host.port,
@@ -46,7 +46,7 @@ def _iosxr_get_vrf_netconf(task):
     )
 
 
-def _iosxr_get_vrf_ssh(task):
+def _iosxr_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
     if VRF_DATA_KEY not in task.host.keys():
         output = task.run(
             name=f"{IOSXR_GET_VRF}",

@@ -15,19 +15,19 @@ from exceptions.netests_exceptions import (
 )
 
 
-def _nxos_get_vrf_api(task):
+def _nxos_get_vrf_api(task, filters={}, level=None, own_vars={}):
     raise NetestsFunctionNotImplemented(
         "Cisco Nexus NXOS API functions is not implemented...."
     )
 
 
-def _nxos_get_vrf_netconf(task):
+def _nxos_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
     raise NetestsFunctionNotImplemented(
         "Cisco Nexus NXOS Netconf functions is not implemented..."
     )
 
 
-def _nxos_get_vrf_ssh(task):
+def _nxos_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
     if VRF_DATA_KEY not in task.host.keys():
         output = task.run(
             name=f"{NEXUS_GET_VRF}",

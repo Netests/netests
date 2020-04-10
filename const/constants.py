@@ -164,6 +164,7 @@ CUMULUS_GET_MTU = "net show interface all json"
 CUMULUS_GET_MLAG = "net show clag json"
 CUMULUS_GET_VLAN_VRF = "net show vrf list"
 CUMULUS_GET_VLAN = "net show interface json"
+CUMULUS_API_GET_VLAN = "show interface json"
 CUMULUS_GET_VLAN_MEM = "net show bridge vlan json"
 CUMULUS_GET_BOND = "net show interface bonds json"
 

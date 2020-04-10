@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import os
@@ -123,7 +123,9 @@ def get_vrf(nr: Nornir, filters={}, level=None, own_vars={}):
     data = devices.run(
         task=generic_vrf_get,
         on_failed=True,
-        num_workers=10
+        filters=filters,
+        level=level,
+        own_vars=own_vars
     )
 
     if verbose_mode(
@@ -144,12 +146,12 @@ def get_vrf(nr: Nornir, filters={}, level=None, own_vars={}):
         print_result(data)
 
 
-def generic_vrf_get(task):
+def generic_vrf_get(task, filters={}, level=None, own_vars={}):
     base_selection(
         platform=task.host.platform,
         connection_mode=task.host.data.get("connexion"),
         functions_mapping=MAPPING_FUNCTION
-    )(task)
+    )(task, filters, level, own_vars)
 
 
 def save_vrf_name_in_a_list(task):

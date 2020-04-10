@@ -98,81 +98,83 @@ def _compare_vlan(
             protocol="vlan"
         )
     
-    if VLAN_DATA_HOST_KEY in host_keys and hostname in vlan_yaml_data.keys():
-        for vlan in vlan_yaml_data.get(hostname):
-            ipv4_addresses_lst = ListIPV4(
-                ipv4_addresses_lst=list()
-            )
+    
+    if (
+        VLAN_DATA_HOST_KEY in host_keys and
+        vlan_yaml_data is not None and 
+        hostname in vlan_yaml_data.keys()
+    ):
+        if vlan_yaml_data.get(hostname) is not None:
+            for vlan in vlan_yaml_data.get(hostname):
+                ipv4_addresses_lst = ListIPV4(
+                    ipv4_addresses_lst=list()
+                )
 
-            ipv6_addresses_lst = ListIPV6(
-                ipv6_addresses_lst=list()
-            )
+                ipv6_addresses_lst = ListIPV6(
+                    ipv6_addresses_lst=list()
+                )
 
-
-            if "ip_address" in vlan.keys():
-                if isinstance(vlan.get("ip_address"), list):
-                    for ip_address in vlan.get("ip_address"):
-                        index_slash = str(ip_address).find("/")
+                if "ip_address" in vlan.keys():
+                    if isinstance(vlan.get("ip_address"), list):
+                        for ip_address in vlan.get("ip_address"):
+                            index_slash = str(ip_address).find("/")
+                            ipv4_addresses_lst.ipv4_addresses_lst.append(
+                                IPV4(
+                                    ip_address_with_mask=str(ip_address)[:index_slash],
+                                    netmask=str(ip_address)[index_slash+1:]
+                                )
+                            )
+                    elif isinstance(vlan.get("ip_address"), str):
+                        index_slash = str(vlan.get("ip_address")).find("/")
                         ipv4_addresses_lst.ipv4_addresses_lst.append(
                             IPV4(
-                                ip_address_with_mask=str(ip_address)[:index_slash],
-                                netmask=str(ip_address)[index_slash+1:]
+                                ip_address_with_mask=str(vlan.get("ip_address"))[:index_slash],
+                                netmask=str(vlan.get("ip_address"))[index_slash + 1:]
                             )
                         )
-                elif isinstance(vlan.get("ip_address"), str):
-                    index_slash = str(vlan.get("ip_address")).find("/")
-                    ipv4_addresses_lst.ipv4_addresses_lst.append(
-                        IPV4(
-                            ip_address_with_mask=str(vlan.get("ip_address"))[:index_slash],
-                            netmask=str(vlan.get("ip_address"))[index_slash + 1:]
-                        )
-                    )
 
-            if "ipv6_address" in vlan.keys():
-                if isinstance(vlan.get("ipv6_address"), list):
-                    for ipv6_address in vlan.get("ipv6_address"):
+                if "ipv6_address" in vlan.keys():
+                    if isinstance(vlan.get("ipv6_address"), list):
+                        for ipv6_address in vlan.get("ipv6_address"):
+                            ipv6_addresses_lst.ipv6_addresses_lst.append(
+                                IPV6(
+                                    ip_address_with_mask=str(ipv6_address),
+                                )
+                            )
+                    elif isinstance(vlan.get("ip_address"), str):
                         ipv6_addresses_lst.ipv6_addresses_lst.append(
                             IPV6(
-                                ip_address_with_mask=str(ipv6_address),
+                                ip_address_with_mask=str(vlan.get("ip_address"))
                             )
                         )
-                elif isinstance(vlan.get("ip_address"), str):
-                    ipv6_addresses_lst.ipv6_addresses_lst.append(
-                        IPV6(
-                            ip_address_with_mask=str(vlan.get("ip_address"))
+
+
+                ports_members = list()
+                if "ports_members" in vlan.keys():
+                    for port in vlan.get("ports_members"):
+                        ports_members.append(
+                            _mapping_interface_name(
+                                port
+                            )
                         )
+
+                verity_vlans_lst.vlans_lst.append(
+                    VLAN(
+                        vlan_name=vlan.get("vlan_name", NOT_SET),
+                        vlan_id=vlan.get("vlan_id", NOT_SET),
+                        vlan_descr=vlan.get("vlan_descr", NOT_SET),
+                        vrf_name=vlan.get("vrf_name", NOT_SET),
+                        ipv6_addresses=ipv6_addresses_lst,
+                        fhrp_ipv6_address=vlan.get("fhrp_ipv6_address", "0.0.0.0"),
+                        ipv4_addresses=ipv4_addresses_lst,
+                        fhrp_ipv4_address=vlan.get("fhrp_ipv4_address", "0.0.0.0"),
+                        ports_members=ports_members,
+                        mac_address=vlan.get("mac_address", NOT_SET)
                     )
-
-
-            ports_members = list()
-            if "ports_members" in vlan.keys():
-                for port in vlan.get("ports_members"):
-                    ports_members.append(
-                        _mapping_interface_name(
-                            port
-                        )
-                    )
-
-            verity_vlans_lst.vlans_lst.append(
-                VLAN(
-                    vlan_name=vlan.get("vlan_name", NOT_SET),
-                    vlan_id=vlan.get("vlan_id", NOT_SET),
-                    vlan_descr=vlan.get("vlan_descr", NOT_SET),
-                    vrf_name=vlan.get("vrf_name", NOT_SET),
-                    ipv6_addresses=ipv6_addresses_lst,
-                    fhrp_ipv6_address=vlan.get("fhrp_ipv6_address", "0.0.0.0"),
-                    ipv4_addresses=ipv4_addresses_lst,
-                    fhrp_ipv4_address=vlan.get("fhrp_ipv4_address", "0.0.0.0"),
-                    ports_members=ports_members,
-                    mac_address=vlan.get("mac_address", NOT_SET)
                 )
-            )
-
-        return verity_vlans_lst == vlan_host_data
 
     else:
         print(f"{HEADER}Key {VLAN_DATA_HOST_KEY} is missing for {hostname}")
         return False
 
-
-
+    return verity_vlans_lst == vlan_host_data
