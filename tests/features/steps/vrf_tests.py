@@ -17,6 +17,7 @@ from functions.vrf.juniper.netconf.converter import (
 from functions.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
 from functions.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
 from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
+from functions.vrf.extreme_vsp.ssh.converter import _extreme_vsp_vrf_ssh_converter
 from functions.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
 from protocols.vrf import (
     VRF,
@@ -280,6 +281,68 @@ def step_impl(context):
     )
 
 
+@given(u'I create a VRF object equals to Extreme VSP manually named o12')
+def step_impl(context):
+    context.o12 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o12.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id="0",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o12.vrf_lst.append(
+        VRF(
+            vrf_name="mgmt_vrf",
+            vrf_id="1",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o12.vrf_lst.append(
+        VRF(
+            vrf_name="mgmt",
+            vrf_id="512",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+
+@given(u'I create a VRF object from a Extreme VSP SSH output named o13')
+def step_impl(context):
+    context.o13 = _extreme_vsp_vrf_ssh_converter(
+        hostname="spine02",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/extreme_vsp/ssh/"
+                "extreme_vsp_show_ip_vrf.txt"
+            )
+        )
+    )
+
+
 @then(u'VRF object_01 should be equal to YAML file')
 def step_impl(context):
     assert _compare_vrf(
@@ -400,4 +463,9 @@ def step_impl(context):
 
 @then(u'VRF object_10 should be equal to object_11')
 def step_impl(context):
-    assert context.o08 == context.o09
+    assert context.o10 == context.o11
+
+
+@then(u'VRF object_12 should be equal to object_13')
+def step_impl(context):
+    assert context.o12== context.o13

@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import textfsm
 from nornir.plugins.tasks.networking import netmiko_send_command
 from const.constants import (
-    TEXTFSM_PATH,
     VRF_DATA_KEY,
     EXTREME_VSP_GET_VRF
 )
-from functions.vrf.vrf_converter import (
-    _extreme_vsp_vrf_converter
+from functions.vrf.extreme_vsp.ssh.converter import (
+    _extreme_vsp_vrf_ssh_converter
 )
 from exceptions.netests_exceptions import (
     NetestsFunctionNotPossible,
@@ -37,12 +35,7 @@ def _extreme_vsp_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
             command_string=f"{EXTREME_VSP_GET_VRF}",
         )
 
-        template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_vrf.textfsm")
-        results_template = textfsm.TextFSM(template)
-
-        parsed_results = results_template.ParseText(output.result)
-
-        vrf_list = _extreme_vsp_vrf_converter(task.host.name, parsed_results)
-
-        task.host[VRF_DATA_KEY] = vrf_list
+        task.host[VRF_DATA_KEY] = _extreme_vsp_vrf_ssh_converter(
+            hostname=task.host.name,
+            cmd_output=output.result
+        )
