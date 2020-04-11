@@ -38,11 +38,25 @@ def _iosxr_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
             )
         ).data_xml
 
+        bgp_config = m.get_config(
+            source='running',
+            filter=NETCONF_FILTER.format(
+                "<bgp "
+                "xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XR-ipv4-bgp-cfg\""
+                "/>"
+            )
+        ).data_xml
+
     ElementTree.fromstring(vrf_config)
+    ElementTree.fromstring(bgp_config)
+
+    config = dict()
+    config['BGP'] = bgp_config
+    config['VRF'] = vrf_config
 
     task.host[VRF_DATA_KEY] = _iosxr_vrf_netconf_converter(
         hostname=task.host.name,
-        cmd_output=vrf_config
+        cmd_output=config
     )
 
 

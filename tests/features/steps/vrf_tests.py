@@ -189,35 +189,95 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a IOS-XR Netconf output named o09')
 def step_impl(context):
-    context.o09 = _iosxr_vrf_netconf_converter(
-        hostname="spine03",
-        cmd_output=open_txt_file(
-            path=(
+    config = dict()
+    config['VRF'] = open_txt_file(
+        path=(
                 f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/netconf/"
                 "cisco_iosxr_nc_get_vrf.xml"
             )
+    )
+    config['BGP'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/netconf/"
+            "cisco_iosxr_nc_get_bgp.xml"
+        )
+    )
+
+    context.o09 = _iosxr_vrf_netconf_converter(
+        hostname="spine03",
+        cmd_output=config
+    )
+
+
+@given(u'I create a VRF object equals IOS-XR multi manually output named o10')
+def step_impl(context):
+    context.o10 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o10.vrf_lst.append(
+        VRF(
+            vrf_name="EXTERNAL_PEERING",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd="65000:100",
+            rt_imp="65000:1",
+            rt_exp="65000:1",
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o10.vrf_lst.append(
+        VRF(
+            vrf_name="MGMT_VRF",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o10.vrf_lst.append(
+        VRF(
+            vrf_name="INTERNAL_PEERING",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd="65000:200",
+            rt_imp="65000:2",
+            rt_exp="65000:2",
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
         )
     )
 
 
-@given(u'I create a VRF object equals to Arista manually named o10')
+@given(u'I create a VRF object from a IOS-XR multi Netconf output named o11')
 def step_impl(context):
-    pass
+    config = dict()
+    config['VRF'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/netconf/"
+            "cisco_iosxr_nc_get_vrf2.xml"
+        )
+    )
+    config['BGP'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/netconf/"
+            "cisco_iosxr_nc_get_bgp2.xml"
+        )
+    )
 
-
-@given(u'I create a VRF object from an Arista API output named o11')
-def step_impl(context):
-    pass
-
-
-@given(u'I create a VRF object from an Arista SSH output named o12')
-def step_impl(context):
-    pass
-
-
-@given(u'I create a VRF object from an Arista Netconf output named o13')
-def step_impl(context):
-    pass
+    context.o11 = _iosxr_vrf_netconf_converter(
+        hostname="spine03",
+        cmd_output=config
+    )
 
 
 @then(u'VRF object_01 should be equal to YAML file')
@@ -334,5 +394,10 @@ def step_impl(context):
 
 
 @then(u'VRF object_08 should be equal to object_09')
+def step_impl(context):
+    assert context.o08 == context.o09
+
+
+@then(u'VRF object_10 should be equal to object_11')
 def step_impl(context):
     assert context.o08 == context.o09

@@ -11,10 +11,8 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And I create a VRF object equals to IOS-XR manually named o07
     And I create a VRF object from a IOS-XR SSH output named o08
     And I create a VRF object from a IOS-XR Netconf output named o09
-    And I create a VRF object equals to Arista manually named o10
-    And I create a VRF object from an Arista API output named o11
-    And I create a VRF object from an Arista SSH output named o12
-    And I create a VRF object from an Arista Netconf output named o13
+    And I create a VRF object equals IOS-XR multi manually output named o10
+    And I create a VRF object from a IOS-XR multi Netconf output named o11
     Then VRF object_01 should be equal to object_03
     And VRF object_01 should be equal to YAML file
     And VRF YAML file should be equal to object_03
@@ -29,3 +27,4 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And VRF YAML file should be equal to object_09
     And VRF object_07 should be equal to object_09
     And VRF object_08 should be equal to object_09
+    And VRF object_10 should be equal to object_11

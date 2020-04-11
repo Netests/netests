@@ -43,7 +43,7 @@ Other parameters are not included in the comparaison function and can be differe
 | Cumulus       | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
 | Arista        | :white_check_mark: | :x:                | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
 | Cisco Nexus   | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
-| IOSXR Netconf | :white_check_mark: | :x:                | :x:                | :x:    | :x:                | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOSXR Netconf | :white_check_mark: | :x:                | :x:                | :x:    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
 | IOSXR SSH     | :white_check_mark: | :x:                | :white_check_mark: | :x:    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
 | Cisco IOS     | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
 | Extreme VSP   | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
