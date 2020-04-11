@@ -130,32 +130,33 @@ def get_vrf(nr: Nornir, filters={}, level=None, own_vars={}):
         devices = nr.filter()
     
     if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER}] no device selected.")
+        print(f"[{HEADER}] no device selected.")
 
-    data = devices.run(
-        task=generic_vrf_get,
-        on_failed=True,
-        filters=filters,
-        level=level,
-        own_vars=own_vars
-    )
+    else:
+        data = devices.run(
+            task=generic_vrf_get,
+            on_failed=True,
+            filters=filters,
+            level=level,
+            own_vars=own_vars
+        )
 
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL2
-    ):
-        print_result(data)
+        if verbose_mode(
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+            needed_value=LEVEL2
+        ):
+            print_result(data)
 
-    data = devices.run(
-        task=save_vrf_name_in_a_list,
-        on_failed=True,
-        num_workers=10
-    )
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL2
-    ):
-        print_result(data)
+        data = devices.run(
+            task=save_vrf_name_in_a_list,
+            on_failed=True,
+            num_workers=10
+        )
+        if verbose_mode(
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+            needed_value=LEVEL2
+        ):
+            print_result(data)
 
 
 def generic_vrf_get(task, filters={}, level=None, own_vars={}):

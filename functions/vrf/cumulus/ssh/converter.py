@@ -17,6 +17,8 @@ from functions.global_tools import printline
 from functions.verbose_mode import (
     verbose_mode
 )
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 
 
 def _cumulus_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:
@@ -26,7 +28,7 @@ def _cumulus_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:
     results_template = textfsm.TextFSM(template)
     parsed_results = results_template.ParseText(cmd_output)
 
-    list_vrf = ListVRF(list())
+    vrf_list = ListVRF(list())
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
@@ -41,13 +43,14 @@ def _cumulus_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:
             vrf_id=line[1]
         )
 
-        list_vrf.vrf_lst.append(vrf)
+        vrf_list.vrf_lst.append(vrf)
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL1
     ):
         printline()
-        print(list_vrf)
+        print(f">>>>> {hostname}")
+        PP.pprint(vrf_list.to_json())
 
-    return list_vrf
+    return vrf_list

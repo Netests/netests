@@ -30,6 +30,15 @@ E-mail me at <dylan.hamel@protonmail.com> with your Telegram ID to join the chat
 
 ## How to use ??
 
+This tool contains two modes :
+
+* Integrity & Sanity checks
+* CLI 
+
+
+
+### Integrity & Sanity checks
+
 The idea of this project is to offer a test platform for the network to allow engineers to perform tests without having to write python code (or other languages :smile:).
 
 In addition, this platform does not consider the OS, it is possible to run tests on Cisco, Cumulus, Juniper devices without changing the data structure.
@@ -204,7 +213,131 @@ leaf03:
 
 
 
-## Capabilities (Only via SSH) LOT OF WORK
+### Netests-CLI
+
+You can get some informations regarding you network configuration directly from the CLI.
+
+This tool will use your Ansible/Nornir/Netbox Inventory. For example :
+
+```shell
+[leaf]
+leaf01
+leaf02
+leaf03
+leaf04
+leaf05
+
+[spine]
+spine01
+spine02
+spine03
+```
+
+#### Run the CLI tool
+
+```shell
+⚡ ./netests.py -a True -t True
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+Welcome to Netests CLI
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+```
+
+#### Get HELP
+
+```
+> help
++------------------------------------------------------------+
+|                       Netests Help                         |
++------------------------------------------------------------+
+| [help]      Display help                                   |
+| [select]    Select devices on which on action will be exec |
+| [unselect]  Remove a device from the selected              |
+| [get xxx]   Get XXX protocols informations                 |
++------------------------------------------------------------+
+```
+
+#### Select devices
+
+At the beginning if you use a command to get some network informations, nothing will happend. The reason is that no device is selected.
+
+```shell
+> get vrf
+[[netests - get_vrf]] no device selected.
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+@End GET
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+```
+
+You have to select devices on which one you would get informations
+
+##### Select all devices in the inventory
+
+```shell
+> select *
+@Followings devices will be added to the list :
+@['leaf01', 'leaf02', 'leaf03', 'leaf04', 'leaf05', 'spine01', 'spine02', 'spine03']
+```
+
+##### Select only a subset of devices
+
+```
+> select leaf01,spine03
+@Followings devices will be added to the list :
+@['leaf01', 'spine03']
+```
+
+#### Execute GET
+
+Run the command `get` and the protocols that you would like retrieve.
+
+```shell
+> select leaf01,spine03
+@Followings devices will be added to the list :
+@['leaf01', 'spine03']
+> get vrf
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+>>>>> spine03
+{   'ListVRF': [   {   'VRF': {   'exp_targ': 'NOT_SET',
+                                  'imp_targ': 'NOT_SET',
+                                  'l3_vni': 'NOT_SET',
+                                  'rd': 'NOT_SET',
+                                  'rt_exp': 'NOT_SET',
+                                  'rt_imp': 'NOT_SET',
+                                  'vrf_id': 'NOT_SET',
+                                  'vrf_name': 'MGMT_VRF',
+                                  'vrf_type': 'NOT_SET'}},
+                   {   'VRF': {   'exp_targ': 'NOT_SET',
+                                  'imp_targ': 'NOT_SET',
+                                  'l3_vni': 'NOT_SET',
+                                  'rd': 'NOT_SET',
+                                  'rt_exp': '65000:1',
+                                  'rt_imp': '65000:1',
+                                  'vrf_id': 'NOT_SET',
+                                  'vrf_name': 'EXTERNAL_PEERING',
+                                  'vrf_type': 'NOT_SET'}}]}
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+>>>>> leaf01
+{   'ListVRF': [   {   'VRF': {   'exp_targ': 'NOT_SET',
+                                  'imp_targ': 'NOT_SET',
+                                  'l3_vni': 'NOT_SET',
+                                  'rd': 'NOT_SET',
+                                  'rt_exp': 'NOT_SET',
+                                  'rt_imp': 'NOT_SET',
+                                  'vrf_id': '1001',
+                                  'vrf_name': 'mgmt',
+                                  'vrf_type': 'NOT_SET'}}]}
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+@End GET
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+```
+
+
+
+![images/netests_cli.png](images/netests_cli.png)
+
+
+
+## Capabilities
 
 |           |      Juniper       |      Cumulus       | Arista             |        NXOS        |        IOS         |       IOS-XR       |    Extreme VSP     | NAPALM             |
 | --------- | :----------------: | ------------------ | :----------------: | :----------------: | :----------------: | :----------------: | ------------------ | :----------------: |

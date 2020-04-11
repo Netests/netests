@@ -78,7 +78,7 @@ def select_action(nr, user_inputs: list, devices: list):
                 }
             )
         printline()
-        print("End GET")
+        print("@End GET")
         printline()
 
     return devices

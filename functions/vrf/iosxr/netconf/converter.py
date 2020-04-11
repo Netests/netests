@@ -89,6 +89,6 @@ def _iosxr_vrf_netconf_converter(hostname: str, cmd_output) -> ListVRF:
     ):
         printline()
         print(f">>>>> {hostname}")
-        print(vrf_list)
+        PP.pprint(vrf_list.to_json())
 
     return vrf_list

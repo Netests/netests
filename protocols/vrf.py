@@ -63,6 +63,21 @@ class VRF:
                f"\t\timp_targ={self.imp_targ}\n" \
                f"\t\texp_targ={self.exp_targ}>\n"
 
+    def to_json(self):
+        return {
+            "VRF": {
+                "vrf_name": self.vrf_name,
+                "vrf_id": self.vrf_id,
+                "vrf_type": self.vrf_type,
+                "l3_vni": self.l3_vni,
+                "rd": self.rd,
+                "rt_imp": self.rt_imp,
+                "rt_exp": self.rt_exp,
+                "imp_targ": self.imp_targ,
+                "exp_targ": self.exp_targ
+            }
+        }
+
 
 class ListVRF:
 
@@ -104,3 +119,11 @@ class ListVRF:
         for vrf in self.vrf_lst:
             result = result + f"{vrf}"
         return result + ">"
+
+    def to_json(self):
+        d = dict()
+        d['ListVRF'] = list()
+        for vrf in self.vrf_lst:
+            d['ListVRF'].append(vrf.to_json())
+        
+        return d
