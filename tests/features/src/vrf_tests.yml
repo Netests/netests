@@ -1,14 +1,28 @@
 ---
 leaf01:
+  # Cumulus Networks
   - vrf_name: mgmt
     vrf_id: 1001
 
 leaf04:
+  # Juniper VMX / Junos
   - vrf_name: default
   - vrf_name: mgmt_junos
   - vrf_name: INTERNAL_PEERING_VRF
 
+leaf05:
+  # Cisco IOS
+  - vrf_name: default
+  - vrf_name: MGMT_VRF
+  - vrf_name: SECURE_ZONE
+
+spine02:
+  # Extreme Networks VSP
+  - vrf_name: mgmt
+  - vrf_name: mgmt_vrf
+  - vrf_name: default
 
 spine03:
+  # Cisco IOS-XR
   - vrf_name: MGMT_VRF
   - vrf_name: EXTERNAL_PEERING

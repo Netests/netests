@@ -16,8 +16,9 @@ from functions.vrf.juniper.netconf.converter import (
 )
 from functions.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
 from functions.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
-from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
 from functions.vrf.extreme_vsp.ssh.converter import _extreme_vsp_vrf_ssh_converter
+from functions.vrf.ios.ssh.converter import _ios_vrf_ssh_converter
+from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
 from functions.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
 from protocols.vrf import (
     VRF,
@@ -343,6 +344,67 @@ def step_impl(context):
     )
 
 
+@given(u'I create a VRF object equals to IOS manually named o14')
+def step_impl(context):
+    context.o14 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o14.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id="0",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o14.vrf_lst.append(
+        VRF(
+            vrf_name="MGMT_VRF",
+            vrf_id="1",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd='65000:999',
+            rt_imp='65100:9',
+            rt_exp='65100:9',
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o14.vrf_lst.append(
+        VRF(
+            vrf_name="SECURE_ZONE",
+            vrf_id="2",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS SSH output named o15')
+def step_impl(context):
+    context.o15 = _ios_vrf_ssh_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/ios/ssh/"
+                "cisco_ios_show_ip_vrf_detail.txt"
+            )
+        )
+    )
+
 @then(u'VRF object_01 should be equal to YAML file')
 def step_impl(context):
     assert _compare_vrf(
@@ -469,3 +531,52 @@ def step_impl(context):
 @then(u'VRF object_12 should be equal to object_13')
 def step_impl(context):
     assert context.o12== context.o13
+
+
+@then(u'VRF YAML file should be equal to object_12')
+def step_impl(context):
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="spine02",
+        groups=['extreme_vsp'],
+        vrf_host_data=context.o12,
+        test=True
+    )
+
+
+@then(u'VRF YAML file should be equal to object_13')
+def step_impl(context):
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="spine02",
+        groups=['extreme_vsp'],
+        vrf_host_data=context.o13,
+        test=True
+    )
+
+
+@then(u'VRF object_14 should be equal to object_15')
+def step_impl(context):
+    assert context.o14 == context.o15
+
+
+@then(u'VRF YAML file should be equal to object_14')
+def step_impl(context):
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="leaf05",
+        groups=['ios'],
+        vrf_host_data=context.o14,
+        test=True
+    )
+
+
+@then(u'VRF YAML file should be equal to object_15')
+def step_impl(context):
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="leaf05",
+        groups=['ios'],
+        vrf_host_data=context.o15,
+        test=True
+    )

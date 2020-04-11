@@ -9,21 +9,18 @@ from const.constants import (
 from functions.vrf.extreme_vsp.ssh.converter import (
     _extreme_vsp_vrf_ssh_converter
 )
-from exceptions.netests_exceptions import (
-    NetestsFunctionNotPossible,
-    NetestsFunctionNotImplemented
-)
+from exceptions.netests_exceptions import NetestsFunctionNotPossible
 
 
 def _extreme_vsp_get_vrf_api(task, filters={}, level=None, own_vars={}):
     raise NetestsFunctionNotPossible(
-        "Extreme Networks API functions is not supported..."
+        "Extreme Networks VRF is not supported with Restconf ..."
     )
 
 
 def _extreme_vsp_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
-    raise NetestsFunctionNotImplemented(
-        "Extreme Networks Netconf functions is not implemented..."
+    raise NetestsFunctionNotPossible(
+        "Extreme Networks API functions is not supported..."
     )
 
 

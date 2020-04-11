@@ -125,5 +125,5 @@ class ListVRF:
         d['ListVRF'] = list()
         for vrf in self.vrf_lst:
             d['ListVRF'].append(vrf.to_json())
-        
+
         return d
