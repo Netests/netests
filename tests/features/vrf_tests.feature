@@ -17,6 +17,8 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And I create a VRF object from a Extreme VSP SSH output named o13
     And I create a VRF object equals to IOS manually named o14
     And I create a VRF object from a IOS SSH output named o15
+    And I create a VRF object equals to NXOS manually named o16
+    And I create a VRF object from a NXOS SSH output named o17
     Then VRF object_01 should be equal to object_03
     And VRF object_01 should be equal to YAML file
     And VRF YAML file should be equal to object_03
@@ -38,3 +40,6 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And VRF object_14 should be equal to object_15
     And VRF YAML file should be equal to object_14
     And VRF YAML file should be equal to object_15
+    And VRF object_16 should be equal to object_17
+    And VRF YAML file should be equal to object_16
+    And VRF YAML file should be equal to object_17

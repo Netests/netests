@@ -20,6 +20,7 @@ from functions.vrf.extreme_vsp.ssh.converter import _extreme_vsp_vrf_ssh_convert
 from functions.vrf.ios.ssh.converter import _ios_vrf_ssh_converter
 from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
 from functions.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
+from functions.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
 from protocols.vrf import (
     VRF,
     ListVRF
@@ -27,6 +28,7 @@ from protocols.vrf import (
 from functions.global_tools import (
     open_file,
     open_txt_file,
+    open_json_file,
     open_txt_file_as_bytes
 )
 from behave import given, when, then
@@ -405,6 +407,83 @@ def step_impl(context):
         )
     )
 
+
+@given(u'I create a VRF object equals to NXOS manually named o16')
+def step_impl(context):
+    context.o16 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o16.vrf_lst.append(
+        VRF(
+            vrf_name="CUSTOMER_001",
+            vrf_id="4",
+            vrf_type=NOT_SET,
+            l3_vni="1000",
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o16.vrf_lst.append(
+        VRF(
+            vrf_name="INTERNAL_PEERING",
+            vrf_id="3",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd='65432:222',
+            rt_imp='65432:22',
+            rt_exp='65432:22',
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o16.vrf_lst.append(
+        VRF(
+            vrf_name="management",
+            vrf_id="2",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o16.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id="1",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+
+@given(u'I create a VRF object from a NXOS SSH output named o17')
+def step_impl(context):
+    context.o17 = _nxos_vrf_ssh_converter(
+        hostname="leaf02",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/nxos/ssh/"
+                "cisco_nxos_show_vrf_all_detail.json"
+            )
+        )
+    )
+
+
 @then(u'VRF object_01 should be equal to YAML file')
 def step_impl(context):
     assert _compare_vrf(
@@ -578,5 +657,32 @@ def step_impl(context):
         hostname="leaf05",
         groups=['ios'],
         vrf_host_data=context.o15,
+        test=True
+    )
+
+
+@then(u'VRF object_16 should be equal to object_17')
+def step_impl(context):
+    assert context.o16 == context.o17
+
+
+@then(u'VRF YAML file should be equal to object_16')
+def step_impl(context):
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        vrf_host_data=context.o16,
+        test=True
+    )
+
+
+@then(u'VRF YAML file should be equal to object_17')
+def step_impl(context):
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        vrf_host_data=context.o17,
         test=True
     )

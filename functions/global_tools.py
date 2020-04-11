@@ -494,7 +494,7 @@ def open_json_file(path: str()) -> str():
 
     with open(path, 'r') as content_file:
         try:
-            content = json.dump(content_file)
+            content = json.loads(content_file.read())
         except yaml.YAMLError as exc:
             print(exc)
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from ncclient import manager
 from nornir.plugins.tasks.networking import netmiko_send_command
 from const.constants import (
     VRF_DATA_KEY,
@@ -21,7 +22,7 @@ def _ios_get_vrf_api(task, filters={}, level=None, own_vars={}):
 
 def _ios_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
     raise NetestsFunctionNotImplemented(
-        "Cisco IOS Netconf functions is not implemented..."
+        "Cisco IOS Netconf functions is not implemented.."
     )
 
 

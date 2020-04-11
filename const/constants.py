@@ -171,7 +171,7 @@ CUMULUS_GET_BOND = "net show interface bonds json"
 # NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
 NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
-NEXUS_GET_VRF = "show vrf all | json"
+NEXUS_GET_VRF = "show vrf all detail | json"
 NEXUS_GET_LLDP = "show lldp neighbors detail | json"
 NEXUS_GET_CDP = "show cdp neighbors detail | json"
 NEXUS_GET_OSPF = "show ip ospf neighbors detail | json"

@@ -48,26 +48,6 @@ def _cumulus_vrf_converter(hostname:str(), cmd_outputs:list) -> ListVRF:
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
-# Cisco Nexus VRF converter
-#
-def _nxos_vrf_converter(hostname:str(), cmd_output:json) -> ListVRF:
-
-    vrf_list = ListVRF(list())
-
-    for vrf in cmd_output.get('TABLE_vrf', NOT_SET).get('ROW_vrf'):
-
-        vrf_obj = VRF(
-            vrf_name=vrf.get('vrf_name', NOT_SET),
-            vrf_id=vrf.get('vrf_id', NOT_SET),
-        )
-
-        vrf_list.vrf_lst.append(vrf_obj)
-
-    return vrf_list
-
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
 # Arista VRF converter
 #
 def _arista_vrf_converter(hostname:str(), cmd_output:json) -> ListVRF:
