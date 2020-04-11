@@ -122,11 +122,10 @@ def main(
     terminal
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    
+
     if terminal:
         netests_cli(ansible, virtual, netbox)
         exit(EXIT_SUCCESS)
-    
 
     t = open_file(path=config)
 

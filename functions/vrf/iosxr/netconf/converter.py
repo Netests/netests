@@ -5,8 +5,7 @@ import os
 from const.constants import (
     NOT_SET,
     LEVEL1,
-    LEVEL3,
-    LEVEL4,
+    LEVEL4
 )
 from protocols.vrf import (
     VRF,

@@ -104,18 +104,18 @@ def _compare_vrf(
         ):  
             if vrf_yaml_data.get(hostname) is not None:
                 for vrf in vrf_yaml_data.get(hostname):
-                    vrf_obj = VRF(
-                        vrf_name=vrf.get('vrf_name', NOT_SET),
-                        vrf_id=vrf.get('vrf_id', NOT_SET),
-                        l3_vni=vrf.get('l3_vni', NOT_SET),
-                        rd=vrf.get('rd', NOT_SET),
-                        rt_imp=vrf.get('rt_imp', NOT_SET),
-                        rt_exp=vrf.get('rt_exp', NOT_SET),
-                        imp_targ=vrf.get('imp_targ', NOT_SET),
-                        exp_targ=vrf.get('exp_targ', NOT_SET),
+                    verity_vrf.vrf_lst.append(
+                        VRF(
+                            vrf_name=vrf.get('vrf_name', NOT_SET),
+                            vrf_id=vrf.get('vrf_id', NOT_SET),
+                            l3_vni=vrf.get('l3_vni', NOT_SET),
+                            rd=vrf.get('rd', NOT_SET),
+                            rt_imp=vrf.get('rt_imp', NOT_SET),
+                            rt_exp=vrf.get('rt_exp', NOT_SET),
+                            imp_targ=vrf.get('imp_targ', NOT_SET),
+                            exp_targ=vrf.get('exp_targ', NOT_SET)
+                        )
                     )
-
-                verity_vrf.vrf_lst.append(vrf_obj)
 
         else:
             print(f"{HEADER} Key {VRF_DATA_KEY} is missing for {hostname}")

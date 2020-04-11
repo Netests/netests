@@ -84,5 +84,3 @@ def _cumulus_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
             hostname=task.host.name,
             cmd_output=output.result
         )
-
-        

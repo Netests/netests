@@ -8,6 +8,7 @@ from functions.global_tools import (
 )
 
 ACTION = ["get", "select", "unselect", "exit", "help", ""]
+ACTION_PRINT = ["get", "select", "unselect", "exit", "help"]
 
 
 def netests_cli(ansible, virtual, netbox):
@@ -32,13 +33,15 @@ def netests_cli(ansible, virtual, netbox):
         if check_input(user_input.split(" ")):
             devices = select_action(nr, user_input.split(" "), devices)
 
+
 def check_input(user_input: str) -> bool:
     if user_input[0] not in ACTION:
         print("@Please select one of the following values :")
-        print(f"@{ACTION}\n")
+        print(f"@{ACTION_PRINT}\n")
         return False
     else:
         return True
+
 
 def select_action(nr, user_inputs: list, devices: list):
     if user_inputs[0] == "help":
@@ -50,7 +53,7 @@ def select_action(nr, user_inputs: list, devices: list):
         print("| [unselect]  Remove a device from the selected              |")
         print("| [get xxx]   Get XXX protocols informations                 |")
         print("+------------------------------------------------------------+")
-    
+
     if user_inputs[0] == "select":
         print(f"@Followings devices will be added to the list :")
         devices = list()

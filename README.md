@@ -388,6 +388,38 @@ Run the command `get` and the protocols that you would like retrieve.
 
 
 
+
+## Pipeline
+
+|                     | VRF                | MTU                | MLAG               | VLAN               | IPv4               | IPv6               | Static             | BGP                | OSPF               | SysInfos           | CDP        | LLDP               | VRF        | Ping       | Socket     |
+| ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ---------- | ------------------ | ---------- | ---------- | ---------- |
+| NAPALM              |                    |                    |                    |                    | :white_check_mark: |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Juniper SSH         |                    |                    |                    |                    | :white_check_mark: |                    | :white_check_mark: |                    | :white_check_mark: |                    |            | :white_check_mark: |            |            |            |
+| Juniper Netconf     | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Juniper API         |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: |                    |            | :white_check_mark: |            |            |            |
+| Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: | :no_entry:         | :no_entry: | :no_entry: | :no_entry: |
+| Cumulus API         | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Arista SSH          |                    | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |                    |            | :white_check_mark: |            |            |            |
+| Arista API          |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Arista Netconf      |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Nexus SSH           |                    | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |            |                    |            |            |            |
+| Nexus Netconf       |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Nexus API           |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| IOS SSH             |                    |                    |                    |                    | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |            |                    |            |            |            |
+| IOS API             | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: | :no_entry:         | :no_entry: | :no_entry: | :no_entry: |
+| IOS Netconf         |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Extreme VSP SSH     |                    |                    |                    |                    | :white_check_mark: |                    |                    | :white_check_mark: | :white_check_mark: |                    |            |                    |            |            |            |
+| Extreme VSP API     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: | :no_entry:         | :no_entry: | :no_entry: | :no_entry: |
+| Extreme VSP Netconf |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| IOSXR SSH           | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| IOSXR Netconf       | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| IOSXR API           |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+
+:no_entry: = Not Supported
+
+
+
 ## Devices supported by NAPALM
 
 |      Juniper       | Cumulus |       Arista       |     Cisco NXOS     |    Cisco IOS-XR    |     Cisco IOS      | Extreme |
@@ -396,6 +428,15 @@ Run the command `get` and the protocols that you would like retrieve.
 |       junos        |   ---   |        eos         |        nxos        |       iosxr        |        ios         |   ---   |
 
 For the moment Cumulus Linux is only compatible with SSH. Utilization with REST API is int development.
+
+
+
+## TextFSM templates
+
+Some templates have be retreieve on :
+
+**https://github.com/networktocode/ntc-templates/tree/master/templates**
+
 
 
 ## Alternative to NAPALM ??
@@ -417,39 +458,15 @@ https://github.com/napalm-automation
 https://napalm.readthedocs.io/en/latest/
 
 
-## Road Map
-
-Join the Telegram channel to have access to Trello
-
-
-## Pipeline
-
-|                 | VRF                | MTU                | MLAG               | VLAN               | IPv4               | IPv6               | Static             | BGP                | OSPF               | SysInfos           | CDP  | LLDP               | VRF  | Ping | Socket |
-| --------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ------------------ | ---- | ---- | ------ |
-| NAPALM          |                    |                    |                    |                    | :white_check_mark: |                    |                    |                    |                    |                    |      |                    |      |      |        |
-| Juniper SSH     |                    |                    |                    |                    | :white_check_mark: |                    | :white_check_mark: |                    | :white_check_mark: |                    |      | :white_check_mark: |      |      |        |
-| Juniper Netconf | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |      |                    |      |      |        |
-| Cumulus SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: |                    |      | :white_check_mark: |      |      |        |
-| Cumulus API     | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |      |                    |      |      |        |
-| Arista          |                    | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |                    |      | :white_check_mark: |      |      |        |
-| Nexus           |                    | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |      |                    |      |      |        |
-| IOS             |                    |                    |                    |                    | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |      |                    |      |      |        |
-| Extreme VSP     |                    |                    |                    |                    | :white_check_mark: |                    |                    | :white_check_mark: | :white_check_mark: |                    |      |                    |      |      |        |
-| IOSXR SSH       | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |      |                    |      |      |        |
-| IOSXR Netconf   | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |      |                    |      |      |        |
-
-
-
-## TextFSM templates
-
-Some templates have be retreieve on :
-
-**https://github.com/networktocode/ntc-templates/tree/master/templates**
-
 
 ## Contributor
 
+Dylan Hamel - <dylan.hamle@protonmail.com>
+
 **Become a contributor** !!!
+
+
+
 
 
 ## *(3) NAPALM

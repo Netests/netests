@@ -118,7 +118,7 @@ MAPPING_FUNCTION = {
 
 
 def get_vrf(nr: Nornir, filters={}, level=None, own_vars={}):
-    
+
     if (
         own_vars is not None and
         own_vars.get("from_cli") is True and
@@ -128,7 +128,7 @@ def get_vrf(nr: Nornir, filters={}, level=None, own_vars={}):
         os.environ["NETESTS_VERBOSE"] = LEVEL1
     else:
         devices = nr.filter()
-    
+
     if len(devices.inventory.hosts) == 0:
         print(f"[{HEADER}] no device selected.")
 

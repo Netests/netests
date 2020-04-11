@@ -1,81 +1,15 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Add a description ....
+from const.constants import *
+from protocols.vlan import VLAN, ListVLAN
+from protocols.ipv4 import IPV4, ListIPV4
+from protocols.ipv6 import IPV6, ListIPV6, IPV6Interface, ListIPV6Interface
+from functions.global_tools import is_valid_ipv4_address
+from functions.discovery_protocols.discovery_functions import _mapping_interface_name
+import json
 
-"""
 
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "1.0"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
-
-########################################################################################################################
-#
-# HEADERS
-#
-ERROR_HEADER = "Error import [vlan_converters.py]"
-HEADER_GET = "[netests - vlan_converters]"
-
-########################################################################################################################
-#
-# Import Library
-#
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    from protocols.vlan import VLAN, ListVLAN
-except ImportError as importError:
-    print(f"{ERROR_HEADER} protocols.vlan")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    from protocols.ipv4 import IPV4, ListIPV4
-    from protocols.ipv6 import IPV6, ListIPV6, IPV6Interface, ListIPV6Interface
-except ImportError as importError:
-    print(f"{ERROR_HEADER} protocols.ip")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    from functions.global_tools import is_valid_ipv4_address
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.global_tools")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    from functions.discovery_protocols.discovery_functions import _mapping_interface_name
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.global_tools")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    import json
-except ImportError as importError:
-    print(f"{ERROR_HEADER} json")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-########################################################################################################################
-#
-# Functions
-#
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Apply VLAN filters
-#
 def _filter_vlan_values(bond_lst:list, result_dict:dict, interface_name, vlan_id, filters:dict) -> dict:
     """
     This function will apply filters defined in netests configurations file.

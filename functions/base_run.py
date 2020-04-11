@@ -155,7 +155,7 @@ def run_base(nr: Nornir, protocol: str, parameters: dict) -> bool:
             protocol != "ping" and
             protocol != "socket" and
             protocol != "bgp_all_up"
-        ):  
+        ):
             same = RUN.get(protocol).get('compare')(
                 nr=nr,
                 own_vars=parameters.get('own_vars')

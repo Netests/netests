@@ -1,96 +1,23 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-This file is used for CI test to validate VLAN protocols usage
+import json
+import yaml
+import textfsm
+from const.constants import *
+from functions.vlan.vlan_converters import _cumulus_vlan_converter
 
-"""
+from functions.vlan.arista.ssh.converter import _arista_vlan_ssh_converter
 
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "1.0"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
 
-########################################################################################################################
-#
-# Constantes
-#
-ERROR_HEADER = "Error import [vlan_tests.py]"
-HEADER = "[netests - vlan_tests.py]"
-########################################################################################################################
-#
-# Import Library
-#
+from functions.vlan.vlan_compare import _compare_vlan
+from protocols.vlan import VLAN, ListVLAN
+from functions.global_tools import open_file, open_txt_file
+from functions.discovery_protocols.discovery_functions import _mapping_interface_name
+from behave import given, when, then
 
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    print(importError)
-    exit(EXIT_FAILURE)
 
-try:
-    from functions.vlan.vlan_converters import _cumulus_vlan_converter, _arista_vlan_converter
-    from functions.vlan.vlan_compare import _compare_vlan
-    from protocols.vlan import VLAN, ListVLAN
-except ImportError as importError:
-    print(f"{ERROR_HEADER} protocols.vlan ")
-    print(importError)
-    exit(EXIT_FAILURE)
 
-try:
-    from functions.global_tools import open_file, open_txt_file
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.global_tools")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from functions.discovery_protocols.discovery_functions import _mapping_interface_name
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.discovery_protocols.discovery_functions")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from behave import given, when, then
-except ImportError as importError:
-    print(f"{ERROR_HEADER} behave")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import json
-except ImportError as importError:
-    print(f"{ERROR_HEADER} json")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import yaml
-except ImportError as importError:
-    print(f"{ERROR_HEADER} yaml")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import textfsm
-except ImportError as importError:
-    print(f"{ERROR_HEADER} textfsm")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-########################################################################################################################
-#
-# Functions
-#
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
 @given(u'I create an VLAN python object corresponding to Arista device manually named object_01')
 def create_an_vlan_object_manually(context) -> None:
     """
@@ -187,7 +114,7 @@ def create_an_vlan_object_from_a_arista_output_command(context) -> None:
         path=f"{FEATURES_OUTPUT_PATH}arista_show_interfaces_vlan_1_4094.json"
     )
 
-    context.object_03 = _arista_vlan_converter(
+    context.object_03 = _arista_vlan_ssh_converter(
         cmd_output=outputs_dict
     )
 
