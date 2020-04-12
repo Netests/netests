@@ -22,7 +22,7 @@ from functions.vlan.extreme_vsp.vlan_extreme_vsp import (
     _extreme_vsp_get_vlan_api,
     _extreme_vsp_get_vlan_netconf,
     _extreme_vsp_get_vlan_ssh
-)
+) 
 from functions.vlan.ios.vlan_ios import (
     _ios_get_vlan_api,
     _ios_get_vlan_netconf,
@@ -115,24 +115,25 @@ MAPPING_FUNCTION = {
 }
 
 
-def get_vlan(nr: Nornir, filters={}, level=None, own_vars={}):
+def get_vlan(nr: Nornir, options={}):
 
     devices = nr.filter()
 
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER}] no device selected.")
 
-    if filters is not None and filters.get("get_bond", True):
+    if (
+        options.get('filters') is not None and 
+        options.get('filters').get("get_bond", True)
+    ):
         get_bond(
             nr=nr,
-            filters=filters
+            options=options.get('filters')
         )
 
     data = devices.run(
         task=generic_vlan_get,
-        filters=filters,
-        level=level,
-        own_vars=own_vars,
+        options=options,
         on_failed=True
     )
     if verbose_mode(
@@ -142,9 +143,9 @@ def get_vlan(nr: Nornir, filters={}, level=None, own_vars={}):
         print_result(data)
 
 
-def generic_vlan_get(task, filters={}, level=None, own_vars={}):
+def generic_vlan_get(task, options={}):
     base_selection(
         platform=task.host.platform,
         connection_mode=task.host.data.get("connexion"),
         functions_mapping=MAPPING_FUNCTION
-    )(task, filters, level, own_vars)
+    )(task, options)

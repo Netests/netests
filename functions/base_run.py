@@ -147,9 +147,7 @@ def run_base(nr: Nornir, protocol: str, parameters: dict) -> bool:
     ):
         same = RUN.get(protocol).get('function')(
             nr=nr,
-            filters=parameters.get('filters'),
-            level=parameters.get('compare'),
-            own_vars=parameters.get('own_vars')
+            options=parameters.get('options', {}),
         )
         if (
             protocol != "ping" and
@@ -158,7 +156,7 @@ def run_base(nr: Nornir, protocol: str, parameters: dict) -> bool:
         ):
             same = RUN.get(protocol).get('compare')(
                 nr=nr,
-                own_vars=parameters.get('own_vars')
+                options=parameters.get('options', {})
             )
 
         print(

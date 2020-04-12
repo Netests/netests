@@ -21,7 +21,11 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _nxos_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:    
+def _nxos_vrf_ssh_converter(
+    hostname: str(),
+    cmd_output,
+    options={}
+) -> ListVRF:
     vrf_list = ListVRF(list())
     for vrf in cmd_output.get('TABLE_vrf', NOT_SET).get('ROW_vrf'):
         vrf_list.vrf_lst.append(
@@ -34,7 +38,8 @@ def _nxos_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:
                 rt_imp=NOT_SET,
                 rt_exp=NOT_SET,
                 imp_targ=NOT_SET,
-                exp_targ=NOT_SET
+                exp_targ=NOT_SET,
+                options=options
             )
         )
 

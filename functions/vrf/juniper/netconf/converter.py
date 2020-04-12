@@ -25,7 +25,11 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _juniper_vrf_netconf_converter(hostname: str, cmd_output: list) -> ListVRF:
+def _juniper_vrf_netconf_converter(
+    hostname: str(),
+    cmd_output,
+    options={}
+) -> ListVRF:
     if isinstance(cmd_output, lxml.etree._Element):
         cmd_output = json.dumps(
             xmltodict.parse(
@@ -68,6 +72,8 @@ def _juniper_vrf_netconf_converter(hostname: str, cmd_output: list) -> ListVRF:
                                       .get('vrf-import-target', NOT_SET)
                 vrf_obj.exp_targ = vrf.get('instance-vrf') \
                                       .get('vrf-export-target', NOT_SET)
+
+            vrf_obj.options = options
 
             vrf_list.vrf_lst.append(vrf_obj)
 

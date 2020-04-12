@@ -22,8 +22,7 @@ from exceptions.netests_exceptions import (
 import xml.dom.minidom
 
 
-
-def _ios_get_vrf_api(task, filters={}, level=None, own_vars={}):
+def _ios_get_vrf_api(task, options={}):
     vrf_config = exec_http_call(
         hostname=task.host.hostname,
         port=task.host.port,
@@ -36,11 +35,12 @@ def _ios_get_vrf_api(task, filters={}, level=None, own_vars={}):
 
     task.host[VRF_DATA_KEY] = _ios_vrf_api_converter(
         hostname=task.host.name,
-        cmd_output=vrf_config
+        cmd_output=vrf_config,
+        options=options
     )
 
 
-def _ios_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
+def _ios_get_vrf_netconf(task, options={}):
     with manager.connect(
         host=task.host.hostname,
         port=task.host.port,
@@ -64,10 +64,12 @@ def _ios_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
 
         task.host[VRF_DATA_KEY] = _ios_vrf_netconf_converter(
             hostname=task.host.name,
-            cmd_output=vrf_config
+            cmd_output=vrf_config,
+            options=options
         )
 
-def _ios_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
+
+def _ios_get_vrf_ssh(task, options={}):
     if VRF_DATA_KEY not in task.host.keys():
         output = task.run(
             name=f"{IOS_GET_VRF}",
@@ -77,5 +79,6 @@ def _ios_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
 
         task.host[VRF_DATA_KEY] = _ios_vrf_ssh_converter(
             hostname=task.host.name,
-            cmd_output=output.result
+            cmd_output=output.result,
+            options=options
         )

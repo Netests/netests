@@ -23,7 +23,11 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _ios_vrf_netconf_converter(hostname: str(), cmd_output: list) -> ListVRF:
+def _ios_vrf_netconf_converter(
+    hostname: str(),
+    cmd_output,
+    options={}
+) -> ListVRF:
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL5
@@ -54,7 +58,8 @@ def _ios_vrf_netconf_converter(hostname: str(), cmd_output: list) -> ListVRF:
             rt_imp=NOT_SET,
             rt_exp=NOT_SET,
             imp_targ=NOT_SET,
-            exp_targ=NOT_SET
+            exp_targ=NOT_SET,
+            options=options
         )
     )
 

@@ -36,19 +36,19 @@ from exceptions.netests_exceptions import (
 )
 
 
-def _cumulus_get_vlan_api(task, filters={}, level=None, own_vars={}):
+def _cumulus_get_vlan_api(task, options={}):
     raise NetestsFunctionNotImplemented(
         "Cumulus Networks API functions is not implemented..."
     )
 
 
-def _cumulus_get_vlan_netconf(task, filters={}, level=None, own_vars={}):
+def _cumulus_get_vlan_netconf(task, options={}):
     raise NetestsFunctionNotPossible(
         "Cumulus Networks does not support Netconf..."
     )
 
 
-def _cumulus_get_vlan_ssh(task, filters={}, level=None, own_vars={}):
+def _cumulus_get_vlan_ssh(task, options={}):
     outputs_dict = dict()
 
     output = task.run(

@@ -24,7 +24,7 @@ from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 HEADER = "[netests - compare_vrf]"
 
 
-def compare_vrf(nr, own_vars={}) -> bool:
+def compare_vrf(nr, options={}) -> bool:
     devices = nr.filter()
 
     if len(devices.inventory.hosts) == 0:
@@ -32,7 +32,7 @@ def compare_vrf(nr, own_vars={}) -> bool:
 
     data = devices.run(
         task=_compare_transit_vrf,
-        own_vars=own_vars,
+        options=options,
         on_failed=True,
         num_workers=10
     )
@@ -55,14 +55,14 @@ def compare_vrf(nr, own_vars={}) -> bool:
     return (not data.failed and return_value)
 
 
-def _compare_transit_vrf(task, own_vars={}):
+def _compare_transit_vrf(task, options={}):
     task.host[VRF_WORKS_KEY] = _compare_vrf(
         host_keys=task.host.keys(),
         hostname=task.host.name,
         groups=task.host.groups,
         vrf_host_data=task.host[VRF_DATA_KEY],
         test=False,
-        own_vars=own_vars,
+        options=options,
         task=task
     )
 
@@ -74,15 +74,16 @@ def _compare_vrf(
     groups: list,
     vrf_host_data: ListVRF,
     test=False,
-    own_vars={},
+    options={},
     task=Task
 ) -> bool:
     verity_vrf = ListVRF(list())
 
     if (
-        own_vars is not None and
-        'enable' in own_vars.keys() and
-        own_vars.get('enable') is True
+        'own_vars' in options.keys() and
+        options.get('own_vars') is not None and
+        'enable' in options.get('own_vars').keys() and
+        options.get('own_vars').get('enable') is True
     ):
         raise NetestsOverideTruthVarsKeyUnsupported()
     else:

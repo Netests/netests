@@ -21,7 +21,11 @@ from functions.verbose_mode import (
 )
 
 
-def _iosxr_vrf_ssh_converter(hostname: str(), cmd_output) -> ListVRF:
+def _iosxr_vrf_ssh_converter(
+    hostname: str(),
+    cmd_output,
+    options={}
+) -> ListVRF:
     cmd_output = re.sub(
         pattern=r"communities:[\n\r]\s+RT",
         repl="communities:RT",
@@ -59,7 +63,8 @@ def _iosxr_vrf_ssh_converter(hostname: str(), cmd_output) -> ListVRF:
             rt_imp=l[5] if l[5] != "not set" and l[5] != '' else NOT_SET,
             rt_exp=l[6] if l[6] != "not set" and l[6] != '' else NOT_SET,
             imp_targ=NOT_SET,
-            exp_targ=NOT_SET
+            exp_targ=NOT_SET,
+            options=options
         )
 
         list_vrf.vrf_lst.append(vrf)

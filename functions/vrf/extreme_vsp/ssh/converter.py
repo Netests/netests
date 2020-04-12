@@ -21,8 +21,9 @@ PP = pprint.PrettyPrinter(indent=4)
 
 
 def _extreme_vsp_vrf_ssh_converter(
-    hostname: str,
-    cmd_output: list
+    hostname: str(),
+    cmd_output,
+    options={}
 ) -> ListVRF:
     template = open(
         f"{TEXTFSM_PATH}extreme_vsp_show_ip_vrf.textfsm")
@@ -42,7 +43,8 @@ def _extreme_vsp_vrf_ssh_converter(
                 rt_imp=NOT_SET,
                 rt_exp=NOT_SET,
                 exp_targ=NOT_SET,
-                imp_targ=NOT_SET
+                imp_targ=NOT_SET,
+                options=options
             )
         )
     if verbose_mode(

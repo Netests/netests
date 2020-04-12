@@ -117,14 +117,14 @@ MAPPING_FUNCTION = {
 }
 
 
-def get_vrf(nr: Nornir, filters={}, level=None, own_vars={}):
-
+def get_vrf(nr: Nornir, options={}):
     if (
-        own_vars is not None and
-        own_vars.get("from_cli") is True and
-        isinstance(own_vars.get("from_cli"), bool)
-    ):
-        devices = nr.filter(F(groups__contains="deviceSelec"))
+        'from_cli' in options.keys() and
+        options.get('from_cli') is not None and
+        options.get("from_cli") is True and
+        isinstance(options.get("from_cli"), bool)
+    ):  
+        devices = nr.filter(F(groups__contains="netests"))
         os.environ["NETESTS_VERBOSE"] = LEVEL1
     else:
         devices = nr.filter()
@@ -136,9 +136,7 @@ def get_vrf(nr: Nornir, filters={}, level=None, own_vars={}):
         data = devices.run(
             task=generic_vrf_get,
             on_failed=True,
-            filters=filters,
-            level=level,
-            own_vars=own_vars
+            options=options
         )
 
         if verbose_mode(
@@ -159,12 +157,12 @@ def get_vrf(nr: Nornir, filters={}, level=None, own_vars={}):
             print_result(data)
 
 
-def generic_vrf_get(task, filters={}, level=None, own_vars={}):
+def generic_vrf_get(task, options={}):
     base_selection(
         platform=task.host.platform,
         connection_mode=task.host.data.get("connexion"),
         functions_mapping=MAPPING_FUNCTION
-    )(task, filters, level, own_vars)
+    )(task, options)
 
 
 def save_vrf_name_in_a_list(task):

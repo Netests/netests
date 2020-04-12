@@ -21,7 +21,11 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _juniper_vrf_ssh_converter(hostname: str(), cmd_output: json) -> ListVRF:
+def _juniper_vrf_ssh_converter(
+    hostname: str(),
+    cmd_output,
+    options={}
+) -> ListVRF:
 
     vrf_list = ListVRF(list())
 
@@ -55,6 +59,8 @@ def _juniper_vrf_ssh_converter(hostname: str(), cmd_output: json) -> ListVRF:
                 vrf_obj.exp_targ = vrf.get('instance-vrf')[0] \
                                       .get('vrf-export-target')[0] \
                                       .get('data', NOT_SET)
+
+            vrf_obj.options = options
 
             vrf_list.vrf_lst.append(vrf_obj)
 

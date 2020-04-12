@@ -14,13 +14,13 @@ from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
 from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 
 
-def _iosxr_get_vrf_api(task, filters={}, level=None, own_vars={}):
+def _iosxr_get_vrf_api(task, options={}):
     raise NetestsFunctionNotImplemented(
         "Cisco IOSXR API functions is not implemented...."
     )
 
 
-def _iosxr_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
+def _iosxr_get_vrf_netconf(task, options={}):
     with manager.connect(
         host=task.host.hostname,
         port=task.host.port,
@@ -57,11 +57,12 @@ def _iosxr_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
 
     task.host[VRF_DATA_KEY] = _iosxr_vrf_netconf_converter(
         hostname=task.host.name,
-        cmd_output=config
+        cmd_output=config,
+        options=options
     )
 
 
-def _iosxr_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
+def _iosxr_get_vrf_ssh(task, options={}):
     if VRF_DATA_KEY not in task.host.keys():
         output = task.run(
             name=f"{IOSXR_GET_VRF}",
@@ -71,7 +72,8 @@ def _iosxr_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
 
         vrf_list = _iosxr_vrf_ssh_converter(
             hostname=task.host.name,
-            cmd_output=output.result
+            cmd_output=output.result,
+            options=options
         )
 
         task.host[VRF_DATA_KEY] = vrf_list

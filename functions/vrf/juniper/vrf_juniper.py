@@ -29,13 +29,13 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _juniper_get_vrf_api(task, filters={}, level=None, own_vars={}):
+def _juniper_get_vrf_api(task, options={}):
     raise NetestsFunctionNotImplemented(
         "Juniper Networks API functions is not implemented..."
     )
 
 
-def _juniper_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
+def _juniper_get_vrf_netconf(task, options={}):
     with Device(
         host=task.host.hostname,
         port=task.host.port,
@@ -56,11 +56,12 @@ def _juniper_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
 
     task.host[VRF_DATA_KEY] = _juniper_vrf_netconf_converter(
         hostname=task.host.name,
-        cmd_output=vrf_config
+        cmd_output=vrf_config,
+        options=options
     )
 
 
-def _juniper_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
+def _juniper_get_vrf_ssh(task, options={}):
     if VRF_DATA_KEY not in task.host.keys():
         data = task.run(
             name=f"{JUNOS_GET_VRF_DETAIL}",
@@ -77,5 +78,6 @@ def _juniper_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
 
         task.host[VRF_DATA_KEY] = _juniper_vrf_ssh_converter(
             hostname=task.host.name,
-            cmd_output=json.loads(data.result)
+            cmd_output=json.loads(data.result),
+            options=options
         )

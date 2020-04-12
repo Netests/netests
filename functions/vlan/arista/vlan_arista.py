@@ -18,22 +18,23 @@ from const.constants import (
     ARISTA_GET_IP_VLAN,
     ARISTA_GET_INT_VLAN
 )
+
 from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 
 
-def _arista_get_vlan_api(task, filters={}, level=None, own_vars={}):
+def _arista_get_vlan_api(task, options={}):
     raise NetestsFunctionNotImplemented(
         "Arista Networks API functions is not implemented..."
     )
 
 
-def _arista_get_vlan_netconf(task, filters={}, level=None, own_vars={}):
+def _arista_get_vlan_netconf(task, options={}):
     raise NetestsFunctionNotImplemented(
         "Arista Networks Netconf functions is not implemented..."
     )
 
 
-def _arista_get_vlan_ssh(task, filters={}, level=None, own_vars={}):
+def _arista_get_vlan_ssh(task, options={}):
     outputs_dict = dict()
 
     output_get = task.run(
@@ -76,7 +77,5 @@ def _arista_get_vlan_ssh(task, filters={}, level=None, own_vars={}):
 
     task.host[VLAN_DATA_HOST_KEY] = _arista_vlan_ssh_converter(
         cmd_output=outputs_dict,
-        filters=filters,
-        level=level,
-        own_vars=own_vars
+        options=options
     )

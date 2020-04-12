@@ -4,15 +4,16 @@ config:
   protocols:
     bgp:
       test: false
-      compare:
-        src_hostname: true
-        peer_ip: true
-        remote_as: true
-        state_brief: true
-        peer_hostname: false
-        session_state: false
-        state_time: false
-        prefix_received: false
+      options:
+        compare:
+          src_hostname: true
+          peer_ip: true
+          remote_as: true
+          state_brief: true
+          peer_hostname: false
+          session_state: false
+          state_time: false
+          prefix_received: false
 
     bgp_all_up:
       test: false
@@ -27,35 +28,57 @@ config:
         session_state: true
         peer_hostname: true
 
+    ipv4:
+      test: false
+      options:
+        filters:
+          get_physical: false
+          get_vlan: true
+          get_loopback: false
+          get_peerlink: false
+          get_vni: false
+    
     static:
       test: false
-      compare:
-        vrf_name: true
-        prefix: true
-        netmask: true
-        nexthop: true
-      own_vars:
-        enable: false
-        dict_keys: routing>static>ipv4
-        your_keys:
-          prefix: subnet
-          ip_address: ip
-          nexthop: via
-          netmask: mask
-          preference: pref
+      options:
+        compare:
+          vrf_name: true
+          prefix: true
+          netmask: true
+          nexthop: true
+        own_vars:
+          enable: false
+          dict_keys: routing>static>ipv4
+          your_keys:
+            prefix: subnet
+            ip_address: ip
+            nexthop: via
+            netmask: mask
+            preference: pref
 
     vlan:
       test: false
       
     vrf:
       test: true
-      compare:
-        vrf_name: true
-        vrf_id: false
-        vrf_type: false
-        l3_vni: false
-        rd: false
-        rt_imp: false
-        rt_exp: false
-        imp_targ: false
-        exp_targ: false
+      options:
+        compare:
+          vrf_name: true
+          vrf_id: false
+          vrf_type: false
+          l3_vni: false
+          rd: false
+          rt_imp: false
+          rt_exp: false
+          imp_targ: false
+          exp_targ: false
+        print:
+          vrf_name: true
+          vrf_id: false
+          vrf_type: false
+          l3_vni: false
+          rd: true
+          rt_imp: true
+          rt_exp: true
+          imp_targ: false
+          exp_targ: false

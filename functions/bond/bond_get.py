@@ -86,7 +86,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_bond(nr: Nornir, filters={}, level=None, own_vars={}):
+def get_bond(nr: Nornir, options={}):
 
     devices = nr.filter()
 

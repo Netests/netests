@@ -10,16 +10,6 @@ from const.constants import (
 )
 
 
-
-########################################################################################################################
-#
-# Functions
-#
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Function for devices which are compatible with NAPALM
-#
 def _napalm_vrf_converter(hostname:str(), cmd_output:json) -> ListVRF:
 
     vrf_list = ListVRF(list())
@@ -38,19 +28,9 @@ def _napalm_vrf_converter(hostname:str(), cmd_output:json) -> ListVRF:
 
     return vrf_list
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Cumulus VRF converter
-#
-def _cumulus_vrf_converter(hostname:str(), cmd_outputs:list) -> ListVRF:
-    pass
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Arista VRF converter
-#
-def _arista_vrf_converter(hostname:str(), cmd_output:json) -> ListVRF:
+def _arista_vrf_converter(hostname:str(), cmd_output:json, options={}) -> ListVRF:
 
     vrf_list = ListVRF(list())
 
@@ -62,66 +42,5 @@ def _arista_vrf_converter(hostname:str(), cmd_output:json) -> ListVRF:
         )
 
         vrf_list.vrf_lst.append(vrf_obj)
-
-    return vrf_list
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Cisco IOSXR VRF converter
-#
-def _iosxr_vrf_converter(hostname:str(), cmd_output:list) -> ListVRF:
-    return _cisco_vrf_converter(
-        hostname,
-        cmd_output
-    )
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Cisco IOSVRF converter
-#
-def _ios_vrf_converter(hostname:str(), cmd_output:list) -> ListVRF:
-    return _cisco_vrf_converter(
-        hostname,
-        cmd_output
-    )
-
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Cisco Generic (IOS + IOSXR) VRF converter
-#
-def _cisco_vrf_converter(hostname:str(), cmd_output:list) -> ListVRF:
-
-    vrf_list = ListVRF(list())
-
-    vrf_list.vrf_lst.append(
-        VRF(
-            vrf_name="default",
-            vrf_id="0",
-            vrf_type=NOT_SET,
-            l3_vni=NOT_SET,
-            rd=NOT_SET,
-            rt_imp=NOT_SET,
-            rt_exp=NOT_SET,
-            exp_targ=NOT_SET,
-            imp_targ=NOT_SET
-        )
-    )
-
-    for vrf in cmd_output:
-
-        vrf_list.vrf_lst.append(
-            VRF(
-                vrf_name=vrf[0],
-                vrf_id=vrf[1],
-                vrf_type=NOT_SET,
-                l3_vni=NOT_SET,
-                rd=vrf[2] if " " not in vrf[2] else NOT_SET,
-                rt_imp=NOT_SET,
-                rt_exp=NOT_SET,
-                exp_targ=NOT_SET,
-                imp_targ=NOT_SET
-            )
-        )
 
     return vrf_list

@@ -20,7 +20,11 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _ios_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:
+def _ios_vrf_ssh_converter(
+    hostname: str(),
+    cmd_output,
+    options={}
+) -> ListVRF:
     cmd_output = re.sub(
         pattern=r"communities[\n\r]\s+RT",
         repl="communities:RT",
@@ -55,7 +59,8 @@ def _ios_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:
             rt_imp=NSET,
             rt_exp=NSET,
             exp_targ=NSET,
-            imp_targ=NSET
+            imp_targ=NSET,
+            options=options
         )
     )
 
@@ -70,7 +75,8 @@ def _ios_vrf_ssh_converter(hostname: str(), cmd_output: list) -> ListVRF:
                 rt_imp=l[5] if l[5] != "<not set>" and l[5] != '' else NSET,
                 rt_exp=l[6] if l[6] != "<not set>" and l[6] != '' else NSET,
                 exp_targ=NSET,
-                imp_targ=NSET
+                imp_targ=NSET,
+                options=options
             )
         )
 

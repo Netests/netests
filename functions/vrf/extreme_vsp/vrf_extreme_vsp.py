@@ -12,19 +12,19 @@ from functions.vrf.extreme_vsp.ssh.converter import (
 from exceptions.netests_exceptions import NetestsFunctionNotPossible
 
 
-def _extreme_vsp_get_vrf_api(task, filters={}, level=None, own_vars={}):
+def _extreme_vsp_get_vrf_api(task, options={}):
     raise NetestsFunctionNotPossible(
         "Extreme Networks VRF is not supported with Restconf ..."
     )
 
 
-def _extreme_vsp_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
+def _extreme_vsp_get_vrf_netconf(task, options={}):
     raise NetestsFunctionNotPossible(
         "Extreme Networks API functions is not supported..."
     )
 
 
-def _extreme_vsp_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
+def _extreme_vsp_get_vrf_ssh(task, options={}):
     if VRF_DATA_KEY not in task.host.keys():
         output = task.run(
             name=f"{EXTREME_VSP_GET_VRF}",
@@ -34,5 +34,6 @@ def _extreme_vsp_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
 
         task.host[VRF_DATA_KEY] = _extreme_vsp_vrf_ssh_converter(
             hostname=task.host.name,
-            cmd_output=output.result
+            cmd_output=output.result,
+            options=options
         )

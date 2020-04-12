@@ -23,6 +23,7 @@ class VRF:
     rt_exp: str
     imp_targ: str
     exp_targ: str
+    options: dict
 
     def __init__(
         self,
@@ -34,7 +35,8 @@ class VRF:
         rt_imp=NOT_SET,
         rt_exp=NOT_SET,
         imp_targ=NOT_SET,
-        exp_targ=NOT_SET
+        exp_targ=NOT_SET,
+        options={}
     ):
         self.vrf_name = vrf_name
         self.vrf_id = vrf_id
@@ -45,6 +47,7 @@ class VRF:
         self.rt_exp = rt_exp
         self.imp_targ = imp_targ
         self.exp_targ = exp_targ
+        self.options = options
 
     def __eq__(self, other):
         if not isinstance(other, VRF):
@@ -52,31 +55,78 @@ class VRF:
 
         return ((str(self.vrf_name) == str(other.vrf_name)))
 
+
     def __repr__(self):
-        return f"\t<VRF vrf_name={self.vrf_name}\n" \
-               f"\t\tvrf_id={self.vrf_id}\n" \
-               f"\t\tvrf_type={self.vrf_type}\n" \
-               f"\t\tl3_vni={self.l3_vni}\n" \
-               f"\t\trd={self.rd}\n" \
-               f"\t\trt_imp={self.rt_imp}\n" \
-               f"\t\trt_exp={self.rt_exp}\n" \
-               f"\t\timp_targ={self.imp_targ}\n" \
-               f"\t\texp_targ={self.exp_targ}>\n"
+        if 'print' in self.options.keys():
+            ret = f"\t<VRF \n"
+            if self.options.get('print').get('vrf_name', True):
+                ret += f"\t\tvrf_name={self.vrf_name}\n"
+            if self.options.get('print').get('vrf_id', True):
+                ret += f"\t\tvrf_id={self.vrf_id}\n"
+            if self.options.get('print').get('vrf_type', True):
+                ret += f"\t\tvrf_type={self.vrf_type}\n"
+            if self.options.get('print').get('l3_vni', True):
+                ret += f"\t\tl3_vni={self.l3_vni}\n"
+            if self.options.get('print').get('rd', True):
+                ret += f"\t\trd={self.rd}\n"
+            if self.options.get('print').get('rt_imp', True):
+                ret += f"\t\trt_imp={self.rt_imp}\n"
+            if self.options.get('print').get('rt_exp', True):
+                ret += f"\t\trt_exp={self.rt_exp}\n"
+            if self.options.get('print').get('imp_targ', True):
+                ret += f"\t\timp_targ={self.imp_targ}\n"
+            if self.options.get('print').get('exp_targ', True):
+                ret += f"\t\texp_targ={self.exp_targ}\n"
+            return ret
+        else:
+            return f"\t<VRF \n" \
+                   f"\t\t vrf_name={self.vrf_name}\n" \
+                   f"\t\tvrf_id={self.vrf_id}\n" \
+                   f"\t\tvrf_type={self.vrf_type}\n" \
+                   f"\t\tl3_vni={self.l3_vni}\n" \
+                   f"\t\trd={self.rd}\n" \
+                   f"\t\trt_imp={self.rt_imp}\n" \
+                   f"\t\trt_exp={self.rt_exp}\n" \
+                   f"\t\timp_targ={self.imp_targ}\n" \
+                   f"\t\texp_targ={self.exp_targ}>\n"
 
     def to_json(self):
-        return {
-            "VRF": {
-                "vrf_name": self.vrf_name,
-                "vrf_id": self.vrf_id,
-                "vrf_type": self.vrf_type,
-                "l3_vni": self.l3_vni,
-                "rd": self.rd,
-                "rt_imp": self.rt_imp,
-                "rt_exp": self.rt_exp,
-                "imp_targ": self.imp_targ,
-                "exp_targ": self.exp_targ
+        if 'print' in self.options.keys():
+            ret = dict()
+            ret['VRF'] = dict()
+            if self.options.get('print').get('vrf_name', True):
+                ret['VRF']['vrf_name'] = self.vrf_name
+            if self.options.get('print').get('vrf_id', True):
+                ret['VRF']['vrf_id'] = self.vrf_id
+            if self.options.get('print').get('vrf_type', True):
+                ret['VRF']['vrf_type'] = self.vrf_type
+            if self.options.get('print').get('l3_vni', True):
+                ret['VRF']['l3_vni'] = self.l3_vni
+            if self.options.get('print').get('rd', True):
+                ret['VRF']['rd'] = self.rd
+            if self.options.get('print').get('rt_imp', True):
+                ret['VRF']['rt_imp'] = self.rt_imp
+            if self.options.get('print').get('rt_exp', True):
+                ret['VRF']['rt_exp'] = self.rt_exp
+            if self.options.get('print').get('imp_targ', True):
+                ret['VRF']['imp_targ'] = self.imp_targ
+            if self.options.get('print').get('exp_targ', True):
+                ret['VRF']['exp_targ'] = self.exp_targ
+            return ret
+        else:
+            return {
+                "VRF": {
+                    "vrf_name": self.vrf_name,
+                    "vrf_id": self.vrf_id,
+                    "vrf_type": self.vrf_type,
+                    "l3_vni": self.l3_vni,
+                    "rd": self.rd,
+                    "rt_imp": self.rt_imp,
+                    "rt_exp": self.rt_exp,
+                    "imp_targ": self.imp_targ,
+                    "exp_targ": self.exp_targ
+                }
             }
-        }
 
 
 class ListVRF:

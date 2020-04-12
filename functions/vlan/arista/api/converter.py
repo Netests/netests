@@ -6,10 +6,6 @@ from protocols.vlan import (
     ListVLAN
 )
 
-def _arista_vlan_api_converter(
-    task,
-    filters={},
-    level=None,
-    own_vars={}
-) -> ListVLAN:
+
+def _arista_vlan_api_converter(task, options={}) -> ListVLAN:
     pass

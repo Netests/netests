@@ -28,7 +28,7 @@ from exceptions.netests_exceptions import (
 )
 
 
-def _cumulus_get_vrf_api(task, filters={}, level=None, own_vars={}):
+def _cumulus_get_vrf_api(task, options={}):
     if VRF_DATA_KEY not in task.host.keys():
         res = requests.post(
             url=f"https://{task.host.hostname}:{task.host.port}/nclu/v1/rpc",
@@ -56,17 +56,18 @@ def _cumulus_get_vrf_api(task, filters={}, level=None, own_vars={}):
 
         task.host[VRF_DATA_KEY] = _cumulus_vrf_api_converter(
             hostname=task.host.name,
-            cmd_output=res.content
+            cmd_output=res.content,
+            options=options
         )
 
 
-def _cumulus_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
+def _cumulus_get_vrf_netconf(task, options={}):
     raise NetestsFunctionNotPossible(
         "Cumulus Networks does not support Netconf..."
     )
 
 
-def _cumulus_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
+def _cumulus_get_vrf_ssh(task, options={}):
     if VRF_DATA_KEY not in task.host.keys():
         output = task.run(
             name=f"{CUMULUS_GET_VRF}",
@@ -82,5 +83,6 @@ def _cumulus_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
 
         task.host[VRF_DATA_KEY] = _cumulus_vrf_ssh_converter(
             hostname=task.host.name,
-            cmd_output=output.result
+            cmd_output=output.result,
+            options=options
         )

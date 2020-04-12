@@ -19,7 +19,11 @@ from functions.verbose_mode import (
 )
 
 
-def _cumulus_vrf_api_converter(hostname: str(), cmd_output) -> ListVRF:
+def _cumulus_vrf_api_converter(
+    hostname: str(),
+    cmd_output,
+    options={}
+) -> ListVRF:
     template = open(
         f"{TEXTFSM_PATH}cumulus_net_show_vrf.textfsm"
     )
@@ -38,7 +42,15 @@ def _cumulus_vrf_api_converter(hostname: str(), cmd_output) -> ListVRF:
     for line in parsed_results:
         vrf = VRF(
             vrf_name=line[0],
-            vrf_id=line[1]
+            vrf_id=line[1],
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET,
+            options=options
         )
 
         list_vrf.vrf_lst.append(vrf)

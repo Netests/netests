@@ -17,13 +17,13 @@ from exceptions.netests_exceptions import (
 )
 
 
-def _nxos_get_vrf_api(task, filters={}, level=None, own_vars={}):
+def _nxos_get_vrf_api(task, options={}):
     raise NetestsFunctionNotImplemented(
         "Cisco Nexus NXOS API functions is not implemented...."
     )
 
 
-def _nxos_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
+def _nxos_get_vrf_netconf(task, options={}):
     with manager.connect(
         host=task.host.hostname,
         port=task.host.port,
@@ -49,11 +49,12 @@ def _nxos_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
 
         task.host[VRF_DATA_KEY] = _nxos_vrf_netconf_converter(
             hostname=task.host.name,
-            cmd_output=vrf_config
+            cmd_output=vrf_config,
+            options=options
         )
 
 
-def _nxos_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
+def _nxos_get_vrf_ssh(task, options={}):
     if VRF_DATA_KEY not in task.host.keys():
         output = task.run(
             name=f"{NEXUS_GET_VRF}",
@@ -63,7 +64,8 @@ def _nxos_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
 
         vrf_list = _nxos_vrf_ssh_converter(
             hostname=task.host.name,
-            cmd_output=json.loads(output.result)
+            cmd_output=json.loads(output.result),
+            options=options
         )
 
         task.host[VRF_DATA_KEY] = vrf_list

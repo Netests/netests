@@ -16,19 +16,19 @@ from exceptions.netests_exceptions import (
 )
 
 
-def _arista_get_vrf_api(task, filters={}, level=None, own_vars={}):
+def _arista_get_vrf_api(task, options={}):
     raise NetestsFunctionNotImplemented(
         "Arista Networks API functions is not implemented..."
     )
 
 
-def _arista_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
+def _arista_get_vrf_netconf(task, options={}):
     raise NetestsFunctionNotPossible(
         "Arista Networks Netconf functions is not implemented..."
     )
 
 
-def _arista_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
+def _arista_get_vrf_ssh(task, options={}):
     if VRF_DATA_KEY not in task.host.keys():
         output = task.run(
             name=f"{ARISTA_GET_VRF}",
@@ -37,6 +37,9 @@ def _arista_get_vrf_ssh(task, filters={}, level=None, own_vars={}):
         )
 
         vrf_list = _arista_vrf_converter(
-            task.host.name, json.loads(output.result))
+            hostname=task.host.name,
+            cmd_output=json.loads(output.result),
+            options=options
+        )
 
         task.host[VRF_DATA_KEY] = vrf_list
