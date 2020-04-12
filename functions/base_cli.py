@@ -15,8 +15,10 @@ PP = pprint.PrettyPrinter(indent=4)
 
 class NetestsCLI():
 
-    ACTION = ["get", "select", "unselect", "exit", "help", "options", "more", "show", ""]
-    ACTION_PRINT = ["get", "select", "unselect", "exit", "help", "options", "more", "show"]
+    ACTION = ["get", "select", "unselect", "exit", "help", "options", "more",
+              "show", "print", ""]
+    APRINT = ["get", "select", "unselect", "exit", "help", "options", "more",
+              "show", "print"]
 
     MAPPING = {
         "vrf": {
@@ -49,15 +51,15 @@ class NetestsCLI():
         self.nornir.inventory.add_group("netests")
         self.__print_welcome()
 
-    def check_input(self, user_input=list) -> bool:
+    def check_input(self, user_input: list) -> bool:
         if user_input[0] not in self.ACTION:
             print("@Please select one of the following values :")
-            print(f"@{self.ACTION_PRINT}\n")
+            print(f"@{self.APRINT}\n")
             return False
         else:
             return True
 
-    def select_action(self, user_inputs: list):
+    def select_action(self, user_inputs: list) -> None:
         if user_inputs[0] == "help":
             self.__print_help()
         if user_inputs[0] == "select":
@@ -72,8 +74,10 @@ class NetestsCLI():
             self.__get_protocol_info(user_inputs[1])
         if user_inputs[0] == "show":
             self.__get_protocol_class(user_inputs[1])
+        if user_inputs[0] == "print":
+            self.__get_device_info(user_inputs[1])
         
-    def __unselect_devices(self, devices_unselected):
+    def __unselect_devices(self, devices_unselected: str) -> None:
         if devices_unselected == "*":
             for host in self.nornir.inventory.hosts:
                 if (
@@ -94,7 +98,7 @@ class NetestsCLI():
 
         self.__print_devices()
 
-    def __select_devices(self, devices_selected):
+    def __select_devices(self, devices_selected) -> None:
         if devices_selected == "*":
             for host in self.nornir.inventory.hosts:
                 if (
@@ -115,7 +119,7 @@ class NetestsCLI():
         
         self.__print_devices()
 
-    def __define_options(self, protocol, options):
+    def __define_options(self, protocol, options) -> None:
         for key, values in self.MAPPING.items():
             if protocol.lower() == key:
                 if options == "*":
@@ -136,18 +140,38 @@ class NetestsCLI():
                     print(f"@New ({key}) options are :")
                     PP.pprint(self.options.get(key))
 
-    def __get_protocol_class(self, protocol):
+    def __get_protocol_class(self, protocol) -> None:
         for key, values in self.MAPPING.items():
             if protocol.lower() == key:
                 PP.pprint((values.get('class').__annotations__))
 
-    def __get_protocol_info(self, protocol):
+    def __get_protocol_info(self, protocol) -> None:
         if protocol in self.options.keys():
             PP.pprint(self.options.get(protocol))
         else:
             print(f"@All class arguments are defined as True")
+    
+    def __get_device_info(self, devices) -> None:
+        p = dict()
+        if devices == "*":
+            for host in self.nornir.inventory.hosts:
+                p[host] = dict()
+                p[host]['hostname'] = self.nornir.inventory.hosts[host].hostname
+                p[host]['connexion'] = self.nornir.inventory.hosts[host]['connexion']
+                p[host]['port'] = self.nornir.inventory.hosts[host].port
+                p[host]['platform'] = self.nornir.inventory.hosts[host].platform
+        else:
+            for host in devices.split(','):
+                if host in self.nornir.inventory.hosts:
+                    p[host] = dict()
+                    p[host]['hostname'] = self.nornir.inventory.hosts[host].hostname
+                    p[host]['connexion'] = self.nornir.inventory.hosts[host]['connexion']
+                    p[host]['port'] = self.nornir.inventory.hosts[host].port
+                    p[host]['platform'] = self.nornir.inventory.hosts[host].platform
+        
+        PP.pprint(p)
 
-    def __call_get_generic(self, protocols_selected):
+    def __call_get_generic(self, protocols_selected) -> None:
         if protocols_selected == "*":
             print(f"@This function is unavailable for the moment...")
         else:
@@ -164,21 +188,21 @@ class NetestsCLI():
                 else: 
                     print(f"@({prot}) is unavailable from CLI for the moment.")
 
-    def __print_devices(self):
+    def __print_devices(self) -> None:
         print(f"@Followings devices are selected :")
         print(f"@{self.devices}")
     
-    def __print_welcome(self):
+    def __print_welcome(self) -> None:
         printline()
         print("Welcome to Netests CLI")
         printline()
 
-    def __print_end_get(self):
+    def __print_end_get(self) -> None:
         printline()
         print("@End GET")
         printline()
 
-    def __print_help(self):
+    def __print_help(self) -> None:
         print("+------------------------------------------------------------+")
         print("|                       Netests Help                         |")
         print("+------------------------------------------------------------+")
@@ -186,11 +210,15 @@ class NetestsCLI():
         print("| [select]    Select devices on which on action will be exec |")
         print("| [unselect]  Remove a device from the selected              |")
         print("| [get xxx]   Get XXX protocols informations                 |")
+        print("| [options]   Set arguments that will retrieve for a Protocol|")
+        print("| [more xxx]  Show XXX Protocol class arguments selected     |")
+        print("| [show xxx]  Show XXX Protocol class arguments              |")
+        print("| [print yy]  Show YY devices informations                   |")
         print("+------------------------------------------------------------+")
 
 
 
-def netests_cli(ansible, virtual, netbox):
+def netests_cli(ansible, virtual, netbox) -> None:
     user_input = "START"
     cli = NetestsCLI(
         ansible=ansible,
