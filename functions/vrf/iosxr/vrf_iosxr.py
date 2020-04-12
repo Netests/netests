@@ -26,7 +26,8 @@ def _iosxr_get_vrf_netconf(task, filters={}, level=None, own_vars={}):
         port=task.host.port,
         username=task.host.username,
         password=task.host.password,
-        hostkey_verify=False
+        hostkey_verify=False,
+        device_params={'name': 'iosxr'}
     ) as m:
 
         vrf_config = m.get_config(

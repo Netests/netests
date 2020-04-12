@@ -17,4 +17,7 @@ def format_xml_output(output) -> dict:
     elif isinstance(output, str):
         output = json.dumps(xmltodict.parse(output))
 
+    elif isinstance(output, bytes):
+        output = json.dumps(xmltodict.parse(str(output, 'utf-8')))
+
     return json.loads(output)

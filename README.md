@@ -22,9 +22,29 @@ pip 19.2.3
 
 
 
-## Discuss
+## Devices used 
 
-E-mail me at <dylan.hamel@protonmail.com> with your Telegram ID to join the chat :smiley:.
+#### Cisco IOS-XE
+
+```shell
+ROM: IOS-XE ROMMON
+BOOTLDR: System Bootstrap, Version 16.12.1r, RELEASE SOFTWARE (P)
+```
+
+#### Cisco Nexus NXOS
+
+```shell
+Nexus 9000v is a demo version of the Nexus Operating System
+
+Software
+  BIOS: version
+  NXOS: version 7.0(3)I7(5a)
+  BIOS compile time:
+  NXOS image file is: bootflash:///nxos.7.0.3.I7.5a.bin
+  NXOS compile time:  10/12/2018 19:00:00 [10/13/2018 03:16:04]
+```
+
+
 
 
 
@@ -403,24 +423,24 @@ Run the command `get` and the protocols that you would like retrieve.
 | Arista SSH          |                    | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |                    |            | :white_check_mark: |            |            |            |
 | Arista API          |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Arista Netconf      |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Nexus SSH           |                    | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |            |                    |            |            |            |
-| Nexus Netconf       |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Nexus SSH           | :white_check_mark: | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |            |                    |            |            |            |
+| Nexus Netconf       | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Nexus API           |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | IOS SSH             | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |            |                    |            |            |            |
-| IOS API             | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: | :no_entry:         | :no_entry: | :no_entry: | :no_entry: |
-| IOS Netconf         |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| IOS API             | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| IOS Netconf         | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Extreme VSP SSH     | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |                    | :white_check_mark: | :white_check_mark: |                    |            |                    |            |            |            |
 | Extreme VSP API     | :x:                |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: | :no_entry:         | :no_entry: | :no_entry: | :no_entry: |
 | IOSXR SSH           | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | IOSXR Netconf       | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| IOSXR API           | :warning:          |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| IOSXR API           |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 
 :no_entry: = Not Supported
 
 :x: = Not Supported by the vendor (Exemple: RestConf available but get VRF with RestConf not possible).
 
-:warning: = Not Implemented
+
 
 ## Devices supported by NAPALM
 

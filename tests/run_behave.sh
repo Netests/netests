@@ -17,7 +17,7 @@ declare -a commands_lst=(
     'behave tests/features/static_tests.feature'
     'behave tests/features/verbose.feature'
     'behave tests/features/vlan_tests.feature'
-    'behave tests/features/vrf_tests.feature'
+    'behave tests/features/vrf_tests.feature --no-capture'
     
 )
 

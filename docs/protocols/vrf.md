@@ -47,7 +47,7 @@ Other parameters are not included in the comparaison function and can be differe
 | Arista          | :white_check_mark: | :x:                | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
 | Arista Netconf  |                    |                    |                    |        |                    |                    |                    |                    |                    |
 | Arista API      |                    |                    |                    |        |                    |                    |                    |                    |                    |
-| Nexus SSH       | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
+| Nexus SSH       | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
 | Nexus Netconf   |                    |                    |                    |        |                    |                    |                    |                    |                    |
 | Nexus API       |                    |                    |                    |        |                    |                    |                    |                    |                    |
 | IOSXR Netconf   | :white_check_mark: | :x:                | :x:                | :x:    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |

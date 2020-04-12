@@ -5,7 +5,8 @@ import os
 from const.constants import (
     NOT_SET,
     LEVEL1,
-    LEVEL4
+    LEVEL4,
+    LEVEL5
 )
 from protocols.vrf import (
     VRF,
@@ -19,6 +20,14 @@ PP = pprint.PrettyPrinter(indent=4)
 
 
 def _iosxr_vrf_netconf_converter(hostname: str, cmd_output) -> ListVRF:
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL5
+    ):
+        printline()
+        print(type(cmd_output))
+        PP.pprint(cmd_output)
+
     if cmd_output.get('VRF') is not None:
         cmd_output['VRF'] = format_xml_output(cmd_output.get('VRF'))
     if cmd_output.get('BGP') is not None:

@@ -1,0 +1,22 @@
+<native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native" 
+    xmlns:ios="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <vrf>
+        <definition>
+            <name>MGMT_VRF</name>
+            <description>MGMT</description>
+            <rd>65000:999</rd>
+            <route-target>
+                <export>
+                    <asn-ip>65000:99</asn-ip>
+                </export>
+                <import>
+                    <asn-ip>65000:99</asn-ip>
+                </import>
+            </route-target>
+        </definition>
+        <definition>
+            <name>SECURE_ZONE</name>
+            <description>DESCR_TEST</description>
+        </definition>
+    </vrf>
+</native>
