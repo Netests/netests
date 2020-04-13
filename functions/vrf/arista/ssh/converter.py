@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import textfsm
 from const.constants import NOT_SET, LEVEL1, LEVEL3
 from protocols.vrf import VRF, ListVRF
 from functions.global_tools import printline

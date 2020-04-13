@@ -6,14 +6,11 @@ import pyeapi
 from nornir.plugins.tasks.networking import netmiko_send_command
 from const.constants import VRF_DATA_KEY, ARISTA_GET_VRF
 from functions.vrf.arista.ssh.converter import _arista_vrf_ssh_converter
-from exceptions.netests_exceptions import (
-    NetestsFunctionNotPossible,
-    NetestsFunctionNotImplemented
-)
+from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 
 
 def _arista_get_vrf_api(task, options={}):
-    c =  pyeapi.connect(
+    c = pyeapi.connect(
         transport="http",
         host=task.host.hostname,
         username=task.host.username,
@@ -26,7 +23,7 @@ def _arista_get_vrf_api(task, options={}):
 
 
 def _arista_get_vrf_netconf(task, options={}):
-    raise NetestsFunctionNotPossible(
+    raise NetestsFunctionNotImplemented(
         "Arista Networks Netconf functions is not implemented..."
     )
 

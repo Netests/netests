@@ -20,8 +20,8 @@ def _generic_vrf_napalm(task, options={}):
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL2
     ):
-            printline()
-            print_result(output)
+        printline()
+        print_result(output)
 
     if output.result != "":
         task.host[VRF_DATA_KEY] = _napalm_vrf_converter(
