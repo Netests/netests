@@ -10,6 +10,8 @@ from const.constants import (
     NEXUS_GET_VRF,
     NETCONF_FILTER
 )
+from functions.http_request import exec_http_call
+from functions.vrf.nxos.api.converter import _nxos_vrf_api_converter
 from functions.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
 from functions.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
 from exceptions.netests_exceptions import (
@@ -18,8 +20,20 @@ from exceptions.netests_exceptions import (
 
 
 def _nxos_get_vrf_api(task, options={}):
-    raise NetestsFunctionNotImplemented(
-        "Cisco Nexus NXOS API functions is not implemented...."
+    vrf_config = exec_http_call(
+        hostname=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        endpoint="data/Cisco-NX-OS-device:System/inst-items"
+    )
+
+    ElementTree.fromstring(vrf_config)
+
+    task.host[VRF_DATA_KEY] = _nxos_vrf_api_converter(
+        hostname=task.host.name,
+        cmd_output=vrf_config,
+        options=options
     )
 
 

@@ -36,33 +36,36 @@ Other parameters are not included in the comparaison function and can be differe
 
 ### VRF Retrieve Data
 
-|                 | vrf_name           | vrf_id             | vrf_type           | l3_vni | rd                 | rt_imp             | rt_exp             | imp_targ           | exp_targ           |
-| --------------- | ------------------ | ------------------ | ------------------ | ------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
-| NAPALM          | :white_check_mark: | :x:                | :white_check_mark: | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
-| Junos SSH       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Junos Netconf   |                    |                    |                    |        |                    |                    |                    |                    |                    |
-| Junos API       |                    |                    |                    |        |                    |                    |                    |                    |                    |
-| Cumulus SSH     | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
-| Cumulus API     |                    |                    |                    |        |                    |                    |                    |                    |                    |
-| Arista          | :white_check_mark: | :x:                | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
-| Arista Netconf  |                    |                    |                    |        |                    |                    |                    |                    |                    |
-| Arista API      |                    |                    |                    |        |                    |                    |                    |                    |                    |
-| Nexus SSH       | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
-| Nexus Netconf   |                    |                    |                    |        |                    |                    |                    |                    |                    |
-| Nexus API       |                    |                    |                    |        |                    |                    |                    |                    |                    |
-| IOSXR Netconf   | :white_check_mark: | :x:                | :x:                | :x:    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
-| IOSXR SSH       | :white_check_mark: | :x:                | :white_check_mark: | :x:    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
-| Cisco IOS       | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
-| Cisco NetConf   |                    |                    |                    |        |                    |                    |                    |                    |                    |
-| Extreme VSP SSH | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
-| Extreme VSP API |                    |                    |                    |        |                    |                    |                    |                    |                    |
-|                 |                    |                    |                    |        |                    |                    |                    |                    |                    |
-|                 |                    |                    |                    |        |                    |                    |                    |                    |                    |
-|                 |                    |                    |                    |        |                    |                    |                    |                    |                    |
+|                 | vrf_name           | vrf_id             | vrf_type           | l3_vni             | rd                 | rt_imp             | rt_exp             | imp_targ           | exp_targ           |
+| --------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
+| NAPALM          | :white_check_mark: | :x:                | :white_check_mark: | :x:                | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
+| Junos SSH       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Junos Netconf   |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+| Junos API       |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+| Cumulus SSH     | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                |
+| Cumulus API     | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                |
+| Arista SSH      | :white_check_mark: | :x:                | :x:                | :x:                | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
+| Arista Netconf  |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+| Arista API      |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+| Nexus SSH       | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
+| Nexus Netconf   | :white_check_mark: | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| Nexus API       | :white_check_mark: | :white_check_mark: | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOSXR Netconf   | :white_check_mark: | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOSXR SSH       | :white_check_mark: | :x:                | :white_check_mark: | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOS SSH         | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOS NetConf     | :white_check_mark: | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOS API         | :white_check_mark: | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| Extreme VSP SSH | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                |
+| Extreme VSP API |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+|                 |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+|                 |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+|                 |                    |                    |                    |                    |                    |                    |                    |                    |                    |
 
 :white_check_mark: => Supported
 
 :x: => Not supported
+
+[EMPTY] => Not Implemented
 
 
 

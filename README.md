@@ -425,7 +425,7 @@ Run the command `get` and the protocols that you would like retrieve.
 | Arista Netconf      |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Nexus SSH           | :white_check_mark: | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |            |                    |            |            |            |
 | Nexus Netconf       | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Nexus API           |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Nexus API           | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | IOS SSH             | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |            |                    |            |            |            |
 | IOS API             | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | IOS Netconf         | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
@@ -439,6 +439,8 @@ Run the command `get` and the protocols that you would like retrieve.
 :no_entry: = Not Supported
 
 :x: = Not Supported by the vendor (Exemple: RestConf available but get VRF with RestConf not possible).
+
+[EMPTY] => Not Implemented
 
 
 

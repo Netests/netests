@@ -22,6 +22,7 @@ from functions.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
 from functions.vrf.juniper.netconf.converter import _juniper_vrf_netconf_converter
 from functions.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
 from functions.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
+from functions.vrf.nxos.api.converter import _nxos_vrf_api_converter
 from protocols.vrf import (
     VRF,
     ListVRF
@@ -566,7 +567,15 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a NXOS API output named o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0702 = _nxos_vrf_api_converter(
+        hostname="leaf02",
+        cmd_output=open_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/nxos/api/"
+                "cisco_nxos_api_get_vrf.xml"
+            )
+        )
+    )
 
 
 @given(u'I create a VRF object from a NXOS Netconf output named o0703')
@@ -934,7 +943,7 @@ def step_impl(context):
 
 @given(u'VRF o0701 should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0701 == context.o0702
 
 
 @given(u'VRF o0701 should be equal to o0703')
@@ -949,12 +958,12 @@ def step_impl(context):
 
 @given(u'VRF o0702 should be equal to o0703')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0702 == context.o0703
 
 
 @given(u'VRF o0702 should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0702 == context.o0704
 
 
 @given(u'VRF o0703 should be equal to o0704')
@@ -964,7 +973,13 @@ def step_impl(context):
 
 @given(u'VRF YAML file should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        vrf_host_data=context.o0702,
+        test=True
+    )
 
 
 @given(u'VRF YAML file should be equal to o0703')
