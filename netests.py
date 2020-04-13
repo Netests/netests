@@ -31,82 +31,82 @@ HEADER = "[netests - main.py]"
     "--ansible",
     default=f"{PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY}",
     show_default=True,
-    help=f"Define path to the production Ansible inventory file",
+    help="Define path to the production Ansible inventory file",
 )
 @click.option(
     "-o",
     "--virtual",
     default=False,
     show_default=True,
-    help=f"Define path to the virtual Ansible inventory file",
+    help="Define path to the virtual Ansible inventory file",
 )
 @click.option(
     "-n",
     "--netbox",
     default=False,
     show_default=True,
-    help=f"Define path to retrieve inventory from netbox (in progress)",
+    help="Define path to retrieve inventory from netbox (in progress)",
 )
 @click.option(
     "-r",
     "--reports",
     default=False,
     show_default=True,
-    help=f"If TRUE, configuration reports will be create",
+    help="If TRUE, configuration reports will be create",
 )
 @click.option(
     "-c",
     "--check-connectivity",
     default=False,
     show_default=True,
-    help=f"If TRUE, check if devices are reachable",
+    help="If TRUE, check if devices are reachable",
 )
 @click.option(
     "-s",
     "--devices-number",
     default=-1,
     show_default=True,
-    help=f"Define how many devices will be selected from the inventory."
-    f"Can be combined with --device-group",
+    help="Define how many devices will be selected from the inventory."
+            "Can be combined with --device-group",
 )
 @click.option(
     "-g",
     "--devices-group",
     default="#",
     show_default=True,
-    help=f"Filter devices based on the group."
-    f"Allow you to select device only from a group."
-    f'Several groups can be given separate by a ","',
+    help="Filter devices based on the group."
+            "Allow you to select device only from a group."
+            'Several groups can be given separate by a ","',
 )
 @click.option(
     "-d",
     "--devices",
     default="#",
     show_default=True,
-    help=f"Filter devices based on the hostname."
-    f'Several hostname can be given separate by a ","',
+    help="Filter devices based on the hostname."
+            'Several hostname can be given separate by a ","',
 )
 @click.option(
     "-v",
     "--verbose",
     default="level0",
     show_default=True,
-    help=f"Filter devices based on the hostname."
-    f'Several hostname can be given separate by a ","',
+    help="Filter devices based on the hostname."
+            'Several hostname can be given separate by a ","',
 )
 @click.option(
     "-C",
     "--config",
     default=f"{NETESTS_CONFIG}",
     show_default=True,
-    help=f"Path to Netests configuration file"
+    help="Path to Netests configuration file"
 )
 @click.option(
     "-t",
     "--terminal",
     default=False,
     show_default=True,
-    help=f"Start the terminal Netests application"
+    help="Start the terminal Netests application"
 )
 def main(
     ansible,

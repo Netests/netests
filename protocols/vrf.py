@@ -57,7 +57,7 @@ class VRF:
 
     def __repr__(self):
         if 'print' in self.options.keys():
-            ret = f"\t<VRF \n"
+            ret = "\t<VRF \n"
             if self.options.get('print').get('vrf_name', True):
                 ret += f"\t\tvrf_name={self.vrf_name}\n"
             if self.options.get('print').get('vrf_id', True):

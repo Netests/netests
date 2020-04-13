@@ -154,7 +154,7 @@ class NetestsCLI():
         if protocol in self.options.keys():
             PP.pprint(self.options.get(protocol))
         else:
-            print(f"@All class arguments are defined as True")
+            print("@All class arguments are defined as True")
 
     def __get_device_info(self, devices) -> None:
         p = dict()
@@ -184,7 +184,7 @@ class NetestsCLI():
 
     def __call_get_generic(self, protocols_selected) -> None:
         if protocols_selected == "*":
-            print(f"@This function is unavailable for the moment...")
+            print("@This function is unavailable for the moment...")
         else:
             for prot in protocols_selected.split(','):
                 if prot.lower() == "vrf":
@@ -199,7 +199,7 @@ class NetestsCLI():
                     print(f"@({prot}) is unavailable from CLI for the moment.")
 
     def __print_devices(self) -> None:
-        print(f"@Followings devices are selected :")
+        print("@Followings devices are selected :")
         print(f"@{self.devices}")
 
     def __print_welcome(self) -> None:

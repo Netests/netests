@@ -62,12 +62,12 @@ def select_host_vars(hostname: str, groups: list, protocol: str):
 
 
 def truth_vars_exists() -> bool:
-    os.path.exists(f"truth_vars")
+    os.path.exists("truth_vars")
 
 
 def host_vars_exists(hostname: str, protocol: str) -> bool:
     return (
-        os.path.exists(f"truth_vars/hosts") and
+        os.path.exists("truth_vars/hosts") and
         os.path.exists(f"truth_vars/hosts/{hostname}") and
         os.path.exists(f"truth_vars/hosts/{hostname}/{protocol}.yml")
     )
@@ -79,6 +79,6 @@ def group_vars_exists(group: str, protocol: str) -> bool:
 
 def all_vars_exists(protocol: str) -> bool:
     return (
-        os.path.exists(f"truth_vars/all") and
+        os.path.exists("truth_vars/all") and
         os.path.exists(f"truth_vars/all/{protocol}.yml")
     )
