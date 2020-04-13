@@ -3,6 +3,7 @@ nornir/nornir.log
 bin/*
 lib/*
 include/*
+data/*
 pyvenv.cfg
 pip-selfcheck.json
 .idea

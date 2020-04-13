@@ -1,4 +1,0 @@
-Type escape sequence to abort.
-Sending 1, 100-byte ICMP Echos to 10.0.5.101, timeout is 2 seconds:
-!
-Success rate is 100 percent (1/1), round-trip min/avg/max = 2/2/2 ms

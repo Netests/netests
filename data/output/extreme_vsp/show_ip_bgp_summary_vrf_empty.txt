@@ -1,3 +1,0 @@
-show ip bgp summary vrf vrf003
-
-Info: BGP instance does not exist for VRF: "vrf003"

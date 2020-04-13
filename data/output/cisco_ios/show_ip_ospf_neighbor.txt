@@ -1,3 +1,0 @@
-10.255.255.102    1   FULL/BDR        00:00:35    10.2.5.1        GigabitEthernet0/2
-10.0.5.101        1   FULL/DROTHER    00:00:35    10.0.5.101      GigabitEthernet0/0
-201.201.201.201   1   FULL/BDR        00:00:35    10.0.5.201      GigabitEthernet0/0
