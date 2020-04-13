@@ -18,6 +18,14 @@ class NetestsCLI():
               "show", "print", "selected", ""]
     APRINT = ["get", "select", "unselect", "exit", "help", "options", "more",
               "show", "print", "selected"]
+    AARGS = ["get", "select", "unselect", "options", "more", "show", "print",
+             "help"]
+
+    ASIMPLE = ["help", "", "selected"]
+
+    A2ARGS = ["get", "select", "unselect", "more", "show", "print", "help"]
+
+    A3ARGS = ["options"]
 
     MAPPING = {
         "vrf": {
@@ -56,11 +64,40 @@ class NetestsCLI():
             print(f"@{self.APRINT}\n")
             return False
         else:
+            return self.__verify_args(user_input)
+
+    def __verify_args(self, user_input: list) -> bool:
+        if len(user_input) < 2 and user_input[0] not in self.ASIMPLE :
+            print("@The followings commands take some arguments :")
+            print(f"@{self.AARGS}")
+            return False
+        
+        if (
+            user_input[0] == "help" and (
+                len(user_input) == 1 or
+                len(user_input) == 2
+            )
+        ):
             return True
+
+        if user_input[0] in self.A3ARGS and len(user_input) != 3:
+            print("@The following commands take three arguments :")
+            print(f"@{self.A3ARGS}")
+            print("@Use 'help {{ command }}' for more informations")
+            return False
+
+        if user_input[0] in self.A2ARGS and len(user_input) != 2:
+            print("@The following commands take two arguments :")
+            print(f"@{self.A2ARGS}")
+            print("@Use 'help {{ command }}' for more informations")
+            return False
+
+        return True
+
 
     def select_action(self, user_inputs: list) -> None:
         if user_inputs[0] == "help":
-            self.__print_help()
+            self.__select_help_function(user_inputs)
         if user_inputs[0] == "select":
             self.__select_devices(user_inputs[1])
         if user_inputs[0] == "unselect":
@@ -77,6 +114,12 @@ class NetestsCLI():
             self.__get_protocol_class(user_inputs[1])
         if user_inputs[0] == "print":
             self.__get_device_info(user_inputs[1])
+
+    def __select_help_function(self, user_input):
+        if len(user_input) == 1:
+            self.__print_help()
+        elif len(user_input) == 2 and user_input[1] == "options":
+            self.__get_options_help()
 
     def __unselect_devices(self, devices_unselected: str) -> None:
         if devices_unselected == "*":
@@ -198,6 +241,9 @@ class NetestsCLI():
                 else:
                     print(f"@({prot}) is unavailable from CLI for the moment.")
 
+    def __ask_help(self) -> None:
+        print("@User 'help' command to get help.")
+
     def __print_devices(self) -> None:
         print("@Followings devices are selected :")
         print(f"@{self.devices}")
@@ -226,6 +272,24 @@ class NetestsCLI():
         print("| [show xxx]  Show XXX Protocol class arguments              |")
         print("| [print yy]  Show YY devices informations                   |")
         print("+------------------------------------------------------------+")
+
+    def __get_options_help(self):
+        print("+------------------------------------------------------------+")
+        print("|                 Netests - Options Commands                 |")
+        print("+------------------------------------------------------------+")
+        print("| This command is used to define which parameter will be     |")
+        print("| retrieve for a protocol.                                   |")
+        print("| It is possible to get a subset of protocols parameters.    |")
+        print("| Format :                                                   |")
+        print("|   > get {{ protocol }}  {{ classArg1,classArg2  }}         |")
+        print("|   (To get all protocols parameters use the 'show' command) |")
+        print("|                                                            |")
+        print("| Examples :                                                 |")
+        print("|   > get vrf vrf_name,rd,rt_imp,rt_exp                      |")
+        print("+------------------------------------------------------------+")
+
+
+
 
 
 def netests_cli(ansible, virtual, netbox) -> None:
