@@ -16,9 +16,9 @@ PP = pprint.PrettyPrinter(indent=4)
 class NetestsCLI():
 
     ACTION = ["get", "select", "unselect", "exit", "help", "options", "more",
-              "show", "print", ""]
+              "show", "print", "selected", ""]
     APRINT = ["get", "select", "unselect", "exit", "help", "options", "more",
-              "show", "print"]
+              "show", "print", "selected"]
 
     MAPPING = {
         "vrf": {
@@ -66,6 +66,8 @@ class NetestsCLI():
             self.__select_devices(user_inputs[1])
         if user_inputs[0] == "unselect":
             self.__unselect_devices(user_inputs[1])
+        if user_inputs[0] == "selected":
+            self.__print_devices()
         if user_inputs[0] == "get":
             self.__call_get_generic(user_inputs[1])
         if user_inputs[0] == "options":
@@ -95,6 +97,8 @@ class NetestsCLI():
                 ):
                     self.nornir.inventory.hosts[host].groups.remove("netests")
                     self.devices.remove(host)
+                if host not in self.nornir.inventory.hosts:
+                    print(f"@Device ({host}) is not in the inventory.")
 
         self.__print_devices()
 
@@ -116,7 +120,9 @@ class NetestsCLI():
                 ):
                     self.nornir.inventory.hosts[host].groups.append("netests")
                     self.devices.append(host)
-        
+                if host not in self.nornir.inventory.hosts:
+                    print(f"@Device ({host}) is not in the inventory.")
+
         self.__print_devices()
 
     def __define_options(self, protocol, options) -> None:
@@ -209,6 +215,7 @@ class NetestsCLI():
         print("| [help]      Display help                                   |")
         print("| [select]    Select devices on which on action will be exec |")
         print("| [unselect]  Remove a device from the selected              |")
+        print("| [selected]  Show devices currently selected                |")
         print("| [get xxx]   Get XXX protocols informations                 |")
         print("| [options]   Set arguments that will retrieve for a Protocol|")
         print("| [more xxx]  Show XXX Protocol class arguments selected     |")
