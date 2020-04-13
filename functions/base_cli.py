@@ -56,22 +56,26 @@ class NetestsCLI():
             netbox=netbox,
         )
         self.nornir.inventory.add_group("netests")
-        self.__print_welcome()
+        self.print_welcome()
 
-    def check_input(self, user_input: list) -> bool:
+    def __split_user_input(self, user_input: str) -> list:
+        return user_input.split(" ")
+
+    def check_input(self, user_input: str) -> bool:
+        user_input = self.__split_user_input(user_input)
         if user_input[0] not in self.ACTION:
             print("@Please select one of the following values :")
             print(f"@{self.APRINT}\n")
             return False
         else:
-            return self.__verify_args(user_input)
+            return self.verify_args(user_input)
 
-    def __verify_args(self, user_input: list) -> bool:
-        if len(user_input) < 2 and user_input[0] not in self.ASIMPLE :
+    def verify_args(self, user_input: list) -> bool:
+        if len(user_input) < 2 and user_input[0] not in self.ASIMPLE:
             print("@The followings commands take some arguments :")
             print(f"@{self.AARGS}")
             return False
-        
+
         if (
             user_input[0] == "help" and (
                 len(user_input) == 1 or
@@ -94,34 +98,34 @@ class NetestsCLI():
 
         return True
 
-
-    def select_action(self, user_inputs: list) -> None:
+    def select_action(self, user_inputs: str) -> None:
+        user_inputs = self.__split_user_input(user_inputs)
         if user_inputs[0] == "help":
-            self.__select_help_function(user_inputs)
+            self.select_help_function(user_inputs)
         if user_inputs[0] == "select":
-            self.__select_devices(user_inputs[1])
+            self.select_devices(user_inputs[1])
         if user_inputs[0] == "unselect":
-            self.__unselect_devices(user_inputs[1])
+            self.unselect_devices(user_inputs[1])
         if user_inputs[0] == "selected":
-            self.__print_devices()
+            self.print_devices()
         if user_inputs[0] == "get":
-            self.__call_get_generic(user_inputs[1])
+            self.call_get_generic(user_inputs[1])
         if user_inputs[0] == "options":
-            self.__define_options(user_inputs[1], user_inputs[2])
+            self.define_options(user_inputs[1], user_inputs[2])
         if user_inputs[0] == "more":
-            self.__get_protocol_info(user_inputs[1])
+            self.get_protocol_info(user_inputs[1])
         if user_inputs[0] == "show":
-            self.__get_protocol_class(user_inputs[1])
+            self.get_protocol_class(user_inputs[1])
         if user_inputs[0] == "print":
-            self.__get_device_info(user_inputs[1])
+            self.get_device_info(user_inputs[1])
 
-    def __select_help_function(self, user_input):
+    def select_help_function(self, user_input):
         if len(user_input) == 1:
-            self.__print_help()
+            self.print_help()
         elif len(user_input) == 2 and user_input[1] == "options":
-            self.__get_options_help()
+            self.print_options_help()
 
-    def __unselect_devices(self, devices_unselected: str) -> None:
+    def unselect_devices(self, devices_unselected: str) -> None:
         if devices_unselected == "*":
             for host in self.nornir.inventory.hosts:
                 if (
@@ -142,9 +146,9 @@ class NetestsCLI():
                 if host not in self.nornir.inventory.hosts:
                     print(f"@Device ({host}) is not in the inventory.")
 
-        self.__print_devices()
+        self.print_devices()
 
-    def __select_devices(self, devices_selected) -> None:
+    def select_devices(self, devices_selected) -> None:
         if devices_selected == "*":
             for host in self.nornir.inventory.hosts:
                 if (
@@ -165,9 +169,9 @@ class NetestsCLI():
                 if host not in self.nornir.inventory.hosts:
                     print(f"@Device ({host}) is not in the inventory.")
 
-        self.__print_devices()
+        self.print_devices()
 
-    def __define_options(self, protocol, options) -> None:
+    def define_options(self, protocol, options) -> None:
         for key, values in self.MAPPING.items():
             if protocol.lower() == key:
                 if options == "*":
@@ -176,30 +180,30 @@ class NetestsCLI():
                     print(f"@All options are added to ({protocol})")
                 else:
                     for opt in options.split(','):
-                        if opt in values.get('class').__annotations__.keys():
+                        if opt in values.get('class')._annotations_.keys():
                             if key not in self.options.keys():
                                 self.options[key] = dict()
                             self.options[key][opt] = True
 
-                    for v in values.get('class').__annotations__.keys():
+                    for v in values.get('class')._annotations_.keys():
                         if v not in options.split(','):
                             self.options[key][v] = False
 
                     print(f"@New ({key}) options are :")
                     PP.pprint(self.options.get(key))
 
-    def __get_protocol_class(self, protocol) -> None:
+    def get_protocol_class(self, protocol) -> None:
         for key, values in self.MAPPING.items():
             if protocol.lower() == key:
-                PP.pprint((values.get('class').__annotations__))
+                PP.pprint((values.get('class')._annotations_))
 
-    def __get_protocol_info(self, protocol) -> None:
+    def get_protocol_info(self, protocol) -> None:
         if protocol in self.options.keys():
             PP.pprint(self.options.get(protocol))
         else:
             print("@All class arguments are defined as True")
 
-    def __get_device_info(self, devices) -> None:
+    def get_device_info(self, devices) -> None:
         p = dict()
         if devices == "*":
             for host in self.nornir.inventory.hosts:
@@ -225,7 +229,7 @@ class NetestsCLI():
 
         PP.pprint(p)
 
-    def __call_get_generic(self, protocols_selected) -> None:
+    def call_get_generic(self, protocols_selected) -> None:
         if protocols_selected == "*":
             print("@This function is unavailable for the moment...")
         else:
@@ -241,24 +245,24 @@ class NetestsCLI():
                 else:
                     print(f"@({prot}) is unavailable from CLI for the moment.")
 
-    def __ask_help(self) -> None:
+    def ask_help(self) -> None:
         print("@User 'help' command to get help.")
 
-    def __print_devices(self) -> None:
+    def print_devices(self) -> None:
         print("@Followings devices are selected :")
         print(f"@{self.devices}")
 
-    def __print_welcome(self) -> None:
+    def print_welcome(self) -> None:
         printline()
         print("Welcome to Netests CLI")
         printline()
 
-    def __print_end_get(self) -> None:
+    def print_end_get(self) -> None:
         printline()
         print("@End GET")
         printline()
 
-    def __print_help(self) -> None:
+    def print_help(self) -> None:
         print("+------------------------------------------------------------+")
         print("|                       Netests Help                         |")
         print("+------------------------------------------------------------+")
@@ -273,7 +277,7 @@ class NetestsCLI():
         print("| [print yy]  Show YY devices informations                   |")
         print("+------------------------------------------------------------+")
 
-    def __get_options_help(self):
+    def print_options_help(self):
         print("+------------------------------------------------------------+")
         print("|                 Netests - Options Commands                 |")
         print("+------------------------------------------------------------+")
@@ -289,9 +293,6 @@ class NetestsCLI():
         print("+------------------------------------------------------------+")
 
 
-
-
-
 def netests_cli(ansible, virtual, netbox) -> None:
     user_input = "START"
     cli = NetestsCLI(
@@ -303,5 +304,5 @@ def netests_cli(ansible, virtual, netbox) -> None:
     while user_input != "exit":
         user_input = input("> ")
 
-        if cli.check_input(user_input.split(" ")):
-            cli.select_action(user_input.split(" "))
+        if cli.check_input(user_input):
+            cli.select_action(user_input)
