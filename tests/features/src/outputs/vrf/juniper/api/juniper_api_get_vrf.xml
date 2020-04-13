@@ -1,4 +1,5 @@
-<instance-information style="detail">
+<instance-information xmlns="http://xml.juniper.net/junos/18.3R1/junos-routing" 
+    xmlns:junos="http://xml.juniper.net/junos/*/junos" junos:style="detail">
     <instance-core>
         <instance-name>master</instance-name>
         <router-id>100.123.1.0</router-id>
@@ -29,10 +30,10 @@
         </instance-interface>
         <instance-vrf>
             <route-distinguisher>65333:333</route-distinguisher>
-            <vrf-import>\n__vrf-import-CUSTOMER_001-internal__\n</vrf-import>
-            <vrf-export>\n__vrf-export-CUSTOMER_001-internal__\n</vrf-export>
-            <vrf-import-target>\ntarget:65333:333\n</vrf-import-target>
-            <vrf-export-target>\ntarget:65333:333\n</vrf-export-target>
+            <vrf-import>__vrf-import-CUSTOMER_001-internal__</vrf-import>
+            <vrf-export>__vrf-export-CUSTOMER_001-internal__</vrf-export>
+            <vrf-import-target>target:65333:333</vrf-import-target>
+            <vrf-export-target>target:65333:333</vrf-export-target>
             <fast-reroute-priority>low</fast-reroute-priority>
         </instance-vrf>
         <instance-rib>

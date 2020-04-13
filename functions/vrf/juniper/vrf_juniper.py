@@ -14,15 +14,16 @@ from const.constants import (
     VRF_DATA_KEY,
     JUNOS_GET_VRF_DETAIL
 )
+from functions.vrf.juniper.api.converter import (
+    _juniper_vrf_api_converter
+)
 from functions.vrf.juniper.netconf.converter import (
     _juniper_vrf_netconf_converter
 )
 from functions.vrf.juniper.ssh.converter import (
     _juniper_vrf_ssh_converter
 )
-from exceptions.netests_exceptions import (
-    NetestsFunctionNotImplemented
-)
+from functions.http_request import exec_http_call_juniper
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 import pprint
@@ -30,8 +31,21 @@ PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_get_vrf_api(task, options={}):
-    raise NetestsFunctionNotImplemented(
-        "Juniper Networks API functions is not implemented..."
+    vrf_config = exec_http_call_juniper(
+        hostname=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        endpoint="get-instance-information?detail=",
+        secure_api=task.host['secure_api']
+    )
+
+    ElementTree.fromstring(vrf_config)
+
+    task.host[VRF_DATA_KEY] = _juniper_vrf_api_converter(
+        hostname=task.host.name,
+        cmd_output=vrf_config,
+        options=options
     )
 
 

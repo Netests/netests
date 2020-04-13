@@ -19,7 +19,7 @@ leaf04:
   # Juniper VMX / Junos
   - vrf_name: default
   - vrf_name: mgmt_junos
-  - vrf_name: INTERNAL_PEERING_VRF
+  - vrf_name: CUSTOMER_001
 
 leaf05:
   # Cisco IOS

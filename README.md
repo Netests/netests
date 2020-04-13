@@ -370,27 +370,28 @@ Run the command `get` and the protocols that you would like retrieve.
 | VRF       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :white_check_mark:         | :white_check_mark: |
 | LLDP      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | CDP       |      :sleepy:      | :white_check_mark: | :sleepy:           | :white_check_mark: | :white_check_mark: |        :x:         |      :sleepy:      | :sleepy:           |
-| IPv4      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |       :white_check_mark:         | :white_check_mark: |
-| IPv6      |        :x:         | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:(3)  |
-|  |  |  |  |  |  |  |  |  |
-| **MVP ^^^** |  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |  |
+|             |                    |                       |                       |                    |                    |                    |                    |                    |
+| **MVP ^^^** |                    |                       |                       |                    |                    |                    |                    |                    |
+| IS-IS       |        :x:         | :x:                   |          :x:          |        :x:         |        :x:         |        :x:         | :x:                |        :x:         |
+| LDP         |        :x:         | :x:                   |          :x:          |        :x:         |        :x:         |        :x:         | :x:                |        :x:         |
+| IPv4 | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :white_check_mark: |
+| MTU | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :sleepy:(3) |
+| | | | | | | | | |
+| **P2 ^^^** |  |  |  |  |  |  |  |  |
+| IPv6 | :x: | :white_check_mark: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: |
 | MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | L2VNI | :x: | :sleepy:(2) | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | LACP | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | VLAN | :x: | :white_check_mark: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: |
-| IS-IS | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
-|  |  |  |  |  |  |  |  |  |
-| **P2 ^^^** |                    |                    |                    |                    |                    |                    |                    |                    |
-|           |                    |                    |                    |                    |                    |                    |                    |                    |
+|             |                    |                       |                       |                    |                    |                    |                    |                    |
+| **P3 ^^^** |                    |                    |                    |                    |                    |                    |                    |                    |
 | VTEP      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | Multicast |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | VLAN      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | VXLAN     |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | EVPN      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 |             |                    |                       |                       |                    |                    |                    |                    |                    |
-| **P3 ^^^** |  |  |  |  |  |  |  |  |
+| **P4 ^^^** |  |  |  |  |  |  |  |  |
 
 :white_check_mark: = Implemented
 
@@ -414,9 +415,9 @@ Run the command `get` and the protocols that you would like retrieve.
 |                     | VRF                | MTU                | MLAG               | VLAN               | IPv4               | IPv6               | Static             | BGP                | OSPF               | SysInfos           | CDP        | LLDP               | VRF        | Ping       | Socket     |
 | ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ---------- | ------------------ | ---------- | ---------- | ---------- |
 | NAPALM              |                    |                    |                    |                    | :white_check_mark: |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Juniper SSH         |                    |                    |                    |                    | :white_check_mark: |                    | :white_check_mark: |                    | :white_check_mark: |                    |            | :white_check_mark: |            |            |            |
+| Juniper SSH         | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    | :white_check_mark: |                    | :white_check_mark: |                    |            | :white_check_mark: |            |            |            |
 | Juniper Netconf     | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Juniper API         |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Juniper API         | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: |                    |            | :white_check_mark: |            |            |            |
 | Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: | :no_entry:         | :no_entry: | :no_entry: | :no_entry: |
 | Cumulus API         | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |

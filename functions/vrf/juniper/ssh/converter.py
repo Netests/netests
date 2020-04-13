@@ -46,7 +46,7 @@ def _juniper_vrf_ssh_converter(
                 vrf_obj.rt_exp = vrf.get('instance-vrf')[0]\
                                     .get('vrf-export')[0] \
                                     .get('data', NOT_SET)
-                vrf_obj.exp_targ = vrf.get('instance-vrf')[0] \
+                vrf_obj.imp_targ = vrf.get('instance-vrf')[0] \
                                       .get('vrf-import-target')[0] \
                                       .get('data', NOT_SET)
                 vrf_obj.exp_targ = vrf.get('instance-vrf')[0] \

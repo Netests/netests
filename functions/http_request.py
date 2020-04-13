@@ -17,10 +17,17 @@ def exec_http_call_cumulus(
     port: str,
     username: str,
     password: str,
-    cumulus_cmd: str
+    cumulus_cmd: str,
+    secure_api=True,
 ) -> json:
+
+    if secure_api:
+        protocol = "https"
+    else:
+        protocol = "http"
+
     res = requests.post(
-        url=f"https://{hostname}:{port}/nclu/v1/rpc",
+        url=f"{protocol}://{hostname}:{port}/nclu/v1/rpc",
         data=json.dumps(
             {
                 "cmd": f"{cumulus_cmd}"
@@ -52,11 +59,45 @@ def exec_http_call(
     port: str,
     username: str,
     password: str,
-    endpoint: str
+    endpoint: str,
+    secure_api=True,
 ) -> json:
+
+    if secure_api:
+        protocol = "https"
+    else:
+        protocol = "http"
+
     res = requests.get(
-        url=f"https://{hostname}:{port}/restconf/{endpoint}",
+        url=f"{protocol}://{hostname}:{port}/restconf/{endpoint}",
         headers={'content-type': 'application/json'},
+        auth=requests.auth.HTTPBasicAuth(
+            f"{username}",
+            f"{password}"
+        ),
+        verify=False
+    )
+
+    return res.content
+
+
+def exec_http_call_juniper(
+    hostname: str,
+    port: str,
+    username: str,
+    password: str,
+    endpoint: str,
+    secure_api=False,
+) -> json:
+
+    if secure_api:
+        protocol = "https"
+    else:
+        protocol = "http"
+
+    res = requests.get(
+        url=f"{protocol}://{hostname}:{port}/rpc/{endpoint}",
+        headers={'content-type': 'application/xml'},
         auth=requests.auth.HTTPBasicAuth(
             f"{username}",
             f"{password}"

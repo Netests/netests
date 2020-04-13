@@ -6,7 +6,7 @@ import json
 import lxml
 import xmltodict
 from xml.etree import ElementTree
-from const.constants import NOT_SET, LEVEL3, LEVEL4
+from const.constants import NOT_SET, LEVEL1, LEVEL4
 from protocols.vrf import VRF, ListVRF
 from functions.vrf.juniper.vrf_juniper_filters import (
     _juniper_vrf_filter,
@@ -43,36 +43,46 @@ def _juniper_vrf_netconf_converter(
 
     vrf_list = ListVRF(list())
 
-    for vrf in cmd_output.get('instance-information').get('instance-core'):
+    for vrf in cmd_output.get('instance-information') \
+            .get('instance-core'):
         if _juniper_vrf_filter(vrf.get('instance-name')):
-            vrf_obj = VRF()
-
-            vrf_obj.vrf_name = _juniper_vrf_default_mapping(
-                vrf.get('instance-name')
-            )
-            vrf_obj.vrf_id = vrf.get('router-id', NOT_SET)
-            vrf_obj.vrf_type = vrf.get('instance-type', NOT_SET)
-            vrf_obj.l3_vni = NOT_SET
-
+            rd = NOT_SET,
+            rt_imp = NOT_SET
+            rt_exp = NOT_SET
+            imp_targ = NOT_SET
+            exp_targ = NOT_SET
             if "instance-vrf" in vrf.keys():
-                vrf_obj.rd = vrf.get('instance-vrf') \
-                                .get('route-distinguisher', NOT_SET)
-                vrf_obj.rt_imp = vrf.get('instance-vrf') \
-                                    .get('vrf-import', NOT_SET)
-                vrf_obj.rt_exp = vrf.get('instance-vrf') \
-                                    .get('vrf-export', NOT_SET)
-                vrf_obj.exp_targ = vrf.get('instance-vrf') \
-                                      .get('vrf-import-target', NOT_SET)
-                vrf_obj.exp_targ = vrf.get('instance-vrf') \
-                                      .get('vrf-export-target', NOT_SET)
+                rd = vrf.get('instance-vrf') \
+                        .get('route-distinguisher', NOT_SET)
+                rt_imp = vrf.get('instance-vrf') \
+                            .get('vrf-import', NOT_SET)
+                rt_exp = vrf.get('instance-vrf') \
+                            .get('vrf-export', NOT_SET)
+                imp_targ = vrf.get('instance-vrf') \
+                              .get('vrf-import-target', NOT_SET)
+                exp_targ = vrf.get('instance-vrf') \
+                              .get('vrf-export-target', NOT_SET)
 
-            vrf_obj.options = options
-
-            vrf_list.vrf_lst.append(vrf_obj)
+            vrf_list.vrf_lst.append(
+                VRF(
+                    vrf_name=_juniper_vrf_default_mapping(
+                        vrf.get('instance-name')
+                    ),
+                    vrf_id=vrf.get('router-id', NOT_SET),
+                    vrf_type=vrf.get('instance-type', NOT_SET),
+                    l3_vni=NOT_SET,
+                    rd=rd,
+                    rt_imp=rt_imp,
+                    rt_exp=rt_exp,
+                    imp_targ=imp_targ,
+                    exp_targ=exp_targ,
+                    options=options
+                )
+            )
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
+        needed_value=LEVEL1
     ):
         printline()
         print(vrf_list)

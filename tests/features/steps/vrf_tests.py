@@ -19,7 +19,9 @@ from functions.vrf.ios.netconf.converter import _ios_vrf_netconf_converter
 from functions.vrf.ios.ssh.converter import _ios_vrf_ssh_converter
 from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
 from functions.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
+from functions.vrf.juniper.api.converter import _juniper_vrf_api_converter
 from functions.vrf.juniper.netconf.converter import _juniper_vrf_netconf_converter
+from functions.vrf.juniper.ssh.converter import _juniper_vrf_ssh_converter
 from functions.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
 from functions.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
 from functions.vrf.nxos.api.converter import _nxos_vrf_api_converter
@@ -429,7 +431,7 @@ def step_impl(context):
     context.o0501.vrf_lst.append(
         VRF(
             vrf_name="default",
-            vrf_id="1.1.1.1",
+            vrf_id="100.123.1.0",
             vrf_type="forwarding",
             l3_vni=NOT_SET,
             rd=NOT_SET,
@@ -442,15 +444,15 @@ def step_impl(context):
 
     context.o0501.vrf_lst.append(
         VRF(
-            vrf_name="INTERNAL_PEERING_VRF",
-            vrf_id="0.0.0.0",
-            vrf_type="non-forwarding",
+            vrf_name="CUSTOMER_001",
+            vrf_id="7.7.7.7",
+            vrf_type="vrf",
             l3_vni=NOT_SET,
-            rd=NOT_SET,
-            rt_imp=NOT_SET,
-            rt_exp=NOT_SET,
-            imp_targ=NOT_SET,
-            exp_targ=NOT_SET
+            rd="65333:333",
+            rt_imp="__vrf-import-CUSTOMER_001-internal__",
+            rt_exp="__vrf-export-CUSTOMER_001-internal__",
+            imp_targ="65333:333",
+            exp_targ="65333:333"
         )
     )
 
@@ -471,7 +473,15 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a Juniper API output named o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0502 = _juniper_vrf_api_converter(
+        hostname="leaf04",
+        cmd_output=open_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/juniper/api/"
+                "juniper_api_get_vrf.xml"
+            )
+        )
+    )
 
 
 @given(u'I create a VRF object from a Juniper Netconf output named o0503')
@@ -489,7 +499,15 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a Juniper SSH output named o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0504 = _juniper_vrf_ssh_converter(
+        hostname="leaf04",
+        cmd_output=open_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/juniper/ssh/"
+                "juniper_show_route_instance_detail.json"
+            )
+        )
+    )
 
 
 @given(u'I create a VRF object equals to NAPALM manually named o0601')
@@ -877,7 +895,7 @@ def step_impl(context):
 
 @given(u'VRF o0501 should be equal to o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0501 == context.o0502
 
 
 @given(u'VRF o0501 should be equal to o0503')
@@ -887,27 +905,33 @@ def step_impl(context):
 
 @given(u'VRF o0501 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0501 == context.o0504
 
 
 @given(u'VRF o0502 should be equal to o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0502 == context.o0503
 
 
 @given(u'VRF o0502 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0502 == context.o0504
 
 
 @given(u'VRF o0503 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0503 == context.o0504
 
 
 @given(u'VRF YAML file should be equal to o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="leaf04",
+        groups=['junos'],
+        vrf_host_data=context.o0502,
+        test=True
+    )
 
 
 @given(u'VRF YAML file should be equal to o0503')
@@ -923,7 +947,13 @@ def step_impl(context):
 
 @given(u'VRF YAML file should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="leaf04",
+        groups=['junos'],
+        vrf_host_data=context.o0504,
+        test=True
+    )
 
 
 @given(u'VRF o0601 should be equal to o0602')
