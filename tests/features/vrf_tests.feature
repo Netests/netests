@@ -116,9 +116,7 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And VRF YAML file should be equal to o0504
     # NAPALM-Automation
     And VRF o0601 should be equal to o0602
-
-    And VRF YAML file should be equal to o0601
-    And VRF YAML file should be equal to o0602
+    
     # Cisco Nexus NXOS
     And VRF o0701 should be equal to o0702
     And VRF o0701 should be equal to o0703

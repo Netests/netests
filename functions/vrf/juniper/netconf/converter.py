@@ -85,6 +85,6 @@ def _juniper_vrf_netconf_converter(
         needed_value=LEVEL1
     ):
         printline()
-        print(vrf_list)
+        PP.pprint(vrf_list.to_json())
 
     return vrf_list

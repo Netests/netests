@@ -22,6 +22,7 @@ from functions.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
 from functions.vrf.juniper.api.converter import _juniper_vrf_api_converter
 from functions.vrf.juniper.netconf.converter import _juniper_vrf_netconf_converter
 from functions.vrf.juniper.ssh.converter import _juniper_vrf_ssh_converter
+from functions.vrf.napalm.converter import _napalm_vrf_converter
 from functions.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
 from functions.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
 from functions.vrf.nxos.api.converter import _nxos_vrf_api_converter
@@ -512,12 +513,49 @@ def step_impl(context):
 
 @given(u'I create a VRF object equals to NAPALM manually named o0601')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0601 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o0601.vrf_lst.append(
+        VRF(
+            vrf_name="MGMT_VRF",
+            vrf_id=NOT_SET,
+            vrf_type="L3VRF",
+            l3_vni=NOT_SET,
+            rd="65000:999",
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o0601.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type="DEFAULT_INSTANCE",
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
 
 
 @given(u'I create a VRF object from a NAPALM output named o0602')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0602 = _napalm_vrf_converter(
+        hostname="leaf02",
+        cmd_output=open_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/napalm/napalm_get_vrf.json"
+            )
+        )
+    )
 
 
 @given(u'I create a VRF object equals to NXOS manually named o0701')
@@ -958,17 +996,7 @@ def step_impl(context):
 
 @given(u'VRF o0601 should be equal to o0602')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'VRF YAML file should be equal to o0601')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'VRF YAML file should be equal to o0602')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0601 == context.o0602
 
 
 @given(u'VRF o0701 should be equal to o0702')

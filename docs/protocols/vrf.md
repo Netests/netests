@@ -65,6 +65,8 @@ Other parameters are not included in the comparaison function and can be differe
 
 :x: => Not supported
 
+:warning: => Not supported by the vendor
+
 [EMPTY] => Not Implemented
 
 

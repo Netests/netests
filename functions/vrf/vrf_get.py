@@ -36,7 +36,7 @@ from functions.vrf.juniper.vrf_juniper import (
     _juniper_get_vrf_ssh
 )
 from functions.vrf.napalm.vrf_napalm import (
-    _napalm_vrf_converter
+    _generic_vrf_napalm
 )
 from functions.vrf.nxos.vrf_nxos import (
     _nxos_get_vrf_api,
@@ -76,7 +76,7 @@ MAPPING_FUNCTION = {
         API_CONNECTION: _juniper_get_vrf_api,
         SSH_CONNECTION: _juniper_get_vrf_ssh,
         NETCONF_CONNECTION: _juniper_get_vrf_netconf,
-        NAPALM_CONNECTION: _napalm_vrf_converter
+        NAPALM_CONNECTION: _generic_vrf_napalm
     },
     CUMULUS_PLATEFORM_NAME: {
         API_CONNECTION: _cumulus_get_vrf_api,
@@ -88,25 +88,25 @@ MAPPING_FUNCTION = {
         API_CONNECTION: _arista_get_vrf_api,
         SSH_CONNECTION: _arista_get_vrf_ssh,
         NETCONF_CONNECTION: _arista_get_vrf_netconf,
-        NAPALM_CONNECTION: _napalm_vrf_converter
+        NAPALM_CONNECTION: _generic_vrf_napalm
     },
     NEXUS_PLATEFORM_NAME: {
         API_CONNECTION: _nxos_get_vrf_api,
         SSH_CONNECTION: _nxos_get_vrf_ssh,
         NETCONF_CONNECTION: _nxos_get_vrf_netconf,
-        NAPALM_CONNECTION: _napalm_vrf_converter
+        NAPALM_CONNECTION: _generic_vrf_napalm
     },
     CISCO_IOS_PLATEFORM_NAME: {
         API_CONNECTION: _ios_get_vrf_api,
         SSH_CONNECTION: _ios_get_vrf_ssh,
         NETCONF_CONNECTION: _ios_get_vrf_netconf,
-        NAPALM_CONNECTION: _napalm_vrf_converter
+        NAPALM_CONNECTION: _generic_vrf_napalm
     },
     CISCO_IOSXR_PLATEFORM_NAME: {
         API_CONNECTION: _iosxr_get_vrf_api,
         SSH_CONNECTION: _iosxr_get_vrf_ssh,
         NETCONF_CONNECTION: _iosxr_get_vrf_netconf,
-        NAPALM_CONNECTION: _napalm_vrf_converter
+        NAPALM_CONNECTION: _generic_vrf_napalm
     },
     EXTREME_PLATEFORM_NAME: {
         API_CONNECTION: _extreme_vsp_get_vrf_api,
