@@ -55,7 +55,6 @@ class VRF:
 
         return ((str(self.vrf_name) == str(other.vrf_name)))
 
-
     def __repr__(self):
         if 'print' in self.options.keys():
             ret = f"\t<VRF \n"

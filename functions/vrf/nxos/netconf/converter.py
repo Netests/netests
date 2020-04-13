@@ -2,23 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import os
-import textfsm
 from functions.global_tools import printline
 from functions.netconf_tools import format_xml_output
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-    LEVEL4,
-    LEVEL5,
-    TEXTFSM_PATH
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
-from functions.verbose_mode import (
-    verbose_mode
-)
+from const.constants import NOT_SET, LEVEL1, LEVEL4, LEVEL5
+from protocols.vrf import VRF, ListVRF
+from functions.verbose_mode import verbose_mode
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -61,7 +49,7 @@ def _nxos_vrf_netconf_converter(
             'af-items' in vrf.get('dom-items').get('Dom-list').keys() and
             'DomAf-list' in vrf.get('dom-items')
                                .get('Dom-list')
-                               .get('af-items').keys() and 
+                               .get('af-items').keys() and
             'ctrl-items' in vrf.get('dom-items')
                                .get('Dom-list')
                                .get('af-items')
@@ -125,8 +113,7 @@ def _nxos_vrf_netconf_converter(
                    .get('Dom-list') \
                    .get('rd').split(':')
             rd = f"{t[-2]}:{t[-1]}"
-        
-        
+
         vrf_list.vrf_lst.append(
             VRF(
                 vrf_name=vrf.get('name', NOT_SET),

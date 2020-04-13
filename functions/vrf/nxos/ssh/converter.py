@@ -2,21 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import os
-import textfsm
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-    LEVEL3,
-    TEXTFSM_PATH
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
+from const.constants import NOT_SET, LEVEL1
+from protocols.vrf import VRF, ListVRF
 from functions.global_tools import printline
-from functions.verbose_mode import (
-    verbose_mode
-)
+from functions.verbose_mode import verbose_mode
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -50,5 +39,5 @@ def _nxos_vrf_ssh_converter(
         printline()
         print(f">>>>> {hostname}")
         PP.pprint(vrf_list.to_json())
-    
+
     return vrf_list

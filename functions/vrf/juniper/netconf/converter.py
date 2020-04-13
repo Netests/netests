@@ -6,15 +6,8 @@ import json
 import lxml
 import xmltodict
 from xml.etree import ElementTree
-from const.constants import (
-    NOT_SET,
-    LEVEL3,
-    LEVEL4
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
+from const.constants import NOT_SET, LEVEL3, LEVEL4
+from protocols.vrf import VRF, ListVRF
 from functions.vrf.juniper.vrf_juniper_filters import (
     _juniper_vrf_filter,
     _juniper_vrf_default_mapping

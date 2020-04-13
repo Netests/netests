@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os 
-import json
+import os
 from nornir.core.task import Task
 from functions.verbose_mode import verbose_mode
 from functions.select_vars import select_host_vars
@@ -14,10 +13,7 @@ from const.constants import (
     VRF_DATA_KEY,
     VRF_WORKS_KEY
 )
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
+from protocols.vrf import VRF, ListVRF
 from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 
 
@@ -68,6 +64,7 @@ def _compare_transit_vrf(task, options={}):
 
     return task.host[VRF_WORKS_KEY]
 
+
 def _compare_vrf(
     host_keys,
     hostname: str,
@@ -102,7 +99,7 @@ def _compare_vrf(
             VRF_DATA_KEY in host_keys and
             vrf_yaml_data is not None and
             hostname in vrf_yaml_data.keys()
-        ):  
+        ):
             if vrf_yaml_data.get(hostname) is not None:
                 for vrf in vrf_yaml_data.get(hostname):
                     verity_vrf.vrf_lst.append(

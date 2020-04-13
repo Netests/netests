@@ -2,23 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import os
-import textfsm
 from functions.global_tools import printline
 from functions.netconf_tools import format_xml_output
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-    LEVEL4,
-    LEVEL5,
-    TEXTFSM_PATH
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
-from functions.verbose_mode import (
-    verbose_mode
-)
+from const.constants import NOT_SET, LEVEL1, LEVEL4, LEVEL5
+from protocols.vrf import VRF, ListVRF
+from functions.verbose_mode import verbose_mode
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -47,9 +35,9 @@ def _nxos_vrf_api_converter(
         PP.pprint(cmd_output)
 
     vrf_list = ListVRF(vrf_lst=list())
-    
+
     for v in cmd_output.get('inst-items').get('Inst-list'):
-        
+
         rd = NOT_SET
         rt_exp = NOT_SET
         rt_imp = NOT_SET
@@ -146,5 +134,4 @@ def _nxos_vrf_api_converter(
         print(f">>>>> {hostname}")
         PP.pprint(vrf_list.to_json())
 
-    
     return vrf_list

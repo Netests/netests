@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import inspect
 from nornir.core import Nornir
 from functions.vrf.vrf_get import get_vrf
 from protocols.vrf import VRF
@@ -78,7 +77,7 @@ class NetestsCLI():
             self.__get_protocol_class(user_inputs[1])
         if user_inputs[0] == "print":
             self.__get_device_info(user_inputs[1])
-        
+
     def __unselect_devices(self, devices_unselected: str) -> None:
         if devices_unselected == "*":
             for host in self.nornir.inventory.hosts:
@@ -115,7 +114,7 @@ class NetestsCLI():
             for host in devices_selected.split(','):
                 if (
                     host not in self.devices and
-                    host in self.nornir.inventory.hosts and 
+                    host in self.nornir.inventory.hosts and
                     'netests' not in self.nornir.inventory.hosts[host].groups
                 ):
                     self.nornir.inventory.hosts[host].groups.append("netests")
@@ -138,7 +137,7 @@ class NetestsCLI():
                             if key not in self.options.keys():
                                 self.options[key] = dict()
                             self.options[key][opt] = True
-                
+
                     for v in values.get('class').__annotations__.keys():
                         if v not in options.split(','):
                             self.options[key][v] = False
@@ -156,25 +155,31 @@ class NetestsCLI():
             PP.pprint(self.options.get(protocol))
         else:
             print(f"@All class arguments are defined as True")
-    
+
     def __get_device_info(self, devices) -> None:
         p = dict()
         if devices == "*":
             for host in self.nornir.inventory.hosts:
                 p[host] = dict()
-                p[host]['hostname'] = self.nornir.inventory.hosts[host].hostname
-                p[host]['connexion'] = self.nornir.inventory.hosts[host]['connexion']
+                p[host]['hostname'] = self.nornir.inventory \
+                                          .hosts[host].hostname
+                p[host]['connexion'] = self.nornir.inventory \
+                                           .hosts[host]['connexion']
                 p[host]['port'] = self.nornir.inventory.hosts[host].port
-                p[host]['platform'] = self.nornir.inventory.hosts[host].platform
+                p[host]['platform'] = self.nornir.inventory \
+                                          .hosts[host].platform
         else:
             for host in devices.split(','):
                 if host in self.nornir.inventory.hosts:
                     p[host] = dict()
-                    p[host]['hostname'] = self.nornir.inventory.hosts[host].hostname
-                    p[host]['connexion'] = self.nornir.inventory.hosts[host]['connexion']
+                    p[host]['hostname'] = self.nornir.inventory \
+                                              .hosts[host].hostname
+                    p[host]['connexion'] = self.nornir.inventory \
+                                               .hosts[host]['connexion']
                     p[host]['port'] = self.nornir.inventory.hosts[host].port
-                    p[host]['platform'] = self.nornir.inventory.hosts[host].platform
-        
+                    p[host]['platform'] = self.nornir.inventory \
+                                              .hosts[host].platform
+
         PP.pprint(p)
 
     def __call_get_generic(self, protocols_selected) -> None:
@@ -190,14 +195,13 @@ class NetestsCLI():
                             "print": self.options.get('vrf', {})
                         }
                     )
-
-                else: 
+                else:
                     print(f"@({prot}) is unavailable from CLI for the moment.")
 
     def __print_devices(self) -> None:
         print(f"@Followings devices are selected :")
         print(f"@{self.devices}")
-    
+
     def __print_welcome(self) -> None:
         printline()
         print("Welcome to Netests CLI")
@@ -224,14 +228,13 @@ class NetestsCLI():
         print("+------------------------------------------------------------+")
 
 
-
 def netests_cli(ansible, virtual, netbox) -> None:
     user_input = "START"
     cli = NetestsCLI(
         ansible=ansible,
         virtual=virtual,
         netbox=netbox
-    )   
+    )
 
     while user_input != "exit":
         user_input = input("> ")

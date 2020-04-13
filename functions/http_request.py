@@ -8,16 +8,15 @@ from const.constants import (
     NOT_SET,
     LEVEL3
 )
-from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from exceptions.netests_exceptions import NetestsHTTPStatusCodeError
 
 
 def exec_http_call_cumulus(
-    hostname:str,
+    hostname: str,
     port: str,
-    username:str,
-    password:str,
+    username: str,
+    password: str,
     cumulus_cmd: str
 ) -> json:
     res = requests.post(
@@ -46,7 +45,6 @@ def exec_http_call_cumulus(
         raise NetestsHTTPStatusCodeError()
 
     return res.content
-
 
 
 def exec_http_call(

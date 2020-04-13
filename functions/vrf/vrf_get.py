@@ -123,7 +123,7 @@ def get_vrf(nr: Nornir, options={}):
         options.get('from_cli') is not None and
         options.get("from_cli") is True and
         isinstance(options.get("from_cli"), bool)
-    ):  
+    ):
         devices = nr.filter(F(groups__contains="netests"))
         os.environ["NETESTS_VERBOSE"] = LEVEL1
     else:

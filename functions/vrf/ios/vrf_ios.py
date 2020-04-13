@@ -4,22 +4,11 @@
 from ncclient import manager
 from xml.etree import ElementTree
 from nornir.plugins.tasks.networking import netmiko_send_command
-from const.constants import (
-    VRF_DATA_KEY,
-    IOS_GET_VRF,
-    NETCONF_FILTER
-)
+from const.constants import VRF_DATA_KEY, IOS_GET_VRF
 from functions.http_request import exec_http_call
 from functions.vrf.ios.api.converter import _ios_vrf_api_converter
 from functions.vrf.ios.ssh.converter import _ios_vrf_ssh_converter
 from functions.vrf.ios.netconf.converter import _ios_vrf_netconf_converter
-from exceptions.netests_exceptions import (
-    NetestsFunctionNotPossible,
-    NetestsFunctionNotImplemented
-)
-
-
-import xml.dom.minidom
 
 
 def _ios_get_vrf_api(task, options={}):

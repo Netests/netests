@@ -2,15 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
+from const.constants import NOT_SET, LEVEL1
+from protocols.vrf import VRF, ListVRF
 from functions.vrf.juniper.vrf_juniper_filters import (
     _juniper_vrf_filter,
     _juniper_vrf_default_mapping

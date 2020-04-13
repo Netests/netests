@@ -2,23 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import os
-import textfsm
 from functions.global_tools import printline
 from functions.netconf_tools import format_xml_output
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-    LEVEL4,
-    LEVEL5,
-    TEXTFSM_PATH
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
-from functions.verbose_mode import (
-    verbose_mode
-)
+from const.constants import NOT_SET, LEVEL1, LEVEL4, LEVEL5
+from protocols.vrf import VRF, ListVRF
+from functions.verbose_mode import verbose_mode
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -64,7 +52,6 @@ def _ios_vrf_netconf_converter(
     )
 
     for v in cmd_output.get('data').get('native').get('vrf').get('definition'):
-        
         rt_imp = NOT_SET
         rt_exp = NOT_SET
         if 'route-target' in v.keys():
