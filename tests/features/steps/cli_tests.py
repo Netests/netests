@@ -23,12 +23,12 @@ def step_impl(context):
 
 @then(u'I can print help for select command')
 def step_impl(context):
-    pass
+    context.cli.print_select_help()
 
 
 @then(u'I can print help for unselect command')
 def step_impl(context):
-    pass
+    context.cli.print_unselect_help()
 
 
 @then(u'I can select * devices')
@@ -82,6 +82,29 @@ def step_impl(context):
     context.cli.print_print_help()
 
 
+
+
+
+
+
+
+@then(u'I can print help for show commands')
+def step_impl(context):
+    context.cli.print_show_help()
+
+
+@then(u'I can print help for more commands')
+def step_impl(context):
+    context.cli.print_more_help()
+
+
+
+
+
+
+
+
+
 @then(u'I can print help for options commands')
 def step_impl(context):
     context.cli.print_options_help()
@@ -108,15 +131,19 @@ def step_impl(context):
 
 
 
+
+
+
+
+
+
+
+
+
+
 @then(u'I simulate a GET VRF command.')
 def step_impl(context):
     assert context.cli.check_input("get vrf")
-
-
-
-
-
-
 
 
 @then(u'I simulate a GET command without parameter.')

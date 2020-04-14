@@ -24,6 +24,12 @@ Feature: Test Class NetestsCLI
         # Tests for OPTIONS commands 
         And I can print help for options commands
 
+        # Tests for MORE commands
+        And I can print help for more commands
+        
+        # Tests for SHOW commands
+        And I can print help for show commands
+
         # Tests for PRINT commands 
         And I can print help for print commands
         And I can print * devices

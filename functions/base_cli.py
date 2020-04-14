@@ -15,17 +15,17 @@ PP = pprint.PrettyPrinter(indent=4)
 class NetestsCLI():
 
     ACTION = ["get", "select", "unselect", "exit", "help", "options", "more",
-              "show", "print", "selected", ""]
+              "show", "print", "selected", "compare", ""]
     APRINT = ["get", "select", "unselect", "exit", "help", "options", "more",
-              "show", "print", "selected"]
+              "show", "print", "selected", "compare"]
     AARGS = ["get", "select", "unselect", "options", "more", "show", "print",
-             "help"]
+             "help", "compare"]
 
     ASIMPLE = ["help", "", "selected"]
 
     A2ARGS = ["get", "select", "unselect", "more", "show", "print", "help"]
 
-    A3ARGS = ["options"]
+    A3ARGS = ["options", "compare"]
 
     MAPPING = {
         "vrf": {
@@ -306,6 +306,86 @@ class NetestsCLI():
         print("|                                                            |")
         print("| Examples :                                                 |")
         print("|   > print leaf01,leaf03,spine01                            |")
+        print("|   > print *                                                |")
+        print("+------------------------------------------------------------+")
+
+    def print_select_help(self):
+        print("+------------------------------------------------------------+")
+        print("|                Netests - Select Commands                   |")
+        print("+------------------------------------------------------------+")
+        print("| Netests is based on your network inventory. Before to get  |")
+        print("| device informations you have to select devices that you    |")
+        print("| want get information. For that you need to use 'select'    |")
+        print("|                                                            |")
+        print("| Format :                                                   |")
+        print("|   > select {{ hostname }}  {{ hostname1,hostname2  }}      |")
+        print("|                                                            |")
+        print("| Examples :                                                 |")
+        print("|   > select leaf01,leaf03,spine01                           |")
+        print("|   > select *                                               |")
+        print("+------------------------------------------------------------+")
+
+    def print_unselect_help(self):
+        print("+------------------------------------------------------------+")
+        print("|              Netests - Unselect Commands                   |")
+        print("+------------------------------------------------------------+")
+        print("| Netests is based on your network inventory. Once you have  |")
+        print("| selected some device, you can unselect some devices.       |")
+        print("| For that you need to use 'unselect'                        |")
+        print("|                                                            |")
+        print("| Format :                                                   |")
+        print("|   > unselect {{ hostname }}  {{ hostname1,hostname2  }}    |")
+        print("|                                                            |")
+        print("| Examples :                                                 |")
+        print("|   > unselect leaf01,leaf03,spine01                         |")
+        print("|   > unselect *                                             |")
+        print("+------------------------------------------------------------+")
+
+    def print_selected_help(self):
+        print("+------------------------------------------------------------+")
+        print("|              Netests - Unselect Commands                   |")
+        print("+------------------------------------------------------------+")
+        print("| Netests is based on your network inventory. Once you have  |")
+        print("| selected some device, you can print the devices currently  |")
+        print("| selected. For that you need to use 'selected'              |")
+        print("|                                                            |")
+        print("| Format :                                                   |")
+        print("|   > unselect                                               |")
+        print("|                                                            |")
+        print("| Examples :                                                 |")
+        print("|   > selected                                               |")
+        print("+------------------------------------------------------------+")
+
+    def print_show_help(self):
+        print("+------------------------------------------------------------+")
+        print("|                 Netests - Show Commands                    |")
+        print("+------------------------------------------------------------+")
+        print("| Each protocol is defined in a Python class.                |")
+        print("| Each protocol has some variables that define it.           |")
+        print("| To see all parameters that compose the protocol use 'more'.|")
+        print("|                                                            |")
+        print("| Format :                                                   |")
+        print("|   > show {{ protocol }}                                    |")
+        print("|                                                            |")
+        print("| Examples :                                                 |")
+        print("|   > show vrf                                               |")
+        print("+------------------------------------------------------------+")
+
+    def print_more_help(self):
+        print("+------------------------------------------------------------+")
+        print("|                 Netests - More Commands                    |")
+        print("+------------------------------------------------------------+")
+        print("| You can filter which parameters will be retrieve from each |")
+        print("| devices for a protocol. You can filter this parameters     |")
+        print("| with 'options' command. Once you have applied some filters |")
+        print("| you can print which paramters are currently selected with  |")
+        print("| 'more' command                                             |")
+        print("|                                                            |")
+        print("| Format :                                                   |")
+        print("|   > more {{ protocol }}                                    |")
+        print("|                                                            |")
+        print("| Examples :                                                 |")
+        print("|   > show vrf                                               |")
         print("+------------------------------------------------------------+")
 
 
