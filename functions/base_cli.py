@@ -118,6 +118,7 @@ class NetestsCLI():
             self.get_protocol_class(user_inputs[1])
         if user_inputs[0] == "print":
             self.get_device_info(user_inputs[1])
+        return True
 
     def select_help_function(self, user_input):
         if len(user_input) == 1:
@@ -277,7 +278,7 @@ class NetestsCLI():
         print("| [print yy]  Show YY devices informations                   |")
         print("+------------------------------------------------------------+")
 
-    def print_options_help(self):
+    def print_options_help(self) -> None:
         print("+------------------------------------------------------------+")
         print("|                 Netests - Options Commands                 |")
         print("+------------------------------------------------------------+")
@@ -285,11 +286,26 @@ class NetestsCLI():
         print("| retrieve for a protocol.                                   |")
         print("| It is possible to get a subset of protocols parameters.    |")
         print("| Format :                                                   |")
-        print("|   > get {{ protocol }}  {{ classArg1,classArg2  }}         |")
+        print("|   > options  {{ protocol }}  {{ classArg1,classArg2  }}    |")
         print("|   (To get all protocols parameters use the 'show' command) |")
         print("|                                                            |")
         print("| Examples :                                                 |")
-        print("|   > get vrf vrf_name,rd,rt_imp,rt_exp                      |")
+        print("|   > options vrf vrf_name,rd,rt_imp,rt_exp                  |")
+        print("+------------------------------------------------------------+")
+
+    def print_print_help(self):
+        print("+------------------------------------------------------------+")
+        print("|                 Netests - Print Commands                   |")
+        print("+------------------------------------------------------------+")
+        print("| This command is used to display host informations          |")
+        print("| NetestsCLI is based on your inventory and retrive all your |")
+        print("| hosts. With this command you can print hosts informations  |")
+        print("|                                                            |")
+        print("| Format :                                                   |")
+        print("|   > print {{ hostname }}  {{ hostname1,hostname2  }}       |")
+        print("|                                                            |")
+        print("| Examples :                                                 |")
+        print("|   > print leaf01,leaf03,spine01                            |")
         print("+------------------------------------------------------------+")
 
 
