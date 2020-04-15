@@ -4,10 +4,8 @@
 from nornir.core import Nornir
 from functions.vrf.vrf_get import get_vrf
 from protocols.vrf import VRF
-from functions.global_tools import (
-    init_nornir,
-    printline
-)
+from functions.global_tools import printline
+from functions.nornir_inventory import init_nornir
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 

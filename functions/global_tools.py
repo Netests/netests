@@ -11,7 +11,6 @@ __copyright__ = "Copyright 2019"
 
 import yaml
 import json
-from nornir import InitNornir
 from nornir.core import Nornir
 from netmiko import ConnectHandler
 from jnpr.junos.device import Device
@@ -98,46 +97,6 @@ def is_alive(task) -> None:
     )
 
     return True
-
-
-# ------------------------------------------------------------------------------------------------------------------
-#
-#
-def init_nornir(
-    log_file="./nornir/nornir.log",
-    log_level=NORNIR_DEBUG_MODE,
-    ansible=False,
-    virtual=False,
-    netbox=False,
-) -> Nornir:
-    """
-    Initialize Nornir object with the following files
-    """
-
-    config_file = str()
-    if netbox:
-        config_file = "./nornir/config_netbox.yml"
-    elif ansible:
-        if virtual:
-            config_file = "./nornir/config_ansible_virt.yml"
-        else:
-            config_file = "./nornir/config_ansible.yml"
-    else:
-        if virtual:
-            config_file = "./nornir/config_std_virt.yml"
-        else:
-            config_file = "./nornir/config_std.yml"
-
-    nr = InitNornir(
-        config_file=config_file,
-        logging=
-            {
-                "file": log_file,
-                "level": log_level
-            }
-    )
-
-    return nr
 
 # ------------------------------------------------------------------------------------------------------------------
 #

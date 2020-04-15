@@ -9,9 +9,9 @@ from functions.base_cli import netests_cli
 from functions.global_tools import (
     printline_comment_json as p,
     open_file,
-    init_nornir,
     check_devices_connectivity,
 )
+from functions.nornir_inventory import init_nornir
 from const.constants import (
     NETESTS_CONFIG,
     PATH_TO_INVENTORY_FILES,
@@ -28,41 +28,35 @@ HEADER = "[netests - main.py]"
 @click.version_option(version="© Dylan Hamel v0.0.1")
 @click.option(
     "-a",
-    "--ansible",
-    default=f"{PATH_TO_INVENTORY_FILES}{ANSIBLE_INVENTORY}",
+    "--netest-config-file",
+    default="netests.yml",
     show_default=True,
-    help="Define path to the production Ansible inventory file",
+    help="Path to Netests configuration file"
 )
 @click.option(
-    "-o",
-    "--virtual",
+    "-b",
+    "--inventory-config-file",
     default=False,
     show_default=True,
-    help="Define path to the virtual Ansible inventory file",
-)
-@click.option(
-    "-n",
-    "--netbox",
-    default=False,
-    show_default=True,
-    help="Define path to retrieve inventory from netbox (in progress)",
-)
-@click.option(
-    "-r",
-    "--reports",
-    default=False,
-    show_default=True,
-    help="If TRUE, configuration reports will be create",
+    help="Specify path to a Nonrnir configuration file."
 )
 @click.option(
     "-c",
     "--check-connectivity",
     default=False,
     show_default=True,
-    help="If TRUE, check if devices are reachable",
+    help="Check if devices are reachable",
 )
 @click.option(
-    "-s",
+    "-d",
+    "--devices",
+    default="#",
+    show_default=True,
+    help="Filter devices based on the hostname."
+            'Several hostname can be given separate by a ","',
+)
+@click.option(
+    "-e",
     "--devices-number",
     default=-1,
     show_default=True,
@@ -79,12 +73,61 @@ HEADER = "[netests - main.py]"
             'Several groups can be given separate by a ","',
 )
 @click.option(
-    "-d",
-    "--devices",
-    default="#",
+    "-i",
+    "--inventory",
+    default="inventory.yml",
     show_default=True,
-    help="Filter devices based on the hostname."
-            'Several hostname can be given separate by a ","',
+    help="Path to Ansible inventory or Nornir hosts.yml",
+)
+@click.option(
+    "-j",
+    "--nornir-groups-file",
+    default="groups.yml",
+    show_default=True,
+    help="Path to Nornir groups.yml",
+)
+@click.option(
+    "-k",
+    "--nornir-defaults-file",
+    default="defaults.yml",
+    show_default=True,
+    help="Path to Nornir defaults.yml",
+)
+@click.option(
+    "-l",
+    "--netbox-url",
+    default="https://127.0.0.1",
+    show_default=True,
+    help="Netbox URL",
+)
+@click.option(
+    "-m",
+    "--netbox-token",
+    default="abcdefghijklmnopqrstuvwxyz0123456789",
+    show_default=True,
+    help="Netbox Token",
+)
+
+@click.option(
+    "-n",
+    "--netbox-ssl",
+    default=True,
+    show_default=True,
+    help="Verify the Netbox certificate",
+)
+@click.option(
+    "-r",
+    "--reports",
+    default=False,
+    show_default=True,
+    help="If set a configuration reports will be create",
+)
+@click.option(
+    "-t",
+    "--terminal",
+    default=False,
+    show_default=True,
+    help="Start the terminal Netests application"
 )
 @click.option(
     "-v",
@@ -95,31 +138,53 @@ HEADER = "[netests - main.py]"
             'Several hostname can be given separate by a ","',
 )
 @click.option(
-    "-C",
-    "--config",
-    default=f"{NETESTS_CONFIG}",
+    "-w",
+    "--num-workers",
+    default=100,
     show_default=True,
-    help="Path to Netests configuration file"
+    help="Define the number of parallel jobs.",
 )
 @click.option(
-    "-t",
-    "--terminal",
+    "-x",
+    "--ansible-inventory",
     default=False,
     show_default=True,
-    help="Start the terminal Netests application"
+    help="Specify that an Ansible inventory will be used.",
+)
+@click.option(
+    "-y",
+    "--netbox-inventory",
+    default=False,
+    show_default=True,
+    help="Specify that an Netbox inventory will be used.",
+)
+@click.option(
+    "-z",
+    "--nornir-inventory",
+    default=False,
+    show_default=True,
+    help="Specify that an Nornir inventory will be used.",
 )
 def main(
-    ansible,
-    virtual,
-    netbox,
-    reports,
+    netest_config_file,
+    inventory_config_file,
     check_connectivity,
+    devices,
     devices_number,
     devices_group,
-    devices,
+    inventory,
+    nornir_groups_file,
+    nornir_defaults_file,
+    netbox_url,
+    netbox_token,
+    netbox_ssl,
+    reports,
+    terminal,
     verbose,
-    config,
-    terminal
+    num_workers,
+    ansible_inventory,
+    netbox_inventory,
+    nornir_inventory
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -127,7 +192,7 @@ def main(
         netests_cli(ansible, virtual, netbox)
         exit(EXIT_SUCCESS)
 
-    t = open_file(path=config)
+    t = open_file(path=netest_config_file)
 
     os.environ["NETESTS_VERBOSE"] = f"{verbose}"
 
@@ -136,9 +201,17 @@ def main(
         nr = init_nornir(
             log_file="./nornir/nornir.log",
             log_level="debug",
-            ansible=ansible,
-            virtual=virtual,
-            netbox=netbox,
+            ansible_inventory=ansible_inventory,
+            nornir_inventory=nornir_inventory,
+            netbox_inventory=netbox_inventory,
+            num_workers=num_workers,
+            inventory_config_file=inventory_config_file,
+            inventory=inventory,
+            nornir_groups_file=nornir_groups_file,
+            nornir_defaults_file=nornir_defaults_file,
+            netbox_url=netbox_url,
+            netbox_token=netbox_token,
+            netbox_ssl=netbox_ssl,
         )
     except FileNotFoundError as e:
         print(f"{HEADER} Inventory file not found ...")
