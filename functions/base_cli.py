@@ -23,9 +23,10 @@ class NetestsCLI():
 
     ASIMPLE = ["help", "", "selected"]
 
-    A2ARGS = ["get", "select", "unselect", "more", "show", "print", "help"]
+    A2ARGS = ["get", "select", "unselect", "more", "show", "print", "help",
+              "compare"]
 
-    A3ARGS = ["options", "compare"]
+    A3ARGS = ["options"]
 
     MAPPING = {
         "vrf": {
@@ -105,7 +106,10 @@ class NetestsCLI():
         if user_inputs[0] == "selected":
             self.print_devices()
         if user_inputs[0] == "get":
-            self.call_get_generic(user_inputs[1])
+            if self.devices_not_empty():
+                self.call_get_generic(user_inputs[1])
+            else:
+                print("@Please select some hosts before use get command")
         if user_inputs[0] == "options":
             self.define_options(user_inputs[1], user_inputs[2])
         if user_inputs[0] == "more":
@@ -115,34 +119,35 @@ class NetestsCLI():
         if user_inputs[0] == "print":
             self.get_device_info(user_inputs[1])
         if user_inputs[0] == "compare":
-            self.compare_config(user_inputs[1], user_inputs[2])
+            if self.devices_not_empty():
+                self.compare_config(user_inputs[1])
+            else:
+                print("@Please select some hosts before use compare command")
         return True
 
-    def compare_config(self, devices_selected, protocols_selected) -> None:
+    def compare_config(self, protocols_selected) -> None:
         self.call_get_generic(protocols_selected)
         w = list()
 
-        if devices_selected == "*":
-            print("@This function is unavailable for the moment...")
-        else:
-            for prot in protocols_selected.split(','):
-                for d in devices_selected.split(','):
-                    if prot.lower() == "vrf":
-                        r = _compare_vrf(
-                            host_keys=self.nornir.inventory.hosts[d].keys(),
-                            hostname=d,
-                            groups=self.nornir.inventory.hosts[d].groups,
-                            vrf_host_data=self.nornir.inventory.hosts[d][VRF_DATA_KEY],
-                            test=True
-                        )
-                        if r:
-                            w.append(d)
-                    else:
-                        print(f"@({prot}) is unavailable from CLI.")
+        for prot in protocols_selected.split(','):
+            for d in self.devices:
+                if prot.lower() == "vrf":
+                    r = _compare_vrf(
+                        host_keys=self.nornir.inventory.hosts[d].keys(),
+                        hostname=d,
+                        groups=self.nornir.inventory.hosts[d].groups,
+                        vrf_host_data=self.nornir.inventory.hosts
+                                                           .get(d)
+                                                           .get(VRF_DATA_KEY)
+                    )
+                    if r:
+                        w.append(d)
+                else:
+                    print(f"@({prot}) is unavailable from CLI.")
 
         print(
-            "@The following devices are the same configuration "
-            f"that defined in the source of truth : \n @{w}."
+            "@The following devices have the same configuration "
+            f"that defined in the source of truth : \n@{w}."
         )
 
     def select_help_function(self, user_input) -> bool:
@@ -171,6 +176,9 @@ class NetestsCLI():
         else:
             return False
         return True
+
+    def devices_not_empty(self) -> bool:
+        return (len(self.devices) > 0)
 
     def unselect_devices(self, devices_unselected: str) -> None:
         if devices_unselected == "*":
@@ -290,7 +298,7 @@ class NetestsCLI():
                         }
                     )
                 else:
-                    print(f"@({prot}) is unavailable from CLI for the moment.")
+                    print(f"@({prot}) is unavailable from CLI.")
 
     def ask_help(self) -> None:
         print("@User 'help' command to get help.")
@@ -460,10 +468,10 @@ class NetestsCLI():
         print("| the source of truth.                                       |")
         print("|                                                            |")
         print("| Format :                                                   |")
-        print("|   > compare {{ device_name }} {{ protocol }}               |")
+        print("|   > compare {{ protocol }}                                 |")
         print("|                                                            |")
         print("| Examples :                                                 |")
-        print("|   > compare leaf01 vrf                                     |")
+        print("|   > compare vrf                                            |")
         print("|                                                            |")
         print("+------------------------------------------------------------+")
 

@@ -1,4 +1,4 @@
-Value Required VRF_NAME ([a-zA-Z]+)
+Value Required VRF_NAME (\S+)
 Value Required VRF_ID (\d+)
 
 Start
