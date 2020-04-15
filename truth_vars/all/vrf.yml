@@ -1,5 +1,1 @@
-spine03:
-  - vrf_name: MGMT_VRF
-  - vrf_name: EXTERNAL_PEERING
-
-leaf01:
+- vrf_name: mgmtdewd

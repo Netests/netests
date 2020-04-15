@@ -87,7 +87,7 @@ def _compare_vrf(
         if test:
             vrf_yaml_data = open_file(
                 path="tests/features/src/vrf_tests.yml"
-            )
+            ).get(hostname)
         else:
             vrf_yaml_data = select_host_vars(
                 hostname=hostname,
@@ -97,11 +97,10 @@ def _compare_vrf(
 
         if (
             VRF_DATA_KEY in host_keys and
-            vrf_yaml_data is not None and
-            hostname in vrf_yaml_data.keys()
+            vrf_yaml_data is not None
         ):
-            if vrf_yaml_data.get(hostname) is not None:
-                for vrf in vrf_yaml_data.get(hostname):
+            if vrf_yaml_data is not None:
+                for vrf in vrf_yaml_data:
                     verity_vrf.vrf_lst.append(
                         VRF(
                             vrf_name=vrf.get('vrf_name', NOT_SET),
@@ -119,4 +118,12 @@ def _compare_vrf(
             print(f"{HEADER} Key {VRF_DATA_KEY} is missing for {hostname}")
             return False
 
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print(
+            f"{HEADER} Return value for host {hostname}"
+            f"is {verity_vrf == vrf_host_data}"
+        )
     return verity_vrf == vrf_host_data

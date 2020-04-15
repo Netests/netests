@@ -19,16 +19,21 @@ Feature: Test Class NetestsCLI
         And I can unselect many devices
 
         # Tests for SELECTED commands
+        And I can print help for selected commands
         And I can use selected command
 
         # Tests for OPTIONS commands 
         And I can print help for options commands
+        And I can use the options command with many class params
+        And I can use the options command with * arguments
 
         # Tests for MORE commands
         And I can print help for more commands
+        And I can use more command
         
         # Tests for SHOW commands
         And I can print help for show commands
+        And I can use show command
 
         # Tests for PRINT commands 
         And I can print help for print commands
@@ -37,5 +42,12 @@ Feature: Test Class NetestsCLI
         And I can print many devices
 
         # Tests for GET commands
+        And I can print help for get commands
         And I simulate a GET VRF command.
-        And I simulate a GET command without parameter.
+        And I simulate a GET command without parameter - Error
+
+        # Tests for COMPARE commands
+        And I can print help for compare commands
+
+        # Tests for EXIT commands
+        And I can print help for exit commands

@@ -1,0 +1,6 @@
+hostname: 172.16.194.2
+username: cumulus
+password: CumulusLinux!
+platform: linux
+connexion: ssh
+port: 22

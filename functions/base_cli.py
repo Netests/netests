@@ -3,9 +3,11 @@
 
 from nornir.core import Nornir
 from functions.vrf.vrf_get import get_vrf
+from functions.vrf.vrf_compare import _compare_vrf
 from protocols.vrf import VRF
 from functions.global_tools import printline
-from functions.nornir_inventory import init_nornir
+from exceptions.netests_cli_exceptions import NetestsCLINornirObjectIsNone
+from const.constants import VRF_DATA_KEY
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -28,7 +30,8 @@ class NetestsCLI():
     MAPPING = {
         "vrf": {
             "class": VRF,
-            "get": get_vrf
+            "get": get_vrf,
+            "compare": _compare_vrf
         }
     }
 
@@ -38,21 +41,16 @@ class NetestsCLI():
 
     def __init__(
         self,
+        nornir=None,
         devices=[],
-        options={},
-        ansible=False,
-        virtual=False,
-        netbox=False
+        options={}
     ):
+        if nornir is None:
+            raise NetestsCLINornirObjectIsNone()
+
         self.devices = devices
         self.options = options
-        self.nornir = init_nornir(
-            log_file="./nornir/nornir.log",
-            log_level="debug",
-            ansible=ansible,
-            virtual=virtual,
-            netbox=netbox,
-        )
+        self.nornir = nornir
         self.nornir.inventory.add_group("netests")
         self.print_welcome()
 
@@ -116,13 +114,63 @@ class NetestsCLI():
             self.get_protocol_class(user_inputs[1])
         if user_inputs[0] == "print":
             self.get_device_info(user_inputs[1])
+        if user_inputs[0] == "compare":
+            self.compare_config(user_inputs[1], user_inputs[2])
         return True
 
-    def select_help_function(self, user_input):
+    def compare_config(self, devices_selected, protocols_selected) -> None:
+        self.call_get_generic(protocols_selected)
+        w = list()
+
+        if devices_selected == "*":
+            print("@This function is unavailable for the moment...")
+        else:
+            for prot in protocols_selected.split(','):
+                for d in devices_selected.split(','):
+                    if prot.lower() == "vrf":
+                        r = _compare_vrf(
+                            host_keys=self.nornir.inventory.hosts[d].keys(),
+                            hostname=d,
+                            groups=self.nornir.inventory.hosts[d].groups,
+                            vrf_host_data=self.nornir.inventory.hosts[d][VRF_DATA_KEY],
+                            test=True
+                        )
+                        if r:
+                            w.append(d)
+                    else:
+                        print(f"@({prot}) is unavailable from CLI.")
+
+        print(
+            "@The following devices are the same configuration "
+            f"that defined in the source of truth : \n @{w}."
+        )
+
+    def select_help_function(self, user_input) -> bool:
         if len(user_input) == 1:
             self.print_help()
+        elif len(user_input) == 2 and user_input[1] == "select":
+            self.print_select_help()
+        elif len(user_input) == 2 and user_input[1] == "unselect":
+            self.print_unselect_help()
+        elif len(user_input) == 2 and user_input[1] == "selected":
+            self.print_selected_help()
+        elif len(user_input) == 2 and user_input[1] == "get":
+            self.print_get_help()
         elif len(user_input) == 2 and user_input[1] == "options":
             self.print_options_help()
+        elif len(user_input) == 2 and user_input[1] == "more":
+            self.print_more_help()
+        elif len(user_input) == 2 and user_input[1] == "show":
+            self.print_show_help()
+        elif len(user_input) == 2 and user_input[1] == "print":
+            self.print_print_help()
+        elif len(user_input) == 2 and user_input[1] == "compare":
+            self.print_compare_help()
+        elif len(user_input) == 2 and user_input[1] == "exit":
+            self.print_exit_help()
+        else:
+            return False
+        return True
 
     def unselect_devices(self, devices_unselected: str) -> None:
         if devices_unselected == "*":
@@ -179,12 +227,12 @@ class NetestsCLI():
                     print(f"@All options are added to ({protocol})")
                 else:
                     for opt in options.split(','):
-                        if opt in values.get('class')._annotations_.keys():
+                        if opt in values.get('class').__annotations__.keys():
                             if key not in self.options.keys():
                                 self.options[key] = dict()
                             self.options[key][opt] = True
 
-                    for v in values.get('class')._annotations_.keys():
+                    for v in values.get('class').__annotations__.keys():
                         if v not in options.split(','):
                             self.options[key][v] = False
 
@@ -194,7 +242,7 @@ class NetestsCLI():
     def get_protocol_class(self, protocol) -> None:
         for key, values in self.MAPPING.items():
             if protocol.lower() == key:
-                PP.pprint((values.get('class')._annotations_))
+                PP.pprint((values.get('class').__annotations__))
 
     def get_protocol_info(self, protocol) -> None:
         if protocol in self.options.keys():
@@ -269,11 +317,13 @@ class NetestsCLI():
         print("| [select]    Select devices on which on action will be exec |")
         print("| [unselect]  Remove a device from the selected              |")
         print("| [selected]  Show devices currently selected                |")
-        print("| [get xxx]   Get XXX protocols informations                 |")
+        print("| [get xx]   Get XX protocols informations                   |")
         print("| [options]   Set arguments that will retrieve for a Protocol|")
-        print("| [more xxx]  Show XXX Protocol class arguments selected     |")
-        print("| [show xxx]  Show XXX Protocol class arguments              |")
+        print("| [more xx]  Show XX Protocol class arguments selected       |")
+        print("| [show xx]  Show XX Protocol class arguments                |")
         print("| [print yy]  Show YY devices informations                   |")
+        print("| [compare yy xx]  Compare device config with source of truth|")
+        print("| [exit]  Quit Netests CLI                                   |")
         print("+------------------------------------------------------------+")
 
     def print_options_help(self) -> None:
@@ -386,14 +436,52 @@ class NetestsCLI():
         print("|   > show vrf                                               |")
         print("+------------------------------------------------------------+")
 
+    def print_get_help(self):
+        print("+------------------------------------------------------------+")
+        print("|                  Netests - Get Commands                    |")
+        print("+------------------------------------------------------------+")
+        print("| Once you have selected devices, 'get' command will         |")
+        print("| establish a session to the network device(s) and retrieve  |")
+        print("| regarding the protocol given in argument.                  |")
+        print("|                                                            |")
+        print("| Format :                                                   |")
+        print("|   > get {{ protocol }}                                     |")
+        print("|                                                            |")
+        print("| Examples :                                                 |")
+        print("|   > get vrf                                                |")
+        print("+------------------------------------------------------------+")
 
-def netests_cli(ansible, virtual, netbox) -> None:
+    def print_compare_help(self):
+        print("+------------------------------------------------------------+")
+        print("|                 Netests - Exit Commands                    |")
+        print("+------------------------------------------------------------+")
+        print("| It is possible, from the CLI, to compare your network      |")
+        print("| devices configuration with the configuration defined in    |")
+        print("| the source of truth.                                       |")
+        print("|                                                            |")
+        print("| Format :                                                   |")
+        print("|   > compare {{ device_name }} {{ protocol }}               |")
+        print("|                                                            |")
+        print("| Examples :                                                 |")
+        print("|   > compare leaf01 vrf                                     |")
+        print("|                                                            |")
+        print("+------------------------------------------------------------+")
+
+    def print_exit_help(self):
+        print("+------------------------------------------------------------+")
+        print("|                 Netests - Exit Commands                    |")
+        print("+------------------------------------------------------------+")
+        print("| Use this command to exit from Netests CLI. That's it.      |")
+        print("|                                                            |")
+        print("| Format :                                                   |")
+        print("|   > exit                                                   |")
+        print("|                                                            |")
+        print("+------------------------------------------------------------+")
+
+
+def netests_cli(nr) -> None:
     user_input = "START"
-    cli = NetestsCLI(
-        ansible=ansible,
-        virtual=virtual,
-        netbox=netbox
-    )
+    cli = NetestsCLI(nornir=nr)
 
     while user_input != "exit":
         user_input = input("> ")

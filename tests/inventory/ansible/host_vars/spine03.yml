@@ -1,0 +1,6 @@
+hostname: 172.16.194.10
+username: dhadmin
+password: Cisco12345--
+platform: iosxr
+port: 22
+connexion: napalm

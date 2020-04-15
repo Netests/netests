@@ -12,13 +12,7 @@ from functions.global_tools import (
     check_devices_connectivity,
 )
 from functions.nornir_inventory import init_nornir
-from const.constants import (
-    NETESTS_CONFIG,
-    PATH_TO_INVENTORY_FILES,
-    ANSIBLE_INVENTORY,
-    EXIT_FAILURE,
-    EXIT_SUCCESS,
-)
+from const.constants import EXIT_FAILURE, EXIT_SUCCESS
 
 
 HEADER = "[netests - main.py]"
@@ -43,8 +37,7 @@ HEADER = "[netests - main.py]"
 @click.option(
     "-c",
     "--check-connectivity",
-    default=False,
-    show_default=True,
+    is_flag=True,
     help="Check if devices are reachable",
 )
 @click.option(
@@ -107,7 +100,6 @@ HEADER = "[netests - main.py]"
     show_default=True,
     help="Netbox Token",
 )
-
 @click.option(
     "-n",
     "--netbox-ssl",
@@ -118,15 +110,13 @@ HEADER = "[netests - main.py]"
 @click.option(
     "-r",
     "--reports",
-    default=False,
-    show_default=True,
+    is_flag=True,
     help="If set a configuration reports will be create",
 )
 @click.option(
     "-t",
     "--terminal",
-    default=False,
-    show_default=True,
+    is_flag=True,
     help="Start the terminal Netests application"
 )
 @click.option(
@@ -147,22 +137,19 @@ HEADER = "[netests - main.py]"
 @click.option(
     "-x",
     "--ansible-inventory",
-    default=False,
-    show_default=True,
+    is_flag=True,
     help="Specify that an Ansible inventory will be used.",
 )
 @click.option(
     "-y",
     "--netbox-inventory",
-    default=False,
-    show_default=True,
+    is_flag=True,
     help="Specify that an Netbox inventory will be used.",
 )
 @click.option(
     "-z",
     "--nornir-inventory",
-    default=False,
-    show_default=True,
+    is_flag=True,
     help="Specify that an Nornir inventory will be used.",
 )
 def main(
@@ -187,10 +174,6 @@ def main(
     nornir_inventory
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-    if terminal:
-        netests_cli(ansible, virtual, netbox)
-        exit(EXIT_SUCCESS)
 
     t = open_file(path=netest_config_file)
 
@@ -217,6 +200,10 @@ def main(
         print(f"{HEADER} Inventory file not found ...")
         print(f"{HEADER} {e}")
         exit(EXIT_FAILURE)
+
+    if terminal:
+        netests_cli(nr)
+        exit(EXIT_SUCCESS)
 
     p(comment="Devices selected", json_to_print=nr.inventory.hosts)
 
