@@ -63,7 +63,7 @@ def _compare_transit_vrf(task, options={}):
     )
 
     return task.host[VRF_WORKS_KEY]
-
+ 
 
 def _compare_vrf(
     host_keys,

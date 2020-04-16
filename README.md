@@ -44,6 +44,15 @@ Software
   NXOS compile time:  10/12/2018 19:00:00 [10/13/2018 03:16:04]
 ```
 
+#### Juniper VMX
+
+```shell
+> show version
+Hostname: netests-01
+Model: vmx
+Junos: 18.3R1.9
+```
+
 
 
 

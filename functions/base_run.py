@@ -11,8 +11,8 @@ from functions.discovery_protocols.cdp.cdp_get import get_cdp
 from functions.discovery_protocols.cdp.cdp_compare import compare_cdp
 from functions.discovery_protocols.lldp.lldp_get import get_lldp
 from functions.discovery_protocols.lldp.lldp_compare import compare_lldp
-from functions.infos.infos_get import get_infos
-from functions.infos.infos_compare import compare_infos
+from functions.facts.facts_get import get_facts
+from functions.facts.facts_compare import compare_facts
 from functions.ip.ipv4.ipv4_get import get_ipv4
 from functions.ip.ipv4.ipv4_compare import compare_ipv4
 from functions.ip.ipv6.ipv6_get import get_ipv6
@@ -38,7 +38,7 @@ from const.constants import (
     BOND_SRC_FILENAME,
     CDP_SRC_FILENAME,
     LLDP_SRC_FILENAME,
-    INFOS_SRC_FILENAME,
+    FACTS_SRC_FILENAME,
     IPV4_SRC_FILENAME,
     IPV6_SRC_FILENAME,
     L2VNI_SRC_FILENAME,
@@ -79,10 +79,10 @@ RUN = {
         "file": LLDP_SRC_FILENAME,
         "compare": compare_lldp
     },
-    "infos": {
-        "function": get_infos,
-        "file": INFOS_SRC_FILENAME,
-        "compare": compare_infos
+    "facts": {
+        "function": get_facts,
+        "file": FACTS_SRC_FILENAME,
+        "compare": compare_facts
     },
     "ipv4": {
         "function": get_ipv4,

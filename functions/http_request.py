@@ -86,7 +86,7 @@ def exec_http_call_juniper(
     port: str,
     username: str,
     password: str,
-    endpoint: str,
+    endpoint,
     secure_api=False,
 ) -> json:
 
@@ -94,6 +94,16 @@ def exec_http_call_juniper(
         protocol = "https"
     else:
         protocol = "http"
+
+    if isinstance(endpoint, list):
+        return juniper_http_post(
+            hostname=hostname,
+            port=port,
+            username=username,
+            password=password,
+            endpoint=endpoint,
+            protocol=protocol,
+        )
 
     res = requests.get(
         url=f"{protocol}://{hostname}:{port}/rpc/{endpoint}",
@@ -105,4 +115,30 @@ def exec_http_call_juniper(
         verify=False
     )
 
+    return res.content
+
+
+def juniper_http_post(
+    hostname: str,
+    port: str,
+    username: str,
+    password: str,
+    endpoint,
+    protocol=False,
+) -> json:
+
+    res = requests.post(
+        url=f"{protocol}://{hostname}:{port}/rpc",
+        headers={
+            'Content-Typ': 'application/xml',
+            'Accept': 'application/xml'
+        },
+        auth=requests.auth.HTTPBasicAuth(
+            f"{username}",
+            f"{password}"
+        ),
+        verify=False,
+        data="\n".join(endpoint)
+    )
+    
     return res.content

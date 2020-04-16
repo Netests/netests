@@ -1,190 +1,161 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Add a description ....
-
-"""
-
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "1.0"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
-
-########################################################################################################################
-#
-# HEADERS
-#
-
-ERROR_HEADER = "Error import [infos_gets.py]"
-HEADER_GET = "[netests - get_infos]"
-
-########################################################################################################################
-#
-# Import Library
-#
-
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    from functions.global_tools import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.global_tools")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    from nornir.core import Nornir
-    # To use advanced filters
-    from nornir.core.filter import F
-    # To execute netmiko commands
-    from nornir.plugins.tasks.networking import netmiko_send_command
-    # To execute napalm get config
-    from nornir.plugins.tasks.networking import napalm_get
-    # To print task results
-    from nornir.plugins.functions.text import print_result
-except ImportError as importError:
-    print(f"{ERROR_HEADER} nornir")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from jnpr.junos import Device
-except ImportError as importError:
-    print(f"{ERROR_HEADER} jnpr.junos")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from functions.infos.infos_converters import _napalm_infos_converter
-    from functions.infos.infos_converters import _cumulus_infos_converter
-    from functions.infos.infos_converters import _nexus_infos_converter
-    from functions.infos.infos_converters import _arista_infos_converter
-    from functions.infos.infos_converters import _juniper_infos_converter, _juniper_api_infos_converter
-    from functions.infos.infos_converters import _extreme_infos_converter
-    from functions.infos.infos_converters import _ios_infos_converter
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.infos.infos_converters")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import json
-except ImportError as importError:
-    print(f"{ERROR_HEADER} json")
-    exit(EXIT_FAILURE)
-    print(importError)
-
-try:
-    import textfsm
-except ImportError as importError:
-    print(f"{ERROR_HEADER} textfsm")
-    exit(EXIT_FAILURE)
-    print(importError)
+import os
+from nornir.core import Nornir
+from nornir.core.filter import F
+from nornir.plugins.functions.text import print_result
+from functions.global_tools import printline
+from functions.verbose_mode import verbose_mode
+from functions.base_selection import (
+    base_selection,
+    device_not_compatible_with_napalm
+)
+from functions.facts.arista.facts_arista import (
+    _arista_get_facts_api,
+    _arista_get_facts_netconf,
+    _arista_get_facts_ssh
+)
+from functions.facts.cumulus.facts_cumulus import (
+    _cumulus_get_facts_api,
+    _cumulus_get_facts_netconf,
+    _cumulus_get_facts_ssh
+)
+from functions.facts.extreme_vsp.facts_extreme_vsp import (
+    _extreme_vsp_get_facts_api,
+    _extreme_vsp_get_facts_netconf,
+    _extreme_vsp_get_facts_ssh
+)
+from functions.facts.ios.facts_ios import (
+    _ios_get_facts_api,
+    _ios_get_facts_netconf,
+    _ios_get_facts_ssh
+)
+from functions.facts.iosxr.facts_iosxr import (
+    _iosxr_get_facts_api,
+    _iosxr_get_facts_netconf,
+    _iosxr_get_facts_ssh
+)
+from functions.facts.juniper.facts_juniper import (
+    _juniper_get_facts_api,
+    _juniper_get_facts_netconf,
+    _juniper_get_facts_ssh
+)
+from functions.facts.napalm.facts_napalm import (
+    _generic_facts_napalm
+)
+from functions.facts.nxos.facts_nxos import (
+    _nxos_get_facts_api,
+    _nxos_get_facts_netconf,
+    _nxos_get_facts_ssh
+)
+from const.constants import (
+    NOT_SET,
+    LEVEL1,
+    LEVEL2,
+    ARISTA_PLATEFORM_NAME,
+    CUMULUS_PLATEFORM_NAME,
+    EXTREME_PLATEFORM_NAME,
+    CISCO_IOS_PLATEFORM_NAME,
+    CISCO_IOSXR_PLATEFORM_NAME,
+    JUNOS_PLATEFORM_NAME,
+    NEXUS_PLATEFORM_NAME,
+    API_CONNECTION,
+    NETCONF_CONNECTION,
+    SSH_CONNECTION,
+    NAPALM_CONNECTION
+)
 
 
-def get_infos(nr: Nornir, filters={}, level=None, own_vars={}):
+MAPPING_FUNCTION = {
+    ARISTA_PLATEFORM_NAME: {
+        API_CONNECTION: _arista_get_facts_api,
+        SSH_CONNECTION: _arista_get_facts_ssh,
+        NETCONF_CONNECTION: _arista_get_facts_netconf,
+        NAPALM_CONNECTION: _generic_facts_napalm
+    },
+    CUMULUS_PLATEFORM_NAME: {
+        API_CONNECTION: _cumulus_get_facts_api,
+        SSH_CONNECTION: _cumulus_get_facts_ssh,
+        NETCONF_CONNECTION: _cumulus_get_facts_netconf,
+        NAPALM_CONNECTION: device_not_compatible_with_napalm
+    },
+    EXTREME_PLATEFORM_NAME: {
+        API_CONNECTION: _extreme_vsp_get_facts_api,
+        SSH_CONNECTION: _extreme_vsp_get_facts_ssh,
+        NETCONF_CONNECTION: _extreme_vsp_get_facts_netconf,
+        NAPALM_CONNECTION: device_not_compatible_with_napalm
+    },
+    CISCO_IOS_PLATEFORM_NAME: {
+        API_CONNECTION: _ios_get_facts_api,
+        SSH_CONNECTION: _ios_get_facts_ssh,
+        NETCONF_CONNECTION: _ios_get_facts_netconf,
+        NAPALM_CONNECTION: _generic_facts_napalm
+    },
+    CISCO_IOSXR_PLATEFORM_NAME: {
+        API_CONNECTION: _iosxr_get_facts_api,
+        SSH_CONNECTION: _juniper_get_facts_ssh,
+        NETCONF_CONNECTION: _juniper_get_facts_netconf,
+        NAPALM_CONNECTION: _generic_facts_napalm
+    },
+    JUNOS_PLATEFORM_NAME: {
+        API_CONNECTION: _juniper_get_facts_api,
+        SSH_CONNECTION: _juniper_get_facts_ssh,
+        NETCONF_CONNECTION: _juniper_get_facts_netconf,
+        NAPALM_CONNECTION: _generic_facts_napalm
+    },
+    NEXUS_PLATEFORM_NAME: {
+        API_CONNECTION: _nxos_get_facts_api,
+        SSH_CONNECTION: _nxos_get_facts_ssh,
+        NETCONF_CONNECTION: _nxos_get_facts_netconf,
+        NAPALM_CONNECTION: _generic_facts_napalm
+    },
+}
 
-    devices = nr.filter()
+
+
+HEADER = "[netests - get_facts]"
+
+
+def get_facts(nr: Nornir, options={}):
+    if (
+        'from_cli' in options.keys() and
+        options.get('from_cli') is not None and
+        options.get("from_cli") is True and
+        isinstance(options.get("from_cli"), bool)
+    ):
+        devices = nr.filter(F(groups__contains="netests"))
+        os.environ["NETESTS_VERBOSE"] = LEVEL1
+    else:
+        devices = nr.filter()
 
     if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER_GET}] no device selected.")
+        print(f"[{HEADER}] no device selected.")
 
-    data = devices.run(
-        task=generic_infos_get,
-        on_failed=True,
-        num_workers=10
-    )
-    #print_result(data)
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Generic function
-#
-def generic_infos_get(task):
-
-    if INFOS_DATA_HOST_KEY not in task.host.keys():
-
-        use_ssh = False
-        use_net_rest_conf = False
-
-        if NEXUS_PLATEFORM_NAME in task.host.platform or ARISTA_PLATEFORM_NAME in task.host.platform or \
-            JUNOS_PLATEFORM_NAME in task.host.platform or CISCO_IOS_PLATEFORM_NAME in task.host.platform or \
-                CISCO_IOSXR_PLATEFORM_NAME in task.host.platform:
-            if 'connexion' in task.host.keys():
-                if task.host.data.get('connexion', NOT_SET) == 'ssh' or task.host.get('connexion', NOT_SET) == "ssh":
-                    use_ssh = True
-                elif task.host.data.get('connexion', NOT_SET) == 'api' or task.host.get('connexion', NOT_SET) == "api":
-                    use_net_rest_conf = True
-
-        if task.host.platform == CUMULUS_PLATEFORM_NAME:
-            _cumulus_get_infos(task)
-
-        elif task.host.platform == EXTREME_PLATEFORM_NAME:
-            _extreme_vsp_get_infos(task)
-
-        elif task.host.platform == CISCO_IOS_PLATEFORM_NAME:
-            _ios_get_infos(task)
-
-        elif task.host.platform in NAPALM_COMPATIBLE_PLATEFORM :
-            if use_ssh and NEXUS_PLATEFORM_NAME == task.host.platform:
-                _nexus_get_infos(task)
-
-            elif use_ssh and ARISTA_PLATEFORM_NAME == task.host.platform:
-                _arista_get_infos(task)
-
-            elif use_ssh and JUNOS_PLATEFORM_NAME == task.host.platform:
-                _juniper_get_infos(task)
-
-            elif use_net_rest_conf and JUNOS_PLATEFORM_NAME == task.host.platform:
-                _juniper_get_infos_api(task)
-
-            else:
-                _generic_infos_napalm(task)
-
-        else:
-            # RAISE EXCEPTIONS
-            print(f"{HEADER_GET} No plateform selected for {task.host.name}...")
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Function for devices which are compatible with NAPALM
-#
-def _generic_infos_napalm(task):
-
-    print(f"Start _generic_infos_napalm with {task.host.name} ")
-    outputs_dict = dict()
-
-    output = task.run(
-        name=f"NAPALM napalm_get_facts {task.host.platform}",
-        task=napalm_get,
-        getters=["facts"]
-    )
-    # print(output.result)
-    if output.result != "":
-        outputs_dict[INFOS_SYS_DICT_KEY] = (output.result)
-
-    if task.host.platform != ARISTA_PLATEFORM_NAME:
-        output = task.run(
-            name=f"NAPALM get_snmp_information {task.host.platform}",
-            task=napalm_get,
-            getters=["get_snmp_information"]
+    else:
+        output = devices.run(
+            task=generic_facts_get,
+            on_failed=True,
+            options=options
         )
-        # print(output.result)
+        if verbose_mode(
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+            needed_value=LEVEL2
+        ):
+            print_result(output)
 
-        if output.result != "":
-            outputs_dict[INFOS_SNMP_DICT_KEY] = (output.result)
 
-    system_infos = _napalm_infos_converter(task.host.platform, outputs_dict)
+def generic_facts_get(task, options={}):
+    base_selection(
+        platform=task.host.platform,
+        connection_mode=task.host.data.get("connexion"),
+        functions_mapping=MAPPING_FUNCTION
+    )(task, options)
 
-    task.host[INFOS_DATA_HOST_KEY] = system_infos
+
+
+
+
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -491,87 +462,5 @@ def _arista_get_infos(task):
     system_infos = _arista_infos_converter(outputs_dict)
 
     task.host[INFOS_DATA_HOST_KEY] = system_infos
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Juniper JunOS
-#
-def _juniper_get_infos(task):
 
-    outputs_dict = dict()
-
-    output = task.run(
-        name=f"{JUNOS_GET_INFOS}",
-        task=netmiko_send_command,
-        command_string=JUNOS_GET_INFOS
-    )
-    # print(output.result)
-
-    if output.result != "":
-        outputs_dict[INFOS_SYS_DICT_KEY] = (json.loads(output.result))
-
-    output = task.run(
-        name=f"{JUNOS_GET_INT}",
-        task=netmiko_send_command,
-        command_string=JUNOS_GET_INT
-    )
-    # print(output.result)
-
-    if output.result != "":
-        outputs_dict[INFOS_INT_DICT_KEY] = (json.loads(output.result))
-
-    output = task.run(
-        name=f"{JUNOS_GET_MEMORY}",
-        task=netmiko_send_command,
-        command_string=JUNOS_GET_MEMORY
-    )
-    # print(output.result)
-
-    if output.result != "":
-        outputs_dict[INFOS_MEMORY_DICT_KEY] = (json.loads(output.result))
-
-    output = task.run(
-        name=f"{JUNOS_GET_CONFIG_SYSTEM}",
-        task=netmiko_send_command,
-        command_string=JUNOS_GET_CONFIG_SYSTEM
-    )
-    # print(output.result)
-
-    if output.result != "":
-        outputs_dict[INFOS_CONFIG_DICT_KEY] = (json.loads(output.result))
-
-    output = task.run(
-        name=f"{JUNOS_GET_SERIAL}",
-        task=netmiko_send_command,
-        command_string=JUNOS_GET_SERIAL
-    )
-    # print(output.result)
-
-    if output.result != "":
-        outputs_dict[INFOS_SERIAL_DICT_KEY] = (json.loads(output.result))
-
-    system_infos = _juniper_infos_converter(outputs_dict)
-
-    task.host[INFOS_DATA_HOST_KEY] = system_infos
-
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Juniper JunOS - Netconf - https://github.com/Juniper/py-junos-eznc
-# -> set system services netconf ssh
-#
-def _juniper_get_infos_api(task):
-
-    juniper_device = init_junos_api(
-        hostname=task.host.hostname,
-        username=task.host.username,
-        password=task.host.password
-    )
-
-    juniper_device.open()
-
-    system_infos = _juniper_api_infos_converter(
-        cmd_outputs=juniper_device.facts
-    )
-
-    task.host[INFOS_DATA_HOST_KEY] = system_infos
 

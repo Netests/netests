@@ -17,6 +17,11 @@ config:
 
     bgp_all_up:
       test: false
+
+
+    facts:
+      test: true
+
     
     ospf:
       test: false

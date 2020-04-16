@@ -1,0 +1,110 @@
+{
+    "configuration": {
+        "@": {
+            "junos:commit-seconds": "1587040545",
+            "junos:commit-localtime": "2020-04-16 12:35:45 UTC",
+            "junos:commit-user": "jcluser"
+        },
+        "system": {
+            "login": {
+                "user": [
+                    {
+                        "name": "jcluser",
+                        "uid": 2000,
+                        "class": "super-user",
+                        "authentication": {
+                            "encrypted-password": "$6$7rmbaWhB$QSsd9lpzkDZEV/ebNdv4U37un2hGiVSP1WMChfTjys.N9U7TjA8ezyrEQVsGaJiLgIikVJFVfhV/OAnf4.ssM1"
+                        }
+                    }
+                ]
+            },
+            "root-authentication": {
+                "encrypted-password": "$6$B6Gd/PJU$yPPJaFBt6ImOHpIIYGkB413X2QWzYzGKxdjXltRatoAsvR9/.cMDSs9mexy6ZBa1i83mQ1xxbT3Tn9hTtzYOW."
+            },
+            "host-name": "netests-01",
+            "domain-name": "dh.local",
+            "scripts": {
+                "language": "python"
+            },
+            "services": {
+                "ssh": {
+                    "root-login": "allow"
+                },
+                "netconf": {
+                    "ssh": [
+                        null
+                    ]
+                },
+                "rest": {
+                    "http": {
+                        "port": 3000
+                    },
+                    "enable-explorer": [
+                        null
+                    ]
+                }
+            },
+            "syslog": {
+                "user": [
+                    {
+                        "name": "*",
+                        "contents": [
+                            {
+                                "name": "any",
+                                "emergency": [
+                                    null
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "file": [
+                    {
+                        "name": "messages",
+                        "contents": [
+                            {
+                                "name": "any",
+                                "notice": [
+                                    null
+                                ]
+                            },
+                            {
+                                "name": "authorization",
+                                "info": [
+                                    null
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "interactive-commands",
+                        "contents": [
+                            {
+                                "name": "interactive-commands",
+                                "any": [
+                                    null
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "processes": {
+                "dhcp-service": {
+                    "traceoptions": {
+                        "file": {
+                            "filename": "dhcp_logfile",
+                            "size": "10m"
+                        },
+                        "level": "all",
+                        "flag": [
+                            {
+                                "name": "packet"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

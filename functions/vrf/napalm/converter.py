@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import json
 from protocols.vrf import VRF, ListVRF
-from const.constants import NOT_SET
+from const.constants import NOT_SET, LEVEL1
+from functions.verbose_mode import verbose_mode
+from functions.global_tools import printline
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 
 
 def _napalm_vrf_converter(
@@ -33,5 +38,12 @@ def _napalm_vrf_converter(
                 != "" else NOT_SET
             )
         )
+    
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL1
+    ):
+        printline()
+        PP.pprint(vrf_list)
 
     return vrf_list

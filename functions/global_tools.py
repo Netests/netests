@@ -144,26 +144,6 @@ def _generic_interface_filter(plateform, interface_name,* , filters=dict()) -> b
 
     return False
 
-# ------------------------------------------------------------------------------------------------------------------
-#
-#
-def init_junos_api(hostname:str, username:str, password:str) -> Device:
-    """
-    This function will init a NetConf connection through SSH on a Juniper device
-    The following command has to be configured on Juniper device
-    -> set system services netconf ssh
-    (18.1R2.6)
-
-    :param hostname:
-    :param username:
-    :param password:
-    :return Device:
-    """
-    return Device(
-        host=hostname,
-        user=username,
-        password=password
-    )
 
 # ------------------------------------------------------------------------------------------------------------------
 #
