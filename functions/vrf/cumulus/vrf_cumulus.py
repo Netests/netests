@@ -29,36 +29,35 @@ from exceptions.netests_exceptions import (
 
 
 def _cumulus_get_vrf_api(task, options={}):
-    if VRF_DATA_KEY not in task.host.keys():
-        res = requests.post(
-            url=f"https://{task.host.hostname}:{task.host.port}/nclu/v1/rpc",
-            data=json.dumps(
-                {
-                    "cmd": f"{CUMULUS_API_GET_VRF}"
-                }),
-            headers={'content-type': 'application/json'},
-            auth=requests.auth.HTTPBasicAuth(
-                f"{task.host.username}",
-                f"{task.host.password}"
-            ),
-            verify=False
-        )
+    res = requests.post(
+        url=f"https://{task.host.hostname}:{task.host.port}/nclu/v1/rpc",
+        data=json.dumps(
+            {
+                "cmd": f"{CUMULUS_API_GET_VRF}"
+            }),
+        headers={'content-type': 'application/json'},
+        auth=requests.auth.HTTPBasicAuth(
+            f"{task.host.username}",
+            f"{task.host.password}"
+        ),
+        verify=False
+    )
 
-        if verbose_mode(
-            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-            needed_value=LEVEL3
-        ):
-            print(type(res.status_code), res.status_code)
-            print(type(res.content), res.content)
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL3
+    ):
+        print(type(res.status_code), res.status_code)
+        print(type(res.content), res.content)
 
-        if res.status_code != 200:
-            raise NetestsHTTPStatusCodeError()
+    if res.status_code != 200:
+        raise NetestsHTTPStatusCodeError()
 
-        task.host[VRF_DATA_KEY] = _cumulus_vrf_api_converter(
-            hostname=task.host.name,
-            cmd_output=res.content,
-            options=options
-        )
+    task.host[VRF_DATA_KEY] = _cumulus_vrf_api_converter(
+        hostname=task.host.name,
+        cmd_output=res.content,
+        options=options
+    )
 
 
 def _cumulus_get_vrf_netconf(task, options={}):

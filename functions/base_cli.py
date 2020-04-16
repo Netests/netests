@@ -2,12 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from nornir.core import Nornir
+from functions.facts.facts_get import get_facts
+from functions.facts.facts_compare import _compare_facts
+from protocols.facts import Facts
 from functions.vrf.vrf_get import get_vrf
 from functions.vrf.vrf_compare import _compare_vrf
 from protocols.vrf import VRF
 from functions.global_tools import printline
 from exceptions.netests_cli_exceptions import NetestsCLINornirObjectIsNone
-from const.constants import VRF_DATA_KEY
+from const.constants import VRF_DATA_KEY, FACTS_DATA_HOST_KEY
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -33,6 +36,11 @@ class NetestsCLI():
             "class": VRF,
             "get": get_vrf,
             "compare": _compare_vrf
+        },
+        "facts": {
+            "class": Facts,
+            "get": get_facts,
+            "compare": _compare_facts
         }
     }
 
@@ -142,6 +150,17 @@ class NetestsCLI():
                     )
                     if r:
                         w.append(d)
+                elif prot.lower() == "facts":
+                    r = _compare_facts(
+                        host_keys=self.nornir.inventory.hosts[d].keys(),
+                        hostname=d,
+                        groups=self.nornir.inventory.hosts[d].groups,
+                        facts_host_data=self.nornir.inventory
+                                                    .hosts
+                                                    .get(d)
+                                                   .get(FACTS_DATA_HOST_KEY)
+
+                    )
                 else:
                     print(f"@({prot}) is unavailable from CLI.")
 
@@ -291,6 +310,14 @@ class NetestsCLI():
             for prot in protocols_selected.split(','):
                 if prot.lower() == "vrf":
                     get_vrf(
+                        nr=self.nornir,
+                        options={
+                            "from_cli": True,
+                            "print": self.options.get('vrf', {})
+                        }
+                    )
+                elif prot.lower() == "facts":
+                    get_facts(
                         nr=self.nornir,
                         options={
                             "from_cli": True,
