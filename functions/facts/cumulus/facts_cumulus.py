@@ -9,8 +9,8 @@ from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import netmiko_send_command
 from functions.verbose_mode import verbose_mode
 from functions.global_tools import printline
-from functions.http_request import exec_http_call_juniper
-#from functions.facts.cumulus.api.converter import _cumulus_facts_api_converter
+from functions.http_request import exec_http_call_cumulus
+from functions.facts.cumulus.api.converter import _cumulus_facts_api_converter
 #from functions.facts.cumulus.netconf.converter import _cumulus_facts_netconf_converter
 from functions.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
 from const.constants import (
@@ -20,13 +20,39 @@ from const.constants import (
     FACTS_SYS_DICT_KEY,
     FACTS_INT_DICT_KEY,
     CUMULUS_GET_FACTS,
+    CUMULUS_API_GET_FACTS,
     CUMULUS_GET_INT,
+    CUMULUS_API_GET_INT
 )
 from exceptions.netests_exceptions import NetestsFunctionNotPossible
 
 
 def _cumulus_get_facts_api(task, options={}):
-    pass
+    output_dict = dict()
+    
+    output_dict[FACTS_SYS_DICT_KEY] = exec_http_call_cumulus(
+        hostname=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        cumulus_cmd=CUMULUS_API_GET_FACTS,
+        secure_api=task.host.get('secure_api', True)
+    )
+
+    output_dict[FACTS_INT_DICT_KEY] = exec_http_call_cumulus(
+        hostname=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        cumulus_cmd=CUMULUS_API_GET_INT,
+        secure_api=task.host.get('secure_api', True)
+    )
+
+    task.host[FACTS_DATA_HOST_KEY] = _cumulus_facts_api_converter(
+        hostname=task.host.hostname,
+        cmd_output=output_dict,
+        options=options
+    )
 
 
 def _cumulus_get_facts_netconf(task, options={}):
@@ -36,7 +62,7 @@ def _cumulus_get_facts_netconf(task, options={}):
 
 
 def _cumulus_get_facts_ssh(task, options={}):
-    outputs_dict = dict()
+    output_dict = dict()
 
     output = task.run(
         name=f"{CUMULUS_GET_FACTS}",
@@ -50,7 +76,7 @@ def _cumulus_get_facts_ssh(task, options={}):
             print_result(output)
 
     if output.result != "":
-        outputs_dict[FACTS_SYS_DICT_KEY] = (json.loads(output.result))
+        output_dict[FACTS_SYS_DICT_KEY] = (json.loads(output.result))
 
     output = task.run(
         name=f"{CUMULUS_GET_INT}",
@@ -64,11 +90,11 @@ def _cumulus_get_facts_ssh(task, options={}):
             print_result(output)
 
     if output.result != "":
-        outputs_dict[FACTS_INT_DICT_KEY] = (json.loads(output.result))
+        output_dict[FACTS_INT_DICT_KEY] = (json.loads(output.result))
 
     task.host[FACTS_DATA_HOST_KEY] = _cumulus_facts_ssh_converter(
         hostname=task.host.hostname,
-        cmd_output=outputs_dict,
+        cmd_output=output_dict,
         options=options
     )
 

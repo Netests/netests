@@ -7,6 +7,7 @@ import lxml
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
+from functions.netconf_tools import bytes_to_json
 from const.constants import (
     NOT_SET,
     LEVEL1,
@@ -17,7 +18,7 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _cumulus_facts_ssh_converter(
+def _cumulus_facts_api_converter(
     hostname: str,
     cmd_output,
     options={}
@@ -31,6 +32,9 @@ def _cumulus_facts_ssh_converter(
     vendor = NOT_SET
     model = NOT_SET
     if FACTS_SYS_DICT_KEY in cmd_output.keys():
+        cmd_output[FACTS_SYS_DICT_KEY] = json.loads(
+            cmd_output.get(FACTS_SYS_DICT_KEY)
+        )
         if "\n" in cmd_output.get(FACTS_SYS_DICT_KEY) \
                              .get("hostname", NOT_SET):
             i = cmd_output.get(FACTS_SYS_DICT_KEY) \
@@ -65,6 +69,9 @@ def _cumulus_facts_ssh_converter(
 
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
+        cmd_output[FACTS_INT_DICT_KEY] = json.loads(
+            cmd_output.get(FACTS_INT_DICT_KEY)
+        )
         for interface_name in cmd_output.get(FACTS_INT_DICT_KEY).keys():
             if "swp" in interface_name or "eth" in interface_name:
                 interfaces_lst.append(interface_name)

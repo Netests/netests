@@ -8,6 +8,7 @@ from xml.etree import ElementTree
 
 
 def format_xml_output(output) -> dict:
+        
     if isinstance(output, lxml.etree._Element):
         output = json.dumps(
             xmltodict.parse(
@@ -21,3 +22,12 @@ def format_xml_output(output) -> dict:
         output = json.dumps(xmltodict.parse(str(output, 'utf-8')))
 
     return json.loads(output)
+
+
+
+def bytes_to_json(output) -> dict:
+    print(type(output))
+    if isinstance(output, bytes):
+        print(type(output))
+        print(type(json.loads(output)))
+        return json.loads(output)

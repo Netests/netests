@@ -41,13 +41,6 @@ def exec_http_call_cumulus(
         verify=False
     )
 
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
-    ):
-        print(type(res.status_code), res.status_code)
-        print(type(res.content), res.content)
-
     if res.status_code != 200:
         raise NetestsHTTPStatusCodeError()
 
