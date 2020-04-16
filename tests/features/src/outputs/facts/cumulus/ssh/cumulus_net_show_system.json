@@ -1,0 +1,71 @@
+{
+    "memory": 951264,
+    "uptime": "14:47:28.190000",
+    "hostname": "cumulus\n",
+    "platform": {
+        "detected": true,
+        "vendor": "Cumulus",
+        "model": "VX"
+    },
+    "build": "Cumulus Linux 3.7.5",
+    "os-version": "3.7.5",
+    "disk": null,
+    "lsb-release": "DISTRIB_ID=\"Cumulus Linux\"\nDISTRIB_RELEASE=3.7.5\nDISTRIB_DESCRIPTION=\"Cumulus Linux 3.7.5\"\n",
+    "os-description": "Cumulus Linux 3.7.5",
+    "eeprom": {
+        "idString": "TlvInfo",
+        "totalLength": 69,
+        "version": 1,
+        "tlv": {
+            "Part Number": {
+                "index": 36,
+                "length": 5,
+                "code": "0x22",
+                "value": "3.7.5"
+            },
+            "Serial Number": {
+                "index": 55,
+                "length": 17,
+                "code": "0x23",
+                "value": "50:00:00:01:00:00"
+            },
+            "MAC Addresses": {
+                "index": 43,
+                "length": 2,
+                "code": "0x2A",
+                "value": "8"
+            },
+            "CRC-32": {
+                "index": 74,
+                "length": 4,
+                "code": "0xFE",
+                "value": "0x0817F8C8"
+            },
+            "Product Name": {
+                "index": 29,
+                "length": 2,
+                "code": "0x21",
+                "value": "VX"
+            },
+            "Device Version": {
+                "index": 33,
+                "length": 1,
+                "code": "0x26",
+                "value": "3"
+            },
+            "Base MAC Address": {
+                "index": 47,
+                "length": 6,
+                "code": "0x24",
+                "value": "50:00:00:01:00:00"
+            },
+            "Vendor Name": {
+                "index": 11,
+                "length": 16,
+                "code": "0x2D",
+                "value": "Cumulus Networks"
+            }
+        },
+        "validTlvInfoHeader": true
+    }
+}

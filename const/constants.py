@@ -154,6 +154,7 @@ CUMULUS_GET_OSPF = "net show ospf neighbor detail json"
 CUMULUS_GET_OSPF_VRF = "net show ospf vrf {} neighbor detail json"
 CUMULUS_GET_OSPF_RID = "net show ospf json"
 CUMULUS_GET_OSPF_RID_VRF = "net show ospf vrf {} json"
+CUMULUS_GET_INT = "net show interface all json"
 CUMULUS_GET_IPV4 = "net show interface json"
 CUMULUS_GET_IPV6 = CUMULUS_GET_IPV4
 CUMULUS_GET_STATIC = "net show route static json"
