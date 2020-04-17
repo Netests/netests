@@ -39,6 +39,7 @@ from functions.global_tools import (
 )
 from behave import given, when, then
 
+
 @given(u'A network protocols named VRF defined in protocols/vrf.py')
 def step_impl(context):
     context.test_not_implemented = list()
@@ -274,6 +275,229 @@ def step_impl(context):
             )
         )
     )
+
+
+@given(u'I create a VRF object equals to IOS no config manually named o0311')
+def step_impl(context):
+    context.o0311 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o0311.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS no config API named o0312')
+def step_impl(context):
+    context.o0312 = _ios_vrf_api_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/ios/api/"
+                "cisco_ios_api_get_vrf_no_config.xml"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS no config Netconf named o0313')
+def step_impl(context):
+    context.o0313 = _ios_vrf_netconf_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/ios/netconf/"
+                "cisco_ios_nc_get_vrf_no_config.xml"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS no config SSH named o0314')
+def step_impl(context):
+    context.o0314 = _ios_vrf_ssh_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/ios/ssh/"
+                "cisco_ios_ssh_get_vrf_no_config.txt"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object equals to IOS one vrf manually named o0321')
+def step_impl(context):
+    context.o0321 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o0321.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o0321.vrf_lst.append(
+        VRF(
+            vrf_name='CUSTOMER_001',
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd='65123:123',
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS one vrf API named o0322')
+def step_impl(context):
+    context.o0322 = _ios_vrf_api_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/ios/api/"
+                "cisco_ios_api_get_vrf_only_one.xml"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS one vrf Netconf named o0323')
+def step_impl(context):
+    context.o0323 = _ios_vrf_netconf_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/ios/netconf/"
+                "cisco_ios_nc_get_vrf_only_one.xml"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS one vrf SSH named o0324')
+def step_impl(context):
+    context.o0324 = _ios_vrf_ssh_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/ios/ssh/"
+                "cisco_ios_ssh_get_vrf_only_one.txt"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object equals to IOS many manually named o0331')
+def step_impl(context):
+    context.o0331 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o0331.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o0331.vrf_lst.append(
+        VRF(
+            vrf_name='CUSTOMER_001',
+            vrf_id='1',
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd='65123:123',
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+    
+    context.o0331.vrf_lst.append(
+        VRF(
+            vrf_name='CUSTOMER_002',
+            vrf_id='2',
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd='65123:123',
+            rt_imp='65222:2',
+            rt_exp='65222:1',
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS many API named o0332')
+def step_impl(context):
+    context.o0332 = _ios_vrf_api_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/ios/api/"
+                "cisco_ios_api_get_vrf_many.xml"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS many Netconf named o0333')
+def step_impl(context):
+    context.o0333 = _ios_vrf_netconf_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/ios/netconf/"
+                "cisco_ios_nc_get_vrf_many.xml"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS many SSH named o0334')
+def step_impl(context):
+    context.o0334 = _ios_vrf_ssh_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/ios/ssh/"
+                "cisco_ios_ssh_get_vrf_many.txt"
+            )
+        )
+    )
+
 
 
 @given(u'I create a VRF object equals to IOS-XR manually named o0401')
@@ -841,6 +1065,96 @@ def step_impl(context):
 @given(u'VRF o0303 should be equal to o0304')
 def step_impl(context):
     assert context.o0303 == context.o0304
+
+
+@given(u'VRF o0311 should be equal to o0312')
+def step_impl(context):
+    assert context.o0311 == context.o0312
+
+
+@given(u'VRF o0311 should be equal to o0313')
+def step_impl(context):
+    assert context.o0311 == context.o0313
+
+
+@given(u'VRF o0311 should be equal to o0314')
+def step_impl(context):
+    assert context.o0311 == context.o0314
+
+
+@given(u'VRF o0312 should be equal to o0313')
+def step_impl(context):
+    assert context.o0312 == context.o0313
+
+
+@given(u'VRF o0312 should be equal to o0314')
+def step_impl(context):
+    assert context.o0312 == context.o0314
+
+
+@given(u'VRF o0313 should be equal to o0314')
+def step_impl(context):
+    assert context.o0313 == context.o0314
+
+
+@given(u'VRF o0321 should be equal to o0322')
+def step_impl(context):
+    assert context.o0321 == context.o0322
+
+
+@given(u'VRF o0321 should be equal to o0323')
+def step_impl(context):
+    assert context.o0321 == context.o0323
+
+
+@given(u'VRF o0321 should be equal to o0324')
+def step_impl(context):
+    assert context.o0321 == context.o0324
+
+
+@given(u'VRF o0322 should be equal to o0323')
+def step_impl(context):
+    assert context.o0322 == context.o0323
+
+
+@given(u'VRF o0322 should be equal to o0324')
+def step_impl(context):
+    assert context.o0322== context.o0324
+
+
+@given(u'VRF o0323 should be equal to o0324')
+def step_impl(context):
+    assert context.o0323 == context.o0324
+
+
+@given(u'VRF o0331 should be equal to o0332')
+def step_impl(context):
+    assert context.o0331 == context.o0332
+
+
+@given(u'VRF o0331 should be equal to o0333')
+def step_impl(context):
+    assert context.o0331 == context.o0333
+
+
+@given(u'VRF o0331 should be equal to o0334')
+def step_impl(context):
+    assert context.o0331 == context.o0334
+
+
+@given(u'VRF o0332 should be equal to o0333')
+def step_impl(context):
+    assert context.o0332 == context.o0333
+
+
+@given(u'VRF o0332 should be equal to o0334')
+def step_impl(context):
+    assert context.o0332 == context.o0334
+
+
+@given(u'VRF o0333 should be equal to o0334')
+def step_impl(context):
+    assert context.o0333 == context.o0334
 
 
 @given(u'VRF YAML file should be equal to o0302')

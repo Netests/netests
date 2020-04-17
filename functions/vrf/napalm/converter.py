@@ -38,7 +38,7 @@ def _napalm_vrf_converter(
                 != "" else NOT_SET
             )
         )
-    
+
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL1

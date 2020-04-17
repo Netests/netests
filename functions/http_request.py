@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
 import requests
-from const.constants import (
-    NOT_SET,
-    LEVEL3
-)
-from functions.verbose_mode import verbose_mode
 from exceptions.netests_exceptions import NetestsHTTPStatusCodeError
 
 
@@ -133,5 +127,5 @@ def juniper_http_post(
         verify=False,
         data="\n".join(endpoint)
     )
-    
+
     return res.content

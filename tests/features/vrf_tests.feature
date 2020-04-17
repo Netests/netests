@@ -24,6 +24,22 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And I create a VRF object from a IOS API output named o0302
     And I create a VRF object from a IOS Netconf named o0303
     And I create a VRF object from a IOS SSH named o0304
+
+    And I create a VRF object equals to IOS no config manually named o0311
+    And I create a VRF object from a IOS no config API named o0312
+    And I create a VRF object from a IOS no config Netconf named o0313
+    And I create a VRF object from a IOS no config SSH named o0314
+
+    And I create a VRF object equals to IOS one vrf manually named o0321
+    And I create a VRF object from a IOS one vrf API named o0322
+    And I create a VRF object from a IOS one vrf Netconf named o0323
+    And I create a VRF object from a IOS one vrf SSH named o0324
+
+    And I create a VRF object equals to IOS many manually named o0331
+    And I create a VRF object from a IOS many API named o0332
+    And I create a VRF object from a IOS many Netconf named o0333
+    And I create a VRF object from a IOS many SSH named o0334
+
     # Cisco IOS-XR Device = o04
     And I create a VRF object equals to IOS-XR manually named o0401
     And I create a VRF object from a IOS-XR API output named o0402
@@ -86,6 +102,27 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And VRF o0302 should be equal to o0303
     And VRF o0302 should be equal to o0304
     And VRF o0303 should be equal to o0304
+
+    And VRF o0311 should be equal to o0312
+    And VRF o0311 should be equal to o0313
+    And VRF o0311 should be equal to o0314
+    And VRF o0312 should be equal to o0313
+    And VRF o0312 should be equal to o0314
+    And VRF o0313 should be equal to o0314
+
+    And VRF o0321 should be equal to o0322
+    And VRF o0321 should be equal to o0323
+    And VRF o0321 should be equal to o0324
+    And VRF o0322 should be equal to o0323
+    And VRF o0322 should be equal to o0324
+    And VRF o0323 should be equal to o0324
+
+    And VRF o0331 should be equal to o0332
+    And VRF o0331 should be equal to o0333
+    And VRF o0331 should be equal to o0334
+    And VRF o0332 should be equal to o0333
+    And VRF o0332 should be equal to o0334
+    And VRF o0333 should be equal to o0334
 
     And VRF YAML file should be equal to o0302
     And VRF YAML file should be equal to o0303
