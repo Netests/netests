@@ -51,34 +51,43 @@ def _ios_vrf_netconf_converter(
         )
     )
 
-    for v in cmd_output.get('data').get('native').get('vrf').get('definition'):
-        rt_imp = NOT_SET
-        rt_exp = NOT_SET
-        if 'route-target' in v.keys():
-            if (
-                'export' in v.get('route-target').keys() and
-                'asn-ip' in v.get('route-target').get('export').keys()
-            ):
-                rt_exp = v.get('route-target').get('export').get('asn-ip')
-            if (
-                'import' in v.get('route-target').keys() and
-                'asn-ip' in v.get('route-target').get('export').keys()
-            ):
-                rt_imp = v.get('route-target').get('import').get('asn-ip')
+    if (
+        'data' in cmd_output.keys() and
+        'native' in cmd_output.get('data').keys() and
+        'vrf' in cmd_output.get('data').get('native').keys() and
+        'definition' in cmd_output.get('data').get('native').get('vrf').keys()
+    ):
+        for v in cmd_output.get('data') \
+                           .get('native') \
+                           .get('vrf') \
+                           .get('definition'):
+            rt_imp = NOT_SET
+            rt_exp = NOT_SET
+            if 'route-target' in v.keys():
+                if (
+                    'export' in v.get('route-target').keys() and
+                    'asn-ip' in v.get('route-target').get('export').keys()
+                ):
+                    rt_exp = v.get('route-target').get('export').get('asn-ip')
+                if (
+                    'import' in v.get('route-target').keys() and
+                    'asn-ip' in v.get('route-target').get('export').keys()
+                ):
+                    rt_imp = v.get('route-target').get('import').get('asn-ip')
 
-        vrf_list.vrf_lst.append(
-            VRF(
-                vrf_name=v.get('name', NOT_SET),
-                vrf_id=NOT_SET,
-                vrf_type=NOT_SET,
-                l3_vni=NOT_SET,
-                rd=v.get('rd', NOT_SET),
-                rt_imp=rt_imp,
-                rt_exp=rt_exp,
-                imp_targ=NOT_SET,
-                exp_targ=NOT_SET
+            vrf_list.vrf_lst.append(
+                VRF(
+                    vrf_name=v.get('name', NOT_SET),
+                    vrf_id=NOT_SET,
+                    vrf_type=NOT_SET,
+                    l3_vni=NOT_SET,
+                    rd=v.get('rd', NOT_SET),
+                    rt_imp=rt_imp,
+                    rt_exp=rt_exp,
+                    imp_targ=NOT_SET,
+                    exp_targ=NOT_SET
+                )
             )
-        )
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
