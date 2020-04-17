@@ -3,15 +3,14 @@
 
 import os
 import json
-from jnpr.junos import Device
-from xml.etree import ElementTree
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import netmiko_send_command
 from functions.verbose_mode import verbose_mode
-from functions.global_tools import printline
 from functions.http_request import exec_http_call_cumulus
 from functions.facts.cumulus.api.converter import _cumulus_facts_api_converter
-#from functions.facts.cumulus.netconf.converter import _cumulus_facts_netconf_converter
+# from functions.facts.cumulus.netconf.converter import (
+# _cumulus_facts_netconf_converter
+# )
 from functions.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
 from const.constants import (
     NOT_SET,
@@ -29,7 +28,7 @@ from exceptions.netests_exceptions import NetestsFunctionNotPossible
 
 def _cumulus_get_facts_api(task, options={}):
     output_dict = dict()
-    
+
     output_dict[FACTS_SYS_DICT_KEY] = exec_http_call_cumulus(
         hostname=task.host.hostname,
         port=task.host.port,
@@ -73,7 +72,7 @@ def _cumulus_get_facts_ssh(task, options={}):
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL2
     ):
-            print_result(output)
+        print_result(output)
 
     if output.result != "":
         output_dict[FACTS_SYS_DICT_KEY] = (json.loads(output.result))
@@ -87,7 +86,7 @@ def _cumulus_get_facts_ssh(task, options={}):
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL2
     ):
-            print_result(output)
+        print_result(output)
 
     if output.result != "":
         output_dict[FACTS_INT_DICT_KEY] = (json.loads(output.result))
@@ -97,4 +96,3 @@ def _cumulus_get_facts_ssh(task, options={}):
         cmd_output=output_dict,
         options=options
     )
-

@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
-import lxml
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
@@ -23,12 +21,12 @@ def _ios_facts_ssh_converter(
     cmd_output,
     options={}
 ) -> Facts:
-    
+
     cmd_output[FACTS_SYS_DICT_KEY] = parse_textfsm(
         content=cmd_output.get(FACTS_SYS_DICT_KEY),
         template_file='cisco_ios_show_version.textfsm'
     )
-    
+
     cmd_output[FACTS_INT_DICT_KEY] = parse_textfsm(
         content=cmd_output.get(FACTS_INT_DICT_KEY),
         template_file='cisco_ios_show_ip_int_brief.textfsm'

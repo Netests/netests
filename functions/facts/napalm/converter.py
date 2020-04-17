@@ -12,9 +12,6 @@ from functions.discovery_protocols.discovery_functions import (
 from const.constants import (
     NOT_SET,
     LEVEL1,
-    FACTS_DATA_HOST_KEY,
-    FACTS_SYS_DICT_KEY,
-    FACTS_SNMP_DICT_KEY,
     CISCO_IOS_PLATEFORM_NAME,
     JUNOS_PLATEFORM_NAME,
     NEXUS_PLATEFORM_NAME
@@ -29,12 +26,12 @@ def _napalm_facts_converter(
     cmd_output: json,
     options={}
 ) -> Facts:
-    if cmd_output == None:
+    if cmd_output is None:
         return Facts()
 
     i = len(f"{str(cmd_output.get('facts').get('hostname'))}.")
 
-    facts = Facts(   
+    facts = Facts(
         hostname=cmd_output.get('facts').get('hostname'),
         domain=cmd_output.get("facts").get("fqdn", NOT_SET)[i:],
         version=cmd_output.get("facts").get("os_version", NOT_SET),
@@ -70,15 +67,15 @@ def _interfaces_filter(platform: str, interfaces: list) -> list:
 
 
 def _juniper_retrieve_int_name_with_napalm(interface_data: list) -> list:
-
     int_name_lst = list()
-
-    if interface_data != None:
+    if interface_data is not None:
         for interface_name in interface_data:
             if (
-                ("em" in interface_name or 
-                "lo" in interface_name or
-                "fxp" in interface_name) and
+                (
+                    "em" in interface_name or
+                    "lo" in interface_name or
+                    "fxp" in interface_name
+                ) and
                 "demux" not in interface_name and
                 "local" not in interface_name
             ):
@@ -87,7 +84,6 @@ def _juniper_retrieve_int_name_with_napalm(interface_data: list) -> list:
                 )
 
     return int_name_lst
-
 
 
 def _ios_retrieve_int_name_with_napalm(interface_data: list) -> list:
@@ -101,9 +97,12 @@ def _ios_retrieve_int_name_with_napalm(interface_data: list) -> list:
 
     int_name_lst = list()
 
-    if interface_data != None:
+    if interface_data is not None:
         for interface_name in interface_data:
-            if "LO" not in str(interface_name).upper() and "VL" not in str(interface_name).upper():
+            if (
+                "LO" not in str(interface_name).upper() and
+                "VL" not in str(interface_name).upper()
+            ):
                 int_name_lst.append(
                     _mapping_interface_name(interface_name)
                 )

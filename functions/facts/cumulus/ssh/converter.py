@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
-import lxml
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode

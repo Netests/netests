@@ -7,11 +7,10 @@ from nornir.plugins.tasks.networking import napalm_get
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.facts.napalm.converter import _napalm_facts_converter
-from const.constants import NOT_SET, LEVEL2, ARISTA_PLATEFORM_NAME, FACTS_DATA_HOST_KEY, FACTS_SYS_DICT_KEY, FACTS_SNMP_DICT_KEY
+from const.constants import NOT_SET, LEVEL2, FACTS_DATA_HOST_KEY
 
 
 def _generic_facts_napalm(task, options={}):
-    outputs_dict = dict()
     output = task.run(
         name=f"NAPALM napalm_get_facts {task.host.platform}",
         task=napalm_get,
@@ -30,4 +29,3 @@ def _generic_facts_napalm(task, options={}):
         cmd_output=output.result,
         options=options
     )
-

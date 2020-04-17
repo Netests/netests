@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
-import lxml
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
+from functions.discovery_protocols.discovery_functions import (
+    _mapping_interface_name
+)
 from const.constants import (
     NOT_SET,
     LEVEL1,
@@ -25,7 +26,7 @@ def _juniper_facts_ssh_converter(
     cmd_output,
     options={}
 ) -> Facts:
-    if cmd_output == None:
+    if cmd_output is None:
         return dict()
 
     interface_lst = list()
@@ -33,8 +34,8 @@ def _juniper_facts_ssh_converter(
         for i in cmd_output.get(FACTS_INT_DICT_KEY) \
                            .get('interface-information')[0] \
                            .get('physical-interface'):
-            interface_lst.append(i.get('name')[0].get('data'))    
-    
+            interface_lst.append(i.get('name')[0].get('data'))
+
     memory = NOT_SET
     if FACTS_MEMORY_DICT_KEY in cmd_output.keys():
         memory = cmd_output.get(FACTS_MEMORY_DICT_KEY) \
@@ -63,9 +64,9 @@ def _juniper_facts_ssh_converter(
                           .get('product-model')[0] \
                           .get('data', NOT_SET)
         version = cmd_output.get(FACTS_SYS_DICT_KEY) \
-                          .get('software-information')[0] \
-                          .get('junos-version')[0] \
-                          .get('data', NOT_SET)
+                            .get('software-information')[0] \
+                            .get('junos-version')[0] \
+                            .get('data', NOT_SET)
 
     serial = NOT_SET
     if FACTS_SERIAL_DICT_KEY in cmd_output.keys():
@@ -88,7 +89,14 @@ def _juniper_facts_ssh_converter(
         interfaces_lst=interface_lst,
         options=options
     )
-    
+
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL1
+    ):
+        printline()
+        PP.pprint(facts.to_json())
+
     return facts
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -102,13 +110,16 @@ def _juniper_retrieve_int_name(interface_data: dict) -> list:
     int_name_lst = list()
 
     for interface_name in interface_data:
-        if ("em" in interface_name.get("name")[0].get("data", NOT_SET) or
-                "lo" in interface_name.get("name")[0].get("data", NOT_SET) or
-                "fxp" in interface_name.get("name")[0].get("data", NOT_SET)) and \
-                "demux" not in interface_name.get("name")[0].get("data", NOT_SET) and \
-                "local" not in interface_name.get("name")[0].get("data", NOT_SET) and \
-                interface_name.get("name")[0].get("data", NOT_SET) != NOT_SET:
-
+        if (
+            (
+                "em" in interface_name.get("name")[0].get("data") or
+                "lo" in interface_name.get("name")[0].get("data") or
+                "fxp" in interface_name.get("name")[0].get("data")
+            ) and
+            "demux" not in interface_name.get("name")[0].get("data") and
+            "local" not in interface_name.get("name")[0].get("data") and
+            interface_name.get("name")[0].get("data", NOT_SET) != NOT_SET
+        ):
             int_name_lst.append(
                 _mapping_interface_name(
                     interface_name.get("name")[0].get("data"))

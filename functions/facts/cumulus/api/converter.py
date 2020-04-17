@@ -3,11 +3,9 @@
 
 import os
 import json
-import lxml
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.netconf_tools import bytes_to_json
 from const.constants import (
     NOT_SET,
     LEVEL1,
