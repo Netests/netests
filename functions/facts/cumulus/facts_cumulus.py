@@ -37,7 +37,12 @@ def _cumulus_get_facts_api(task, options={}):
         cumulus_cmd=CUMULUS_API_GET_FACTS,
         secure_api=task.host.get('secure_api', True)
     )
-
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print(output_dict[FACTS_SYS_DICT_KEY])
+    
     output_dict[FACTS_INT_DICT_KEY] = exec_http_call_cumulus(
         hostname=task.host.hostname,
         port=task.host.port,
@@ -46,6 +51,11 @@ def _cumulus_get_facts_api(task, options={}):
         cumulus_cmd=CUMULUS_API_GET_INT,
         secure_api=task.host.get('secure_api', True)
     )
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print(output_dict[FACTS_INT_DICT_KEY])
 
     task.host[FACTS_DATA_HOST_KEY] = _cumulus_facts_api_converter(
         hostname=task.host.hostname,

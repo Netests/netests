@@ -28,6 +28,7 @@ def _cumulus_facts_ssh_converter(
     memory = NOT_SET
     vendor = NOT_SET
     model = NOT_SET
+    build = NOT_SET
     if FACTS_SYS_DICT_KEY in cmd_output.keys():
         if "\n" in cmd_output.get(FACTS_SYS_DICT_KEY) \
                              .get("hostname", NOT_SET):
@@ -40,6 +41,8 @@ def _cumulus_facts_ssh_converter(
                                  .get("hostname", NOT_SET)
         version = cmd_output.get(FACTS_SYS_DICT_KEY) \
                             .get("os-version", NOT_SET)
+        build = cmd_output.get(FACTS_SYS_DICT_KEY) \
+                          .get("build", NOT_SET)
         serial = cmd_output.get(FACTS_SYS_DICT_KEY) \
                            .get("eeprom") \
                            .get("tlv") \
@@ -71,7 +74,7 @@ def _cumulus_facts_ssh_converter(
         hostname=hostname,
         domain=NOT_SET,
         version=version,
-        build=NOT_SET,
+        build=build,
         serial=serial,
         base_mac=base_mac,
         memory=memory,

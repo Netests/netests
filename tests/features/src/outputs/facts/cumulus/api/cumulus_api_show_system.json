@@ -1,7 +1,7 @@
 {
     "memory": 951264,
     "uptime": "15:24:15.930000",
-    "hostname": "cumulus\\n",
+    "hostname": "leaf01\\n",
     "platform": {
         "detected": true,
         "vendor": "Cumulus",
@@ -10,7 +10,7 @@
     "build": "Cumulus Linux 3.7.5",
     "os-version": "3.7.5",
     "disk": null,
-    "lsb-release": "DISTRIB_ID=\\"Cumulus Linux\\"\\nDISTRIB_RELEASE=3.7.5\\nDISTRIB_DESCRIPTION=\\"Cumulus Linux 3.7.5\\"\\n",
+    "lsb-release": "DISTRIB_ID=\"Cumulus Linux\"\nDISTRIB_RELEASE=3.7.5\nDISTRIB_DESCRIPTION=\"Cumulus Linux 3.7.5\"\n",
     "os-description": "Cumulus Linux 3.7.5",
     "eeprom": {
         "idString": "TlvInfo",

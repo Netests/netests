@@ -1,12 +1,12 @@
 {
     "swp5": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 1500,
             "lacp": {
                 "rate": "",
@@ -14,16 +14,16 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "50: 00: 00: 01: 00: 05",
-            "vlan_filtering": False,
+            "mac": "50:00:00:01:00:05",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
-            "counters": None,
+            "counters": null,
             "ip_address": {
                 "allentries": []
             },
             "vlan_list": [],
-            "ip_neighbors": None
+            "ip_neighbors": null
         },
         "linkstate": "ADMDN",
         "summary": "",
@@ -33,12 +33,12 @@
     },
     "lo": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 65536,
             "lacp": {
                 "rate": "",
@@ -46,8 +46,8 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "00: 00: 00: 00: 00: 00",
-            "vlan_filtering": False,
+            "mac": "00:00:00:00:00:00",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
             "counters": {
@@ -66,23 +66,26 @@
             "ip_address": {
                 "allentries": [
                     "127.0.0.1/8",
-                    ": : 1/128"
+                    "::1/128"
                 ]
             },
             "vlan_list": [],
-            "ip_neighbors": None
+            "ip_neighbors": null
         },
         "linkstate": "UP",
-        "summary": "IP: 127.0.0.1/8,: : 1/128", "connector_type": "Unknown", "mode": "Loopback", "speed": "N/A"
+        "summary": "IP: 127.0.0.1/8, ::1/128",
+        "connector_type": "Unknown",
+        "mode": "Loopback",
+        "speed": "N/A"
     },
     "swp7": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 1500,
             "lacp": {
                 "rate": "",
@@ -90,16 +93,16 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "50: 00: 00: 01: 00: 07",
-            "vlan_filtering": False,
+            "mac": "50:00:00:01:00:07",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
-            "counters": None,
+            "counters": null,
             "ip_address": {
                 "allentries": []
             },
             "vlan_list": [],
-            "ip_neighbors": None
+            "ip_neighbors": null
         },
         "linkstate": "ADMDN",
         "summary": "",
@@ -109,12 +112,12 @@
     },
     "mgmt": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 65536,
             "lacp": {
                 "rate": "",
@@ -122,8 +125,8 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "b2: 56: 3d: 60: 76:e2",
-            "vlan_filtering": False,
+            "mac": "ea:bb:f3:ae:54:39",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
             "counters": {
@@ -131,12 +134,12 @@
                 "TX_ERR": 0,
                 "RX_OVR": 0,
                 "TX_OVR": 0,
-                "TX_OK": 46361,
+                "TX_OK": 13290,
                 "MTU": 65536,
                 "Met": 0,
                 "Flg": "OmRU",
                 "TX_DRP": 0,
-                "RX_OK": 47123,
+                "RX_OK": 13630,
                 "RX_DRP": 0
             },
             "ip_address": {
@@ -145,7 +148,7 @@
                 ]
             },
             "vlan_list": [],
-            "ip_neighbors": None
+            "ip_neighbors": null
         },
         "linkstate": "UP",
         "summary": "IP: 127.0.0.1/8",
@@ -155,12 +158,12 @@
     },
     "swp2": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 1500,
             "lacp": {
                 "rate": "",
@@ -168,16 +171,16 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "50: 00: 00: 01: 00: 02",
-            "vlan_filtering": False,
+            "mac": "50:00:00:01:00:02",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
-            "counters": None,
+            "counters": null,
             "ip_address": {
                 "allentries": []
             },
             "vlan_list": [],
-            "ip_neighbors": None
+            "ip_neighbors": null
         },
         "linkstate": "ADMDN",
         "summary": "",
@@ -187,12 +190,12 @@
     },
     "swp3": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 1500,
             "lacp": {
                 "rate": "",
@@ -200,16 +203,16 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "50: 00: 00: 01: 00: 03",
-            "vlan_filtering": False,
+            "mac": "50:00:00:01:00:03",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
-            "counters": None,
+            "counters": null,
             "ip_address": {
                 "allentries": []
             },
             "vlan_list": [],
-            "ip_neighbors": None
+            "ip_neighbors": null
         },
         "linkstate": "ADMDN",
         "summary": "",
@@ -219,12 +222,12 @@
     },
     "swp1": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 1500,
             "lacp": {
                 "rate": "",
@@ -232,16 +235,16 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "50: 00: 00: 01: 00: 01",
-            "vlan_filtering": False,
+            "mac": "50:00:00:01:00:01",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
-            "counters": None,
+            "counters": null,
             "ip_address": {
                 "allentries": []
             },
             "vlan_list": [],
-            "ip_neighbors": None
+            "ip_neighbors": null
         },
         "linkstate": "ADMDN",
         "summary": "",
@@ -251,12 +254,12 @@
     },
     "swp6": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 1500,
             "lacp": {
                 "rate": "",
@@ -264,16 +267,16 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "50: 00: 00: 01: 00: 06",
-            "vlan_filtering": False,
+            "mac": "50:00:00:01:00:06",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
-            "counters": None,
+            "counters": null,
             "ip_address": {
                 "allentries": []
             },
             "vlan_list": [],
-            "ip_neighbors": None
+            "ip_neighbors": null
         },
         "linkstate": "ADMDN",
         "summary": "",
@@ -283,12 +286,12 @@
     },
     "SECURE_NET": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 65536,
             "lacp": {
                 "rate": "",
@@ -296,8 +299,8 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "26: 85:f2: 03: 61:bf",
-            "vlan_filtering": False,
+            "mac": "76:fb:30:ba:83:ea",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
             "counters": {
@@ -317,7 +320,7 @@
                 "allentries": []
             },
             "vlan_list": [],
-            "ip_neighbors": None
+            "ip_neighbors": null
         },
         "linkstate": "UP",
         "summary": "",
@@ -327,12 +330,12 @@
     },
     "swp4": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 1500,
             "lacp": {
                 "rate": "",
@@ -340,16 +343,16 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "50: 00: 00: 01: 00: 04",
-            "vlan_filtering": False,
+            "mac": "50:00:00:01:00:04",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
-            "counters": None,
+            "counters": null,
             "ip_address": {
                 "allentries": []
             },
             "vlan_list": [],
-            "ip_neighbors": None
+            "ip_neighbors": null
         },
         "linkstate": "ADMDN",
         "summary": "",
@@ -359,12 +362,12 @@
     },
     "eth0": {
         "iface_obj": {
-            "lldp": None,
-            "native_vlan": None,
-            "dhcp_enabled": False,
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
             "description": "",
-            "vlan": None,
-            "asic": None,
+            "vlan": null,
+            "asic": null,
             "mtu": 1500,
             "lacp": {
                 "rate": "",
@@ -372,8 +375,8 @@
                 "partner_mac": "",
                 "bypass": ""
             },
-            "mac": "50: 00: 00: 01: 00: 00",
-            "vlan_filtering": False,
+            "mac": "50:00:00:01:00:00",
+            "vlan_filtering": false,
             "min_links": "",
             "members": {},
             "counters": {
@@ -381,12 +384,12 @@
                 "TX_ERR": 0,
                 "RX_OVR": 0,
                 "TX_OVR": 0,
-                "TX_OK": 3434,
+                "TX_OK": 790,
                 "MTU": 1500,
                 "Met": 0,
                 "Flg": "BMRU",
                 "TX_DRP": 0,
-                "RX_OK": 2474,
+                "RX_OK": 613,
                 "RX_DRP": 0
             },
             "ip_address": {
@@ -397,7 +400,7 @@
             "vlan_list": [],
             "ip_neighbors": {
                 "ipv4": [
-                    "00: 50: 56:c0: 00: 08"
+                    "00:50:56:c0:00:08"
                 ],
                 "ipv6": []
             }

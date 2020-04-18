@@ -1,10 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 from nornir.core.task import Task
-from const.constants import FACTS_WORKS_KEY, FACTS_DATA_HOST_KEY
 from protocols.facts import Facts
-# from nornir.plugins.functions.text import print_result
+from functions.verbose_mode import verbose_mode
+from functions.select_vars import select_host_vars
+from functions.global_tools import open_file, printline
+from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from const.constants import (
+    NOT_SET,
+    LEVEL2,
+    FACTS_WORKS_KEY,
+    FACTS_DATA_HOST_KEY
+)
 
 
 HEADER = "[netests - compare_infos]"
@@ -23,10 +32,8 @@ def compare_facts(nr, options={}) -> bool:
         on_failed=True,
         num_workers=10
     )
-    # print_result(data)
 
     return_value = True
-
     for value in data.values():
         if value.result is False:
             print(
@@ -63,37 +70,59 @@ def _compare_facts(
     task=Task
 ) -> bool:
     pass
-    """
-    verity_infos = SystemInfos()
-
-    if FACTS_DATA_HOST_KEY in host_keys:
-        if hostname in infos_data.keys():
-
-            facts = Facts(
-                hostname = hostname
-                domain = infos_data.get(hostname)
-                                   .get('domain', NOT_SET)
-                version = infos_data.get(hostname)
-                                    .get('version', NOT_SET)
-                serial = infos_data.get(hostname)
-                                   .get('serial', NOT_SET)
-                base_mac = infos_data.get(hostname)
-                                     .get('serial', NOT_SET)
-                memory = infos_data.get(hostname)
-                                   .get('memory', NOT_SET)
-                vendor = infos_data.get(hostname)
-                                   .get('vendor', NOT_SET)
-                model = infos_data.get(hostname)
-                                  .get('model', NOT_SET)
-                snmp_ips = infos_data.get(hostname)
-                                     .get('snmp_ips', list())
-                interfaces_lst = infos_data.get(hostname)
-                                           .get('interfaces', list())
+    if (
+        'own_vars' in options.keys() and
+        options.get('own_vars') is not None and
+        'enable' in options.get('own_vars').keys() and
+        options.get('own_vars').get('enable') is True
+    ):
+        raise NetestsOverideTruthVarsKeyUnsupported()
+    else:
+        if test:
+            facts_yaml_data = open_file(
+                path="tests/features/src/facts_tests.yml"
+            ).get(hostname)
+        else:
+            facts_yaml_data = select_host_vars(
+                hostname=hostname,
+                groups=groups,
+                protocol="facts"
             )
 
-        return verity_infos == infos_host_data
+        if (
+            FACTS_DATA_HOST_KEY in host_keys and
+            facts_yaml_data is not None
+        ):
+            verity_facts = Facts(
+                hostname=hostname,
+                domain=facts_yaml_data.get('domain', NOT_SET),
+                version=facts_yaml_data.get('version', NOT_SET),
+                build=facts_yaml_data.get('build', NOT_SET),
+                serial=facts_yaml_data.get('serial', NOT_SET),
+                base_mac=facts_yaml_data.get('serial', NOT_SET),
+                memory=facts_yaml_data.get('memory', NOT_SET),
+                vendor=facts_yaml_data.get('vendor', NOT_SET),
+                model=facts_yaml_data.get('model', NOT_SET),
+                interfaces_lst=facts_yaml_data.get('interfaces', list()),
+                options=facts_host_data.options
+            )
 
-    else:
-        print(f"Key {FACTS_DATA_HOST_KEY} is missing for {hostname}")
-        return False
-    """
+        else:
+            print(
+                f"{HEADER} Key {FACTS_DATA_HOST_KEY} is missing"
+                f"for {hostname} or no Facts data has been found."
+            )
+            return False
+
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print(
+            f"{HEADER} Return value for host {hostname}"
+            f"is {verity_facts == facts_host_data}"
+        )
+
+    print(facts_host_data.to_json())
+    print(verity_facts.to_json())
+    return verity_facts == facts_host_data

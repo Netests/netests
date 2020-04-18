@@ -101,7 +101,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a Cumulus Netconf named o0103')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus Facts with Netconf not possible -> Not tested")
 
 
 @given(u'I create a VRF object from a Cumulus SSH output named o0104')
@@ -936,7 +936,7 @@ def step_impl(context):
 
 @given(u'VRF o0101 should be equal to o0103')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus VRF with Netconf not possible -> Not tested")
 
 
 @given(u'VRF o0101 should be equal to o0104')
@@ -946,7 +946,7 @@ def step_impl(context):
 
 @given(u'VRF o0102 should be equal to o0103')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus VRF with Netconf not possible -> Not tested")
 
 
 @given(u'VRF o0102 should be equal to o0104')
@@ -956,7 +956,7 @@ def step_impl(context):
 
 @given(u'VRF o0103 should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus VRF with Netconf not possible -> Not tested")
 
 
 @given(u'VRF YAML file should be equal to o0102')
@@ -1376,7 +1376,7 @@ def step_impl(context):
     )
 
 
-@given(u'I Finish my test and list tests not implemented')
+@given(u'I Finish my VRF tests and list tests not implemented')
 def step_impl(context):
     printline()
     print("| The following tests are not implemented :")

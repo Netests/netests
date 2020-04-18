@@ -68,6 +68,9 @@ def _nxos_get_facts_api(task, options={}):
 
 
 def _nxos_get_facts_netconf(task, options={}):
+    raise NetestsFunctionNotImplemented(
+        "NX-OS Facts is not implemented with Netconf ..."
+    )
     with manager.connect(
         host=task.host.hostname,
         port=task.host.port,

@@ -29,12 +29,20 @@ def _cumulus_facts_api_converter(
     memory = NOT_SET
     vendor = NOT_SET
     model = NOT_SET
+    build = NOT_SET
     if FACTS_SYS_DICT_KEY in cmd_output.keys():
         cmd_output[FACTS_SYS_DICT_KEY] = json.loads(
             cmd_output.get(FACTS_SYS_DICT_KEY)
         )
-        if "\n" in cmd_output.get(FACTS_SYS_DICT_KEY) \
-                             .get("hostname", NOT_SET):
+
+        if '\\n' in cmd_output.get(FACTS_SYS_DICT_KEY) \
+                              .get("hostname", NOT_SET):
+            i = cmd_output.get(FACTS_SYS_DICT_KEY) \
+                          .get("hostname", NOT_SET).find("\n")
+            hostname = cmd_output.get(FACTS_SYS_DICT_KEY) \
+                                 .get("hostname", NOT_SET)[:(i-1)]
+        elif '\n' in cmd_output.get(FACTS_SYS_DICT_KEY) \
+                               .get("hostname", NOT_SET):
             i = cmd_output.get(FACTS_SYS_DICT_KEY) \
                           .get("hostname", NOT_SET).find("\n")
             hostname = cmd_output.get(FACTS_SYS_DICT_KEY) \
@@ -44,6 +52,8 @@ def _cumulus_facts_api_converter(
                                  .get("hostname", NOT_SET)
         version = cmd_output.get(FACTS_SYS_DICT_KEY) \
                             .get("os-version", NOT_SET)
+        build = cmd_output.get(FACTS_SYS_DICT_KEY) \
+                          .get("build", NOT_SET)
         serial = cmd_output.get(FACTS_SYS_DICT_KEY) \
                            .get("eeprom") \
                            .get("tlv") \
@@ -78,7 +88,7 @@ def _cumulus_facts_api_converter(
         hostname=hostname,
         domain=NOT_SET,
         version=version,
-        build=NOT_SET,
+        build=build,
         serial=serial,
         base_mac=base_mac,
         memory=memory,

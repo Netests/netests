@@ -166,4 +166,4 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And VRF YAML file should be equal to o0703
     And VRF YAML file should be equal to o0704
     # By Protocols
-    And I Finish my test and list tests not implemented 
+    And I Finish my VRF tests and list tests not implemented 

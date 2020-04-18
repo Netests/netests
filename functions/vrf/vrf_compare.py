@@ -114,9 +114,10 @@ def _compare_vrf(
                         )
                     )
 
-        else:
-            print(f"{HEADER} Key {VRF_DATA_KEY} is missing for {hostname}")
-            return False
+        print(
+            f"{HEADER} Key {VRF_DATA_KEY} is missing"
+            f"for {hostname} or no VRF data has been found."
+        )
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
