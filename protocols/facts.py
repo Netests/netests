@@ -16,7 +16,6 @@ class Facts:
     memory: str
     vendor: str
     model: str
-    snmp: list
     interfaces_lst: list
     options: dict
 

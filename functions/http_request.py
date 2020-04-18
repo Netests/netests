@@ -157,11 +157,11 @@ def exec_http_nxos(
         data="""{
             "ins_api": {
                 "version": "1.0",
-       	        "type": "cli_show",
+                "type": "cli_show",
                 "chunk": "0",
                 "sid": "1",
-       	        "input": "%s",
-       	        "output_format": "json"
+                "input": "%s",
+                "output_format": "json"
             }
         }""" % (str(command))
     )

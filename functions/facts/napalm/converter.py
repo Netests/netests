@@ -32,15 +32,29 @@ def _napalm_facts_converter(
     i = len(f"{str(cmd_output.get('facts').get('hostname'))}.")
 
     facts = Facts(
-        hostname=cmd_output.get('facts').get('hostname'),
-        domain=cmd_output.get("facts").get("fqdn", NOT_SET)[i:],
-        version=cmd_output.get("facts").get("os_version", NOT_SET),
-        serial=cmd_output.get("facts").get("serial_number", NOT_SET),
+        hostname=cmd_output.get('facts').get('hostname')
+                    if cmd_output.get("facts").get("hostname", NOT_SET)
+                        != '' else NOT_SET,
+        domain=cmd_output.get("facts").get("fqdn", NOT_SET)[i:]
+                    if cmd_output.get("facts").get("fqdn", NOT_SET)
+                        != '' else NOT_SET,
+        version=cmd_output.get("facts").get("os_version", NOT_SET)
+                    if cmd_output.get("facts").get("os_version", NOT_SET)
+                        != '' else NOT_SET,
+        serial=cmd_output.get("facts").get("serial_number", NOT_SET)
+                    if cmd_output.get("facts").get("serial_number", NOT_SET)
+                        != '' else NOT_SET,
         base_mac=NOT_SET,
         memory=NOT_SET,
-        vendor=cmd_output.get("facts").get("vendor", NOT_SET),
-        model=cmd_output.get("facts").get("model", NOT_SET),
-        interfaces_lst=cmd_output.get('facts').get('interface_list'),
+        vendor=cmd_output.get("facts").get("vendor", NOT_SET)
+                    if cmd_output.get("facts").get("vendor", NOT_SET)
+                        != '' else NOT_SET,
+        model=cmd_output.get("facts").get("model", NOT_SET)
+                    if cmd_output.get("facts").get("model", NOT_SET)
+                        != '' else NOT_SET,
+        interfaces_lst=cmd_output.get('facts').get('interface_list')
+                    if cmd_output.get("facts").get("interface_list", NOT_SET)
+                        != '' else [],
         options=options
     )
 

@@ -5,22 +5,15 @@ import os
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.discovery_protocols.discovery_functions import (
-    _mapping_interface_name
-)
 from const.constants import (
     NOT_SET,
     LEVEL1,
     FACTS_SYS_DICT_KEY,
     FACTS_INT_DICT_KEY,
-    FACTS_DOMAIN_DICT_KEY,
-    FACTS_MEMORY_DICT_KEY,
-    FACTS_CONFIG_DICT_KEY,
-    FACTS_SERIAL_DICT_KEY
+    FACTS_DOMAIN_DICT_KEY
 )
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
-
 
 
 def _nxos_facts_ssh_converter(
@@ -31,7 +24,6 @@ def _nxos_facts_ssh_converter(
     if cmd_output is None:
         return dict()
 
-
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
         for i in cmd_output.get(FACTS_INT_DICT_KEY) \
@@ -39,7 +31,6 @@ def _nxos_facts_ssh_converter(
                            .get('ROW_interface'):
             interfaces_lst.append(i.get('interface'))
 
-    
     hostname = NOT_SET
     version = NOT_SET
     serial = NOT_SET
@@ -64,7 +55,7 @@ def _nxos_facts_ssh_converter(
     if FACTS_DOMAIN_DICT_KEY in cmd_output.keys():
         if "." in cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
                             .get('hostname', NOT_SET):
-            i = len(str(cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
+            i = len(str(cmd_output.get(FACTS_DOMAIN_DICT_KEY)
                                   .get('hostname', NOT_SET)))
             domain = cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
                                .get("hostname")[i:]

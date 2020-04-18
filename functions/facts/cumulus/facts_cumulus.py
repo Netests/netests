@@ -42,7 +42,7 @@ def _cumulus_get_facts_api(task, options={}):
         needed_value=LEVEL2
     ):
         print(output_dict[FACTS_SYS_DICT_KEY])
-    
+
     output_dict[FACTS_INT_DICT_KEY] = exec_http_call_cumulus(
         hostname=task.host.hostname,
         port=task.host.port,

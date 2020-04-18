@@ -15,6 +15,7 @@ from const.constants import (
 )
 from functions.facts.cumulus.api.converter import _cumulus_facts_api_converter
 from functions.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
+from functions.facts.napalm.converter import _napalm_facts_converter
 from functions.facts.facts_compare import _compare_facts
 from protocols.facts import Facts
 from functions.global_tools import (
@@ -216,12 +217,33 @@ def step_impl(context):
 
 @given(u'I create a Facts object equals to NAPALM manually named o0601')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0601 = Facts(
+        hostname='leaf03',
+        domain=NOT_SET,
+        version=NOT_SET,
+        build=NOT_SET,
+        serial='9QXOX90PJ62',
+        base_mac=NOT_SET,
+        memory=NOT_SET,
+        vendor='Cisco',
+        model='Nexus9000 C9300v Chassis',
+        interfaces_lst=[],
+        options={}
+    )
 
 
 @given(u'I create a Facts object from a NAPALM output named o0602')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0602 = _napalm_facts_converter(
+        hostname="leaf03",
+        platform="nxos",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/facts/napalm/nxos_get_facts.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a Facts object equals to NXOS manually named o0701')
@@ -634,7 +656,7 @@ def step_impl(context):
 
 @given(u'Facts o0601 should be equal to o0602')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0601 == context.o0602
 
 
 @given(u'Facts o0701 should be equal to o0702')

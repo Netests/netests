@@ -372,35 +372,41 @@ Run the command `get` and the protocols that you would like retrieve.
 | --------- | :----------------: | ------------------ | :----------------: | :----------------: | :----------------: | :----------------: | ------------------ | :----------------: |
 | BGP       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | OSPF      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| SysInfos  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
+| Facts | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | Ping      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
+| LLDP | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :white_check_mark: |
+| VRF | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+|  |  |  |  |  |  |  |  |  |
+| **MVP ^^^** |  |  |  |  |  |  |  |  |
+|  |  |  |  |  |  |  |  |  |
 | Socket v4 |        :x:         | :white_check_mark:(1) | :white_check_mark:(4) |        :x:         |        :x:         |        :x:         |        :x:         | :sleepy:        |
 | Static    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| VRF       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :white_check_mark:         | :white_check_mark: |
-| LLDP      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-| CDP       |      :sleepy:      | :white_check_mark: | :sleepy:           | :white_check_mark: | :white_check_mark: |        :x:         |      :sleepy:      | :sleepy:           |
+| IS-IS       |        :x:         | :x:                   |          :x:          |        :x:         |        :x:         |        :x:         | :x:                | :x: |
+| IPv4        | :white_check_mark: | :white_check_mark:    |  :white_check_mark:   | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 |             |                    |                       |                       |                    |                    |                    |                    |                    |
-| **MVP ^^^** |                    |                       |                       |                    |                    |                    |                    |                    |
-| IS-IS       |        :x:         | :x:                   |          :x:          |        :x:         |        :x:         |        :x:         | :x:                |        :x:         |
-| LDP         |        :x:         | :x:                   |          :x:          |        :x:         |        :x:         |        :x:         | :x:                |        :x:         |
-| IPv4 | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :white_check_mark: |
+| **P2 ^^^** |                    |                       |                       |                    |                    |                    |                    |                    |
+|  |                    |                       |                       |                    |                    |                    |                    |                    |
+| VLAN        |        :x:         | :white_check_mark:    |  :white_check_mark:   |        :x:         |        :x:         |        :x:         | :x:                |        :x:         |
+| LACP        |        :x:         | :white_check_mark:    |          :x:          |        :x:         |        :x:         |        :x:         | :x:                | :sleepy: |
 | MTU | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :sleepy:(3) |
+| SNMP | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
+| Syslog | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
 | | | | | | | | | |
-| **P2 ^^^** |  |  |  |  |  |  |  |  |
+| **P3 ^^^** |  |  |  |  |  |  |  |  |
+|  | | | | | | | | |
 | IPv6 | :x: | :white_check_mark: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: |
 | MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | L2VNI | :x: | :sleepy:(2) | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| LACP | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| VLAN | :x: | :white_check_mark: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: |
+| LDP         |        :x:         | :x:                   |          :x:          |        :x:         |        :x:         |        :x:         | :x:                |        :x:         |
 |             |                    |                       |                       |                    |                    |                    |                    |                    |
-| **P3 ^^^** |                    |                    |                    |                    |                    |                    |                    |                    |
+| **P4 ^^^** |                    |                       |                       |                    |                    |                    |                    |                    |
+|  |                    |                    |                    |                    |                    |                    |                    |                    |
 | VTEP      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | Multicast |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| VLAN      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | VXLAN     |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | EVPN      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 |             |                    |                       |                       |                    |                    |                    |                    |                    |
-| **P4 ^^^** |  |  |  |  |  |  |  |  |
+| **P5 ^^^** |  |  |  |  |  |  |  |  |
 
 :white_check_mark: = Implemented
 
@@ -421,27 +427,27 @@ Run the command `get` and the protocols that you would like retrieve.
 
 ## Pipeline
 
-|                     | VRF                | MTU                | MLAG               | VLAN               | IPv4               | IPv6               | Static             | BGP                | OSPF               | SysInfos           | CDP        | LLDP               | VRF        | Ping       | Socket     |
+|                     | VRF                | FACTS              | MTU                | MLAG               | VLAN               | IPv4               | IPv6               | Static             | BGP                | OSPF               | CDP        | LLDP               | VRF        | Ping       | Socket     |
 | ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ---------- | ------------------ | ---------- | ---------- | ---------- |
-| NAPALM              | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Juniper SSH         | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    | :white_check_mark: |                    | :white_check_mark: |                    |            | :white_check_mark: |            |            |            |
+| NAPALM              | :white_check_mark: | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |                    |                    |                    |            |                    |            |            |            |
+| Juniper SSH         | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |                    | :white_check_mark: |                    | :white_check_mark: |            | :white_check_mark: |            |            |            |
 | Juniper Netconf     | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Juniper API         | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: |                    |            | :white_check_mark: |            |            |            |
+| Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: |            | :white_check_mark: |            |            |            |
 | Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: | :no_entry:         | :no_entry: | :no_entry: | :no_entry: |
-| Cumulus API         | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Arista SSH          |                    | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |                    |            | :white_check_mark: |            |            |            |
+| Cumulus API         | :white_check_mark: | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Arista SSH          |                    |                    | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |            | :white_check_mark: |            |            |            |
 | Arista API          |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Arista Netconf      |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Nexus SSH           | :white_check_mark: | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |            |                    |            |            |            |
+| Nexus SSH           | :white_check_mark: |                    | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    |            |                    |            |            |            |
 | Nexus Netconf       | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Nexus API           | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| IOS SSH             | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |            |                    |            |            |            |
+| IOS SSH             | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |                    |                    |                    | :white_check_mark: |            |                    |            |            |            |
 | IOS API             | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | IOS Netconf         | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Extreme VSP SSH     | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |                    | :white_check_mark: | :white_check_mark: |                    |            |                    |            |            |            |
+| Extreme VSP SSH     | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |                    |                    | :white_check_mark: | :white_check_mark: |            |                    |            |            |            |
 | Extreme VSP API     | :x:                |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: | :no_entry:         | :no_entry: | :no_entry: | :no_entry: |
+| Extreme VSP Netconf | :no_entry:         |                    | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: | :no_entry:         | :no_entry: | :no_entry: | :no_entry: |
 | IOSXR SSH           | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | IOSXR Netconf       | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | IOSXR API           | :no_entry:         |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |

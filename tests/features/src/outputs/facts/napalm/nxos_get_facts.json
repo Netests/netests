@@ -1,7 +1,7 @@
 {
     "facts": {
-        "fqdn": "sbx-n9kv-ao",
-        "hostname": "sbx-n9kv-ao",
+        "fqdn": "leaf03",
+        "hostname": "leaf03",
         "interface_list": [
             "mgmt0",
             "Ethernet1/1",

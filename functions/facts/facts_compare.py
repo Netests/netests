@@ -6,7 +6,7 @@ from nornir.core.task import Task
 from protocols.facts import Facts
 from functions.verbose_mode import verbose_mode
 from functions.select_vars import select_host_vars
-from functions.global_tools import open_file, printline
+from functions.global_tools import open_file
 from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 from const.constants import (
     NOT_SET,
@@ -123,6 +123,4 @@ def _compare_facts(
             f"is {verity_facts == facts_host_data}"
         )
 
-    print(facts_host_data.to_json())
-    print(verity_facts.to_json())
     return verity_facts == facts_host_data

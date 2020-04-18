@@ -321,7 +321,7 @@ class NetestsCLI():
                         nr=self.nornir,
                         options={
                             "from_cli": True,
-                            "print": self.options.get('vrf', {})
+                            "print": self.options.get('facts', {})
                         }
                     )
                 else:

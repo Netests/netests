@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 import os
 import json
 from ncclient import manager
@@ -41,7 +38,7 @@ def _nxos_get_facts_api(task, options={}):
         command=NEXUS_API_GET_FACTS,
         secure_api=task.host.get('secure_api', True)
     )
-    
+
     output_dict[FACTS_INT_DICT_KEY] = exec_http_nxos(
         hostname=task.host.hostname,
         port=task.host.port,
@@ -59,7 +56,7 @@ def _nxos_get_facts_api(task, options={}):
         command=NEXUS_API_GET_DOMAIN,
         secure_api=task.host.get('secure_api', True)
     )
-    
+
     task.host[FACTS_DATA_HOST_KEY] = _nxos_facts_api_converter(
         hostname=task.host.hostname,
         cmd_output=output_dict,
