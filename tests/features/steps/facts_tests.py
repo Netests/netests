@@ -11,10 +11,14 @@ from const.constants import (
     FACTS_DATA_HOST_KEY,
     FACTS_SYS_DICT_KEY,
     FACTS_INT_DICT_KEY,
-    FACTS_DOMAIN_DICT_KEY
+    FACTS_DOMAIN_DICT_KEY,
+    FACTS_MEMORY_DICT_KEY,
+    FACTS_CONFIG_DICT_KEY,
+    FACTS_SERIAL_DICT_KEY
 )
 from functions.facts.cumulus.api.converter import _cumulus_facts_api_converter
 from functions.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
+from functions.facts.juniper.ssh.converter import _juniper_facts_ssh_converter
 from functions.facts.napalm.converter import _napalm_facts_converter
 from functions.facts.facts_compare import _compare_facts
 from protocols.facts import Facts
@@ -197,7 +201,19 @@ def step_impl(context):
 
 @given(u'I create a Facts object equals to Juniper manually named o0501')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0501 = Facts(
+        hostname='leaf04',
+        domain='dh.local',
+        version='18.3R1.9',
+        build=NOT_SET,
+        serial='VM5E983D143E',
+        base_mac=NOT_SET,
+        memory=2052008,
+        vendor='Juniper',
+        model='vmx',
+        interfaces_lst=[],
+        options={}
+    )
 
 
 @given(u'I create a Facts object from a Juniper API output named o0502')
@@ -212,7 +228,50 @@ def step_impl(context):
 
 @given(u'I create a Facts object from a Juniper SSH output named o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output[FACTS_SYS_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/juniper/ssh/"
+            "juniper_show_version.json"
+        )
+    )
+    cmd_output[FACTS_INT_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/juniper/ssh/"
+            "juniper_show_interfaces_terse.json"
+        )
+    )
+    cmd_output[FACTS_INT_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/juniper/ssh/"
+            "juniper_show_interfaces_terse.json"
+        )
+    )
+    cmd_output[FACTS_MEMORY_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/juniper/ssh/"
+            "juniper_show_system_memory.json"
+        )
+    )
+    cmd_output[FACTS_CONFIG_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/juniper/ssh/"
+            "juniper_show_conf_system.json"
+        )
+    )
+    cmd_output[FACTS_SERIAL_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/juniper/ssh/"
+            "juniper_show_hardware_detail.json"
+        )
+    )
+    context.o0504 = _juniper_facts_ssh_converter(
+        hostname="leaf04",
+        cmd_output=cmd_output,
+        options={}
+    )
+
+    print(context.o0504)
 
 
 @given(u'I create a Facts object equals to NAPALM manually named o0601')
@@ -621,7 +680,7 @@ def step_impl(context):
 
 @given(u'Facts o0501 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0501 == context.o0504
 
 
 @given(u'Facts o0502 should be equal to o0503')
@@ -651,7 +710,13 @@ def step_impl(context):
 
 @given(u'Facts YAML file should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_facts(
+        host_keys=FACTS_DATA_HOST_KEY,
+        hostname="leaf04",
+        groups=['junos'],
+        facts_host_data=context.o0504,
+        test=True
+    )
 
 
 @given(u'Facts o0601 should be equal to o0602')

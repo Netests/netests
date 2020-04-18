@@ -44,7 +44,7 @@ def _juniper_facts_ssh_converter(
                            .get("system-memory-total")[0] \
                            .get("data", NOT_SET)
 
-    hostname = NOT_SET,
+    hostname = NOT_SET
     domain = NOT_SET
     if FACTS_CONFIG_DICT_KEY in cmd_output.keys():
         hostname = cmd_output.get(FACTS_CONFIG_DICT_KEY) \

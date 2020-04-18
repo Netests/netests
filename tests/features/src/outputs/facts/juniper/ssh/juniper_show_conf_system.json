@@ -21,7 +21,7 @@
             "root-authentication": {
                 "encrypted-password": "$6$B6Gd/PJU$yPPJaFBt6ImOHpIIYGkB413X2QWzYzGKxdjXltRatoAsvR9/.cMDSs9mexy6ZBa1i83mQ1xxbT3Tn9hTtzYOW."
             },
-            "host-name": "netests-01",
+            "host-name": "leaf04",
             "domain-name": "dh.local",
             "scripts": {
                 "language": "python"

@@ -30,4 +30,13 @@ leaf02:
 
 leaf03:
   version: NOT_SET
+
+
+leaf04:
+  domain: dh.local
+  version: 18.3R1.9
+  serial: VM5E983D143E
+  memory: 2052008
+  model: vmx
+  vendor: Juniper
   
