@@ -187,9 +187,12 @@ NEXUS_GET_IPV4_VRF = "show ip int vrf {} | json"
 NEXUS_GET_STATIC = "show ip route static | json"
 NEXUS_GET_STATIC_VRF = "show ip route static  vrf {} | json"
 NEXUS_GET_FACTS = "show version | json"
+NEXUS_API_GET_FACTS = "show version"
 NEXUS_GET_INT = "show interface brief | json"
+NEXUS_API_GET_INT = "show interface brief"
 NEXUS_GET_SNMP = "show snmp host | json"
 NEXUS_GET_DOMAIN = "show hostname | json"
+NEXUS_API_GET_DOMAIN = "show hostname"
 NEXUS_GET_MTU = "show interface | json"
 
 # ARISTA COMMANDS

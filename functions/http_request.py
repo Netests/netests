@@ -117,7 +117,7 @@ def juniper_http_post(
     res = requests.post(
         url=f"{protocol}://{hostname}:{port}/rpc",
         headers={
-            'Content-Typ': 'application/xml',
+            'Content-Type': 'application/xml',
             'Accept': 'application/xml'
         },
         auth=requests.auth.HTTPBasicAuth(
@@ -126,6 +126,44 @@ def juniper_http_post(
         ),
         verify=False,
         data="\n".join(endpoint)
+    )
+
+    return res.content
+
+
+def exec_http_nxos(
+    hostname: str,
+    port: str,
+    username: str,
+    password: str,
+    command: str,
+    secure_api=True
+) -> json:
+    if secure_api:
+        protocol = "https"
+    else:
+        protocol = "http"
+
+    res = requests.post(
+        url=f"{protocol}://{hostname}:{port}/ins",
+        headers={
+            'Content-Type': 'application/json',
+        },
+        auth=requests.auth.HTTPBasicAuth(
+            f"{username}",
+            f"{password}"
+        ),
+        verify=False,
+        data="""{
+            "ins_api": {
+                "version": "1.0",
+       	        "type": "cli_show",
+                "chunk": "0",
+                "sid": "1",
+       	        "input": "%s",
+       	        "output_format": "json"
+            }
+        }""" % (str(command))
     )
 
     return res.content

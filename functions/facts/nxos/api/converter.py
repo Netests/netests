@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import json
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
@@ -22,8 +23,7 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-
-def _nxos_facts_ssh_converter(
+def _nxos_facts_api_converter(
     hostname: str(),
     cmd_output,
     options={}
@@ -31,15 +31,20 @@ def _nxos_facts_ssh_converter(
     if cmd_output is None:
         return dict()
 
-
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
+        cmd_output[FACTS_INT_DICT_KEY] = json.loads(
+            cmd_output.get(FACTS_INT_DICT_KEY)
+        )
         for i in cmd_output.get(FACTS_INT_DICT_KEY) \
+                           .get('ins_api') \
+                           .get('outputs') \
+                           .get('output') \
+                           .get('body') \
                            .get('TABLE_interface') \
                            .get('ROW_interface'):
             interfaces_lst.append(i.get('interface'))
 
-    
     hostname = NOT_SET
     version = NOT_SET
     serial = NOT_SET
@@ -47,26 +52,68 @@ def _nxos_facts_ssh_converter(
     vendor = NOT_SET
     model = NOT_SET
     if FACTS_SYS_DICT_KEY in cmd_output.keys():
+        cmd_output[FACTS_SYS_DICT_KEY] = json.loads(
+            cmd_output.get(FACTS_SYS_DICT_KEY)
+        )
         hostname = cmd_output.get(FACTS_SYS_DICT_KEY) \
-                             .get("host_name", NOT_SET)
+                             .get('ins_api') \
+                             .get('outputs') \
+                             .get('output') \
+                             .get('body') \
+                             .get('host_name')
         version = cmd_output.get(FACTS_SYS_DICT_KEY) \
+                            .get('ins_api') \
+                            .get('outputs') \
+                            .get('output') \
+                            .get('body') \
                             .get("kickstart_ver_str", NOT_SET)
         serial = cmd_output.get(FACTS_SYS_DICT_KEY) \
+                           .get('ins_api') \
+                           .get('outputs') \
+                           .get('output') \
+                           .get('body') \
                            .get("proc_board_id", NOT_SET)
         memory = cmd_output.get(FACTS_SYS_DICT_KEY) \
+                           .get('ins_api') \
+                           .get('outputs') \
+                           .get('output') \
+                           .get('body') \
                            .get("memory", NOT_SET)
         vendor = cmd_output.get(FACTS_SYS_DICT_KEY) \
+                           .get('ins_api') \
+                           .get('outputs') \
+                           .get('output') \
+                           .get('body') \
                            .get("manufacturer", NOT_SET)
         model = cmd_output.get(FACTS_SYS_DICT_KEY) \
+                          .get('ins_api') \
+                          .get('outputs') \
+                          .get('output') \
+                          .get('body') \
                           .get("chassis_id", NOT_SET)
 
     domain = NOT_SET
     if FACTS_DOMAIN_DICT_KEY in cmd_output.keys():
+        cmd_output[FACTS_DOMAIN_DICT_KEY] = json.loads(
+            cmd_output.get(FACTS_DOMAIN_DICT_KEY)
+        )
         if "." in cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
+                            .get('ins_api') \
+                            .get('outputs') \
+                            .get('output') \
+                            .get('body') \
                             .get('hostname', NOT_SET):
-            i = len(str(cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
+            i = len(str(cmd_output.get(FACTS_DOMAIN_DICT_KEY)
+                                  .get('ins_api')
+                                  .get('outputs')
+                                  .get('output')
+                                  .get('body')
                                   .get('hostname', NOT_SET)))
             domain = cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
+                               .get('ins_api') \
+                               .get('outputs') \
+                               .get('output') \
+                               .get('body') \
                                .get("hostname")[i:]
 
     facts = Facts(
@@ -91,11 +138,3 @@ def _nxos_facts_ssh_converter(
         PP.pprint(facts.to_json())
 
     return facts
-
-
-def _nexus_retrieve_int_name(interface_data: list) -> list:
-    int_name_lst = list()
-    if interface_data is not None:
-        for i in interface_data:
-            int_name_lst.append(i.get("interface"))
-    return int_name_lst
