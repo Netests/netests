@@ -167,3 +167,40 @@ def exec_http_nxos(
     )
 
     return res.content
+
+
+def exec_http_extreme_vsp(
+    hostname: str,
+    port: str,
+    username: str,
+    password: str,
+    endpoint: str,
+    secure_api=True
+) -> json:
+    if secure_api:
+        protocol = "https"
+    else:
+        protocol = "http"
+
+    login = requests.post(
+        url=f"{protocol}://{hostname}:{port}/auth/token/",
+        headers={
+            'Content-Type': 'application/json',
+        },
+        data="""
+            {
+                "username": "%s",
+                "password": "%s"
+            }
+        """ % (username, password)
+    )
+    auth_token = json.loads(login.content).get('token')
+
+    data = requests.get(
+        url=f"{protocol}://{hostname}:{port}/rest/restconf/data/{endpoint}",
+        headers={
+            'X-Auth-Token': auth_token,
+        }
+    )
+
+    return json.loads(data.content)

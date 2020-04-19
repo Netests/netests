@@ -1,0 +1,462 @@
+{
+    "openconfig-system:system": {
+        "aaa": {
+            "accounting": {
+                "config": {
+                    "accounting-method": []
+                },
+                "events": {
+                    "event": [
+                        {
+                            "config": {
+                                "event-type": "AAA_ACCOUNTING_EVENT_COMMAND",
+                                "record": "START_STOP"
+                            },
+                            "event-type": "AAA_ACCOUNTING_EVENT_COMMAND",
+                            "state": {
+                                "event-type": "AAA_ACCOUNTING_EVENT_COMMAND",
+                                "record": "START_STOP"
+                            }
+                        },
+                        {
+                            "config": {
+                                "event-type": "AAA_ACCOUNTING_EVENT_LOGIN",
+                                "record": "START_STOP"
+                            },
+                            "event-type": "AAA_ACCOUNTING_EVENT_LOGIN",
+                            "state": {
+                                "event-type": "AAA_ACCOUNTING_EVENT_LOGIN",
+                                "record": "START_STOP"
+                            }
+                        }
+                    ]
+                },
+                "state": {
+                    "accounting-method": []
+                }
+            },
+            "authentication": {
+                "admin-user": {
+                    "config": {
+                        "admin-password": "********",
+                        "admin-password-encrypted": null
+                    },
+                    "state": {
+                        "admin-password": "********",
+                        "admin-password-encrypted": null,
+                        "admin-username": "rwa"
+                    }
+                },
+                "config": {
+                    "authentication-method": [
+                        "LOCAL"
+                    ]
+                },
+                "state": {
+                    "authentication-method": [
+                        "LOCAL"
+                    ]
+                },
+                "users": {
+                    "user": [
+                        {
+                            "config": {
+                                "password": "********",
+                                "password-encrypted": null,
+                                "role": "read-only",
+                                "ssh-key": null,
+                                "username": "ro"
+                            },
+                            "state": {
+                                "password": "********",
+                                "password-encrypted": null,
+                                "role": "read-only",
+                                "ssh-key": null,
+                                "username": "ro"
+                            },
+                            "username": "ro"
+                        },
+                        {
+                            "config": {
+                                "password": "********",
+                                "password-encrypted": null,
+                                "role": "read-write",
+                                "ssh-key": null,
+                                "username": "rw"
+                            },
+                            "state": {
+                                "password": "********",
+                                "password-encrypted": null,
+                                "role": "read-write",
+                                "ssh-key": null,
+                                "username": "rw"
+                            },
+                            "username": "rw"
+                        },
+                        {
+                            "config": {
+                                "password": "********",
+                                "password-encrypted": null,
+                                "role": "SYSTEM_ROLE_ADMIN",
+                                "ssh-key": null,
+                                "username": "rwa"
+                            },
+                            "state": {
+                                "password": "********",
+                                "password-encrypted": null,
+                                "role": "SYSTEM_ROLE_ADMIN",
+                                "ssh-key": null,
+                                "username": "rwa"
+                            },
+                            "username": "rwa"
+                        }
+                    ]
+                }
+            },
+            "authorization": {
+                "config": {
+                    "authorization-method": [
+                        "LOCAL"
+                    ]
+                },
+                "events": {
+                    "event": [
+                        {
+                            "config": {
+                                "event-type": "AAA_AUTHORIZATION_EVENT_COMMAND"
+                            },
+                            "event-type": "AAA_AUTHORIZATION_EVENT_COMMAND",
+                            "state": {
+                                "event-type": "AAA_AUTHORIZATION_EVENT_COMMAND"
+                            }
+                        }
+                    ]
+                },
+                "state": {
+                    "authorization-method": [
+                        "LOCAL"
+                    ]
+                }
+            },
+            "server-groups": {
+                "server-group": [
+                    {
+                        "config": {
+                            "name": "TacacsServerGroup",
+                            "type": "TACACS"
+                        },
+                        "name": "TacacsServerGroup",
+                        "state": {
+                            "name": "TacacsServerGroup",
+                            "type": "TACACS"
+                        }
+                    },
+                    {
+                        "config": {
+                            "name": "RadiusServerGroup",
+                            "type": "RADIUS"
+                        },
+                        "name": "RadiusServerGroup",
+                        "state": {
+                            "name": "RadiusServerGroup",
+                            "type": "RADIUS"
+                        }
+                    }
+                ]
+            }
+        },
+        "clock": {
+            "config": {
+                "timezone-name": null
+            },
+            "state": {
+                "timezone-name": null
+            }
+        },
+        "config": {
+            "domain-name": "dh.local",
+            "hostname": "spine02",
+            "login-banner": "",
+            "motd-banner": ""
+        },
+        "dns": {
+            "config": {
+                "search": ""
+            },
+            "state": {
+                "search": ""
+            }
+        },
+        "memory": {
+            "state": {
+                "physical": 2087444480,
+                "reserved": null
+            }
+        },
+        "ntp": {
+            "config": {
+                "enable-ntp-auth": null,
+                "enabled": "False",
+                "ntp-source-address": null
+            },
+            "state": {
+                "auth-mismatch": null,
+                "enable-ntp-auth": null,
+                "enabled": "False",
+                "ntp-source-address": null
+            }
+        },
+        "processes": {
+            "process": [
+                {
+                    "pid": "2940",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "653636",
+                        "memory-utilization": null,
+                        "name": "restweb_voss.py",
+                        "pid": "2940",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "2941",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "4304",
+                        "memory-utilization": null,
+                        "name": "logger",
+                        "pid": "2941",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "10",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "migration/0",
+                        "pid": "10",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "11",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "cpuhp/0",
+                        "pid": "11",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "12",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "kdevtmpfs",
+                        "pid": "12",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "13",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "netns",
+                        "pid": "13",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "6",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "mm_percpu_wq",
+                        "pid": "6",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "7",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "ksoftirqd/0",
+                        "pid": "7",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "4",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "kworker/0:0H",
+                        "pid": "4",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "2",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "kthreadd",
+                        "pid": "2",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "1",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "4300",
+                        "memory-utilization": null,
+                        "name": "init",
+                        "pid": "1",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "2935",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "kworker/u2:0",
+                        "pid": "2935",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "8",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "rcu_sched",
+                        "pid": "8",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                },
+                {
+                    "pid": "9",
+                    "state": {
+                        "args": [],
+                        "cpu-usage-system": null,
+                        "cpu-usage-user": null,
+                        "cpu-utilization": "0",
+                        "memory-usage": "0",
+                        "memory-utilization": null,
+                        "name": "rcu_bh",
+                        "pid": "9",
+                        "start-time": null,
+                        "uptime": null
+                    }
+                }
+            ]
+        },
+        "ssh-server": {
+            "config": {
+                "enable": "True",
+                "protocol-version": "V2",
+                "rate-limit": null,
+                "session-limit": "4",
+                "timeout": "60"
+            },
+            "state": {
+                "enable": "True",
+                "protocol-version": "V2",
+                "rate-limit": null,
+                "session-limit": "4",
+                "timeout": "60"
+            }
+        },
+        "state": {
+            "boot-time": 1579220497,
+            "current-datetime": "2020-04-16T23:33:05Z",
+            "domain-name": "dh.local",
+            "hostname": "spine02",
+            "login-banner": "",
+            "motd-banner": ""
+        },
+        "telnet-server": {
+            "config": {
+                "enable": "False",
+                "rate-limit": null,
+                "session-limit": "8",
+                "timeout": "900"
+            },
+            "state": {
+                "enable": "False",
+                "rate-limit": null,
+                "session-limit": "8",
+                "timeout": "900"
+            }
+        }
+    }
+}

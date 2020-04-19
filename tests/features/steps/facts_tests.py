@@ -18,6 +18,7 @@ from const.constants import (
 )
 from functions.facts.cumulus.api.converter import _cumulus_facts_api_converter
 from functions.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
+from functions.facts.extreme_vsp.api.converter import _extreme_vsp_facts_api_converter
 from functions.facts.juniper.api.converter import _juniper_facts_api_converter
 from functions.facts.juniper.netconf.converter import _juniper_facts_netconf_converter
 from functions.facts.juniper.ssh.converter import _juniper_facts_ssh_converter
@@ -135,15 +136,130 @@ def step_impl(context):
 
 @given(u'I create a Facts object equals to Extreme VSP manually named o0201')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0201 = Facts(
+        hostname='spine02',
+        domain='dh.local',
+        version=NOT_SET,
+        build=NOT_SET,
+        serial=NOT_SET,
+        base_mac=NOT_SET,
+        memory=2087444480,
+        vendor='Extreme Networks',
+        model=NOT_SET,
+        interfaces_lst=[ 'mgmt',
+                         '1/1',
+                         '1/2',
+                         '1/3',
+                         '1/4',
+                         '1/5',
+                         '1/6',
+                         '1/7',
+                         '1/8',
+                         '1/9',
+                         '1/10',
+                         '1/11',
+                         '1/12',
+                         '1/13',
+                         '1/14',
+                         '1/15',
+                         '1/16',
+                         '1/17',
+                         '1/18',
+                         '1/19',
+                         '1/20',
+                         '1/21',
+                         '1/22',
+                         '1/23',
+                         '1/24',
+                         '1/25',
+                         '1/26',
+                         '1/27',
+                         '1/28',
+                         '1/29',
+                         '1/30',
+                         '1/31',
+                         '1/32',
+                         '1/33',
+                         '1/34',
+                         '1/35',
+                         '1/36',
+                         '1/37',
+                         '1/38',
+                         '1/39',
+                         '1/40',
+                         '1/41',
+                         '1/42',
+                         '2/1',
+                         '2/2',
+                         '2/3',
+                         '2/4',
+                         '2/5',
+                         '2/6',
+                         '2/7',
+                         '2/8',
+                         '2/9',
+                         '2/10',
+                         '2/11',
+                         '2/12',
+                         '2/13',
+                         '2/14',
+                         '2/15',
+                         '2/16',
+                         '2/17',
+                         '2/18',
+                         '2/19',
+                         '2/20',
+                         '2/21',
+                         '2/22',
+                         '2/23',
+                         '2/24',
+                         '2/25',
+                         '2/26',
+                         '2/27',
+                         '2/28',
+                         '2/29',
+                         '2/30',
+                         '2/31',
+                         '2/32',
+                         '2/33',
+                         '2/34',
+                         '2/35',
+                         '2/36',
+                         '2/37',
+                         '2/38',
+                         '2/39',
+                         '2/40',
+                         '2/41',
+                         '2/42',
+                         'Default'],
+        options={}
+    )
 
 
-@given(u'I create a Facts object from a Extreme VSP API output named o0204')
+@given(u'I create a Facts object from a Extreme VSP API output named o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output[FACTS_SYS_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/extreme_vsp/api/"
+            "extreme_vsp_api_openconfig_system.json"
+        )
+    )
+    cmd_output[FACTS_INT_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/extreme_vsp/api/"
+            "extreme_vsp_api_openconfig_interfaces.json"
+        )
+    )
+
+    context.o0202 = _extreme_vsp_facts_api_converter(
+        hostname="spine02",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
-@given(u'I create a Facts object from a Extreme VSP Netconf output named o0204')
+@given(u'I create a Facts object from a Extreme VSP Netconf output named o0203')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
 
@@ -525,7 +641,13 @@ def step_impl(context):
 
 @given(u'Facts o0201 should be equal to o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0201 == context.o0202 and
+        context.o0201.hostname == context.o0202.hostname and
+        context.o0201.domain == context.o0202.domain and
+        context.o0201.memory == context.o0202.memory and
+        context.o0201.interfaces_lst == context.o0202.interfaces_lst
+    )
 
 
 @given(u'Facts o0201 should be equal to o0203')
