@@ -55,10 +55,13 @@ def _nxos_facts_ssh_converter(
     if FACTS_DOMAIN_DICT_KEY in cmd_output.keys():
         if "." in cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
                             .get('hostname', NOT_SET):
-            i = len(str(cmd_output.get(FACTS_DOMAIN_DICT_KEY)
-                                  .get('hostname', NOT_SET)))
+            i = cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
+                          .get('hostname', NOT_SET).find('.')
             domain = cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
-                               .get("hostname")[i:]
+                               .get("hostname")[i+1:]
+        else:
+            domain = cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
+                               .get("hostname")
 
     facts = Facts(
         hostname=hostname,

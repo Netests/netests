@@ -30,15 +30,58 @@ from const.constants import (
     JUNOS_GET_CONFIG_SYSTEM,
     JUNOS_GET_SERIAL
 )
-from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 
 
 def _juniper_get_facts_api(task, options={}):
-    raise NetestsFunctionNotImplemented(
-        "Juniper - Facts with API doesn't work due to malformed HTTP body"
+    outputs_dict = dict()
+    outputs_dict[FACTS_SYS_DICT_KEY] = exec_http_call_juniper(
+        hostname=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        endpoint="get-software-information",
+        secure_api=task.host['secure_api']
+    )
+    ElementTree.fromstring(outputs_dict[FACTS_SYS_DICT_KEY])
+
+    outputs_dict[FACTS_INT_DICT_KEY] = exec_http_call_juniper(
+        hostname=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        endpoint="get-interface-information?terse=",
+        secure_api=task.host['secure_api']
+    )
+    ElementTree.fromstring(outputs_dict[FACTS_INT_DICT_KEY])
+
+    outputs_dict[FACTS_SERIAL_DICT_KEY] = exec_http_call_juniper(
+        hostname=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        endpoint="get-chassis-inventory?detail=",
+        secure_api=task.host['secure_api']
+    )
+    ElementTree.fromstring(outputs_dict[FACTS_SERIAL_DICT_KEY])
+
+    outputs_dict[FACTS_MEMORY_DICT_KEY] = exec_http_call_juniper(
+        hostname=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        endpoint="get-system-memory-information",
+        secure_api=task.host['secure_api']
+    )
+    ElementTree.fromstring(outputs_dict[FACTS_MEMORY_DICT_KEY])
+
+    task.host[FACTS_DATA_HOST_KEY] = _juniper_facts_api_converter(
+        hostname=task.host.name,
+        cmd_output=outputs_dict,
+        options=options
     )
 
-    cmd_output = exec_http_call_juniper(
+    """
+    outputs_dict = exec_http_call_juniper(
         hostname=task.host.hostname,
         port=task.host.port,
         username=task.host.username,
@@ -51,14 +94,7 @@ def _juniper_get_facts_api(task, options={}):
         ],
         secure_api=task.host.get('secure_api', False)
     )
-
-    ElementTree.fromstring(cmd_output)
-
-    task.host[FACTS_DATA_HOST_KEY] = _juniper_facts_api_converter(
-        hostname=task.host.name,
-        cmd_output=cmd_output,
-        options=options
-    )
+    """
 
 
 def _juniper_get_facts_netconf(task, options={}):

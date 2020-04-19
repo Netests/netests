@@ -1,0 +1,49 @@
+<chassis-inventory xmlns="http://xml.juniper.net/jun
+                        os/19.4R0/junos-chassis" 
+    xmlns:junos="http://xml.jun
+                        iper.net/junos/*/junos">
+    <chassis junos:style="inven
+                        tory">
+        <name>Chassis</name>
+        <serial-number>VM5E9C32AA0B</serial-number>
+        <description>VMX</description>
+        <chassis-module>
+            <name>Midplane</name>
+        </chassis-module>
+        <chassis-module>
+            <name>Routing Engine 0</name>
+            <description>RE-VMX</description>
+            <chassis-re-disk-module>
+                <name>ada0</name>
+                <disk-size>27649</disk-size>
+                <model>VMware Virtual IDE Har</model>
+                <serial-number>00000000000000000001</serial-number>
+                <description>Hard Disk</description>
+            </chassis-re-disk-module>
+        </chassis-module>
+        <chassis-module>
+            <name>CB 0</name>
+            <description>VMXSCB</description>
+        </chassis-module>
+        <chassis-module>
+            <name>FPC 0</name>
+            <description>Virtual FPC</description>
+            <chassis-sub-module>
+                <name>CPU</name>
+                <version>Rev. 1.0</version>
+                <part-number>RIOT-LITE</part-number>
+                <serial-number>BUILTIN</serial-number>
+            </chassis-sub-module>
+            <chassis-sub-module>
+                <name>MIC 0</name>
+                <description>Virtual</description>
+                <chassis-sub-sub-module>
+                    <name>PIC 0</name>
+                    <part-number>BUILTIN</part-number>
+                    <serial-number>BUILTIN</serial-number>
+                    <description>Virtual</description>
+                </chassis-sub-sub-module>
+            </chassis-sub-module>
+        </chassis-module>
+    </chassis>
+</chassis-inventory>

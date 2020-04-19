@@ -48,9 +48,14 @@ Software
 
 ```shell
 > show version
-Hostname: netests-01
+Hostname: leaf04
 Model: vmx
 Junos: 18.3R1.9
+#----------------------
+> show version
+Hostname: leaf04
+Model: vmx
+Junos: 19.4R1.10
 ```
 
 
@@ -431,15 +436,15 @@ Run the command `get` and the protocols that you would like retrieve.
 | ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ---------- | ------------------ | ---------- | ---------- | ---------- |
 | NAPALM              | :white_check_mark: | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |                    |                    |                    |            |                    |            |            |            |
 | Juniper SSH         | :white_check_mark: | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    | :white_check_mark: |                    | :white_check_mark: |            | :white_check_mark: |            |            |            |
-| Juniper Netconf     | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Juniper API         | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Juniper Netconf     | :white_check_mark: | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
+| Juniper API         | :white_check_mark: | :x:                |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: |            | :white_check_mark: |            |            |            |
 | Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: | :no_entry:         | :no_entry: | :no_entry: | :no_entry: |
 | Cumulus API         | :white_check_mark: | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Arista SSH          |                    |                    | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |            | :white_check_mark: |            |            |            |
 | Arista API          |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Arista Netconf      |                    |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
-| Nexus SSH           | :white_check_mark: |                    | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    |            |                    |            |            |            |
+| Nexus SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    |            |                    |            |            |            |
 | Nexus Netconf       | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | Nexus API           | :white_check_mark: |                    |                    |                    |                    |                    |                    |                    |                    |                    |            |                    |            |            |            |
 | IOS SSH             | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |                    |                    |                    | :white_check_mark: |            |                    |            |            |            |

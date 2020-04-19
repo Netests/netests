@@ -3,6 +3,7 @@
 
 import os
 from protocols.facts import Facts
+from xml.etree import ElementTree
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.netconf_tools import format_xml_output
@@ -28,7 +29,8 @@ def _juniper_facts_netconf_converter(
         needed_value=LEVEL5
     ):
         printline()
-        PP.pprint(cmd_output)
+        PP.pprint(cmd_output.get(FACTS_SYS_DICT_KEY))
+        print(ElementTree.tostring(cmd_output.get(FACTS_INT_DICT_KEY)))
 
     interfaces_lst = list()
     for i in format_xml_output(
@@ -45,7 +47,7 @@ def _juniper_facts_netconf_converter(
         base_mac=NOT_SET,
         memory=NOT_SET,
         vendor="Juniper",
-        model=cmd_output.get(FACTS_SYS_DICT_KEY).get('model', NOT_SET),
+        model=cmd_output.get(FACTS_SYS_DICT_KEY).get('model', NOT_SET).upper(),
         interfaces_lst=interfaces_lst,
         options=options
     )

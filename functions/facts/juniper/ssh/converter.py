@@ -62,7 +62,7 @@ def _juniper_facts_ssh_converter(
         model = cmd_output.get(FACTS_SYS_DICT_KEY) \
                           .get('software-information')[0] \
                           .get('product-model')[0] \
-                          .get('data', NOT_SET)
+                          .get('data', NOT_SET).upper()
         version = cmd_output.get(FACTS_SYS_DICT_KEY) \
                             .get('software-information')[0] \
                             .get('junos-version')[0] \
