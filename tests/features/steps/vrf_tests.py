@@ -168,12 +168,12 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a Extreme VSP API output named o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with API has no endpoint -> Not tested")
 
 
 @given(u'I create a VRF object from a Extreme VSP Netconf output named o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with Netconf not possible -> Not tested")
 
 
 @given(u'I create a VRF object from a Extreme VSP SSH output named o0204')
@@ -988,12 +988,12 @@ def step_impl(context):
 
 @given(u'VRF o0201 should be equal to o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with API has no endpoint -> Not tested")
 
 
 @given(u'VRF o0201 should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with Netconf not possible -> Not tested")
 
 
 @given(u'VRF o0201 should be equal to o0204')
@@ -1003,27 +1003,28 @@ def step_impl(context):
 
 @given(u'VRF o0202 should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with API has no endpoint -> Not tested")
+    print("Extreme VSP VRF with Netconf not possible -> Not tested")
 
 
 @given(u'VRF o0202 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with API has no endpoint -> Not tested")
 
 
 @given(u'VRF o0203 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with Netconf not possible -> Not tested")
 
 
 @given(u'VRF YAML file should be equal to o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with API has no endpoint -> Not tested")
 
 
 @given(u'VRF YAML file should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with Netconf not possible -> Not tested")
 
 
 @given(u'VRF YAML file should be equal to o0204')

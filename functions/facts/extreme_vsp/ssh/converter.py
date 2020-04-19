@@ -1,72 +1,82 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# import os
+import os
 from protocols.facts import Facts
-"""
+from functions.cli_tools import parse_textfsm
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.discovery_protocols.discovery_functions import (
-    _mapping_interface_name
-)
 from const.constants import (
     NOT_SET,
     LEVEL1,
     FACTS_SYS_DICT_KEY,
     FACTS_INT_DICT_KEY,
-    FACTS_MEMORY_DICT_KEY,
-    FACTS_CONFIG_DICT_KEY,
-    FACTS_SERIAL_DICT_KEY
+    FACTS_DOMAIN_DICT_KEY
 )
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
-"""
 
 
-def _arista_facts_ssh_converter(
+def _extreme_vsp_facts_ssh_converter(
     hostname: str(),
     cmd_output,
     options={}
 ) -> Facts:
-    if cmd_output is None:
-        return dict()
+    interfaces_lst = list()
+    if FACTS_INT_DICT_KEY in cmd_output.keys():
+        cmd_output[FACTS_INT_DICT_KEY] = parse_textfsm(
+            content=cmd_output[FACTS_INT_DICT_KEY],
+            template_file="extrme_vsp_show_int_gi_name.textfsm"
+        )
+        for i in cmd_output.get(FACTS_INT_DICT_KEY):
+            interfaces_lst.append(i[0])
 
-    """
-    if cmd_outputs == None:
-        return dict()
+    hostname = NOT_SET
+    version = NOT_SET
+    model = NOT_SET
+    serial = NOT_SET
+    base_mac = NOT_SET
+    if FACTS_SYS_DICT_KEY in cmd_output.keys():
+        cmd_output[FACTS_SYS_DICT_KEY] = parse_textfsm(
+            content=cmd_output[FACTS_SYS_DICT_KEY],
+            template_file="extreme_vsp_show_tech.textfsm"
+        )
+        for v in cmd_output.get(FACTS_SYS_DICT_KEY):
+            hostname = v[1] if v[1] != "" else NOT_SET
+            version = v[0] if v[0] != "" else NOT_SET
+            model = v[2] if v[2] != "" else NOT_SET
+            # vendor = v[3] if v[3] != "" else NOT_SET
+            serial = v[4] if v[4] != "" else NOT_SET
+            base_mac = v[5] if v[5] != "" else NOT_SET
 
-    sys_info_obj = SystemInfos()
+    domain = NOT_SET
+    if FACTS_SYS_DICT_KEY in cmd_output.keys():
+        cmd_output[FACTS_DOMAIN_DICT_KEY] = parse_textfsm(
+            content=cmd_output[FACTS_DOMAIN_DICT_KEY],
+            template_file="extreme_vsp_show_sys_dns.textfsm"
+        )
+        for v in cmd_output.get(FACTS_DOMAIN_DICT_KEY):
+            domain = v[0] if v[0] != "" else NOT_SET
 
-    for key in cmd_outputs.keys():
-        if key == INFOS_SYS_DICT_KEY:
+    facts = Facts(
+        hostname=hostname,
+        domain=domain,
+        version=version,
+        build=NOT_SET,
+        serial=serial,
+        base_mac=base_mac,
+        memory=NOT_SET,
+        vendor="Extreme Networks",
+        model=model,
+        interfaces_lst=interfaces_lst,
+        options=options
+    )
 
-            for value in cmd_outputs.get(INFOS_SYS_DICT_KEY):
-                version = value[0] if value[0] != "" else NOT_SET
-                hostname = value[1] if value[1] != "" else NOT_SET
-                model = value[2] if value[2] != "" else NOT_SET
-                vendor = value[3] if value[3] != "" else NOT_SET
-                serial = value[4] if value[4] != "" else NOT_SET
-                base_mac = value[5] if value[5] != ""
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL1
+    ):
+        printline()
+        PP.pprint(facts.to_json())
 
-        if key == INFOS_DOMAIN_DICT_KEY:
-
-            for value in cmd_outputs.get(INFOS_DOMAIN_DICT_KEY):
-
-                sys_info_obj.domain = value[0] if value[0] != "" else NOT_SET
-
-        if key == INFOS_SNMP_DICT_KEY:
-
-            for value in cmd_outputs.get(INFOS_SNMP_DICT_KEY):
-
-                sys_info_obj.snmp_ips.append(value[0])
-
-        if key == INFOS_INT_DICT_KEY:
-
-            for value in cmd_outputs.get(INFOS_INT_DICT_KEY):
-
-                sys_info_obj.interfaces_lst.append(
-                    _mapping_interface_name(value[0])
-                )
-
-    return sys_info_obj
-    """
+    return facts

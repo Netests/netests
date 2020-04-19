@@ -1,0 +1,2103 @@
+************************************************************************************
+		Command Execution Time: Fri Apr 17 01:04:53 2020 UTC
+************************************************************************************
+
+Sys Info:
+---------------
+
+
+General Info :
+
+	SysDescr     : VSP-8284XSQ (8.1.0.0)
+	SysName      : spine02
+	SysUpTime    : 0 day(s), 02:20:20
+	SysContact   : http://www.extremenetworks.com/contact/
+	SysLocation  :
+
+Chassis Info:
+
+	Chassis            : 8284XSQ
+	ModelName          : 8284XSQ
+	BrandName          : Extreme Networks.
+	Serial#            : SDNIPM624B36
+	H/W Revision       : 1
+	H/W Config         :
+	Part Number        : DSGDPM624
+	NumSlots           : 2
+	NumPorts           : 85
+	BaseMacAddr        : 00:51:00:02:00:00
+	MacAddrCapacity    : 1024
+	MgmtMacAddr        : 00:51:00:02:00:81
+	System MTU         : 1950
+
+Card Info :
+
+	Slot#      CardType          Serial#            Part#             Oper   Admin  Power
+	                                                                Status  Status  State
+	    1       8242XSQ     SDNIPM624B36        DSGDPM624               up      up     on
+	    2       8242XSQ     SDNIPM624B36        DSGDPM624               up      up     on
+
+Temperature Info :
+
+    CPU Temperature    MAC Temperature   PHY1 Temperature   PHY2 Temperature
+                  0                  0                  0                  0
+
+
+Power Supply Info :
+
+	Ps#1 Status       : DOWN
+	Ps#1 Type         : AC
+	Ps#1 Description  :
+	Ps#1 Serial Number: 0W
+	Ps#1 Version      : -10
+	Ps#1 Part Number  :
+
+	Ps#2 Status       : DOWN
+	Ps#2 Type         : AC
+	Ps#2 Description  :
+	Ps#2 Serial Number: 0W
+	Ps#2 Version      : -10
+	Ps#2 Part Number  :
+
+	Total Power Available : 0 watts
+
+Fan Info :
+
+	    Description   OperStatus       OperSpeed   AirflowDir
+
+LED Info :
+
+	LED#1 Label  : PWR
+	LED#1 Status : GreenSteady
+
+	LED#2 Label  : Status
+	LED#2 Status : GreenSteady
+
+	LED#3 Label  : Rps
+	LED#3 Status : AmberBlinking
+
+	LED#4 Label  : Fan
+	LED#4 Status : AmberSteady
+
+System Error Info :
+
+	Send Login Success Trap   : false
+	Send Authentication Trap  : false
+	Error Code                : 0
+	Error Severity            : 0
+
+Port Lock Info :
+
+	Status       : off
+	LockedPorts  :
+
+Message Control Info :
+
+	Action                 : suppress-msg
+	Control-Interval       : 5
+	Max-msg-num            : 5
+	Status                 : disable
+
+
+Configuration Operation Info Since Boot Up:
+         Last Change: 0 day(s), 00:38:36   (0 day(s), 01:41:44 ago)
+    Last Vlan Change: 0 day(s), 00:00:00
+Last Statistic Reset: 0 day(s), 00:00:00
+
+Current Uboot Info :
+----------------------------------------------------------------------------------------------------
+
+
+
+
+
+Sys Software:
+---------------
+
+
+System Software Info :
+
+Default Runtime Config File : /intflash/config.cfg
+Config File :
+Last Runtime Config Save : Thu Apr 16 23:23:12 2020
+
+Boot Config Table
+Version : Build 8.1.0.0 (GA) on Fri Oct 25 12:58:07 EDT 2019
+PrimaryConfigSource : /intflash/config.cfg
+SecondaryConfigSource : /intflash/config.cfg
+EnableFactoryDefaults : false
+EnableDebugMode : false
+EnableHwWatchDogTimer : false
+EnableRebootOnError : true
+EnableTelnetServer : false
+EnableRloginServer : false
+EnableFtpServer : false
+EnableTftpServer : false
+
+
+Vlan Info:
+---------------
+
+
+==================================================================================================
+                                            Vlan Basic
+==================================================================================================
+VLAN                                MSTP
+ID    NAME             TYPE         INST_ID PROTOCOLID   SUBNETADDR      SUBNETMASK      VRFID
+--------------------------------------------------------------------------------------------------
+1     Default          byPort       0       none         N/A             N/A             0
+
+All 1 out of 1 Total Num of Vlans displayed
+
+
+====================================================================================================
+                                   Vlan Port
+====================================================================================================
+VLAN PORT               ACTIVE             STATIC             NOT_ALLOW
+ID   MEMBER             MEMBER             MEMBER             MEMBER
+----------------------------------------------------------------------------------------------------
+1    1/1-1/42,2/1-2/42  1/1-1/42,2/1-2/42
+
+
+All 1 out of 1 Total Num of Port Entries displayed
+
+
+====================================================================================================
+                              VLAN VRF Association
+====================================================================================================
+VLAN  VRF
+ID    NAME
+----------------------------------------------------------------------------------------------------
+1     GlobalRouter
+
+All 1 out of 1 Total Num of Vlan VRF Association entries displayed
+
+
+====================================================================================================
+                                  Vlan Advance
+====================================================================================================
+VLAN             IF    AGING MAC                USER
+ID    NAME       INDEX TIME  ADDRESS            DEFINEPID ENCAP  DSAP/SSAP
+----------------------------------------------------------------------------------------------------
+1     Default    2049  0     00:00:00:00:00:00  0x0000
+
+All 1 out of 1 Total Num of Vlan Advance Entries displayed
+
+
+====================================================================================================
+                                    Vlan Arp
+====================================================================================================
+VLAN ID  DOPROXY    DORESP
+----------------------------------------------------------------------------------------------------
+1        false      true
+
+All 1 out of 1 Total Num of Vlan Arp Entries displayed
+
+
+====================================================================================================
+                                    Vlan Fdb
+====================================================================================================
+VLAN            MAC                                   SMLT
+ID   STATUS     ADDRESS            INTERFACE          REMOTE   TUNNEL
+----------------------------------------------------------------------------------------------------
+
+c: customer vid   u: untagged-traffic
+
+0 out of 0 entries in all fdb(s) displayed.
+
+Total peer MAC move count : 0
+
+
+====================================================================================================
+                                  Vlan Static
+====================================================================================================
+VLAN                 MAC
+ID   STATUS          ADDRESS            PORT
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Total Num of Vlan Static Entries displayed
+
+
+
+==============================================================================================================
+                                                   Vlan Ip
+==============================================================================================================
+VLAN VRF    IP            NET              BCASTADDR REASM   ADVERTISE DIRECTED  RPC     RPCMODE     RMON
+ID   NAME   ADDRESS       MASK             FORMAT    MAXSIZE WHEN_DOWN BROADCAST
+--------------------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Total Num of Vlan Ip Entries displayed
+
+VLAN VRF                  DVR        DVR
+ID   NAME                 STATE      GW-IPv4
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Total Num of Vlan Ip Entries displayed
+
+
+============================================================================================================================================
+                                                  Vlan Ipv6 Interface
+============================================================================================================================================
+IFINDX VRF              VLAN PHYSICAL          ADMIN   OPER  TYPE  MTU  HOP REACHABLE   RETRANSMIT  MCAST    IPSEC    RPC      RPCMODE
+INDX   NAME                  ADDRESS           STATE   STATE            LMT TIME        TIME        STATUS
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+====================================================================================================
+                               Vlan Ipv6 Address
+====================================================================================================
+IPV6 ADDRESS                            VLAN-ID      TYPE    ORIGIN    STATUS
+----------------------------------------------------------------------------------------------------
+
+0 out of 0 Total Num of Interface Entries displayed.
+0 out of 0 Total Num of Address Entries displayed.
+
+=======================================================================================================================
+                                                 Vlan Ipv6 Nd
+=======================================================================================================================
+IFID VRF              VLAN   RTR-ADV MAX-INT MIN-INT LIFETIME MANAG OTHER DAD-NS MTU     HOP    REACHABLE RETRANSMIT
+     NAME                                                     FLAG  CONF                 LIMIT  TIME      TIME
+-----------------------------------------------------------------------------------------------------------------------
+
+Note:  (s) = Set, (d) = Default, (i) = inherit.
+
+0 out of 0 Total Num of Ipv6 ND Entries displayed.
+
+====================================================================================================
+                              Vlan Ipv6 Nd Prefix
+====================================================================================================
+INTF  VRF              IPV6                                           VLAN  VALID       PREF     EUI
+INDEX NAME             ADDRESS/PREFIX                                 ID    LIFE        LIFE
+----------------------------------------------------------------------------------------------------
+
+0 out of 0 Total Num of Ipv6 ND prefix Entries displayed.
+
+====================================================================================================
+                                 Vlan Ipv6 MLD
+====================================================================================================
+VLANID  Q-INT  VR QUERIER                                 Q-M-R  ROBUST L-M-Q
+----------------------------------------------------------------------------------------------------
+ Legend: Q-INT: query-interval VR: version
+         Q-M-R: query-max-resp ROBUST: robustval
+         L-M-Q: last-memb-query-int
+
+0 out of 0 Total Num of Ipv6 MLD Entries displayed.
+
+====================================================================================================
+                                   Vlan Dhcp
+====================================================================================================
+VLAN VRF                     MAX MIN                ALWAYS CIRCUIT REMOTE TRUST
+ID   NAME             ENABLE HOP SEC   MODE         BCAST  ID      ID     CIRC
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 of Vlan Dhcp Entries displayed
+
+
+====================================================================================================
+                                   Vlan Ospf
+====================================================================================================
+VLAN         HELLO    RTRDEAD  DESIGRTR
+ID    ENABLE INTERVAL INTERVAL PRIORITY METRIC AUTHTYPE AUTHKEY    INTF   AREAID
+----------------------------------------------------------------------------------------------------
+1     false  10       40       1        0      none                b    0.0.0.0
+
+All 1 out of 1 Total Num of Ospf entries displayed
+
+TYPE Legend:
+n=nbma interface, p=passive interface, b=broadcast interface
+
+
+====================================================================================================
+                             Vlan Ospfv3 Interface
+====================================================================================================
+IFINDX(VLAN)   AREAID          ADM IFSTATE  METRIC PRI DR/BDR          IFTYPE
+----------------------------------------------------------------------------------------------------
+
+0 out of 0 Total Num of Ospf Interface Entries displayed.
+
+====================================================================================================
+                                    Vlan Rip
+====================================================================================================
+VLAN        DEFAULT   DEFAULT TRIGGERED AUTOAGG
+ID   ENABLE SUPPLY    LISTEN  UPDATE    ENABLE  SUPPLY LISTEN POISON
+----------------------------------------------------------------------------------------------------
+1    false  false     false   false     false   true   true   false
+
+All 1 out of 1 Total Num of Rip entries displayed
+
+
+====================================================================================================
+                                Vlan Rip - Extn
+====================================================================================================
+Vlan   ADVERTISE           HOLD   TIME   MANUAL
+ID     WHEN-DOWN    COST   DOWN   OUT    TRIGGER
+----------------------------------------------------------------------------------------------------
+1      disable      1      120    180    N/A
+
+
+====================================================================================================
+                              Vlan Rip - In Policy
+====================================================================================================
+Vlan   IN-POLICY
+----------------------------------------------------------------------------------------------------
+1      N/A
+
+
+====================================================================================================
+                             Vlan Rip - Out Policy
+====================================================================================================
+Vlan   OUT-POLICY
+----------------------------------------------------------------------------------------------------
+1      N/A
+
+
+====================================================================================================
+                              Vlan Ripng Interface
+====================================================================================================
+IFINDX         COST            POISON         SEND           OPER
+                               STATUS         DEFAULT        STATUS
+----------------------------------------------------------------------------------------------------
+
+====================================================================================================
+                                   Vlan Vrrp
+====================================================================================================
+VLAN VRF              VRRP IP              VIRTUAL           VERSION
+ID   NAME             ID   ADDRESS         MAC ADDRESS
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Total Num of Vlan Vrrp displayed
+
+
+====================================================================================================
+                               Vlan Vrrp Extended
+====================================================================================================
+VLAN VRRP VRF                               MASTER          ADVERTISE CRITICAL        VERSION
+ID   ID   NAME    STATE   CONTROL PRIORITY  IPADDR          INTERVAL  IPADDR
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Total Num of Vlan Vrrp Extended Entries displayed
+
+VLAN VRRP VRF          HOLDDWN ACTION  CRITICAL BACKUP  BACKUP  FAST ADV    FAST ADV VERSION
+ID   ID   NAME                 TIME    IP       MASTER  MASTER  INTERVAL    ENABLE
+                                       ENABLE           STATE
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Vlan Vrrp Extended Entries displayed
+
+VLAN VRRP VRF          MASTER ADV   PREEMPT  PSEUDO-HEADER VERSION
+ID   ID   NAME         INTERVAL(ms) MODE     CHECKSUM
+
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Vlan Vrrp Extended Entries displayed
+
+
+====================================================================================================
+                                  Vlan Ip Igmp
+====================================================================================================
+VLAN QUERY QUERY ROBUST VERSION LAST  PROXY  SNOOP  SSM    FAST   FAST
+ID   INTVL MAX                  MEMB  SNOOP  ENABLE SNOOP  LEAVE  LEAVE
+           RESP                 QUERY ENABLE        ENABLE ENABLE PORTS
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Total Num of Igmp entries displayed
+
+VLAN SNOOP   SNOOP           DYNAMIC   COMPATIBILITY EXPLICIT
+ID   QUERIER QUERIER         DOWNGRADE MODE          HOST
+     ENABLE  ADDRESS         VERSION                 TRACKING
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Total Num of Igmp entries displayed
+
+
+====================================================================================================
+                          Vlan Ip Icmp Route Discovery
+====================================================================================================
+VLAN_ID  ADV_ADDRESS      ADV_FLAG LIFETIME   MAX_INT    MIN_INT    PREF_LEVEL
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Icmp Route Discovery Entries displayed
+
+
+====================================================================================================
+                                Manual Edit Mac
+====================================================================================================
+MAC ADDRESS        PORTS
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Total Num of Manual Edit Mac Entries displayed
+
+
+====================================================================================================
+                                 Autolearn Mac
+====================================================================================================
+MAC ADDRESS        PORT
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Autolearn Mac Entries displayed
+
+
+====================================================================================================
+                                  Vlan Ip Pim
+====================================================================================================
+
+VLAN-ID   PIM-ENABLE MODE    HELLOINT  JPINT   CBSRPREF      INTF TYPE
+----------------------------------------------------------------------------------------------------
+1         disable    sparse  30        60      -1  (disabled) active
+
+All 1 out of 1 Total Num of Vlan Pim Entries displayed
+
+
+====================================================================================================
+                                 Vlan Mcastmac
+====================================================================================================
+VLAN_ID    MAC_ADDRESS          PORT_LIST                      MLT_GROUPS
+----------------------------------------------------------------------------------------------------
+
+Total Entries: 0
+
+
+====================================================================================================
+                                 Vlan Firewall
+====================================================================================================
+ID     NAME             FIREWALL TYPE             CLUSTER ID
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Vlan Firewall Entries displayed
+
+====================================================================================================
+                                    Vlan Nlb
+====================================================================================================
+VLAN_ID  NLB_ADMIN_MODE NLB_OPER_MODE  PORT_LIST                    MLT_GROUPS
+----------------------------------------------------------------------------------------------------
+
+Total Entries: 0
+
+
+====================================================================================================
+                                 Vlan Nodal Mep
+====================================================================================================
+VLAN_ID    DOMAIN_NAME.ASSOCIATION_NAME.MEP_ID
+----------------------------------------------------------------------------------------------------
+1
+
+
+====================================================================================================
+                              Vlan Nodal Mip Level
+====================================================================================================
+VLAN_ID    NODAL_MIP_LEVEL_LIST
+----------------------------------------------------------------------------------------------------
+1
+
+
+====================================================================================================
+                                   Vlan I-SID
+====================================================================================================
+VLAN_ID    I-SID
+----------------------------------------------------------------------------------------------------
+1
+
+1 out of 1 Total Num of Vlans displayed
+
+================================================================================
+                                 PRIVATE VLAN
+================================================================================
+Primary              Primary              Secondary            Secondary
+VLAN                 ISID                 VLAN                 ISID
+----------------------------------------------------------------------------------------------------
+
+All 0 out of 0 Total Num of Private Vlans displayed
+
+
+
+Port Info:
+---------------
+
+
+==========================================================================================
+                                      Port Interface
+==========================================================================================
+PORT                               LINK  PORT           PHYSICAL          STATUS
+NUM      INDEX DESCRIPTION         TRAP  LOCK     MTU   ADDRESS           ADMIN  OPERATE
+------------------------------------------------------------------------------------------
+mgmt     64    mgmtEthernet        true  false    1522  00:51:00:02:00:81 up     up
+1/1      192   10GbNone            true  false    1950  00:51:00:02:00:00 down   down
+1/2      193   10GbNone            true  false    1950  00:51:00:02:00:01 down   down
+1/3      194   10GbNone            true  false    1950  00:51:00:02:00:02 down   down
+1/4      195   10GbNone            true  false    1950  00:51:00:02:00:03 down   down
+1/5      196   10GbNone            true  false    1950  00:51:00:02:00:04 down   down
+1/6      197   10GbNone            true  false    1950  00:51:00:02:00:05 down   down
+1/7      198   10GbNone            true  false    1950  00:51:00:02:00:06 down   down
+1/8      199   10GbNone            true  false    1950  00:51:00:02:00:07 down   down
+1/9      200   10GbNone            true  false    1950  00:51:00:02:00:08 down   down
+1/10     201   10GbNone            true  false    1950  00:51:00:02:00:09 down   down
+1/11     202   10GbNone            true  false    1950  00:51:00:02:00:0a down   down
+1/12     203   10GbNone            true  false    1950  00:51:00:02:00:0b down   down
+1/13     204   10GbNone            true  false    1950  00:51:00:02:00:0c down   down
+1/14     205   10GbNone            true  false    1950  00:51:00:02:00:0d down   down
+1/15     206   10GbNone            true  false    1950  00:51:00:02:00:0e down   down
+1/16     207   10GbNone            true  false    1950  00:51:00:02:00:0f down   down
+1/17     208   10GbNone            true  false    1950  00:51:00:02:00:10 down   down
+1/18     209   10GbNone            true  false    1950  00:51:00:02:00:11 down   down
+1/19     210   10GbNone            true  false    1950  00:51:00:02:00:12 down   down
+1/20     211   10GbNone            true  false    1950  00:51:00:02:00:13 down   down
+1/21     212   10GbNone            true  false    1950  00:51:00:02:00:14 down   down
+1/22     213   10GbNone            true  false    1950  00:51:00:02:00:15 down   down
+1/23     214   10GbNone            true  false    1950  00:51:00:02:00:16 down   down
+1/24     215   10GbNone            true  false    1950  00:51:00:02:00:17 down   down
+1/25     216   10GbNone            true  false    1950  00:51:00:02:00:18 down   down
+1/26     217   10GbNone            true  false    1950  00:51:00:02:00:19 down   down
+1/27     218   10GbNone            true  false    1950  00:51:00:02:00:1a down   down
+1/28     219   10GbNone            true  false    1950  00:51:00:02:00:1b down   down
+1/29     220   10GbNone            true  false    1950  00:51:00:02:00:1c down   down
+1/30     221   10GbNone            true  false    1950  00:51:00:02:00:1d down   down
+1/31     222   10GbNone            true  false    1950  00:51:00:02:00:1e down   down
+1/32     223   10GbNone            true  false    1950  00:51:00:02:00:1f down   down
+1/33     224   10GbNone            true  false    1950  00:51:00:02:00:20 down   down
+1/34     225   10GbNone            true  false    1950  00:51:00:02:00:21 down   down
+1/35     226   10GbNone            true  false    1950  00:51:00:02:00:22 down   down
+1/36     227   10GbNone            true  false    1950  00:51:00:02:00:23 down   down
+1/37     228   10GbNone            true  false    1950  00:51:00:02:00:24 down   down
+1/38     229   10GbNone            true  false    1950  00:51:00:02:00:25 down   down
+1/39     230   10GbNone            true  false    1950  00:51:00:02:00:26 down   down
+1/40     231   10GbNone            true  false    1950  00:51:00:02:00:27 down   down
+1/41     232   40GbNone            true  false    1950  00:51:00:02:00:28 down   down
+1/42     236   40GbNone            true  false    1950  00:51:00:02:00:2c down   down
+2/1      256   10GbNone            true  false    1950  00:51:00:02:00:40 down   down
+2/2      257   10GbNone            true  false    1950  00:51:00:02:00:41 down   down
+2/3      258   10GbNone            true  false    1950  00:51:00:02:00:42 down   down
+2/4      259   10GbNone            true  false    1950  00:51:00:02:00:43 down   down
+2/5      260   10GbNone            true  false    1950  00:51:00:02:00:44 down   down
+2/6      261   10GbNone            true  false    1950  00:51:00:02:00:45 down   down
+2/7      262   10GbNone            true  false    1950  00:51:00:02:00:46 down   down
+2/8      263   10GbNone            true  false    1950  00:51:00:02:00:47 down   down
+2/9      264   10GbNone            true  false    1950  00:51:00:02:00:48 down   down
+2/10     265   10GbNone            true  false    1950  00:51:00:02:00:49 down   down
+2/11     266   10GbNone            true  false    1950  00:51:00:02:00:4a down   down
+2/12     267   10GbNone            true  false    1950  00:51:00:02:00:4b down   down
+2/13     268   10GbNone            true  false    1950  00:51:00:02:00:4c down   down
+2/14     269   10GbNone            true  false    1950  00:51:00:02:00:4d down   down
+2/15     270   10GbNone            true  false    1950  00:51:00:02:00:4e down   down
+2/16     271   10GbNone            true  false    1950  00:51:00:02:00:4f down   down
+2/17     272   10GbNone            true  false    1950  00:51:00:02:00:50 down   down
+2/18     273   10GbNone            true  false    1950  00:51:00:02:00:51 down   down
+2/19     274   10GbNone            true  false    1950  00:51:00:02:00:52 down   down
+2/20     275   10GbNone            true  false    1950  00:51:00:02:00:53 down   down
+2/21     276   10GbNone            true  false    1950  00:51:00:02:00:54 down   down
+2/22     277   10GbNone            true  false    1950  00:51:00:02:00:55 down   down
+2/23     278   10GbNone            true  false    1950  00:51:00:02:00:56 down   down
+2/24     279   10GbNone            true  false    1950  00:51:00:02:00:57 down   down
+2/25     280   10GbNone            true  false    1950  00:51:00:02:00:58 down   down
+2/26     281   10GbNone            true  false    1950  00:51:00:02:00:59 down   down
+2/27     282   10GbNone            true  false    1950  00:51:00:02:00:5a down   down
+2/28     283   10GbNone            true  false    1950  00:51:00:02:00:5b down   down
+2/29     284   10GbNone            true  false    1950  00:51:00:02:00:5c down   down
+2/30     285   10GbNone            true  false    1950  00:51:00:02:00:5d down   down
+2/31     286   10GbNone            true  false    1950  00:51:00:02:00:5e down   down
+2/32     287   10GbNone            true  false    1950  00:51:00:02:00:5f down   down
+2/33     288   10GbNone            true  false    1950  00:51:00:02:00:60 down   down
+2/34     289   10GbNone            true  false    1950  00:51:00:02:00:61 down   down
+2/35     290   10GbNone            true  false    1950  00:51:00:02:00:62 down   down
+2/36     291   10GbNone            true  false    1950  00:51:00:02:00:63 down   down
+2/37     292   10GbNone            true  false    1950  00:51:00:02:00:64 down   down
+2/38     293   10GbNone            true  false    1950  00:51:00:02:00:65 down   down
+2/39     294   10GbNone            true  false    1950  00:51:00:02:00:66 down   down
+2/40     295   10GbNone            true  false    1950  00:51:00:02:00:67 down   down
+2/41     296   40GbNone            true  false    1950  00:51:00:02:00:68 down   down
+2/42     300   40GbNone            true  false    1950  00:51:00:02:00:6c down   down
+
+
+==================================================================================================
+                                            Port Name
+==================================================================================================
+PORT                                                        OPERATE  OPERATE  OPERATE
+NUM      NAME                           DESCRIPTION         STATUS   DUPLEX   SPEED    VLAN
+--------------------------------------------------------------------------------------------------
+mgmt                                    1000BaseTX          up       full     1000
+1/1                                     10GbNone            down     full     0        Access
+1/2                                     10GbNone            down     full     0        Access
+1/3                                     10GbNone            down     full     0        Access
+1/4                                     10GbNone            down     full     0        Access
+1/5                                     10GbNone            down     full     0        Access
+1/6                                     10GbNone            down     full     0        Access
+1/7                                     10GbNone            down     full     0        Access
+1/8                                     10GbNone            down     full     0        Access
+1/9                                     10GbNone            down     full     0        Access
+1/10                                    10GbNone            down     full     0        Access
+1/11                                    10GbNone            down     full     0        Access
+1/12                                    10GbNone            down     full     0        Access
+1/13                                    10GbNone            down     full     0        Access
+1/14                                    10GbNone            down     full     0        Access
+1/15                                    10GbNone            down     full     0        Access
+1/16                                    10GbNone            down     full     0        Access
+1/17                                    10GbNone            down     full     0        Access
+1/18                                    10GbNone            down     full     0        Access
+1/19                                    10GbNone            down     full     0        Access
+1/20                                    10GbNone            down     full     0        Access
+1/21                                    10GbNone            down     full     0        Access
+1/22                                    10GbNone            down     full     0        Access
+1/23                                    10GbNone            down     full     0        Access
+1/24                                    10GbNone            down     full     0        Access
+1/25                                    10GbNone            down     full     0        Access
+1/26                                    10GbNone            down     full     0        Access
+1/27                                    10GbNone            down     full     0        Access
+1/28                                    10GbNone            down     full     0        Access
+1/29                                    10GbNone            down     full     0        Access
+1/30                                    10GbNone            down     full     0        Access
+1/31                                    10GbNone            down     full     0        Access
+1/32                                    10GbNone            down     full     0        Access
+1/33                                    10GbNone            down     full     0        Access
+1/34                                    10GbNone            down     full     0        Access
+1/35                                    10GbNone            down     full     0        Access
+1/36                                    10GbNone            down     full     0        Access
+1/37                                    10GbNone            down     full     0        Access
+1/38                                    10GbNone            down     full     0        Access
+1/39                                    10GbNone            down     full     0        Access
+1/40                                    10GbNone            down     full     0        Access
+1/41                                    40GbNone            down     half     0        Access
+1/42                                    40GbNone            down     half     0        Access
+2/1                                     10GbNone            down     full     0        Access
+2/2                                     10GbNone            down     full     0        Access
+2/3                                     10GbNone            down     full     0        Access
+2/4                                     10GbNone            down     full     0        Access
+2/5                                     10GbNone            down     full     0        Access
+2/6                                     10GbNone            down     full     0        Access
+2/7                                     10GbNone            down     full     0        Access
+2/8                                     10GbNone            down     full     0        Access
+2/9                                     10GbNone            down     full     0        Access
+2/10                                    10GbNone            down     full     0        Access
+2/11                                    10GbNone            down     full     0        Access
+2/12                                    10GbNone            down     full     0        Access
+2/13                                    10GbNone            down     full     0        Access
+2/14                                    10GbNone            down     full     0        Access
+2/15                                    10GbNone            down     full     0        Access
+2/16                                    10GbNone            down     full     0        Access
+2/17                                    10GbNone            down     full     0        Access
+2/18                                    10GbNone            down     full     0        Access
+2/19                                    10GbNone            down     full     0        Access
+2/20                                    10GbNone            down     full     0        Access
+2/21                                    10GbNone            down     full     0        Access
+2/22                                    10GbNone            down     full     0        Access
+2/23                                    10GbNone            down     full     0        Access
+2/24                                    10GbNone            down     full     0        Access
+2/25                                    10GbNone            down     full     0        Access
+2/26                                    10GbNone            down     full     0        Access
+2/27                                    10GbNone            down     full     0        Access
+2/28                                    10GbNone            down     full     0        Access
+2/29                                    10GbNone            down     full     0        Access
+2/30                                    10GbNone            down     full     0        Access
+2/31                                    10GbNone            down     full     0        Access
+2/32                                    10GbNone            down     full     0        Access
+2/33                                    10GbNone            down     full     0        Access
+2/34                                    10GbNone            down     full     0        Access
+2/35                                    10GbNone            down     full     0        Access
+2/36                                    10GbNone            down     full     0        Access
+2/37                                    10GbNone            down     full     0        Access
+2/38                                    10GbNone            down     full     0        Access
+2/39                                    10GbNone            down     full     0        Access
+2/40                                    10GbNone            down     full     0        Access
+2/41                                    40GbNone            down     half     0        Access
+2/42                                    40GbNone            down     half     0        Access
+
+
+====================================================================================================
+                                  Port Config
+====================================================================================================
+PORT                         DIFF-SERV    QOS   MLT   VENDOR
+NUM      TYPE                EN    TYPE   LVL   ID    NAME
+----------------------------------------------------------------------------------------------------
+mgmt     1000BaseTX          true  core   1     0     N/A
+1/1      10GbNone            true  core   1     0
+1/2      10GbNone            true  core   1     0
+1/3      10GbNone            true  core   1     0
+1/4      10GbNone            true  core   1     0
+1/5      10GbNone            true  core   1     0
+1/6      10GbNone            true  core   1     0
+1/7      10GbNone            true  core   1     0
+1/8      10GbNone            true  core   1     0
+1/9      10GbNone            true  core   1     0
+1/10     10GbNone            true  core   1     0
+1/11     10GbNone            true  core   1     0
+1/12     10GbNone            true  core   1     0
+1/13     10GbNone            true  core   1     0
+1/14     10GbNone            true  core   1     0
+1/15     10GbNone            true  core   1     0
+1/16     10GbNone            true  core   1     0
+1/17     10GbNone            true  core   1     0
+1/18     10GbNone            true  core   1     0
+1/19     10GbNone            true  core   1     0
+1/20     10GbNone            true  core   1     0
+1/21     10GbNone            true  core   1     0
+1/22     10GbNone            true  core   1     0
+1/23     10GbNone            true  core   1     0
+1/24     10GbNone            true  core   1     0
+1/25     10GbNone            true  core   1     0
+1/26     10GbNone            true  core   1     0
+1/27     10GbNone            true  core   1     0
+1/28     10GbNone            true  core   1     0
+1/29     10GbNone            true  core   1     0
+1/30     10GbNone            true  core   1     0
+1/31     10GbNone            true  core   1     0
+1/32     10GbNone            true  core   1     0
+1/33     10GbNone            true  core   1     0
+1/34     10GbNone            true  core   1     0
+1/35     10GbNone            true  core   1     0
+1/36     10GbNone            true  core   1     0
+1/37     10GbNone            true  core   1     0
+1/38     10GbNone            true  core   1     0
+1/39     10GbNone            true  core   1     0
+1/40     10GbNone            true  core   1     0
+1/41     40GbNone            true  core   1     0
+1/42     40GbNone            true  core   1     0
+2/1      10GbNone            true  core   1     0
+2/2      10GbNone            true  core   1     0
+2/3      10GbNone            true  core   1     0
+2/4      10GbNone            true  core   1     0
+2/5      10GbNone            true  core   1     0
+2/6      10GbNone            true  core   1     0
+2/7      10GbNone            true  core   1     0
+2/8      10GbNone            true  core   1     0
+2/9      10GbNone            true  core   1     0
+2/10     10GbNone            true  core   1     0
+2/11     10GbNone            true  core   1     0
+2/12     10GbNone            true  core   1     0
+2/13     10GbNone            true  core   1     0
+2/14     10GbNone            true  core   1     0
+2/15     10GbNone            true  core   1     0
+2/16     10GbNone            true  core   1     0
+2/17     10GbNone            true  core   1     0
+2/18     10GbNone            true  core   1     0
+2/19     10GbNone            true  core   1     0
+2/20     10GbNone            true  core   1     0
+2/21     10GbNone            true  core   1     0
+2/22     10GbNone            true  core   1     0
+2/23     10GbNone            true  core   1     0
+2/24     10GbNone            true  core   1     0
+2/25     10GbNone            true  core   1     0
+2/26     10GbNone            true  core   1     0
+2/27     10GbNone            true  core   1     0
+2/28     10GbNone            true  core   1     0
+2/29     10GbNone            true  core   1     0
+2/30     10GbNone            true  core   1     0
+2/31     10GbNone            true  core   1     0
+2/32     10GbNone            true  core   1     0
+2/33     10GbNone            true  core   1     0
+2/34     10GbNone            true  core   1     0
+2/35     10GbNone            true  core   1     0
+2/36     10GbNone            true  core   1     0
+2/37     10GbNone            true  core   1     0
+2/38     10GbNone            true  core   1     0
+2/39     10GbNone            true  core   1     0
+2/40     10GbNone            true  core   1     0
+2/41     40GbNone            true  core   1     0
+2/42     40GbNone            true  core   1     0
+
+PORT     ADMIN   OPERATE AUTO     ACCESS-SERV  RMON     FLEX-UNI ADMIN   FEC-APPLICABLE   OPERATE
+NUM      ROUTING ROUTING RECOVER  EN                             FEC                      FEC
+----------------------------------------------------------------------------------------------------
+mgmt     Enable  Enable  Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/1      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/2      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/3      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/4      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/5      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/6      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/7      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/8      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/9      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/10     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/11     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/12     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/13     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/14     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/15     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/16     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/17     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/18     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/19     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/20     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/21     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/22     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/23     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/24     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/25     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/26     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/27     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/28     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/29     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/30     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/31     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/32     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/33     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/34     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/35     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/36     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/37     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/38     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/39     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/40     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/41     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+1/42     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/1      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/2      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/3      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/4      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/5      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/6      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/7      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/8      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/9      Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/10     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/11     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/12     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/13     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/14     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/15     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/16     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/17     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/18     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/19     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/20     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/21     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/22     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/23     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/24     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/25     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/26     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/27     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/28     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/29     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/30     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/31     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/32     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/33     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/34     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/35     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/36     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/37     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/38     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/39     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/40     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/41     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+2/42     Enable  Disable Disable  false        Disable  Disable  Auto    Not Applicable   N/A
+
+
+=======================================================================================================
+                                            Port Config L1
+=======================================================================================================
+PORT     AUTO  OPERATE  CUSTOM AUTO NEGOTIATION       ADMIN       OPERATE     ADMIN         OPERATE
+NUM      NEG.  AUTO-NEG ADVERTISEMENTS                DPLX SPD    DPLX SPD    TX-FLW-CTRL   TX-FLW-CTRL
+-------------------------------------------------------------------------------------------------------
+mgmt     true  true     full 100  full 1000
+1/1      false false    Not Configured                full 10000       0      disable       disable
+1/2      false false    Not Configured                full 10000       0      disable       disable
+1/3      false false    Not Configured                full 10000       0      disable       disable
+1/4      false false    Not Configured                full 10000       0      disable       disable
+1/5      false false    Not Configured                full 10000       0      disable       disable
+1/6      false false    Not Configured                full 10000       0      disable       disable
+1/7      false false    Not Configured                full 10000       0      disable       disable
+1/8      false false    Not Configured                full 10000       0      disable       disable
+1/9      false false    Not Configured                full 10000       0      disable       disable
+1/10     false false    Not Configured                full 10000       0      disable       disable
+1/11     false false    Not Configured                full 10000       0      disable       disable
+1/12     false false    Not Configured                full 10000       0      disable       disable
+1/13     false false    Not Configured                full 10000       0      disable       disable
+1/14     false false    Not Configured                full 10000       0      disable       disable
+1/15     false false    Not Configured                full 10000       0      disable       disable
+1/16     false false    Not Configured                full 10000       0      disable       disable
+1/17     false false    Not Configured                full 10000       0      disable       disable
+1/18     false false    Not Configured                full 10000       0      disable       disable
+1/19     false false    Not Configured                full 10000       0      disable       disable
+1/20     false false    Not Configured                full 10000       0      disable       disable
+1/21     false false    Not Configured                full 10000       0      disable       disable
+1/22     false false    Not Configured                full 10000       0      disable       disable
+1/23     false false    Not Configured                full 10000       0      disable       disable
+1/24     false false    Not Configured                full 10000       0      disable       disable
+1/25     false false    Not Configured                full 10000       0      disable       disable
+1/26     false false    Not Configured                full 10000       0      disable       disable
+1/27     false false    Not Configured                full 10000       0      disable       disable
+1/28     false false    Not Configured                full 10000       0      disable       disable
+1/29     false false    Not Configured                full 10000       0      disable       disable
+1/30     false false    Not Configured                full 10000       0      disable       disable
+1/31     false false    Not Configured                full 10000       0      disable       disable
+1/32     false false    Not Configured                full 10000       0      disable       disable
+1/33     false false    Not Configured                full 10000       0      disable       disable
+1/34     false false    Not Configured                full 10000       0      disable       disable
+1/35     false false    Not Configured                full 10000       0      disable       disable
+1/36     false false    Not Configured                full 10000       0      disable       disable
+1/37     false false    Not Configured                full 10000       0      disable       disable
+1/38     false false    Not Configured                full 10000       0      disable       disable
+1/39     false false    Not Configured                full 10000       0      disable       disable
+1/40     false false    Not Configured                full 10000       0      disable       disable
+1/41     true  true     Not Configured                full 40000       0      disable       disable
+1/42     true  true     Not Configured                full 40000       0      disable       disable
+2/1      false false    Not Configured                full 10000       0      disable       disable
+2/2      false false    Not Configured                full 10000       0      disable       disable
+2/3      false false    Not Configured                full 10000       0      disable       disable
+2/4      false false    Not Configured                full 10000       0      disable       disable
+2/5      false false    Not Configured                full 10000       0      disable       disable
+2/6      false false    Not Configured                full 10000       0      disable       disable
+2/7      false false    Not Configured                full 10000       0      disable       disable
+2/8      false false    Not Configured                full 10000       0      disable       disable
+2/9      false false    Not Configured                full 10000       0      disable       disable
+2/10     false false    Not Configured                full 10000       0      disable       disable
+2/11     false false    Not Configured                full 10000       0      disable       disable
+2/12     false false    Not Configured                full 10000       0      disable       disable
+2/13     false false    Not Configured                full 10000       0      disable       disable
+2/14     false false    Not Configured                full 10000       0      disable       disable
+2/15     false false    Not Configured                full 10000       0      disable       disable
+2/16     false false    Not Configured                full 10000       0      disable       disable
+2/17     false false    Not Configured                full 10000       0      disable       disable
+2/18     false false    Not Configured                full 10000       0      disable       disable
+2/19     false false    Not Configured                full 10000       0      disable       disable
+2/20     false false    Not Configured                full 10000       0      disable       disable
+2/21     false false    Not Configured                full 10000       0      disable       disable
+2/22     false false    Not Configured                full 10000       0      disable       disable
+2/23     false false    Not Configured                full 10000       0      disable       disable
+2/24     false false    Not Configured                full 10000       0      disable       disable
+2/25     false false    Not Configured                full 10000       0      disable       disable
+2/26     false false    Not Configured                full 10000       0      disable       disable
+2/27     false false    Not Configured                full 10000       0      disable       disable
+2/28     false false    Not Configured                full 10000       0      disable       disable
+2/29     false false    Not Configured                full 10000       0      disable       disable
+2/30     false false    Not Configured                full 10000       0      disable       disable
+2/31     false false    Not Configured                full 10000       0      disable       disable
+2/32     false false    Not Configured                full 10000       0      disable       disable
+2/33     false false    Not Configured                full 10000       0      disable       disable
+2/34     false false    Not Configured                full 10000       0      disable       disable
+2/35     false false    Not Configured                full 10000       0      disable       disable
+2/36     false false    Not Configured                full 10000       0      disable       disable
+2/37     false false    Not Configured                full 10000       0      disable       disable
+2/38     false false    Not Configured                full 10000       0      disable       disable
+2/39     false false    Not Configured                full 10000       0      disable       disable
+2/40     false false    Not Configured                full 10000       0      disable       disable
+2/41     true  true     Not Configured                full 40000       0      disable       disable
+2/42     true  true     Not Configured                full 40000       0      disable       disable
+
+
+====================================================================================================
+                                   Port State
+====================================================================================================
+PORT NUM   ADMINSTATUS  PORTSTATE   REASON        DATE
+----------------------------------------------------------------------------------------------------
+1/1        down         down        --            04/16/20 22:45:26
+1/2        down         down        --            04/16/20 22:45:26
+1/3        down         down        --            04/16/20 22:45:26
+1/4        down         down        --            04/16/20 22:45:26
+1/5        down         down        --            04/16/20 22:45:26
+1/6        down         down        --            04/16/20 22:45:26
+1/7        down         down        --            04/16/20 22:45:26
+1/8        down         down        --            04/16/20 22:45:26
+1/9        down         down        --            04/16/20 22:45:26
+1/10       down         down        --            04/16/20 22:45:26
+1/11       down         down        --            04/16/20 22:45:26
+1/12       down         down        --            04/16/20 22:45:26
+1/13       down         down        --            04/16/20 22:45:26
+1/14       down         down        --            04/16/20 22:45:26
+1/15       down         down        --            04/16/20 22:45:26
+1/16       down         down        --            04/16/20 22:45:26
+1/17       down         down        --            04/16/20 22:45:26
+1/18       down         down        --            04/16/20 22:45:26
+1/19       down         down        --            04/16/20 22:45:26
+1/20       down         down        --            04/16/20 22:45:26
+1/21       down         down        --            04/16/20 22:45:26
+1/22       down         down        --            04/16/20 22:45:26
+1/23       down         down        --            04/16/20 22:45:26
+1/24       down         down        --            04/16/20 22:45:26
+1/25       down         down        --            04/16/20 22:45:26
+1/26       down         down        --            04/16/20 22:45:26
+1/27       down         down        --            04/16/20 22:45:26
+1/28       down         down        --            04/16/20 22:45:26
+1/29       down         down        --            04/16/20 22:45:26
+1/30       down         down        --            04/16/20 22:45:26
+1/31       down         down        --            04/16/20 22:45:26
+1/32       down         down        --            04/16/20 22:45:26
+1/33       down         down        --            04/16/20 22:45:26
+1/34       down         down        --            04/16/20 22:45:26
+1/35       down         down        --            04/16/20 22:45:26
+1/36       down         down        --            04/16/20 22:45:26
+1/37       down         down        --            04/16/20 22:45:26
+1/38       down         down        --            04/16/20 22:45:26
+1/39       down         down        --            04/16/20 22:45:26
+1/40       down         down        --            04/16/20 22:45:26
+1/41       down         down        --            04/16/20 22:45:26
+1/42       down         down        --            04/16/20 22:45:26
+2/1        down         down        --            04/16/20 22:45:26
+2/2        down         down        --            04/16/20 22:45:26
+2/3        down         down        --            04/16/20 22:45:26
+2/4        down         down        --            04/16/20 22:45:26
+2/5        down         down        --            04/16/20 22:45:26
+2/6        down         down        --            04/16/20 22:45:26
+2/7        down         down        --            04/16/20 22:45:26
+2/8        down         down        --            04/16/20 22:45:26
+2/9        down         down        --            04/16/20 22:45:26
+2/10       down         down        --            04/16/20 22:45:26
+2/11       down         down        --            04/16/20 22:45:26
+2/12       down         down        --            04/16/20 22:45:26
+2/13       down         down        --            04/16/20 22:45:26
+2/14       down         down        --            04/16/20 22:45:26
+2/15       down         down        --            04/16/20 22:45:26
+2/16       down         down        --            04/16/20 22:45:26
+2/17       down         down        --            04/16/20 22:45:26
+2/18       down         down        --            04/16/20 22:45:26
+2/19       down         down        --            04/16/20 22:45:26
+2/20       down         down        --            04/16/20 22:45:26
+2/21       down         down        --            04/16/20 22:45:26
+2/22       down         down        --            04/16/20 22:45:26
+2/23       down         down        --            04/16/20 22:45:26
+2/24       down         down        --            04/16/20 22:45:26
+2/25       down         down        --            04/16/20 22:45:26
+2/26       down         down        --            04/16/20 22:45:26
+2/27       down         down        --            04/16/20 22:45:26
+2/28       down         down        --            04/16/20 22:45:26
+2/29       down         down        --            04/16/20 22:45:26
+2/30       down         down        --            04/16/20 22:45:26
+2/31       down         down        --            04/16/20 22:45:26
+2/32       down         down        --            04/16/20 22:45:26
+2/33       down         down        --            04/16/20 22:45:26
+2/34       down         down        --            04/16/20 22:45:26
+2/35       down         down        --            04/16/20 22:45:26
+2/36       down         down        --            04/16/20 22:45:26
+2/37       down         down        --            04/16/20 22:45:26
+2/38       down         down        --            04/16/20 22:45:26
+2/39       down         down        --            04/16/20 22:45:26
+2/40       down         down        --            04/16/20 22:45:26
+2/41       down         down        --            04/16/20 22:45:26
+2/42       down         down        --            04/16/20 22:45:26
+
+
+====================================================================================================
+                                    Port Arp
+====================================================================================================
+PORT_NUM DOPROXY    DORESP
+----------------------------------------------------------------------------------------------------
+1/1      false      true
+1/2      false      true
+1/3      false      true
+1/4      false      true
+1/5      false      true
+1/6      false      true
+1/7      false      true
+1/8      false      true
+1/9      false      true
+1/10     false      true
+1/11     false      true
+1/12     false      true
+1/13     false      true
+1/14     false      true
+1/15     false      true
+1/16     false      true
+1/17     false      true
+1/18     false      true
+1/19     false      true
+1/20     false      true
+1/21     false      true
+1/22     false      true
+1/23     false      true
+1/24     false      true
+1/25     false      true
+1/26     false      true
+1/27     false      true
+1/28     false      true
+1/29     false      true
+1/30     false      true
+1/31     false      true
+1/32     false      true
+1/33     false      true
+1/34     false      true
+1/35     false      true
+1/36     false      true
+1/37     false      true
+1/38     false      true
+1/39     false      true
+1/40     false      true
+1/41     false      true
+1/42     false      true
+2/1      false      true
+2/2      false      true
+2/3      false      true
+2/4      false      true
+2/5      false      true
+2/6      false      true
+2/7      false      true
+2/8      false      true
+2/9      false      true
+2/10     false      true
+2/11     false      true
+2/12     false      true
+2/13     false      true
+2/14     false      true
+2/15     false      true
+2/16     false      true
+2/17     false      true
+2/18     false      true
+2/19     false      true
+2/20     false      true
+2/21     false      true
+2/22     false      true
+2/23     false      true
+2/24     false      true
+2/25     false      true
+2/26     false      true
+2/27     false      true
+2/28     false      true
+2/29     false      true
+2/30     false      true
+2/31     false      true
+2/32     false      true
+2/33     false      true
+2/34     false      true
+2/35     false      true
+2/36     false      true
+2/37     false      true
+2/38     false      true
+2/39     false      true
+2/40     false      true
+2/41     false      true
+2/42     false      true
+
+
+
+====================================================================================================
+                                   Port Dhcp
+====================================================================================================
+PORT     VRF                     MAX MIN                ALWAYS CIRCUIT REMOTE TRUST
+NUM      NAME             ENABLE HOP SEC   MODE         BCAST  ID      ID     CIRC
+----------------------------------------------------------------------------------------------------
+
+
+====================================================================================================
+                                Port High-Secure
+====================================================================================================
+PORT NUM     HIGH_SECURE
+----------------------------------------------------------------------------------------------------
+mgmt        false
+1/1         false
+1/2         false
+1/3         false
+1/4         false
+1/5         false
+1/6         false
+1/7         false
+1/8         false
+1/9         false
+1/10        false
+1/11        false
+1/12        false
+1/13        false
+1/14        false
+1/15        false
+1/16        false
+1/17        false
+1/18        false
+1/19        false
+1/20        false
+1/21        false
+1/22        false
+1/23        false
+1/24        false
+1/25        false
+1/26        false
+1/27        false
+1/28        false
+1/29        false
+1/30        false
+1/31        false
+1/32        false
+1/33        false
+1/34        false
+1/35        false
+1/36        false
+1/37        false
+1/38        false
+1/39        false
+1/40        false
+1/41        false
+1/42        false
+2/1         false
+2/2         false
+2/3         false
+2/4         false
+2/5         false
+2/6         false
+2/7         false
+2/8         false
+2/9         false
+2/10        false
+2/11        false
+2/12        false
+2/13        false
+2/14        false
+2/15        false
+2/16        false
+2/17        false
+2/18        false
+2/19        false
+2/20        false
+2/21        false
+2/22        false
+2/23        false
+2/24        false
+2/25        false
+2/26        false
+2/27        false
+2/28        false
+2/29        false
+2/30        false
+2/31        false
+2/32        false
+2/33        false
+2/34        false
+2/35        false
+2/36        false
+2/37        false
+2/38        false
+2/39        false
+2/40        false
+2/41        false
+2/42        false
+
+
+====================================================================================================
+                                    Port Fdb
+====================================================================================================
+VLAN            MAC                           SMLT
+ID   STATUS     ADDRESS            INTERFACE  REMOTE
+----------------------------------------------------------------------------------------------------
+4092 self       00:51:00:02:00:81  Port-cpp      false
+
+c: customer vid   u: untagged-traffic
+
+1 out of 1 entries in all fdb(s) displayed.
+
+
+
+
+==================================================================================================
+                                         Brouter Port Ip
+==================================================================================================
+PORT     VRF   IP_ADDRESS    NET_MASK         BROADCAST  REASM   ADVERTISE  DIRECT  RPC      RPCMODE
+NUM      NAME                                            MAXSIZE WHEN_DOWN  BCAST
+--------------------------------------------------------------------------------------------------
+
+
+PORT     VRF
+NUM      NAME
+----------------------------------------------------------------------------------------------------
+
+
+============================================================================================================================================
+                                                  Port Ipv6 Interface
+============================================================================================================================================
+IFINDX VRF              BROUTER  PHYSICAL          ADMIN   OPER  TYPE  MTU  HOP REACHABLE   RETRANSMIT  MCAST    IPSEC    RPC      RPCMODE
+INDX   NAME                      ADDRESS           STATE   STATE            LMT TIME        TIME        STATUS
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+====================================================================================================
+                               Port Ipv6 Address
+====================================================================================================
+IPV6 ADDRESS                            BROUTER      TYPE    ORIGIN    STATUS
+----------------------------------------------------------------------------------------------------
+
+0 out of 0 Total Num of Interface Entries displayed.
+0 out of 0 Total Num of Address Entries displayed.
+
+=======================================================================================================================
+                                                 Port Ipv6 Nd
+=======================================================================================================================
+IFID VRF              BTR    RTR-ADV MAX-INT MIN-INT LIFETIME MANAG OTHER DAD-NS MTU     HOP    REACHABLE RETRANSMIT
+     NAME                                                     FLAG  CONF                 LIMIT  TIME      TIME
+-----------------------------------------------------------------------------------------------------------------------
+
+Note:  (s) = Set, (d) = Default, (i) = inherit.
+
+0 out of 0 Total Num of Ipv6 ND Entries displayed.
+
+====================================================================================================
+                              Port Ipv6 Nd Prefix
+====================================================================================================
+INTF  VRF              IPV6                                           BTR      VALID       PREF     EUI
+INDEX NAME             ADDRESS/PREFIX                                          LIFE        LIFE
+----------------------------------------------------------------------------------------------------
+
+0 out of 0 Total Num of Ipv6 ND prefix Entries displayed.
+
+====================================================================================================
+                                 Port Ipv6 MLD
+====================================================================================================
+BROUTER  Q-INT  VR QUERIER                                 Q-M-R  ROBUST L-M-Q
+----------------------------------------------------------------------------------------------------
+ Legend: Q-INT: query-interval VR: version
+         Q-M-R: query-max-resp ROBUST: robustval
+         L-M-Q: last-memb-query-int
+
+0 out of 0 Total Num of Ipv6 MLD Entries displayed.
+
+====================================================================================================
+                                   Port Ospf
+====================================================================================================
+PORT            HELLO   RTRDEAD OSPF
+NUM      ENABLE INTVAL  INTVAL  PRIORITY METRIC AUTHTYPE AUTHKEY    AREA_ID
+----------------------------------------------------------------------------------------------------
+mgmt     false  10      40      1        0      none                0.0.0.0
+1/1      false  10      40      1        0      none                0.0.0.0
+1/2      false  10      40      1        0      none                0.0.0.0
+1/3      false  10      40      1        0      none                0.0.0.0
+1/4      false  10      40      1        0      none                0.0.0.0
+1/5      false  10      40      1        0      none                0.0.0.0
+1/6      false  10      40      1        0      none                0.0.0.0
+1/7      false  10      40      1        0      none                0.0.0.0
+1/8      false  10      40      1        0      none                0.0.0.0
+1/9      false  10      40      1        0      none                0.0.0.0
+1/10     false  10      40      1        0      none                0.0.0.0
+1/11     false  10      40      1        0      none                0.0.0.0
+1/12     false  10      40      1        0      none                0.0.0.0
+1/13     false  10      40      1        0      none                0.0.0.0
+1/14     false  10      40      1        0      none                0.0.0.0
+1/15     false  10      40      1        0      none                0.0.0.0
+1/16     false  10      40      1        0      none                0.0.0.0
+1/17     false  10      40      1        0      none                0.0.0.0
+1/18     false  10      40      1        0      none                0.0.0.0
+1/19     false  10      40      1        0      none                0.0.0.0
+1/20     false  10      40      1        0      none                0.0.0.0
+1/21     false  10      40      1        0      none                0.0.0.0
+1/22     false  10      40      1        0      none                0.0.0.0
+1/23     false  10      40      1        0      none                0.0.0.0
+1/24     false  10      40      1        0      none                0.0.0.0
+1/25     false  10      40      1        0      none                0.0.0.0
+1/26     false  10      40      1        0      none                0.0.0.0
+1/27     false  10      40      1        0      none                0.0.0.0
+1/28     false  10      40      1        0      none                0.0.0.0
+1/29     false  10      40      1        0      none                0.0.0.0
+1/30     false  10      40      1        0      none                0.0.0.0
+1/31     false  10      40      1        0      none                0.0.0.0
+1/32     false  10      40      1        0      none                0.0.0.0
+1/33     false  10      40      1        0      none                0.0.0.0
+1/34     false  10      40      1        0      none                0.0.0.0
+1/35     false  10      40      1        0      none                0.0.0.0
+1/36     false  10      40      1        0      none                0.0.0.0
+1/37     false  10      40      1        0      none                0.0.0.0
+1/38     false  10      40      1        0      none                0.0.0.0
+1/39     false  10      40      1        0      none                0.0.0.0
+1/40     false  10      40      1        0      none                0.0.0.0
+1/41     false  10      40      1        0      none                0.0.0.0
+1/42     false  10      40      1        0      none                0.0.0.0
+2/1      false  10      40      1        0      none                0.0.0.0
+2/2      false  10      40      1        0      none                0.0.0.0
+2/3      false  10      40      1        0      none                0.0.0.0
+2/4      false  10      40      1        0      none                0.0.0.0
+2/5      false  10      40      1        0      none                0.0.0.0
+2/6      false  10      40      1        0      none                0.0.0.0
+2/7      false  10      40      1        0      none                0.0.0.0
+2/8      false  10      40      1        0      none                0.0.0.0
+2/9      false  10      40      1        0      none                0.0.0.0
+2/10     false  10      40      1        0      none                0.0.0.0
+2/11     false  10      40      1        0      none                0.0.0.0
+2/12     false  10      40      1        0      none                0.0.0.0
+2/13     false  10      40      1        0      none                0.0.0.0
+2/14     false  10      40      1        0      none                0.0.0.0
+2/15     false  10      40      1        0      none                0.0.0.0
+2/16     false  10      40      1        0      none                0.0.0.0
+2/17     false  10      40      1        0      none                0.0.0.0
+2/18     false  10      40      1        0      none                0.0.0.0
+2/19     false  10      40      1        0      none                0.0.0.0
+2/20     false  10      40      1        0      none                0.0.0.0
+2/21     false  10      40      1        0      none                0.0.0.0
+2/22     false  10      40      1        0      none                0.0.0.0
+2/23     false  10      40      1        0      none                0.0.0.0
+2/24     false  10      40      1        0      none                0.0.0.0
+2/25     false  10      40      1        0      none                0.0.0.0
+2/26     false  10      40      1        0      none                0.0.0.0
+2/27     false  10      40      1        0      none                0.0.0.0
+2/28     false  10      40      1        0      none                0.0.0.0
+2/29     false  10      40      1        0      none                0.0.0.0
+2/30     false  10      40      1        0      none                0.0.0.0
+2/31     false  10      40      1        0      none                0.0.0.0
+2/32     false  10      40      1        0      none                0.0.0.0
+2/33     false  10      40      1        0      none                0.0.0.0
+2/34     false  10      40      1        0      none                0.0.0.0
+2/35     false  10      40      1        0      none                0.0.0.0
+2/36     false  10      40      1        0      none                0.0.0.0
+2/37     false  10      40      1        0      none                0.0.0.0
+2/38     false  10      40      1        0      none                0.0.0.0
+2/39     false  10      40      1        0      none                0.0.0.0
+2/40     false  10      40      1        0      none                0.0.0.0
+2/41     false  10      40      1        0      none                0.0.0.0
+2/42     false  10      40      1        0      none                0.0.0.0
+
+
+====================================================================================================
+                             Port Ospfv3 Interface
+====================================================================================================
+IFINDX(BTR)      AREAID          ADM IFSTATE  METRIC PRI DR/BDR          IFTYPE
+----------------------------------------------------------------------------------------------------
+
+0 out of 0 Total Num of Ospf Interface Entries displayed.
+
+====================================================================================================
+                                    Port Rip
+====================================================================================================
+PORT            DEFAULT   DEFAULT TRIGGERED AUTOAGG
+NUM      ENABLE SUPPLY    LISTEN  UPDATE    ENABLE  SUPPLY LISTEN POISON
+----------------------------------------------------------------------------------------------------
+1/1      false  false     false   false     false   true   true   false
+1/2      false  false     false   false     false   true   true   false
+1/3      false  false     false   false     false   true   true   false
+1/4      false  false     false   false     false   true   true   false
+1/5      false  false     false   false     false   true   true   false
+1/6      false  false     false   false     false   true   true   false
+1/7      false  false     false   false     false   true   true   false
+1/8      false  false     false   false     false   true   true   false
+1/9      false  false     false   false     false   true   true   false
+1/10     false  false     false   false     false   true   true   false
+1/11     false  false     false   false     false   true   true   false
+1/12     false  false     false   false     false   true   true   false
+1/13     false  false     false   false     false   true   true   false
+1/14     false  false     false   false     false   true   true   false
+1/15     false  false     false   false     false   true   true   false
+1/16     false  false     false   false     false   true   true   false
+1/17     false  false     false   false     false   true   true   false
+1/18     false  false     false   false     false   true   true   false
+1/19     false  false     false   false     false   true   true   false
+1/20     false  false     false   false     false   true   true   false
+1/21     false  false     false   false     false   true   true   false
+1/22     false  false     false   false     false   true   true   false
+1/23     false  false     false   false     false   true   true   false
+1/24     false  false     false   false     false   true   true   false
+1/25     false  false     false   false     false   true   true   false
+1/26     false  false     false   false     false   true   true   false
+1/27     false  false     false   false     false   true   true   false
+1/28     false  false     false   false     false   true   true   false
+1/29     false  false     false   false     false   true   true   false
+1/30     false  false     false   false     false   true   true   false
+1/31     false  false     false   false     false   true   true   false
+1/32     false  false     false   false     false   true   true   false
+1/33     false  false     false   false     false   true   true   false
+1/34     false  false     false   false     false   true   true   false
+1/35     false  false     false   false     false   true   true   false
+1/36     false  false     false   false     false   true   true   false
+1/37     false  false     false   false     false   true   true   false
+1/38     false  false     false   false     false   true   true   false
+1/39     false  false     false   false     false   true   true   false
+1/40     false  false     false   false     false   true   true   false
+1/41     false  false     false   false     false   true   true   false
+1/42     false  false     false   false     false   true   true   false
+2/1      false  false     false   false     false   true   true   false
+2/2      false  false     false   false     false   true   true   false
+2/3      false  false     false   false     false   true   true   false
+2/4      false  false     false   false     false   true   true   false
+2/5      false  false     false   false     false   true   true   false
+2/6      false  false     false   false     false   true   true   false
+2/7      false  false     false   false     false   true   true   false
+2/8      false  false     false   false     false   true   true   false
+2/9      false  false     false   false     false   true   true   false
+2/10     false  false     false   false     false   true   true   false
+2/11     false  false     false   false     false   true   true   false
+2/12     false  false     false   false     false   true   true   false
+2/13     false  false     false   false     false   true   true   false
+2/14     false  false     false   false     false   true   true   false
+2/15     false  false     false   false     false   true   true   false
+2/16     false  false     false   false     false   true   true   false
+2/17     false  false     false   false     false   true   true   false
+2/18     false  false     false   false     false   true   true   false
+2/19     false  false     false   false     false   true   true   false
+2/20     false  false     false   false     false   true   true   false
+2/21     false  false     false   false     false   true   true   false
+2/22     false  false     false   false     false   true   true   false
+2/23     false  false     false   false     false   true   true   false
+2/24     false  false     false   false     false   true   true   false
+2/25     false  false     false   false     false   true   true   false
+2/26     false  false     false   false     false   true   true   false
+2/27     false  false     false   false     false   true   true   false
+2/28     false  false     false   false     false   true   true   false
+2/29     false  false     false   false     false   true   true   false
+2/30     false  false     false   false     false   true   true   false
+2/31     false  false     false   false     false   true   true   false
+2/32     false  false     false   false     false   true   true   false
+2/33     false  false     false   false     false   true   true   false
+2/34     false  false     false   false     false   true   true   false
+2/35     false  false     false   false     false   true   true   false
+2/36     false  false     false   false     false   true   true   false
+2/37     false  false     false   false     false   true   true   false
+2/38     false  false     false   false     false   true   true   false
+2/39     false  false     false   false     false   true   true   false
+2/40     false  false     false   false     false   true   true   false
+2/41     false  false     false   false     false   true   true   false
+2/42     false  false     false   false     false   true   true   false
+
+
+====================================================================================================
+                                Port Rip - Extn
+====================================================================================================
+PORT     ADVERTISE           HOLD   TIME   MANUAL
+NUM      WHEN-DOWN    COST   DOWN   OUT    TRIGGER
+----------------------------------------------------------------------------------------------------
+1/1      disable      1      120    180    N/A
+1/2      disable      1      120    180    N/A
+1/3      disable      1      120    180    N/A
+1/4      disable      1      120    180    N/A
+1/5      disable      1      120    180    N/A
+1/6      disable      1      120    180    N/A
+1/7      disable      1      120    180    N/A
+1/8      disable      1      120    180    N/A
+1/9      disable      1      120    180    N/A
+1/10     disable      1      120    180    N/A
+1/11     disable      1      120    180    N/A
+1/12     disable      1      120    180    N/A
+1/13     disable      1      120    180    N/A
+1/14     disable      1      120    180    N/A
+1/15     disable      1      120    180    N/A
+1/16     disable      1      120    180    N/A
+1/17     disable      1      120    180    N/A
+1/18     disable      1      120    180    N/A
+1/19     disable      1      120    180    N/A
+1/20     disable      1      120    180    N/A
+1/21     disable      1      120    180    N/A
+1/22     disable      1      120    180    N/A
+1/23     disable      1      120    180    N/A
+1/24     disable      1      120    180    N/A
+1/25     disable      1      120    180    N/A
+1/26     disable      1      120    180    N/A
+1/27     disable      1      120    180    N/A
+1/28     disable      1      120    180    N/A
+1/29     disable      1      120    180    N/A
+1/30     disable      1      120    180    N/A
+1/31     disable      1      120    180    N/A
+1/32     disable      1      120    180    N/A
+1/33     disable      1      120    180    N/A
+1/34     disable      1      120    180    N/A
+1/35     disable      1      120    180    N/A
+1/36     disable      1      120    180    N/A
+1/37     disable      1      120    180    N/A
+1/38     disable      1      120    180    N/A
+1/39     disable      1      120    180    N/A
+1/40     disable      1      120    180    N/A
+1/41     disable      1      120    180    N/A
+1/42     disable      1      120    180    N/A
+2/1      disable      1      120    180    N/A
+2/2      disable      1      120    180    N/A
+2/3      disable      1      120    180    N/A
+2/4      disable      1      120    180    N/A
+2/5      disable      1      120    180    N/A
+2/6      disable      1      120    180    N/A
+2/7      disable      1      120    180    N/A
+2/8      disable      1      120    180    N/A
+2/9      disable      1      120    180    N/A
+2/10     disable      1      120    180    N/A
+2/11     disable      1      120    180    N/A
+2/12     disable      1      120    180    N/A
+2/13     disable      1      120    180    N/A
+2/14     disable      1      120    180    N/A
+2/15     disable      1      120    180    N/A
+2/16     disable      1      120    180    N/A
+2/17     disable      1      120    180    N/A
+2/18     disable      1      120    180    N/A
+2/19     disable      1      120    180    N/A
+2/20     disable      1      120    180    N/A
+2/21     disable      1      120    180    N/A
+2/22     disable      1      120    180    N/A
+2/23     disable      1      120    180    N/A
+2/24     disable      1      120    180    N/A
+2/25     disable      1      120    180    N/A
+2/26     disable      1      120    180    N/A
+2/27     disable      1      120    180    N/A
+2/28     disable      1      120    180    N/A
+2/29     disable      1      120    180    N/A
+2/30     disable      1      120    180    N/A
+2/31     disable      1      120    180    N/A
+2/32     disable      1      120    180    N/A
+2/33     disable      1      120    180    N/A
+2/34     disable      1      120    180    N/A
+2/35     disable      1      120    180    N/A
+2/36     disable      1      120    180    N/A
+2/37     disable      1      120    180    N/A
+2/38     disable      1      120    180    N/A
+2/39     disable      1      120    180    N/A
+2/40     disable      1      120    180    N/A
+2/41     disable      1      120    180    N/A
+2/42     disable      1      120    180    N/A
+
+
+====================================================================================================
+                              Port Rip - In Policy
+====================================================================================================
+PORT     IN-POLICY
+----------------------------------------------------------------------------------------------------
+1/1      N/A
+1/2      N/A
+1/3      N/A
+1/4      N/A
+1/5      N/A
+1/6      N/A
+1/7      N/A
+1/8      N/A
+1/9      N/A
+1/10     N/A
+1/11     N/A
+1/12     N/A
+1/13     N/A
+1/14     N/A
+1/15     N/A
+1/16     N/A
+1/17     N/A
+1/18     N/A
+1/19     N/A
+1/20     N/A
+1/21     N/A
+1/22     N/A
+1/23     N/A
+1/24     N/A
+1/25     N/A
+1/26     N/A
+1/27     N/A
+1/28     N/A
+1/29     N/A
+1/30     N/A
+1/31     N/A
+1/32     N/A
+1/33     N/A
+1/34     N/A
+1/35     N/A
+1/36     N/A
+1/37     N/A
+1/38     N/A
+1/39     N/A
+1/40     N/A
+1/41     N/A
+1/42     N/A
+2/1      N/A
+2/2      N/A
+2/3      N/A
+2/4      N/A
+2/5      N/A
+2/6      N/A
+2/7      N/A
+2/8      N/A
+2/9      N/A
+2/10     N/A
+2/11     N/A
+2/12     N/A
+2/13     N/A
+2/14     N/A
+2/15     N/A
+2/16     N/A
+2/17     N/A
+2/18     N/A
+2/19     N/A
+2/20     N/A
+2/21     N/A
+2/22     N/A
+2/23     N/A
+2/24     N/A
+2/25     N/A
+2/26     N/A
+2/27     N/A
+2/28     N/A
+2/29     N/A
+2/30     N/A
+2/31     N/A
+2/32     N/A
+2/33     N/A
+2/34     N/A
+2/35     N/A
+2/36     N/A
+2/37     N/A
+2/38     N/A
+2/39     N/A
+2/40     N/A
+2/41     N/A
+2/42     N/A
+
+
+====================================================================================================
+                             Port Rip - Out Policy
+====================================================================================================
+PORT     OUT-POLICY
+----------------------------------------------------------------------------------------------------
+1/1      N/A
+1/2      N/A
+1/3      N/A
+1/4      N/A
+1/5      N/A
+1/6      N/A
+1/7      N/A
+1/8      N/A
+1/9      N/A
+1/10     N/A
+1/11     N/A
+1/12     N/A
+1/13     N/A
+1/14     N/A
+1/15     N/A
+1/16     N/A
+1/17     N/A
+1/18     N/A
+1/19     N/A
+1/20     N/A
+1/21     N/A
+1/22     N/A
+1/23     N/A
+1/24     N/A
+1/25     N/A
+1/26     N/A
+1/27     N/A
+1/28     N/A
+1/29     N/A
+1/30     N/A
+1/31     N/A
+1/32     N/A
+1/33     N/A
+1/34     N/A
+1/35     N/A
+1/36     N/A
+1/37     N/A
+1/38     N/A
+1/39     N/A
+1/40     N/A
+1/41     N/A
+1/42     N/A
+2/1      N/A
+2/2      N/A
+2/3      N/A
+2/4      N/A
+2/5      N/A
+2/6      N/A
+2/7      N/A
+2/8      N/A
+2/9      N/A
+2/10     N/A
+2/11     N/A
+2/12     N/A
+2/13     N/A
+2/14     N/A
+2/15     N/A
+2/16     N/A
+2/17     N/A
+2/18     N/A
+2/19     N/A
+2/20     N/A
+2/21     N/A
+2/22     N/A
+2/23     N/A
+2/24     N/A
+2/25     N/A
+2/26     N/A
+2/27     N/A
+2/28     N/A
+2/29     N/A
+2/30     N/A
+2/31     N/A
+2/32     N/A
+2/33     N/A
+2/34     N/A
+2/35     N/A
+2/36     N/A
+2/37     N/A
+2/38     N/A
+2/39     N/A
+2/40     N/A
+2/41     N/A
+2/42     N/A
+
+
+====================================================================================================
+                              Port Ripng Interface
+====================================================================================================
+IFINDX         COST            POISON         SEND           OPER
+                               STATUS         DEFAULT        STATUS
+----------------------------------------------------------------------------------------------------
+
+
+====================================================================================================
+                                   Port Vrrp
+====================================================================================================
+PORT     VRF              VRRP IP              VIRTUAL           VERSION
+NUM      NAME             ID   ADDRESS         MAC ADDRESS
+----------------------------------------------------------------------------------------------------
+
+Route:
+---------------
+
+=====================================================================================================
+                                       IP Route - GlobalRouter
+=====================================================================================================
+                                                     NH                      INTER
+DST             MASK            NEXT                 VRF/ISID         COST   FACE     PROT AGE TYPE PRF
+-----------------------------------------------------------------------------------------------------
+
+0 out of 0 Total Num of Route Entries, 0 Total Num of Dest Networks displayed.
+--------------------------------------------------------------------------------------------------
+TYPE Legend:
+I=Indirect Route, D=Direct Route, A=Alternative Route, B=Best Route, E=Ecmp Route,
+U=Unresolved Route, N=Not in HW, F=Replaced by FTN, V=IPVPN Route, S=SPBM Route
+PROTOCOL Legend:
+v=Inter-VRF route redistributed
+
+Ip Arp:
+---------------
+
+
+==========================================================================================
+                                  IP Arp - GlobalRouter
+==========================================================================================
+IP_ADDRESS      MAC_ADDRESS        VLAN  PORT                 TYPE    TTL(10 Sec) TUNNEL
+------------------------------------------------------------------------------------------
+
+====================================================================================================
+                           IP Arp Extn - GlobalRouter
+====================================================================================================
+MULTICAST-MAC-FLOODING    AGING(Minutes)       ARP-THRESHOLD
+----------------------------------------------------------------------------------------------------
+disable                   360                  500
+
+c: customer vid   u: untagged-traffic
+
+0 out of 3 ARP entries displayed
+
+
+ARPs on TX-NNI: Current = 0, re-ARP count = 0
+
+
+Ip Igmp interface:
+---------------
+#show ip igmp interface
+---------------
+
+
+====================================================================================================
+                         Igmp Interface - GlobalRouter
+====================================================================================================
+       QUERY              OPER            QUERY   WRONG              LASTMEM
+IF     INTVL STATUS VERS. VERS QUERIER    MAXRSPT QUERY JOINS ROBUST QUERY   MODE       L2ISID
+----------------------------------------------------------------------------------------------------
+
+0 out of 0 entries displayed
+
+
+OSPF:
+---------------
+
+
+====================================================================================================
+                            OSPF Area - GlobalRouter
+====================================================================================================
+AREA_ID         STUB_AREA  NSSA          IMPORT_SUM ACTIVE_IFCNT
+----------------------------------------------------------------------------------------------------
+0.0.0.0         false      false         true       0
+
+STUB_COST INTRA_AREA_SPF_RUNS  BDR_RTR_CNT ASBDR_RTR_CNT LSA_CNT   LSACK_SUM
+----------------------------------------------------------------------------------------------------
+0         0                    0           0             0         0
+
+----------------------------------------------------------------------------------------------------
+
+Total ospf areas: 1
+
+Total ospf interfaces: 0
+
+====================================================================================================
+                         OSPF Interface - GlobalRouter
+====================================================================================================
+INTERFACE      AREA           ADM IFST MET PRI DR/            TYPE AUTH     MTU
+                ID                             BDR                 TYPE     IGNO
+----------------------------------------------------------------------------------------------------
+
+DR_O = DR_OTHER
+
+====================================================================================================
+                         OSPF Neighbors - GlobalRouter
+====================================================================================================
+INTERFACE       NBRROUTERID     NBRIPADDR       PRIO    STATE    RTXQLEN PERM TTL
+----------------------------------------------------------------------------------------------------
+
+Total ospf neighbors: 0
+
+H = Helping a Restarting neighbor
+
+====================================================================================================
+                            OSPF LSDB - GlobalRouter
+====================================================================================================
+
+====================================================================================================
+                                AsExternal Lsas
+====================================================================================================
+
+LSTYPE     LINKSTATEID     ADV_ROUTER      ETYPE  METRIC  ASE_FWD_ADDR    AGE  SEQ_NBR    CSUM
+----------------------------------------------------------------------------------------------------
+
+
+DVR Info:
+---------------
+
+There is no DVR instance.
+
+Log:
+---------------
+
+1 2020-04-16T22:44:45.555Z VSP-8284XSQ IO1 - 0x00270428 - 00000000 GlobalRouter SW INFO Lifecycle: Start
+1 2020-04-16T22:44:45.615Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process namServer started, pid:2263
+1 2020-04-16T22:44:45.616Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process sockserv started, pid:2264
+1 2020-04-16T22:44:45.640Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process oom95 started, pid:2266
+1 2020-04-16T22:44:45.650Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process oom90 started, pid:2268
+1 2020-04-16T22:44:45.679Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process imgsync.x started, pid:2269
+1 2020-04-16T22:44:45.736Z VSP-8284XSQ IO1 - 0x00264503 - 00000000 GlobalRouter SW INFO IMAGE SYNC: Running pre-install script for image version VOSSGNS3.8.1.0.0.GA
+1 2020-04-16T22:44:47.871Z VSP-8284XSQ IO1 - 0x00264541 - 00000000 GlobalRouter SW INFO Image Integrity verification passed.
+1 2020-04-16T22:44:47.880Z VSP-8284XSQ IO1 - 0x0026452f - 00000000 GlobalRouter SW INFO No patch set.
+1 2020-04-16T22:44:48.682Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process logServer started, pid:2393
+1 2020-04-16T22:44:48.684Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process trcServer started, pid:2394
+1 2020-04-16T22:44:48.688Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process oobServer started, pid:2395
+1 2020-04-16T22:44:48.710Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process nickServer started, pid:2396
+1 2020-04-16T22:44:48.714Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process nickClient started, pid:2399
+1 2020-04-16T22:44:48.724Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process hwsServer started, pid:2400
+1 2020-04-16T22:44:48.729Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process redis-server started, pid:2402
+1 2020-04-16T22:44:48.751Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process cbcp-main.x started, pid:2403
+1 2020-04-16T22:44:48.759Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process rssServer started, pid:2407
+1 2020-04-16T22:44:48.819Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process dbgServer started, pid:2409
+1 2020-04-16T22:44:48.824Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process dbgShell started, pid:2436
+1 2020-04-16T22:44:48.829Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process khiCollection started, pid:2439
+1 2020-04-16T22:44:48.865Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process coreManager.x started, pid:2447
+1 2020-04-16T22:44:48.872Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process filer started, pid:2456
+1 2020-04-16T22:44:48.884Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process ovsdbServerCtl started, pid:2458
+1 2020-04-16T22:44:49.006Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process ssio started, pid:2461
+1 2020-04-16T22:44:49.009Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process hckServer started, pid:2524
+1 2020-04-16T22:44:51.091Z VSP-8284XSQ CP1 - 0x002e8614 - 00000000 GlobalRouter HCK INFO Server available & connected: handle:0x19a7ce8
+1 2020-04-16T22:44:51.091Z VSP-8284XSQ IO1 - 0x002e8614 - 00000000 GlobalRouter HCK INFO Server available & connected: handle:0x1c2d798
+1 2020-04-16T22:44:51.091Z VSP-8284XSQ IO1 - 0x002e8614 - 00000000 GlobalRouter HCK INFO Server available & connected: handle:0x1849278
+1 2020-04-16T22:44:51.092Z VSP-8284XSQ CP1 - 0x002e860f - 00000000 GlobalRouter HCK INFO New connection opened with handle: 0xf2408998
+1 2020-04-16T22:44:51.092Z VSP-8284XSQ CP1 - 0x002e860f - 00000000 GlobalRouter HCK INFO New connection opened with handle: 0xf2409908
+1 2020-04-16T22:44:51.092Z VSP-8284XSQ CP1 - 0x002e860f - 00000000 GlobalRouter HCK INFO New connection opened with handle: 0xf2409d78
+1 2020-04-16T22:44:51.093Z VSP-8284XSQ CP1 - 0x002e8614 - 00000000 GlobalRouter HCK INFO Server available & connected: handle:0xc45a6b8
+1 2020-04-16T22:44:51.093Z VSP-8284XSQ CP1 - 0x002e860f - 00000000 GlobalRouter HCK INFO New connection opened with handle: 0xf240b468
+1 2020-04-16T22:44:51.653Z VSP-8284XSQ CP1 - 0x000005c0 - 00000000 GlobalRouter SW INFO LicenseLoad = ZERO, loading <premier+macsec> license for developer debugging
+1 2020-04-16T22:44:52.481Z VSP-8284XSQ CP1 - 0x00010850 - 00400022.1 DYNAMIC SET GlobalRouter HW ERROR Power supply unit 1 fault detected
+1 2020-04-16T22:44:52.481Z VSP-8284XSQ CP1 - 0x0001072a - 0040000a DYNAMIC SET GlobalRouter HW WARNING Power Supply 1 is faulty, please replace with working supply
+1 2020-04-16T22:44:52.481Z VSP-8284XSQ CP1 - 0x00010848 - 00400021.1 DYNAMIC SET GlobalRouter HW ERROR Power supply unit 1 attention state detected
+1 2020-04-16T22:44:52.481Z VSP-8284XSQ CP1 - 0x00010728 - 0040000a DYNAMIC SET GlobalRouter HW INFO Detected  Power Supply in slot PS1 is either faulty or power is not being supplied for this supply
+1 2020-04-16T22:44:52.486Z VSP-8284XSQ CP1 - 0x00010850 - 00400022.2 DYNAMIC SET GlobalRouter HW ERROR Power supply unit 2 fault detected
+1 2020-04-16T22:44:52.486Z VSP-8284XSQ CP1 - 0x0001072a - 0040000a DYNAMIC SET GlobalRouter HW WARNING Power Supply 2 is faulty, please replace with working supply
+1 2020-04-16T22:44:52.486Z VSP-8284XSQ CP1 - 0x00010848 - 00400021.2 DYNAMIC SET GlobalRouter HW ERROR Power supply unit 2 attention state detected
+1 2020-04-16T22:44:52.486Z VSP-8284XSQ CP1 - 0x00010728 - 0040000a DYNAMIC SET GlobalRouter HW INFO Detected  Power Supply in slot PS2 is either faulty or power is not being supplied for this supply
+1 2020-04-16T22:44:52.496Z VSP-8284XSQ CP1 - 0x0001062d - 00000000 GlobalRouter HW ERROR sysPsuOK: Error in reading device
+1 2020-04-16T22:44:52.496Z VSP-8284XSQ CP1 - 0x0001071d - 00000000 GlobalRouter HW WARNING Power Required: 416. Power Available: 0
+1 2020-04-16T22:44:52.496Z VSP-8284XSQ CP1 - 0x000105aa - 00000000 GlobalRouter HW WARNING Chassis does not have redundant Power Supply
+1 2020-04-16T22:44:52.809Z VSP-8284XSQ IO1 - 0x0011054a - 00000000 GlobalRouter COP-SW INFO Detected Master CP in slot 1
+1 2020-04-16T22:45:10.438Z VSP-8284XSQ CP1 - 0x000006c2 - 00000000 GlobalRouter SW INFO rcStart: Mocana Security Stack Init SUCCESSFUL - 0
+1 2020-04-16T22:45:10.438Z VSP-8284XSQ CP1 - 0x000006c3 - 00000000 GlobalRouter SW INFO rcStart: Mocana IPSEC Init SUCCESSFUL
+1 2020-04-16T22:45:10.438Z VSP-8284XSQ CP1 - 0x000006bf - 00000000 GlobalRouter SW INFO rcStart: Security Stack Log init SUCCESSFUL - 0
+1 2020-04-16T22:45:10.438Z VSP-8284XSQ CP1 - 0x000006c1 - 00000000 GlobalRouter SW INFO rcStart: SSH Module Init Successful - 0
+1 2020-04-16T22:45:10.443Z VSP-8284XSQ CP1 - 0x003a860f - 00000000 GlobalRouter DIGITALCERT INFO Digital Certificate configuration restored successfully
+1 2020-04-16T22:45:10.443Z VSP-8284XSQ CP1 - 0x003a860c - 00000000 GlobalRouter DIGITALCERT INFO Digital Certificate Setup successful
+1 2020-04-16T22:45:10.443Z VSP-8284XSQ CP1 - 0x00004764 - 00000000 GlobalRouter SNMP INFO Syslog Root Certificate Setup successful
+1 2020-04-16T22:45:10.630Z VSP-8284XSQ CP1 - 0x00034594 - 00000000 GlobalRouter SW INFO System boot
+1 2020-04-16T22:45:10.630Z VSP-8284XSQ CP1 - 0x00034595 - 00000000 GlobalRouter SW INFO VSP-8284XSQ VSP Operating System Software Release 8.1.0.0
+1 2020-04-16T22:45:10.899Z VSP-8284XSQ CP1 - 0x00010774 - 00000000 GlobalRouter HW INFO Detected 8284XSQ chassis
+1 2020-04-16T22:45:10.900Z VSP-8284XSQ CP1 - 0x0001081c - 00400010.2 DYNAMIC SET GlobalRouter HW INFO Slot 2 is initializing.
+1 2020-04-16T22:45:10.900Z VSP-8284XSQ CP1 - 0x0001081c - 00400010.1 DYNAMIC SET GlobalRouter HW INFO Slot 1 is initializing.
+1 2020-04-16T22:45:10.917Z VSP-8284XSQ CP1 - 0x00010830 - 00000000 GlobalRouter HW INFO Detected 8242XSQ module (Serial#: SDNIPM624B36) in slot 2
+1 2020-04-16T22:45:10.956Z VSP-8284XSQ CP1 - 0x00010830 - 00000000 GlobalRouter HW INFO Detected 8242XSQ module (Serial#: SDNIPM624B36) in slot 1
+1 2020-04-16T22:45:14.495Z VSP-8284XSQ CP1 - 0x0002475c - 00000000 GlobalRouter CPU INFO CPP Rx Qs Initialised num: 8
+1 2020-04-16T22:45:24.730Z VSP-8284XSQ CP1 - 0x000bc5cd - 00000000 GlobalRouter RIP INFO Created instance of RIP
+1 2020-04-16T22:45:24.742Z VSP-8284XSQ CP1 - 0x0019c58e - 007b0001 DYNAMIC CLEAR GlobalRouter VRF INFO VRF is up
+1 2020-04-16T22:45:24.743Z VSP-8284XSQ CP1 - 0x0019c58e - 007b0001 DYNAMIC CLEAR MgmtRouter VRF INFO VRF is up
+1 2020-04-16T22:45:24.779Z VSP-8284XSQ CP1 - 0x00300604 - 00000000 GlobalRouter SLAMON INFO Starting SLAMon client initialization
+1 2020-04-16T22:45:24.799Z VSP-8284XSQ CP1 - 0x00300604 - 00000000 GlobalRouter SLAMON INFO SLAMon client conf.started 1 wait time 0
+1 2020-04-16T22:45:24.817Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process slamon.sh started, pid:2785
+1 2020-04-16T22:45:24.820Z VSP-8284XSQ CP1 - 0x00300604 - 00000000 GlobalRouter SLAMON INFO Starting Slamon Monitor Agent Controller
+1 2020-04-16T22:45:24.840Z VSP-8284XSQ CP1 - 0x003a461c - 00000000 GlobalRouter IKE INFO Starting up IKE server
+1 2020-04-16T22:45:24.849Z VSP-8284XSQ CP1 - 0x003a4661 - 00000000 GlobalRouter IKE INFO IKE trust anchor not created
+1 2020-04-16T22:45:24.849Z VSP-8284XSQ CP1 - 0x003a4636 - 00000000 GlobalRouter IKE INFO Socket created on addr= 0:0:0:0:0:0:0:1 port: [13579]
+1 2020-04-16T22:45:24.849Z VSP-8284XSQ CP1 - 0x003a4637 - 00000000 GlobalRouter IKE INFO Socket created on addr= 127.0.0.1 port: [13579]
+1 2020-04-16T22:45:24.849Z VSP-8284XSQ CP1 - 0x003a4609 - 00000000 GlobalRouter IKE INFO IKE server listening for data
+1 2020-04-16T22:45:24.882Z VSP-8284XSQ IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process license_service.py started, pid:2792
+1 2020-04-16T22:45:25.039Z VSP-8284XSQ CP1 - 0x0008850f - 00000000 GlobalRouter SW INFO Waiting for all cards to be ready for configuration download
+1 2020-04-16T22:45:25.236Z VSP-8284XSQ CP1 - 0x00040601 - 00000000 GlobalRouter WEB INFO HTTPS: Using the Self Signed Server Cert
+1 2020-04-16T22:45:25.242Z VSP-8284XSQ CP1 - 0x00040608 - 00000000 GlobalRouter WEB INFO SSL Initialization successful.
+1 2020-04-16T22:45:25.523Z VSP-8284XSQ CP1 - 0x00300604 - 00000000 GlobalRouter SLAMON INFO SLA Monitor Agent Controller started
+1 2020-04-16T22:45:25.905Z VSP-8284XSQ CP1 - 0x0001081d - 00400010.2 DYNAMIC CLEAR GlobalRouter HW INFO Slot 2 is finished initialization.
+1 2020-04-16T22:45:25.905Z VSP-8284XSQ CP1 - 0x0001081d - 00400010.1 DYNAMIC CLEAR GlobalRouter HW INFO Slot 1 is finished initialization.
+1 2020-04-16T22:45:25.907Z VSP-8284XSQ CP1 - 0x0001071e - 00000000 GlobalRouter HW INFO Applied power to module 8242XSQ in slot 2
+1 2020-04-16T22:45:25.907Z VSP-8284XSQ CP1 - 0x0001071e - 00000000 GlobalRouter HW INFO Applied power to module 8242XSQ in slot 1
+1 2020-04-16T22:45:26.894Z VSP-8284XSQ CP1 - 0x00010750 - 00000000 GlobalRouter HW INFO Module 8242XSQ in slot 1 is ready for configuration download
+1 2020-04-16T22:45:26.935Z VSP-8284XSQ CP1 - 0x00010750 - 00000000 GlobalRouter HW INFO Module 8242XSQ in slot 2 is ready for configuration download
+1 2020-04-16T22:45:26.935Z VSP-8284XSQ CP1 - 0x00010758 - 00000000 GlobalRouter HW INFO Downloading configuration to all cards
+1 2020-04-16T22:45:26.941Z VSP-8284XSQ CP1 - 0x00088512 - 00000000 GlobalRouter SW INFO Loading configuration from /intflash/config.cfg
+1 2020-04-16T22:45:28.939Z leaf05 CP1 - 0x0000c5ec - 00300001.64 DYNAMIC CLEAR GlobalRouter HW INFO Link Up(mgmt)
+1 2020-04-16T22:45:28.943Z leaf05 CP1 - 0x00000006 - 00000000 GlobalRouter SW INFO Port mgmt is an access port
+1 2020-04-16T22:45:30.298Z leaf05 CP1 - 0x000d861c - 00000000 GlobalRouter SSH INFO SSH Server Enabled
+1 2020-04-16T22:45:30.302Z leaf05 CP1 - 0x0019c58e - 007b0001 DYNAMIC CLEAR mgmt_vrf VRF INFO VRF is up
+1 2020-04-16T22:45:30.352Z leaf05 IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process restweb_voss.pyz started, pid:2903
+1 2020-04-16T22:45:31.213Z leaf05 CP1 - 0x0040c616 - 00000000 GlobalRouter LEM INFO LEM log: main_loop started
+1 2020-04-16T22:45:31.463Z leaf05 CP1 - 0x00300604 - 00000000 GlobalRouter SLAMON INFO slamonLoop: Entering main loop
+1 2020-04-16T22:45:32.354Z leaf05 CP1 - 0x003f460e - 0fd00001 DYNAMIC CLEAR GlobalRouter RESTCONF INFO Restconf server starts successful
+1 2020-04-16T22:45:32.370Z leaf05 CP1 - 0x00010757 - 00000000 GlobalRouter HW INFO Initial configuration download to all cards completed
+1 2020-04-16T22:45:32.382Z leaf05 CP1 - 0x0003458b - 00000000 GlobalRouter SW INFO The system is ready
+1 2020-04-16T22:45:32.382Z leaf05 CP1 - 0x00004595 - 00000000 GlobalRouter SNMP INFO Booted with file
+1 2020-04-16T22:45:33.421Z leaf05 CP1 - 0x00004685 - 00400005.1 DYNAMIC SET GlobalRouter SNMP INFO Chassis running on low power. Please insert additional power supplies.
+1 2020-04-16T22:45:33.421Z leaf05 CP1 - 0x000045a3 - 00400001.1 DYNAMIC SET GlobalRouter SNMP INFO Chassis without Power Supply redundancy
+1 2020-04-16T22:45:33.421Z leaf05 CP1 - 0x0000461f - 00000000 GlobalRouter SNMP INFO SSH server enabled
+1 2020-04-16T22:45:33.421Z leaf05 CP1 - 0x00004603 - 00400003.67108870 DYNAMIC CLEAR GlobalRouter SNMP INFO 2k card up(CardNum=1 AdminStatus=1 OperStatus=1)
+1 2020-04-16T22:45:33.421Z leaf05 CP1 - 0x00004603 - 00400003.67108870 DYNAMIC CLEAR GlobalRouter SNMP INFO 2k card up(CardNum=2 AdminStatus=1 OperStatus=1)
+1 2020-04-16T22:45:33.421Z leaf05 CP1 - 0x00004603 - 00400003.67108870 DYNAMIC CLEAR GlobalRouter SNMP INFO 2k card up(CardNum=3 AdminStatus=1 OperStatus=1)
+1 2020-04-16T22:46:20.030Z leaf05 CP1 - 0x000045e5 - 00400005 DYNAMIC SET GlobalRouter SNMP INFO Sending Cold-Start Trap
+1 2020-04-16T22:46:40.177Z leaf05 CP1 - 0x000305ca - 00000000 GlobalRouter SW INFO user rwa connected via console port
+1 2020-04-16T22:47:32.365Z leaf05 CP1 - 0x00088524 - 00000000 GlobalRouter SW INFO Boot sequence successful
+1 2020-04-16T22:53:39.454Z leaf05 IO1 - 0x0027042a - 00000000 GlobalRouter SW INFO Stopping process restweb_voss.pyz, pid:2903
+1 2020-04-16T22:53:41.508Z leaf05 CP1 - 0x003f460f - 0fd00001 DYNAMIC CLEAR GlobalRouter RESTCONF INFO Restconf server stops
+1 2020-04-16T22:53:51.080Z leaf05 IO1 - 0x0027042b - 00000000 GlobalRouter SW INFO Process restweb_voss.pyz started, pid:2940
+1 2020-04-16T22:53:53.081Z leaf05 CP1 - 0x003f460e - 0fd00001 DYNAMIC CLEAR GlobalRouter RESTCONF INFO Restconf server starts successful
+1 2020-04-16T23:08:55.820Z leaf05 CP1 - 0x0003067a - 00000000 GlobalRouter SW INFO User rwa forced log-out after cli session inactivity of 900 seconds.
+1 2020-04-16T23:08:55.834Z leaf05 CP1 - 0x00030637 - 00000000 GlobalRouter SW INFO user rwa logged out from console port
+1 2020-04-16T23:22:35.500Z leaf05 CP1 - 0x000305ca - 00000000 GlobalRouter SW INFO user rwa connected via console port
+1 2020-04-16T23:23:12.051Z spine02 CP1 - 0x000305cb - 00000000 GlobalRouter SW INFO Save config to file /intflash/config.cfg successful.
+1 2020-04-16T23:23:12.057Z spine02 CP1 - 0x000305d1 - 00000000 GlobalRouter SW ERROR No License file to save.
+1 2020-04-16T23:23:12.064Z spine02 CP1 - 0x000045e3 - 00000000 GlobalRouter SNMP INFO Save config successful.
+1 2020-04-16T23:38:13.232Z spine02 CP1 - 0x0003067a - 00000000 GlobalRouter SW INFO User rwa forced log-out after cli session inactivity of 900 seconds.
+1 2020-04-16T23:38:13.247Z spine02 CP1 - 0x00030637 - 00000000 GlobalRouter SW INFO user rwa logged out from console port
+1 2020-04-16T23:47:57.888Z spine02 CP1 - 0x000305ca - 00000000 GlobalRouter SW INFO user rwa connected via console port
+1 2020-04-17T00:10:00.850Z spine02 CP1 - 0x0003067a - 00000000 GlobalRouter SW INFO User rwa forced log-out after cli session inactivity of 900 seconds.
+1 2020-04-17T00:10:00.861Z spine02 CP1 - 0x00030637 - 00000000 GlobalRouter SW INFO user rwa logged out from console port
+1 2020-04-17T01:00:56.437Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO X509v3 host certificate is unavailable
+1 2020-04-17T01:00:56.498Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO SSH user authentication succeeded for user rwa on host 172.16.194.1
+1 2020-04-17T01:00:56.510Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO SSH CLI session start: user rwa on host 172.16.194.1
+1 2020-04-17T01:01:05.170Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO SSH CLI session end:  user rwa on host 172.16.194.1
+1 2020-04-17T01:01:05.171Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO SSH session closed by user rwa on host 172.16.194.1
+1 2020-04-17T01:03:54.238Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO X509v3 host certificate is unavailable
+1 2020-04-17T01:03:54.295Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO SSH user authentication succeeded for user rwa on host 172.16.194.1
+1 2020-04-17T01:03:54.299Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO SSH CLI session start: user rwa on host 172.16.194.1
+1 2020-04-17T01:04:03.485Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO SSH CLI session end:  user rwa on host 172.16.194.1
+1 2020-04-17T01:04:03.486Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO SSH session closed by user rwa on host 172.16.194.1
+1 2020-04-17T01:04:48.684Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO X509v3 host certificate is unavailable
+1 2020-04-17T01:04:48.744Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO SSH user authentication succeeded for user rwa on host 172.16.194.1
+1 2020-04-17T01:04:48.748Z spine02 CP1 - 0x000d8602 - 00000000 GlobalRouter SSH INFO SSH CLI session start: user rwa on host 172.16.194.1
+
+OVSDB Info:
+---------------
+
+
+====================================================================================================
+                               Ovsdb Config Info
+====================================================================================================
+	                        Status - Disabled
+	                   Certificate -
+	                   Private Key -
+	       Replication Peer NLS-IP - 0.0.0.0
+	      Replication Local NLS-IP - 0.0.0.0
+
+====================================================================================================
+                         Ovsdb Controller Config Info
+====================================================================================================
+ID                   Protocol             IP                        Port
+
+==============================================================================================================
+                                           OVSDB Controller Status
+==============================================================================================================
+Protocol             IP                        Port       status     source
+----------------------------------------------------------------------------------------------------
+
+0 out of 0 Total Num of Controllers displayed
+
+
+====================================================================================================
+                        OVSDB Managed Interfaces -  ISID
+====================================================================================================
+
+0 out of 0 Total Num of Managed Interfaces displayed
