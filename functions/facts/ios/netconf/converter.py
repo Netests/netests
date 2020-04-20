@@ -1,7 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
+import json
 from protocols.facts import Facts
+from functions.global_tools import printline
+from functions.verbose_mode import verbose_mode
+from functions.netconf_tools import format_xml_output
+from const.constants import (
+    NOT_SET,
+    LEVEL1,
+    LEVEL5,
+    FACTS_SYS_DICT_KEY,
+    FACTS_INT_DICT_KEY,
+    FACTS_DOMAIN_DICT_KEY
+)
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 
 
 def _ios_facts_netconf_converter(
@@ -9,4 +24,77 @@ def _ios_facts_netconf_converter(
     cmd_output,
     options={}
 ) -> Facts:
-    pass
+    
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL5
+    ):
+        printline()
+        print(type(cmd_output))
+        print(cmd_output)
+
+    cmd_output = format_xml_output(cmd_output)
+
+    hostname = NOT_SET
+    domain = NOT_SET
+    version = NOT_SET
+    model = NOT_SET
+    serial = NOT_SET
+    interfaces_lst = list()
+    cmd_output = format_xml_output(cmd_output)
+    if isinstance(cmd_output, dict) and 'data' in cmd_output.keys():
+        hostname = cmd_output.get('data') \
+                             .get('native') \
+                             .get('hostname')
+        domain = cmd_output.get('data') \
+                            .get('native') \
+                           .get('ip') \
+                           .get('domain') \
+                           .get('name')
+        version = cmd_output.get('data') \
+                            .get('native') \
+                            .get('version')
+        serial = cmd_output.get('data') \
+                           .get('native') \
+                           .get('license') \
+                           .get('udi') \
+                           .get('sn')
+        model = cmd_output.get('data') \
+                          .get('native') \
+                          .get('license') \
+                          .get('udi') \
+                          .get('pid')
+        for t in cmd_output.get('data') \
+                           .get('native') \
+                           .get('interface').keys():
+            for i in cmd_output.get('data') \
+                               .get('native') \
+                               .get('interface') \
+                               .get(t):
+                interfaces_lst.append(f"{t}{i.get('name')}")
+
+    facts = Facts(
+        hostname=hostname,
+        domain=domain,
+        version=version,
+        build=NOT_SET,
+        serial=serial,
+        base_mac=NOT_SET,
+        memory=NOT_SET,
+        vendor="Cisco",
+        model=model,
+        interfaces_lst=interfaces_lst,
+        options=options
+    )
+
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL1
+    ):
+        printline()
+        PP.pprint(facts.to_json())
+
+    return facts
+
+
+    
