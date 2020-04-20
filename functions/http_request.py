@@ -48,6 +48,8 @@ def exec_http_call(
     password: str,
     endpoint: str,
     secure_api=True,
+    header={'content-type': 'application/json'},
+    path='/restconf/'
 ) -> json:
 
     if secure_api:
@@ -56,8 +58,8 @@ def exec_http_call(
         protocol = "http"
 
     res = requests.get(
-        url=f"{protocol}://{hostname}:{port}/restconf/{endpoint}",
-        headers={'content-type': 'application/json'},
+        url=f"{protocol}://{hostname}:{port}{path}{endpoint}",
+        headers=header,
         auth=requests.auth.HTTPBasicAuth(
             f"{username}",
             f"{password}"

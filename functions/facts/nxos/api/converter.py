@@ -22,8 +22,6 @@ def _nxos_facts_api_converter(
     cmd_output,
     options={}
 ) -> Facts:
-    if cmd_output is None:
-        return dict()
 
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():

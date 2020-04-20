@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import os
+from ncclient import manager
+from xml.etree import ElementTree
+from functions.http_request import exec_http_call
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import netmiko_send_command
 from functions.verbose_mode import verbose_mode
-# from functions.facts.ios.api.converter import _ios_facts_api_converter
-# from functions.facts.ios.netconf.converter import _ios_facts_netconf_converte
+from functions.facts.ios.api.converter import _ios_facts_api_converter
+from functions.facts.ios.netconf.converter import _ios_facts_netconf_converter
 from functions.facts.ios.ssh.converter import _ios_facts_ssh_converter
 from const.constants import (
     NOT_SET,
@@ -21,16 +24,56 @@ from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 
 
 def _ios_get_facts_api(task, options={}):
-    raise NetestsFunctionNotImplemented(
-        "IOS-FACT NOT IMPLEMENTED"
+    output_dict = exec_http_call(
+        hostname=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        endpoint="Cisco-IOS-XE-native:native",
+        header={
+            "Content-Type": "application/json",
+            "Accept": "application/yang-data+json"
+        },
+        path="/restconf/data/"
+    )
+
+    task.host[FACTS_DATA_HOST_KEY] = _ios_facts_api_converter(
+        hostname=task.host.name,
+        cmd_output=output_dict,
+        options=options
     )
 
 
 def _ios_get_facts_netconf(task, options={}):
-    raise NetestsFunctionNotImplemented(
-        "IOS-FACT NOT IMPLEMENTED"
-    )
+    pass
+    """
+    with manager.connect(
+        host=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        hostkey_verify=False,
+        device_params={'name': 'iosxe'}
+    ) as m:
 
+        vrf_config = m.get(
+            source='running',
+            filter=(
+                'subtree',
+                '''
+                <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"/>
+                '''
+            )
+        ).data_xml
+
+        ElementTree.fromstring(vrf_config)
+
+        task.host[VRF_DATA_KEY] = _ios_facts_netconf_converte(
+            hostname=task.host.name,
+            cmd_output=vrf_config,
+            options=options
+        )
+    """
 
 def _ios_get_facts_ssh(task, options={}):
     outputs_dict = dict()

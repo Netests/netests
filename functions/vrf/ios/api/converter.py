@@ -26,14 +26,6 @@ def _ios_vrf_api_converter(
 
     cmd_output = format_xml_output(cmd_output)
 
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL4
-    ):
-        printline()
-        print(type(cmd_output))
-        PP.pprint(cmd_output)
-
     vrf_list = ListVRF(vrf_lst=list())
     vrf_list.vrf_lst.append(
         VRF(

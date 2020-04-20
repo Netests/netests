@@ -20,6 +20,7 @@ from functions.facts.cumulus.api.converter import _cumulus_facts_api_converter
 from functions.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
 from functions.facts.extreme_vsp.ssh.converter import _extreme_vsp_facts_ssh_converter
 from functions.facts.extreme_vsp.api.converter import _extreme_vsp_facts_api_converter
+from functions.facts.ios.api.converter import _ios_facts_api_converter
 from functions.facts.ios.ssh.converter import _ios_facts_ssh_converter
 from functions.facts.juniper.api.converter import _juniper_facts_api_converter
 from functions.facts.juniper.netconf.converter import _juniper_facts_netconf_converter
@@ -316,7 +317,16 @@ def step_impl(context):
 
 @given(u'I create a Facts object from a IOS API output named o0302')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0302 = _ios_facts_api_converter(
+        hostname="leaf05",
+        cmd_output=open_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/facts/ios/api/"
+                "cisco_ios_api_get_facts.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a Facts object from a IOS Netconf named o0303')
@@ -755,7 +765,14 @@ def step_impl(context):
 
 @given(u'Facts o0301 should be equal to o0302')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0301.hostname == context.o0302.hostname and
+        context.o0301.domain == context.o0302.domain and
+        context.o0301.vendor == context.o0302.vendor and
+        context.o0301.model == context.o0302.model and
+        context.o0301.serial == context.o0302.serial and
+        context.o0301.interfaces_lst == context.o0302.interfaces_lst
+    )
 
 
 @given(u'Facts o0301 should be equal to o0303')
@@ -781,7 +798,13 @@ def step_impl(context):
 
 @given(u'Facts o0302 should be equal to o0304')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0301.vendor == context.o0304.vendor and
+        context.o0301.serial == context.o0304.serial and
+        context.o0301.hostname == context.o0304.hostname and
+        context.o0301.model == context.o0304.model and
+        context.o0301.interfaces_lst == context.o0304.interfaces_lst
+    )
 
 
 @given(u'Facts o0303 should be equal to o0304')
@@ -791,7 +814,14 @@ def step_impl(context):
 
 @given(u'Facts YAML file should be equal to o0302')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("/!\\/!\\ Facts YAML file should be equal to o0302 /!\\/!\\")
+    assert not _compare_facts(
+        host_keys=FACTS_DATA_HOST_KEY,
+        hostname="leaf05",
+        groups=['ios'],
+        facts_host_data=context.o0302,
+        test=True
+    )
 
 
 @given(u'Facts YAML file should be equal to o0303')

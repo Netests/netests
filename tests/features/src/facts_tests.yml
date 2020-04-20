@@ -27,10 +27,8 @@ leaf02:
     - Ethernet1/4
     - loopback0
 
-
 leaf03:
   version: NOT_SET
-
 
 leaf04:
   domain: dh.local
