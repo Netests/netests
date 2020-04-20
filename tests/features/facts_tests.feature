@@ -88,27 +88,6 @@ Feature: Test protocols Facts python class ./protocols/facts.py
         And Facts o0302 should be equal to o0304
         And Facts o0303 should be equal to o0304
 
-        And Facts o0311 should be equal to o0312
-        And Facts o0311 should be equal to o0313
-        And Facts o0311 should be equal to o0314
-        And Facts o0312 should be equal to o0313
-        And Facts o0312 should be equal to o0314
-        And Facts o0313 should be equal to o0314
-
-        And Facts o0321 should be equal to o0322
-        And Facts o0321 should be equal to o0323
-        And Facts o0321 should be equal to o0324
-        And Facts o0322 should be equal to o0323
-        And Facts o0322 should be equal to o0324
-        And Facts o0323 should be equal to o0324
-
-        And Facts o0331 should be equal to o0332
-        And Facts o0331 should be equal to o0333
-        And Facts o0331 should be equal to o0334
-        And Facts o0332 should be equal to o0333
-        And Facts o0332 should be equal to o0334
-        And Facts o0333 should be equal to o0334
-
         And Facts YAML file should be equal to o0302
         And Facts YAML file should be equal to o0303
         And Facts YAML file should be equal to o0304

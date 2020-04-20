@@ -20,6 +20,7 @@ from functions.facts.cumulus.api.converter import _cumulus_facts_api_converter
 from functions.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
 from functions.facts.extreme_vsp.ssh.converter import _extreme_vsp_facts_ssh_converter
 from functions.facts.extreme_vsp.api.converter import _extreme_vsp_facts_api_converter
+from functions.facts.ios.ssh.converter import _ios_facts_ssh_converter
 from functions.facts.juniper.api.converter import _juniper_facts_api_converter
 from functions.facts.juniper.netconf.converter import _juniper_facts_netconf_converter
 from functions.facts.juniper.ssh.converter import _juniper_facts_ssh_converter
@@ -296,7 +297,21 @@ def step_impl(context):
 
 @given(u'I create a Facts object equals to IOS manually named o0301')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0301 = Facts(
+        hostname='leaf05',
+        domain='dh.local',
+        version='16.8.1',
+        build='fc3',
+        serial='9YEI1T9ZCIY',
+        base_mac=NOT_SET,
+        memory='8113376',
+        vendor='Cisco',
+        model='CSR1000V',
+        interfaces_lst=['GigabitEthernet1',
+                        'GigabitEthernet2',
+                        'GigabitEthernet3'],
+        options={}
+    )
 
 
 @given(u'I create a Facts object from a IOS API output named o0302')
@@ -311,7 +326,24 @@ def step_impl(context):
 
 @given(u'I create a Facts object from a IOS SSH named o0304')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output[FACTS_SYS_DICT_KEY] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/ios/ssh/"
+            "cisco_ios_show_version.txt"
+        )
+    )
+    cmd_output[FACTS_INT_DICT_KEY] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/ios/ssh/"
+            "cisco_ios_ip_interface_brief.txt"
+        )
+    )
+    context.o0304 = _ios_facts_ssh_converter(
+        hostname="spine02",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a Facts object equals to IOS-XR manually named o0401')
@@ -733,7 +765,13 @@ def step_impl(context):
 
 @given(u'Facts o0301 should be equal to o0304')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0301 == context.o0304 and
+        context.o0301.vendor == context.o0304.vendor and
+        context.o0301.build == context.o0304.build and
+        context.o0301.memory == context.o0304.memory and
+        context.o0301.interfaces_lst == context.o0304.interfaces_lst
+    )
 
 
 @given(u'Facts o0302 should be equal to o0303')
@@ -751,96 +789,6 @@ def step_impl(context):
     context.scenario.tags.append("own_skipped")
 
 
-@given(u'Facts o0311 should be equal to o0312')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0311 should be equal to o0313')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0311 should be equal to o0314')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0312 should be equal to o0313')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0312 should be equal to o0314')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0313 should be equal to o0314')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0321 should be equal to o0322')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0321 should be equal to o0323')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0321 should be equal to o0324')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0322 should be equal to o0323')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0322 should be equal to o0324')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0323 should be equal to o0324')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0331 should be equal to o0332')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0331 should be equal to o0333')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0331 should be equal to o0334')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0332 should be equal to o0333')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0332 should be equal to o0334')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'Facts o0333 should be equal to o0334')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
 @given(u'Facts YAML file should be equal to o0302')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
@@ -853,7 +801,13 @@ def step_impl(context):
 
 @given(u'Facts YAML file should be equal to o0304')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_facts(
+        host_keys=FACTS_DATA_HOST_KEY,
+        hostname="leaf05",
+        groups=['ios'],
+        facts_host_data=context.o0304,
+        test=True
+    )
 
 
 @given(u'Facts o0401 should be equal to o0402')

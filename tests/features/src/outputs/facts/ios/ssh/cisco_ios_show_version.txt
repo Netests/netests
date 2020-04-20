@@ -18,7 +18,7 @@ software.
 
 ROM: IOS-XE ROMMON
 
-csr1000v uptime is 6 hours, 44 minutes
+leaf05 uptime is 6 hours, 44 minutes
 Uptime for this control processor is 6 hours, 45 minutes
 System returned to ROM by reload
 System image file is "bootflash:packages.conf"

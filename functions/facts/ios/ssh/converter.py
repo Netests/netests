@@ -22,18 +22,13 @@ def _ios_facts_ssh_converter(
     options={}
 ) -> Facts:
 
-    cmd_output[FACTS_SYS_DICT_KEY] = parse_textfsm(
-        content=cmd_output.get(FACTS_SYS_DICT_KEY),
-        template_file='cisco_ios_show_version.textfsm'
-    )
-
-    cmd_output[FACTS_INT_DICT_KEY] = parse_textfsm(
-        content=cmd_output.get(FACTS_INT_DICT_KEY),
-        template_file='cisco_ios_show_ip_int_brief.textfsm'
-    )
 
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
+        cmd_output[FACTS_INT_DICT_KEY] = parse_textfsm(
+            content=cmd_output.get(FACTS_INT_DICT_KEY),
+            template_file='cisco_ios_show_ip_int_brief.textfsm'
+        )
         for i in cmd_output.get(FACTS_INT_DICT_KEY):
             interfaces_lst.append(i[0])
 
@@ -44,6 +39,10 @@ def _ios_facts_ssh_converter(
     build = NOT_SET
     memory = NOT_SET
     if FACTS_SYS_DICT_KEY in cmd_output.keys():
+        cmd_output[FACTS_SYS_DICT_KEY] = parse_textfsm(
+            content=cmd_output.get(FACTS_SYS_DICT_KEY),
+            template_file='cisco_ios_show_version.textfsm'
+        )
         for i in cmd_output.get(FACTS_SYS_DICT_KEY):
             hostname = i[2] if i[2] != "" else NOT_SET
             version = i[0] if i[0] != "" else NOT_SET

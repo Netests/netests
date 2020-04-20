@@ -39,4 +39,15 @@ leaf04:
   memory: 2052008
   model: vmx
   vendor: Juniper
-  
+ 
+leaf05:
+  version: 16.8.1
+  serial: 9YEI1T9ZCIY
+  memory: 8113376
+  model: CSR1000V
+  vendor: Cisco
+  build: fc3
+  interfaces_lst:
+    - GigabitEthernet1
+    - GigabitEthernet2
+    - GigabitEthernet3
