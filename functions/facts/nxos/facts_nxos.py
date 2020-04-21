@@ -24,7 +24,6 @@ from const.constants import (
     FACTS_DATA_HOST_KEY,
     FACTS_DOMAIN_DICT_KEY
 )
-from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 
 
 def _nxos_get_facts_api(task, options={}):

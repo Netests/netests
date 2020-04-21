@@ -4,7 +4,7 @@
 import os
 from functions.global_tools import printline
 from functions.netconf_tools import format_xml_output
-from const.constants import NOT_SET, LEVEL1, LEVEL4, LEVEL5
+from const.constants import NOT_SET, LEVEL1, LEVEL5
 from protocols.vrf import VRF, ListVRF
 from functions.verbose_mode import verbose_mode
 import pprint

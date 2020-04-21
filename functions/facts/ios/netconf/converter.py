@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
@@ -10,10 +9,7 @@ from functions.netconf_tools import format_xml_output
 from const.constants import (
     NOT_SET,
     LEVEL1,
-    LEVEL5,
-    FACTS_SYS_DICT_KEY,
-    FACTS_INT_DICT_KEY,
-    FACTS_DOMAIN_DICT_KEY
+    LEVEL5
 )
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
@@ -24,7 +20,7 @@ def _ios_facts_netconf_converter(
     cmd_output,
     options={}
 ) -> Facts:
-    
+
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL5
@@ -47,7 +43,7 @@ def _ios_facts_netconf_converter(
                              .get('native') \
                              .get('hostname')
         domain = cmd_output.get('data') \
-                            .get('native') \
+                           .get('native') \
                            .get('ip') \
                            .get('domain') \
                            .get('name')
@@ -95,6 +91,3 @@ def _ios_facts_netconf_converter(
         PP.pprint(facts.to_json())
 
     return facts
-
-
-    

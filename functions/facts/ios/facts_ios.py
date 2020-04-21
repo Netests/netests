@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-from xml.dom import minidom
 from ncclient import manager
 from xml.etree import ElementTree
 from functions.http_request import exec_http_call
@@ -22,7 +21,6 @@ from const.constants import (
     FACTS_INT_DICT_KEY,
     FACTS_DATA_HOST_KEY
 )
-from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 
 
 def _ios_get_facts_api(task, options={}):
@@ -58,7 +56,9 @@ def _ios_get_facts_netconf(task, options={}):
 
         output_dict = m.get(
             filter=NETCONF_FILTER.format(
-                "<native xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XE-native\"/>"
+                "<native"
+                "xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XE-native\""
+                "/>"
             )
         ).data_xml
 
@@ -85,7 +85,7 @@ def _ios_get_facts_ssh(task, options={}):
     ):
         print_result(output)
 
-    outputs_dict[FACTS_SYS_DICT_KEY] = (output.result)
+    output_dict[FACTS_SYS_DICT_KEY] = (output.result)
 
     output = task.run(
         name=f"{IOS_GET_INT}",
@@ -98,10 +98,10 @@ def _ios_get_facts_ssh(task, options={}):
     ):
         print_result(output)
 
-    outputs_dict[FACTS_INT_DICT_KEY] = (output.result)
+    output_dict[FACTS_INT_DICT_KEY] = (output.result)
 
     task.host[FACTS_DATA_HOST_KEY] = _ios_facts_ssh_converter(
         hostname=task.host.name,
-        cmd_output=outputs_dict,
+        cmd_output=output_dict,
         options=options
     )

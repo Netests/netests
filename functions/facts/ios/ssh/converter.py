@@ -22,7 +22,6 @@ def _ios_facts_ssh_converter(
     options={}
 ) -> Facts:
 
-
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
         cmd_output[FACTS_INT_DICT_KEY] = parse_textfsm(
