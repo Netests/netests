@@ -56,7 +56,7 @@ def _ios_get_facts_netconf(task, options={}):
 
         output_dict = m.get(
             filter=NETCONF_FILTER.format(
-                "<native"
+                "<native "
                 "xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XE-native\""
                 "/>"
             )

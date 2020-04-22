@@ -23,6 +23,7 @@ from functions.facts.extreme_vsp.api.converter import _extreme_vsp_facts_api_con
 from functions.facts.ios.api.converter import _ios_facts_api_converter
 from functions.facts.ios.netconf.converter import _ios_facts_netconf_converter
 from functions.facts.ios.ssh.converter import _ios_facts_ssh_converter
+from functions.facts.iosxr.ssh.converter import _iosxr_facts_ssh_converter
 from functions.facts.juniper.api.converter import _juniper_facts_api_converter
 from functions.facts.juniper.netconf.converter import _juniper_facts_netconf_converter
 from functions.facts.juniper.ssh.converter import _juniper_facts_ssh_converter
@@ -368,7 +369,31 @@ def step_impl(context):
 
 @given(u'I create a Facts object equals to IOS-XR manually named o0401')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0401 = Facts(
+        hostname='spine03',
+        domain='dh.local',
+        version='6.5.3',
+        build=NOT_SET,
+        serial=NOT_SET,
+        base_mac=NOT_SET,
+        memory=NOT_SET,
+        vendor='Cisco',
+        model='IOS-XRv 9000',
+        interfaces_lst=['Bundle-Ether1',
+                        'Bundle-Ether1.1234',
+                        'Bundle-Ether1.4321',
+                        'Loopback100',
+                        'Loopback200',
+                        'MgmtEth0/RP0/CPU0/0',
+                        'GigabitEthernet0/0/0/0',
+                        'GigabitEthernet0/0/0/1',
+                        'GigabitEthernet0/0/0/2',
+                        'GigabitEthernet0/0/0/3',
+                        'GigabitEthernet0/0/0/4',
+                        'GigabitEthernet0/0/0/5',
+                        'GigabitEthernet0/0/0/6'],
+        options={}
+    )
 
 
 @given(u'I create a Facts object from a IOS-XR API output named o0402')
@@ -383,7 +408,24 @@ def step_impl(context):
 
 @given(u'I create a Facts object from a IOS-XR SSH output named o0404')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output[FACTS_SYS_DICT_KEY] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/iosxr/ssh/"
+            "cisco_iosxr_show_version.txt"
+        )
+    )
+    cmd_output[FACTS_INT_DICT_KEY] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/iosxr/ssh/"
+            "cisco_iosxr_show_ip_interface_brief.txt"
+        )
+    )
+    context.o0404 = _iosxr_facts_ssh_converter(
+        hostname="spine02",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a Facts object equals IOS-XR multi manually output named o0405')
@@ -894,7 +936,14 @@ def step_impl(context):
 
 @given(u'Facts o0401 should be equal to o0404')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0401 == context.o0404 and
+        context.o0401.vendor == context.o0404.vendor and
+        context.o0401.hostname == context.o0404.hostname and
+        context.o0401.model == context.o0404.model and
+        context.o0401.version == context.o0404.version and
+        context.o0401.interfaces_lst == context.o0404.interfaces_lst
+    )
 
 
 @given(u'Facts o0402 should be equal to o0403')
@@ -929,7 +978,13 @@ def step_impl(context):
 
 @given(u'Facts YAML file should be equal to o0404')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_facts(
+        host_keys=FACTS_DATA_HOST_KEY,
+        hostname="spine03",
+        groups=['iosxr'],
+        facts_host_data=context.o0404,
+        test=True
+    )
 
 
 @given(u'Facts o0501 should be equal to o0502')

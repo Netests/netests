@@ -49,3 +49,10 @@ leaf05:
     - GigabitEthernet1
     - GigabitEthernet2
     - GigabitEthernet3
+
+
+
+spine03:
+  version: 6.5.3
+  model: IOS-XRv 9000
+  vendor: Cisco
