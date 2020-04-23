@@ -6,6 +6,7 @@ from nornir.core import Nornir
 from nornir.core.filter import F
 from nornir.plugins.functions.text import print_result
 from functions.verbose_mode import verbose_mode
+from functions.base_selection import host_vars_ok
 from functions.base_selection import (
     base_selection,
     device_not_compatible_with_napalm
@@ -62,7 +63,7 @@ from const.constants import (
     API_CONNECTION,
     NETCONF_CONNECTION,
     SSH_CONNECTION,
-    NAPALM_CONNECTION
+    NAPALM_CONNECTION,
 )
 
 
@@ -144,8 +145,14 @@ def get_facts(nr: Nornir, options={}):
 
 
 def generic_facts_get(task, options={}):
-    base_selection(
+    if host_vars_ok(
+        hostname=task.host.name,
         platform=task.host.platform,
-        connection_mode=task.host.data.get("connexion"),
-        functions_mapping=MAPPING_FUNCTION
-    )(task, options)
+        connection_mode=task.host.data.get("connexion")
+    ):
+        base_selection(
+            platform=task.host.platform,
+            connection_mode=task.host.data.get("connexion"),
+            functions_mapping=MAPPING_FUNCTION
+        )(task, options)
+    

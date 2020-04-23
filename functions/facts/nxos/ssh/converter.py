@@ -2,12 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import os
+import json
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from const.constants import (
     NOT_SET,
     LEVEL1,
+    LEVEL5,
     FACTS_SYS_DICT_KEY,
     FACTS_INT_DICT_KEY,
     FACTS_DOMAIN_DICT_KEY
@@ -21,8 +23,14 @@ def _nxos_facts_ssh_converter(
     cmd_output,
     options={}
 ) -> Facts:
-    if cmd_output is None:
-        return dict()
+
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL5
+    ):
+        printline()
+        print(type(cmd_output))
+        PP.pprint(json.loads(cmd_output))
 
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
@@ -71,7 +79,7 @@ def _nxos_facts_ssh_converter(
         serial=serial,
         base_mac=NOT_SET,
         memory=memory,
-        vendor=vendor,
+        vendor="Cisco",
         model=model,
         interfaces_lst=interfaces_lst,
         options=options

@@ -28,6 +28,7 @@ from functions.facts.juniper.api.converter import _juniper_facts_api_converter
 from functions.facts.juniper.netconf.converter import _juniper_facts_netconf_converter
 from functions.facts.juniper.ssh.converter import _juniper_facts_ssh_converter
 from functions.facts.napalm.converter import _napalm_facts_converter
+from functions.facts.nxos.api.converter import _nxos_facts_api_converter
 from functions.facts.nxos.ssh.converter import _nxos_facts_ssh_converter
 from functions.facts.facts_compare import _compare_facts
 from protocols.facts import Facts
@@ -592,13 +593,13 @@ def step_impl(context):
 @given(u'I create a Facts object equals to NXOS manually named o0701')
 def step_impl(context):
     context.o0701 = Facts(
-        hostname='leaf03',
+        hostname='leaf02',
         domain='dh.local',
         version='9.3(3)',
         build=NOT_SET,
         serial='9QXOX90PJ62',
         base_mac=NOT_SET,
-        memory='16409068',
+        memory='16409064',
         vendor='Cisco Systems, Inc.',
         model='Nexus9000',
         interfaces_lst=[],
@@ -608,7 +609,31 @@ def step_impl(context):
 
 @given(u'I create a Facts object from a NXOS API output named o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output[FACTS_SYS_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/nxos/api/"
+            "nxos_api_get_facts.json"
+        )
+    )
+    cmd_output[FACTS_INT_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/nxos/api/"
+            "nxos_api_get_interfaces.json"
+        )
+    )
+    cmd_output[FACTS_DOMAIN_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/nxos/api/"
+            "nxos_api_get_domain.json"
+        )
+    )
+
+    context.o0702 = _nxos_facts_api_converter(
+        hostname="leaf03",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a Facts object from a NXOS Netconf output named o0703')
@@ -1078,7 +1103,12 @@ def step_impl(context):
 
 @given(u'Facts o0701 should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0701 == context.o0701
+    assert (
+        context.o0701.domain == context.o0701.domain and
+        context.o0701.version == context.o0701.version and
+        context.o0701.memory == context.o0701.memory
+    )
 
 
 @given(u'Facts o0701 should be equal to o0703')
@@ -1103,7 +1133,16 @@ def step_impl(context):
 
 @given(u'Facts o0702 should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0702 == context.o0704 and
+        context.o0702.hostname == context.o0704.hostname and
+        context.o0702.domain == context.o0704.domain and
+        context.o0702.version == context.o0704.version and
+        str(context.o0702.memory) == str(context.o0704.memory) and
+        context.o0702.model == context.o0704.model and
+        context.o0702.serial == context.o0704.serial and
+        context.o0702.interfaces_lst == context.o0704.interfaces_lst
+    )
 
 
 @given(u'Facts o0703 should be equal to o0704')
@@ -1113,7 +1152,13 @@ def step_impl(context):
 
 @given(u'Facts YAML file should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_facts(
+        host_keys=FACTS_DATA_HOST_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        facts_host_data=context.o0702,
+        test=True
+    )
 
 
 @given(u'Facts YAML file should be equal to o0703')
@@ -1123,11 +1168,13 @@ def step_impl(context):
 
 @given(u'Facts YAML file should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-
-
+    assert _compare_facts(
+        host_keys=FACTS_DATA_HOST_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        facts_host_data=context.o0704,
+        test=True
+    )
 
 
 @given(u'I Finish my Facts tests and list tests not implemented')

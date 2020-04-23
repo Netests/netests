@@ -144,7 +144,7 @@ def run_base(nr: Nornir, protocol: str, parameters: dict) -> bool:
     if (
         parameters.get('test', False) is True or
         str(parameters.get('test', False)).upper() == "INFO"
-    ):
+    ):  
         same = RUN.get(protocol).get('function')(
             nr=nr,
             options=parameters.get('options', {}),
