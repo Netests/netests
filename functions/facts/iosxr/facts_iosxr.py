@@ -4,17 +4,17 @@
 import os
 from ncclient import manager
 from xml.etree import ElementTree
-from functions.http_request import exec_http_call
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import netmiko_send_command
 from functions.verbose_mode import verbose_mode
-#from functions.facts.iosxr.api.converter import _iosxr_facts_api_converter
-from functions.facts.iosxr.netconf.converter import _iosxr_facts_netconf_converter
+# from functions.facts.iosxr.api.converter import _iosxr_facts_api_converter
+from functions.facts.iosxr.netconf.converter import (
+    _iosxr_facts_netconf_converter
+)
 from functions.facts.iosxr.ssh.converter import _iosxr_facts_ssh_converter
 from const.constants import (
     NOT_SET,
     LEVEL2,
-    NETCONF_FILTER,
     IOS_GET_FACTS,
     IOS_GET_INT,
     FACTS_SYS_DICT_KEY,
@@ -44,7 +44,7 @@ def _iosxr_get_facts_netconf(task, options={}):
         for c in m.server_capabilities:
             if "openconfig.net/yang/system" in c:
                 has_capacity = False
-            
+
         if has_capacity:
             output_dict = m.get(
                 filter=(

@@ -140,7 +140,7 @@ def _nxos_facts_api_converter(
         serial=serial,
         base_mac=NOT_SET,
         memory=memory,
-        vendor="Cisco",
+        vendor="Cisco" if True else vendor,
         model=model,
         interfaces_lst=interfaces_lst,
         options=options

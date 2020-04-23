@@ -5,7 +5,6 @@ import os
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.netconf_tools import format_xml_output
 from const.constants import (
     NOT_SET,
     LEVEL1,
@@ -35,9 +34,6 @@ def _iosxr_facts_netconf_converter(
     serial = NOT_SET
     model = NOT_SET
     interfaces_lst = list()
-
-
-
 
     facts = Facts(
         hostname=hostname,

@@ -155,4 +155,3 @@ def generic_facts_get(task, options={}):
             connection_mode=task.host.data.get("connexion"),
             functions_mapping=MAPPING_FUNCTION
         )(task, options)
-    
