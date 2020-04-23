@@ -20,6 +20,8 @@ declare -a commands_lst=(
     'pylama functions/select_vars.py'
     'pylama functions/verbose_mode.py'
     'pylama const/constants.py'
+    'pylama protocols/bgp.py'
+    'pylama protocols/facts.py'
     'pylama protocols/vrf.py'
 )
 

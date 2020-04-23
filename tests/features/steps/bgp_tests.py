@@ -1,105 +1,40 @@
 #!/usr/bin/env python3.7
 # -*- coding: utf-8 -*-
 
-"""
-This file is used for CI test to validate BGP protocols usage
+import json
+import yaml
+import textfsm
+from behave import given, when, then
+from const.constants import NOT_SET, FEATURES_SRC_PATH, FEATURES_OUTPUT_PATH, TEXTFSM_PATH, BGP_SESSIONS_HOST_KEY
+from functions.bgp.bgp_compare import _compare_bgp
+from functions.global_tools import open_file, open_txt_file
+from functions.bgp.bgp_converters import (
+    _cumulus_bgp_converter,
+    _generic_state_converter
+)
+from functions.bgp.bgp_converters import (
+    _extreme_vsp_bgp_converter,
+    _extreme_vsp_peer_uptime_converter
+)
+from protocols.bgp import (
+    BGP,
+    ListBGPSessionsVRF,
+    BGPSessionsVRF,
+    ListBGPSessions,
+    BGPSession
+)
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 
-"""
-
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "1.0"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
-
-########################################################################################################################
-#
-# Constantes
-#
-ERROR_HEADER = "Error import [bgp_tests.py]"
-HEADER = "[netests - bgp_tests.py]"
-########################################################################################################################
-#
-# Import Library
-#
-
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from functions.bgp.bgp_converters import _cumulus_bgp_converter, _generic_state_converter
-    from functions.bgp.bgp_converters import _extreme_vsp_bgp_converter, _extreme_vsp_peer_uptime_converter
-    from functions.bgp.bgp_compare import _compare_bgp
-    from protocols.bgp import BGP, ListBGPSessionsVRF, BGPSessionsVRF, ListBGPSessions, BGPSession
-except ImportError as importError:
-    print(f"{ERROR_HEADER} protocols.bgp ")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from functions.global_tools import open_file, open_txt_file
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.global_tools")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from behave import given, when, then
-except ImportError as importError:
-    print(f"{ERROR_HEADER} behave")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import json
-except ImportError as importError:
-    print(f"{ERROR_HEADER} json")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import yaml
-except ImportError as importError:
-    print(f"{ERROR_HEADER} yaml")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import textfsm
-except ImportError as importError:
-    print(f"{ERROR_HEADER} textfsm")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-########################################################################################################################
-#
-# Functions
-#
 
 @given(u'I create a BGP python object manually named object_01')
-def create_a_bgp_object_manually(context) -> None:
-    """
-    Create a BGP object manually
-
-    :param context:
-    :return None:
-    """
-
+def step_impl(context) -> None:
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(
         list()
     )
-
-    ######### VRF - default
     bgp_sessions_lst = ListBGPSessions(
         list()
     )
-
-    # 1st Peer in VRF default
     bgp_sessions_lst.bgp_sessions.append(
         BGPSession(
             src_hostname="spine01",
@@ -119,8 +54,6 @@ def create_a_bgp_object_manually(context) -> None:
             prefix_received=NOT_SET
         )
     )
-
-    # 2nd Peer in VRF default
     bgp_sessions_lst.bgp_sessions.append(
         BGPSession(
             src_hostname="spine01",
@@ -140,7 +73,6 @@ def create_a_bgp_object_manually(context) -> None:
             prefix_received=NOT_SET
         )
     )
-
     bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
         BGPSessionsVRF(
             vrf_name="default",
@@ -149,13 +81,9 @@ def create_a_bgp_object_manually(context) -> None:
             bgp_sessions=bgp_sessions_lst
         )
     )
-
-    ######### VRF - tenant01
     bgp_sessions_lst = ListBGPSessions(
         list()
     )
-
-    # 1st Peer in VRF tenant01
     bgp_sessions_lst.bgp_sessions.append(
         BGPSession(
             src_hostname="spine01",
@@ -175,7 +103,6 @@ def create_a_bgp_object_manually(context) -> None:
             prefix_received=NOT_SET
         )
     )
-
     bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
         BGPSessionsVRF(
             vrf_name="tenant01",
@@ -184,11 +111,16 @@ def create_a_bgp_object_manually(context) -> None:
             bgp_sessions=bgp_sessions_lst
         )
     )
-
     context.object_01 = BGP(
         hostname="spine01",
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
+
+
+@given(u'I print it with __repr__ and in JSON format')
+def step_impl(context):
+    PP.pprint(context.object_01.to_json())
+    print(context.object_01)
 
 
 @given('I retrieve data from a YAML file to create a BGP python object named object_02')

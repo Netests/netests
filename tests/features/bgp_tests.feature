@@ -4,6 +4,7 @@ Feature: Test protocols BGP python class ./protocols/bgp.py
   Scenario:
     # Description
     Given I create a BGP python object manually named object_01
+    And I print it with __repr__ and in JSON format
     And I retrieve data from a YAML file to create a BGP python object named object_02
     And I create a BGP python object from a Extreme VSP output command named object_03
     And I create a BGP python object from a Cumulus output command named object_04

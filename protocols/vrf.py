@@ -9,6 +9,7 @@ from const.constants import (
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 
+
 H = "[ListVRF - __eq__] -"
 
 

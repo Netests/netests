@@ -19,7 +19,6 @@ class Facts:
     interfaces_lst: list
     options: dict
 
-
     def __init__(
         self,
         hostname=NOT_SET,
@@ -33,7 +32,7 @@ class Facts:
         model=NOT_SET,
         interfaces_lst=list(),
         options=list(),
-):
+    ):
         self.hostname = hostname
         self.domain = domain
         self.version = version
