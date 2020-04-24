@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from nornir.core import Nornir
+from functions.bgp.bgp_gets import get_bgp
+from functions.bgp.bgp_compare import _compare_bgp
+from protocols.bgp import BGPSession
 from functions.facts.facts_get import get_facts
 from functions.facts.facts_compare import _compare_facts
 from protocols.facts import Facts
@@ -10,7 +13,11 @@ from functions.vrf.vrf_compare import _compare_vrf
 from protocols.vrf import VRF
 from functions.global_tools import printline
 from exceptions.netests_cli_exceptions import NetestsCLINornirObjectIsNone
-from const.constants import VRF_DATA_KEY, FACTS_DATA_HOST_KEY
+from const.constants import (
+    BGP_SESSIONS_HOST_KEY,
+    FACTS_DATA_HOST_KEY,
+    VRF_DATA_KEY
+)
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -24,7 +31,7 @@ class NetestsCLI():
     AARGS = ["get", "select", "unselect", "options", "more", "show", "print",
              "help", "compare"]
 
-    ASIMPLE = ["help", "", "selected"]
+    ASIMPLE = ["help", "", "selected", "exit"]
 
     A2ARGS = ["get", "select", "unselect", "more", "show", "print", "help",
               "compare"]
@@ -32,15 +39,20 @@ class NetestsCLI():
     A3ARGS = ["options"]
 
     MAPPING = {
-        "vrf": {
-            "class": VRF,
-            "get": get_vrf,
-            "compare": _compare_vrf
+        "bgp": {
+            "class": BGPSession,
+            "get": get_bgp,
+            "compare": _compare_bgp
         },
         "facts": {
             "class": Facts,
             "get": get_facts,
             "compare": _compare_facts
+        },
+        "vrf": {
+            "class": VRF,
+            "get": get_vrf,
+            "compare": _compare_vrf
         }
     }
 
@@ -161,13 +173,30 @@ class NetestsCLI():
                                                    .get(FACTS_DATA_HOST_KEY)
 
                     )
+                    if r:
+                        w.append(d)
+                elif prot.lower() == "bgp":
+                    r = _compare_bgp(
+                        host_keys=self.nornir.inventory.hosts[d].keys(),
+                        hostname=d,
+                        groups=self.nornir.inventory.hosts[d].groups,
+                        bgp_host_data=self.nornir.inventory
+                                                    .hosts
+                                                    .get(d)
+                                                    .get(BGP_SESSIONS_HOST_KEY)
+
+                    )
+                    if r:
+                        w.append(d)
                 else:
                     print(f"@({prot}) is unavailable from CLI.")
 
+        printline()
         print(
             "@The following devices have the same configuration "
             f"that defined in the source of truth : \n@{w}."
         )
+        printline()
 
     def select_help_function(self, user_input) -> bool:
         if len(user_input) == 1:
@@ -318,6 +347,14 @@ class NetestsCLI():
                     )
                 elif prot.lower() == "facts":
                     get_facts(
+                        nr=self.nornir,
+                        options={
+                            "from_cli": True,
+                            "print": self.options.get('facts', {})
+                        }
+                    )
+                elif prot.lower() == "bgp":
+                    get_bgp(
                         nr=self.nornir,
                         options={
                             "from_cli": True,

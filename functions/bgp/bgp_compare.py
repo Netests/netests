@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
 from nornir.core.task import Task
 from const.constants import (
     NOT_SET,
@@ -121,6 +120,7 @@ def _compare_bgp(
                 hostname=hostname,
                 bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
             )
+
             return verity_bgp == bgp_host_data
 
         else:

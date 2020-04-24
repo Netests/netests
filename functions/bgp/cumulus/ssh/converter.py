@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 from protocols.bgp import (
     BGPSession,
     ListBGPSessions,
@@ -17,8 +16,6 @@ from const.constants import (
     NOT_SET,
     LEVEL1,
     LEVEL3,
-    FACTS_SYS_DICT_KEY,
-    FACTS_INT_DICT_KEY,
     BGP_UPTIME_FORMAT_MS
 )
 import pprint
@@ -42,7 +39,7 @@ def _cumulus_bgp_ssh_converter(
         list()
     )
 
-    for k,v in cmd_output.items():
+    for k, v in cmd_output.items():
         peer = False
         if (
             'ipv4 unicast' in v.keys() and
@@ -84,10 +81,10 @@ def _cumulus_bgp_ssh_converter(
                             format=BGP_UPTIME_FORMAT_MS
                         ),
                         prefix_received=p.get('prefixReceivedCount', NOT_SET),
-                        options=options 
+                        options=options
                     )
                 )
-        
+
             bgp_sessions_vrf_lst.bgp_sessions_vrf.append(bgp_vrf)
 
     bgp = BGP(
@@ -95,7 +92,6 @@ def _cumulus_bgp_ssh_converter(
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
 
-    
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL1

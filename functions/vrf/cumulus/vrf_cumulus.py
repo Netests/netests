@@ -67,21 +67,20 @@ def _cumulus_get_vrf_netconf(task, options={}):
 
 
 def _cumulus_get_vrf_ssh(task, options={}):
-    if VRF_DATA_KEY not in task.host.keys():
-        output = task.run(
-            name=f"{CUMULUS_GET_VRF}",
-            task=netmiko_send_command,
-            command_string=f"{CUMULUS_GET_VRF}",
-        )
-        if verbose_mode(
-            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-            needed_value=LEVEL2
-        ):
-            printline()
-            print_result(output)
+    output = task.run(
+        name=f"{CUMULUS_GET_VRF}",
+        task=netmiko_send_command,
+        command_string=f"{CUMULUS_GET_VRF}",
+    )
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        printline()
+        print_result(output)
 
-        task.host[VRF_DATA_KEY] = _cumulus_vrf_ssh_converter(
-            hostname=task.host.name,
-            cmd_output=output.result,
-            options=options
-        )
+    task.host[VRF_DATA_KEY] = _cumulus_vrf_ssh_converter(
+        hostname=task.host.name,
+        cmd_output=output.result,
+        options=options
+    )

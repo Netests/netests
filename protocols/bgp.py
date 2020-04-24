@@ -65,9 +65,9 @@ class BGPSession:
 
     def to_json(self):
         if 'print' in self.options.keys():
-            ret = dict()
+            r = dict()
             if self.options.get('print').get('src_hostname', True):
-                ret['src_hostname'] = self.src_hostname
+                r['src_hostname'] = self.src_hostname
             if self.options.get('print').get('peer_ip', True):
                 r['peer_ip'] = self.peer_ip
             if self.options.get('print').get('peer_hostname', True):
@@ -82,7 +82,7 @@ class BGPSession:
                 r['state_time'] = self.state_time
             if self.options.get('print').get('prefix_received', True):
                 r['prefix_received'] = self.prefix_received
-            return ret
+            return r
         else:
             return {
                 "src_hostname": self.src_hostname,

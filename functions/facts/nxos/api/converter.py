@@ -102,7 +102,7 @@ def _nxos_facts_api_converter(
 
     domain = NOT_SET
     if FACTS_DOMAIN_DICT_KEY in cmd_output.keys():
-        if not isinstance(cmd_output.get(FACTS_SYS_DICT_KEY), dict):
+        if not isinstance(cmd_output.get(FACTS_DOMAIN_DICT_KEY), dict):
             cmd_output[FACTS_DOMAIN_DICT_KEY] = json.loads(
                 cmd_output.get(FACTS_DOMAIN_DICT_KEY)
             )

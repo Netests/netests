@@ -15,7 +15,7 @@ from const.constants import (
     VRF_DEFAULT_RT_LST
 )
 from functions.verbose_mode import verbose_mode
-from functions.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
+# from functions.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
 from functions.bgp.cumulus.ssh.converter import _cumulus_bgp_ssh_converter
 from exceptions.netests_exceptions import (
     NetestsFunctionNotPossible,
