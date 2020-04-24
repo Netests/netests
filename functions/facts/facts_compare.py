@@ -69,7 +69,6 @@ def _compare_facts(
     options={},
     task=Task
 ) -> bool:
-    pass
     if (
         'own_vars' in options.keys() and
         options.get('own_vars') is not None and

@@ -44,7 +44,7 @@ from functions.bgp.napalm.bgp_napalm import (
 )
 from const.constants import (
     NOT_SET,
-    LEVEL1,
+    LEVEL4,
     SSH_CONNECTION,
     API_CONNECTION,
     NETCONF_CONNECTION,
@@ -114,8 +114,7 @@ MAPPING_FUNCTION = {
 }
 
 
-def get_bgp(nr: Nornir, filters={}, level=None, own_vars={}):
-
+def get_bgp(nr: Nornir, options={}):
     devices = nr.filter()
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
@@ -126,10 +125,9 @@ def get_bgp(nr: Nornir, filters={}, level=None, own_vars={}):
         on_failed=True,
         num_workers=10
     )
-
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
+        needed_value=LEVEL4
     ):
         print_result(data)
 

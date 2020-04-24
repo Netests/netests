@@ -3,11 +3,8 @@
 
 import os
 import json
-from protocols.bgp import (
-    NOT_SET,
-    LEVEL4,
-    BGP
-)
+from protocols.bgp import BGP
+from const.constants import NOT_SET, LEVEL4
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 import pprint

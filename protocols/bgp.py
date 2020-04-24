@@ -66,36 +66,33 @@ class BGPSession:
     def to_json(self):
         if 'print' in self.options.keys():
             ret = dict()
-            ret['BGPSession'] = dict()
             if self.options.get('print').get('src_hostname', True):
-                ret['BGPSession']['src_hostname'] = self.src_hostname
+                ret['src_hostname'] = self.src_hostname
             if self.options.get('print').get('peer_ip', True):
-                ret['BGPSession']['peer_ip'] = self.peer_ip
+                r['peer_ip'] = self.peer_ip
             if self.options.get('print').get('peer_hostname', True):
-                ret['BGPSession']['peer_hostname'] = self.peer_hostname
+                r['peer_hostname'] = self.peer_hostname
             if self.options.get('print').get('remote_as', True):
-                ret['BGPSession']['remote_as'] = self.remote_as
+                r['remote_as'] = self.remote_as
             if self.options.get('print').get('state_brief', True):
-                ret['BGPSession']['state_brief'] = self.state_brief
+                r['state_brief'] = self.state_brief
             if self.options.get('print').get('session_state', True):
-                ret['BGPSession']['session_state'] = self.session_state
+                r['session_state'] = self.session_state
             if self.options.get('print').get('state_time', True):
-                ret['BGPSession']['state_time'] = self.state_time
+                r['state_time'] = self.state_time
             if self.options.get('print').get('prefix_received', True):
-                ret['BGPSession']['prefix_received'] = self.prefix_received
+                r['prefix_received'] = self.prefix_received
             return ret
         else:
             return {
-                "BGPSession": {
-                    "src_hostname": self.src_hostname,
-                    "peer_ip": self.peer_ip,
-                    "peer_hostname": self.peer_hostname,
-                    "remote_as": self.remote_as,
-                    "state_brief": self.state_brief,
-                    "session_state": self.session_state,
-                    "state_time": self.state_time,
-                    "prefix_received": self.prefix_received
-                }
+                "src_hostname": self.src_hostname,
+                "peer_ip": self.peer_ip,
+                "peer_hostname": self.peer_hostname,
+                "remote_as": self.remote_as,
+                "state_brief": self.state_brief,
+                "session_state": self.session_state,
+                "state_time": self.state_time,
+                "prefix_received": self.prefix_received
             }
 
 
@@ -172,14 +169,16 @@ class BGPSessionsVRF:
                 ">\n"
 
     def to_json(self):
-        return {
-            "BGPSession": {
-                "vrf_name": self.vrf_name,
-                "as_number": self.as_number,
-                "router_id": self.router_id,
-                "bgp_sessions": self.bgp_sessions,
-            }
-        }
+        d = dict()
+        d = dict()
+        d['vrf_name'] = self.vrf_name
+        d['as_number'] = self.as_number
+        d['router_id'] = self.router_id
+        d['ListBGPSessions'] = list()
+
+        for bgp in self.bgp_sessions.bgp_sessions:
+            d['ListBGPSessions'].append(bgp.to_json())
+        return d
 
 
 class ListBGPSessionsVRF:
@@ -239,9 +238,11 @@ class BGP:
                 f"bgp_sessions_vrf_lst={self.bgp_sessions_vrf_lst}>"
 
     def to_json(self):
-        return {
-            "BGP": {
-                "hostname": self.hostname,
-                "bgp_sessions_vrf_lst": self.bgp_sessions_vrf_lst,
-            }
-        }
+        d = dict()
+        d['BGP'] = dict()
+        d['BGP']['hostname'] = self.hostname
+        d['BGP']['ListBGPSessionsVRF'] = list()
+        for bgp in self.bgp_sessions_vrf_lst.bgp_sessions_vrf:
+            d['BGP']['ListBGPSessionsVRF'].append(bgp.to_json())
+
+        return d

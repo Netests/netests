@@ -2,10 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from const.constants import (
-    NOT_SET,
-    LEVEL1
-)
+from const.constants import NOT_SET, LEVEL1
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 

@@ -276,7 +276,7 @@ IOSXR_GET_VRF = "show vrf all detail"
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
 BGP_WORKS_KEY = 'bgp_works'
 BGP_ALL_BGP_UP_KEY = 'bgp_all_up'
-
+BGP_UPTIME_FORMAT_MS = "msec"
 BGP_STATE_UP_LIST = [
     'ESTABLISHED', 'established', 'Established', 'Estab', 'UP', 'up', 'Up'
 ]
