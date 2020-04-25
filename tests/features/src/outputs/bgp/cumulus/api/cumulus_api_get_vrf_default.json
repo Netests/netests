@@ -1,0 +1,36 @@
+{
+    "ipv4 unicast": {
+        "as": 65101,
+        "bestPath": {
+            "multiPathRelax": "false"
+        },
+        "dynamicPeers": 0,
+        "peerCount": 1,
+        "peerMemory": 19736,
+        "peers": {
+            "10.1.1.2": {
+                "idType": "ipv4",
+                "inq": 0,
+                "msgRcvd": 0,
+                "msgSent": 0,
+                "outq": 0,
+                "peerUptime": "never",
+                "peerUptimeMsec": 0,
+                "prefixReceivedCount": 0,
+                "remoteAs": 65102,
+                "state": "Connect",
+                "tableVersion": 0,
+                "version": 4
+            }
+        },
+        "ribCount": 0,
+        "ribMemory": 0,
+        "routerId": "1.1.1.1",
+        "tableVersion": 0,
+        "totalPeers": 1,
+        "vrfId": 0,
+        "vrfName": "default"
+    },
+    "ipv6 unicast": {},
+    "l2vpn evpn": {}
+}

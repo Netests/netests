@@ -16,6 +16,7 @@ declare -a commands_lst=(
     'pylama functions/base_cli.py'
     'pylama functions/cli_tools.py'
     'pylama functions/http_request.py'
+    'pylama functions/mappings.py'
     'pylama functions/netconf_tools.py'
     'pylama functions/select_vars.py'
     'pylama functions/verbose_mode.py'

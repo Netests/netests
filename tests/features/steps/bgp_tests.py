@@ -1,275 +1,634 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import json
 import yaml
 import textfsm
-from behave import given, when, then
-from const.constants import NOT_SET, FEATURES_SRC_PATH, FEATURES_OUTPUT_PATH, TEXTFSM_PATH, BGP_SESSIONS_HOST_KEY
 from functions.bgp.bgp_compare import _compare_bgp
-from functions.global_tools import open_file, open_txt_file
-from functions.bgp.bgp_converters import (
-    _cumulus_bgp_converter,
-    _generic_state_converter
-)
-from functions.bgp.bgp_converters import (
-    _extreme_vsp_bgp_converter,
-    _extreme_vsp_peer_uptime_converter
+from functions.mappings import get_bgp_state_brief, get_bgp_peer_uptime
+from functions.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
+from functions.bgp.cumulus.ssh.converter import _cumulus_bgp_ssh_converter
+from const.constants import (
+    NOT_SET,
+    FEATURES_SRC_PATH,
+    BGP_SESSIONS_HOST_KEY,
+    BGP_UPTIME_FORMAT_MS
 )
 from protocols.bgp import (
-    BGP,
-    ListBGPSessionsVRF,
-    BGPSessionsVRF,
+    BGPSession,
     ListBGPSessions,
-    BGPSession
+    BGPSessionsVRF,
+    ListBGPSessionsVRF,
+    BGP
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from functions.global_tools import (
+    open_file,
+    open_txt_file,
+    open_json_file,
+    open_txt_file_as_bytes,
+    printline
+)
+from behave import given, when, then
 
 
-@given(u'I create a BGP python object manually named object_01')
-def step_impl(context) -> None:
+@given(u'A network protocols named BGP defined in protocols/bgp.py')
+def step_impl(context):
+    context.test_not_implemented = list()
+
+
+@given(u'I create a BGP object equals to Arista manually named o0001')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a Arista API output named o0002')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a Arista Netconf named o0003')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a Arista SSH output named o0004')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object equals to Cumulus manually named o0101')
+def step_impl(context):
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(
         list()
     )
+
     bgp_sessions_lst = ListBGPSessions(
         list()
     )
+
     bgp_sessions_lst.bgp_sessions.append(
         BGPSession(
-            src_hostname="spine01",
-            peer_ip="10.2.5.2",
+            src_hostname="leaf01",
+            peer_ip="10.1.1.2",
             peer_hostname=NOT_SET,
-            remote_as="65205",
-            state_brief=_generic_state_converter(
-                "Established"
+            remote_as="65102",
+            state_brief=get_bgp_state_brief(
+                "Connect"
             ),
-            session_state="Established",
-            state_time=_extreme_vsp_peer_uptime_converter(
-                day="0",
-                hour="01",
-                min="05",
-                sec="26"
+            session_state="Connect",
+            state_time=get_bgp_peer_uptime(
+                value=0,
+                format=BGP_UPTIME_FORMAT_MS
             ),
             prefix_received=NOT_SET
         )
     )
-    bgp_sessions_lst.bgp_sessions.append(
-        BGPSession(
-            src_hostname="spine01",
-            peer_ip="10.255.255.205",
-            peer_hostname=NOT_SET,
-            remote_as="65205",
-            state_brief=_generic_state_converter(
-                "Established"
-            ),
-            session_state="Established",
-            state_time=_extreme_vsp_peer_uptime_converter(
-                day="0",
-                hour="01",
-                min="05",
-                sec="26"
-            ),
-            prefix_received=NOT_SET
-        )
-    )
+
     bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
         BGPSessionsVRF(
             vrf_name="default",
-            as_number="65100",
-            router_id="10.255.255.102",
+            as_number="65101",
+            router_id="1.1.1.1",
             bgp_sessions=bgp_sessions_lst
         )
     )
+
     bgp_sessions_lst = ListBGPSessions(
         list()
     )
+
     bgp_sessions_lst.bgp_sessions.append(
         BGPSession(
-            src_hostname="spine01",
-            peer_ip="10.0.5.202",
+            src_hostname="leaf01",
+            peer_ip="10.1.2.2",
             peer_hostname=NOT_SET,
-            remote_as="65202",
-            state_brief=_generic_state_converter(
-                "Idle"
+            remote_as="65203",
+            state_brief=get_bgp_state_brief(
+                "Connect"
             ),
-            session_state="Idle",
-            state_time=_extreme_vsp_peer_uptime_converter(
-                day="16",
-                hour="1",
-                min="04",
-                sec="10"
+            session_state="Connect",
+            state_time=get_bgp_peer_uptime(
+                value=0,
+                format=BGP_UPTIME_FORMAT_MS
             ),
             prefix_received=NOT_SET
         )
     )
+
     bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
         BGPSessionsVRF(
-            vrf_name="tenant01",
-            as_number="65100",
-            router_id="10.0.5.102",
+            vrf_name="IOS_XR_VRF",
+            as_number="65201",
+            router_id="10.10.10.10",
             bgp_sessions=bgp_sessions_lst
         )
     )
-    context.object_01 = BGP(
-        hostname="spine01",
+
+    context.o0101 = BGP(
+        hostname="leaf01",
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
 
 
-@given(u'I print it with __repr__ and in JSON format')
+@given(u'I create a BGP object from a Cumulus API output named o0102')
 def step_impl(context):
-    PP.pprint(context.object_01.to_json())
-    print(context.object_01)
-
-
-@given('I retrieve data from a YAML file to create a BGP python object named object_02')
-def create_a_bgp_object_from_a_yaml(context) -> None:
-    """
-    Retrieve data from a YAML file to compare with a BGP object
-
-    :param context:
-    :return None:
-    """
-
-    context.object_02  = open_file(
-        path=f"{FEATURES_SRC_PATH}bgp_tests.yml"
-    )
-
-
-@given('I create a BGP python object from a Extreme VSP output command named object_03')
-def create_a_bgp_object_from_a_extreme_vsp_output_command(context) -> None:
-    """
-    Create a BGP object from a Extreme VSP output
-
-    :param context:
-    :return None:
-    """
-
-    outputs_dict = dict()
-
-    ######### VRF - default
-    bgp_data = open_txt_file(
-        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_bgp_summary.output"
-    )
-
-    if bgp_data != "":
-        template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_bgp_summary.textfsm")
-        results_template = textfsm.TextFSM(template)
-
-        parsed_results = results_template.ParseText(bgp_data)
-
-        outputs_dict['default'] = parsed_results
-
-    ######### VRF - tenant01
-    bgp_data = open_txt_file(
-        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_bgp_summary_vrf.output"
-    )
-
-    if bgp_data != "":
-        template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_bgp_summary.textfsm")
-        results_template = textfsm.TextFSM(template)
-
-        parsed_results = results_template.ParseText(bgp_data)
-
-        outputs_dict['tenant01'] = parsed_results
-
-    context.object_03 = _extreme_vsp_bgp_converter(
-        hostname="spine01",
-        cmd_outputs=outputs_dict
-    )
-
-
-@given('I create a BGP python object from a Cumulus output command named object_04')
-def create_a_bgp_object_from_a_cumulus_output_command(context) -> None:
-    """
-    Create a BGP object from a Cumulus output
-
-    :param context:
-    :return None:
-    """
-
-    cmd_outputs = list()
-
-    cmd_outputs.append(
-        open_file(
-            path=f"{FEATURES_OUTPUT_PATH}cumulus_net_show_bgp_summary.json"
+    cmd_output = dict()
+    cmd_output['default'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/cumulus/api/"
+            "cumulus_api_get_vrf_default.json"
         )
     )
-
-    cmd_outputs.append(
-        open_file(
-            path=f"{FEATURES_OUTPUT_PATH}cumulus_net_show_bgp_vrf_summary.json"
+    cmd_output['IOS_XR_VRF'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/cumulus/api/"
+            "cumulus_api_get_vrf_xyz.json"
         )
     )
-
-    context.object_04 = _cumulus_bgp_converter(
-        hostname="spine01",
-        cmd_outputs=cmd_outputs
+    context.o0104 = _cumulus_bgp_api_converter(
+        hostname="leaf01",
+        cmd_output=cmd_output,
+        options={}
     )
 
 
-@then('BGP object_01 should be equal to object_03')
-def compare_bgp_object_01_and_object_03(context) -> None:
-    """
-    Compare object_01 and object_03
-
-    :param context:
-    :return:
-    """
-
-    assert context.object_01 == context.object_03
+@given(u'I create a BGP object from a Cumulus Netconf named o0103')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
 
 
-@then('BGP object_03 should be equal to object_01')
-def compare_bgp_object_03_and_object_01(context) -> None:
-    """
-    Compare object_03 and object_01
+@given(u'I create a BGP object from a Cumulus SSH output named o0104')
+def step_impl(context):
+    cmd_output = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/cumulus/ssh/"
+            "cumulus_ssh_get_vrf.json"
+        )
+    )
+    context.o0102 = _cumulus_bgp_api_converter(
+        hostname="leaf01",
+        cmd_output=cmd_output,
+        options={}
+    )
 
-    :param context:
-    :return:
-    """
 
-    assert context.object_03 == context.object_01
+@given(u'I create a BGP object equals to Extreme VSP manually named o0201')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
 
 
-@then('BGP object_02 should be equal to object_04')
-def compare_bgp_object_02_and_object_04(context) -> None:
-    """
-    Compare object_02 and object_04
+@given(u'I create a BGP object from a Extreme VSP API output named o0202')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
 
-    :param context:
-    :return:
-    """
 
+@given(u'I create a BGP object from a Extreme VSP Netconf output named o0203')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a Extreme VSP SSH output named o0204')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object equals to IOS manually named o0301')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a IOS API output named o0302')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a IOS Netconf named o0303')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a IOS SSH named o0304')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object equals to IOS-XR manually named o0401')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a IOS-XR API output named o0402')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a IOS-XR Netconf output named o403')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a IOS-XR SSH output named o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object equals IOS-XR multi manually output named o0405')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a IOS-XR multi Netconf output named o0406')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object equals to Juniper manually named o0501')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a Juniper API output named o0502')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a Juniper Netconf output named o0503')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a Juniper SSH output named o0504')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object equals to NAPALM manually named o0601')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a NAPALM output named o0602')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object equals to NXOS manually named o0701')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a NXOS API output named o0702')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a NXOS Netconf output named o0703')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a NXOS SSH output named o0704')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0001 should be equal to o0002')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0001 should be equal to o0003')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0001 should be equal to o0004')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0002 should be equal to o0003')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0002 should be equal to o0004')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0003 should be equal to o0004')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0002')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0003')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0004')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0101 should be equal to o0102')
+def step_impl(context):
+    assert context.o0101 == context.o0102
+
+
+@given(u'BGP o0101 should be equal to o0103')
+def step_impl(context):
+    print("Cumulus Facts with Netconf not possible -> Not tested")
+
+
+@given(u'BGP o0101 should be equal to o0104')
+def step_impl(context):
+    assert context.o0101 == context.o0102
+
+
+@given(u'BGP o0102 should be equal to o0103')
+def step_impl(context):
+    print("Cumulus Facts with Netconf not possible -> Not tested")
+
+
+@given(u'BGP o0102 should be equal to o0104')
+def step_impl(context):
+    assert context.o0102 == context.o0104
+
+
+@given(u'BGP o0103 should be equal to o0104')
+def step_impl(context):
+    print("Cumulus Facts with Netconf not possible -> Not tested")
+
+
+@given(u'BGP YAML file should be equal to o0102')
+def step_impl(context):
     assert _compare_bgp(
         host_keys=BGP_SESSIONS_HOST_KEY,
-        hostname="spine01",
-        bgp_host_data=context.object_04,
-        bgp_yaml_data=context.object_02
+        hostname="leaf01",
+        groups=['linux'],
+        bgp_host_data=context.o0102,
+        test=True
     )
 
-@then('BGP object_03 should be not equal to object_04')
-def compare_bgp_object_03_and_object_04(context) -> None:
-    """
-    Compare object_03 and object_04
 
-    :param context:
-    :return:
-    """
-
-    assert context.object_03 != context.object_04
+@given(u'BGP YAML file should be equal to o0103')
+def step_impl(context):
+    print("Cumulus Facts with Netconf not possible -> Not tested")
 
 
-@then('BGP object_04 should be not equal to object_03')
-def compare_bgp_object_04_and_object_03(context) -> None:
-    """
-    Compare object_04 and object_03
+@given(u'BGP YAML file should be equal to o0104')
+def step_impl(context):
+    assert _compare_bgp(
+        host_keys=BGP_SESSIONS_HOST_KEY,
+        hostname="leaf01",
+        groups=['linux'],
+        bgp_host_data=context.o0104,
+        test=True
+    )
 
-    :param context:
-    :return:
-    """
 
-    assert context.object_04 != context.object_03
+@given(u'BGP o0201 should be equal to o0202')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0201 should be equal to o0203')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0201 should be equal to o0204')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0202 should be equal to o0203')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0202 should be equal to o0204')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0203 should be equal to o0204')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0202')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0203')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0204')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0301 should be equal to o0302')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0301 should be equal to o0303')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0301 should be equal to o0304')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0302 should be equal to o0303')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0302 should be equal to o0304')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0303 should be equal to o0304')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0302')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0303')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0304')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0401 should be equal to o0402')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0401 should be equal to o0403')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0401 should be equal to o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0402 should be equal to o0403')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0402 should be equal to o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0403 should be equal to o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0405 should be equal to o0406')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0402')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0403')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0501 should be equal to o0502')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0501 should be equal to o0503')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0501 should be equal to o0504')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0502 should be equal to o0503')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0502 should be equal to o0504')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0503 should be equal to o0504')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0502')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0503')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0504')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0601 should be equal to o0602')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0701 should be equal to o0702')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0701 should be equal to o0703')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0701 should be equal to o0704')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0702 should be equal to o0703')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0702 should be equal to o0704')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0703 should be equal to o0704')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0702')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0703')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP YAML file should be equal to o0704')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I Finish my BGP tests and list tests not implemented')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")

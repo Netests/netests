@@ -160,7 +160,9 @@ JUNOS_GET_LLDP = "show lldp neighbors | display json"
 
 # CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
+CUMULUS_API_GET_BGP = 'show bgp summary json'
 CUMULUS_GET_BGP_VRF = "net show bgp vrf {} summary json"
+CUMULUS_API_GET_BGP_VRF = "show bgp vrf {} summary json"
 CUMULUS_GET_VRF = "net show vrf"
 CUMULUS_API_GET_VRF = "show vrf"
 CUMULUS_GET_LLDP_CDP = "net show lldp json"

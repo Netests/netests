@@ -2,12 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from nornir.core.task import Task
-from const.constants import (
-    NOT_SET,
-    BGP_SESSIONS_HOST_KEY,
-    BGP_STATE_BRIEF_UP,
-    BGP_WORKS_KEY
-)
+from const.constants import NOT_SET, BGP_SESSIONS_HOST_KEY, BGP_WORKS_KEY
 from protocols.bgp import (
     BGPSession,
     ListBGPSessions,
@@ -98,13 +93,16 @@ def _compare_bgp(
         if BGP_SESSIONS_HOST_KEY in host_keys:
             for vrf_name, facts in bgp_yaml_data.items():
                 bgp_sessions_lst = ListBGPSessions(list())
-                for neighbor in facts.get('neighbors', NOT_SET):
+                for n in facts.get('neighbors', NOT_SET):
                     bgp_session = BGPSession(
                         src_hostname=hostname,
-                        peer_ip=neighbor.get('peer_ip', NOT_SET),
-                        peer_hostname=neighbor.get('peer_hostname', NOT_SET),
-                        remote_as=neighbor.get('remote_as', NOT_SET),
-                        state_brief=neighbor.get('state', BGP_STATE_BRIEF_UP),
+                        peer_ip=n.get('peer_ip', NOT_SET),
+                        peer_hostname=n.get('peer_hostname', NOT_SET),
+                        remote_as=n.get('remote_as', NOT_SET),
+                        state_brief=n.get('state_brief', NOT_SET),
+                        session_state=n.get('session_state', NOT_SET),
+                        state_time=n.get('state_time', NOT_SET),
+                        prefix_received=n.get('prefix_received', NOT_SET),
                     )
                     bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
