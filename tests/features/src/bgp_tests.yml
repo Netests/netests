@@ -16,3 +16,22 @@ leaf01:
         remote_as: 65203
         state_brief: DOWN
         state: Active
+
+
+spine02:
+  default:
+    asn: 65101
+    router_id: 2.2.2.2
+    neighbors:
+      - peer_ip: 10.1.1.1
+        remote_as: 65101
+        state_brief: DOWN
+        session_state: Idle
+  mgmt_vrf:
+    asn: 65101
+    router_id: 20.20.20.20
+    neighbors:
+      - peer_ip: 10.20.20.2
+        remote_as: 65202
+        state_brief: DOWN
+        state: Idle

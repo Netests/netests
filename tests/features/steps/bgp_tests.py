@@ -8,6 +8,7 @@ from functions.bgp.bgp_compare import _compare_bgp
 from functions.mappings import get_bgp_state_brief, get_bgp_peer_uptime
 from functions.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
 from functions.bgp.cumulus.ssh.converter import _cumulus_bgp_ssh_converter
+from functions.bgp.extreme_vsp.ssh.converter import _extreme_vsp_bgp_ssh_converter
 from const.constants import (
     NOT_SET,
     FEATURES_SRC_PATH,
@@ -174,22 +175,108 @@ def step_impl(context):
 
 @given(u'I create a BGP object equals to Extreme VSP manually named o0201')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(
+        list()
+    )
+
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="spine02",
+            peer_ip="10.1.1.1",
+            peer_hostname=NOT_SET,
+            remote_as="65101",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time=get_bgp_peer_uptime(
+                value="10892000",
+                format=BGP_UPTIME_FORMAT_MS
+            ),
+            prefix_received=NOT_SET
+        )
+    )
+
+    bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+        BGPSessionsVRF(
+            vrf_name="default",
+            as_number="65101",
+            router_id="2.2.2.2",
+            bgp_sessions=bgp_sessions_lst
+        )
+    )
+
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="spine02",
+            peer_ip="10.20.20.2",
+            peer_hostname=NOT_SET,
+            remote_as="65202",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time=get_bgp_peer_uptime(
+                value=0,
+                format=BGP_UPTIME_FORMAT_MS
+            ),
+            prefix_received=NOT_SET
+        )
+    )
+
+    bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+        BGPSessionsVRF(
+            vrf_name="mgmt_vrf",
+            as_number="65101",
+            router_id="20.20.20.20",
+            bgp_sessions=bgp_sessions_lst
+        )
+    )
+
+    context.o0201 = BGP(
+        hostname="spine02",
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
 
 
 @given(u'I create a BGP object from a Extreme VSP API output named o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP Facts with Netconf not possible -> Not tested")
 
 
 @given(u'I create a BGP object from a Extreme VSP Netconf output named o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP Facts with Netconf not possible -> Not tested")
 
 
 @given(u'I create a BGP object from a Extreme VSP SSH output named o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    dict_output = dict()
+    dict_output['default'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/extreme_vsp/ssh/"
+            "extreme_vsp_show_ip_bgp_summary.txt"
+        )
+    )
+    dict_output['mgmt_vrf'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/extreme_vsp/ssh/"
+            "extreme_vsp_show_ip_bgp_summary_vrf.txt"
+        )
+    )
+    context.o0204 = _extreme_vsp_bgp_ssh_converter(
+        hostname="spine02",
+        cmd_output=dict_output,
+        options={}
+    )
 
 
 @given(u'I create a BGP object equals to IOS manually named o0301')
@@ -396,48 +483,53 @@ def step_impl(context):
 
 @given(u'BGP o0201 should be equal to o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP Facts with Netconf not possible -> Not tested")
 
 
 @given(u'BGP o0201 should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP Facts with Netconf not possible -> Not tested")
 
 
 @given(u'BGP o0201 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0201 == context.o0204
 
 
 @given(u'BGP o0202 should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP Facts with Netconf not possible -> Not tested")
 
 
 @given(u'BGP o0202 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP Facts with Netconf not possible -> Not tested")
 
 
 @given(u'BGP o0203 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP Facts with Netconf not possible -> Not tested")
 
 
 @given(u'BGP YAML file should be equal to o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP Facts with Netconf not possible -> Not tested")
 
 
 @given(u'BGP YAML file should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP Facts with Netconf not possible -> Not tested")
 
 
 @given(u'BGP YAML file should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
+    assert _compare_bgp(
+        host_keys=BGP_SESSIONS_HOST_KEY,
+        hostname="spine02",
+        groups=['extreme_vsp'],
+        bgp_host_data=context.o0204,
+        test=True
+    )
 
 @given(u'BGP o0301 should be equal to o0302')
 def step_impl(context):

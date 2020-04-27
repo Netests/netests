@@ -35,7 +35,7 @@ def _extreme_vsp_vrf_ssh_converter(
     for vrf in parsed_results:
         vrf_list.vrf_lst.append(
             VRF(
-                vrf_name=_extreme_vsp_vrf_mapping(vrf[0]),
+                vrf_name=vrf[0],
                 vrf_id=vrf[1],
                 vrf_type=NOT_SET,
                 l3_vni=NOT_SET,
