@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import textfsm
 from protocols.bgp import (
     BGPSession,
     ListBGPSessions,
@@ -14,12 +13,10 @@ from functions.cli_tools import parse_textfsm
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.mappings import get_bgp_state_brief
-from functions.mappings import get_bgp_state_brief, get_bgp_peer_uptime
 from const.constants import (
     NOT_SET,
     LEVEL1,
-    LEVEL3,
-    BGP_UPTIME_FORMAT_MS
+    LEVEL3
 )
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
@@ -30,7 +27,7 @@ def _extreme_vsp_bgp_ssh_converter(
     cmd_output,
     options={}
 ) -> BGP:
-    
+
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL3
@@ -101,7 +98,6 @@ def _extreme_vsp_bgp_ssh_converter(
     return bgp
 
 
-
 def _extreme_vsp_peer_uptime_converter(day, hour, min, sec) -> str:
     """
     This function will convert BGP peer uptime from an
@@ -116,8 +112,7 @@ def _extreme_vsp_peer_uptime_converter(day, hour, min, sec) -> str:
     :param sec:
     :return str: All convert in msecond
     """
-
-    return  str(
+    return str(
         (
             (
                 int(_extreme_vsp_remove_double_zero(day)) * 24 * 60 * 60
