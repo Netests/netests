@@ -9,6 +9,7 @@ from functions.mappings import get_bgp_state_brief, get_bgp_peer_uptime
 from functions.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
 from functions.bgp.cumulus.ssh.converter import _cumulus_bgp_ssh_converter
 from functions.bgp.extreme_vsp.ssh.converter import _extreme_vsp_bgp_ssh_converter
+from functions.bgp.nxos.api.converter import _nxos_bgp_api_converter
 from const.constants import (
     NOT_SET,
     FEATURES_SRC_PATH,
@@ -361,12 +362,115 @@ def step_impl(context):
 
 @given(u'I create a BGP object equals to NXOS manually named o0701')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(
+        list()
+    )
+
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf02",
+            peer_ip="172.16.0.2",
+            peer_hostname=NOT_SET,
+            remote_as="65535",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time=NOT_SET,
+            prefix_received=NOT_SET
+        )
+    )
+    bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+        BGPSessionsVRF(
+            vrf_name="default",
+            as_number="65535",
+            router_id="172.16.0.1",
+            bgp_sessions=bgp_sessions_lst
+        )
+    )
+
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf02",
+            peer_ip="11.1.1.1",
+            peer_hostname=NOT_SET,
+            remote_as="1",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time=NOT_SET,
+            prefix_received=NOT_SET
+        )
+    )
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf02",
+            peer_ip="22.2.2.2",
+            peer_hostname=NOT_SET,
+            remote_as="2",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time=NOT_SET,
+            prefix_received=NOT_SET
+        )
+    )
+
+    bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+        BGPSessionsVRF(
+            vrf_name="CUSTOMER_GOOGLE",
+            as_number="65535",
+            router_id="0.0.0.0",
+            bgp_sessions=bgp_sessions_lst
+        )
+    )
+
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+
+
+    context.o0701 = BGP(
+        hostname="leaf02",
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
 
 
 @given(u'I create a BGP object from a NXOS API output named o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    dict_output = dict()
+    dict_output['default'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/nxos/api/"
+            "nxos_api_get_bgp_default.json"
+        )
+    )
+    dict_output['management'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/nxos/api/"
+            "nxos_api_get_bgp_vrf_mgmt.json"
+        )
+    )
+    dict_output['CUSTOMER_GOOGLE'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/nxos/api/"
+            "nxos_api_get_bgp_vrf_customer.json"
+        )
+    )
+    context.o0702 = _nxos_bgp_api_converter(
+        hostname="leaf02",
+        cmd_output=dict_output,
+        options={}
+    )
 
 
 @given(u'I create a BGP object from a NXOS Netconf output named o0703')
@@ -678,7 +782,7 @@ def step_impl(context):
 
 @given(u'BGP o0701 should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0701 == context.o0702
 
 
 @given(u'BGP o0701 should be equal to o0703')
@@ -708,7 +812,13 @@ def step_impl(context):
 
 @given(u'BGP YAML file should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_bgp(
+        host_keys=BGP_SESSIONS_HOST_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        bgp_host_data=context.o0702,
+        test=True
+    )
 
 
 @given(u'BGP YAML file should be equal to o0703')

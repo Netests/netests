@@ -49,7 +49,8 @@ def exec_http_call(
     endpoint: str,
     secure_api=True,
     header={'content-type': 'application/json'},
-    path='/restconf/'
+    path='/restconf/',
+    data={}
 ) -> json:
 
     if secure_api:
@@ -64,7 +65,8 @@ def exec_http_call(
             f"{username}",
             f"{password}"
         ),
-        verify=False
+        verify=False,
+        data=data
     )
 
     return res.content

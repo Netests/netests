@@ -1,0 +1,54 @@
+{
+    "ins_api": {
+        "outputs": {
+            "output": {
+                "body": {
+                    "TABLE_vrf": {
+                        "ROW_vrf": {
+                            "TABLE_neighbor": {
+                                "ROW_neighbor": [
+                                    {
+                                        "connectionsdropped": "0",
+                                        "lastflap": "PT41M36S",
+                                        "localport": "0",
+                                        "neighbor-id": "11.1.1.1",
+                                        "notificationsreceived": "0",
+                                        "notificationssent": "0",
+                                        "remoteas": "1",
+                                        "remoteport": "0",
+                                        "state": "Idle"
+                                    },
+                                    {
+                                        "connectionsdropped": "0",
+                                        "lastflap": "PT31M41S",
+                                        "localport": "0",
+                                        "neighbor-id": "22.2.2.2",
+                                        "notificationsreceived": "0",
+                                        "notificationssent": "0",
+                                        "remoteas": "2",
+                                        "remoteport": "0",
+                                        "state": "Idle"
+                                    }
+                                ]
+                            },
+                            "local-as": "65535",
+                            "router-id": "0.0.0.0",
+                            "vrf-name-out": "CUSTOMER_GOOGLE",
+                            "vrfestablishedpeers": "0",
+                            "vrfpeers": "2"
+                        }
+                    },
+                    "localas": "65535",
+                    "totalestablishedpeers": "0",
+                    "totalpeers": "3"
+                },
+                "code": "200",
+                "input": "show bgp sessions vrf CUSTOMER_GOOGLE",
+                "msg": "Success"
+            }
+        },
+        "sid": "eoc",
+        "type": "cli_show",
+        "version": "1.0"
+    }
+}

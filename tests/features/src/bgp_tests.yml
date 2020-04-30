@@ -17,6 +17,27 @@ leaf01:
         state_brief: DOWN
         state: Active
 
+leaf02:
+  default:
+    asn: 65535
+    router_id: 172.16.0.1
+    neighbors:
+      - peer_ip: 172.16.0.2
+        remote_as: 65535
+        state_brief: DOWN
+        session_state: Idle
+  CUSTOMER_GOOGLE:
+    asn: 65535
+    router_id: 0.0.0.0
+    neighbors:
+      - peer_ip: 11.1.1.1
+        remote_as: 1
+        state_brief: DOWN
+        state: Active
+      - peer_ip: 22.2.2.2
+        remote_as: 2
+        state_brief: DOWN
+        state: Active
 
 spine02:
   default:
