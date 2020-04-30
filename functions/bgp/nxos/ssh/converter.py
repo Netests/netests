@@ -23,13 +23,12 @@ def _nxos_bgp_ssh_converter(
     cmd_output,
     options={}
 ) -> BGP:
-    
+
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(
         list()
     )
-    state_brief = ""
 
-    for k,v in cmd_output.items():
+    for k, v in cmd_output.items():
         if not isinstance(v, dict):
             v = json.loads(v)
         if verbose_mode(
@@ -44,7 +43,7 @@ def _nxos_bgp_ssh_converter(
         )
 
         if (
-            'TABLE_vrf' in v.keys() and 
+            'TABLE_vrf' in v.keys() and
             'ROW_vrf' in v.get('TABLE_vrf').keys() and
             'TABLE_neighbor' in v.get('TABLE_vrf').get('ROW_vrf').keys() and
             'ROW_neighbor' in v.get('TABLE_vrf')
@@ -87,7 +86,6 @@ def _nxos_bgp_ssh_converter(
                 .get("ROW_neighbor", NOT_SET),
                 dict,
             ):
-
                 bgp_sessions_lst.bgp_sessions.append(
                     BGPSession(
                         src_hostname=hostname,

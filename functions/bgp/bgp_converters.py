@@ -103,7 +103,6 @@ def _napalm_bgp_converter(hostname: str(), cmd_output: json) -> BGP:
     return BGP(hostname=hostname, bgp_sessions_vrf_lst=bgp_sessions_vrf_lst)
 
 
-
 # ----------------------------------------------------------------------------------------------------------------------
 #
 # Cisco IOS BGP Converter

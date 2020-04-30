@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 from functions.verbose_mode import verbose_mode
 from functions.http_request import exec_http_nxos
 from nornir.plugins.functions.text import print_result
