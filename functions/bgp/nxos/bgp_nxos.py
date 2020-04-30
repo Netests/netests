@@ -5,8 +5,10 @@ import os
 import json
 from functions.verbose_mode import verbose_mode
 from functions.http_request import exec_http_nxos
+from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import netmiko_send_command
 from functions.bgp.nxos.api.converter import _nxos_bgp_api_converter
+from functions.bgp.nxos.ssh.converter import _nxos_bgp_ssh_converter
 from const.constants import (
     NOT_SET,
     LEVEL2,
@@ -17,9 +19,6 @@ from const.constants import (
     NEXUS_API_GET_BGP_VRF,
     VRF_NAME_DATA_KEY,
     VRF_DEFAULT_RT_LST
-)
-from functions.bgp.bgp_converters import (
-    _nexus_bgp_converter
 )
 from exceptions.netests_exceptions import (
     NetestsFunctionNotImplemented
@@ -71,17 +70,21 @@ def _nexus_get_bgp_netconf(task):
     )
 
 
-def _nexus_get_bgp_ssh(task):
-
-    outputs_lst = list()
+def _nexus_get_bgp_ssh(task, options={}):
+    output_dict = dict()
     output = task.run(
         name=f"{NEXUS_GET_BGP}",
         task=netmiko_send_command,
         command_string=NEXUS_GET_BGP
     )
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print_result(output)
 
     if output.result != "":
-        outputs_lst.append(json.loads(output.result))
+        output_dict['default'] = output.result
 
     for vrf in task.host[VRF_NAME_DATA_KEY].keys():
         if vrf not in VRF_DEFAULT_RT_LST:
@@ -90,9 +93,17 @@ def _nexus_get_bgp_ssh(task):
                 task=netmiko_send_command,
                 command_string=NEXUS_GET_BGP_VRF.format(vrf),
             )
+            if verbose_mode(
+                user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+                needed_value=LEVEL2
+            ):
+                print_result(output)
 
             if output.result != "":
-                outputs_lst.append(json.loads(output.result))
+                output_dict[vrf] = output.result
 
-    bgp_sessions = _nexus_bgp_converter(task.host.name, outputs_lst)
-    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
+    task.host[BGP_SESSIONS_HOST_KEY] = _nxos_bgp_ssh_converter(
+        hostname=task.host.name,
+        cmd_output=output_dict,
+        options=options
+    )

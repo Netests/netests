@@ -29,9 +29,9 @@ leaf05:
 
 spine02:
   # Extreme Networks VSP
-  - vrf_name: mgmt
+  - vrf_name: GlobalRouter
   - vrf_name: mgmt_vrf
-  - vrf_name: default
+  - vrf_name: MgmtRouter
 
 spine03:
   # Cisco IOS-XR

@@ -125,7 +125,7 @@ def step_impl(context):
 
     context.o0201.vrf_lst.append(
         VRF(
-            vrf_name="default",
+            vrf_name="GlobalRouter",
             vrf_id="0",
             vrf_type=NOT_SET,
             l3_vni=NOT_SET,
@@ -153,7 +153,7 @@ def step_impl(context):
 
     context.o0201.vrf_lst.append(
         VRF(
-            vrf_name="mgmt",
+            vrf_name="MgmtRouter",
             vrf_id="512",
             vrf_type=NOT_SET,
             l3_vni=NOT_SET,

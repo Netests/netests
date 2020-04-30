@@ -10,6 +10,7 @@ from functions.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
 from functions.bgp.cumulus.ssh.converter import _cumulus_bgp_ssh_converter
 from functions.bgp.extreme_vsp.ssh.converter import _extreme_vsp_bgp_ssh_converter
 from functions.bgp.nxos.api.converter import _nxos_bgp_api_converter
+from functions.bgp.nxos.ssh.converter import _nxos_bgp_ssh_converter
 from const.constants import (
     NOT_SET,
     FEATURES_SRC_PATH,
@@ -480,7 +481,30 @@ def step_impl(context):
 
 @given(u'I create a BGP object from a NXOS SSH output named o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    dict_output = dict()
+    dict_output['default'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/nxos/ssh/"
+            "nxos_show_bgp_session_vrf_default.json"
+        )
+    )
+    dict_output['management'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/nxos/ssh/"
+            "nxos_show_bgp_session_vrf_mgmt.json"
+        )
+    )
+    dict_output['CUSTOMER_GOOGLE'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/nxos/ssh/"
+            "nxos_show_bgp_session_vrf_customer.json"
+        )
+    )
+    context.o0704 = _nxos_bgp_ssh_converter(
+        hostname="leaf02",
+        cmd_output=dict_output,
+        options={}
+    )
 
 
 @given(u'BGP o0001 should be equal to o0002')
@@ -792,7 +816,7 @@ def step_impl(context):
 
 @given(u'BGP o0701 should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0701 == context.o0704
 
 
 @given(u'BGP o0702 should be equal to o0703')
@@ -802,7 +826,7 @@ def step_impl(context):
 
 @given(u'BGP o0702 should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0702 == context.o0704
 
 
 @given(u'BGP o0703 should be equal to o0704')
@@ -833,4 +857,10 @@ def step_impl(context):
 
 @given(u'I Finish my BGP tests and list tests not implemented')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_bgp(
+        host_keys=BGP_SESSIONS_HOST_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        bgp_host_data=context.o0704,
+        test=True
+    )

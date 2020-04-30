@@ -1,0 +1,40 @@
+{
+    "totalpeers": "3",
+    "totalestablishedpeers": "0",
+    "localas": "65535",
+    "TABLE_vrf": {
+        "ROW_vrf": {
+            "vrf-name-out": "CUSTOMER_GOOGLE",
+            "local-as": "65535",
+            "vrfpeers": "2",
+            "vrfestablishedpeers": "0",
+            "router-id": "0.0.0.0",
+            "TABLE_neighbor": {
+                "ROW_neighbor": [
+                    {
+                        "neighbor-id": "11.1.1.1",
+                        "connectionsdropped": "0",
+                        "remoteas": "1",
+                        "lastflap": "PT1H54M49S",
+                        "state": "Idle",
+                        "localport": "0",
+                        "remoteport": "0",
+                        "notificationssent": "0",
+                        "notificationsreceived": "0"
+                    },
+                    {
+                        "neighbor-id": "22.2.2.2",
+                        "connectionsdropped": "0",
+                        "remoteas": "2",
+                        "lastflap": "PT1H44M54S",
+                        "state": "Idle",
+                        "localport": "0",
+                        "remoteport": "0",
+                        "notificationssent": "0",
+                        "notificationsreceived": "0"
+                    }
+                ]
+            }
+        }
+    }
+}
