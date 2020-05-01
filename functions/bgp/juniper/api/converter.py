@@ -3,6 +3,11 @@
 
 import os
 import json
+from functions.global_tools import printline
+from functions.verbose_mode import verbose_mode
+from functions.mappings import get_bgp_state_brief
+from functions.netconf_tools import format_xml_output
+from const.constants import NOT_SET, LEVEL1, LEVEL3
 from protocols.bgp import (
     BGPSession,
     ListBGPSessions,
@@ -10,16 +15,11 @@ from protocols.bgp import (
     ListBGPSessionsVRF,
     BGP
 )
-from functions.mappings import get_bgp_state_brief
-from const.constants import NOT_SET, LEVEL1, LEVEL3
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from functions.netconf_tools import format_xml_output
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _juniper_bgp_netconf_converter(
+def _juniper_bgp_api_converter(
     hostname: str,
     cmd_output: dict,
     options={}
@@ -35,18 +35,18 @@ def _juniper_bgp_netconf_converter(
         if not isinstance(v.get('rid'), dict):
             v['rid'] = format_xml_output(v.get('rid'))
         if verbose_mode(
-            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+            user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
             needed_value=LEVEL3
         ):
             printline()
             PP.pprint(v)
-        
+
         bgp_sessions_lst = ListBGPSessions(
             list()
         )
-        
+
         if (
-            'bgp' in v.keys() and 
+            'bgp' in v.keys() and
             'bgp-information' in v.get('bgp').keys() and
             v.get('bgp').get('bgp-information') is not None and
             'bgp-peer' in v.get('bgp').get('bgp-information').keys()
@@ -91,18 +91,18 @@ def _juniper_bgp_netconf_converter(
                     bgp_sessions=bgp_sessions_lst
                 )
             )
-            
+
     bgp = BGP(
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
 
     if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
         needed_value=LEVEL1
     ):
         printline()
-        print(f">>>>> {hostname}")
+        print(f'>>>>> {hostname}')
         PP.pprint(bgp.to_json())
 
     return bgp

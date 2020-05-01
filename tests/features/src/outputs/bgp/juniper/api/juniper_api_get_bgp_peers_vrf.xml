@@ -1,0 +1,55 @@
+<bgp-information xmlns="http://xml.juniper.net/junos/19.4R0/junos-routing" 
+    xmlns:junos="http://xml.juniper.net/junos/*/junos">
+    <bgp-peer junos:style="detail">
+        <peer-address>10.1.1.1</peer-address>
+        <peer-as>65333</peer-as>
+        <local-address>unspecified</local-address>
+        <local-as>65444</local-as>
+        <peer-group>EXTERNAL_PEERING_01</peer-group>
+        <peer-cfg-rti>CUSTOMER_AWS</peer-cfg-rti>
+        <peer-fwd-rti>CUSTOMER_AWS</peer-fwd-rti>
+        <peer-type>External</peer-type>
+        <peer-state>Idle</peer-state>
+        <peer-flags>PeerInterfaceError</peer-flags>
+        <last-state>NoState</last-state>
+        <last-event>NoEvent</last-event>
+        <last-error>None</last-error>
+        <bgp-option-information xmlns="http://xml.juniper.net/junos/19.4R0/junos-routing">
+            <bgp-options>Preference PeerAS LocalAS Refresh</bgp-options>
+            <bgp-options2/>
+            <bgp-options-extended>GracefulShutdownRcv</bgp-options-extended>
+            <holdtime>90</holdtime>
+            <preference>170</preference>
+            <gshut-recv-local-preference>0</gshut-recv-local-preference>
+            <local-as>65444</local-as>
+            <local-system-as>0</local-system-as>
+        </bgp-option-information>
+        <flap-count>0</flap-count>
+    </bgp-peer>
+    <bgp-peer junos:style="detail">
+        <peer-address>10.2.2.2</peer-address>
+        <peer-as>65333</peer-as>
+        <local-address>unspecified</local-address>
+        <local-as>65444</local-as>
+        <peer-group>EXTERNAL_PEERING_01</peer-group>
+        <peer-cfg-rti>CUSTOMER_AWS</peer-cfg-rti>
+        <peer-fwd-rti>CUSTOMER_AWS</peer-fwd-rti>
+        <peer-type>External</peer-type>
+        <peer-state>Idle</peer-state>
+        <peer-flags>PeerInterfaceError</peer-flags>
+        <last-state>NoState</last-state>
+        <last-event>NoEvent</last-event>
+        <last-error>None</last-error>
+        <bgp-option-information xmlns="http://xml.juniper.net/junos/19.4R0/junos-routing">
+            <bgp-options>Preference PeerAS LocalAS Refresh</bgp-options>
+            <bgp-options2/>
+            <bgp-options-extended>GracefulShutdownRcv</bgp-options-extended>
+            <holdtime>90</holdtime>
+            <preference>170</preference>
+            <gshut-recv-local-preference>0</gshut-recv-local-preference>
+            <local-as>65444</local-as>
+            <local-system-as>0</local-system-as>
+        </bgp-option-information>
+        <flap-count>0</flap-count>
+    </bgp-peer>
+</bgp-information>
