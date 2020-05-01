@@ -39,6 +39,20 @@ leaf02:
         state_brief: DOWN
         state: Active
 
+leaf04:
+  CUSTOMER_AWS:
+    asn: 65444
+    router_id: 9.9.9.9
+    neighbors:
+      - peer_ip: 10.1.1.1
+        remote_as: 65333
+        state_brief: DOWN
+        state: Idle
+      - peer_ip: 10.2.2.2
+        remote_as: 65333
+        state_brief: DOWN
+        state: Idle
+
 spine02:
   default:
     asn: 65101

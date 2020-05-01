@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from ncclient import manager
 from functions.verbose_mode import verbose_mode
 from functions.http_request import exec_http_nxos
 from nornir.plugins.functions.text import print_result
@@ -64,9 +65,28 @@ def _nexus_get_bgp_api(task, options={}):
 
 
 def _nexus_get_bgp_netconf(task):
-    raise NetestsFunctionNotImplemented(
-        "Cisco Nexus Network Netconf functions is not implemented..."
-    )
+    with manager.connect(
+        host=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        hostkey_verify=False
+    ) as m:
+
+        output_dict = m.get(
+            filter=(
+                'subtree',
+                '''
+                <show xmlns="http://cisco.com/ns/yang/cisco-nx-os-device">
+                    <bgp>
+                        <sessions/>
+                    </bgp>
+                </show>
+                '''
+            )
+        ).data_xml
+
+        print(output_dict)
 
 
 def _nexus_get_bgp_ssh(task, options={}):

@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from const.constants import (
-    NOT_SET,
-)
+import os
+import json
+from functions.global_tools import printline
+from functions.verbose_mode import verbose_mode
+from functions.mappings import get_bgp_state_brief
+from const.constants import NOT_SET, LEVEL1, LEVEL3
 from protocols.bgp import (
     BGPSession,
     ListBGPSessions,
@@ -11,43 +14,50 @@ from protocols.bgp import (
     ListBGPSessionsVRF,
     BGP
 )
-from functions.global_tools import _generic_state_converter
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 
 
-def _juniper_bgp_ssh_converter(hostname: str(), cmd_outputs: dict) -> BGP:
-    if cmd_outputs is None:
-        return None
+def _juniper_bgp_ssh_converter(
+    hostname: str,
+    cmd_output: dict,
+    options={}
+) -> BGP:
 
-    bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(
+        list()
+    )
 
-    for vrf_name in cmd_outputs.keys():
+    for k, v in cmd_output.items():
+        if not isinstance(v, dict):
+            v = json.loads(v)
+        if verbose_mode(
+            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+            needed_value=LEVEL3
+        ):
+            printline()
+            PP.pprint(v)
 
-        # Create a BGP sessions list for each VRF
         bgp_sessions_lst = ListBGPSessions(list())
         local_as = ""
 
-        if (
-            "bgp-peer"
-            in cmd_outputs.get(vrf_name).get("bgp")
-            .get("bgp-information")[0].keys()
-        ):
-            for bgp_peer in (
-                cmd_outputs.get(vrf_name)
-                .get("bgp")
-                .get("bgp-information")[0]
-                .get("bgp-peer")
-            ):
+        PP.pprint(v)
+
+        if "bgp-peer" in v.get("bgp") \
+                          .get("bgp-information")[0] \
+                          .keys():
+            for bgp_peer in v.get("bgp") \
+                             .get("bgp-information")[0] \
+                             .get("bgp-peer"):
 
                 local_as = bgp_peer.get("local-as")[0].get("data", NOT_SET)
 
                 if "bgp-rib" in bgp_peer.keys():
-                    prefix_received = (
-                        bgp_peer.get("bgp-rib")[0]
-                        .get("received-prefix-count")[0]
-                        .get("data", NOT_SET)
-                    )
+                    prefix_rcv = bgp_peer.get("bgp-rib")[0] \
+                                         .get("received-prefix-count")[0] \
+                                         .get("data", NOT_SET)
                 else:
-                    prefix_received = NOT_SET
+                    prefix_rcv = NOT_SET
 
                 bgp_session = BGPSession(
                     src_hostname=hostname,
@@ -56,57 +66,45 @@ def _juniper_bgp_ssh_converter(hostname: str(), cmd_outputs: dict) -> BGP:
                     ),
                     peer_hostname=NOT_SET,
                     remote_as=bgp_peer.get("peer-as")[0].get("data", NOT_SET),
-                    state_brief=_generic_state_converter(
+                    state_brief=get_bgp_state_brief(
                         bgp_peer.get("peer-state")[0].get("data", NOT_SET),
                     ),
                     session_state=(
                         bgp_peer.get("peer-state")[0].get("data", NOT_SET)
                     ),
                     state_time=NOT_SET,
-                    prefix_received=prefix_received,
+                    prefix_received=prefix_rcv,
                 )
 
                 bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
-            if vrf_name == "default":
-                if "conf" in cmd_outputs.get(vrf_name).keys():
-                    if (
-                        "configuration" in
-                        cmd_outputs.get(vrf_name).get("conf").keys()
-                    ):
-                        rid = (
-                            cmd_outputs.get(vrf_name)
-                            .get("conf")
-                            .get("configuration")
-                            .get("routing-options")
-                            .get("router-id")
-                        )
+            if k == "default":
+                if "conf" in v.keys():
+                    if "configuration" in v.get("conf").keys():
+                        rid = v.get("conf") \
+                               .get("configuration") \
+                               .get("routing-options") \
+                               .get("router-id")
                     else:
                         rid = NOT_SET
                 else:
                     rid = NOT_SET
             else:
-                if "conf" in cmd_outputs.get(vrf_name).keys():
-                    if (
-                        "configuration" in
-                        cmd_outputs.get(vrf_name).get("conf").keys()
-                    ):
-                        rid = (
-                            cmd_outputs.get(vrf_name)
-                            .get("conf")
-                            .get("configuration")
-                            .get("routing-instances")
-                            .get("instance")[0]
-                            .get("routing-options")
-                            .get("router-id", NOT_SET)
-                        )
+                if "conf" in v.keys():
+                    if "configuration" in v.get("conf").keys():
+                        rid = v.get("conf") \
+                               .get("configuration") \
+                               .get("routing-instances") \
+                               .get("instance")[0] \
+                               .get("routing-options") \
+                               .get("router-id", NOT_SET)
                     else:
                         rid = NOT_SET
                 else:
                     rid = NOT_SET
 
             bgp_session_vrf = BGPSessionsVRF(
-                vrf_name=vrf_name,
+                vrf_name=k,
                 as_number=local_as,
                 router_id=rid,
                 bgp_sessions=bgp_sessions_lst,
@@ -114,7 +112,20 @@ def _juniper_bgp_ssh_converter(hostname: str(), cmd_outputs: dict) -> BGP:
 
             bgp_sessions_vrf_lst.bgp_sessions_vrf.append(bgp_session_vrf)
 
-    return BGP(hostname=hostname, bgp_sessions_vrf_lst=bgp_sessions_vrf_lst)
+    bgp = BGP(
+        hostname=hostname,
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
+
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL1
+    ):
+        printline()
+        print(f">>>>> {hostname}")
+        PP.pprint(bgp.to_json())
+
+    return bgp
 
 
 def _juniper_bgp_addr_filter(ip_addr: str) -> str:

@@ -62,6 +62,6 @@ def _juniper_vrf_ssh_converter(
         needed_value=LEVEL1
     ):
         printline()
-        PP.pprint(vrf_list)
+        PP.pprint(vrf_list.to_json())
 
     return vrf_list
