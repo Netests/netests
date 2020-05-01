@@ -10,6 +10,7 @@ from functions.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
 from functions.bgp.cumulus.ssh.converter import _cumulus_bgp_ssh_converter
 from functions.bgp.extreme_vsp.ssh.converter import _extreme_vsp_bgp_ssh_converter
 from functions.bgp.juniper.netconf.converter import _juniper_bgp_netconf_converter
+from functions.bgp.juniper.ssh.converter import _juniper_bgp_ssh_converter
 from functions.bgp.nxos.api.converter import _nxos_bgp_api_converter
 from functions.bgp.nxos.ssh.converter import _nxos_bgp_ssh_converter
 from const.constants import (
@@ -432,7 +433,40 @@ def step_impl(context):
 
 @given(u'I create a BGP object from a Juniper SSH output named o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    dict_output = dict()
+    dict_output['default'] = dict()
+    dict_output['default']['bgp'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/juniper/ssh/"
+            "juniper_cli_get_bgp_peers.json"
+        )
+    )
+    dict_output['default']['rid'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/juniper/ssh/"
+            "juniper_cli_get_bgp_rid.json"
+        )
+    )
+
+    dict_output['CUSTOMER_AWS'] = dict()
+    dict_output['CUSTOMER_AWS']['bgp'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/juniper/ssh/"
+            "juniper_cli_get_bgp_peers_vrf.json"
+        )
+    )
+    dict_output['CUSTOMER_AWS']['rid'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/juniper/ssh/"
+            "juniper_cli_get_bgp_rid_vrf.json"
+        )
+    )
+
+    context.o0504 = _juniper_bgp_ssh_converter(
+        hostname="leaf04",
+        cmd_output=dict_output,
+        options={}
+    )
 
 
 @given(u'I create a BGP object equals to NAPALM manually named o0601')
@@ -850,7 +884,7 @@ def step_impl(context):
 
 @given(u'BGP o0501 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0501 == context.o0504
 
 
 @given(u'BGP o0502 should be equal to o0503')
@@ -865,7 +899,7 @@ def step_impl(context):
 
 @given(u'BGP o0503 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0503 == context.o0504
 
 
 @given(u'BGP YAML file should be equal to o0502')
@@ -886,7 +920,13 @@ def step_impl(context):
 
 @given(u'BGP YAML file should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_bgp(
+        host_keys=BGP_SESSIONS_HOST_KEY,
+        hostname="leaf04",
+        groups=['junos'],
+        bgp_host_data=context.o0504,
+        test=True
+    )
 
 
 @given(u'BGP o0601 should be equal to o0602')

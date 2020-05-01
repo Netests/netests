@@ -1,0 +1,251 @@
+{
+    "bgp-information": [
+        {
+            "attributes": {
+                "xmlns": "http://xml.juniper.net/junos/19.4R0/junos-routing"
+            },
+            "bgp-peer": [
+                {
+                    "attributes": {
+                        "junos:style": "detail"
+                    },
+                    "peer-address": [
+                        {
+                            "data": "10.1.1.1"
+                        }
+                    ],
+                    "peer-as": [
+                        {
+                            "data": "65333"
+                        }
+                    ],
+                    "local-address": [
+                        {
+                            "data": "unspecified"
+                        }
+                    ],
+                    "local-as": [
+                        {
+                            "data": "65444"
+                        }
+                    ],
+                    "peer-group": [
+                        {
+                            "data": "EXTERNAL_PEERING_01"
+                        }
+                    ],
+                    "peer-cfg-rti": [
+                        {
+                            "data": "CUSTOMER_AWS"
+                        }
+                    ],
+                    "peer-fwd-rti": [
+                        {
+                            "data": "CUSTOMER_AWS"
+                        }
+                    ],
+                    "peer-type": [
+                        {
+                            "data": "External"
+                        }
+                    ],
+                    "peer-state": [
+                        {
+                            "data": "Idle"
+                        }
+                    ],
+                    "peer-flags": [
+                        {
+                            "data": "PeerInterfaceError"
+                        }
+                    ],
+                    "last-state": [
+                        {
+                            "data": "NoState"
+                        }
+                    ],
+                    "last-event": [
+                        {
+                            "data": "NoEvent"
+                        }
+                    ],
+                    "last-error": [
+                        {
+                            "data": "None"
+                        }
+                    ],
+                    "bgp-option-information": [
+                        {
+                            "attributes": {
+                                "xmlns": "http://xml.juniper.net/junos/19.4R0/junos-routing"
+                            },
+                            "bgp-options": [
+                                {
+                                    "data": "Preference PeerAS LocalAS Refresh"
+                                }
+                            ],
+                            "bgp-options2": [
+                                {}
+                            ],
+                            "bgp-options-extended": [
+                                {
+                                    "data": "GracefulShutdownRcv"
+                                }
+                            ],
+                            "holdtime": [
+                                {
+                                    "data": "90"
+                                }
+                            ],
+                            "preference": [
+                                {
+                                    "data": "170"
+                                }
+                            ],
+                            "gshut-recv-local-preference": [
+                                {
+                                    "data": "0"
+                                }
+                            ],
+                            "local-as": [
+                                {
+                                    "data": "65444"
+                                }
+                            ],
+                            "local-system-as": [
+                                {
+                                    "data": "0"
+                                }
+                            ]
+                        }
+                    ],
+                    "flap-count": [
+                        {
+                            "data": "0"
+                        }
+                    ]
+                },
+                {
+                    "attributes": {
+                        "junos:style": "detail"
+                    },
+                    "peer-address": [
+                        {
+                            "data": "10.2.2.2"
+                        }
+                    ],
+                    "peer-as": [
+                        {
+                            "data": "65333"
+                        }
+                    ],
+                    "local-address": [
+                        {
+                            "data": "unspecified"
+                        }
+                    ],
+                    "local-as": [
+                        {
+                            "data": "65444"
+                        }
+                    ],
+                    "peer-group": [
+                        {
+                            "data": "EXTERNAL_PEERING_01"
+                        }
+                    ],
+                    "peer-cfg-rti": [
+                        {
+                            "data": "CUSTOMER_AWS"
+                        }
+                    ],
+                    "peer-fwd-rti": [
+                        {
+                            "data": "CUSTOMER_AWS"
+                        }
+                    ],
+                    "peer-type": [
+                        {
+                            "data": "External"
+                        }
+                    ],
+                    "peer-state": [
+                        {
+                            "data": "Idle"
+                        }
+                    ],
+                    "peer-flags": [
+                        {
+                            "data": "PeerInterfaceError"
+                        }
+                    ],
+                    "last-state": [
+                        {
+                            "data": "NoState"
+                        }
+                    ],
+                    "last-event": [
+                        {
+                            "data": "NoEvent"
+                        }
+                    ],
+                    "last-error": [
+                        {
+                            "data": "None"
+                        }
+                    ],
+                    "bgp-option-information": [
+                        {
+                            "attributes": {
+                                "xmlns": "http://xml.juniper.net/junos/19.4R0/junos-routing"
+                            },
+                            "bgp-options": [
+                                {
+                                    "data": "Preference PeerAS LocalAS Refresh"
+                                }
+                            ],
+                            "bgp-options2": [
+                                {}
+                            ],
+                            "bgp-options-extended": [
+                                {
+                                    "data": "GracefulShutdownRcv"
+                                }
+                            ],
+                            "holdtime": [
+                                {
+                                    "data": "90"
+                                }
+                            ],
+                            "preference": [
+                                {
+                                    "data": "170"
+                                }
+                            ],
+                            "gshut-recv-local-preference": [
+                                {
+                                    "data": "0"
+                                }
+                            ],
+                            "local-as": [
+                                {
+                                    "data": "65444"
+                                }
+                            ],
+                            "local-system-as": [
+                                {
+                                    "data": "0"
+                                }
+                            ]
+                        }
+                    ],
+                    "flap-count": [
+                        {
+                            "data": "0"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
