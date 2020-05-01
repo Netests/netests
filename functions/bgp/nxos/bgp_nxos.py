@@ -20,9 +20,6 @@ from const.constants import (
     VRF_NAME_DATA_KEY,
     VRF_DEFAULT_RT_LST
 )
-from exceptions.netests_exceptions import (
-    NetestsFunctionNotImplemented
-)
 
 
 def _nexus_get_bgp_api(task, options={}):

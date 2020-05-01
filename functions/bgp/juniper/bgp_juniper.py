@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
-import xmltodict
 from jnpr.junos import Device
 from xml.etree import ElementTree
+from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from functions.http_request import exec_http_call_juniper
@@ -28,14 +27,9 @@ from functions.bgp.juniper.api.converter import (
 from functions.bgp.juniper.netconf.converter import (
     _juniper_bgp_netconf_converter
 )
-from exceptions.netests_exceptions import (
-    NetestsFunctionNotImplemented
-)
 from functions.bgp.juniper.ssh.converter import (
     _juniper_bgp_ssh_converter
 )
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -63,36 +57,36 @@ def _juniper_get_bgp_api(task, options={}):
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL5
     ):
-            printline()
-            print(output_dict['default']['rid'])
-            print(output_dict['default']['rid'])
+        printline()
+        print(output_dict['default']['rid'])
+        print(output_dict['default']['rid'])
 
-    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
-            if vrf not in VRF_DEFAULT_RT_LST:
-                output_dict[vrf] = dict()
-                output_dict[vrf]['bgp'] = exec_http_call_juniper(
-                    hostname=task.host.hostname,
-                    port=task.host.port,
-                    username=task.host.username,
-                    password=task.host.password,
-                    endpoint=f"get-bgp-neighbor-information?exact-instance={vrf}",
-                    secure_api=task.host['secure_api']
-                )
-                output_dict[vrf]['rid'] = exec_http_call_juniper(
-                    hostname=task.host.hostname,
-                    port=task.host.port,
-                    username=task.host.username,
-                    password=task.host.password,
-                    endpoint=f"get-instance-information?instance-name={vrf}&detail=",
-                    secure_api=task.host['secure_api']
-                )
-                if verbose_mode(
-                    user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-                    needed_value=LEVEL5
-                ):
-                    printline()
-                    print(output_dict[vrf]['bgp'])
-                    print(output_dict[vrf]['rid'])
+    for v in task.host[VRF_NAME_DATA_KEY].keys():
+        if v not in VRF_DEFAULT_RT_LST:
+            output_dict[v] = dict()
+            output_dict[v]['bgp'] = exec_http_call_juniper(
+                hostname=task.host.hostname,
+                port=task.host.port,
+                username=task.host.username,
+                password=task.host.password,
+                endpoint=f"get-bgp-neighbor-information?exact-instance={v}",
+                secure_api=task.host['secure_api']
+            )
+            output_dict[v]['rid'] = exec_http_call_juniper(
+                hostname=task.host.hostname,
+                port=task.host.port,
+                username=task.host.username,
+                password=task.host.password,
+                endpoint=f"get-instance-information?instance-name={v}&detail=",
+                secure_api=task.host['secure_api']
+            )
+            if verbose_mode(
+                user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+                needed_value=LEVEL5
+            ):
+                printline()
+                print(output_dict[v]['bgp'])
+                print(output_dict[v]['rid'])
 
     task.host[BGP_SESSIONS_HOST_KEY] = _juniper_bgp_api_converter(
         hostname=task.host.name,
@@ -125,7 +119,7 @@ def _juniper_get_bgp_netconf(task, options={}):
             printline()
             print(ElementTree.tostring(output_dict['default']['bgp']))
             print(ElementTree.tostring(output_dict['default']['rid']))
-        
+
         ElementTree.fromstring(ElementTree.tostring(
             output_dict['default']['bgp'])
         )
@@ -181,7 +175,7 @@ def _juniper_get_bgp_ssh(task, options={}):
 
     if output.result != "" and "BGP is not running" not in output.result:
         output_dict["default"]["bgp"] = output.result
-    
+
     output = task.run(
         name=f"{JUNOS_GET_BGP_RID}",
         task=netmiko_send_command,

@@ -13,6 +13,8 @@ from functions.bgp.juniper.api.converter import _juniper_bgp_api_converter
 from functions.bgp.juniper.netconf.converter import _juniper_bgp_netconf_converter
 from functions.bgp.juniper.ssh.converter import _juniper_bgp_ssh_converter
 from functions.bgp.nxos.api.converter import _nxos_bgp_api_converter
+from functions.bgp.napalm.converter import _napalm_bgp_converter
+from functions.bgp.nxos.api.converter import _nxos_bgp_api_converter
 from functions.bgp.nxos.ssh.converter import _nxos_bgp_ssh_converter
 from const.constants import (
     NOT_SET,
@@ -160,7 +162,7 @@ def step_impl(context):
 
 @given(u'I create a BGP object from a Cumulus Netconf named o0103')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus BGP with Netconf not possible -> Not tested")
 
 
 @given(u'I create a BGP object from a Cumulus SSH output named o0104')
@@ -254,12 +256,12 @@ def step_impl(context):
 
 @given(u'I create a BGP object from a Extreme VSP API output named o0202')
 def step_impl(context):
-    print("Extreme VSP Facts with Netconf not possible -> Not tested")
+    print("Extreme VSP BGP with Netconf not possible -> Not tested")
 
 
 @given(u'I create a BGP object from a Extreme VSP Netconf output named o0203')
 def step_impl(context):
-    print("Extreme VSP Facts with Netconf not possible -> Not tested")
+    print("Extreme VSP BGP with Netconf not possible -> Not tested")
 
 
 @given(u'I create a BGP object from a Extreme VSP SSH output named o0204')
@@ -505,12 +507,23 @@ def step_impl(context):
 
 @given(u'I create a BGP object equals to NAPALM manually named o0601')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("NAPALM BGP doesn't retrieve ROUTER-ID -> Not tested")
 
 
 @given(u'I create a BGP object from a NAPALM output named o0602')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/napalm/"
+            "napalm_get_bgp.json"
+        )
+    )
+
+    context.o0602 = _napalm_bgp_converter(
+        hostname="leaf04",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a BGP object equals to NXOS manually named o0701')
@@ -711,7 +724,7 @@ def step_impl(context):
 
 @given(u'BGP o0101 should be equal to o0103')
 def step_impl(context):
-    print("Cumulus Facts with Netconf not possible -> Not tested")
+    print("Cumulus BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP o0101 should be equal to o0104')
@@ -721,7 +734,7 @@ def step_impl(context):
 
 @given(u'BGP o0102 should be equal to o0103')
 def step_impl(context):
-    print("Cumulus Facts with Netconf not possible -> Not tested")
+    print("Cumulus BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP o0102 should be equal to o0104')
@@ -731,7 +744,7 @@ def step_impl(context):
 
 @given(u'BGP o0103 should be equal to o0104')
 def step_impl(context):
-    print("Cumulus Facts with Netconf not possible -> Not tested")
+    print("Cumulus BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP YAML file should be equal to o0102')
@@ -747,7 +760,7 @@ def step_impl(context):
 
 @given(u'BGP YAML file should be equal to o0103')
 def step_impl(context):
-    print("Cumulus Facts with Netconf not possible -> Not tested")
+    print("Cumulus BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP YAML file should be equal to o0104')
@@ -763,12 +776,12 @@ def step_impl(context):
 
 @given(u'BGP o0201 should be equal to o0202')
 def step_impl(context):
-    print("Extreme VSP Facts with Netconf not possible -> Not tested")
+    print("Extreme VSP BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP o0201 should be equal to o0203')
 def step_impl(context):
-    print("Extreme VSP Facts with Netconf not possible -> Not tested")
+    print("Extreme VSP BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP o0201 should be equal to o0204')
@@ -778,27 +791,27 @@ def step_impl(context):
 
 @given(u'BGP o0202 should be equal to o0203')
 def step_impl(context):
-    print("Extreme VSP Facts with Netconf not possible -> Not tested")
+    print("Extreme VSP BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP o0202 should be equal to o0204')
 def step_impl(context):
-    print("Extreme VSP Facts with Netconf not possible -> Not tested")
+    print("Extreme VSP BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP o0203 should be equal to o0204')
 def step_impl(context):
-    print("Extreme VSP Facts with Netconf not possible -> Not tested")
+    print("Extreme VSP BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP YAML file should be equal to o0202')
 def step_impl(context):
-    print("Extreme VSP Facts with Netconf not possible -> Not tested")
+    print("Extreme VSP BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP YAML file should be equal to o0203')
 def step_impl(context):
-    print("Extreme VSP Facts with Netconf not possible -> Not tested")
+    print("Extreme VSP BGP with Netconf not possible -> Not tested")
 
 
 @given(u'BGP YAML file should be equal to o0204')
@@ -971,7 +984,7 @@ def step_impl(context):
 
 @given(u'BGP o0601 should be equal to o0602')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("NAPALM BGP doesn't retrieve ROUTER-ID -> Not tested")
 
 
 @given(u'BGP o0701 should be equal to o0702')

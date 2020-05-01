@@ -45,8 +45,8 @@ def _juniper_bgp_ssh_converter(
 
         if (
             'bgp' in v.keys() and
-            'bgp-peer' in v.get('bgp') \
-                           .get('bgp-information')[0] \
+            'bgp-peer' in v.get('bgp')
+                           .get('bgp-information')[0]
                            .keys()
         ):
             for bgp_peer in v.get('bgp') \

@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 from protocols.bgp import (
     BGPSession,
     ListBGPSessions,
@@ -40,13 +39,13 @@ def _juniper_bgp_netconf_converter(
         ):
             printline()
             PP.pprint(v)
-        
+
         bgp_sessions_lst = ListBGPSessions(
             list()
         )
-        
+
         if (
-            'bgp' in v.keys() and 
+            'bgp' in v.keys() and
             'bgp-information' in v.get('bgp').keys() and
             v.get('bgp').get('bgp-information') is not None and
             'bgp-peer' in v.get('bgp').get('bgp-information').keys()
@@ -91,7 +90,7 @@ def _juniper_bgp_netconf_converter(
                     bgp_sessions=bgp_sessions_lst
                 )
             )
-            
+
     bgp = BGP(
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst

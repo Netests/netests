@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.mappings import get_bgp_state_brief
