@@ -136,7 +136,7 @@ def _juniper_get_bgp_ssh(task, options={}):
         print_result(output)
 
     if output.result != "" and "BGP is not running" not in output.result:
-        output_dict["default"]["conf"] = output.result
+        output_dict["default"]["rid"] = output.result
 
     for vrf in task.host[VRF_NAME_DATA_KEY].keys():
         if vrf not in VRF_DEFAULT_RT_LST:
@@ -153,29 +153,27 @@ def _juniper_get_bgp_ssh(task, options={}):
 
             if (
                 output.result != "" and
-                "router-id" in output.result and
                 "BGP is not running" not in output.result
             ):
                 output_dict[vrf] = dict()
                 output_dict[vrf]["bgp"] = output.result
 
-            output = task.run(
-                name=JUNOS_GET_BGP_VRF_RID.format(vrf),
-                task=netmiko_send_command,
-                command_string=JUNOS_GET_BGP_VRF_RID.format(vrf),
-            )
-            if verbose_mode(
-                user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-                needed_value=LEVEL2
-            ):
-                print_result(output)
+                output = task.run(
+                    name=JUNOS_GET_BGP_VRF_RID.format(vrf),
+                    task=netmiko_send_command,
+                    command_string=JUNOS_GET_BGP_VRF_RID.format(vrf),
+                )
+                if verbose_mode(
+                    user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+                    needed_value=LEVEL2
+                ):
+                    print_result(output)
 
-            if (
-                output.result != "" and
-                "router-id" in output.result and
-                "BGP is not running" not in output.result
-            ):
-                output_dict[vrf]["conf"] = output.result
+                if (
+                    output.result != "" and
+                    "BGP is not running" not in output.result
+                ):
+                    output_dict[vrf]["rid"] = output.result
 
     task.host[BGP_SESSIONS_HOST_KEY] = _juniper_bgp_ssh_converter(
         hostname=task.host.name,

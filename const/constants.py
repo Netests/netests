@@ -139,15 +139,9 @@ JUNOS_GET_MEMORY = "show system memory | display json"
 JUNOS_GET_CONFIG_SYSTEM = "show configuration system | display json"
 JUNOS_GET_SERIAL = "show chassis hardware detail | display json"
 JUNOS_GET_BGP = "show bgp neighbor exact-instance master | display json"
-JUNOS_GET_BGP_RID = (
-    "show configuration routing-options router-id "
-    "| display json"
-)
+JUNOS_GET_BGP_RID = "show route instance master detail | display json"
 JUNOS_GET_BGP_VRF = "show bgp neighbor exact-instance {} | display json"
-JUNOS_GET_BGP_VRF_RID = (
-    "show configuration routing-instances {} "
-    "routing-options router-id | display json"
-)
+JUNOS_GET_BGP_VRF_RID = "show route instance {} detail | display json"
 JUNOS_GET_VRF_DETAIL = "show route instance detail | display json"
 JUNOS_GET_VRF = "show route instance | display json"
 JUNOS_GET_MTU = "show interfaces | display json"
