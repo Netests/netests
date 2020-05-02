@@ -1,0 +1,7 @@
+Value Filldown ROUTER_ID (\S+)
+Value Filldown LOCAL_AS (\d+)
+
+Start
+  ^BGP\s+router\s+identifier\s+${ROUTER_ID},\s+local\s+AS\s+number\s+${LOCAL_AS}\s*$$
+
+End

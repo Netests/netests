@@ -269,6 +269,10 @@ IOS_GET_OSPF_INT = "show ip ospf interface brief"
 
 # CISCO IOSXR
 IOSXR_GET_VRF = "show vrf all detail"
+IOSXR_GET_BGP_PEERS = "show bgp neighbors"
+IOSXR_GET_BGP_RID = "show bgp summary"
+IOSXR_VRF_GET_BGP_PEERS = "show bgp vrf {} neighbors"
+IOSXR_VRF_GET_BGP_RID = "show bgp vrf {} summary"
 
 # BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'

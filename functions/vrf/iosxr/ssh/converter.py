@@ -28,6 +28,7 @@ def _iosxr_vrf_ssh_converter(
     cmd_output,
     options={}
 ) -> ListVRF:
+
     cmd_output = re.sub(
         pattern=r"communities:[\n\r]\s+RT",
         repl="communities:RT",

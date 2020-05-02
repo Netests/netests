@@ -28,10 +28,21 @@ Feature: Test protocols BGP python class ./protocols/bgp.py
     # Cisco IOS-XR Device = o04
     And I create a BGP object equals to IOS-XR manually named o0401
     And I create a BGP object from a IOS-XR API output named o0402
-    And I create a BGP object from a IOS-XR Netconf output named o403
+    And I create a BGP object from a IOS-XR Netconf output named o0403
     And I create a BGP object from a IOS-XR SSH output named o0404
     And I create a BGP object equals IOS-XR multi manually output named o0405
     And I create a BGP object from a IOS-XR multi Netconf output named o0406
+
+    And I create a BGP object equals to IOS-XR no config manually named o0411
+    And I create a BGP object from a IOS-XR no config API output named o0412
+    And I create a BGP object from a IOS-XR no config Netconf output named o0413
+    And I create a BGP object from a IOS-XR no config SSH output named o0414
+
+    And I create a BGP object equals to IOS-XR one vrf manually named o0421
+    And I create a BGP object from a IOS-XR one vrf config API output named o0422
+    And I create a BGP object from a IOS-XR one vrf config Netconf output named o0423
+    And I create a BGP object from a IOS-XR one vrf config SSH output named o0424
+
     # Juniper Networks ID Device = o05
     And I create a BGP object equals to Juniper manually named o0501
     And I create a BGP object from a Juniper API output named o0502
@@ -91,6 +102,7 @@ Feature: Test protocols BGP python class ./protocols/bgp.py
     And BGP YAML file should be equal to o0302
     And BGP YAML file should be equal to o0303
     And BGP YAML file should be equal to o0304
+
     # Cisco IOS-XR
     And BGP o0401 should be equal to o0402
     And BGP o0401 should be equal to o0403
@@ -100,6 +112,20 @@ Feature: Test protocols BGP python class ./protocols/bgp.py
     And BGP o0403 should be equal to o0404
     # Multiple BGP
     And BGP o0405 should be equal to o0406
+
+    And BGP o0411 should be equal to o0412
+    And BGP o0411 should be equal to o0413
+    And BGP o0411 should be equal to o0414
+    And BGP o0412 should be equal to o0413
+    And BGP o0412 should be equal to o0414
+    And BGP o0413 should be equal to o0414
+
+    And BGP o0421 should be equal to o0422
+    And BGP o0421 should be equal to o0423
+    And BGP o0421 should be equal to o0424
+    And BGP o0422 should be equal to o0423
+    And BGP o0422 should be equal to o0424
+    And BGP o0423 should be equal to o0424
 
     And BGP YAML file should be equal to o0402
     And BGP YAML file should be equal to o0403

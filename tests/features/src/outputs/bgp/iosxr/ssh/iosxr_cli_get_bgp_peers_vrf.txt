@@ -1,0 +1,37 @@
+Sat May  2 19:06:57.714 UTC
+
+BGP neighbor is 15.15.15.15, vrf CUSTOMER_NETESTS
+ Remote AS 1515, local AS 1515, internal link
+ Remote router ID 0.0.0.0
+  BGP state = Idle (No best local address found)
+  NSR State: None
+  Last read 00:00:00, Last read before reset 00:00:00
+  Hold time is 180, keepalive interval is 60 seconds
+  Configured hold time: 180, keepalive: 60, min acceptable hold time: 3
+  Last write 00:00:00, attempted 0, written 0
+  Second last write 00:00:00, attempted 0, written 0
+  Last write before reset 00:00:00, attempted 0, written 0
+  Second last write before reset 00:00:00, attempted 0, written 0
+  Last write pulse rcvd  not set last full not set pulse count 0
+  Last write pulse rcvd before reset 00:00:00
+  Socket not armed for io, not armed for read, not armed for write
+  Last write thread event before reset 00:00:00, second last 00:00:00
+  Last KA expiry before reset 00:00:00, second last 00:00:00
+  Last KA error before reset 00:00:00, KA not sent 00:00:00
+  Last KA start before reset 00:00:00, second last 00:00:00
+  Precedence: internet
+  Non-stop routing is enabled
+  Multi-protocol capability not received
+  Received 0 messages, 0 notifications, 0 in queue
+  Sent 0 messages, 0 notifications, 0 in queue
+  Minimum time between advertisement runs is 0 secs
+  Inbound message logging enabled, 3 messages buffered
+  Outbound message logging enabled, 3 messages buffered
+
+ No address families are configured on the neighbor.
+ The BGP session with this neighbor will not be established.
+
+  Connections established 0; dropped 0
+  Local host: 0.0.0.0, Local port: 0, IF Handle: 0x00000000
+  Foreign host: 15.15.15.15, Foreign port: 0
+  Last reset 01:20:36, due to Router ID changed

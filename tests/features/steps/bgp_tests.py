@@ -12,6 +12,8 @@ from functions.bgp.extreme_vsp.ssh.converter import _extreme_vsp_bgp_ssh_convert
 from functions.bgp.ios.api.converter import _ios_bgp_api_converter
 from functions.bgp.ios.netconf.converter import _ios_bgp_netconf_converter
 from functions.bgp.ios.ssh.converter import _ios_bgp_ssh_converter
+from functions.bgp.iosxr.netconf.converter import _iosxr_bgp_netconf_converter
+from functions.bgp.iosxr.ssh.converter import _iosxr_bgp_ssh_converter
 from functions.bgp.juniper.api.converter import _juniper_bgp_api_converter
 from functions.bgp.juniper.netconf.converter import _juniper_bgp_netconf_converter
 from functions.bgp.juniper.ssh.converter import _juniper_bgp_ssh_converter
@@ -443,7 +445,7 @@ def step_impl(context):
     context.scenario.tags.append("own_skipped")
 
 
-@given(u'I create a BGP object from a IOS-XR Netconf output named o403')
+@given(u'I create a BGP object from a IOS-XR Netconf output named o0403')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
 
@@ -461,6 +463,136 @@ def step_impl(context):
 @given(u'I create a BGP object from a IOS-XR multi Netconf output named o0406')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object equals to IOS-XR no config manually named o0411')
+def step_impl(context):
+    context.o0411 = BGP(
+        hostname="spine03",
+        bgp_sessions_vrf_lst=list()
+    )
+
+
+@given(u'I create a BGP object from a IOS-XR no config API output named o0412')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a IOS-XR no config Netconf output named o0413')
+def step_impl(context):
+    dict_output = open_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/iosxr/netconf/"
+            "iosxr_nc_get_bgp_no_config.xml"
+        )
+    )
+    context.o0413 = _iosxr_bgp_netconf_converter(
+        hostname="spine03",
+        cmd_output=dict_output,
+        options={}
+    )
+
+
+@given(u'I create a BGP object from a IOS-XR no config SSH output named o0414')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object equals to IOS-XR one vrf manually named o0421')
+def step_impl(context):
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(
+        list()
+    )
+
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="spine03",
+            peer_ip="15.15.15.15",
+            peer_hostname=NOT_SET,
+            remote_as="1515",
+            state_brief="DOWN",
+            session_state="Active",
+            state_time=NOT_SET,
+            prefix_received=NOT_SET
+        )
+    )
+
+    bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+        BGPSessionsVRF(
+            vrf_name="CUSTOMER_NETESTS",
+            as_number="1515",
+            router_id="2.2.2.2",
+            bgp_sessions=bgp_sessions_lst
+        )
+    )
+
+    context.o0421 = BGP(
+        hostname="spine03",
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
+
+
+@given(u'I create a BGP object from a IOS-XR one vrf config API output named o0422')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a BGP object from a IOS-XR one vrf config Netconf output named o0423')
+def step_impl(context):
+    dict_output = open_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/iosxr/netconf/"
+            "iosxr_nc_get_bgp_one_vrf.xml"
+        )
+    )
+    context.o0423 = _iosxr_bgp_netconf_converter(
+        hostname="spine03",
+        cmd_output=dict_output,
+        options={}
+    )
+
+
+@given(u'I create a BGP object from a IOS-XR one vrf config SSH output named o0424')
+def step_impl(context):
+    dict_output = dict()
+    dict_output['default'] = dict()
+    dict_output['CUSTOMER_NETESTS'] = dict()
+
+    dict_output['CUSTOMER_NETESTS']['peers'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/iosxr/ssh/"
+            "iosxr_cli_get_bgp_peers_vrf.txt"
+        )
+    )
+    dict_output['CUSTOMER_NETESTS']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/iosxr/ssh/"
+            "iosxr_cli_get_bgp_rid_vrf.txt"
+        )
+    )
+
+    dict_output['default']['peers'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/iosxr/ssh/"
+            "iosxr_cli_get_bgp_peers.txt"
+        )
+    )
+    dict_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/iosxr/ssh/"
+            "iosxr_cli_get_bgp_rid.txt"
+        )
+    )
+    
+    context.o0424 = _iosxr_bgp_ssh_converter(
+        hostname="spine03",
+        cmd_output=dict_output,
+        options={}
+    )
 
 
 @given(u'I create a BGP object equals to Juniper manually named o0501')
@@ -1060,6 +1192,67 @@ def step_impl(context):
 
 
 @given(u'BGP YAML file should be equal to o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0411 should be equal to o0412')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0411 should be equal to o0413')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0411 should be equal to o0414')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0412 should be equal to o0413')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0412 should be equal to o0414')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0413 should be equal to o0414')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0421 should be equal to o0422')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0421 should be equal to o0423')
+def step_impl(context):
+    print("Cisco IOS-XR doesn't get STATE => Not tested")
+    #assert context.o0421 == context.o0423
+
+
+@given(u'BGP o0421 should be equal to o0424')
+def step_impl(context):
+    assert context.o0421 == context.o0424
+
+
+@given(u'BGP o0422 should be equal to o0423')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0422 should be equal to o0424')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'BGP o0423 should be equal to o0424')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
 
