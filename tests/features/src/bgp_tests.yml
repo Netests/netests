@@ -66,6 +66,14 @@ leaf05:
         remote_as: 3
         state_brief: DOWN
         state: Idle
+  CUSTOMER_NETESTS:
+    asn: 33333
+    router_id: 33.33.33.33
+    neighbors:
+      - peer_ip: 15.15.15.15
+        remote_as: 15
+        state_brief: DOWN
+        state: Idle
 
 spine02:
   default:

@@ -344,6 +344,37 @@ def step_impl(context):
         )
     )
 
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf05",
+            peer_ip="15.15.15.15",
+            peer_hostname=NOT_SET,
+            remote_as="15",
+            state_brief=get_bgp_state_brief(
+                "fsm-idle"
+            ),
+            session_state="fsm-idle",
+            state_time=get_bgp_peer_uptime(
+                value=0,
+                format=BGP_UPTIME_FORMAT_MS
+            ),
+            prefix_received=NOT_SET
+        )
+    )
+
+    bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+        BGPSessionsVRF(
+            vrf_name="CUSTOMER_NETESTS",
+            as_number="33333",
+            router_id="33.33.33.33",
+            bgp_sessions=bgp_sessions_lst
+        )
+    )
+
     context.o0301 = BGP(
         hostname="leaf05",
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
@@ -357,7 +388,17 @@ def step_impl(context):
 
 @given(u'I create a BGP object from a IOS Netconf named o0303')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    dict_output = open_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/ios/netconf/"
+            "ios_nc_get_bgp.xml"
+        )
+    )
+    context.o0303 = _ios_bgp_netconf_converter(
+        hostname="leaf05",
+        cmd_output=dict_output,
+        options={}
+    )
 
 
 @given(u'I create a BGP object from a IOS SSH named o0304')
@@ -367,6 +408,12 @@ def step_impl(context):
         path=(
             f"{FEATURES_SRC_PATH}outputs/bgp/ios/ssh/"
             "ios_ssh_get_bgp_vrf.txt"
+        )
+    )
+    dict_output['CUSTOMER_NETESTS'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/ios/ssh/"
+            "ios_ssh_get_bgp_vrf_2.txt"
         )
     )
     context.o0304 = _ios_bgp_ssh_converter(
@@ -901,13 +948,11 @@ def step_impl(context):
 
 @given(u'BGP o0301 should be equal to o0303')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0301 == context.o0303
 
 
 @given(u'BGP o0301 should be equal to o0304')
 def step_impl(context):
-    print(context.o0301)
-    print(context.o0304)
     assert context.o0301 == context.o0304
 
 
@@ -923,7 +968,7 @@ def step_impl(context):
 
 @given(u'BGP o0303 should be equal to o0304')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0303 == context.o0304
 
 
 @given(u'BGP YAML file should be equal to o0302')
@@ -933,7 +978,13 @@ def step_impl(context):
 
 @given(u'BGP YAML file should be equal to o0303')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_bgp(
+        host_keys=BGP_SESSIONS_HOST_KEY,
+        hostname="leaf05",
+        groups=['ios'],
+        bgp_host_data=context.o0303,
+        test=True
+    )
 
 
 @given(u'BGP YAML file should be equal to o0304')

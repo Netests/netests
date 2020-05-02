@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
+from ncclient import manager
+from xml.etree import ElementTree
 from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import netmiko_send_command
@@ -11,6 +13,7 @@ from functions.bgp.ios.ssh.converter import _ios_bgp_ssh_converter
 from const.constants import (
     NOT_SET,
     LEVEL2,
+    NETCONF_FILTER,
     BGP_SESSIONS_HOST_KEY,
     IOS_GET_BGP,
     IOS_GET_BGP_VRF,
@@ -30,11 +33,28 @@ def _ios_get_bgp_api(task, options={}):
 
 
 def _ios_get_bgp_netconf(task, options={}):
-    output_dict = dict()
+    with manager.connect(
+        host=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        hostkey_verify=False,
+        device_params={'name': 'iosxe'}
+    ) as m:
+
+        cmd_output = output_dict = m.get(
+            filter=NETCONF_FILTER.format(
+                "<bgp-state-data "
+                "xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XE-bgp-oper\""
+                "/>"
+            )
+        ).data_xml
+
+        ElementTree.fromstring(output_dict)
 
     task.host[BGP_SESSIONS_HOST_KEY] = _ios_bgp_netconf_converter(
         hostname=task.host.name,
-        cmd_output=output_dict,
+        cmd_output=cmd_output,
         options=options
     )
 
