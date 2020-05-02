@@ -53,6 +53,20 @@ leaf04:
         state_brief: DOWN
         state: Idle
 
+leaf05:
+  CUSTOMER_APPLE:
+    asn: 33333
+    router_id: 33.33.33.33
+    neighbors:
+      - peer_ip: 33.3.3.3
+        remote_as: 3
+        state_brief: DOWN
+        state: Idle
+      - peer_ip: 33.33.33.33
+        remote_as: 3
+        state_brief: DOWN
+        state: Idle
+
 spine02:
   default:
     asn: 65101

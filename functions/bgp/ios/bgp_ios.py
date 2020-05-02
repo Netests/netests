@@ -1,50 +1,59 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import textfsm
+import os
+from functions.verbose_mode import verbose_mode
+from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import netmiko_send_command
+from functions.bgp.ios.api.converter import _ios_bgp_api_converter
+from functions.bgp.ios.netconf.converter import _ios_bgp_netconf_converter
+from functions.bgp.ios.ssh.converter import _ios_bgp_ssh_converter
 from const.constants import (
-    TEXTFSM_PATH,
+    NOT_SET,
+    LEVEL2,
     BGP_SESSIONS_HOST_KEY,
     IOS_GET_BGP,
     IOS_GET_BGP_VRF,
     VRF_NAME_DATA_KEY,
     VRF_DEFAULT_RT_LST
 )
-from functions.bgp.bgp_converters import (
-    _ios_bgp_converter
-)
-from exceptions.netests_exceptions import (
-    NetestsFunctionNotPossible,
-)
 
 
-def _ios_get_bgp_api(task):
-    raise NetestsFunctionNotPossible(
-        "Cisco IOS does not support API..."
+def _ios_get_bgp_api(task, options={}):
+    output_dict = dict()
+
+    task.host[BGP_SESSIONS_HOST_KEY] = _ios_bgp_api_converter(
+        hostname=task.host.name,
+        cmd_output=output_dict,
+        options=options
     )
 
 
-def _ios_get_bgp_netconf(task):
-    raise NetestsFunctionNotPossible(
-        "Cisco IOS does not support Netconf..."
+def _ios_get_bgp_netconf(task, options={}):
+    output_dict = dict()
+
+    task.host[BGP_SESSIONS_HOST_KEY] = _ios_bgp_netconf_converter(
+        hostname=task.host.name,
+        cmd_output=output_dict,
+        options=options
     )
 
 
-def _ios_get_bgp_ssh(task):
-
-    outputs_dict = dict()
+def _ios_get_bgp_ssh(task, options={}):
+    output_dict = dict()
     output = task.run(
         name=f"{IOS_GET_BGP}",
         task=netmiko_send_command,
         command_string=IOS_GET_BGP
     )
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print_result(output)
 
     if output.result != "":
-        template = open(f"{TEXTFSM_PATH}cisco_ios_show_ip_bgp_summary.textfsm")
-        results_template = textfsm.TextFSM(template)
-        parsed_results = results_template.ParseText(output.result)
-        outputs_dict["default"] = parsed_results
+        output_dict["default"] = output.result
 
     for vrf in task.host[VRF_NAME_DATA_KEY].keys():
         if vrf not in VRF_DEFAULT_RT_LST:
@@ -53,14 +62,17 @@ def _ios_get_bgp_ssh(task):
                 task=netmiko_send_command,
                 command_string=IOS_GET_BGP_VRF.format(vrf),
             )
+            if verbose_mode(
+                user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+                needed_value=LEVEL2
+            ):
+                print_result(output)
 
             if output.result != "":
-                template = open(
-                    f"{TEXTFSM_PATH}cisco_ios_show_ip_bgp_summary.textfsm"
-                )
-                results_template = textfsm.TextFSM(template)
-                parsed_results = results_template.ParseText(output.result)
-                outputs_dict[vrf] = parsed_results
+                output_dict[vrf] = output.result
 
-    bgp_sessions = _ios_bgp_converter(task.host.name, outputs_dict)
-    task.host[BGP_SESSIONS_HOST_KEY] = bgp_sessions
+    task.host[BGP_SESSIONS_HOST_KEY] = _ios_bgp_ssh_converter(
+        hostname=task.host.name,
+        cmd_output=output_dict,
+        options=options
+    )

@@ -1,0 +1,10 @@
+For address family: IPv4 Unicast
+
+
+For address family: VPNv4 Unicast
+BGP router identifier 33.33.33.33, local AS number 33333
+BGP table version is 1, main routing table version 1
+
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+33.3.3.3        4            3       0       0        1    0    0 never    Idle
+33.33.33.33     4            3       0       0        1    0    0 never    Idle
