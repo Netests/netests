@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" 
+    xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <vrfs xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-infra-rsi-cfg">
+        <vrf>
+            <vrf-name>CUSTOMER_NETESTS</vrf-name>
+            <create/>
+            <afs>
+                <af>
+                    <af-name>ipv4</af-name>
+                    <saf-name>unicast</saf-name>
+                    <topology-name>default</topology-name>
+                    <create/>
+                </af>
+            </afs>
+        </vrf>
+    </vrfs>
+</data>

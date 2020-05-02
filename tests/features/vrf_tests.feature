@@ -47,6 +47,17 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And I create a VRF object from a IOS-XR SSH output named o0404
     And I create a VRF object equals IOS-XR multi manually output named o0405
     And I create a VRF object from a IOS-XR multi Netconf output named o0406
+
+    And I create a VRF object equals to IOS-XR no config manually named o0411
+    And I create a VRF object from a IOS-XR no config API named o0412
+    And I create a VRF object from a IOS-XR no config Netconf named o0413
+    And I create a VRF object from a IOS-XR no config SSH named o0414
+
+    And I create a VRF object equals to IOS-XR one vrf manually named o0421
+    And I create a VRF object from a IOS-XR one vrf API named o0422
+    And I create a VRF object from a IOS-XR one vrf Netconf named o0423
+    And I create a VRF object from a IOS-XR one vrf SSH named o0424
+
     # Juniper Networks ID Device = o05
     And I create a VRF object equals to Juniper manually named o0501
     And I create a VRF object from a Juniper API output named o0502
@@ -136,6 +147,20 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And VRF o0403 should be equal to o0404
       # Multiple VRF
     And VRF o0405 should be equal to o0406
+
+    And VRF o0411 should be equal to o0412
+    And VRF o0411 should be equal to o0413
+    And VRF o0411 should be equal to o0414
+    And VRF o0412 should be equal to o0413
+    And VRF o0412 should be equal to o0414
+    And VRF o0413 should be equal to o0414
+
+    And VRF o0421 should be equal to o0422
+    And VRF o0421 should be equal to o0423
+    And VRF o0421 should be equal to o0424
+    And VRF o0422 should be equal to o0423
+    And VRF o0422 should be equal to o0424
+    And VRF o0423 should be equal to o0424
 
     And VRF YAML file should be equal to o0402
     And VRF YAML file should be equal to o0403

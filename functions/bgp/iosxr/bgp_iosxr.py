@@ -24,7 +24,7 @@ def _iosxr_get_bgp_api(task):
     )
 
 
-def _iosxr_get_bgp_netconf(task):
+def _iosxr_get_bgp_netconf(task, options={}):
     with manager.connect(
         host=task.host.hostname,
         port=task.host.port,
@@ -46,7 +46,8 @@ def _iosxr_get_bgp_netconf(task):
 
     task.host[BGP_SESSIONS_HOST_KEY] = _iosxr_bgp_netconf_converter(
         hostname=task.host.name,
-        cmd_outputs=json.dumps(xmltodict.parse(bgp_config))
+        cmd_output=bgp_config,
+        options=options
     )
 
 

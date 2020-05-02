@@ -647,6 +647,115 @@ def step_impl(context):
     )
 
 
+@given(u'I create a VRF object equals to IOS-XR no config manually named o0411')
+def step_impl(context):
+    context.o0411 = ListVRF(
+        vrf_lst=list()
+    )
+
+
+@given(u'I create a VRF object from a IOS-XR no config API named o0412')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a VRF object from a IOS-XR no config Netconf named o0413')
+def step_impl(context):
+    config = dict()
+    config['VRF'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/netconf/"
+            "cisco_iosxr_nc_get_vrf_no_config.xml"
+        )
+    )
+    config['BGP'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/netconf/"
+            "cisco_iosxr_nc_get_bgp_no_config.xml"
+        )
+    )
+
+    context.o0413 = _iosxr_vrf_netconf_converter(
+        hostname="spine03",
+        cmd_output=config
+    )
+
+
+@given(u'I create a VRF object from a IOS-XR no config SSH named o0414')
+def step_impl(context):
+    context.o0414 = _iosxr_vrf_ssh_converter(
+        hostname="spine03",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/ssh/"
+                "cisco_iosxr_show_vrf_all_detail_no_config.txt"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object equals to IOS-XR one vrf manually named o0421')
+def step_impl(context):
+    context.o0421 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o0421.vrf_lst.append(
+        VRF(
+            vrf_name="CUSTOMER_NETESTS",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+
+@given(u'I create a VRF object from a IOS-XR one vrf API named o0422')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a VRF object from a IOS-XR one vrf Netconf named o0423')
+def step_impl(context):
+    config = dict()
+    config['VRF'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/netconf/"
+            "cisco_iosxr_nc_get_vrf_one_vrf.xml"
+        )
+    )
+    config['BGP'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/netconf/"
+            "cisco_iosxr_nc_get_bgp_one_vrf.xml"
+        )
+    )
+
+    context.o0423 = _iosxr_vrf_netconf_converter(
+        hostname="spine03",
+        cmd_output=config
+    )
+
+
+@given(u'I create a VRF object from a IOS-XR one vrf SSH named o0424')
+def step_impl(context):
+    context.o0424 = _iosxr_vrf_ssh_converter(
+        hostname="spine03",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/iosxr/ssh/"
+                "cisco_iosxr_show_vrf_all_detail_one_vrf.txt"
+            )
+        )
+    )
+
+
+
 @given(u'I create a VRF object equals to Juniper manually named o0501')
 def step_impl(context):
     context.o0501 = ListVRF(
@@ -1244,6 +1353,66 @@ def step_impl(context):
         vrf_host_data=context.o0404,
         test=True
     )
+
+
+@given(u'VRF o0411 should be equal to o0412')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'VRF o0411 should be equal to o0413')
+def step_impl(context):
+    assert context.o0411 == context.o0413
+
+
+@given(u'VRF o0411 should be equal to o0414')
+def step_impl(context):
+    assert context.o0411 == context.o0414
+
+
+@given(u'VRF o0412 should be equal to o0413')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'VRF o0412 should be equal to o0414')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'VRF o0413 should be equal to o0414')
+def step_impl(context):
+    assert context.o0413 == context.o0414
+
+
+@given(u'VRF o0421 should be equal to o0422')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'VRF o0421 should be equal to o0423')
+def step_impl(context):
+    assert context.o0421 == context.o0423
+
+
+@given(u'VRF o0421 should be equal to o0424')
+def step_impl(context):
+    assert context.o0421 == context.o0424
+
+
+@given(u'VRF o0422 should be equal to o0423')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'VRF o0422 should be equal to o0424')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'VRF o0423 should be equal to o0424')
+def step_impl(context):
+    assert context.o0423 == context.o0424
 
 
 @given(u'VRF o0501 should be equal to o0502')

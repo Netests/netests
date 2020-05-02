@@ -19,6 +19,8 @@ from functions.global_tools import printline
 from functions.verbose_mode import (
     verbose_mode
 )
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 
 
 def _iosxr_vrf_ssh_converter(
@@ -74,6 +76,6 @@ def _iosxr_vrf_ssh_converter(
         needed_value=LEVEL1
     ):
         printline()
-        print(list_vrf)
+        PP.pprint(list_vrf.to_json())
 
     return list_vrf

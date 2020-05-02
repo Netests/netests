@@ -3,11 +3,8 @@
 
 import os
 import json
-from const.constants import (
-    NOT_SET,
-    LEVEL2,
-    LEVEL4,
-)
+from functions.netconf_tools import format_xml_output
+from const.constants import NOT_SET, LEVEL1, LEVEL4
 from exceptions.netests_iosxr_exceptions import (
     NetestsIOSXRNetconfOutputError
 )
@@ -26,27 +23,32 @@ import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
-def _iosxr_bgp_netconf_converter(hostname: str, cmd_outputs: dict) -> BGP:
-    cmd_outputs = json.loads(cmd_outputs)
+def _iosxr_bgp_netconf_converter(
+    hostname: str,
+    cmd_output: dict,
+    options={}
+) -> BGP:
+
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
 
+    cmd_output = format_xml_output(cmd_output)
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
         needed_value=LEVEL4
     ):
         printline()
-        PP.pprint(cmd_outputs)
+        PP.pprint(cmd_output)
 
     if (
-        "data" in cmd_outputs.keys() and
-        "bgp" in cmd_outputs.get("data").keys() and
-        "instance" in cmd_outputs.get("data").get("bgp").keys() and
-        "instance-as" in cmd_outputs.get("data").get(
+        "data" in cmd_output.keys() and
+        "bgp" in cmd_output.get("data").keys() and
+        "instance" in cmd_output.get("data").get("bgp").keys() and
+        "instance-as" in cmd_output.get("data").get(
             "bgp").get("instance").keys() and
-        "four-byte-as" in cmd_outputs.get("data").get(
+        "four-byte-as" in cmd_output.get("data").get(
             "bgp").get("instance").get("instance-as").keys()
     ):
-        w = cmd_outputs.get("data") .get("bgp").get("instance").get(
+        w = cmd_output.get("data") .get("bgp").get("instance").get(
             "instance-as").get("four-byte-as")
 
         if verbose_mode(
@@ -314,17 +316,15 @@ def _iosxr_bgp_netconf_converter(hostname: str, cmd_outputs: dict) -> BGP:
                             )
                         )
 
-    else:
-        raise NetestsIOSXRNetconfOutputError(
-            f"Netconf call output does not have all keys for device {hostname}"
-        )
-
-    bgp = BGP(hostname=hostname, bgp_sessions_vrf_lst=bgp_sessions_vrf_lst)
+    bgp = BGP(
+        hostname=hostname,
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL2
+        needed_value=LEVEL1
     ):
-        print(bgp)
+        PP.pprint(bgp.to_json())
 
     return bgp
