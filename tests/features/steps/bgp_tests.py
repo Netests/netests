@@ -383,7 +383,17 @@ def step_impl(context):
 
 @given(u'I create a BGP object from a IOS API output named o0302')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    dict_output = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/ios/api/"
+            "ios_api_get_bgp.json"
+        )
+    )
+    context.o0302 = _ios_bgp_api_converter(
+        hostname="leaf05",
+        cmd_output=dict_output,
+        options={}
+    )
 
 
 @given(u'I create a BGP object from a IOS Netconf named o0303')
@@ -943,7 +953,7 @@ def step_impl(context):
 
 @given(u'BGP o0301 should be equal to o0302')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0301 == context.o0302
 
 
 @given(u'BGP o0301 should be equal to o0303')
@@ -958,12 +968,12 @@ def step_impl(context):
 
 @given(u'BGP o0302 should be equal to o0303')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0302 == context.o0303
 
 
 @given(u'BGP o0302 should be equal to o0304')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0302 == context.o0304
 
 
 @given(u'BGP o0303 should be equal to o0304')
@@ -973,7 +983,13 @@ def step_impl(context):
 
 @given(u'BGP YAML file should be equal to o0302')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_bgp(
+        host_keys=BGP_SESSIONS_HOST_KEY,
+        hostname="leaf05",
+        groups=['ios'],
+        bgp_host_data=context.o0302,
+        test=True
+    )
 
 
 @given(u'BGP YAML file should be equal to o0303')

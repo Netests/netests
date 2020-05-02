@@ -23,11 +23,10 @@ def _ios_bgp_netconf_converter(
     cmd_output: dict,
     options={}
 ) -> BGP:
-    
+
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(
         list()
     )
-    print(cmd_output)
     cmd_output = format_xml_output(cmd_output)
 
     if verbose_mode(
@@ -47,12 +46,11 @@ def _ios_bgp_netconf_converter(
                                       .get('address-families')
                                       .keys()
     ):
-        vrf_done_lst = list()
         for v in cmd_output.get('data') \
                            .get('bgp-state-data') \
                            .get('address-families') \
                            .get('address-family'):
-            
+
             bgp_sessions_lst = ListBGPSessions(
                 list()
             )

@@ -5,6 +5,7 @@ import os
 from ncclient import manager
 from xml.etree import ElementTree
 from functions.verbose_mode import verbose_mode
+from functions.http_request import exec_http_call
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import netmiko_send_command
 from functions.bgp.ios.api.converter import _ios_bgp_api_converter
@@ -23,7 +24,19 @@ from const.constants import (
 
 
 def _ios_get_bgp_api(task, options={}):
-    output_dict = dict()
+    output_dict = exec_http_call(
+        hostname=task.host.hostname,
+        port=task.host.port,
+        username=task.host.username,
+        password=task.host.password,
+        endpoint="Cisco-IOS-XE-bgp-oper:bgp-state-data",
+        secure_api=True,
+        header={
+            "Content-Type": "application/json",
+            "Accept": "application/yang-data+json"
+        },
+        path="/restconf/data/"
+    )
 
     task.host[BGP_SESSIONS_HOST_KEY] = _ios_bgp_api_converter(
         hostname=task.host.name,
