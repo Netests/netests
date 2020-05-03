@@ -1,0 +1,166 @@
+{
+    "jsonrpc": "2.0",
+    "id": "4499131528",
+    "result": [
+        {
+            "memTotal": 2014424,
+            "uptime": 12969.09,
+            "modelName": "vEOS",
+            "internalVersion": "4.24.0F-16270098.4240F",
+            "mfgName": "",
+            "serialNumber": "",
+            "systemMacAddress": "50:00:00:d7:ee:0b",
+            "bootupTimestamp": 1588500274.0,
+            "memFree": 1178076,
+            "version": "4.24.0F",
+            "configMacAddress": "00:00:00:00:00:00",
+            "isIntlVersion": "False",
+            "internalBuildId": "da8d6269-c25f-4a12-930b-c3c42c12c38a",
+            "hardwareRevision": "",
+            "hwMacAddress": "00:00:00:00:00:00",
+            "architecture": "i686"
+        },
+        {
+            "interfaceStatuses": {
+                "Management1": {
+                    "vlanInformation": {
+                        "interfaceMode": "routed",
+                        "interfaceForwardingModel": "routed"
+                    },
+                    "bandwidth": 1000000000,
+                    "interfaceType": "10/100/1000",
+                    "description": "",
+                    "autoNegotiateActive": "True",
+                    "duplex": "duplexFull",
+                    "autoNegotigateActive": "True",
+                    "linkStatus": "connected",
+                    "lineProtocolStatus": "up"
+                },
+                "Ethernet8": {
+                    "vlanInformation": {
+                        "interfaceMode": "bridged",
+                        "vlanId": 1,
+                        "interfaceForwardingModel": "bridged"
+                    },
+                    "bandwidth": 0,
+                    "interfaceType": "EbraTestPhyPort",
+                    "description": "",
+                    "autoNegotiateActive": "False",
+                    "duplex": "duplexFull",
+                    "autoNegotigateActive": "False",
+                    "linkStatus": "connected",
+                    "lineProtocolStatus": "up"
+                },
+                "Ethernet2": {
+                    "vlanInformation": {
+                        "interfaceMode": "bridged",
+                        "vlanId": 1,
+                        "interfaceForwardingModel": "bridged"
+                    },
+                    "bandwidth": 0,
+                    "interfaceType": "EbraTestPhyPort",
+                    "description": "",
+                    "autoNegotiateActive": "False",
+                    "duplex": "duplexFull",
+                    "autoNegotigateActive": "False",
+                    "linkStatus": "connected",
+                    "lineProtocolStatus": "up"
+                },
+                "Ethernet3": {
+                    "vlanInformation": {
+                        "interfaceMode": "bridged",
+                        "vlanId": 1,
+                        "interfaceForwardingModel": "bridged"
+                    },
+                    "bandwidth": 0,
+                    "interfaceType": "EbraTestPhyPort",
+                    "description": "",
+                    "autoNegotiateActive": "False",
+                    "duplex": "duplexFull",
+                    "autoNegotigateActive": "False",
+                    "linkStatus": "connected",
+                    "lineProtocolStatus": "up"
+                },
+                "Ethernet1": {
+                    "vlanInformation": {
+                        "interfaceMode": "bridged",
+                        "vlanId": 1,
+                        "interfaceForwardingModel": "bridged"
+                    },
+                    "bandwidth": 0,
+                    "interfaceType": "EbraTestPhyPort",
+                    "description": "",
+                    "autoNegotiateActive": "False",
+                    "duplex": "duplexFull",
+                    "autoNegotigateActive": "False",
+                    "linkStatus": "connected",
+                    "lineProtocolStatus": "up"
+                },
+                "Ethernet6": {
+                    "vlanInformation": {
+                        "interfaceMode": "bridged",
+                        "vlanId": 1,
+                        "interfaceForwardingModel": "bridged"
+                    },
+                    "bandwidth": 0,
+                    "interfaceType": "EbraTestPhyPort",
+                    "description": "",
+                    "autoNegotiateActive": "False",
+                    "duplex": "duplexFull",
+                    "autoNegotigateActive": "False",
+                    "linkStatus": "connected",
+                    "lineProtocolStatus": "up"
+                },
+                "Ethernet7": {
+                    "vlanInformation": {
+                        "interfaceMode": "bridged",
+                        "vlanId": 1,
+                        "interfaceForwardingModel": "bridged"
+                    },
+                    "bandwidth": 0,
+                    "interfaceType": "EbraTestPhyPort",
+                    "description": "",
+                    "autoNegotiateActive": "False",
+                    "duplex": "duplexFull",
+                    "autoNegotigateActive": "False",
+                    "linkStatus": "connected",
+                    "lineProtocolStatus": "up"
+                },
+                "Ethernet4": {
+                    "vlanInformation": {
+                        "interfaceMode": "bridged",
+                        "vlanId": 1,
+                        "interfaceForwardingModel": "bridged"
+                    },
+                    "bandwidth": 0,
+                    "interfaceType": "EbraTestPhyPort",
+                    "description": "",
+                    "autoNegotiateActive": "False",
+                    "duplex": "duplexFull",
+                    "autoNegotigateActive": "False",
+                    "linkStatus": "connected",
+                    "lineProtocolStatus": "up"
+                },
+                "Ethernet5": {
+                    "vlanInformation": {
+                        "interfaceMode": "bridged",
+                        "vlanId": 1,
+                        "interfaceForwardingModel": "bridged"
+                    },
+                    "bandwidth": 0,
+                    "interfaceType": "EbraTestPhyPort",
+                    "description": "",
+                    "autoNegotiateActive": "False",
+                    "duplex": "duplexFull",
+                    "autoNegotigateActive": "False",
+                    "linkStatus": "connected",
+                    "lineProtocolStatus": "up"
+                }
+            }
+        },
+        {
+            "fqdn": "leaf03.dh.local",
+            "hostname": "leaf03"
+        }
+    ]
+}

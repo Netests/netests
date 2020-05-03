@@ -1,0 +1,18 @@
+{
+    "memTotal": 2014424,
+    "uptime": 10606.55,
+    "modelName": "vEOS",
+    "internalVersion": "4.24.0F-16270098.4240F",
+    "mfgName": "",
+    "serialNumber": "",
+    "systemMacAddress": "50:00:00:d7:ee:0b",
+    "bootupTimestamp": 1588500274.0,
+    "memFree": 1174160,
+    "version": "4.24.0F",
+    "configMacAddress": "00:00:00:00:00:00",
+    "isIntlVersion": false,
+    "internalBuildId": "da8d6269-c25f-4a12-930b-c3c42c12c38a",
+    "hardwareRevision": "",
+    "hwMacAddress": "00:00:00:00:00:00",
+    "architecture": "i686"
+}

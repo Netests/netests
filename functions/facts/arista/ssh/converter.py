@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# import os
+import os
+import json
 from protocols.facts import Facts
-"""
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.discovery_protocols.discovery_functions import (
@@ -14,13 +14,10 @@ from const.constants import (
     LEVEL1,
     FACTS_SYS_DICT_KEY,
     FACTS_INT_DICT_KEY,
-    FACTS_MEMORY_DICT_KEY,
-    FACTS_CONFIG_DICT_KEY,
-    FACTS_SERIAL_DICT_KEY
+    FACTS_DOMAIN_DICT_KEY
 )
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
-"""
 
 
 def _arista_facts_ssh_converter(
@@ -28,61 +25,72 @@ def _arista_facts_ssh_converter(
     cmd_output,
     options={}
 ) -> Facts:
-    if cmd_output is None:
-        return dict()
-
-    """
-
-    if cmd_outputs == None:
-        return dict()
-
-    sys_info_obj = SystemInfos()
-
-    for key, facts in cmd_outputs.items():
-        if key == INFOS_SYS_DICT_KEY:
-
-            version = cmd_outputs.get(INFOS_SYS_DICT_KEY)
-                                 .get("version", NOT_SET)
-            build = cmd_outputs.get(INFOS_SYS_DICT_KEY)
-                               .get("internalVersion", NOT_SET)
-            serial = cmd_outputs.get(INFOS_SYS_DICT_KEY)
-                                .get("serialNumber", NOT_SET)
-            base_mac = NOT_SET
-            memory = cmd_outputs.get(INFOS_SYS_DICT_KEY)
-                                .get("memFree", NOT_SET)
-            vendor = "Arista"
-            model = cmd_outputs.get(INFOS_SYS_DICT_KEY)
-                               .get("modelName", NOT_SET)
-
-
-        elif key == INFOS_INT_DICT_KEY:
-            .interfaces_lst = _arista_retrieve_int_name(
-                cmd_outputs.get(INFOS_INT_DICT_KEY)
-                           .get("interfaceStatuses", list())
+    
+    interfaces_lst = list()
+    if FACTS_INT_DICT_KEY in cmd_output.keys():
+        if not isinstance(cmd_output.get(FACTS_INT_DICT_KEY), dict):
+            cmd_output[FACTS_INT_DICT_KEY] = json.loads(
+                cmd_output.get(FACTS_INT_DICT_KEY)
             )
-
-        elif key == INFOS_DOMAIN_DICT_KEY:
-
-            hostname = cmd_outputs.get(INFOS_DOMAIN_DICT_KEY)
-                                  .get("hostname", NOT_SET)
-
-            index_fqdn = len(
-                str(
-                    f"{cmd_outputs.get(INFOS_DOMAIN_DICT_KEY)
-                                  .get('hostname', NOT_SET)}."
-                )
+        for interface_name in cmd_output.get(FACTS_INT_DICT_KEY) \
+                                        .get('interfaceStatuses') \
+                                        .keys():
+            if "Eth" in interface_name or "Mana" in interface_name:
+                interfaces_lst.append(interface_name)
+    
+    version = NOT_SET
+    serial = NOT_SET
+    base_mac = NOT_SET
+    memory = NOT_SET
+    model = NOT_SET
+    build = NOT_SET
+    if FACTS_SYS_DICT_KEY in cmd_output.keys():
+        if not isinstance(cmd_output.get(FACTS_SYS_DICT_KEY), dict):
+            cmd_output[FACTS_SYS_DICT_KEY] = json.loads(
+                cmd_output.get(FACTS_SYS_DICT_KEY)
             )
+        memory = cmd_output.get(FACTS_SYS_DICT_KEY).get('memTotal')
+        model = cmd_output.get(FACTS_SYS_DICT_KEY).get('modelName')
+        version = cmd_output.get(FACTS_SYS_DICT_KEY).get('version')
+        serial = cmd_output.get(FACTS_SYS_DICT_KEY).get('serialNumber')
+        base_mac = cmd_output.get(FACTS_SYS_DICT_KEY).get('systemMacAddress')
+        build = cmd_output.get(FACTS_SYS_DICT_KEY).get('internalBuildId')
 
-            domain = str(cmd_outputs.get(INFOS_DOMAIN_DICT_KEY)
-                                    .get("fqdn", NOT_SET))[index_fqdn:]
+    hostname = NOT_SET
+    domain = NOT_SET
+    if FACTS_DOMAIN_DICT_KEY in cmd_output.keys():
+        if not isinstance(cmd_output.get(FACTS_DOMAIN_DICT_KEY), dict):
+            cmd_output[FACTS_DOMAIN_DICT_KEY] = json.loads(
+                cmd_output.get(FACTS_DOMAIN_DICT_KEY)
+            )
+        hostname = cmd_output.get(FACTS_DOMAIN_DICT_KEY).get('hostname')
+        if "." in cmd_output.get(FACTS_DOMAIN_DICT_KEY).get('fqdn'):
+            i = cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
+                          .get('fqdn', NOT_SET).find('.')
+            domain = cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
+                               .get("fqdn")[i+1:]
+        else:
+            domain = cmd_output.get(FACTS_DOMAIN_DICT_KEY).get("fqdn")
 
-    return sys_info_obj
-    """
+    facts = Facts(
+        hostname=hostname,
+        domain=domain,
+        version=version,
+        build=build,
+        serial=serial,
+        base_mac=base_mac,
+        memory=memory,
+        vendor="Arista",
+        model=model,
+        interfaces_lst=interfaces_lst,
+        options=options
+    )
 
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL1
+    ):
+        printline()
+        PP.pprint(facts.to_json())
 
-def _arista_retrieve_int_name(interface_data: list) -> list:
-    int_name_lst = list()
-    if interface_data is None:
-        for i in interface_data.keys():
-            int_name_lst.append(i)
-    return int_name_lst
+    return facts

@@ -16,6 +16,8 @@ from const.constants import (
     FACTS_CONFIG_DICT_KEY,
     FACTS_SERIAL_DICT_KEY
 )
+from functions.facts.arista.api.converter import _arista_facts_api_converter
+from functions.facts.arista.ssh.converter import _arista_facts_ssh_converter
 from functions.facts.cumulus.api.converter import _cumulus_facts_api_converter
 from functions.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
 from functions.facts.extreme_vsp.ssh.converter import _extreme_vsp_facts_ssh_converter
@@ -49,12 +51,42 @@ def step_impl(context):
 
 @given(u'I create a Facts object equals to Arista manually named o0001')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0001 = Facts(
+        hostname='leaf03',
+        domain='dh.local',
+        version='4.24.0F',
+        build='da8d6269-c25f-4a12-930b-c3c42c12c38a',
+        serial='',
+        base_mac='50:00:00:d7:ee:0b',
+        memory=2014424,
+        vendor='Arista',
+        model='vEOS',
+        interfaces_lst=['Management1',
+                        'Ethernet8',
+                        'Ethernet2',
+                        'Ethernet3',
+                        'Ethernet1',
+                        'Ethernet6',
+                        'Ethernet7',
+                        'Ethernet4',
+                        'Ethernet5'],
+        options={}
+    )
 
 
 @given(u'I create a Facts object from a Arista API output named o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/arista/api/"
+            "arista_api_get_facts.json"
+        )
+    )
+    context.o0002 = _arista_facts_api_converter(
+        hostname="leaf03",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a Facts object from a Arista Netconf named o0003')
@@ -64,7 +96,30 @@ def step_impl(context):
 
 @given(u'I create a Facts object from a Arista SSH output named o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output[FACTS_SYS_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/arista/ssh/"
+            "arista_cli_show_version.json"
+        )
+    )
+    cmd_output[FACTS_INT_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/arista/ssh/"
+            "arista_cli_show_interface_status.json"
+        )
+    )
+    cmd_output[FACTS_DOMAIN_DICT_KEY] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/facts/arista/ssh/"
+            "arista_cli_show_hostname.json"
+        )
+    )
+    context.o0004 = _arista_facts_ssh_converter(
+        hostname="leaf03",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a Facts object equals to Cumulus manually named o0101')
@@ -672,7 +727,18 @@ def step_impl(context):
 
 @given(u'Facts o0001 should be equal to o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0001 == context.o0002 and
+        context.o0001.hostname == context.o0002.hostname and
+        context.o0001.domain == context.o0002.domain and
+        context.o0001.version == context.o0002.version and
+        context.o0001.build == context.o0002.build and
+        context.o0001.base_mac == context.o0002.base_mac and
+        context.o0001.memory == context.o0002.memory and
+        context.o0001.vendor == context.o0002.vendor and
+        context.o0001.model == context.o0002.model and
+        context.o0001.interfaces_lst == context.o0002.interfaces_lst
+    )
 
 
 @given(u'Facts o0001 should be equal to o0003')
@@ -682,7 +748,18 @@ def step_impl(context):
 
 @given(u'Facts o0001 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0001 == context.o0004 and
+        context.o0001.hostname == context.o0004.hostname and
+        context.o0001.domain == context.o0004.domain and
+        context.o0001.version == context.o0004.version and
+        context.o0001.build == context.o0004.build and
+        context.o0001.base_mac == context.o0004.base_mac and
+        context.o0001.memory == context.o0004.memory and
+        context.o0001.vendor == context.o0004.vendor and
+        context.o0001.model == context.o0004.model and
+        context.o0001.interfaces_lst == context.o0004.interfaces_lst
+    )
 
 
 @given(u'Facts o0002 should be equal to o0003')
@@ -692,7 +769,18 @@ def step_impl(context):
 
 @given(u'Facts o0002 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0002 == context.o0004 and
+        context.o0002.hostname == context.o0004.hostname and
+        context.o0002.domain == context.o0004.domain and
+        context.o0002.version == context.o0004.version and
+        context.o0002.build == context.o0004.build and
+        context.o0002.base_mac == context.o0004.base_mac and
+        context.o0002.memory == context.o0004.memory and
+        context.o0002.vendor == context.o0004.vendor and
+        context.o0002.model == context.o0004.model and
+        context.o0002.interfaces_lst == context.o0004.interfaces_lst
+    )
 
 
 @given(u'Facts o0003 should be equal to o0004')
@@ -702,7 +790,13 @@ def step_impl(context):
 
 @given(u'Facts YAML file should be equal to o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_facts(
+        host_keys=FACTS_DATA_HOST_KEY,
+        hostname="leaf03",
+        groups=['eos'],
+        facts_host_data=context.o0002,
+        test=True
+    )
 
 
 @given(u'Facts YAML file should be equal to o0003')
@@ -712,7 +806,13 @@ def step_impl(context):
 
 @given(u'Facts YAML file should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_facts(
+        host_keys=FACTS_DATA_HOST_KEY,
+        hostname="leaf03",
+        groups=['eos'],
+        facts_host_data=context.o0004,
+        test=True
+    )
 
 
 @given(u'Facts o0101 should be equal to o0102')

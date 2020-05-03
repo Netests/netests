@@ -28,7 +28,23 @@ leaf02:
     - loopback0
 
 leaf03:
-  version: NOT_SET
+  version: 4.24.0F
+  domain: dh.local
+  build: da8d6269-c25f-4a12-930b-c3c42c12c38a
+  base_mac: 50:00:00:d7:ee:0b
+  memory: 2014424
+  model: vEOS
+  vendor: Arista
+  interfaces_lst:
+    - Management1
+    - Ethernet8
+    - Ethernet2
+    - Ethernet3
+    - Ethernet1
+    - Ethernet6
+    - Ethernet7
+    - Ethernet4
+    - Ethernet5
 
 leaf04:
   domain: dh.local
