@@ -15,6 +15,13 @@ leaf02:
     rt_exp: 65432:22
     rt_imp: 65432:22
 
+leaf03:
+  - vrf_name: default
+  - vrf_name: CUSTOMER_NETESTS
+    rd: 65151:15
+  - vrf_name: CUSTOMER_WEJOB
+    rd: 1111:11
+
 leaf04:
   # Juniper VMX / Junos
   - vrf_name: default

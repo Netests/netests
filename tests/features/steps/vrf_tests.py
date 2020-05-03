@@ -50,22 +50,90 @@ def step_impl(context):
 
 @given(u'I create a VRF object equals to Arista manually named o0001')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0001 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o0001.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o0001.vrf_lst.append(
+        VRF(
+            vrf_name="CUSTOMER_NETESTS",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o0001.vrf_lst.append(
+        VRF(
+            vrf_name="CUSTOMER_WEJOB",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd="1111:11",
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
 
 
 @given(u'I create a VRF object from a Arista API output named o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0002 = _arista_vrf_api_converter(
+        hostname="leaf03",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/arista/api/"
+                "arista_api_get_vrf_many_vrf.json"
+            )
+        )
+    )
 
 
 @given(u'I create a VRF object from a Arista Netconf named o0003')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0003 = _arista_vrf_netconf_converter(
+        hostname="leaf03",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/arista/netconf/"
+                "arista_nc_get_vrf_many_vrf.json"
+            )
+        )
+    )
 
 
 @given(u'I create a VRF object from a Arista SSH output named o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0004 = _arista_vrf_ssh_converter(
+        hostname="leaf03",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/arista/ssh/"
+                "arista_cli_get_vrf_many_vrf.json"
+            )
+        )
+    )
 
 
 @given(u'I create a VRF object equals to Arista no config manually named o0011')
@@ -1132,47 +1200,65 @@ def step_impl(context):
 
 @given(u'VRF o0001 should be equal to o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0001 == context.o0002
 
 
 @given(u'VRF o0001 should be equal to o0003')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0001 == context.o0003
 
 
 @given(u'VRF o0001 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0001 == context.o0004
 
 
 @given(u'VRF o0002 should be equal to o0003')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0002 == context.o0003
 
 
 @given(u'VRF o0002 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0002 == context.o0004
 
 
 @given(u'VRF o0003 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0003 == context.o0004
 
 
 @given(u'VRF YAML file should be equal to o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="leaf03",
+        groups=['eos'],
+        vrf_host_data=context.o0002,
+        test=True
+    )
 
 
 @given(u'VRF YAML file should be equal to o0003')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="leaf03",
+        groups=['eos'],
+        vrf_host_data=context.o0003,
+        test=True
+    )
 
 
 @given(u'VRF YAML file should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_vrf(
+        host_keys=VRF_DATA_KEY,
+        hostname="leaf03",
+        groups=['eos'],
+        vrf_host_data=context.o0004,
+        test=True
+    )
 
 
 @given(u'VRF o0011 should be equal to o0012')
