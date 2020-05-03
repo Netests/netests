@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.netconf_tools import format_xml_output
@@ -213,7 +212,7 @@ def _iosxr_bgp_netconf_converter(
                             prefix_received=NOT_SET
                         )
                     )
-                    
+
                     bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
                         BGPSessionsVRF(
                             vrf_name=vrf.get('vrf-name', NOT_SET),
@@ -353,6 +352,8 @@ def _iosxr_bgp_netconf_converter(
         user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
         needed_value=LEVEL1
     ):
+        printline()
+        print(f'>>>>> {hostname}')
         PP.pprint(bgp.to_json())
 
     return bgp

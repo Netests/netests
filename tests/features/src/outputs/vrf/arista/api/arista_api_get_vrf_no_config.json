@@ -1,0 +1,29 @@
+{
+    "jsonrpc": "2.0",
+    "id": "4453119648",
+    "result": [
+        {
+            "vrfs": {
+                "default": {
+                    "routeDistinguisher": "",
+                    "vrfState": "up",
+                    "interfaces": [
+                        "Management1"
+                    ],
+                    "protocols": {
+                        "ipv4": {
+                            "routingState": "down",
+                            "protocolState": "up",
+                            "supported": "True"
+                        },
+                        "ipv6": {
+                            "routingState": "down",
+                            "protocolState": "up",
+                            "supported": "True"
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

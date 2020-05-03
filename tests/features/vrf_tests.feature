@@ -9,6 +9,16 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And I create a VRF object from a Arista API output named o0002
     And I create a VRF object from a Arista Netconf named o0003
     And I create a VRF object from a Arista SSH output named o0004
+
+    And I create a VRF object equals to Arista no config manually named o0011
+    And I create a VRF object from a Arista no config API output named o0012
+    And I create a VRF object from a Arista no config Netconf named o0013
+    And I create a VRF object from a Arista no config SSH output named o0014
+
+    And I create a VRF object equals to Arista one vrf manually named o0021
+    And I create a VRF object from a Arista one vrf API output named o0022
+    And I create a VRF object from a Arista one vrf Netconf named o0023
+    And I create a VRF object from a Arista one vrf SSH output named o0024
     # Cumulus Networks ID Device = o01
     And I create a VRF object equals to Cumulus manually named o0101
     And I create a VRF object from a Cumulus API output named o0102
@@ -84,6 +94,21 @@ Feature: Test protocols VRF python class ./protocols/vrf.py
     And VRF YAML file should be equal to o0002
     And VRF YAML file should be equal to o0003
     And VRF YAML file should be equal to o0004
+
+    And VRF o0011 should be equal to o0012
+    And VRF o0011 should be equal to o0013
+    And VRF o0011 should be equal to o0014
+    And VRF o0012 should be equal to o0013
+    And VRF o0012 should be equal to o0014
+    And VRF o0013 should be equal to o0014
+
+    And VRF o0021 should be equal to o0022
+    And VRF o0021 should be equal to o0023
+    And VRF o0021 should be equal to o0024
+    And VRF o0022 should be equal to o0023
+    And VRF o0022 should be equal to o0024
+    And VRF o0023 should be equal to o0024
+
     # Cumulus Networks
     And VRF o0101 should be equal to o0102
     And VRF o0101 should be equal to o0103

@@ -63,37 +63,37 @@ def _iosxr_vrf_netconf_converter(
             rein = None
             v = cmd_output.get('VRF').get('data').get('vrfs').get('vrf')
             if (
-                    'afs' in v.keys() and 
+                    'afs' in v.keys() and
                     'af' in v.get('afs').keys() and
                     'bgp' in v.get('afs').get('af').keys()
             ):
                 rias = v.get('afs').get('af').get('bgp') \
-                                            .get('import-route-targets') \
-                                            .get('route-targets') \
-                                            .get('route-target') \
-                                            .get('as-or-four-byte-as') \
-                                            .get('as')
+                                             .get('import-route-targets') \
+                                             .get('route-targets') \
+                                             .get('route-target') \
+                                             .get('as-or-four-byte-as') \
+                                             .get('as')
 
                 riin = v.get('afs').get('af').get('bgp') \
-                                            .get('import-route-targets') \
-                                            .get('route-targets') \
-                                            .get('route-target') \
-                                            .get('as-or-four-byte-as') \
-                                            .get('as-index')
+                                             .get('import-route-targets') \
+                                             .get('route-targets') \
+                                             .get('route-target') \
+                                             .get('as-or-four-byte-as') \
+                                             .get('as-index')
 
                 reas = v.get('afs').get('af').get('bgp') \
-                                            .get('export-route-targets') \
-                                            .get('route-targets') \
-                                            .get('route-target') \
-                                            .get('as-or-four-byte-as') \
-                                            .get('as')
+                                             .get('export-route-targets') \
+                                             .get('route-targets') \
+                                             .get('route-target') \
+                                             .get('as-or-four-byte-as') \
+                                             .get('as')
 
                 rein = v.get('afs').get('af').get('bgp') \
-                                            .get('export-route-targets') \
-                                            .get('route-targets') \
-                                            .get('route-target') \
-                                            .get('as-or-four-byte-as') \
-                                            .get('as-index')
+                                             .get('export-route-targets') \
+                                             .get('route-targets') \
+                                             .get('route-target') \
+                                             .get('as-or-four-byte-as') \
+                                             .get('as-index')
 
             rd = NOT_SET
             if (
@@ -157,22 +157,22 @@ def _iosxr_vrf_netconf_converter(
                                     .get('as-index')
 
                 elif isinstance(cmd_output.get('BGP')
-                                        .get('data')
-                                        .get('bgp')
-                                        .get('instance')
-                                        .get('instance-as')
-                                        .get('four-byte-as')
-                                        .get('vrfs')
-                                        .get('vrf'), list):
+                                          .get('data')
+                                          .get('bgp')
+                                          .get('instance')
+                                          .get('instance-as')
+                                          .get('four-byte-as')
+                                          .get('vrfs')
+                                          .get('vrf'), list):
 
                     for vrf in cmd_output.get('BGP') \
-                                        .get('data') \
-                                        .get('bgp') \
-                                        .get('instance') \
-                                        .get('instance-as') \
-                                        .get('four-byte-as') \
-                                        .get('vrfs') \
-                                        .get('vrf'):
+                                         .get('data') \
+                                         .get('bgp') \
+                                         .get('instance') \
+                                         .get('instance-as') \
+                                         .get('four-byte-as') \
+                                         .get('vrfs') \
+                                         .get('vrf'):
                         if vrf.get('vrf-name') == v.get('vrf-name'):
                             if (
                                 'vrf-global' in vrf.keys() and
@@ -214,32 +214,32 @@ def _iosxr_vrf_netconf_converter(
                     'bgp' in v.get('afs').get('af').keys()
                 ):
                     rias = v.get('afs').get('af').get('bgp') \
-                                                .get('import-route-targets') \
-                                                .get('route-targets') \
-                                                .get('route-target') \
-                                                .get('as-or-four-byte-as') \
-                                                .get('as')
+                                                 .get('import-route-targets') \
+                                                 .get('route-targets') \
+                                                 .get('route-target') \
+                                                 .get('as-or-four-byte-as') \
+                                                 .get('as')
 
                     riin = v.get('afs').get('af').get('bgp') \
-                                                .get('import-route-targets') \
-                                                .get('route-targets') \
-                                                .get('route-target') \
-                                                .get('as-or-four-byte-as') \
-                                                .get('as-index')
+                                                 .get('import-route-targets') \
+                                                 .get('route-targets') \
+                                                 .get('route-target') \
+                                                 .get('as-or-four-byte-as') \
+                                                 .get('as-index')
 
                     reas = v.get('afs').get('af').get('bgp') \
-                                                .get('export-route-targets') \
-                                                .get('route-targets') \
-                                                .get('route-target') \
-                                                .get('as-or-four-byte-as') \
-                                                .get('as')
+                                                 .get('export-route-targets') \
+                                                 .get('route-targets') \
+                                                 .get('route-target') \
+                                                 .get('as-or-four-byte-as') \
+                                                 .get('as')
 
                     rein = v.get('afs').get('af').get('bgp') \
-                                                .get('export-route-targets') \
-                                                .get('route-targets') \
-                                                .get('route-target') \
-                                                .get('as-or-four-byte-as') \
-                                                .get('as-index')
+                                                 .get('export-route-targets') \
+                                                 .get('route-targets') \
+                                                 .get('route-target') \
+                                                 .get('as-or-four-byte-as') \
+                                                 .get('as-index')
 
                 rd = NOT_SET
                 if (
@@ -303,22 +303,22 @@ def _iosxr_vrf_netconf_converter(
                                         .get('as-index')
 
                     elif isinstance(cmd_output.get('BGP')
-                                            .get('data')
-                                            .get('bgp')
-                                            .get('instance')
-                                            .get('instance-as')
-                                            .get('four-byte-as')
-                                            .get('vrfs')
-                                            .get('vrf'), list):
+                                              .get('data')
+                                              .get('bgp')
+                                              .get('instance')
+                                              .get('instance-as')
+                                              .get('four-byte-as')
+                                              .get('vrfs')
+                                              .get('vrf'), list):
 
                         for vrf in cmd_output.get('BGP') \
-                                            .get('data') \
-                                            .get('bgp') \
-                                            .get('instance') \
-                                            .get('instance-as') \
-                                            .get('four-byte-as') \
-                                            .get('vrfs') \
-                                            .get('vrf'):
+                                             .get('data') \
+                                             .get('bgp') \
+                                             .get('instance') \
+                                             .get('instance-as') \
+                                             .get('four-byte-as') \
+                                             .get('vrfs') \
+                                             .get('vrf'):
                             if vrf.get('vrf-name') == v.get('vrf-name'):
                                 if (
                                     'vrf-global' in vrf.keys() and
@@ -339,8 +339,10 @@ def _iosxr_vrf_netconf_converter(
                         vrf_type=NOT_SET,
                         l3_vni=NOT_SET,
                         rd=rd,
-                        rt_imp=f"{rias}:{riin}" if rias is not None else NOT_SET,
-                        rt_exp=f"{reas}:{rein}" if reas is not None else NOT_SET,
+                        rt_imp=f"{rias}:{riin}"
+                                    if rias is not None else NOT_SET,
+                        rt_exp=f"{reas}:{rein}"
+                                    if reas is not None else NOT_SET,
                         imp_targ=NOT_SET,
                         exp_targ=NOT_SET,
                         options=options

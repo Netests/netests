@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import xmltodict
 from ncclient import manager
 from xml.etree import ElementTree
 from functions.verbose_mode import verbose_mode
@@ -103,7 +102,7 @@ def _iosxr_get_bgp_ssh(task, options={}):
 
             output_dict[vrf] = dict()
             output_dict[vrf]['peers'] = output.result
-            
+
             output = task.run(
                 name=f"{IOSXR_VRF_GET_BGP_RID}",
                 task=netmiko_send_command,
@@ -116,7 +115,6 @@ def _iosxr_get_bgp_ssh(task, options={}):
                 print_result(output)
 
             output_dict[vrf]['rid'] = output.result
-
 
     task.host[BGP_SESSIONS_HOST_KEY] = _iosxr_bgp_ssh_converter(
         hostname=task.host.name,

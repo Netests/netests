@@ -23,7 +23,7 @@ def _iosxr_bgp_ssh_converter(
     cmd_output: dict,
     options={}
 ) -> BGP:
-    
+
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(
         list()
     )

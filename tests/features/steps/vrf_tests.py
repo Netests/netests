@@ -11,6 +11,9 @@ from const.constants import (
     VRF_DATA_KEY
 )
 from functions.vrf.vrf_compare import _compare_vrf
+from functions.vrf.arista.api.converter import _arista_vrf_api_converter
+from functions.vrf.arista.netconf.converter import _arista_vrf_netconf_converter
+from functions.vrf.arista.ssh.converter import _arista_vrf_ssh_converter
 from functions.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
 from functions.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
 from functions.vrf.extreme_vsp.ssh.converter import _extreme_vsp_vrf_ssh_converter
@@ -63,6 +66,140 @@ def step_impl(context):
 @given(u'I create a VRF object from a Arista SSH output named o0004')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a VRF object equals to Arista no config manually named o0011')
+def step_impl(context):
+    context.o0011 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o0011.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+
+@given(u'I create a VRF object from a Arista no config API output named o0012')
+def step_impl(context):
+    context.o0012 = _arista_vrf_api_converter(
+        hostname="leaf03",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/arista/api/"
+                "arista_api_get_vrf_no_config.json"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object from a Arista no config Netconf named o0013')
+def step_impl(context):
+    context.o0013 = _arista_vrf_netconf_converter(
+        hostname="leaf03",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/arista/netconf/"
+                "arista_nc_get_vrf_no_config.json"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object from a Arista no config SSH output named o0014')
+def step_impl(context):
+    context.o0014 = _arista_vrf_ssh_converter(
+        hostname="leaf03",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/arista/ssh/"
+                "arista_cli_get_vrf_no_config.json"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object equals to Arista one vrf manually named o0021')
+def step_impl(context):
+    context.o0021 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o0021.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o0021.vrf_lst.append(
+        VRF(
+            vrf_name="CUSTOMER_NETESTS",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+
+@given(u'I create a VRF object from a Arista one vrf API output named o0022')
+def step_impl(context):
+    context.o0022 = _arista_vrf_api_converter(
+        hostname="leaf03",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/arista/api/"
+                "arista_api_get_vrf_one_vrf.json"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object from a Arista one vrf Netconf named o0023')
+def step_impl(context):
+    context.o0023 = _arista_vrf_netconf_converter(
+        hostname="leaf03",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/arista/netconf/"
+                "arista_nc_get_vrf_one_vrf.json"
+            )
+        )
+    )
+
+
+@given(u'I create a VRF object from a Arista one vrf SSH output named o0024')
+def step_impl(context):
+    context.o0024 = _arista_vrf_ssh_converter(
+        hostname="leaf03",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vrf/arista/ssh/"
+                "arista_cli_get_vrf_one_vrf.json"
+            )
+        )
+    )
 
 
 @given(u'I create a VRF object equals to Cumulus manually named o0101')
@@ -1036,6 +1173,65 @@ def step_impl(context):
 @given(u'VRF YAML file should be equal to o0004')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
+
+
+@given(u'VRF o0011 should be equal to o0012')
+def step_impl(context):
+    assert context.o0011 == context.o0012
+
+@given(u'VRF o0011 should be equal to o0013')
+def step_impl(context):
+    assert context.o0011 == context.o0013
+
+
+@given(u'VRF o0011 should be equal to o0014')
+def step_impl(context):
+    assert context.o0011 == context.o0014
+
+
+@given(u'VRF o0012 should be equal to o0013')
+def step_impl(context):
+    assert context.o0012 == context.o0013
+
+
+@given(u'VRF o0012 should be equal to o0014')
+def step_impl(context):
+    assert context.o0012 == context.o0014
+
+
+@given(u'VRF o0013 should be equal to o0014')
+def step_impl(context):
+    assert context.o0013 == context.o0014
+
+
+@given(u'VRF o0021 should be equal to o0022')
+def step_impl(context):
+    assert context.o0021 == context.o0022
+
+
+@given(u'VRF o0021 should be equal to o0023')
+def step_impl(context):
+    assert context.o0021 == context.o0023
+
+
+@given(u'VRF o0021 should be equal to o0024')
+def step_impl(context):
+    assert context.o0021 == context.o0024
+
+
+@given(u'VRF o0022 should be equal to o0023')
+def step_impl(context):
+    assert context.o0022 == context.o0023
+
+
+@given(u'VRF o0022 should be equal to o0024')
+def step_impl(context):
+    assert context.o0022 == context.o0024
+
+
+@given(u'VRF o0023 should be equal to o0024')
+def step_impl(context):
+    assert context.o0023 == context.o0024
 
 
 @given(u'VRF o0101 should be equal to o0102')

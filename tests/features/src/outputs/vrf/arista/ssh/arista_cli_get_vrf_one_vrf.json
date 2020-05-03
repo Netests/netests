@@ -1,0 +1,40 @@
+{
+    "vrfs": {
+        "default": {
+            "routeDistinguisher": "",
+            "vrfState": "up",
+            "interfaces": [
+                "Management1"
+            ],
+            "protocols": {
+                "ipv4": {
+                    "routingState": "down",
+                    "protocolState": "up",
+                    "supported": true
+                },
+                "ipv6": {
+                    "routingState": "down",
+                    "protocolState": "up",
+                    "supported": true
+                }
+            }
+        },
+        "CUSTOMER_NETESTS": {
+            "routeDistinguisher": "65151:15",
+            "vrfState": "up",
+            "interfaces": [],
+            "protocols": {
+                "ipv4": {
+                    "routingState": "down",
+                    "protocolState": "up",
+                    "supported": true
+                },
+                "ipv6": {
+                    "routingState": "down",
+                    "protocolState": "up",
+                    "supported": true
+                }
+            }
+        }
+    }
+}

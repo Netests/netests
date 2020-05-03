@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from const.constants import NOT_SET, LEVEL1
+from const.constants import NOT_SET, LEVEL2
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 
@@ -141,7 +141,7 @@ class ListVRF:
             if vrf not in others.vrf_lst:
                 if verbose_mode(
                     user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-                    needed_value=LEVEL1
+                    needed_value=LEVEL2
                 ):
                     printline()
                     print(f"{H} The following VRF is not in the list \n {vrf}")
@@ -152,7 +152,7 @@ class ListVRF:
             if vrf not in self.vrf_lst:
                 if verbose_mode(
                     user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-                    needed_value=LEVEL1
+                    needed_value=LEVEL2
                 ):
                     printline()
                     print(f"{H} The following VRF is not in the list \n {vrf}")

@@ -4,9 +4,10 @@
 import os
 import json
 import requests
-from nornir.plugins.tasks.networking import netmiko_send_command
-from nornir.plugins.functions.text import print_result
+from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
+from nornir.plugins.functions.text import print_result
+from nornir.plugins.tasks.networking import netmiko_send_command
 from const.constants import (
     NOT_SET,
     LEVEL2,
@@ -15,7 +16,6 @@ from const.constants import (
     CUMULUS_GET_VRF,
     CUMULUS_API_GET_VRF
 )
-from functions.global_tools import printline
 from functions.vrf.cumulus.ssh.converter import (
     _cumulus_vrf_ssh_converter
 )

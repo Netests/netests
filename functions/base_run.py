@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from nornir.core import Nornir
+from functions.global_tools import printline
 from functions.bgp.bgp_gets import get_bgp
 from functions.bgp.bgp_compare import compare_bgp
 from functions.bgp.bgp_checks import get_bgp_up
@@ -159,6 +160,7 @@ def run_base(nr: Nornir, protocol: str, parameters: dict) -> bool:
                 options=parameters.get('options', {})
             )
 
+        printline()
         print(
             f"{HEADER} ({protocol}) defined in {PATH_TO_VERITY_FILES}"
             f"{RUN.get(protocol).get('file')} work = {same} !!"

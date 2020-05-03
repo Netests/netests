@@ -1,16 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "0.1"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
-
-
 import yaml
 import json
+import shutil
 from nornir.core import Nornir
 from netmiko import ConnectHandler
 from jnpr.junos.device import Device
@@ -72,10 +65,7 @@ def check_devices_connectivity(nr: Nornir) -> bool:
     printline()
     return not data.failed
 
-# -------------------------------------------------------------------------------
-#
-# Test devices connectivity Nornir function
-#
+
 def is_alive(task) -> None:
     """
     This function will use Netmiko find_prompt() function to test connectivity
@@ -98,9 +88,7 @@ def is_alive(task) -> None:
 
     return True
 
-# ------------------------------------------------------------------------------------------------------------------
-#
-#
+
 def _generic_interface_filter(plateform, interface_name,* , filters=dict()) -> bool:
 
     if "linux" in plateform and "bridge" not in interface_name and \
@@ -449,7 +437,8 @@ def printline() -> None:
     This function print a line :)
     :return None:
     """
-    print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
+    size =  int(shutil.get_terminal_size()[0] / 2)
+    print("*-" * size)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
