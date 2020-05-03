@@ -39,6 +39,31 @@ leaf02:
         state_brief: DOWN
         state: Active
 
+leaf03:
+  CUSTOMER_WEJOB:
+    asn: 1111
+    router_id: 1.2.3.4
+    neighbors:
+      - peer_ip: 100.100.100.100
+        remote_as: 100
+        state_brief: DOWN
+        state: Idle
+        prefix_received: 0
+  CUSTOMER_NETESTS:
+    asn: 1111
+    router_id: 66.66.66.66
+    neighbors:
+      - peer_ip: 11.11.11.11
+        remote_as: 11
+        state_brief: DOWN
+        state: Idle
+        prefix_received: 0
+      - peer_ip: 12.12.12.12
+        remote_as: 12
+        state_brief: DOWN
+        state: Idle
+        prefix_received: 0
+
 leaf04:
   CUSTOMER_AWS:
     asn: 65444

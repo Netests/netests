@@ -209,7 +209,9 @@ NEXUS_GET_MTU = "show interface | json"
 
 # ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
+ARISTA_API_GET_BGP = 'show ip bgp summary'
 ARISTA_GET_BGP_VRF = "show ip bgp summary vrf {} | json"
+ARISTA_API_GET_BGP_VRF = "show ip bgp summary vrf {}"
 ARISTA_GET_VRF = "show vrf | json"
 ARISTA_GET_LLDP = "show lldp neighbors detail | json"
 ARISTA_GET_OSPF = "show ip ospf neighbor detail | json"

@@ -6,9 +6,6 @@ import json
 from protocols.facts import Facts
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.discovery_protocols.discovery_functions import (
-    _mapping_interface_name
-)
 from const.constants import (
     NOT_SET,
     LEVEL1,
@@ -25,7 +22,7 @@ def _arista_facts_ssh_converter(
     cmd_output,
     options={}
 ) -> Facts:
-    
+
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
         if not isinstance(cmd_output.get(FACTS_INT_DICT_KEY), dict):
@@ -37,7 +34,7 @@ def _arista_facts_ssh_converter(
                                         .keys():
             if "Eth" in interface_name or "Mana" in interface_name:
                 interfaces_lst.append(interface_name)
-    
+
     version = NOT_SET
     serial = NOT_SET
     base_mac = NOT_SET

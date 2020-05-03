@@ -441,8 +441,8 @@ Run the command `get` and the protocols that you would like retrieve.
 | Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
 | Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         |      |      |      |
 | Cumulus API         | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
-| Arista SSH          | :white_check_mark: | :white_check_mark: |                    |      |      |      |
-| Arista API          | :white_check_mark: | :white_check_mark: |                    |      |      |      |
+| Arista SSH          | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Arista API          | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
 | Arista Netconf      | :white_check_mark: |                    |                    |      |      |      |
 | Nexus SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
 | Nexus Netconf       | :white_check_mark: | :no_entry:         | :no_entry:         |      |      |      |

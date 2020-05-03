@@ -6,6 +6,8 @@ import yaml
 import textfsm
 from functions.bgp.bgp_compare import _compare_bgp
 from functions.mappings import get_bgp_state_brief, get_bgp_peer_uptime
+from functions.bgp.arista.api.converter import _arista_bgp_api_converter
+from functions.bgp.arista.ssh.converter import _arista_bgp_ssh_converter
 from functions.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
 from functions.bgp.cumulus.ssh.converter import _cumulus_bgp_ssh_converter
 from functions.bgp.extreme_vsp.ssh.converter import _extreme_vsp_bgp_ssh_converter
@@ -51,12 +53,100 @@ def step_impl(context):
 
 @given(u'I create a BGP object equals to Arista manually named o0001')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(
+        list()
+    )
+
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf03",
+            peer_ip="100.100.100.100",
+            peer_hostname=NOT_SET,
+            remote_as="100",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time=1588518931.27118,
+            prefix_received=0
+        )
+    )
+
+    bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+        BGPSessionsVRF(
+            vrf_name="CUSTOMER_WEJOB",
+            as_number="1111",
+            router_id="1.2.3.4",
+            bgp_sessions=bgp_sessions_lst
+        )
+    )
+
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf03",
+            peer_ip="11.11.11.11",
+            peer_hostname=NOT_SET,
+            remote_as="11",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time=1588518176.788854,
+            prefix_received=0
+        )
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf03",
+            peer_ip="12.12.12.12",
+            peer_hostname=NOT_SET,
+            remote_as="12",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time=1588518913.789179,
+            prefix_received=0
+        )
+    )
+
+    bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+        BGPSessionsVRF(
+            vrf_name="CUSTOMER_NETESTS",
+            as_number="1111",
+            router_id="66.66.66.66",
+            bgp_sessions=bgp_sessions_lst
+        )
+    )
+
+    context.o0001 = BGP(
+        hostname="leaf03",
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
 
 
 @given(u'I create a BGP object from a Arista API output named o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/arista/api/"
+            "arista_api_get_bgp.json"
+        )
+    )
+    context.o0002 = _arista_bgp_api_converter(
+        hostname="leaf03",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a BGP object from a Arista Netconf named o0003')
@@ -66,7 +156,30 @@ def step_impl(context):
 
 @given(u'I create a BGP object from a Arista SSH output named o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output=dict()
+    cmd_output['default'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/arista/ssh/"
+            "arista_show_ip_bgp_summary_default.json"
+        )
+    )
+    cmd_output['CUSTOMER_WEJOB'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/arista/ssh/"
+            "arista_show_ip_bgp_summary_one_peer.json"
+        )
+    )
+    cmd_output['CUSTOMER_NETESTS']=open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/bgp/arista/ssh/"
+            "arista_show_ip_bgp_summary_many_peers.json"
+        )
+    )
+    context.o0004=_arista_bgp_ssh_converter(
+        hostname="leaf03",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a BGP object equals to Cumulus manually named o0101')
@@ -158,7 +271,7 @@ def step_impl(context):
             "cumulus_api_get_vrf_xyz.json"
         )
     )
-    context.o0104 = _cumulus_bgp_api_converter(
+    context.o0102 = _cumulus_bgp_api_converter(
         hostname="leaf01",
         cmd_output=cmd_output,
         options={}
@@ -178,7 +291,7 @@ def step_impl(context):
             "cumulus_ssh_get_vrf.json"
         )
     )
-    context.o0102 = _cumulus_bgp_api_converter(
+    context.o0104 = _cumulus_bgp_api_converter(
         hostname="leaf01",
         cmd_output=cmd_output,
         options={}
@@ -933,7 +1046,7 @@ def step_impl(context):
 
 @given(u'BGP o0001 should be equal to o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0001 == context.o0002
 
 
 @given(u'BGP o0001 should be equal to o0003')
@@ -943,7 +1056,7 @@ def step_impl(context):
 
 @given(u'BGP o0001 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0001 == context.o0004
 
 
 @given(u'BGP o0002 should be equal to o0003')
@@ -953,7 +1066,7 @@ def step_impl(context):
 
 @given(u'BGP o0002 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0002 == context.o0004
 
 
 @given(u'BGP o0003 should be equal to o0004')
@@ -963,7 +1076,14 @@ def step_impl(context):
 
 @given(u'BGP YAML file should be equal to o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_bgp(
+        host_keys=BGP_SESSIONS_HOST_KEY,
+        hostname="leaf03",
+        groups=['eos'],
+        bgp_host_data=context.o0002,
+        test=True
+    )
+
 
 
 @given(u'BGP YAML file should be equal to o0003')
@@ -973,7 +1093,13 @@ def step_impl(context):
 
 @given(u'BGP YAML file should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_bgp(
+        host_keys=BGP_SESSIONS_HOST_KEY,
+        hostname="leaf03",
+        groups=['eos'],
+        bgp_host_data=context.o0004,
+        test=True
+    )
 
 
 @given(u'BGP o0101 should be equal to o0102')

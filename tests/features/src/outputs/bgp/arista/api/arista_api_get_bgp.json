@@ -1,0 +1,79 @@
+{
+    "id": "4462166872",
+    "jsonrpc": "2.0",
+    "result": [
+        {
+            "vrfs": {}
+        },
+        {
+            "vrfs": {
+                "CUSTOMER_WEJOB": {
+                    "asn": 1111,
+                    "peers": {
+                        "100.100.100.100": {
+                            "asn": 100,
+                            "inMsgQueue": 0,
+                            "msgReceived": 0,
+                            "msgSent": 0,
+                            "outMsgQueue": 0,
+                            "peerState": "Idle",
+                            "peerStateIdleReason": "NoInterface",
+                            "prefixAccepted": 0,
+                            "prefixInBest": 0,
+                            "prefixInBestEcmp": 0,
+                            "prefixReceived": 0,
+                            "underMaintenance": false,
+                            "upDownTime": 1588518931.270091,
+                            "version": 4
+                        }
+                    },
+                    "routerId": "1.2.3.4",
+                    "vrf": "CUSTOMER_WEJOB"
+                }
+            }
+        },
+        {
+            "vrfs": {
+                "CUSTOMER_NETESTS": {
+                    "asn": 1111,
+                    "peers": {
+                        "11.11.11.11": {
+                            "asn": 11,
+                            "inMsgQueue": 0,
+                            "msgReceived": 0,
+                            "msgSent": 0,
+                            "outMsgQueue": 0,
+                            "peerState": "Idle",
+                            "peerStateIdleReason": "NoInterface",
+                            "prefixAccepted": 0,
+                            "prefixInBest": 0,
+                            "prefixInBestEcmp": 0,
+                            "prefixReceived": 0,
+                            "underMaintenance": false,
+                            "upDownTime": 1588518176.737093,
+                            "version": 4
+                        },
+                        "12.12.12.12": {
+                            "asn": 12,
+                            "inMsgQueue": 0,
+                            "msgReceived": 0,
+                            "msgSent": 0,
+                            "outMsgQueue": 0,
+                            "peerState": "Idle",
+                            "peerStateIdleReason": "NoInterface",
+                            "prefixAccepted": 0,
+                            "prefixInBest": 0,
+                            "prefixInBestEcmp": 0,
+                            "prefixReceived": 0,
+                            "underMaintenance": false,
+                            "upDownTime": 1588518913.737601,
+                            "version": 4
+                        }
+                    },
+                    "routerId": "66.66.66.66",
+                    "vrf": "CUSTOMER_NETESTS"
+                }
+            }
+        }
+    ]
+}
