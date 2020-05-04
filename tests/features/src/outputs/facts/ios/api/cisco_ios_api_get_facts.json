@@ -1,0 +1,256 @@
+{
+    "Cisco-IOS-XE-native:native": {
+        "Cisco-IOS-XE-diagnostics:diagnostic": {
+            "bootup": {
+                "level": "minimal"
+            }
+        },
+        "banner": {
+            "motd": {
+                "banner": "^C"
+            }
+        },
+        "boot-end-marker": "[None]",
+        "boot-start-marker": "[None]",
+        "control-plane": {},
+        "crypto": {
+            "Cisco-IOS-XE-crypto:pki": {
+                "certificate": {
+                    "chain": [
+                        {
+                            "certificate": [
+                                {
+                                    "certtype": "self-signed",
+                                    "serial": "01"
+                                }
+                            ],
+                            "name": "TP-self-signed-980395936"
+                        }
+                    ]
+                },
+                "trustpoint": [
+                    {
+                        "enrollment": {
+                            "selfsigned": "[None]"
+                        },
+                        "id": "TP-self-signed-980395936",
+                        "revocation-check": "none",
+                        "rsakeypair": {
+                            "key-label": "TP-self-signed-980395936"
+                        },
+                        "subject-name": "cn=IOS-Self-Signed-Certificate-980395936"
+                    }
+                ]
+            }
+        },
+        "enable": {
+            "secret": {
+                "secret": "$1$X2Ap$inHcYlYySxTkO.FQ4rO5t/",
+                "type": "5"
+            }
+        },
+        "hostname": "leaf05",
+        "interface": {
+            "GigabitEthernet": [
+                {
+                    "Cisco-IOS-XE-ethernet:negotiation": {
+                        "auto": "True"
+                    },
+                    "description": "DONTT TOUCH ME",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "10.10.20.48",
+                                "mask": "255.255.255.0"
+                            }
+                        }
+                    },
+                    "mop": {
+                        "enabled": "False",
+                        "sysid": "False"
+                    },
+                    "name": "1"
+                },
+                {
+                    "Cisco-IOS-XE-ethernet:negotiation": {
+                        "auto": "True"
+                    },
+                    "ip": {
+                        "no-address": {
+                            "address": "False"
+                        }
+                    },
+                    "mop": {
+                        "enabled": "False",
+                        "sysid": "False"
+                    },
+                    "name": "2",
+                    "shutdown": "[None]"
+                },
+                {
+                    "Cisco-IOS-XE-ethernet:negotiation": {
+                        "auto": "True"
+                    },
+                    "ip": {
+                        "no-address": {
+                            "address": "False"
+                        }
+                    },
+                    "mop": {
+                        "enabled": "False",
+                        "sysid": "False"
+                    },
+                    "name": "3",
+                    "shutdown": "[None]"
+                }
+            ]
+        },
+        "ip": {
+            "Cisco-IOS-XE-http:http": {
+                "authentication": {
+                    "local": "[None]"
+                },
+                "secure-server": "True",
+                "server": "True"
+            },
+            "domain": {
+                "name": "dh.local"
+            },
+            "forward-protocol": {
+                "protocol": "nd"
+            },
+            "route": {
+                "ip-route-interface-forwarding-list": [
+                    {
+                        "fwd-list": [
+                            {
+                                "fwd": "10.10.20.254"
+                            }
+                        ],
+                        "mask": "0.0.0.0",
+                        "prefix": "0.0.0.0"
+                    },
+                    {
+                        "fwd-list": [
+                            {
+                                "fwd": "GigabitEthernet1",
+                                "interface-next-hop": [
+                                    {
+                                        "ip-address": "10.10.20.254"
+                                    }
+                                ]
+                            }
+                        ],
+                        "mask": "255.255.255.0",
+                        "prefix": "10.10.20.0"
+                    }
+                ]
+            },
+            "scp": {
+                "server": {
+                    "enable": "[None]"
+                }
+            },
+            "ssh": {
+                "rsa": {
+                    "keypair-name": "ssh-key"
+                },
+                "version": 2
+            }
+        },
+        "license": {
+            "accept": {
+                "agreement": "[None]",
+                "end": "[None]",
+                "user": "[None]"
+            },
+            "boot": {
+                "level": {
+                    "ax": "[None]"
+                }
+            },
+            "udi": {
+                "pid": "CSR1000V",
+                "sn": "9YEI1T9ZCIY"
+            }
+        },
+        "line": {
+            "console": [
+                {
+                    "first": "0",
+                    "stopbits": "1"
+                }
+            ],
+            "vty": [
+                {
+                    "first": 0,
+                    "last": 4,
+                    "login": {
+                        "local": "[None]"
+                    },
+                    "transport": {
+                        "input": {
+                            "input": [
+                                "ssh"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "multilink": {
+            "Cisco-IOS-XE-ppp:bundle-name": "authenticated"
+        },
+        "platform": {
+            "Cisco-IOS-XE-platform:console": {
+                "output": "virtual"
+            }
+        },
+        "redundancy": {},
+        "service": {
+            "timestamps": {
+                "debug": {
+                    "datetime": {
+                        "msec": {}
+                    }
+                },
+                "log": {
+                    "datetime": {
+                        "msec": "[None]"
+                    }
+                }
+            }
+        },
+        "spanning-tree": {
+            "Cisco-IOS-XE-spanning-tree:extend": {
+                "system-id": "[None]"
+            }
+        },
+        "subscriber": {
+            "templating": "[None]"
+        },
+        "username": [
+            {
+                "name": "cisco",
+                "privilege": 15,
+                "secret": {
+                    "encryption": "5",
+                    "secret": "$1$EY1h$jRt9bsyIkZmrT7BG7z6aq1"
+                }
+            }
+        ],
+        "version": "16.8",
+        "virtual-service": [
+            {
+                "Cisco-IOS-XE-vservice:ip": {
+                    "shared": {
+                        "host-interface": {
+                            "GigabitEthernet": "1"
+                        }
+                    }
+                },
+                "name": "csr_mgmt"
+            }
+        ]
+    }
+}

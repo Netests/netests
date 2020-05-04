@@ -1,0 +1,35 @@
+{
+    "get_network_instances": {
+        "MGMT_VRF": {
+            "interfaces": {
+                "interface": {
+                    "Gi0/0": {}
+                }
+            },
+            "name": "MGMT_VRF",
+            "state": {
+                "route_distinguisher": "65000: 999"
+            },
+            "type": "L3VRF"
+        },
+        "default": {
+            "interfaces": {
+                "interface": {
+                    "GigabitEthernet0/0": {},
+                    "GigabitEthernet0/1": {},
+                    "GigabitEthernet0/2": {},
+                    "GigabitEthernet0/3": {},
+                    "GigabitEthernet0/4": {},
+                    "GigabitEthernet0/5": {},
+                    "GigabitEthernet0/6": {},
+                    "GigabitEthernet0/7": {}
+                }
+            },
+            "name": "default",
+            "state": {
+                "route_distinguisher": ""
+            },
+            "type": "DEFAULT_INSTANCE"
+        }
+    }
+}

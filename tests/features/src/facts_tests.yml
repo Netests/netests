@@ -1,0 +1,72 @@
+leaf01:
+  version: '3.7.5'
+  build: 'Cumulus Linux 3.7.5'
+  serial: '50:00:00:01:00:00'
+  base_mac: '50:00:00:01:00:00'
+  memory: 951264
+  vendor: 'Cumulus Networks'
+  model: 'VX'
+  interfaces_lst: ['swp5','swp7','swp2','swp3','swp1','swp6','swp4','eth0']
+
+
+leaf02:
+  version: 9.3(3)
+  serial: 96L4EUDRHHW
+  domain: dh.local
+  build: 1.0
+  base_mac: 00:00:00:00:00:01
+  memory: 8129568
+  snmp_ips:
+    - 192.168.254.7
+    - 192.168.254.17
+  interfaces_lst:
+    - mgmt0
+    - Ethernet1/1
+    - Ethernet1/2
+    - Ethernet1/3
+    - Ethernet1/4
+    - loopback0
+
+leaf03:
+  version: 4.24.0F
+  domain: dh.local
+  build: da8d6269-c25f-4a12-930b-c3c42c12c38a
+  base_mac: 50:00:00:d7:ee:0b
+  memory: 2014424
+  model: vEOS
+  vendor: Arista
+  interfaces_lst:
+    - Management1
+    - Ethernet8
+    - Ethernet2
+    - Ethernet3
+    - Ethernet1
+    - Ethernet6
+    - Ethernet7
+    - Ethernet4
+    - Ethernet5
+
+leaf04:
+  domain: dh.local
+  version: 18.3R1.9
+  serial: VM5E983D143E
+  memory: 2052008
+  model: vmx
+  vendor: Juniper
+ 
+leaf05:
+  version: 16.8.1
+  serial: 9YEI1T9ZCIY
+  memory: 8113376
+  model: CSR1000V
+  vendor: Cisco
+  build: fc3
+  interfaces_lst:
+    - GigabitEthernet1
+    - GigabitEthernet2
+    - GigabitEthernet3
+
+spine03:
+  version: 6.5.3
+  model: IOS-XRv 9000
+  vendor: Cisco

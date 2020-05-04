@@ -1,0 +1,17 @@
+{
+    "ins_api": {
+        "outputs": {
+            "output": {
+                "body": {
+                    "hostname": "leaf02.dh.local"
+                },
+                "code": "200",
+                "input": "show hostname",
+                "msg": "Success"
+            }
+        },
+        "sid": "eoc",
+        "type": "cli_show",
+        "version": "1.0"
+    }
+}

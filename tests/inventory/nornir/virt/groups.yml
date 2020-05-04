@@ -1,0 +1,12 @@
+global:
+  data:
+    syslog: 10.0.5.254
+
+spine:
+  data:
+    asn: 65001
+
+leaf:
+  data:
+    vlans:
+      - 1000

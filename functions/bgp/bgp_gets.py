@@ -3,6 +3,7 @@
 
 import os
 from nornir.core import Nornir
+from nornir.core.filter import F
 from nornir.plugins.functions.text import print_result
 from functions.bgp.juniper.bgp_juniper import (
     _juniper_get_bgp_ssh,
@@ -43,7 +44,9 @@ from functions.bgp.napalm.bgp_napalm import (
     _generic_bgp_napalm
 )
 from const.constants import (
+    NOT_SET,
     LEVEL1,
+    LEVEL4,
     SSH_CONNECTION,
     API_CONNECTION,
     NETCONF_CONNECTION,
@@ -61,11 +64,10 @@ from functions.base_selection import (
     device_not_compatible_with_napalm
 )
 from functions.verbose_mode import verbose_mode
-from functions.vrf.vrf_get import get_vrf_name_list
+from functions.vrf.vrf_get import get_vrf
 
 
-ERROR_HEADER = "Error import [bgp_gets.py]"
-HEADER_GET = "[netests - get_bgp]"
+HEADER = "[netests - get_bgp]"
 
 MAPPING_FUNCTION = {
     JUNOS_PLATEFORM_NAME: {
@@ -113,22 +115,30 @@ MAPPING_FUNCTION = {
 }
 
 
-def get_bgp(nr: Nornir):
+def get_bgp(nr: Nornir, options={}):
+    if (
+        'from_cli' in options.keys() and
+        options.get('from_cli') is not None and
+        options.get("from_cli") is True and
+        isinstance(options.get("from_cli"), bool)
+    ):
+        devices = nr.filter(F(groups__contains="netests"))
+        os.environ["NETESTS_VERBOSE"] = LEVEL1
+    else:
+        devices = nr.filter()
 
-    devices = nr.filter()
     if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER_GET}] no device selected.")
+        print(f"[{HEADER}] no device selected.")
 
-    get_vrf_name_list(nr)
+    get_vrf(nr, options)
     data = devices.run(
         task=generic_bgp_get,
         on_failed=True,
         num_workers=10
     )
-
     if verbose_mode(
-        user_value=os.environ["NETESTS_VERBOSE"],
-        needed_value=LEVEL1
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL4
     ):
         print_result(data)
 

@@ -1,0 +1,73 @@
+{
+    "2RE": "False",
+    "HOME": "/var/home/jcluser",
+    "RE0": {
+        "last_reboot_reason": "Router rebooted after a normal shutdown.",
+        "mastership_state": "master",
+        "model": "RE-VMX",
+        "status": "OK",
+        "up_time": "8 minutes,37 seconds"
+    },
+    "RE1": null,
+    "RE_hw_mi": "False",
+    "current_re": [
+        "re0",
+        "master",
+        "node",
+        "fwdd",
+        "member",
+        "pfem"
+    ],
+    "domain": "dh.local",
+    "fqdn": "leaf04.dh.local",
+    "hostname": "leaf04",
+    "hostname_info": {
+        "re0": "leaf04"
+    },
+    "ifd_style": "CLASSIC",
+    "junos_info": {
+        "re0": {
+            "object": "junos.version_info(major=(19,4), type=R, minor=1, build=10)",
+            "text": "19.4R1.10"
+        }
+    },
+    "master": "RE0",
+    "model": "VMX",
+    "model_info": {
+        "re0": "VMX"
+    },
+    "personality": "MX",
+    "re_info": {
+        "default": {
+            "0": {
+                "last_reboot_reason": "Router rebooted after a normal shutdown.",
+                "mastership_state": "master",
+                "model": "RE-VMX",
+                "status": "OK"
+            },
+            "default": {
+                "last_reboot_reason": "Router rebooted after a normal shutdown.",
+                "mastership_state": "master",
+                "model": "RE-VMX",
+                "status": "OK"
+            }
+        }
+    },
+    "re_master": {
+        "default": "0"
+    },
+    "serialnumber": "VM5E9C32AA0B",
+    "srx_cluster": null,
+    "srx_cluster_id": null,
+    "srx_cluster_redundancy_group": null,
+    "switch_style": "BRIDGE_DOMAIN",
+    "vc_capable": "False",
+    "vc_fabric": null,
+    "vc_master": null,
+    "vc_mode": null,
+    "version": "19.4R1.10",
+    "version_RE0": "19.4R1.10",
+    "version_RE1": null,
+    "version_info": "junos.version_info(major=(19,4), type=R, minor=1, build=10)",
+    "virtual": "True"
+}

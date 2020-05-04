@@ -1,0 +1,2 @@
+- vrf_name: MGMT_VRF
+- vrf_name: EXTERNAL_PEERING

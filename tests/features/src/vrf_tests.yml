@@ -1,0 +1,46 @@
+---
+leaf01:
+  # Cumulus Networks
+  - vrf_name: mgmt
+    vrf_id: 1001
+
+leaf02:
+  # Cisco Nexus NXOS
+  - vrf_name: management
+  - vrf_name: default
+  - vrf_name: CUSTOMER_001
+    l3_vni: 1000
+  - vrf_name: INTERNAL_PEERING
+    rd: 65432:222
+    rt_exp: 65432:22
+    rt_imp: 65432:22
+
+leaf03:
+  - vrf_name: default
+  - vrf_name: CUSTOMER_NETESTS
+    rd: 65151:15
+  - vrf_name: CUSTOMER_WEJOB
+    rd: 1111:11
+
+leaf04:
+  # Juniper VMX / Junos
+  - vrf_name: default
+  - vrf_name: mgmt_junos
+  - vrf_name: CUSTOMER_001
+
+leaf05:
+  # Cisco IOS
+  - vrf_name: default
+  - vrf_name: MGMT_VRF
+  - vrf_name: SECURE_ZONE
+
+spine02:
+  # Extreme Networks VSP
+  - vrf_name: GlobalRouter
+  - vrf_name: mgmt_vrf
+  - vrf_name: MgmtRouter
+
+spine03:
+  # Cisco IOS-XR
+  - vrf_name: MGMT_VRF
+  - vrf_name: EXTERNAL_PEERING

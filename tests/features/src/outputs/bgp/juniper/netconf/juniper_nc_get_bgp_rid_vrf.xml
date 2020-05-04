@@ -1,0 +1,8 @@
+<instance-information style="detail">
+    <instance-core>
+        <instance-name>CUSTOMER_AWS</instance-name>
+        <router-id>9.9.9.9</router-id>
+        <instance-type>non-forwarding</instance-type>
+        <instance-state>Active</instance-state>
+    </instance-core>
+</instance-information>

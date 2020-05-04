@@ -44,7 +44,6 @@ except ImportError as importError:
     exit(EXIT_FAILURE)
 
 try:
-    from functions.vrf.vrf_get import get_vrf_name_list
     from functions.vrf.vrf_get import get_vrf
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.vrf")
@@ -84,14 +83,14 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_static(nr: Nornir):
+def get_static(nr: Nornir, filters={}, level=None, own_vars={}):
 
     devices = nr.filter()
 
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER_GET}] no device selected.")
 
-    get_vrf_name_list(nr)
+    get_vrf(nr)
 
     data = devices.run(
         task=generic_static_get,

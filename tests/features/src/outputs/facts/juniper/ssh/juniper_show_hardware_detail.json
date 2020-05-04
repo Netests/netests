@@ -1,0 +1,165 @@
+{
+    "chassis-inventory": [
+        {
+            "attributes": {
+                "xmlns": "http://xml.juniper.net/junos/18.3R1/junos-chassis"
+            },
+            "chassis": [
+                {
+                    "attributes": {
+                        "junos:style": "inventory"
+                    },
+                    "name": [
+                        {
+                            "data": "Chassis"
+                        }
+                    ],
+                    "serial-number": [
+                        {
+                            "data": "VM5E983D143E"
+                        }
+                    ],
+                    "description": [
+                        {
+                            "data": "VMX"
+                        }
+                    ],
+                    "chassis-module": [
+                        {
+                            "name": [
+                                {
+                                    "data": "Midplane"
+                                }
+                            ]
+                        },
+                        {
+                            "name": [
+                                {
+                                    "data": "Routing Engine 0"
+                                }
+                            ],
+                            "description": [
+                                {
+                                    "data": "RE-VMX"
+                                }
+                            ],
+                            "chassis-re-disk-module": [
+                                {
+                                    "name": [
+                                        {
+                                            "data": "ada0"
+                                        }
+                                    ],
+                                    "disk-size": [
+                                        {
+                                            "data": "27649"
+                                        }
+                                    ],
+                                    "model": [
+                                        {
+                                            "data": "VMware Virtual IDE Har"
+                                        }
+                                    ],
+                                    "serial-number": [
+                                        {
+                                            "data": "00000000000000000001"
+                                        }
+                                    ],
+                                    "description": [
+                                        {
+                                            "data": "Hard Disk"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": [
+                                {
+                                    "data": "CB 0"
+                                }
+                            ],
+                            "description": [
+                                {
+                                    "data": "VMX SCB"
+                                }
+                            ]
+                        },
+                        {
+                            "name": [
+                                {
+                                    "data": "FPC 0"
+                                }
+                            ],
+                            "description": [
+                                {
+                                    "data": "Virtual FPC"
+                                }
+                            ],
+                            "chassis-sub-module": [
+                                {
+                                    "name": [
+                                        {
+                                            "data": "CPU"
+                                        }
+                                    ],
+                                    "version": [
+                                        {
+                                            "data": "Rev. 1.0"
+                                        }
+                                    ],
+                                    "part-number": [
+                                        {
+                                            "data": "RIOT-LITE"
+                                        }
+                                    ],
+                                    "serial-number": [
+                                        {
+                                            "data": "BUILTIN"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        {
+                                            "data": "MIC 0"
+                                        }
+                                    ],
+                                    "description": [
+                                        {
+                                            "data": "Virtual"
+                                        }
+                                    ],
+                                    "chassis-sub-sub-module": [
+                                        {
+                                            "name": [
+                                                {
+                                                    "data": "PIC 0"
+                                                }
+                                            ],
+                                            "part-number": [
+                                                {
+                                                    "data": "BUILTIN"
+                                                }
+                                            ],
+                                            "serial-number": [
+                                                {
+                                                    "data": "BUILTIN"
+                                                }
+                                            ],
+                                            "description": [
+                                                {
+                                                    "data": "Virtual"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

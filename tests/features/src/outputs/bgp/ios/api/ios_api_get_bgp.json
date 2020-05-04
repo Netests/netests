@@ -1,0 +1,980 @@
+{
+  "Cisco-IOS-XE-bgp-oper:bgp-state-data": {
+    "neighbors": {
+      "neighbor": [
+        {
+          "afi-safi": "vpnv4-unicast",
+          "vrf-name": "CUSTOMER_NETESTS",
+          "neighbor-id": "15.15.15.15",
+          "description": "",
+          "bgp-version": 4,
+          "link": "external",
+          "up-time": "",
+          "last-write": "",
+          "last-read": "",
+          "installed-prefixes": 0,
+          "session-state": "fsm-idle",
+          "negotiated-keepalive-timers": {
+            "hold-time": 0,
+            "keepalive-interval": 0
+          },
+          "bgp-neighbor-counters": {
+            "sent": {
+              "opens": 0,
+              "updates": 0,
+              "notifications": 0,
+              "keepalives": 0,
+              "route-refreshes": 0
+            },
+            "received": {
+              "opens": 0,
+              "updates": 0,
+              "notifications": 0,
+              "keepalives": 0,
+              "route-refreshes": 0
+            },
+            "inq-depth": 0,
+            "outq-depth": 0
+          },
+          "connection": {
+            "state": "closed",
+            "mode": "mode-active",
+            "total-established": 0,
+            "total-dropped": 0,
+            "last-reset": "never",
+            "reset-reason": ""
+          },
+          "transport": {
+            "path-mtu-discovery": true,
+            "local-port": 0,
+            "foreign-port": 0,
+            "mss": 0
+          },
+          "prefix-activity": {
+            "sent": {
+              "current-prefixes": "0",
+              "total-prefixes": "0",
+              "implicit-withdraw": "0",
+              "explicit-withdraw": "0",
+              "bestpaths": "0",
+              "multipaths": "0"
+            },
+            "received": {
+              "current-prefixes": "0",
+              "total-prefixes": "0",
+              "implicit-withdraw": "0",
+              "explicit-withdraw": "0",
+              "bestpaths": "0",
+              "multipaths": "0"
+            }
+          },
+          "as": 15
+        },
+        {
+          "afi-safi": "vpnv4-unicast",
+          "vrf-name": "CUSTOMER_APPLE",
+          "neighbor-id": "33.3.3.3",
+          "description": "",
+          "bgp-version": 4,
+          "link": "external",
+          "up-time": "",
+          "last-write": "",
+          "last-read": "",
+          "installed-prefixes": 0,
+          "session-state": "fsm-idle",
+          "negotiated-keepalive-timers": {
+            "hold-time": 0,
+            "keepalive-interval": 0
+          },
+          "bgp-neighbor-counters": {
+            "sent": {
+              "opens": 0,
+              "updates": 0,
+              "notifications": 0,
+              "keepalives": 0,
+              "route-refreshes": 0
+            },
+            "received": {
+              "opens": 0,
+              "updates": 0,
+              "notifications": 0,
+              "keepalives": 0,
+              "route-refreshes": 0
+            },
+            "inq-depth": 0,
+            "outq-depth": 0
+          },
+          "connection": {
+            "state": "closed",
+            "mode": "mode-active",
+            "total-established": 0,
+            "total-dropped": 0,
+            "last-reset": "never",
+            "reset-reason": ""
+          },
+          "transport": {
+            "path-mtu-discovery": true,
+            "local-port": 0,
+            "foreign-port": 0,
+            "mss": 0
+          },
+          "prefix-activity": {
+            "sent": {
+              "current-prefixes": "0",
+              "total-prefixes": "0",
+              "implicit-withdraw": "0",
+              "explicit-withdraw": "0",
+              "bestpaths": "0",
+              "multipaths": "0"
+            },
+            "received": {
+              "current-prefixes": "0",
+              "total-prefixes": "0",
+              "implicit-withdraw": "0",
+              "explicit-withdraw": "0",
+              "bestpaths": "0",
+              "multipaths": "0"
+            }
+          },
+          "as": 3
+        },
+        {
+          "afi-safi": "vpnv4-unicast",
+          "vrf-name": "CUSTOMER_APPLE",
+          "neighbor-id": "33.33.33.33",
+          "description": "",
+          "bgp-version": 4,
+          "link": "external",
+          "up-time": "",
+          "last-write": "",
+          "last-read": "",
+          "installed-prefixes": 0,
+          "session-state": "fsm-idle",
+          "negotiated-keepalive-timers": {
+            "hold-time": 0,
+            "keepalive-interval": 0
+          },
+          "bgp-neighbor-counters": {
+            "sent": {
+              "opens": 0,
+              "updates": 0,
+              "notifications": 0,
+              "keepalives": 0,
+              "route-refreshes": 0
+            },
+            "received": {
+              "opens": 0,
+              "updates": 0,
+              "notifications": 0,
+              "keepalives": 0,
+              "route-refreshes": 0
+            },
+            "inq-depth": 0,
+            "outq-depth": 0
+          },
+          "connection": {
+            "state": "closed",
+            "mode": "mode-active",
+            "total-established": 0,
+            "total-dropped": 0,
+            "last-reset": "never",
+            "reset-reason": ""
+          },
+          "transport": {
+            "path-mtu-discovery": true,
+            "local-port": 0,
+            "foreign-port": 0,
+            "mss": 0
+          },
+          "prefix-activity": {
+            "sent": {
+              "current-prefixes": "0",
+              "total-prefixes": "0",
+              "implicit-withdraw": "0",
+              "explicit-withdraw": "0",
+              "bestpaths": "0",
+              "multipaths": "0"
+            },
+            "received": {
+              "current-prefixes": "0",
+              "total-prefixes": "0",
+              "implicit-withdraw": "0",
+              "explicit-withdraw": "0",
+              "bestpaths": "0",
+              "multipaths": "0"
+            }
+          },
+          "as": 3
+        }
+      ]
+    },
+    "address-families": {
+      "address-family": [
+        {
+          "afi-safi": "vpnv4-unicast",
+          "vrf-name": "CUSTOMER_APPLE",
+          "router-id": "33.33.33.33",
+          "bgp-table-version": "1",
+          "routing-table-version": "1",
+          "prefixes": {
+            "total-entries": "0",
+            "memory-usage": "0"
+          },
+          "path": {
+            "total-entries": "0",
+            "memory-usage": "0"
+          },
+          "as-path": {
+            "total-entries": "0",
+            "memory-usage": "0"
+          },
+          "route-map": {
+            "total-entries": "0",
+            "memory-usage": "0"
+          },
+          "filter-list": {
+            "total-entries": "0",
+            "memory-usage": "0"
+          },
+          "activities": {
+            "prefixes": "0",
+            "paths": "0",
+            "scan-interval": ""
+          },
+          "total-memory": "0",
+          "bgp-neighbor-summaries": {
+            "bgp-neighbor-summary": [
+              {
+                "id": "33.3.3.3",
+                "bgp-version": 4,
+                "messages-received": "0",
+                "messages-sent": "0",
+                "table-version": "1",
+                "input-queue": "0",
+                "output-queue": "0",
+                "up-time": "never",
+                "state": "fsm-idle",
+                "prefixes-received": "0",
+                "dynamically-configured": false,
+                "as": 3
+              },
+              {
+                "id": "33.33.33.33",
+                "bgp-version": 4,
+                "messages-received": "0",
+                "messages-sent": "0",
+                "table-version": "1",
+                "input-queue": "0",
+                "output-queue": "0",
+                "up-time": "never",
+                "state": "fsm-idle",
+                "prefixes-received": "0",
+                "dynamically-configured": false,
+                "as": 3
+              }
+            ]
+          },
+          "local-as": 33333
+        },
+        {
+          "afi-safi": "vpnv4-unicast",
+          "vrf-name": "CUSTOMER_NETESTS",
+          "router-id": "33.33.33.33",
+          "bgp-table-version": "1",
+          "routing-table-version": "1",
+          "prefixes": {
+            "total-entries": "0",
+            "memory-usage": "0"
+          },
+          "path": {
+            "total-entries": "0",
+            "memory-usage": "0"
+          },
+          "as-path": {
+            "total-entries": "0",
+            "memory-usage": "0"
+          },
+          "route-map": {
+            "total-entries": "0",
+            "memory-usage": "0"
+          },
+          "filter-list": {
+            "total-entries": "0",
+            "memory-usage": "0"
+          },
+          "activities": {
+            "prefixes": "0",
+            "paths": "0",
+            "scan-interval": ""
+          },
+          "total-memory": "0",
+          "bgp-neighbor-summaries": {
+            "bgp-neighbor-summary": [
+              {
+                "id": "15.15.15.15",
+                "bgp-version": 4,
+                "messages-received": "0",
+                "messages-sent": "0",
+                "table-version": "1",
+                "input-queue": "0",
+                "output-queue": "0",
+                "up-time": "never",
+                "state": "fsm-idle",
+                "prefixes-received": "0",
+                "dynamically-configured": false,
+                "as": 15
+              }
+            ]
+          },
+          "local-as": 33333
+        }
+      ]
+    },
+    "bgp-route-vrfs": {
+      "bgp-route-vrf": [
+        {
+          "vrf": "default",
+          "bgp-route-afs": {
+            "bgp-route-af": [
+              {
+                "afi-safi": "ipv4-mdt",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "ipv4-multicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "ipv4-unicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "ipv4-mvpn",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "ipv4-flowspec",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "ipv6-multicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "ipv6-unicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "ipv6-mvpn",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "ipv6-flowspec",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "l2vpn-vpls",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "l2vpn-e-vpn",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "nsap-unicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "rtfilter-unicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv4-multicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv4-unicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-unicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-multicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv4-flowspec",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-flowspec",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "vrf": "CUSTOMER_APPLE",
+          "bgp-route-afs": {
+            "bgp-route-af": [
+              {
+                "afi-safi": "vpnv4-multicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv4-unicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-unicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-multicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv4-flowspec",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-flowspec",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "vrf": "CUSTOMER_NETESTS",
+          "bgp-route-afs": {
+            "bgp-route-af": [
+              {
+                "afi-safi": "vpnv4-multicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv4-unicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": "15.15.15.15",
+                      "bgp-neighbor-route-filters": {
+                        "bgp-neighbor-route-filter": [
+                          {
+                            "nbr-fltr": "bgp-nrf-post-received"
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-unicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-multicast",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv4-flowspec",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-flowspec",
+                "bgp-route-filters": {
+                  "bgp-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                },
+                "bgp-route-neighbors": {
+                  "bgp-route-neighbor": [
+                    {
+                      "nbr-id": ""
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "bgp-route-rds": {
+      "bgp-route-rd": [
+        {
+          "rd-value": "33333:3",
+          "bgp-rd-route-afs": {
+            "bgp-rd-route-af": [
+              {
+                "afi-safi": "vpnv4-multicast",
+                "bgp-rd-route-filters": {
+                  "bgp-rd-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv4-unicast",
+                "bgp-rd-route-filters": {
+                  "bgp-rd-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-unicast",
+                "bgp-rd-route-filters": {
+                  "bgp-rd-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-multicast",
+                "bgp-rd-route-filters": {
+                  "bgp-rd-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "rd-value": "1515:15",
+          "bgp-rd-route-afs": {
+            "bgp-rd-route-af": [
+              {
+                "afi-safi": "vpnv4-multicast",
+                "bgp-rd-route-filters": {
+                  "bgp-rd-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv4-unicast",
+                "bgp-rd-route-filters": {
+                  "bgp-rd-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-unicast",
+                "bgp-rd-route-filters": {
+                  "bgp-rd-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                }
+              },
+              {
+                "afi-safi": "vpnv6-multicast",
+                "bgp-rd-route-filters": {
+                  "bgp-rd-route-filter": [
+                    {
+                      "route-filter": "bgp-rf-all"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "rd-value": "0:0"
+        }
+      ]
+    }
+  }
+}

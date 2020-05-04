@@ -1,0 +1,27 @@
+{
+    "vrfs": {
+        "CUSTOMER_WEJOB": {
+            "routerId": "1.2.3.4",
+            "peers": {
+                "100.100.100.100": {
+                    "prefixInBest": 0,
+                    "msgSent": 0,
+                    "inMsgQueue": 0,
+                    "underMaintenance": false,
+                    "peerStateIdleReason": "NoInterface",
+                    "prefixReceived": 0,
+                    "upDownTime": 1588518931.254333,
+                    "version": 4,
+                    "msgReceived": 0,
+                    "prefixAccepted": 0,
+                    "peerState": "Idle",
+                    "outMsgQueue": 0,
+                    "prefixInBestEcmp": 0,
+                    "asn": "100"
+                }
+            },
+            "vrf": "CUSTOMER_WEJOB",
+            "asn": "1111"
+        }
+    }
+}

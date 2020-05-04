@@ -1,0 +1,15 @@
+{
+    "ins_api": {
+        "outputs": {
+            "output": {
+                "clierror": {},
+                "code": "400",
+                "input": "show bgp sessions vrf management",
+                "msg": "CLI execution error"
+            }
+        },
+        "sid": "eoc",
+        "type": "cli_show",
+        "version": "1.0"
+    }
+}

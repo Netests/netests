@@ -1,0 +1,844 @@
+{
+    "ins_api": {
+        "outputs": {
+            "output": {
+                "body": {
+                    "TABLE_interface": {
+                        "ROW_interface": [
+                            {
+                                "interface": "mgmt0",
+                                "ip_addr": "10.10.20.95",
+                                "mtu": 1500,
+                                "speed": "1000",
+                                "state": "up"
+                            },
+                            {
+                                "interface": "Ethernet1/1",
+                                "portchan": 11,
+                                "portmode": "trunk",
+                                "ratemode": "D",
+                                "speed": "1000",
+                                "state": "up",
+                                "state_rsn_desc": "none",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/2",
+                                "portchan": 11,
+                                "portmode": "trunk",
+                                "ratemode": "D",
+                                "speed": "1000",
+                                "state": "up",
+                                "state_rsn_desc": "none",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/3",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "1000",
+                                "state": "up",
+                                "state_rsn_desc": "none",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/4",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "1000",
+                                "state": "up",
+                                "state_rsn_desc": "none",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/5",
+                                "portmode": "routed",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Administratively down",
+                                "type": "eth",
+                                "vlan": "--"
+                            },
+                            {
+                                "interface": "Ethernet1/6",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/7",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/8",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/9",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/10",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/11",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/12",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/13",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/14",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/15",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/16",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/17",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/18",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/19",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/20",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/21",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/22",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/23",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/24",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/25",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/26",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/27",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/28",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/29",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/30",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/31",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/32",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/33",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/34",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/35",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/36",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/37",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/38",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/39",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/40",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/41",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/42",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/43",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/44",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/45",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/46",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/47",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/48",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/49",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/50",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/51",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/52",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/53",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/54",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/55",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/56",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/57",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/58",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/59",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/60",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/61",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/62",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/63",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "Ethernet1/64",
+                                "portmode": "access",
+                                "ratemode": "D",
+                                "speed": "auto",
+                                "state": "down",
+                                "state_rsn_desc": "Link not connected",
+
+
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "port-channel11",
+                                "portmode": "trunk",
+                                "proto": "none",
+                                "ratemode": "D",
+                                "speed": "a-1000",
+                                "state": "up",
+                                "state_rsn_desc": "none",
+                                "type": "eth",
+                                "vlan": "1"
+                            },
+                            {
+                                "interface": "loopback1",
+                                "state": "up"
+                            },
+                            {
+                                "desc": "My Learning Lab Loopback",
+                                "interface": "loopback30",
+                                "state": "up"
+                            },
+                            {
+                                "desc": "Configured using OpenConfig Model",
+                                "interface": "loopback98",
+                                "state": "up"
+                            },
+                            {
+                                "desc": "Full intf config via NETCONF",
+                                "interface": "loopback99",
+                                "state": "up"
+                            },
+                            {
+                                "interface": "Vlan1",
+                                "svi_admin_state": "down",
+                                "svi_rsn_desc": "Administratively down"
+                            },
+                            {
+                                "interface": "Vlan100",
+                                "svi_admin_state": "down",
+                                "svi_rsn_desc": "Administratively down"
+
+                            },
+                            {
+                                "interface": "Vlan101",
+                                "svi_admin_state": "down",
+                                "svi_rsn_desc": "Administratively down"
+
+                            },
+                            {
+                                "interface": "Vlan102",
+                                "svi_admin_state": "down",
+                                "svi_rsn_desc": "Administratively down"
+
+                            },
+                            {
+                                "interface": "Vlan103",
+                                "svi_admin_state": "down",
+                                "svi_rsn_desc": "Administratively down"
+
+                            },
+                            {
+                                "interface": "Vlan104",
+                                "svi_admin_state": "down",
+                                "svi_rsn_desc": "Administratively down"
+
+                            },
+                            {
+                                "interface": "Vlan105",
+                                "svi_admin_state": "down",
+                                "svi_rsn_desc": "Administratively down"
+
+                            }
+                        ]
+                    }
+                },
+                "code": "200",
+                "input": "show interface brief",
+                "msg": "Success"
+            }
+        },
+        "sid": "eoc",
+        "type": "cli_show",
+        "version": "1.0"
+    }
+}

@@ -36,25 +36,38 @@ Other parameters are not included in the comparaison function and can be differe
 
 ### VRF Retrieve Data
 
-|             | vrf_name           | vrf_id             | vrf_type           | l3_vni | rd                 | rt_imp             | rt_exp             | imp_targ           | exp_targ           |
-| ----------- | ------------------ | ------------------ | ------------------ | ------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
-| NAPALM      | :white_check_mark: | :x:                | :white_check_mark: | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
-| Junos       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Cumulus     | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
-| Arista      | :white_check_mark: | :x:                | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
-| Cisco Nexus | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
-| Cisco IOSXR | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
-| Cisco IOS   | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
-| Extreme VSP | :white_check_mark: | :white_check_mark: | :x:                | :x:    | :x:                | :x:                | :x:                | :x:                | :x:                |
-|             |                    |                    |                    |        |                    |                    |                    |                    |                    |
-|             |                    |                    |                    |        |                    |                    |                    |                    |                    |
-|             |                    |                    |                    |        |                    |                    |                    |                    |                    |
+|                 | vrf_name           | vrf_id             | vrf_type           | l3_vni             | rd                 | rt_imp             | rt_exp             | imp_targ           | exp_targ           |
+| --------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
+| NAPALM          | :white_check_mark: | :x:                | :white_check_mark: | :x:                | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
+| Junos SSH       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Junos Netconf   | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Junos API       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Cumulus SSH     | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                |
+| Cumulus API     | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                |
+| Arista SSH      | :white_check_mark: | :x:                | :x:                | :x:                | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
+| Arista Netconf  |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+| Arista API      |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+| Nexus SSH       | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :white_check_mark: | :x:                | :x:                | :x:                | :x:                |
+| Nexus Netconf   | :white_check_mark: | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| Nexus API       | :white_check_mark: | :white_check_mark: | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOSXR Netconf   | :white_check_mark: | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOSXR SSH       | :white_check_mark: | :x:                | :white_check_mark: | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOS SSH         | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOS NetConf     | :white_check_mark: | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| IOS API         | :white_check_mark: | :x:                | :x:                | :x:                | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x:                | :x:                |
+| Extreme VSP SSH | :white_check_mark: | :white_check_mark: | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                | :x:                |
+| Extreme VSP API |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+|                 |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+|                 |                    |                    |                    |                    |                    |                    |                    |                    |                    |
+|                 |                    |                    |                    |                    |                    |                    |                    |                    |                    |
 
 :white_check_mark: => Supported
 
 :x: => Not supported
 
-:cry: => Not implemented
+:warning: => Not supported by the vendor
+
+[EMPTY] => Not Implemented
 
 
 
@@ -70,13 +83,5 @@ port 22 is fix
         # File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/napalm/base/base.py", line 1535, in get_network_instances
         # raise NotImplementedError
         #   NotImplementedError
-        if NEXUS_PLATEFORM_NAME == task.host.platform:
-            port = task.host.port
-            task.host.port = 22
-            if function == 'GET':
-                _nexus_get_vrf(task)
-            elif function == 'LIST':
-                _get_vrf_name_list(task)
-            task.host.port = port
 ```
 

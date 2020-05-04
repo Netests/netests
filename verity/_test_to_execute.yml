@@ -3,23 +3,31 @@
 # 2) info =>  (Informations) - If test failed you will only see a message
 # 3) no || false => (Exclude) - Test will not be executed
 # Check that BGP sessions regarding bgp.yml are the same
-bgp: true
-bgp_all_up: false
+bgp: 
+  test: false
+bgp_all_up:  
+  test: false
 # Check OSPF sessions
 ospf:
   test: false
   level: NOT_IMPLEMENTED
 # Check that all VRF are defined
-vrf: false
+vrf: 
+  test: true
 # Check MLAG
-mlag: false
+mlag: 
+  test: false
 # Check pings
-ping: false
+ping: 
+  test: false
 # Test sockets
-socket: false
+socket: 
+  test: false
 # Check Link Discovery Protocols sessions
-lldp: false
-cdp: false
+lldp: 
+  test: false
+cdp: 
+  test: false
 # Check IPv4 addresses
 ipv4:
   test: false
@@ -38,7 +46,7 @@ ipv6:
     get_physical: false
     get_vlan: false
     get_loopback: false
-    get_peerlink: false
+    
     get_vni: false
 # Check static routes
 static:
@@ -54,11 +62,14 @@ static:
       netmask: mask
       preference: pref
 # Check System informations
-sys_infos: false
+sys_infos: 
+  test: false
 # Check Interfaces MTU
-mtu: false
+mtu: 
+  test: false
 # Check L2VNI
-l2vni: false
+l2vni: 
+  test: false
 # Check L2VNI
 vlan:
   test: false

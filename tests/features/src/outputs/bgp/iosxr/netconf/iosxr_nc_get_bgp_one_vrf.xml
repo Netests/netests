@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" 
+    xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <bgp xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-ipv4-bgp-cfg">
+        <instance>
+            <instance-name>default</instance-name>
+            <instance-as>
+                <as>0</as>
+                <four-byte-as>
+                    <as>1515</as>
+                    <bgp-running/>
+                    <default-vrf>
+                        <global>
+                            <router-id>1.1.1.1</router-id>
+                            <global-afs>
+                                <global-af>
+                                    <af-name>ipv4-unicast</af-name>
+                                    <enable/>
+                                </global-af>
+                            </global-afs>
+                        </global>
+                    </default-vrf>
+                    <vrfs>
+                        <vrf>
+                            <vrf-name>CUSTOMER_NETESTS</vrf-name>
+                            <vrf-global>
+                                <exists/>
+                                <router-id>2.2.2.2</router-id>
+                            </vrf-global>
+                            <vrf-neighbors>
+                                <vrf-neighbor>
+                                    <neighbor-address>15.15.15.15</neighbor-address>
+                                    <remote-as>
+                                        <as-xx>0</as-xx>
+                                        <as-yy>1515</as-yy>
+                                    </remote-as>
+                                </vrf-neighbor>
+                            </vrf-neighbors>
+                        </vrf>
+                    </vrfs>
+                </four-byte-as>
+            </instance-as>
+        </instance>
+    </bgp>
+</data>

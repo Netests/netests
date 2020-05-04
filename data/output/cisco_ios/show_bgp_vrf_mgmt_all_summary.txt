@@ -1,9 +1,0 @@
-For address family: IPv4 Unicast
-
-
-For address family: VPNv4 Unicast
-BGP router identifier 205.205.205.205, local AS number 65205
-BGP table version is 1, main routing table version 1
-
-Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
-10.0.5.101      4        65100   28746   27953        1    0    0 23:51:08        0

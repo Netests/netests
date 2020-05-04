@@ -1,0 +1,22 @@
+<instance-information style="detail">
+    <instance-core>
+        <instance-name>master</instance-name>
+        <router-id>100.123.1.0</router-id>
+        <instance-type>forwarding</instance-type>
+        <instance-state>Active</instance-state>
+        <instance-rib>
+            <irib-name>inet.0</irib-name>
+            <irib-route-count>3</irib-route-count>
+            <irib-active-count>3</irib-active-count>
+            <irib-holddown-count>0</irib-holddown-count>
+            <irib-hidden-count>0</irib-hidden-count>
+        </instance-rib>
+        <instance-rib>
+            <irib-name>inet6.0</irib-name>
+            <irib-route-count>1</irib-route-count>
+            <irib-active-count>1</irib-active-count>
+            <irib-holddown-count>0</irib-holddown-count>
+            <irib-hidden-count>0</irib-hidden-count>
+        </instance-rib>
+    </instance-core>
+</instance-information>

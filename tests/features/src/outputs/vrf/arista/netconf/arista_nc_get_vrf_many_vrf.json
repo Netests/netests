@@ -1,0 +1,532 @@
+{
+    "data": {
+        "@time-modified": "2020-05-03T12: 32: 32.069341109Z",
+        "@xmlns": "urn:ietf:params:xml:ns:netconf:base: 1.0",
+        "network-instances": {
+            "@xmlns": "http: //openconfig.net/yang/network-instance",
+            "network-instance": [
+                {
+                    "arista-varp": {
+                        "@xmlns": "http: //arista.com/yang/experimental/eos/varp/net-inst",
+                        "config": {
+                            "virtual-mac-address": "00: 00: 00: 00: 00: 00"
+                        }
+                    },
+                    "config": {
+                        "name": "default",
+                        "type": {
+                            "#text": "oc-ni-types:DEFAULT_INSTANCE",
+                            "@xmlns:oc-ni-types": "http: //openconfig.net/yang/network-instance-types"
+                        }
+                    },
+                    "inter-instance-policies": {
+                        "apply-policy": {
+                            "config": {
+                                "default-import-policy": "REJECT_ROUTE"
+                            }
+                        }
+                    },
+                    "interfaces": {
+                        "interface": [
+                            {
+                                "config": {
+                                    "id": "Management1",
+                                    "interface": "Management1",
+                                    "subinterface": "0"
+                                },
+                                "id": "Management1"
+                            },
+                            {
+                                "config": {
+                                    "id": "Management0",
+                                    "interface": "Management0",
+                                    "subinterface": "0"
+                                },
+                                "id": "Management0"
+                            }
+                        ]
+                    },
+                    "mpls": {
+                        "global": {
+                            "config": {
+                                "null-label": {
+                                    "#text": "oc-mpls-types:IMPLICIT",
+                                    "@xmlns:oc-mpls-types": "http: //openconfig.net/yang/mpls-types"
+                                }
+                            },
+                            "reserved-label-blocks": {
+                                "reserved-label-block": [
+                                    {
+                                        "config": {
+                                            "local-id": "dynamic",
+                                            "lower-bound": "100000",
+                                            "upper-bound": "362143"
+                                        },
+                                        "local-id": "dynamic"
+                                    },
+                                    {
+                                        "config": {
+                                            "local-id": "static",
+                                            "lower-bound": "16",
+                                            "upper-bound": "99999"
+                                        },
+                                        "local-id": "static"
+                                    },
+                                    {
+                                        "config": {
+                                            "local-id": "isis-sr",
+                                            "lower-bound": "900000",
+                                            "upper-bound": "965535"
+                                        },
+                                        "local-id": "isis-sr"
+                                    },
+                                    {
+                                        "config": {
+                                            "local-id": "bgp-sr",
+                                            "lower-bound": "900000",
+                                            "upper-bound": "965535"
+                                        },
+                                        "local-id": "bgp-sr"
+                                    },
+                                    {
+                                        "config": {
+                                            "local-id": "srlb",
+                                            "lower-bound": "965536",
+                                            "upper-bound": "1031071"
+                                        },
+                                        "local-id": "srlb"
+                                    },
+                                    {
+                                        "config": {
+                                            "local-id": "l2evpn",
+                                            "lower-bound": "1036288",
+                                            "upper-bound": "1048575"
+                                        },
+                                        "local-id": "l2evpn"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "name": "default",
+                    "protocols": {
+                        "protocol": [
+                            {
+                                "config": {
+                                    "identifier": {
+                                        "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    },
+                                    "name": "DIRECTLY_CONNECTED"
+                                },
+                                "identifier": {
+                                    "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                },
+                                "name": "DIRECTLY_CONNECTED"
+                            },
+                            {
+                                "bgp": {
+                                    "global": {
+                                        "afi-safis": {
+                                            "afi-safi": [
+                                                {
+                                                    "afi-safi-name": {
+                                                        "#text": "oc-bgp-types:IPV4_UNICAST",
+                                                        "@xmlns:oc-bgp-types": "http: //openconfig.net/yang/bgp-types"
+                                                    },
+                                                    "config": {
+                                                        "afi-safi-name": {
+                                                            "#text": "oc-bgp-types:IPV4_UNICAST",
+                                                            "@xmlns:oc-bgp-types": "http: //openconfig.net/yang/bgp-types"
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "afi-safi-name": {
+                                                        "#text": "oc-bgp-types:IPV6_UNICAST",
+                                                        "@xmlns:oc-bgp-types": "http: //openconfig.net/yang/bgp-types"
+                                                    },
+                                                    "config": {
+                                                        "afi-safi-name": {
+                                                            "#text": "oc-bgp-types:IPV6_UNICAST",
+                                                            "@xmlns:oc-bgp-types": "http: //openconfig.net/yang/bgp-types"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "confederation": {
+                                            "config": "None"
+                                        },
+                                        "config": {
+                                            "as": "1111"
+                                        },
+                                        "default-route-distance": {
+                                            "config": "None"
+                                        },
+                                        "graceful-restart": {
+                                            "config": "None"
+                                        },
+                                        "route-selection-options": "None",
+                                        "use-multiple-paths": {
+                                            "config": "None",
+                                            "ebgp": "None"
+                                        }
+                                    }
+                                },
+                                "config": {
+                                    "identifier": {
+                                        "#text": "oc-pol-types:BGP",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    },
+                                    "name": "BGP"
+                                },
+                                "identifier": {
+                                    "#text": "oc-pol-types:BGP",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                },
+                                "name": "BGP"
+                            },
+                            {
+                                "config": {
+                                    "identifier": {
+                                        "#text": "oc-pol-types:PIM",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    },
+                                    "name": "PIM"
+                                },
+                                "identifier": {
+                                    "#text": "oc-pol-types:PIM",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                },
+                                "name": "PIM"
+                            }
+                        ]
+                    },
+                    "segment-routing": {
+                        "srgbs": {
+                            "srgb": {
+                                "config": {
+                                    "dataplane-type": "MPLS",
+                                    "local-id": "isis-sr",
+                                    "mpls-label-blocks": "isis-sr"
+                                },
+                                "local-id": "isis-sr"
+                            }
+                        },
+                        "srlbs": {
+                            "srlb": {
+                                "config": {
+                                    "dataplane-type": "MPLS",
+                                    "local-id": "srlb",
+                                    "mpls-label-block": "srlb"
+                                },
+                                "local-id": "srlb"
+                            }
+                        }
+                    },
+                    "tables": {
+                        "table": [
+                            {
+                                "address-family": {
+                                    "#text": "oc-types:IPV4",
+                                    "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                },
+                                "config": {
+                                    "address-family": {
+                                        "#text": "oc-types:IPV4",
+                                        "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                    },
+                                    "protocol": {
+                                        "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    }
+                                },
+                                "protocol": {
+                                    "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                }
+                            },
+                            {
+                                "address-family": {
+                                    "#text": "oc-types:IPV6",
+                                    "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                },
+                                "config": {
+                                    "address-family": {
+                                        "#text": "oc-types:IPV6",
+                                        "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                    },
+                                    "protocol": {
+                                        "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    }
+                                },
+                                "protocol": {
+                                    "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                }
+                            },
+                            {
+                                "address-family": {
+                                    "#text": "oc-types:IPV4",
+                                    "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                },
+                                "config": {
+                                    "address-family": {
+                                        "#text": "oc-types:IPV4",
+                                        "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                    },
+                                    "protocol": {
+                                        "#text": "oc-pol-types:BGP",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    }
+                                },
+                                "protocol": {
+                                    "#text": "oc-pol-types:BGP",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                }
+                            },
+                            {
+                                "address-family": {
+                                    "#text": "oc-types:IPV6",
+                                    "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                },
+                                "config": {
+                                    "address-family": {
+                                        "#text": "oc-types:IPV6",
+                                        "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                    },
+                                    "protocol": {
+                                        "#text": "oc-pol-types:BGP",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    }
+                                },
+                                "protocol": {
+                                    "#text": "oc-pol-types:BGP",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                }
+                            }
+                        ]
+                    },
+                    "vlans": {
+                        "vlan": {
+                            "config": {
+                                "mac-learning": {
+                                    "#text": "true",
+                                    "@xmlns": "http: //arista.com/yang/openconfig/network-instance/vlan/augments"
+                                },
+                                "name": "default",
+                                "status": "ACTIVE",
+                                "vlan-id": "1"
+                            },
+                            "members": "None",
+                            "vlan-id": "1"
+                        }
+                    }
+                },
+                {
+                    "config": {
+                        "name": "CUSTOMER_NETESTS",
+                        "type": {
+                            "#text": "oc-ni-types:L3VRF",
+                            "@xmlns:oc-ni-types": "http: //openconfig.net/yang/network-instance-types"
+                        }
+                    },
+                    "inter-instance-policies": {
+                        "apply-policy": {
+                            "config": {
+                                "default-import-policy": "REJECT_ROUTE"
+                            }
+                        }
+                    },
+                    "name": "CUSTOMER_NETESTS",
+                    "protocols": {
+                        "protocol": [
+                            {
+                                "config": {
+                                    "identifier": {
+                                        "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    },
+                                    "name": "DIRECTLY_CONNECTED"
+                                },
+                                "identifier": {
+                                    "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                },
+                                "name": "DIRECTLY_CONNECTED"
+                            },
+                            {
+                                "bgp": {
+                                    "global": {
+                                        "use-multiple-paths": {
+                                            "config": "None"
+                                        }
+                                    }
+                                },
+                                "config": {
+                                    "identifier": {
+                                        "#text": "oc-pol-types:BGP",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    },
+                                    "name": "BGP"
+                                },
+                                "identifier": {
+                                    "#text": "oc-pol-types:BGP",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                },
+                                "name": "BGP"
+                            }
+                        ]
+                    },
+                    "tables": {
+                        "table": [
+                            {
+                                "address-family": {
+                                    "#text": "oc-types:IPV4",
+                                    "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                },
+                                "config": {
+                                    "address-family": {
+                                        "#text": "oc-types:IPV4",
+                                        "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                    },
+                                    "protocol": {
+                                        "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    }
+                                },
+                                "protocol": {
+                                    "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                }
+                            },
+                            {
+                                "address-family": {
+                                    "#text": "oc-types:IPV6",
+                                    "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                },
+                                "config": {
+                                    "address-family": {
+                                        "#text": "oc-types:IPV6",
+                                        "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                    },
+                                    "protocol": {
+                                        "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    }
+                                },
+                                "protocol": {
+                                    "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "config": {
+                        "name": "CUSTOMER_WEJOB",
+                        "type": {
+                            "#text": "oc-ni-types:L3VRF",
+                            "@xmlns:oc-ni-types": "http: //openconfig.net/yang/network-instance-types"
+                        }
+                    },
+                    "inter-instance-policies": {
+                        "apply-policy": {
+                            "config": {
+                                "default-import-policy": "REJECT_ROUTE"
+                            }
+                        }
+                    },
+                    "name": "CUSTOMER_WEJOB",
+                    "protocols": {
+                        "protocol": [
+                            {
+                                "config": {
+                                    "identifier": {
+                                        "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    },
+                                    "name": "DIRECTLY_CONNECTED"
+                                },
+                                "identifier": {
+                                    "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                },
+                                "name": "DIRECTLY_CONNECTED"
+                            },
+                            {
+                                "bgp": {
+                                    "global": {
+                                        "use-multiple-paths": {
+                                            "config": "None"
+                                        }
+                                    }
+                                },
+                                "config": {
+                                    "identifier": {
+                                        "#text": "oc-pol-types:BGP",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    },
+                                    "name": "BGP"
+                                },
+                                "identifier": {
+                                    "#text": "oc-pol-types:BGP",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                },
+                                "name": "BGP"
+                            }
+                        ]
+                    },
+                    "tables": {
+                        "table": [
+                            {
+                                "address-family": {
+                                    "#text": "oc-types:IPV4",
+                                    "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                },
+                                "config": {
+                                    "address-family": {
+                                        "#text": "oc-types:IPV4",
+                                        "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                    },
+                                    "protocol": {
+                                        "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    }
+                                },
+                                "protocol": {
+                                    "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                }
+                            },
+                            {
+                                "address-family": {
+                                    "#text": "oc-types:IPV6",
+                                    "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                },
+                                "config": {
+                                    "address-family": {
+                                        "#text": "oc-types:IPV6",
+                                        "@xmlns:oc-types": "http: //openconfig.net/yang/openconfig-types"
+                                    },
+                                    "protocol": {
+                                        "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                        "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                    }
+                                },
+                                "protocol": {
+                                    "#text": "oc-pol-types:DIRECTLY_CONNECTED",
+                                    "@xmlns:oc-pol-types": "http: //openconfig.net/yang/policy-types"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

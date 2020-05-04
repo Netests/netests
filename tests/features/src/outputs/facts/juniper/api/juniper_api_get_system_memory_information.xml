@@ -1,0 +1,1708 @@
+<system-memory-information xmlns:junos="http://xml.juniper.net/junos/*/junos">
+    <system-memory-summary-information>
+        <system-memory-total>2048752</system-memory-total>
+        <system-memory-total-percent>100%</system-memory-total-percent>
+        <system-memory-reserved>  53856</system-memory-reserved>
+        <system-memory-reserved-percent>  2%</system-memory-reserved-percent>
+        <system-memory-wired> 213868</system-memory-wired>
+        <system-memory-wired-percent> 10%</system-memory-wired-percent>
+        <system-memory-active> 257460</system-memory-active>
+        <system-memory-active-percent> 12%</system-memory-active-percent>
+        <system-memory-inactive>1367036</system-memory-inactive>
+        <system-memory-inactive-percent> 66%</system-memory-inactive-percent>
+        <system-memory-cache>      0</system-memory-cache>
+        <system-memory-cache-percent>  0%</system-memory-cache-percent>
+        <system-memory-free> 156528</system-memory-free>
+        <system-memory-free-percent>  7%</system-memory-free-percent>
+    </system-memory-summary-information>
+    <pmap-terse-information xmlns="http://xml.juniper.net/fbsd10/14.2I0/junos-pmap">
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>0</pid>
+            <process-name>[kernel]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1</pid>
+            <process-name>/sbin/init --</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2</pid>
+            <process-name>[jfe_job_0_0]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3</pid>
+            <process-name>[jfe_job_1_0]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>4</pid>
+            <process-name>[jfe_job_2_0]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>5</pid>
+            <process-name>[jfe_job_3_0]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>6</pid>
+            <process-name>[jfe_job_4_0]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7</pid>
+            <process-name>[kpf0]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8</pid>
+            <process-name>[kpf1]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>9</pid>
+            <process-name>[kpf2]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>10</pid>
+            <process-name>[audit]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>11</pid>
+            <process-name>[idle]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>12</pid>
+            <process-name>[kpf3]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>13</pid>
+            <process-name>[intr]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>14</pid>
+            <process-name>[geom]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>15</pid>
+            <process-name>[crypto]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>16</pid>
+            <process-name>[crypto returns]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>17</pid>
+            <process-name>[cam]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>18</pid>
+            <process-name>[ifstate notify]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>19</pid>
+            <process-name>[rand_harvestq]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>20</pid>
+            <process-name>[md0]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>21</pid>
+            <process-name>[md0.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>22</pid>
+            <process-name>[soaiod1]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>23</pid>
+            <process-name>[soaiod2]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>24</pid>
+            <process-name>[soaiod3]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>25</pid>
+            <process-name>[soaiod4]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>26</pid>
+            <process-name>[kern_dump_proc]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>27</pid>
+            <process-name>[pagedaemon]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>28</pid>
+            <process-name>[vmdaemon]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>29</pid>
+            <process-name>[pagezero]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>30</pid>
+            <process-name>[bufspacedaemon]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>31</pid>
+            <process-name>[bufdaemon]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>32</pid>
+            <process-name>[vnlru]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>33</pid>
+            <process-name>[syncer]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>34</pid>
+            <process-name>[netdaemon]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>35</pid>
+            <process-name>[jsr_kkcm]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>36</pid>
+            <process-name>[jsr_jsm]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>37</pid>
+            <process-name>[tnparpproc]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>38</pid>
+            <process-name>[delayedexecd]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>39</pid>
+            <process-name>[if_pfe_listen]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>41</pid>
+            <process-name>[if_pic_listen0]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>42</pid>
+            <process-name>[ifsclientclosed]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>43</pid>
+            <process-name>[kern_pir_proc]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>44</pid>
+            <process-name>[ddostasks]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>153</pid>
+            <process-name>[md1]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>154</pid>
+            <process-name>[md1.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>472</pid>
+            <process-name>[md2]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>473</pid>
+            <process-name>[md2.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>727</pid>
+            <process-name>[md3]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>728</pid>
+            <process-name>[md3.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>789</pid>
+            <process-name>[md4]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>790</pid>
+            <process-name>[md4.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>852</pid>
+            <process-name>[md5]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>853</pid>
+            <process-name>[md5.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>916</pid>
+            <process-name>[md6]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>917</pid>
+            <process-name>[md6.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>981</pid>
+            <process-name>[md7]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>982</pid>
+            <process-name>[md7.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1044</pid>
+            <process-name>[md8]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1045</pid>
+            <process-name>[md8.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1526</pid>
+            <process-name>[md9]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1527</pid>
+            <process-name>[md9.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1633</pid>
+            <process-name>[md10]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1634</pid>
+            <process-name>[md10.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1744</pid>
+            <process-name>[md11]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1745</pid>
+            <process-name>[md11.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1834</pid>
+            <process-name>[md12]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1899</pid>
+            <process-name>[md13]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1963</pid>
+            <process-name>[md14]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>1964</pid>
+            <process-name>[md14.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2029</pid>
+            <process-name>[md15]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2030</pid>
+            <process-name>[md15.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2094</pid>
+            <process-name>[md16]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2095</pid>
+            <process-name>[md16.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2159</pid>
+            <process-name>[md17]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2160</pid>
+            <process-name>[md17.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2224</pid>
+            <process-name>[md18]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2225</pid>
+            <process-name>[md18.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2289</pid>
+            <process-name>[md19]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2290</pid>
+            <process-name>[md19.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2366</pid>
+            <process-name>[md20]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2367</pid>
+            <process-name>[md20.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2442</pid>
+            <process-name>[md21]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2506</pid>
+            <process-name>[md22]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2507</pid>
+            <process-name>[md22.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2570</pid>
+            <process-name>[md23]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2571</pid>
+            <process-name>[md23.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2644</pid>
+            <process-name>[md24]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2645</pid>
+            <process-name>[md24.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2709</pid>
+            <process-name>[md25]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2710</pid>
+            <process-name>[md25.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2774</pid>
+            <process-name>[md26]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2775</pid>
+            <process-name>[md26.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2837</pid>
+            <process-name>[md27]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2933</pid>
+            <process-name>[md28]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2934</pid>
+            <process-name>[md28.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2998</pid>
+            <process-name>[md29]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>2999</pid>
+            <process-name>[md29.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3063</pid>
+            <process-name>[md30]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3064</pid>
+            <process-name>[md30.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3126</pid>
+            <process-name>[md31]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3127</pid>
+            <process-name>[md31.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3191</pid>
+            <process-name>[md32]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3192</pid>
+            <process-name>[md32.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3257</pid>
+            <process-name>[md33]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3258</pid>
+            <process-name>[md33.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3333</pid>
+            <process-name>[md34]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3334</pid>
+            <process-name>[md34.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3402</pid>
+            <process-name>[md35]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3468</pid>
+            <process-name>[md36]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3613</pid>
+            <process-name>[md37]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3614</pid>
+            <process-name>[md37.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3678</pid>
+            <process-name>[md38]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3679</pid>
+            <process-name>[md38.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3743</pid>
+            <process-name>[md39]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3744</pid>
+            <process-name>[md39.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3808</pid>
+            <process-name>[md40]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>3809</pid>
+            <process-name>[md40.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>6345</pid>
+            <process-name>[md41]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>6346</pid>
+            <process-name>[md41.uzip]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>6599</pid>
+            <process-name>[ftcleanup]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7822</pid>
+            <process-name>/usr/sbin/eventd -r -s -A</process-name>
+            <size>27964</size>
+            <size-percent>00.69</size-percent>
+            <resident>13056</resident>
+            <resident-percent>00.64</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7826</pid>
+            <process-name>/sbin/jlaunchhelperd</process-name>
+            <size>39504</size>
+            <size-percent>00.00</size-percent>
+            <resident>1896</resident>
+            <resident-percent>00.09</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7827</pid>
+            <process-name>/sbin/jlaunchd -N</process-name>
+            <size>79620</size>
+            <size-percent>00.00</size-percent>
+            <resident>4036</resident>
+            <resident-percent>00.20</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7837</pid>
+            <process-name>/usr/libexec/bslockd -mp -N</process-name>
+            <size>5948</size>
+            <size-percent>00.15</size-percent>
+            <resident>1400</resident>
+            <resident-percent>00.07</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7838</pid>
+            <process-name>/usr/sbin/tnetd -N -l</process-name>
+            <size>11152</size>
+            <size-percent>00.27</size-percent>
+            <resident>2976</resident>
+            <resident-percent>00.15</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7840</pid>
+            <process-name>/usr/sbin/chassisd -N</process-name>
+            <size>129356</size>
+            <size-percent>03.18</size-percent>
+            <resident>62920</resident>
+            <resident-percent>03.07</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7841</pid>
+            <process-name>/usr/sbin/sdk-vmmd -N</process-name>
+            <size>22616</size>
+            <size-percent>00.56</size-percent>
+            <resident>11316</resident>
+            <resident-percent>00.55</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7843</pid>
+            <process-name>/usr/sbin/craftd -N</process-name>
+            <size>20160</size>
+            <size-percent>00.50</size-percent>
+            <resident>9220</resident>
+            <resident-percent>00.45</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7844</pid>
+            <process-name>/usr/sbin/mgd -N</process-name>
+            <size>70288</size>
+            <size-percent>01.73</size-percent>
+            <resident>35360</resident>
+            <resident-percent>01.73</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7846</pid>
+            <process-name>/usr/sbin/mib2d -N</process-name>
+            <size>61012</size>
+            <size-percent>01.50</size-percent>
+            <resident>21076</resident>
+            <resident-percent>01.03</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7850</pid>
+            <process-name>/usr/sbin/inetd -N -w -R 512</process-name>
+            <size>59084</size>
+            <size-percent>00.00</size-percent>
+            <resident>3420</resident>
+            <resident-percent>00.17</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7854</pid>
+            <process-name>/usr/sbin/ppmd -N</process-name>
+            <size>27852</size>
+            <size-percent>00.69</size-percent>
+            <resident>13040</resident>
+            <resident-percent>00.64</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7859</pid>
+            <process-name>/usr/sbin/bfdd -N</process-name>
+            <size>22000</size>
+            <size-percent>00.54</size-percent>
+            <resident>11140</resident>
+            <resident-percent>00.54</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7860</pid>
+            <process-name>/usr/sbin/clksyncd -N</process-name>
+            <size>23380</size>
+            <size-percent>00.58</size-percent>
+            <resident>12176</resident>
+            <resident-percent>00.59</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7861</pid>
+            <process-name>/usr/sbin/lfmd -N</process-name>
+            <size>20048</size>
+            <size-percent>00.49</size-percent>
+            <resident>10668</resident>
+            <resident-percent>00.52</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7862</pid>
+            <process-name>/usr/libexec32/jdhcpd -N</process-name>
+            <size>835732</size>
+            <size-percent>20.57</size-percent>
+            <resident>25804</resident>
+            <resident-percent>01.26</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7863</pid>
+            <process-name>/usr/libexec32/authd -N</process-name>
+            <size>953956</size>
+            <size-percent>23.48</size-percent>
+            <resident>135184</resident>
+            <resident-percent>06.60</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7864</pid>
+            <process-name>/usr/libexec32/smid -N</process-name>
+            <size>43656</size>
+            <size-percent>01.07</size-percent>
+            <resident>13940</resident>
+            <resident-percent>00.68</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7866</pid>
+            <process-name>/usr/sbin/shm-rtsdbd -N</process-name>
+            <size>18264</size>
+            <size-percent>00.45</size-percent>
+            <resident>5180</resident>
+            <resident-percent>00.25</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7867</pid>
+            <process-name>/usr/sbin/gstatd -N</process-name>
+            <size>105532</size>
+            <size-percent>00.00</size-percent>
+            <resident>5016</resident>
+            <resident-percent>00.24</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7869</pid>
+            <process-name>/usr/sbin/agentd -N</process-name>
+            <size>40420</size>
+            <size-percent>00.99</size-percent>
+            <resident>20588</resident>
+            <resident-percent>01.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7873</pid>
+            <process-name>/usr/sbin/rpcbind -N -I -h 128.0.0.1</process-name>
+            <size>56988</size>
+            <size-percent>00.00</size-percent>
+            <resident>3236</resident>
+            <resident-percent>00.16</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7876</pid>
+            <process-name>/usr/sbin/pmcd -N</process-name>
+            <size>47832</size>
+            <size-percent>00.00</size-percent>
+            <resident>2152</resident>
+            <resident-percent>00.11</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7878</pid>
+            <process-name>/usr/sbin/pmond -N</process-name>
+            <size>111668</size>
+            <size-percent>00.00</size-percent>
+            <resident>5088</resident>
+            <resident-percent>00.25</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7883</pid>
+            <process-name>/usr/libexec32/bbe-smgd -b -N</process-name>
+            <size>96836</size>
+            <size-percent>02.38</size-percent>
+            <resident>13992</resident>
+            <resident-percent>00.68</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7884</pid>
+            <process-name>/usr/sbin/appidd -N</process-name>
+            <size>25228</size>
+            <size-percent>00.62</size-percent>
+            <resident>7224</resident>
+            <resident-percent>00.35</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7885</pid>
+            <process-name>/bin/sh /usr/sbin/charged -N</process-name>
+            <size>14876</size>
+            <size-percent>00.00</size-percent>
+            <resident>1684</resident>
+            <resident-percent>00.08</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7890</pid>
+            <process-name>/usr/sbin/cron -s -n</process-name>
+            <size>57012</size>
+            <size-percent>00.00</size-percent>
+            <resident>3236</resident>
+            <resident-percent>00.16</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7891</pid>
+            <process-name>/usr/sbin/license-check -U -M -p 10 -i 10</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7892</pid>
+            <process-name>/usr/sbin/mgd-api -N</process-name>
+            <size>18872</size>
+            <size-percent>00.46</size-percent>
+            <resident>8300</resident>
+            <resident-percent>00.41</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7893</pid>
+            <process-name>/usr/sbin/jsqlsyncd -N</process-name>
+            <size>18856</size>
+            <size-percent>00.46</size-percent>
+            <resident>8844</resident>
+            <resident-percent>00.43</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7894</pid>
+            <process-name>/sbin/watchdog -t-1</process-name>
+            <size>7840</size>
+            <size-percent>00.19</size-percent>
+            <resident>1460</resident>
+            <resident-percent>00.07</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7928</pid>
+            <process-name>/usr/libexec/getty.junos 3wire ttyu0</process-name>
+            <size>39864</size>
+            <size-percent>00.00</size-percent>
+            <resident>2332</resident>
+            <resident-percent>00.11</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7929</pid>
+            <process-name>/usr/libexec/getty.junos 3wire ttyv0</process-name>
+            <size>39864</size>
+            <size-percent>00.00</size-percent>
+            <resident>2332</resident>
+            <resident-percent>00.11</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7947</pid>
+            <process-name>/usr/sbin/rpd -N</process-name>
+            <size>877288</size>
+            <size-percent>21.59</size-percent>
+            <resident>85848</resident>
+            <resident-percent>04.19</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7948</pid>
+            <process-name>/usr/sbin/l2ald -N</process-name>
+            <size>206528</size>
+            <size-percent>00.00</size-percent>
+            <resident>34500</resident>
+            <resident-percent>01.68</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7949</pid>
+            <process-name>/usr/sbin/apsd -N</process-name>
+            <size>19912</size>
+            <size-percent>00.49</size-percent>
+            <resident>10544</resident>
+            <resident-percent>00.51</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7950</pid>
+            <process-name>/usr/libexec32/cosd</process-name>
+            <size>770452</size>
+            <size-percent>18.96</size-percent>
+            <resident>20544</resident>
+            <resident-percent>01.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7956</pid>
+            <process-name>/usr/sbin/lmpd</process-name>
+            <size>13532</size>
+            <size-percent>00.33</size-percent>
+            <resident>5760</resident>
+            <resident-percent>00.28</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7957</pid>
+            <process-name>/usr/sbin/rtspd -N</process-name>
+            <size>11012</size>
+            <size-percent>00.27</size-percent>
+            <resident>2860</resident>
+            <resident-percent>00.14</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7958</pid>
+            <process-name>/usr/sbin/fsad -N</process-name>
+            <size>15776</size>
+            <size-percent>00.39</size-percent>
+            <resident>5948</resident>
+            <resident-percent>00.29</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7959</pid>
+            <process-name>/usr/sbin/rdd -N</process-name>
+            <size>13776</size>
+            <size-percent>00.34</size-percent>
+            <resident>5600</resident>
+            <resident-percent>00.27</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7960</pid>
+            <process-name>/usr/sbin/pppd -N</process-name>
+            <size>13680</size>
+            <size-percent>00.34</size-percent>
+            <resident>5452</resident>
+            <resident-percent>00.27</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7961</pid>
+            <process-name>/usr/sbin/dfcd -N</process-name>
+            <size>41656</size>
+            <size-percent>01.03</size-percent>
+            <resident>17064</resident>
+            <resident-percent>00.83</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7964</pid>
+            <process-name>/usr/sbin/l2cpd -N</process-name>
+            <size>66444</size>
+            <size-percent>01.64</size-percent>
+            <resident>25212</resident>
+            <resident-percent>01.23</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7965</pid>
+            <process-name>/usr/sbin/oamd -N</process-name>
+            <size>20028</size>
+            <size-percent>00.49</size-percent>
+            <resident>10760</resident>
+            <resident-percent>00.53</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7966</pid>
+            <process-name>/usr/sbin/mplsoamd -N</process-name>
+            <size>13680</size>
+            <size-percent>00.34</size-percent>
+            <resident>4712</resident>
+            <resident-percent>00.23</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7967</pid>
+            <process-name>/usr/sbin/sendd -N</process-name>
+            <size>15592</size>
+            <size-percent>00.38</size-percent>
+            <resident>5748</resident>
+            <resident-percent>00.28</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7968</pid>
+            <process-name>/usr/sbin/iccpd -N</process-name>
+            <size>11436</size>
+            <size-percent>00.28</size-percent>
+            <resident>5080</resident>
+            <resident-percent>00.25</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7969</pid>
+            <process-name>/usr/sbin/jddosd -N</process-name>
+            <size>20492</size>
+            <size-percent>00.50</size-percent>
+            <resident>5888</resident>
+            <resident-percent>00.29</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7970</pid>
+            <process-name>nfsd: master</process-name>
+            <size>52904</size>
+            <size-percent>00.00</size-percent>
+            <resident>3224</resident>
+            <resident-percent>00.16</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7971</pid>
+            <process-name>/usr/sbin/commit-syncd -N</process-name>
+            <size>20096</size>
+            <size-percent>00.49</size-percent>
+            <resident>7768</resident>
+            <resident-percent>00.38</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7972</pid>
+            <process-name>/usr/sbin/mspd -N</process-name>
+            <size>13684</size>
+            <size-percent>00.34</size-percent>
+            <resident>5360</resident>
+            <resident-percent>00.26</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7973</pid>
+            <process-name>/usr/sbin/mountd -N -s -h 128.0.0.1 -p 6666</process-name>
+            <size>54904</size>
+            <size-percent>00.00</size-percent>
+            <resident>3332</resident>
+            <resident-percent>00.16</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7974</pid>
+            <process-name>/usr/sbin/jkdsd -N</process-name>
+            <size>129492</size>
+            <size-percent>00.00</size-percent>
+            <resident>8000</resident>
+            <resident-percent>00.39</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7975</pid>
+            <process-name>/usr/sbin/dot1xd -N</process-name>
+            <size>61856</size>
+            <size-percent>01.52</size-percent>
+            <resident>18332</resident>
+            <resident-percent>00.89</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7976</pid>
+            <process-name>/usr/sbin/jinsightd -N</process-name>
+            <size>15984</size>
+            <size-percent>00.39</size-percent>
+            <resident>6772</resident>
+            <resident-percent>00.33</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7977</pid>
+            <process-name>/usr/sbin/web-api -D -f /var/etc/lighttpd.conf</process-name>
+            <size>8724</size>
+            <size-percent>00.21</size-percent>
+            <resident>2416</resident>
+            <resident-percent>00.12</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7978</pid>
+            <process-name>/usr/sbin/jsd -N</process-name>
+            <size>32304</size>
+            <size-percent>00.80</size-percent>
+            <resident>16600</resident>
+            <resident-percent>00.81</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7979</pid>
+            <process-name>/usr/sbin/na-mqttd -c /opt/telemetry/na-mqttd/na-mqtt.conf</process-name>
+            <size>69620</size>
+            <size-percent>00.00</size-percent>
+            <resident>3712</resident>
+            <resident-percent>00.18</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7980</pid>
+            <process-name>/usr/sbin/xmlproxyd -N</process-name>
+            <size>15164</size>
+            <size-percent>00.37</size-percent>
+            <resident>6712</resident>
+            <resident-percent>00.33</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7981</pid>
+            <process-name>/usr/sbin/overlayd -N</process-name>
+            <size>36288</size>
+            <size-percent>00.89</size-percent>
+            <resident>5988</resident>
+            <resident-percent>00.29</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7982</pid>
+            <process-name>/usr/sbin/ntf-agent -N -c /var/etc/ntf-agent.conf</process-name>
+            <size>17164</size>
+            <size-percent>00.42</size-percent>
+            <resident>5660</resident>
+            <resident-percent>00.28</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7983</pid>
+            <process-name>/usr/sbin/na-grpcd -c /opt/telemetry/na-grpcd/na-grpc-server.ini</process-name>
+            <size>17668</size>
+            <size-percent>00.43</size-percent>
+            <resident>5736</resident>
+            <resident-percent>00.28</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7985</pid>
+            <process-name>nfsd: server</process-name>
+            <size>52904</size>
+            <size-percent>00.00</size-percent>
+            <resident>3220</resident>
+            <resident-percent>00.16</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7986</pid>
+            <process-name>/packages/mnt/junos-runtime/usr/sbin/lighttpd.crypto -D -f /var/etc/lighttpd.conf -m /packages/mnt/junos-runtime/usr/lib/lighttpd.crypto</process-name>
+            <size>16116</size>
+            <size-percent>00.40</size-percent>
+            <resident>5516</resident>
+            <resident-percent>00.27</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7988</pid>
+            <process-name>/usr/sbin/rpdtmd -N</process-name>
+            <size>144468</size>
+            <size-percent>00.00</size-percent>
+            <resident>7628</resident>
+            <resident-percent>00.37</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7989</pid>
+            <process-name>/usr/sbin/pkid -N</process-name>
+            <size>33688</size>
+            <size-percent>00.83</size-percent>
+            <resident>11876</resident>
+            <resident-percent>00.58</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7992</pid>
+            <process-name>mgd: (mgd) /packages/mnt/junos-runtime/usr/sbin/mgd (root)</process-name>
+            <size>72488</size>
+            <size-percent>01.78</size-percent>
+            <resident>36544</resident>
+            <resident-percent>01.78</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>7999</pid>
+            <process-name>/sbin/dcd -N</process-name>
+            <size>775692</size>
+            <size-percent>19.09</size-percent>
+            <resident>25480</resident>
+            <resident-percent>01.24</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8000</pid>
+            <process-name>/usr/sbin/alarmd -N</process-name>
+            <size>27904</size>
+            <size-percent>00.69</size-percent>
+            <resident>14100</resident>
+            <resident-percent>00.69</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8001</pid>
+            <process-name>/usr/sbin/snmpd -N</process-name>
+            <size>38028</size>
+            <size-percent>00.94</size-percent>
+            <resident>21092</resident>
+            <resident-percent>01.03</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8002</pid>
+            <process-name>/usr/sbin/tnp.sntpd -N</process-name>
+            <size>8504</size>
+            <size-percent>00.21</size-percent>
+            <resident>2192</resident>
+            <resident-percent>00.11</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8003</pid>
+            <process-name>/usr/libexec32/pfed -N</process-name>
+            <size>63984</size>
+            <size-percent>01.57</size-percent>
+            <resident>25452</resident>
+            <resident-percent>01.24</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8004</pid>
+            <process-name>/usr/sbin/irsd -N</process-name>
+            <size>13560</size>
+            <size-percent>00.33</size-percent>
+            <resident>5544</resident>
+            <resident-percent>00.27</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8005</pid>
+            <process-name>/usr/libexec32/dfwd -N</process-name>
+            <size>66744</size>
+            <size-percent>01.64</size-percent>
+            <resident>27248</resident>
+            <resident-percent>01.33</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8006</pid>
+            <process-name>/usr/sbin/stats-agentd -N</process-name>
+            <size>19908</size>
+            <size-percent>00.49</size-percent>
+            <resident>8680</resident>
+            <resident-percent>00.42</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8007</pid>
+            <process-name>/usr/sbin/transportd -N</process-name>
+            <size>129020</size>
+            <size-percent>03.18</size-percent>
+            <resident>12848</resident>
+            <resident-percent>00.63</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8008</pid>
+            <process-name>/usr/sbin/alarm-mgmtd -N</process-name>
+            <size>112228</size>
+            <size-percent>02.76</size-percent>
+            <resident>9972</resident>
+            <resident-percent>00.49</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8009</pid>
+            <process-name>/usr/sbin/jkhmd -N</process-name>
+            <size>127312</size>
+            <size-percent>00.00</size-percent>
+            <resident>8448</resident>
+            <resident-percent>00.41</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8010</pid>
+            <process-name>/usr/libexec32/bbe-statsd -N</process-name>
+            <size>31632</size>
+            <size-percent>00.78</size-percent>
+            <resident>9120</resident>
+            <resident-percent>00.45</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>8435</pid>
+            <process-name>/usr/sbin/datapath-traced -N</process-name>
+            <size>13672</size>
+            <size-percent>00.34</size-percent>
+            <resident>5372</resident>
+            <resident-percent>00.26</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>9696</pid>
+            <process-name>[ppt_11_80000010]</process-name>
+            <size>0</size>
+            <size-percent>00.00</size-percent>
+            <resident>0</resident>
+            <resident-percent>00.00</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>11288</pid>
+            <process-name>sshd: jcluser [priv]</process-name>
+            <size>131344</size>
+            <size-percent>00.00</size-percent>
+            <resident>8096</resident>
+            <resident-percent>00.40</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>11291</pid>
+            <process-name>sshd: jcluser@0</process-name>
+            <size>131344</size>
+            <size-percent>00.00</size-percent>
+            <resident>8140</resident>
+            <resident-percent>00.40</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>11292</pid>
+            <process-name>-cli</process-name>
+            <size>84308</size>
+            <size-percent>02.08</size-percent>
+            <resident>42048</resident>
+            <resident-percent>02.05</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>11293</pid>
+            <process-name>mgd: (mgd) (jcluser)/dev/pts/0</process-name>
+            <size>72620</size>
+            <size-percent>01.79</size-percent>
+            <resident>36544</resident>
+            <resident-percent>01.78</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>16637</pid>
+            <process-name>sleep 30</process-name>
+            <size>6104</size>
+            <size-percent>00.00</size-percent>
+            <resident>1364</resident>
+            <resident-percent>00.07</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>16805</pid>
+            <process-name>/usr/sbin/juise --rpc-on-box --auth-socket /var/run/rest_api_mgmt_sock /usr/sbin/juise</process-name>
+            <size>14924</size>
+            <size-percent>00.37</size-percent>
+            <resident>3804</resident>
+            <resident-percent>00.19</resident-percent>
+        </pmap-terse-summary>
+        <pmap-terse-summary junos:style="pmap-process-terse-summary">
+            <pid>16806</pid>
+            <process-name>mgd: (mgd) /packages/mnt/junos-runtime/usr/sbin/mgd (jcluser)</process-name>
+            <size>72488</size>
+            <size-percent>01.78</size-percent>
+            <resident>37636</resident>
+            <resident-percent>01.84</resident-percent>
+        </pmap-terse-summary>
+    </pmap-terse-information>
+</system-memory-information>

@@ -1,0 +1,34 @@
+{
+    "instance-information": [
+        {
+            "attributes": {
+                "xmlns": "http://xml.juniper.net/junos/19.4R0/junos-routing",
+                "junos:style": "detail"
+            },
+            "instance-core": [
+                {
+                    "instance-name": [
+                        {
+                            "data": "CUSTOMER_AWS"
+                        }
+                    ],
+                    "router-id": [
+                        {
+                            "data": "9.9.9.9"
+                        }
+                    ],
+                    "instance-type": [
+                        {
+                            "data": "non-forwarding"
+                        }
+                    ],
+                    "instance-state": [
+                        {
+                            "data": "Active"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

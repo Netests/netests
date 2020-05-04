@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" 
+    xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <bgp xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-ipv4-bgp-cfg">
+        <instance>
+            <instance-name>default</instance-name>
+            <instance-as>
+                <as>0</as>
+                <four-byte-as>
+                    <as>65000</as>
+                    <bgp-running/>
+                    <vrfs>
+                        <vrf>
+                            <vrf-name>EXTERNAL_PEERING</vrf-name>
+                            <vrf-global>
+                                <exists/>
+                                <route-distinguisher>
+                                    <type>as</type>
+                                    <as-xx>0</as-xx>
+                                    <as>65000</as>
+                                    <as-index>100</as-index>
+                                </route-distinguisher>
+                            </vrf-global>
+                        </vrf>
+                    </vrfs>
+                </four-byte-as>
+            </instance-as>
+        </instance>
+    </bgp>
+</data>

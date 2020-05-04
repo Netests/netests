@@ -1,0 +1,13 @@
+Value BGP_PEER (\d+\.\d+\.\d+\.\d+)
+Value VRF_NAME (\S+)
+Value REMOTE_AS (\S+)
+Value LOCAL_AS (\S+)
+Value STATE (\w+)
+
+
+Start 
+  ^BGP\s+neighbor\s+is\s+${BGP_PEER},\s+vrf\s+${VRF_NAME}
+  ^\s+Remote\s+AS\s+${REMOTE_AS},\s+local\s+AS\s+${LOCAL_AS},\s+internal\s+link
+  ^\s+BGP\s+[Ss]tate\s+=\s+${STATE}
+
+End

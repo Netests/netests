@@ -1,0 +1,9 @@
+<instance-information xmlns="http://xml.juniper.net/junos/19.4R0/junos-routing" 
+    xmlns:junos="http://xml.juniper.net/junos/*/junos" junos:style="detail">
+    <instance-core>
+        <instance-name>CUSTOMER_AWS</instance-name>
+        <router-id>9.9.9.9</router-id>
+        <instance-type>non-forwarding</instance-type>
+        <instance-state>Active</instance-state>
+    </instance-core>
+</instance-information>

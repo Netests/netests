@@ -1,7 +1,0 @@
-{
-    "bgp-information" : [
-    {
-        "attributes" : {"xmlns" : "http://xml.juniper.net/junos/18.1R2/junos-routing"},
-    }
-    ]
-}

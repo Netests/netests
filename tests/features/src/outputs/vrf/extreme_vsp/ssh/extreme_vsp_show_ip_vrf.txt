@@ -1,0 +1,19 @@
+************************************************************************************
+		Command Execution Time: Wed Apr 08 14:20:43 2020 UTC
+************************************************************************************
+
+
+====================================================================================================
+                                VRF INFORMATION
+====================================================================================================
+VRF       VLAN      ARP       RIP       OSPF      BGP      PIM      NBRv6    RIPng    OSPFv3   PIM6
+COUNT     COUNT     COUNT     COUNT     COUNT     COUNT    COUNT    COUNT    COUNT    COUNT    COUNT
+----------------------------------------------------------------------------------------------------
+3         2         4         1         1         1        1        0        1        1        1
+
+VRF                        VRF  VLAN   ARP                                NBRv6
+NAME                       ID   COUNT  COUNT  RIP    OSPF   BGP    PIM    COUNT  RIPng  OSPFv3 PIM6
+----------------------------------------------------------------------------------------------------
+GlobalRouter               0    1      0      TRUE   TRUE   TRUE   TRUE   0      TRUE   TRUE   TRUE
+mgmt_vrf                   1    0      0      FALSE  FALSE  FALSE  FALSE  0      FALSE  FALSE  FALSE
+MgmtRouter                 512  1      4      FALSE  FALSE  FALSE  FALSE  0      FALSE  FALSE  FALSE

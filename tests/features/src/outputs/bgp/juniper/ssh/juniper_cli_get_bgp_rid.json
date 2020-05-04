@@ -1,0 +1,90 @@
+{
+    "instance-information": [
+        {
+            "attributes": {
+                "xmlns": "http://xml.juniper.net/junos/19.4R0/junos-routing",
+                "junos:style": "detail"
+            },
+            "instance-core": [
+                {
+                    "instance-name": [
+                        {
+                            "data": "master"
+                        }
+                    ],
+                    "router-id": [
+                        {
+                            "data": "100.123.1.0"
+                        }
+                    ],
+                    "instance-type": [
+                        {
+                            "data": "forwarding"
+                        }
+                    ],
+                    "instance-state": [
+                        {
+                            "data": "Active"
+                        }
+                    ],
+                    "instance-rib": [
+                        {
+                            "irib-name": [
+                                {
+                                    "data": "inet.0"
+                                }
+                            ],
+                            "irib-route-count": [
+                                {
+                                    "data": "3"
+                                }
+                            ],
+                            "irib-active-count": [
+                                {
+                                    "data": "3"
+                                }
+                            ],
+                            "irib-holddown-count": [
+                                {
+                                    "data": "0"
+                                }
+                            ],
+                            "irib-hidden-count": [
+                                {
+                                    "data": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "irib-name": [
+                                {
+                                    "data": "inet6.0"
+                                }
+                            ],
+                            "irib-route-count": [
+                                {
+                                    "data": "1"
+                                }
+                            ],
+                            "irib-active-count": [
+                                {
+                                    "data": "1"
+                                }
+                            ],
+                            "irib-holddown-count": [
+                                {
+                                    "data": "0"
+                                }
+                            ],
+                            "irib-hidden-count": [
+                                {
+                                    "data": "0"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

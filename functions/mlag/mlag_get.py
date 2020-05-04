@@ -79,7 +79,7 @@ except ImportError as importError:
 #
 # Functions
 #
-def get_mlag(nr: Nornir):
+def get_mlag(nr: Nornir, filters={}, level=None, own_vars={}):
 
     devices = nr.filter()
 

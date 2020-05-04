@@ -1,0 +1,48 @@
+{
+    "ins_api": {
+        "outputs": {
+            "output": {
+                "body": {
+                    "TABLE_package_list": {
+                        "ROW_package_list": {
+                            "package_id": "mtx-openconfig-all-1.0.0.0-9.3.3.lib32_n9000"
+                        }
+                    },
+                    "bios_cmpl_time": "",
+                    "bios_ver_str": "",
+                    "bootflash_size": 4287040,
+                    "chassis_id": "Nexus9000 C9300v Chassis",
+                    "cpu_name": "Intel(R) Xeon(R) Platinum 8176 CPU @ 2.10GHz",
+                    "header_str": "Cisco Nexus Operating System (NX-OS) Software\nTAC support: http: //www.cisco.com/tac\nDocuments: http: //www.cisco.com/en/US/products/ps9372/tsd_products_support_series_home.html\nCopyright (c) 2002-2019, Cisco Systems, Inc. All rights reserved.\nThe copyrights to certain works contained herein are owned by\nother third parties and are used and distributed under license.\nSome parts of this software are covered under the GNU Public\nLicense. A copy of the license is available at\nhttp: //www.gnu.org/licenses/gpl.html.\n\nNexus 9000v is a demo version of the Nexus Operating System\n",
+                    "host_name": "leaf02",
+                    "kern_uptm_days": 0,
+                    "kern_uptm_hrs": 2,
+                    "kern_uptm_mins": 41,
+                    "kern_uptm_secs": 21,
+                    "kick_cmpl_time": "12/22/2019 2: 00: 00",
+                    "kick_file_name": "bootflash: ///nxos.9.3.3.bin",
+                    "kick_tmstmp": "12/22/2019 14: 00: 37",
+                    "kickstart_ver_str": "9.3(3)",
+                    "manufacturer": "Cisco Systems, Inc.",
+                    "mem_type": "kB",
+                    "memory": 16409064,
+                    "nxos_cmpl_time": "12/22/2019 2: 00: 00",
+                    "nxos_file_name": "bootflash: ///nxos.9.3.3.bin",
+                    "nxos_tmstmp": "12/22/2019 14: 00: 37",
+                    "nxos_ver_str": "9.3(3)",
+                    "plugins": "Core Plugin, Ethernet Plugin",
+                    "proc_board_id": "9N3KD63KWT0",
+                    "rr_reason": "Unknown",
+                    "rr_service": "",
+                    "rr_sys_ver": ""
+                },
+                "code": "200",
+                "input": "show version",
+                "msg": "Success"
+            }
+        },
+        "sid": "eoc",
+        "type": "cli_show",
+        "version": "1.0"
+    }
+}

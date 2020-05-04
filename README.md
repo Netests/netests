@@ -22,13 +22,56 @@ pip 19.2.3
 
 
 
-## Discuss
+## Devices used 
 
-E-mail me at <dylan.hamel@protonmail.com> with your Telegram ID to join the chat :smiley:.
+#### Cisco IOS-XE
+
+```shell
+ROM: IOS-XE ROMMON
+BOOTLDR: System Bootstrap, Version 16.12.1r, RELEASE SOFTWARE (P)
+```
+
+#### Cisco Nexus NXOS
+
+```shell
+Nexus 9000v is a demo version of the Nexus Operating System
+
+Software
+  BIOS: version
+  NXOS: version 7.0(3)I7(5a)
+  BIOS compile time:
+  NXOS image file is: bootflash:///nxos.7.0.3.I7.5a.bin
+  NXOS compile time:  10/12/2018 19:00:00 [10/13/2018 03:16:04]
+```
+
+#### Juniper VMX
+
+```shell
+> show version
+Hostname: leaf04
+Model: vmx
+Junos: 18.3R1.9
+#----------------------
+> show version
+Hostname: leaf04
+Model: vmx
+Junos: 19.4R1.10
+```
+
+
 
 
 
 ## How to use ??
+
+This tool contains two modes :
+
+* Integrity & Sanity checks
+* CLI 
+
+
+
+### Integrity & Sanity checks
 
 The idea of this project is to offer a test platform for the network to allow engineers to perform tests without having to write python code (or other languages :smile:).
 
@@ -204,40 +247,171 @@ leaf03:
 
 
 
-## Capabilities (Only via SSH) LOT OF WORK
+### Netests-CLI
+
+You can get some informations regarding you network configuration directly from the CLI.
+
+This tool will use your Ansible/Nornir/Netbox Inventory. For example :
+
+```shell
+[leaf]
+leaf01
+leaf02
+leaf03
+leaf04
+leaf05
+
+[spine]
+spine01
+spine02
+spine03
+```
+
+#### Run the CLI tool
+
+```shell
+⚡ ./netests.py -a True -t True
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+Welcome to Netests CLI
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+```
+
+#### Get HELP
+
+```
+> help
++------------------------------------------------------------+
+|                       Netests Help                         |
++------------------------------------------------------------+
+| [help]      Display help                                   |
+| [select]    Select devices on which on action will be exec |
+| [unselect]  Remove a device from the selected              |
+| [get xxx]   Get XXX protocols informations                 |
++------------------------------------------------------------+
+```
+
+#### Select devices
+
+At the beginning if you use a command to get some network informations, nothing will happend. The reason is that no device is selected.
+
+```shell
+> get vrf
+[[netests - get_vrf]] no device selected.
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+@End GET
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+```
+
+You have to select devices on which one you would get informations
+
+##### Select all devices in the inventory
+
+```shell
+> select *
+@Followings devices will be added to the list :
+@['leaf01', 'leaf02', 'leaf03', 'leaf04', 'leaf05', 'spine01', 'spine02', 'spine03']
+```
+
+##### Select only a subset of devices
+
+```
+> select leaf01,spine03
+@Followings devices will be added to the list :
+@['leaf01', 'spine03']
+```
+
+#### Execute GET
+
+Run the command `get` and the protocols that you would like retrieve.
+
+```shell
+> select leaf01,spine03
+@Followings devices will be added to the list :
+@['leaf01', 'spine03']
+> get vrf
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+>>>>> spine03
+{   'ListVRF': [   {   'VRF': {   'exp_targ': 'NOT_SET',
+                                  'imp_targ': 'NOT_SET',
+                                  'l3_vni': 'NOT_SET',
+                                  'rd': 'NOT_SET',
+                                  'rt_exp': 'NOT_SET',
+                                  'rt_imp': 'NOT_SET',
+                                  'vrf_id': 'NOT_SET',
+                                  'vrf_name': 'MGMT_VRF',
+                                  'vrf_type': 'NOT_SET'}},
+                   {   'VRF': {   'exp_targ': 'NOT_SET',
+                                  'imp_targ': 'NOT_SET',
+                                  'l3_vni': 'NOT_SET',
+                                  'rd': 'NOT_SET',
+                                  'rt_exp': '65000:1',
+                                  'rt_imp': '65000:1',
+                                  'vrf_id': 'NOT_SET',
+                                  'vrf_name': 'EXTERNAL_PEERING',
+                                  'vrf_type': 'NOT_SET'}}]}
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+>>>>> leaf01
+{   'ListVRF': [   {   'VRF': {   'exp_targ': 'NOT_SET',
+                                  'imp_targ': 'NOT_SET',
+                                  'l3_vni': 'NOT_SET',
+                                  'rd': 'NOT_SET',
+                                  'rt_exp': 'NOT_SET',
+                                  'rt_imp': 'NOT_SET',
+                                  'vrf_id': '1001',
+                                  'vrf_name': 'mgmt',
+                                  'vrf_type': 'NOT_SET'}}]}
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+@End GET
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
+```
+
+
+
+![images/netests_cli.png](images/netests_cli.png)
+
+
+
+## Capabilities
 
 |           |      Juniper       |      Cumulus       | Arista             |        NXOS        |        IOS         |       IOS-XR       |    Extreme VSP     | NAPALM             |
 | --------- | :----------------: | ------------------ | :----------------: | :----------------: | :----------------: | :----------------: | ------------------ | :----------------: |
 | BGP       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | OSPF      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| SysInfos  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
+| Facts | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | Ping      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| Socket v4 |        :x:         | :white_check_mark:(1) | :white_check_mark:(4) |        :x:         |        :x:         |        :x:         |        :x:         | :sleepy:        |
-| Static    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| VRF       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :white_check_mark:         | :white_check_mark: |
-| LLDP      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-| CDP       |      :sleepy:      | :white_check_mark: | :sleepy:           | :white_check_mark: | :white_check_mark: |        :x:         |      :sleepy:      | :sleepy:           |
-| IPv4      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         |       :white_check_mark:         | :white_check_mark: |
-| IPv6      |        :x:         | :white_check_mark: | :white_check_mark: |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| MTU       | :white_check_mark: |        :white_check_mark:        | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:(3)  |
+| LLDP | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :white_check_mark: |
+| VRF | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 |  |  |  |  |  |  |  |  |  |
 | **MVP ^^^** |  |  |  |  |  |  |  |  |
 |  |  |  |  |  |  |  |  |  |
+| Socket v4 |        :x:         | :white_check_mark:(1) | :white_check_mark:(4) |        :x:         |        :x:         |        :x:         |        :x:         | :sleepy:        |
+| Static    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
+| IS-IS       |        :x:         | :x:                   |          :x:          |        :x:         |        :x:         |        :x:         | :x:                | :x: |
+| IPv4        | :white_check_mark: | :white_check_mark:    |  :white_check_mark:   | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
+|             |                    |                       |                       |                    |                    |                    |                    |                    |
+| **P2 ^^^** |                    |                       |                       |                    |                    |                    |                    |                    |
+|  |                    |                       |                       |                    |                    |                    |                    |                    |
+| VLAN        |        :x:         | :white_check_mark:    |  :white_check_mark:   |        :x:         |        :x:         |        :x:         | :x:                |        :x:         |
+| LACP        |        :x:         | :white_check_mark:    |          :x:          |        :x:         |        :x:         |        :x:         | :x:                | :sleepy: |
+| MTU | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :sleepy:(3) |
+| SNMP | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
+| Syslog | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
+| | | | | | | | | |
+| **P3 ^^^** |  |  |  |  |  |  |  |  |
+|  | | | | | | | | |
+| IPv6 | :x: | :white_check_mark: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: |
 | MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
 | L2VNI | :x: | :sleepy:(2) | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| LACP | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| VLAN | :x: | :white_check_mark: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: |
-| IS-IS | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
-|  |  |  |  |  |  |  |  |  |
-| **P2 ^^^** |                    |                    |                    |                    |                    |                    |                    |                    |
-|           |                    |                    |                    |                    |                    |                    |                    |                    |
+| LDP         |        :x:         | :x:                   |          :x:          |        :x:         |        :x:         |        :x:         | :x:                |        :x:         |
+|             |                    |                       |                       |                    |                    |                    |                    |                    |
+| **P4 ^^^** |                    |                       |                       |                    |                    |                    |                    |                    |
+|  |                    |                    |                    |                    |                    |                    |                    |                    |
 | VTEP      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | Multicast |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| VLAN      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | VXLAN     |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 | EVPN      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
 |             |                    |                       |                       |                    |                    |                    |                    |                    |
-| **P3 ^^^** |  |  |  |  |  |  |  |  |
+| **P5 ^^^** |  |  |  |  |  |  |  |  |
 
 :white_check_mark: = Implemented
 
@@ -255,6 +429,42 @@ leaf03:
 
 
 
+
+## Pipeline
+
+|                     | VRF                | FACTS              | BGP                | LLDP | PING | OSPF |
+| ------------------- | ------------------ | ------------------ | ------------------ | ---- | ---- | ---- |
+| NAPALM              | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Juniper SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Juniper Netconf     | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Juniper API         | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         |      |      |      |
+| Cumulus API         | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Arista SSH          | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Arista API          | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Arista Netconf      | :white_check_mark: |                    |                    |      |      |      |
+| Nexus SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Nexus Netconf       | :white_check_mark: | :no_entry:         | :no_entry:         |      |      |      |
+| Nexus API           | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| IOS SSH             | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| IOS API             | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| IOS Netconf         | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| Extreme VSP API     | :x:                | :white_check_mark: | :x:                |      |      |      |
+| Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         |      |      |      |
+| IOSXR SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |      |
+| IOSXR Netconf       | :white_check_mark: |                    | :white_check_mark: |      |      |      |
+| IOSXR API           | :no_entry:         | :no_entry:         | :no_entry:         |      |      |      |
+
+:no_entry: = Not Supported
+
+:x: = Not Supported by the vendor (Exemple: RestConf available but get VRF with RestConf not possible).
+
+[EMPTY] => Not Implemented
+
+
+
 ## Devices supported by NAPALM
 
 |      Juniper       | Cumulus |       Arista       |     Cisco NXOS     |    Cisco IOS-XR    |     Cisco IOS      | Extreme |
@@ -263,6 +473,15 @@ leaf03:
 |       junos        |   ---   |        eos         |        nxos        |       iosxr        |        ios         |   ---   |
 
 For the moment Cumulus Linux is only compatible with SSH. Utilization with REST API is int development.
+
+
+
+## TextFSM templates
+
+Some templates have be retreieve on :
+
+**https://github.com/networktocode/ntc-templates/tree/master/templates**
+
 
 
 ## Alternative to NAPALM ??
@@ -284,36 +503,15 @@ https://github.com/napalm-automation
 https://napalm.readthedocs.io/en/latest/
 
 
-## Road Map
-
-Join the Telegram channel to have access to Trello
-
-
-## Pipeline
-
-|             | MTU                | MLAG               | VLAN               | IPv4               | IPv6               | Static             | BGP                | OSPF               | SysInfos           | CDP  | LLDP               | VRF  | Ping | Socket |
-| ----------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ------------------ | ---- | ---- | ------ |
-| NAPALM      |                    |                    |                    | :white_check_mark: |                    |                    |                    |                    |                    |      |                    |      |      |        |
-| Juniper     |                    |                    |                    | :white_check_mark: |                    | :white_check_mark: |                    | :white_check_mark: |                    |      | :white_check_mark: |      |      |        |
-| Cumulus     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: |                    |      | :white_check_mark: |      |      |        |
-| Arista      | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |                    |      | :white_check_mark: |      |      |        |
-| Nexus       | :white_check_mark: |                    |                    | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |      |                    |      |      |        |
-| IOS         |                    |                    |                    | :white_check_mark: |                    |                    |                    | :white_check_mark: |                    |      |                    |      |      |        |
-| Extreme VSP |                    |                    |                    | :white_check_mark: |                    |                    | :white_check_mark: | :white_check_mark: |                    |      |                    |      |      |        |
-| IOS-XR      |                    |                    |                    |                    |                    |                    |                    |                    |                    |      |                    |      |      |        |
-
-
-
-## TextFSM templates
-
-Some templates have be retreieve on :
-
-**https://github.com/networktocode/ntc-templates/tree/master/templates**
-
 
 ## Contributor
 
+Dylan Hamel - <dylan.hamle@protonmail.com>
+
 **Become a contributor** !!!
+
+
+
 
 
 ## *(3) NAPALM

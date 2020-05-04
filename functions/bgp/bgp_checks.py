@@ -14,7 +14,7 @@ ERROR_HEADER = "Error import [bgp_checks.py]"
 HEADER_GET = "[netests - bgp_checks]"
 
 
-def get_bgp_up(nr: Nornir):
+def get_bgp_up(nr: Nornir, filters={}, level=None, vars={}):
 
     devices = nr.filter()
 

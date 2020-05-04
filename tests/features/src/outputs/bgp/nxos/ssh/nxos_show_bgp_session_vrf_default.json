@@ -1,0 +1,27 @@
+{
+    "totalpeers": "3",
+    "totalestablishedpeers": "0",
+    "localas": "65535",
+    "TABLE_vrf": {
+        "ROW_vrf": {
+            "vrf-name-out": "default",
+            "local-as": "65535",
+            "vrfpeers": "1",
+            "vrfestablishedpeers": "0",
+            "router-id": "172.16.0.1",
+            "TABLE_neighbor": {
+                "ROW_neighbor": {
+                    "neighbor-id": "172.16.0.2",
+                    "connectionsdropped": "0",
+                    "remoteas": "65535",
+                    "lastflap": "PT5H8M5S",
+                    "state": "Idle",
+                    "localport": "0",
+                    "remoteport": "0",
+                    "notificationssent": "0",
+                    "notificationsreceived": "0"
+                }
+            }
+        }
+    }
+}

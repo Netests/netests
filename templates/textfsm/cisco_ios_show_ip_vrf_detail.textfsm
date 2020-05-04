@@ -1,0 +1,16 @@
+Value VRF_NAME ([a-zA-Z_\-0-9]+)
+Value VRF_ID (\d+)
+Value RD ((<not set>|[a-zA-Z_\:\-0-9]+))
+Value VPN_ID ((<not set>|[a-zA-Z_\:\-0-9]+))
+Value DESCR ((<not set>|[a-zA-Z_\:\-0-9]+))
+Value RT_IMPORT ([a-zA-Z_\-0-9:]+)
+Value RT_EXPORT ([a-zA-Z_\-0-9:]+)
+
+Start
+  ^VRF\s+${VRF_NAME}\s+\(VRF\s+Id\s+\=\s+${VRF_ID}\)\;\s+\w+\s+RD\s+${RD}\;\s+\w+\s+VPNID\s+${VPN_ID}
+  ^\s+Description:\s+${DESCR}
+  ^\s+Import\s+VPN\s+route-target\s+communities:RT:${RT_IMPORT}
+  ^\s+Export\s+VPN\s+route-target\s+communities:RT:${RT_EXPORT} 
+  ^Address\s+family\s+ipv4\s+multicast -> Record
+
+Done

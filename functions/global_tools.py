@@ -1,17 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "0.1"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
-
-
 import yaml
 import json
-from nornir import InitNornir
+import shutil
 from nornir.core import Nornir
 from netmiko import ConnectHandler
 from jnpr.junos.device import Device
@@ -73,10 +65,7 @@ def check_devices_connectivity(nr: Nornir) -> bool:
     printline()
     return not data.failed
 
-# -------------------------------------------------------------------------------
-#
-# Test devices connectivity Nornir function
-#
+
 def is_alive(task) -> None:
     """
     This function will use Netmiko find_prompt() function to test connectivity
@@ -100,43 +89,6 @@ def is_alive(task) -> None:
     return True
 
 
-# ------------------------------------------------------------------------------------------------------------------
-#
-#
-def init_nornir(
-    log_file="./nornir/nornir.log",
-    log_level=NORNIR_DEBUG_MODE,
-    ansible=False,
-    virtual=False,
-    netbox=False,
-) -> Nornir:
-    """
-    Initialize Nornir object with the following files
-    """
-
-    config_file = str()
-    if netbox:
-        config_file = "./nornir/config_netbox.yml"
-    elif ansible:
-        if virtual:
-            config_file = "./nornir/config_ansible_virt.yml"
-        else:
-            config_file = "./nornir/config_ansible.yml"
-    else:
-        if virtual:
-            config_file = "./nornir/config_std_virt.yml"
-        else:
-            config_file = "./nornir/config_std.yml"
-
-    nr = InitNornir(
-        config_file=config_file, logging={"file": log_file, "level": log_level}
-    )
-
-    return nr
-
-# ------------------------------------------------------------------------------------------------------------------
-#
-#
 def _generic_interface_filter(plateform, interface_name,* , filters=dict()) -> bool:
 
     if "linux" in plateform and "bridge" not in interface_name and \
@@ -180,26 +132,6 @@ def _generic_interface_filter(plateform, interface_name,* , filters=dict()) -> b
 
     return False
 
-# ------------------------------------------------------------------------------------------------------------------
-#
-#
-def init_junos_api(hostname:str, username:str, password:str) -> Device:
-    """
-    This function will init a NetConf connection through SSH on a Juniper device
-    The following command has to be configured on Juniper device
-    -> set system services netconf ssh
-    (18.1R2.6)
-
-    :param hostname:
-    :param username:
-    :param password:
-    :return Device:
-    """
-    return Device(
-        host=hostname,
-        user=username,
-        password=password
-    )
 
 # ------------------------------------------------------------------------------------------------------------------
 #
@@ -430,6 +362,29 @@ def open_file(path: str()) -> dict():
 #
 # Open a Text File
 #
+def open_txt_file_as_bytes(path: str()) -> str():
+    """
+    This function  will open a yaml file and return is data
+
+    Args:
+        param1 (str): Path to the string file
+
+    Returns:
+        str: file content
+    """
+
+    with open(path, 'rb') as content_file   :
+        try:
+            content = content_file.read()
+        except Exception as exc:
+            print(exc)
+
+    return content
+
+# ----------------------------------------------------------------------------------------------------------------------
+#
+# Open a Text File
+#
 def open_txt_file(path: str()) -> str():
     """
     This function  will open a yaml file and return is data
@@ -466,7 +421,7 @@ def open_json_file(path: str()) -> str():
 
     with open(path, 'r') as content_file:
         try:
-            content = json.dump(content_file)
+            content = json.loads(content_file.read())
         except yaml.YAMLError as exc:
             print(exc)
 
@@ -482,8 +437,8 @@ def printline() -> None:
     This function print a line :)
     :return None:
     """
-    print("////////////////////////////////////////////////////////////////////////////////////////")
-
+    size =  int(shutil.get_terminal_size()[0] / 2)
+    print("*-" * size)
 
 # ----------------------------------------------------------------------------------------------------------------------
 #
@@ -498,7 +453,6 @@ def printline_comment_json(comment:str, json_to_print) -> None:
     print(f"///////////////\t {comment}")
     printline()
     PP.pprint(json_to_print)
-    printline()
 
 # -------------------------------------------------------------------------------
 #

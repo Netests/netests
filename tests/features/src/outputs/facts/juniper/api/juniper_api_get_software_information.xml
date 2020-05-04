@@ -1,0 +1,278 @@
+<software-information>
+    <host-name>leaf04</host-name>
+    <product-model>vmx</product-model>
+    <product-name>vmx</product-name>
+    <junos-version>19.4R1.10</junos-version>
+    <package-information>
+        <name>os-kernel</name>
+        <comment>JUNOS OS Kernel 64-bit  [20191115.14c2ad5_builder_stable_11]</comment>
+    </package-information>
+    <package-information>
+        <name>os-libs</name>
+        <comment>JUNOS OS libs [20191115.14c2ad5_builder_stable_11]</comment>
+    </package-information>
+    <package-information>
+        <name>os-runtime</name>
+        <comment>JUNOS OS runtime [20191115.14c2ad5_builder_stable_11]</comment>
+    </package-information>
+    <package-information>
+        <name>zoneinfo</name>
+        <comment>JUNOS OS time zone information [20191115.14c2ad5_builder_stable_11]</comment>
+    </package-information>
+    <package-information>
+        <name>netstack</name>
+        <comment>JUNOS network stack and utilities [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-libs</name>
+        <comment>JUNOS libs [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>os-libs-compat32</name>
+        <comment>JUNOS OS libs compat32 [20191115.14c2ad5_builder_stable_11]</comment>
+    </package-information>
+    <package-information>
+        <name>os-compat32</name>
+        <comment>JUNOS OS 32-bit compatibility [20191115.14c2ad5_builder_stable_11]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-libs-compat32</name>
+        <comment>JUNOS libs compat32 [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-runtime</name>
+        <comment>JUNOS runtime [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>vmguest</name>
+        <comment>JUNOS Packet Forwarding Engine Simulation Package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>sflow-platform</name>
+        <comment>JUNOS sflow mx [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>py-extensions2</name>
+        <comment>JUNOS py extensions2 [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>py-extensions</name>
+        <comment>JUNOS py extensions [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>py-base2</name>
+        <comment>JUNOS py base2 [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>py-base</name>
+        <comment>JUNOS py base [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>os-vmguest</name>
+        <comment>JUNOS OS vmguest [20191115.14c2ad5_builder_stable_11]</comment>
+    </package-information>
+    <package-information>
+        <name>os-crypto</name>
+        <comment>JUNOS OS crypto [20191115.14c2ad5_builder_stable_11]</comment>
+    </package-information>
+    <package-information>
+        <name>na-telemetry</name>
+        <comment>JUNOS na telemetry [19.4R1.10]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-libs-compat32-platform</name>
+        <comment>JUNOS mx libs compat32 [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-runtime-platform</name>
+        <comment>JUNOS mx runtime [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-rpd-telemetry-application</name>
+        <comment>JUNOS RPD Telemetry Application [19.4R1.10]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-redis</name>
+        <comment>Redis [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-platform</name>
+        <comment>JUNOS common platform support [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-openconfig</name>
+        <comment>JUNOS Openconfig [19.4R1.10]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-net-platform</name>
+        <comment>JUNOS mtx network modules [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-modules</name>
+        <comment>JUNOS modules [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-modules-platform</name>
+        <comment>JUNOS mx modules [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-libs-platform</name>
+        <comment>JUNOS mx libs [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-jsqlsync</name>
+        <comment>JUNOS SQL Sync Daemon [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-dp-crypto-support-platform</name>
+        <comment>JUNOS mtx Data Plane Crypto Support [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-daemons</name>
+        <comment>JUNOS daemons [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-daemons-platform</name>
+        <comment>JUNOS mx daemons [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>junos-appidd</name>
+        <comment>JUNOS appidd-mx application-identification daemon [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jsim-wrlinux</name>
+        <comment>JUNOS Simulation Linux Package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jsim-pfe-vmx</name>
+        <comment>JUNOS Simulation Package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-urlf</name>
+        <comment>JUNOS Services URL Filter package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-traffic-dird</name>
+        <comment>JUNOS Services TLB Service PIC package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-telemetry</name>
+        <comment>JUNOS Services Telemetry [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-tcp-log</name>
+        <comment>JUNOS Services TCP-LOG [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-ssl</name>
+        <comment>JUNOS Services SSL [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-softwire</name>
+        <comment>JUNOS Services SOFTWIRE [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-sfw</name>
+        <comment>JUNOS Services Stateful Firewall [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-rtcom</name>
+        <comment>JUNOS Services RTCOM [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-rpm</name>
+        <comment>JUNOS Services RPM [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-pcef</name>
+        <comment>JUNOS Services PCEF package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-nat</name>
+        <comment>JUNOS Services NAT [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-mss</name>
+        <comment>JUNOS Services Mobile Subscriber Service Container package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-mobile</name>
+        <comment>JUNOS Services MobileNext Software package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-lrf</name>
+        <comment>JUNOS Services Logging Report Framework package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-llpdf</name>
+        <comment>JUNOS Services LL-PDF Container package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-jflow</name>
+        <comment>JUNOS Services Jflow Container package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-jdpi</name>
+        <comment>JUNOS Services Deep Packet Inspection package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-ipsec</name>
+        <comment>JUNOS Services IPSec [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-ids</name>
+        <comment>JUNOS Services IDS [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-idp</name>
+        <comment>JUNOS IDP Services [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-hcm</name>
+        <comment>JUNOS Services HTTP Content Management package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-crypto-base</name>
+        <comment>JUNOS Services Crypto [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-cpcd</name>
+        <comment>JUNOS Services Captive Portal and Content Delivery Container package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-cos</name>
+        <comment>JUNOS Services COS [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-appid</name>
+        <comment>JUNOS AppId Services [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-alg</name>
+        <comment>JUNOS Services Application Level Gateways [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jservices-aacl</name>
+        <comment>JUNOS Services AACL Container package [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jsd-jet-1</name>
+        <comment>JUNOS Extension Toolkit [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jmrt-base-x86-64</name>
+        <comment>JUNOS Juniper Malware Removal Tool (JMRT) [1.0.0+20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jinsight</name>
+        <comment>JUNOS J-Insight [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jdocs</name>
+        <comment>JUNOS Online Documentation [20191219.030908_builder_junos_194_r1]</comment>
+    </package-information>
+    <package-information>
+        <name>jail-runtime</name>
+        <comment>JUNOS jail runtime [20191115.14c2ad5_builder_stable_11]</comment>
+    </package-information>
+</software-information>

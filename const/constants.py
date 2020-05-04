@@ -33,13 +33,22 @@ NETCONF_CONNECTION = "netconf"
 SSH_CONNECTION = "ssh"
 API_CONNECTION = "api"
 NAPALM_CONNECTION = "napalm"
-
+CONNEXION_MODE = [
+    NETCONF_CONNECTION,
+    SSH_CONNECTION,
+    API_CONNECTION,
+    NAPALM_CONNECTION
+]
 NETCONF_FILTER = "<filter>{}</filter>"
+
+# CONFIG FILE
+NETESTS_CONFIG = "netests.yml"
 
 # REPORT PATH
 REPORT_FOLDER = "reports/"
 TEMPLATES_PATH = "templates/"
-FEATURES_PATH = "features/"
+TESTS_PATH = "tests/"
+FEATURES_PATH = f"{TESTS_PATH}features/"
 FEATURES_SRC_PATH = f"{FEATURES_PATH}src/"
 FEATURES_OUTPUT_PATH = f"{FEATURES_SRC_PATH}outputs/"
 TEXTFSM_PATH = f"{TEMPLATES_PATH}textfsm/"
@@ -71,6 +80,15 @@ CISCO_IOS_PLATEFORM_NAME = 'ios'
 CISCO_IOSXR_PLATEFORM_NAME = 'iosxr'
 ARISTA_PLATEFORM_NAME = 'eos'
 EXTREME_PLATEFORM_NAME = 'extreme_vsp'
+PLATFORM_SUPPORTED = [
+    ARISTA_PLATEFORM_NAME,
+    CUMULUS_PLATEFORM_NAME,
+    EXTREME_PLATEFORM_NAME,
+    CISCO_IOS_PLATEFORM_NAME,
+    CISCO_IOSXR_PLATEFORM_NAME,
+    JUNOS_PLATEFORM_NAME,
+    NEXUS_PLATEFORM_NAME
+]
 
 # TESTS TO EXECUTE FILE
 TEST_TO_EXECUTE_FILENAME = "_test_to_execute.yml"
@@ -87,7 +105,7 @@ IPV4_SRC_FILENAME = "ipv4.yml"
 IPV6_SRC_FILENAME = "ipv6.yml"
 MLAG_SRC_FILENAME = "mlag.yml"
 STATIC_SRC_FILENAME = "static.yml"
-INFOS_SRC_FILENAME = "sys_infos.yml"
+FACTS_SRC_FILENAME = "facts.yml"
 MTU_SRC_FILENAME = "mtu.yml"
 L2VNI_SRC_FILENAME = "l2vni.yml"
 VLAN_SRC_FILENAME = "vlan.yml"
@@ -103,7 +121,7 @@ TEST_TO_EXC_OSPF_KEY = 'ospf'
 TEST_TO_EXC_IPV4_KEY = 'ipv4'
 TEST_TO_EXC_IPV6_KEY = 'ipv6'
 TEST_TO_EXC_STATIC_KEY = 'static'
-TEST_TO_EXC_INFOS_KEY = 'sys_infos'
+TEST_TO_EXC_FACTS_KEY = 'facts'
 TEST_TO_EXC_MTU_KEY = "mtu"
 TEST_TO_EXC_MLAG_KEY = "mlag"
 TEST_TO_EXC_L2VNI_KEY = "l2vni"
@@ -115,21 +133,15 @@ YAML_GROUPS_KEY = 'groups'
 YAML_DEVICES_KEY = 'devices'
 
 # JUNOS COMMANDS
-JUNOS_GET_INFOS = "show version | display json"
-JUNOS_GET_IPV4 = JUNOS_GET_INT = "show interfaces brief | display json"
+JUNOS_GET_FACTS = "show version | display json"
+JUNOS_GET_IPV4 = JUNOS_GET_INT = "show interfaces terse | display json"
 JUNOS_GET_MEMORY = "show system memory | display json"
 JUNOS_GET_CONFIG_SYSTEM = "show configuration system | display json"
 JUNOS_GET_SERIAL = "show chassis hardware detail | display json"
 JUNOS_GET_BGP = "show bgp neighbor exact-instance master | display json"
-JUNOS_GET_BGP_RID = (
-    "show configuration routing-options router-id "
-    "| display json"
-)
+JUNOS_GET_BGP_RID = "show route instance master detail | display json"
 JUNOS_GET_BGP_VRF = "show bgp neighbor exact-instance {} | display json"
-JUNOS_GET_BGP_VRF_RID = (
-    "show configuration routing-instances {} "
-    "routing-options router-id | display json"
-)
+JUNOS_GET_BGP_VRF_RID = "show route instance {} detail | display json"
 JUNOS_GET_VRF_DETAIL = "show route instance detail | display json"
 JUNOS_GET_VRF = "show route instance | display json"
 JUNOS_GET_MTU = "show interfaces | display json"
@@ -142,30 +154,40 @@ JUNOS_GET_LLDP = "show lldp neighbors | display json"
 
 # CUMULUS COMMANDS
 CUMULUS_GET_BGP = 'net show bgp summary json'
+CUMULUS_API_GET_BGP = 'show bgp summary json'
 CUMULUS_GET_BGP_VRF = "net show bgp vrf {} summary json"
-CUMULUS_GET_VRF = "net show bgp vrf"
+CUMULUS_API_GET_BGP_VRF = "show bgp vrf {} summary json"
+CUMULUS_GET_VRF = "net show vrf"
+CUMULUS_API_GET_VRF = "show vrf"
 CUMULUS_GET_LLDP_CDP = "net show lldp json"
 CUMULUS_GET_OSPF = "net show ospf neighbor detail json"
 CUMULUS_GET_OSPF_VRF = "net show ospf vrf {} neighbor detail json"
 CUMULUS_GET_OSPF_RID = "net show ospf json"
 CUMULUS_GET_OSPF_RID_VRF = "net show ospf vrf {} json"
+CUMULUS_API_GET_INT = "show interface all json"
+CUMULUS_GET_INT = "net show interface all json"
 CUMULUS_GET_IPV4 = "net show interface json"
 CUMULUS_GET_IPV6 = CUMULUS_GET_IPV4
 CUMULUS_GET_STATIC = "net show route static json"
 CUMULUS_GET_STATIC_VRF = "net show route vrf {} static json"
-CUMULUS_GET_INFOS = "net show system json"
+CUMULUS_GET_FACTS = "net show system json"
+CUMULUS_API_GET_FACTS = "show system json"
+CUMULUS_GET_FACTS = "net show system json"
 CUMULUS_GET_SNMP = "net show snmp-server status json"
 CUMULUS_GET_MTU = "net show interface all json"
 CUMULUS_GET_MLAG = "net show clag json"
 CUMULUS_GET_VLAN_VRF = "net show vrf list"
 CUMULUS_GET_VLAN = "net show interface json"
+CUMULUS_API_GET_VLAN = "show interface json"
 CUMULUS_GET_VLAN_MEM = "net show bridge vlan json"
 CUMULUS_GET_BOND = "net show interface bonds json"
 
 # NEXUS COMMANDS
 NEXUS_GET_BGP = 'show bgp sessions | json'
+NEXUS_API_GET_BGP = 'show bgp sessions'
 NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
-NEXUS_GET_VRF = "show vrf all | json"
+NEXUS_API_GET_BGP_VRF = "show bgp sessions vrf {}"
+NEXUS_GET_VRF = "show vrf all detail | json"
 NEXUS_GET_LLDP = "show lldp neighbors detail | json"
 NEXUS_GET_CDP = "show cdp neighbors detail | json"
 NEXUS_GET_OSPF = "show ip ospf neighbors detail | json"
@@ -176,15 +198,20 @@ NEXUS_GET_IPV4 = "show ip int | json"
 NEXUS_GET_IPV4_VRF = "show ip int vrf {} | json"
 NEXUS_GET_STATIC = "show ip route static | json"
 NEXUS_GET_STATIC_VRF = "show ip route static  vrf {} | json"
-NEXUS_GET_INFOS = "show version | json"
+NEXUS_GET_FACTS = "show version | json"
+NEXUS_API_GET_FACTS = "show version"
 NEXUS_GET_INT = "show interface brief | json"
+NEXUS_API_GET_INT = "show interface brief"
 NEXUS_GET_SNMP = "show snmp host | json"
 NEXUS_GET_DOMAIN = "show hostname | json"
+NEXUS_API_GET_DOMAIN = "show hostname"
 NEXUS_GET_MTU = "show interface | json"
 
 # ARISTA COMMANDS
 ARISTA_GET_BGP = 'show ip bgp summary | json'
+ARISTA_API_GET_BGP = 'show ip bgp summary'
 ARISTA_GET_BGP_VRF = "show ip bgp summary vrf {} | json"
+ARISTA_API_GET_BGP_VRF = "show ip bgp summary vrf {}"
 ARISTA_GET_VRF = "show vrf | json"
 ARISTA_GET_LLDP = "show lldp neighbors detail | json"
 ARISTA_GET_OSPF = "show ip ospf neighbor detail | json"
@@ -194,7 +221,7 @@ ARISTA_GET_OSPF_RID_VRF = "show ip ospf vrf {} | json"
 ARISTA_GET_IPV4 = "show ip int | json"
 ARISTA_GET_STATIC = "show ip route static | json"
 ARISTA_GET_STATIC_VRF = "show ip route vrf {} static | json"
-ARISTA_GET_INFOS = "show version | json"
+ARISTA_GET_FACTS = "show version | json"
 ARISTA_GET_INT = "show interfaces status | json"
 ARISTA_GET_DOMAIN = "show hostname | json"
 ARISTA_GET_MTU = "show interfaces | json"
@@ -218,14 +245,14 @@ EXTREME_VSP_GET_IPV4 = "show ip interface"
 EXTREME_VSP_GET_IPV4_VRF = "show ip interface vrf {}"
 EXTREME_VSP_GET_STATIC = "show ip route static"
 EXTREME_VSP_GET_STATIC_VRF = "show ip route static vrf {}"
-EXTREME_VSP_GET_INFOS = "show tech"
+EXTREME_VSP_GET_FACTS = "show tech"
 EXTREME_VSP_GET_SNMP = "show snmp-server host"
 EXTREME_VSP_GET_DOMAIN = "show sys dns"
 EXTREME_VSP_GET_INT = "show interfaces gigabitEthernet name"
 EXTREME_VSP_GET_MTU = "show interfaces gigabitEthernet"
 
 # CISCO IOS
-IOS_GET_INFOS = "show version"
+IOS_GET_FACTS = "show version"
 IOS_GET_SNMP = "show snmp"
 IOS_GET_INT = "show ip interface brief"
 IOS_GET_VRF = "show vrf detail"
@@ -243,13 +270,17 @@ IOS_GET_OSPF_NEI = "show ip ospf neighbor detail"
 IOS_GET_OSPF_INT = "show ip ospf interface brief"
 
 # CISCO IOSXR
-IOSXR_GET_VRF = "show vrf detail"
+IOSXR_GET_VRF = "show vrf all detail"
+IOSXR_GET_BGP_PEERS = "show bgp neighbors"
+IOSXR_GET_BGP_RID = "show bgp summary"
+IOSXR_VRF_GET_BGP_PEERS = "show bgp vrf {} neighbors"
+IOSXR_VRF_GET_BGP_RID = "show bgp vrf {} summary"
 
 # BGP CONSTANTES
 BGP_SESSIONS_HOST_KEY = 'bgp_sessions'
 BGP_WORKS_KEY = 'bgp_works'
 BGP_ALL_BGP_UP_KEY = 'bgp_all_up'
-
+BGP_UPTIME_FORMAT_MS = "msec"
 BGP_STATE_UP_LIST = [
     'ESTABLISHED', 'established', 'Established', 'Estab', 'UP', 'up', 'Up'
 ]
@@ -298,16 +329,16 @@ IPV6_WORKS_KEY = 'ipv6_works'
 STATIC_DATA_HOST_KEY = "static_data"
 STATIC_WORKS_KEY = "static_works"
 
-# INFOS / FACTS CONST
-INFOS_DATA_HOST_KEY = "infos_data"
-INFOS_WORKS_KEY = "infos_works"
-INFOS_SYS_DICT_KEY = "get_infos_sys"
-INFOS_SNMP_DICT_KEY = "get_infos_snmp"
-INFOS_INT_DICT_KEY = "get_infos_int"
-INFOS_DOMAIN_DICT_KEY = "get_infos_domain"
-INFOS_MEMORY_DICT_KEY = "get_infos_memory"
-INFOS_CONFIG_DICT_KEY = "get_infos_config"
-INFOS_SERIAL_DICT_KEY = "get_infos_serial"
+# FACTS CONST
+FACTS_DATA_HOST_KEY = "infos_data"
+FACTS_WORKS_KEY = "infos_works"
+FACTS_SYS_DICT_KEY = "get_infos_sys"
+FACTS_SNMP_DICT_KEY = "get_infos_snmp"
+FACTS_INT_DICT_KEY = "get_infos_int"
+FACTS_DOMAIN_DICT_KEY = "get_infos_domain"
+FACTS_MEMORY_DICT_KEY = "get_infos_memory"
+FACTS_CONFIG_DICT_KEY = "get_infos_config"
+FACTS_SERIAL_DICT_KEY = "get_infos_serial"
 
 # MTU
 MTU_DATA_HOST_KEY = "mtu_data"

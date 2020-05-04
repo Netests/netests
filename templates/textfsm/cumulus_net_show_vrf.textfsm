@@ -1,0 +1,9 @@
+Value Required VRF_NAME (\S+)
+Value Required VRF_ID (\d+)
+
+Start
+  ^VRF: ${VRF_NAME}
+  ^[-]+
+  ^${VRF_NAME}\s+${VRF_ID} -> Record
+
+End

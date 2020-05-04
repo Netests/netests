@@ -1,0 +1,33 @@
+Tue Apr  7 14:02:13.173 UTC
+
+VRF EXTERNAL_PEERING; RD 65000:100; VPN ID not set
+VRF mode: Regular
+Description not set
+Address family IPV4 Unicast
+  Import VPN route-target communities:
+    RT:65000:1
+  Export VPN route-target communities:
+    RT:65000:1
+  No import route policy
+  No export route policy
+Address family IPV6 Unicast
+  No import VPN route-target communities
+  No export VPN route-target communities
+  No import route policy
+  No export route policy
+
+VRF MGMT_VRF; RD not set; VPN ID not set
+VRF mode: Regular
+Description MANAGEMENT_VRF
+Interfaces:
+  MgmtEth0/0/CPU0/0
+Address family IPV4 Unicast
+  No import VPN route-target communities
+  No export VPN route-target communities
+  No import route policy
+  No export route policy
+Address family IPV6 Unicast
+  No import VPN route-target communities
+  No export VPN route-target communities
+  No import route policy
+  No export route policy

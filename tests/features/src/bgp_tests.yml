@@ -1,0 +1,119 @@
+---
+leaf01:
+  default:
+    as_number: 65101
+    router_id: 1.1.1.1
+    neighbors:
+      - peer_ip: 10.1.1.2
+        remote_as: 65102
+        state_brief: DOWN
+        session_state: Active
+  IOS_XR_VRF:
+    as_number: 65201
+    router_id: 10.10.10.10
+    neighbors:
+      - peer_ip: 10.1.2.2
+        remote_as: 65203
+        state_brief: DOWN
+        state: Active
+
+leaf02:
+  default:
+    as_number: 65535
+    router_id: 172.16.0.1
+    neighbors:
+      - peer_ip: 172.16.0.2
+        remote_as: 65535
+        state_brief: DOWN
+        session_state: Idle
+  CUSTOMER_GOOGLE:
+    as_number: 65535
+    router_id: 0.0.0.0
+    neighbors:
+      - peer_ip: 11.1.1.1
+        remote_as: 1
+        state_brief: DOWN
+        state: Active
+      - peer_ip: 22.2.2.2
+        remote_as: 2
+        state_brief: DOWN
+        state: Active
+
+leaf03:
+  CUSTOMER_WEJOB:
+    as_number: 1111
+    router_id: 1.2.3.4
+    neighbors:
+      - peer_ip: 100.100.100.100
+        remote_as: 100
+        state_brief: DOWN
+        state: Idle
+        prefix_received: 0
+  CUSTOMER_NETESTS:
+    as_number: 1111
+    router_id: 66.66.66.66
+    neighbors:
+      - peer_ip: 11.11.11.11
+        remote_as: 11
+        state_brief: DOWN
+        state: Idle
+        prefix_received: 0
+      - peer_ip: 12.12.12.12
+        remote_as: 12
+        state_brief: DOWN
+        state: Idle
+        prefix_received: 0
+
+leaf04:
+  CUSTOMER_AWS:
+    as_number: 65444
+    router_id: 9.9.9.9
+    neighbors:
+      - peer_ip: 10.1.1.1
+        remote_as: 65333
+        state_brief: DOWN
+        state: Idle
+      - peer_ip: 10.2.2.2
+        remote_as: 65333
+        state_brief: DOWN
+        state: Idle
+
+leaf05:
+  CUSTOMER_APPLE:
+    as_number: 33333
+    router_id: 33.33.33.33
+    neighbors:
+      - peer_ip: 33.3.3.3
+        remote_as: 3
+        state_brief: DOWN
+        state: Idle
+      - peer_ip: 33.33.33.33
+        remote_as: 3
+        state_brief: DOWN
+        state: Idle
+  CUSTOMER_NETESTS:
+    as_number: 33333
+    router_id: 33.33.33.33
+    neighbors:
+      - peer_ip: 15.15.15.15
+        remote_as: 15
+        state_brief: DOWN
+        state: Idle
+
+spine02:
+  default:
+    as_number: 65101
+    router_id: 2.2.2.2
+    neighbors:
+      - peer_ip: 10.1.1.1
+        remote_as: 65101
+        state_brief: DOWN
+        session_state: Idle
+  mgmt_vrf:
+    as_number: 65101
+    router_id: 20.20.20.20
+    neighbors:
+      - peer_ip: 10.20.20.2
+        remote_as: 65202
+        state_brief: DOWN
+        state: Idle

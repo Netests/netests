@@ -1,0 +1,41 @@
+{
+    "ins_api": {
+        "outputs": {
+            "output": {
+                "body": {
+                    "TABLE_vrf": {
+                        "ROW_vrf": {
+                            "TABLE_neighbor": {
+                                "ROW_neighbor": {
+                                    "connectionsdropped": "0",
+                                    "lastflap": "PT3H54M52S",
+                                    "localport": "0",
+                                    "neighbor-id": "172.16.0.2",
+                                    "notificationsreceived": "0",
+                                    "notificationssent": "0",
+                                    "remoteas": "65535",
+                                    "remoteport": "0",
+                                    "state": "Idle"
+                                }
+                            },
+                            "local-as": "65535",
+                            "router-id": "172.16.0.1",
+                            "vrf-name-out": "default",
+                            "vrfestablishedpeers": "0",
+                            "vrfpeers": "1"
+                        }
+                    },
+                    "localas": "65535",
+                    "totalestablishedpeers": "0",
+                    "totalpeers": "3"
+                },
+                "code": "200",
+                "input": "show bgp sessions",
+                "msg": "Success"
+            }
+        },
+        "sid": "eoc",
+        "type": "cli_show",
+        "version": "1.0"
+    }
+}

@@ -1,0 +1,16 @@
+
+Sat May  2 16:41:31.870 UTC
+
+VRF CUSTOMER_NETESTS; RD not set; VPN ID not set
+VRF mode: Regular
+Description not set
+Address family IPV4 Unicast
+  No import VPN route-target communities
+  No export VPN route-target communities
+  No import route policy
+  No export route policy
+Address family IPV6 Unicast
+  No import VPN route-target communities
+  No export VPN route-target communities
+  No import route policy
+  No export route policy
