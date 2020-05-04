@@ -9,10 +9,10 @@ from functions.bgp.bgp_compare import compare_bgp
 from functions.bgp.bgp_checks import get_bgp_up
 from functions.bond.bond_get import get_bond
 from functions.bond.bond_compare import compare_bond
-from functions.discovery_protocols.cdp.cdp_get import get_cdp
-from functions.discovery_protocols.cdp.cdp_compare import compare_cdp
-from functions.discovery_protocols.lldp.lldp_get import get_lldp
-from functions.discovery_protocols.lldp.lldp_compare import compare_lldp
+from functions.cdp.cdp_get import get_cdp
+from functions.cdp.cdp_compare import compare_cdp
+from functions.lldp.lldp_get import get_lldp
+from functions.lldp.lldp_compare import compare_lldp
 from functions.facts.facts_get import get_facts
 from functions.facts.facts_compare import compare_facts
 from functions.ip.ipv4.ipv4_get import get_ipv4

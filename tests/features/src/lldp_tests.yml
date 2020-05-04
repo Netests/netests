@@ -7,9 +7,20 @@ spine01:
     neighbor_port: Eth1/1
 
 leaf03:
-  - local_port: Ethernet1
-    neighbor_name: spine01
-    neighbor_port: swp3
+  - local_name: leaf03
+    local_port: Ethernet2
+    neighbor_mgmt_ip: 192.168.1.202
+    neighbor_name: spine02
+    neighbor_os: VSP-8284XSQ (8.1.0.0)
+    neighbor_port: 1/2
+    neighbor_type: ['Bridge, Router']
+  - local_name: leaf03
+    local_port: Ethernet1
+    neighbor_mgmt_ip: 192.168.1.148
+    neighbor_name: cumulus
+    neighbor_os: Cumulus Linux version 4.0.0 running on QEMU Standard PC (i440FX + PIIX, 1996)
+    neighbor_port: swp1
+    neighbor_type: ['Bridge', 'Router']
 
 leaf04:
   - local_port: et-0/0/0

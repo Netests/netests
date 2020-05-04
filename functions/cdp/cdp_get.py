@@ -31,9 +31,9 @@ except ImportError as importError:
     print(importError)
 
 try:
-    from functions.discovery_protocols.cdp.cdp_converters import _cumulus_cdp_converter
-    from functions.discovery_protocols.cdp.cdp_converters import _nexus_cdp_converter
-    from functions.discovery_protocols.cdp.cdp_converters import _ios_cdp_converter
+    from functions.cdp.cdp_converters import _cumulus_cdp_converter
+    from functions.cdp.cdp_converters import _nexus_cdp_converter
+    from functions.cdp.cdp_converters import _ios_cdp_converter
 except ImportError as importError:
     print(f"{ERROR_HEADER} functions.discovery_protocols.cdp.cdp_converters")
     print(importError)

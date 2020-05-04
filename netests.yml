@@ -3,7 +3,7 @@ config:
   inventory: ./inventory/ansible/hosts
   protocols:
     bgp:
-      test: true
+      test: false
       options:
         compare:
           src_hostname: true
@@ -18,9 +18,12 @@ config:
     bgp_all_up:
       test: false
 
+    lldp:
+      test: true
+
 
     facts:
-      test: true
+      test: false
 
     
     ospf:
@@ -65,7 +68,7 @@ config:
       test: false
       
     vrf:
-      test: true
+      test: false
       options:
         compare:
           vrf_name: true

@@ -8,6 +8,7 @@ from functions.global_tools import printline
 from const.constants import (
     BGP_SESSIONS_HOST_KEY,
     FACTS_DATA_HOST_KEY,
+    LLDP_DATA_HOST_KEY,
     VRF_DATA_KEY
 )
 
@@ -21,6 +22,10 @@ M = {
     "facts": {
         "filename": "facts.yml",
         "key": FACTS_DATA_HOST_KEY
+    },
+    "lldp": {
+        "filename": "lldp.yml",
+        "key": LLDP_DATA_HOST_KEY
     },
     "vrf": {
         "filename": "vrf.yml",
