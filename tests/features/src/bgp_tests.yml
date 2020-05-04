@@ -1,7 +1,7 @@
 ---
 leaf01:
   default:
-    asn: 65101
+    as_number: 65101
     router_id: 1.1.1.1
     neighbors:
       - peer_ip: 10.1.1.2
@@ -9,7 +9,7 @@ leaf01:
         state_brief: DOWN
         session_state: Active
   IOS_XR_VRF:
-    asn: 65201
+    as_number: 65201
     router_id: 10.10.10.10
     neighbors:
       - peer_ip: 10.1.2.2
@@ -19,7 +19,7 @@ leaf01:
 
 leaf02:
   default:
-    asn: 65535
+    as_number: 65535
     router_id: 172.16.0.1
     neighbors:
       - peer_ip: 172.16.0.2
@@ -27,7 +27,7 @@ leaf02:
         state_brief: DOWN
         session_state: Idle
   CUSTOMER_GOOGLE:
-    asn: 65535
+    as_number: 65535
     router_id: 0.0.0.0
     neighbors:
       - peer_ip: 11.1.1.1
@@ -41,7 +41,7 @@ leaf02:
 
 leaf03:
   CUSTOMER_WEJOB:
-    asn: 1111
+    as_number: 1111
     router_id: 1.2.3.4
     neighbors:
       - peer_ip: 100.100.100.100
@@ -50,7 +50,7 @@ leaf03:
         state: Idle
         prefix_received: 0
   CUSTOMER_NETESTS:
-    asn: 1111
+    as_number: 1111
     router_id: 66.66.66.66
     neighbors:
       - peer_ip: 11.11.11.11
@@ -66,7 +66,7 @@ leaf03:
 
 leaf04:
   CUSTOMER_AWS:
-    asn: 65444
+    as_number: 65444
     router_id: 9.9.9.9
     neighbors:
       - peer_ip: 10.1.1.1
@@ -80,7 +80,7 @@ leaf04:
 
 leaf05:
   CUSTOMER_APPLE:
-    asn: 33333
+    as_number: 33333
     router_id: 33.33.33.33
     neighbors:
       - peer_ip: 33.3.3.3
@@ -92,7 +92,7 @@ leaf05:
         state_brief: DOWN
         state: Idle
   CUSTOMER_NETESTS:
-    asn: 33333
+    as_number: 33333
     router_id: 33.33.33.33
     neighbors:
       - peer_ip: 15.15.15.15
@@ -102,7 +102,7 @@ leaf05:
 
 spine02:
   default:
-    asn: 65101
+    as_number: 65101
     router_id: 2.2.2.2
     neighbors:
       - peer_ip: 10.1.1.1
@@ -110,7 +110,7 @@ spine02:
         state_brief: DOWN
         session_state: Idle
   mgmt_vrf:
-    asn: 65101
+    as_number: 65101
     router_id: 20.20.20.20
     neighbors:
       - peer_ip: 10.20.20.2

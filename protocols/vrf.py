@@ -121,7 +121,6 @@ class VRF:
                 "rt_exp": self.rt_exp,
                 "imp_targ": self.imp_targ,
                 "exp_targ": self.exp_targ
-                
             }
 
 
@@ -167,8 +166,7 @@ class ListVRF:
         return result + ">"
 
     def to_json(self):
-        l = list()
+        data = list()
         for vrf in self.vrf_lst:
-            l.append(vrf.to_json())
-
-        return l
+            data.append(vrf.to_json())
+        return data

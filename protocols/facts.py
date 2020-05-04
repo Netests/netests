@@ -100,5 +100,5 @@ class Facts:
                "memory": self.memory,
                "vendor": self.vendor,
                "model": self.model,
-               "interfaces_lst": self.interfaces_lst            
+               "interfaces_lst": self.interfaces_lst
             }
