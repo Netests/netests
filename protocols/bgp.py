@@ -124,11 +124,10 @@ class ListBGPSessions:
         return result+">"
 
     def to_json(self):
-        d = dict()
-        d['ListBGPSessions'] = list()
+        l = list()
         for bgp in self.bgp_sessions:
-            d['ListBGPSessions'].append(bgp.to_json())
-        return d
+            l.append(bgp.to_json())
+        return l
 
 
 class BGPSessionsVRF:
@@ -170,14 +169,10 @@ class BGPSessionsVRF:
 
     def to_json(self):
         d = dict()
-        d = dict()
-        d['vrf_name'] = self.vrf_name
         d['as_number'] = self.as_number
         d['router_id'] = self.router_id
-        d['ListBGPSessions'] = list()
-
-        for bgp in self.bgp_sessions.bgp_sessions:
-            d['ListBGPSessions'].append(bgp.to_json())
+        d['neighbors'] = self.bgp_sessions.to_json()
+        
         return d
 
 
@@ -209,11 +204,10 @@ class ListBGPSessionsVRF:
         return result + ">"
 
     def to_json(self):
-        d = dict()
-        d['ListBGPSessionsVRF'] = list()
+        l = list()
         for bgp in self.bgp_sessions_vrf:
-            d['ListBGPSessionsVRF'].append(bgp.to_json())
-        return d
+            l.append(bgp.to_json())
+        return l
 
 
 class BGP:
@@ -239,10 +233,9 @@ class BGP:
 
     def to_json(self):
         d = dict()
-        d['BGP'] = dict()
-        d['BGP']['hostname'] = self.hostname
-        d['BGP']['ListBGPSessionsVRF'] = list()
         for bgp in self.bgp_sessions_vrf_lst.bgp_sessions_vrf:
-            d['BGP']['ListBGPSessionsVRF'].append(bgp.to_json())
+            d[bgp.vrf_name] = dict()
+            d[bgp.vrf_name] = bgp.to_json()
+
 
         return d

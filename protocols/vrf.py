@@ -90,39 +90,38 @@ class VRF:
     def to_json(self):
         if 'print' in self.options.keys():
             ret = dict()
-            ret['VRF'] = dict()
+            ret = dict()
             if self.options.get('print').get('vrf_name', True):
-                ret['VRF']['vrf_name'] = self.vrf_name
+                ret['vrf_name'] = self.vrf_name
             if self.options.get('print').get('vrf_id', True):
-                ret['VRF']['vrf_id'] = self.vrf_id
+                ret['vrf_id'] = self.vrf_id
             if self.options.get('print').get('vrf_type', True):
-                ret['VRF']['vrf_type'] = self.vrf_type
+                ret['vrf_type'] = self.vrf_type
             if self.options.get('print').get('l3_vni', True):
-                ret['VRF']['l3_vni'] = self.l3_vni
+                ret['l3_vni'] = self.l3_vni
             if self.options.get('print').get('rd', True):
-                ret['VRF']['rd'] = self.rd
+                ret['rd'] = self.rd
             if self.options.get('print').get('rt_imp', True):
-                ret['VRF']['rt_imp'] = self.rt_imp
+                ret['rt_imp'] = self.rt_imp
             if self.options.get('print').get('rt_exp', True):
-                ret['VRF']['rt_exp'] = self.rt_exp
+                ret['rt_exp'] = self.rt_exp
             if self.options.get('print').get('imp_targ', True):
-                ret['VRF']['imp_targ'] = self.imp_targ
+                ret['imp_targ'] = self.imp_targ
             if self.options.get('print').get('exp_targ', True):
-                ret['VRF']['exp_targ'] = self.exp_targ
+                ret['exp_targ'] = self.exp_targ
             return ret
         else:
             return {
-                "VRF": {
-                    "vrf_name": self.vrf_name,
-                    "vrf_id": self.vrf_id,
-                    "vrf_type": self.vrf_type,
-                    "l3_vni": self.l3_vni,
-                    "rd": self.rd,
-                    "rt_imp": self.rt_imp,
-                    "rt_exp": self.rt_exp,
-                    "imp_targ": self.imp_targ,
-                    "exp_targ": self.exp_targ
-                }
+                "vrf_name": self.vrf_name,
+                "vrf_id": self.vrf_id,
+                "vrf_type": self.vrf_type,
+                "l3_vni": self.l3_vni,
+                "rd": self.rd,
+                "rt_imp": self.rt_imp,
+                "rt_exp": self.rt_exp,
+                "imp_targ": self.imp_targ,
+                "exp_targ": self.exp_targ
+                
             }
 
 
@@ -168,9 +167,8 @@ class ListVRF:
         return result + ">"
 
     def to_json(self):
-        d = dict()
-        d['ListVRF'] = list()
+        l = list()
         for vrf in self.vrf_lst:
-            d['ListVRF'].append(vrf.to_json())
+            l.append(vrf.to_json())
 
-        return d
+        return l

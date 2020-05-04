@@ -1,0 +1,32 @@
+CUSTOMER_NETESTS:
+  as_number: 1111
+  neighbors:
+  - peer_hostname: NOT_SET
+    peer_ip: 11.11.11.11
+    prefix_received: 0
+    remote_as: 11
+    session_state: Idle
+    src_hostname: leaf03
+    state_brief: DOWN
+    state_time: 1588526347.933496
+  - peer_hostname: NOT_SET
+    peer_ip: 12.12.12.12
+    prefix_received: 0
+    remote_as: 12
+    session_state: Idle
+    src_hostname: leaf03
+    state_brief: DOWN
+    state_time: 1588526354.934041
+  router_id: 66.66.66.66
+CUSTOMER_WEJOB:
+  as_number: 1111
+  neighbors:
+  - peer_hostname: NOT_SET
+    peer_ip: 33.33.33.33
+    prefix_received: 0
+    remote_as: 33
+    session_state: Idle
+    src_hostname: leaf03
+    state_brief: DOWN
+    state_time: 1588526379.107417
+  router_id: 1.2.3.4

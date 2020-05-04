@@ -30,7 +30,6 @@ from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 
 
 def _arista_get_facts_api(task, options={}):
-    raise NetestsFunctionNotImplemented("Arista - Facts - Netconf")
     c = pyeapi.connect(
         transport=task.host.get('secure_api', 'https'),
         host=task.host.hostname,
@@ -59,6 +58,7 @@ def _arista_get_facts_api(task, options={}):
 
 
 def _arista_get_facts_netconf(task, options={}):
+    raise NetestsFunctionNotImplemented("Arista - Facts - Netconf")
     with manager.connect(
         host=task.host.hostname,
         port=task.host.port,

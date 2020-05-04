@@ -453,7 +453,6 @@ def printline_comment_json(comment:str, json_to_print) -> None:
     print(f"///////////////\t {comment}")
     printline()
     PP.pprint(json_to_print)
-    printline()
 
 # -------------------------------------------------------------------------------
 #

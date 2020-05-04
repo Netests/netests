@@ -16,7 +16,7 @@ from const.constants import (
 )
 
 
-HEADER = "[netests - compare_infos]"
+HEADER = "[netests - compare_facts]"
 
 
 def compare_facts(nr, options={}) -> bool:
@@ -37,7 +37,7 @@ def compare_facts(nr, options={}) -> bool:
     for value in data.values():
         if value.result is False:
             print(
-                f"\t{HEADER} Task '_compare' has failed for {value.host} "
+                f"{HEADER} Task '_compare' has failed for {value.host} "
                 f"(value.result={value.result})."
             )
             return_value = False

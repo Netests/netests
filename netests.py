@@ -152,6 +152,12 @@ HEADER = "[netests - main.py]"
     is_flag=True,
     help="Specify that an Nornir inventory will be used.",
 )
+@click.option(
+    "-I",
+    "--init-data",
+    is_flag=True,
+    help="To create truth_vars files.",
+)
 def main(
     netest_config_file,
     inventory_config_file,
@@ -171,7 +177,8 @@ def main(
     num_workers,
     ansible_inventory,
     netbox_inventory,
-    nornir_inventory
+    nornir_inventory,
+    init_data
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -216,7 +223,12 @@ def main(
     exit_value = True
     for k, v in t.get('config').get('protocols').items():
         if (
-            run_base(nr=nr, protocol=k, parameters=v) is False and
+            run_base(
+                nr=nr,
+                protocol=k,
+                parameters=v,
+                init_data=init_data
+            ) is False and
             exit_value is True
         ):
             exit_value = False

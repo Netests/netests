@@ -3,17 +3,17 @@ config:
   inventory: ./inventory/ansible/hosts
   protocols:
     bgp:
-      test: false
+      test: true
       options:
         compare:
           src_hostname: true
           peer_ip: true
           remote_as: true
           state_brief: true
-          peer_hostname: false
-          session_state: false
-          state_time: false
-          prefix_received: false
+          peer_hostname: true
+          session_state: true
+          state_time: true
+          prefix_received: true
 
     bgp_all_up:
       test: false

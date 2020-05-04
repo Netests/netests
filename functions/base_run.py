@@ -3,6 +3,7 @@
 
 from nornir.core import Nornir
 from functions.global_tools import printline
+from functions.base_init_data import create_truth_vars
 from functions.bgp.bgp_gets import get_bgp
 from functions.bgp.bgp_compare import compare_bgp
 from functions.bgp.bgp_checks import get_bgp_up
@@ -141,7 +142,12 @@ RUN = {
 }
 
 
-def run_base(nr: Nornir, protocol: str, parameters: dict) -> bool:
+def run_base(
+    nr: Nornir,
+    protocol: str,
+    parameters: dict,
+    init_data: bool
+) -> bool:
     if (
         parameters.get('test', False) is True or
         str(parameters.get('test', False)).upper() == "INFO"
@@ -150,7 +156,13 @@ def run_base(nr: Nornir, protocol: str, parameters: dict) -> bool:
             nr=nr,
             options=parameters.get('options', {}),
         )
-        if (
+
+        if init_data is True:
+            create_truth_vars(
+                nr=nr,
+                protocol=protocol
+            )
+        elif (
             protocol != "ping" and
             protocol != "socket" and
             protocol != "bgp_all_up"
@@ -160,11 +172,11 @@ def run_base(nr: Nornir, protocol: str, parameters: dict) -> bool:
                 options=parameters.get('options', {})
             )
 
-        printline()
-        print(
-            f"{HEADER} ({protocol}) defined in {PATH_TO_VERITY_FILES}"
-            f"{RUN.get(protocol).get('file')} work = {same} !!"
-        )
+            printline()
+            print(
+                f"{HEADER} ({protocol}) defined in {PATH_TO_VERITY_FILES}"
+                f"{RUN.get(protocol).get('file')} work = {same} !!"
+            )
 
         return (
             parameters.get('test', False) is True and

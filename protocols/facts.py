@@ -91,16 +91,14 @@ class Facts:
             return ret
         else:
             return {
-                "Facts": {
-                    "hostname": self.hostname,
-                    "domain": self.domain,
-                    "version": self.version,
-                    "build": self.build,
-                    "serial": self.serial,
-                    "base_mac": self.base_mac,
-                    "memory": self.memory,
-                    "vendor": self.vendor,
-                    "model": self.model,
-                    "interfaces_lst": self.interfaces_lst
-                }
+               "hostname": self.hostname,
+               "domain": self.domain,
+               "version": self.version,
+               "build": self.build,
+               "serial": self.serial,
+               "base_mac": self.base_mac,
+               "memory": self.memory,
+               "vendor": self.vendor,
+               "model": self.model,
+               "interfaces_lst": self.interfaces_lst            
             }

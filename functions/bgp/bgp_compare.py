@@ -92,23 +92,26 @@ def _compare_bgp(
 
         if BGP_SESSIONS_HOST_KEY in host_keys:
             for vrf_name, facts in bgp_yaml_data.items():
-                bgp_sessions_lst = ListBGPSessions(list())
-                for n in facts.get('neighbors', NOT_SET):
-                    bgp_session = BGPSession(
-                        src_hostname=hostname,
-                        peer_ip=n.get('peer_ip', NOT_SET),
-                        peer_hostname=n.get('peer_hostname', NOT_SET),
-                        remote_as=n.get('remote_as', NOT_SET),
-                        state_brief=n.get('state_brief', NOT_SET),
-                        session_state=n.get('session_state', NOT_SET),
-                        state_time=n.get('state_time', NOT_SET),
-                        prefix_received=n.get('prefix_received', NOT_SET),
+                bgp_sessions_lst = ListBGPSessions(
+                    list()
+                )
+                for n in facts.get('neighbors', []):
+                    bgp_sessions_lst.bgp_sessions.append(
+                        BGPSession(
+                            src_hostname=hostname,
+                            peer_ip=n.get('peer_ip', NOT_SET),
+                            peer_hostname=n.get('peer_hostname', NOT_SET),
+                            remote_as=n.get('remote_as', NOT_SET),
+                            state_brief=n.get('state_brief', NOT_SET),
+                            session_state=n.get('session_state', NOT_SET),
+                            state_time=n.get('state_time', NOT_SET),
+                            prefix_received=n.get('prefix_received', NOT_SET),
+                        )
                     )
-                    bgp_sessions_lst.bgp_sessions.append(bgp_session)
 
                 bgp_session_vrf = BGPSessionsVRF(
                     vrf_name=vrf_name,
-                    as_number=facts.get('asn', NOT_SET),
+                    as_number=facts.get('as_number', NOT_SET),
                     router_id=facts.get('router_id', NOT_SET),
                     bgp_sessions=bgp_sessions_lst
                 )
