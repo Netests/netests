@@ -1,0 +1,73 @@
+{
+    "lldp": [
+        {
+            "interface": [
+                {
+                    "name": "swp1",
+                    "via": "LLDP",
+                    "rid": "1",
+                    "age": "0 day, 00:51:35",
+                    "chassis": [
+                        {
+                            "id": [
+                                {
+                                    "type": "mac",
+                                    "value": "50:00:00:d7:ee:0b"
+                                }
+                            ],
+                            "name": [
+                                {
+                                    "value": "leaf03.dh.local"
+                                }
+                            ],
+                            "mgmt-ip": [
+                                {
+                                    "value": "192.168.1.199"
+                                }
+                            ],
+                            "capability": [
+                                {
+                                    "type": "Bridge",
+                                    "enabled": true
+                                },
+                                {
+                                    "type": "Router",
+                                    "enabled": true
+                                }
+                            ]
+                        }
+                    ],
+                    "port": [
+                        {
+                            "id": [
+                                {
+                                    "type": "ifname",
+                                    "value": "Ethernet1"
+                                }
+                            ],
+                            "ttl": [
+                                {
+                                    "value": "120"
+                                }
+                            ],
+                            "mfs": [
+                                {
+                                    "value": "9236"
+                                }
+                            ]
+                        }
+                    ],
+                    "lldp-med": [
+                        {
+                            "device-type": [
+                                {
+                                    "value": "Network Connectivity Device"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

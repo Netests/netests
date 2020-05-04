@@ -8,6 +8,8 @@ from functions.lldp.lldp_compare import _compare_lldp
 from functions.global_tools import open_json_file, open_txt_file
 from functions.lldp.arista.api.converter import _arista_lldp_api_converter
 from functions.lldp.arista.ssh.converter import _arista_lldp_ssh_converter
+from functions.lldp.cumulus.api.converter import _cumulus_lldp_api_converter
+from functions.lldp.cumulus.ssh.converter import _cumulus_lldp_ssh_converter
 from functions.lldp.extreme_vsp.api.converter import (
     _extreme_vsp_lldp_api_converter
 )
@@ -91,12 +93,37 @@ def step_impl(context):
 
 @given(u'I create a LLDP object equals to Cumulus manually named o0101')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    lldp_neighbors_lst = ListLLDP(
+        lldp_neighbors_lst=list()
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf01",
+            local_port="swp1",
+            neighbor_port="Ethernet1",
+            neighbor_name="leaf03.dh.local",
+            neighbor_os=NOT_SET,
+            neighbor_mgmt_ip="192.168.1.199",
+            neighbor_type=['Bridge', 'Router']
+        )
+    )
+
+    context.o0101 = lldp_neighbors_lst
 
 
 @given(u'I create a LLDP object from a Cumulus API output named o0102')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0102 = _cumulus_lldp_api_converter(
+        hostname="leaf01",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/cumulus/api/"
+                "cumulus_api_show_lldp.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a LLDP object from a Cumulus Netconf named o0103')
@@ -106,7 +133,16 @@ def step_impl(context):
 
 @given(u'I create a LLDP object from a Cumulus SSH output named o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0104 = _cumulus_lldp_ssh_converter(
+        hostname="leaf01",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/cumulus/ssh/"
+                "cumulus_net_show_lldp.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a LLDP object equals to Extreme VSP manually named o0201')
@@ -323,47 +359,59 @@ def step_impl(context):
 
 @given(u'LLDP o0101 should be equal to o0102')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0101 == context.o0102
 
 
 @given(u'LLDP o0101 should be equal to o0103')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus Networks LLDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'LLDP o0101 should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0101 == context.o0104
 
 
 @given(u'LLDP o0102 should be equal to o0103')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus Networks LLDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'LLDP o0102 should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0102 == context.o0104
 
 
 @given(u'LLDP o0103 should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus Networks LLDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'LLDP YAML file should be equal to o0102')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_lldp(
+        host_keys=LLDP_DATA_HOST_KEY,
+        hostname="leaf01",
+        groups=['linux'],
+        lldp_host_data=context.o0102,
+        test=True
+    )
 
 
 @given(u'LLDP YAML file should be equal to o0103')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus Networks LLDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'LLDP YAML file should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_lldp(
+        host_keys=LLDP_DATA_HOST_KEY,
+        hostname="leaf01",
+        groups=['linux'],
+        lldp_host_data=context.o0104,
+        test=True
+    )
 
 
 @given(u'LLDP o0201 should be equal to o0202')
@@ -373,7 +421,7 @@ def step_impl(context):
 
 @given(u'LLDP o0201 should be equal to o0203')
 def step_impl(context):
-    print("Extreme VSP VRF with API has no endpoint -> Not tested")
+    print("Extreme VSP LLDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'LLDP o0201 should be equal to o0204')
@@ -383,7 +431,7 @@ def step_impl(context):
 
 @given(u'LLDP o0202 should be equal to o0203')
 def step_impl(context):
-    print("Extreme VSP VRF with API has no endpoint -> Not tested")
+    print("Extreme VSP LLDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'LLDP o0202 should be equal to o0204')
@@ -393,7 +441,7 @@ def step_impl(context):
 
 @given(u'LLDP o0203 should be equal to o0204')
 def step_impl(context):
-    print("Extreme VSP VRF with API has no endpoint -> Not tested")
+    print("Extreme VSP LLDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'LLDP YAML file should be equal to o0202')

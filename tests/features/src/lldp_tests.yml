@@ -14,6 +14,15 @@ spine02:
     neighbor_os: ""
     neighbor_port: Ethernet2
 
+leaf01:
+  - local_name: leaf01
+    local_port: swp1
+    neighbor_mgmt_ip: 192.168.1.199
+    neighbor_name: leaf03.dh.local
+    neighbor_os: ""
+    neighbor_port: Ethernet1
+    neighbor_type: ['Bridge', 'Router']
+
 leaf03:
   - local_name: leaf03
     local_port: Ethernet2
