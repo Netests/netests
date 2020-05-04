@@ -439,23 +439,23 @@ Run the command `get` and the protocols that you would like retrieve.
 | Juniper Netconf     | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
 | Juniper API         | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
 | Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
-| Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         |                    |      |      |
+| Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         |      |      |
 | Cumulus API         | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
 | Arista SSH          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |
 | Arista API          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |
 | Arista Netconf      | :white_check_mark: |                    |                    |                    |      |      |
 | Nexus SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
-| Nexus Netconf       | :white_check_mark: | :no_entry:         | :no_entry:         |                    |      |      |
+| Nexus Netconf       | :white_check_mark: |                    |                    |                    |      |      |
 | Nexus API           | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
 | IOS SSH             | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
 | IOS API             | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
 | IOS Netconf         | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
-| Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
-| Extreme VSP API     | :x:                | :white_check_mark: | :x:                |                    |      |      |
-| Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         |                    |      |      |
+| Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |
+| Extreme VSP API     | :x:                | :white_check_mark: | :x:                | :white_check_mark: |      |      |
+| Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         |      |      |
 | IOSXR SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
 | IOSXR Netconf       | :white_check_mark: |                    | :white_check_mark: |                    |      |      |
-| IOSXR API           | :no_entry:         | :no_entry:         | :no_entry:         |                    |      |      |
+| IOSXR API           | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         |      |      |
 
 :no_entry: = Not Supported
 

@@ -18,8 +18,8 @@ Feature: Test protocols LLDP python class ./protocols/lldp.py
 
     # Extreme Networks VSP (VOSS) ID Device = o02
     And I create a LLDP object equals to Extreme VSP manually named o0201
-    And I create a LLDP object from a Extreme VSP API output named o0204
-    And I create a LLDP object from a Extreme VSP Netconf output named o0204
+    And I create a LLDP object from a Extreme VSP API output named o0202
+    And I create a LLDP object from a Extreme VSP Netconf output named o0203
     And I create a LLDP object from a Extreme VSP SSH output named o0204
 
     # Cisco IOS-XE ID Device = o03

@@ -54,7 +54,6 @@ def _arista_lldp_ssh_converter(
                         neighbor_type=n_type_lst
                     )
                 )
-    
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),

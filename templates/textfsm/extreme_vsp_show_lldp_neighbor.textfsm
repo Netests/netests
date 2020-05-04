@@ -1,7 +1,7 @@
 Value LOCAL_PORT (\d+\/\d+|\w+)
 Value MAC_ADDR (([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2}))
 Value NEIGHBOR_PORT ([^\r\n]+)
-Value NEIGHBOR_NAME ([0-9A-Za-z\-]+)
+Value NEIGHBOR_NAME (\S+)
 Value NEIGHBOR_TYPE (\w+)
 Value NEIGHBOR_DESCR ([^\r\n]+)
 Value NEIGHBOR_OS ([^\r\n]+)

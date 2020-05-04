@@ -4,10 +4,16 @@
 from behave import given, when, then
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import printline
-from functions.global_tools import open_json_file
 from functions.lldp.lldp_compare import _compare_lldp
+from functions.global_tools import open_json_file, open_txt_file
 from functions.lldp.arista.api.converter import _arista_lldp_api_converter
 from functions.lldp.arista.ssh.converter import _arista_lldp_ssh_converter
+from functions.lldp.extreme_vsp.api.converter import (
+    _extreme_vsp_lldp_api_converter
+)
+from functions.lldp.extreme_vsp.ssh.converter import (
+    _extreme_vsp_lldp_ssh_converter
+)
 from const.constants import NOT_SET, FEATURES_SRC_PATH, LLDP_DATA_HOST_KEY
 
 
@@ -105,22 +111,57 @@ def step_impl(context):
 
 @given(u'I create a LLDP object equals to Extreme VSP manually named o0201')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    lldp_neighbors_lst = ListLLDP(
+        lldp_neighbors_lst=list()
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="spine02",
+            local_port="1/2",
+            neighbor_port="Ethernet2",
+            neighbor_name="leaf03.dh.local",
+            neighbor_os="",
+            neighbor_mgmt_ip="192.168.1.199",
+            neighbor_type=['Bridge', 'Router']
+        )
+    )
+
+    context.o0201 = lldp_neighbors_lst
 
 
-@given(u'I create a LLDP object from a Extreme VSP API output named o0204')
+@given(u'I create a LLDP object from a Extreme VSP API output named o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0202 = _extreme_vsp_lldp_api_converter(
+        hostname="spine02",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/extreme_vsp/api/"
+                "extreme_vsp_api_get_lldp_neighbors.json"
+            )
+        ),
+        options={}
+    )
 
 
-@given(u'I create a LLDP object from a Extreme VSP Netconf output named o0204')
+@given(u'I create a LLDP object from a Extreme VSP Netconf output named o0203')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
 
 
 @given(u'I create a LLDP object from a Extreme VSP SSH output named o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0204 = _extreme_vsp_lldp_ssh_converter(
+        hostname="spine02",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/extreme_vsp/ssh/"
+                "extreme_vsp_show_lldp_neighbors.txt"
+            )
+        ),
+        options={}
+    )
+
 
 
 @given(u'I create a LLDP object equals to IOS manually named o0301')
@@ -280,7 +321,6 @@ def step_impl(context):
     )
 
 
-
 @given(u'LLDP o0101 should be equal to o0102')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
@@ -328,37 +368,43 @@ def step_impl(context):
 
 @given(u'LLDP o0201 should be equal to o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0201 == context.o0202
 
 
 @given(u'LLDP o0201 should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with API has no endpoint -> Not tested")
 
 
 @given(u'LLDP o0201 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0201 == context.o0204
 
 
 @given(u'LLDP o0202 should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with API has no endpoint -> Not tested")
 
 
 @given(u'LLDP o0202 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0202 == context.o0204
 
 
 @given(u'LLDP o0203 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme VSP VRF with API has no endpoint -> Not tested")
 
 
 @given(u'LLDP YAML file should be equal to o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_lldp(
+        host_keys=LLDP_DATA_HOST_KEY,
+        hostname="spine02",
+        groups=['extreme_vsp'],
+        lldp_host_data=context.o0202,
+        test=True
+    )
 
 
 @given(u'LLDP YAML file should be equal to o0203')
@@ -368,7 +414,13 @@ def step_impl(context):
 
 @given(u'LLDP YAML file should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_lldp(
+        host_keys=LLDP_DATA_HOST_KEY,
+        hostname="spine02",
+        groups=['extreme_vsp'],
+        lldp_host_data=context.o0204,
+        test=True
+    )
 
 
 @given(u'LLDP o0301 should be equal to o0302')
