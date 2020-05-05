@@ -54,7 +54,8 @@ def _extreme_vsp_lldp_api_converter(
                                            .get('port-id'),
                             neighbor_os=n.get('state')
                                            .get('system-description'),
-                            neighbor_type=NOT_SET
+                            neighbor_type=NOT_SET,
+                            options=options
                         )
                     )
 

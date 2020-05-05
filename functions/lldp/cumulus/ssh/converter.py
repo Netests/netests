@@ -56,7 +56,8 @@ def _cumulus_lldp_ssh_converter(
                                        .get("id")[0]
                                        .get("value", NOT_SET),
                         neighbor_os=neighbor_os,
-                        neighbor_type=neighbor_type_lst
+                        neighbor_type=neighbor_type_lst,
+                        options=options
                     )
                 )
 

@@ -17,6 +17,7 @@ from functions.lldp.extreme_vsp.ssh.converter import (
     _extreme_vsp_lldp_ssh_converter
 )
 from functions.lldp.ios.ssh.converter import _ios_lldp_ssh_converter
+from functions.lldp.napalm.converter import _napalm_lldp_converter
 from const.constants import NOT_SET, FEATURES_SRC_PATH, LLDP_DATA_HOST_KEY
 
 
@@ -309,12 +310,49 @@ def step_impl(context):
 
 @given(u'I create a LLDP object equals to NAPALM manually named o0601')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    lldp_neighbors_lst = ListLLDP(
+        lldp_neighbors_lst=list()
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf05",
+            local_port="GigabitEthernet0/1",
+            neighbor_port="Gi0/0/0/3",
+            neighbor_name="ios",
+            neighbor_os="Cisco IOS XR Software, Version 6.1.3[Default]",
+            neighbor_mgmt_ip=NOT_SET,
+            neighbor_type=['router']
+        )
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf05",
+            local_port="GigabitEthernet0/2",
+            neighbor_port="swp4",
+            neighbor_name="cumulus",
+            neighbor_os="Cumulus Linux version 3.7.5 running on Bochs Bochs",
+            neighbor_mgmt_ip=NOT_SET,
+            neighbor_type=['bridge', 'router']
+        )
+    )
+
+    context.o0601 = lldp_neighbors_lst
 
 
 @given(u'I create a LLDP object from a NAPALM output named o0602')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0602 = _napalm_lldp_converter(
+        hostname="leaf05",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/napalm/"
+                "napalm_get_lldp.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a LLDP object equals to NXOS manually named o0701')
@@ -552,7 +590,7 @@ def step_impl(context):
 def step_impl(context):
     assert _compare_lldp(
         host_keys=LLDP_DATA_HOST_KEY,
-        hostname="spine02",
+        hostname="leaf05",
         groups=['ios'],
         lldp_host_data=context.o0304,
         test=True
@@ -651,7 +689,7 @@ def step_impl(context):
 
 @given(u'LLDP o0601 should be equal to o0602')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0601 == context.o0602
 
 
 @given(u'LLDP o0701 should be equal to o0702')

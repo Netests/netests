@@ -48,7 +48,8 @@ def _ios_lldp_ssh_converter(
                 neighbor_name=l[4] if l[4] is not '' else NOT_SET,
                 neighbor_port=l[2] if l[2] is not '' else NOT_SET,
                 neighbor_os=l[5] if l[5] is not '' else NOT_SET,
-                neighbor_type=neighbor_type_lst
+                neighbor_type=neighbor_type_lst,
+                options=options
             )
         )
 

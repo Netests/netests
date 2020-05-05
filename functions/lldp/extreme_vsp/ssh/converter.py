@@ -47,7 +47,8 @@ def _extreme_vsp_lldp_ssh_converter(
                 neighbor_name=l[3],
                 neighbor_port=l[2],
                 neighbor_os=l[6],
-                neighbor_type=neighbor_type_lst
+                neighbor_type=neighbor_type_lst,
+                options=options
             )
         )
 

@@ -51,7 +51,8 @@ def _arista_lldp_ssh_converter(
                                        .get("interfaceId", NOT_SET)
                                        .replace("\"", ""),
                         neighbor_os=n.get("systemDescription", NOT_SET),
-                        neighbor_type=n_type_lst
+                        neighbor_type=n_type_lst,
+                        options=options
                     )
                 )
 

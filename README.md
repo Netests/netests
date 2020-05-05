@@ -434,16 +434,16 @@ Run the command `get` and the protocols that you would like retrieve.
 
 |                     | VRF                | FACTS              | BGP                | LLDP               | CDP                | PING | OSPF |
 | ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ---- | ---- |
-| NAPALM              | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |      |      |
+| NAPALM              | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |      |      |
 | Juniper SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :no_entry:         |      |      |
 | Juniper Netconf     | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :no_entry:         |      |      |
 | Juniper API         | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    | :no_entry:         |      |      |
 | Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |
 | Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         |      |      |
 | Cumulus API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |      |      |
-| Arista SSH          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
-| Arista API          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |      |      |
-| Arista Netconf      | :white_check_mark: |                    |                    |                    |                    |      |      |
+| Arista SSH          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |      |      |
+| Arista API          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |      |      |
+| Arista Netconf      | :white_check_mark: |                    |                    |                    | :no_entry:         |      |      |
 | Nexus SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |      |      |
 | Nexus Netconf       | :white_check_mark: |                    |                    |                    |                    |      |      |
 | Nexus API           | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |      |      |
@@ -455,7 +455,7 @@ Run the command `get` and the protocols that you would like retrieve.
 | Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         |      |      |
 | IOSXR SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |      |      |
 | IOSXR Netconf       | :white_check_mark: |                    | :white_check_mark: |                    |                    |      |      |
-| IOSXR API           | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         |                    |      |      |
+| IOSXR API           | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         |      |      |
 
 :no_entry: = Not Supported
 

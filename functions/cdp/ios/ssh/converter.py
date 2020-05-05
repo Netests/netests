@@ -53,7 +53,8 @@ def _ios_cdp_ssh_converter(
                 neighbor_name=l[0] if l[0] is not '' else NOT_SET,
                 neighbor_port=l[3] if l[3] is not '' else NOT_SET,
                 neighbor_os=l[5] if l[5] is not '' else NOT_SET,
-                neighbor_type=neighbor_type_lst
+                neighbor_type=neighbor_type_lst,
+                options=options
             )
         )
 
