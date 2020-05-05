@@ -103,22 +103,22 @@ def step_impl(context):
 
 @given(u'I create a CDP object equals to Extreme VSP manually named o0201')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'I create a CDP object from a Extreme VSP API output named o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'I create a CDP object from a Extreme VSP Netconf output named o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'I create a CDP object from a Extreme VSP SSH output named o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'I create a CDP object equals to IOS manually named o0301')
@@ -210,32 +210,32 @@ def step_impl(context):
 
 @given(u'I create a CDP object equals to Juniper manually named o0501')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'I create a CDP object from a Juniper API output named o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'I create a CDP object from a Juniper Netconf output named o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'I create a CDP object from a Juniper SSH output named o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'I create a CDP object equals to NAPALM manually named o0601')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("NAPALM doesn't support CDP")
 
 
 @given(u'I create a CDP object from a NAPALM output named o0602')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("NAPALM doesn't support CDP")
 
 
 @given(u'I create a CDP object equals to NXOS manually named o0701')
@@ -548,7 +548,7 @@ def step_impl(context):
 
 @given(u'CDP o0601 should be equal to o0602')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("NAPALM doesn't support CDP")
 
 
 @given(u'CDP o0701 should be equal to o0702')
