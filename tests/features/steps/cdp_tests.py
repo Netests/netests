@@ -6,6 +6,7 @@ from protocols.cdp import CDP, ListCDP
 from functions.global_tools import printline
 from functions.global_tools import open_json_file, open_txt_file
 from functions.cdp.cdp_compare import _compare_cdp
+from functions.cdp.cumulus.ssh.converter import _cumulus_cdp_ssh_converter
 from functions.cdp.ios.ssh.converter import _ios_cdp_ssh_converter
 from const.constants import NOT_SET, FEATURES_SRC_PATH, CDP_DATA_HOST_KEY
 
@@ -17,32 +18,68 @@ def step_impl(context):
 
 @given(u'I create a CDP object equals to Arista manually named o0001')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'I create a CDP object from a Arista API output named o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'I create a CDP object from a Arista Netconf named o0003')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'I create a CDP object from a Arista SSH output named o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'I create a CDP object equals to Cumulus manually named o0101')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cdp_neighbors_lst = ListCDP(
+        cdp_neighbors_lst=list()
+    )
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="leaf01",
+            local_port="swp3",
+            neighbor_port="GigabitEthernet0/0/0/1",
+            neighbor_name="ios",
+            neighbor_os="Cisco IOS XR Software, Version 6.1.3[Default] Copyright (c) 2017 by Cisco Systems, Inc. running on isco IOS XRv Series",
+            neighbor_mgmt_ip="10.1.2.2",
+            neighbor_type=['Router']
+        )
+    )
+
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="leaf01",
+            local_port="swp4",
+            neighbor_port="GigabitEthernet0/2",
+            neighbor_name="leaf05.dh.local",
+            neighbor_os="Cisco IOS Software, IOSv Software (VIOS-ADVENTERPRISEK9-M), Version 15.6(1)T, RELEASE SOFTWARE (fc1) Technical Support: http://www.cisco.com/techsupport Copyright (c) 1986-2015 by Cisco Systems, Inc. Compiled Fri 20-Nov-15 13:39 by prod_rel_team running on Cisco",
+            neighbor_mgmt_ip="10.1.2.2",
+            neighbor_type=['Router']
+        )
+    )
+
+    context.o0101 = cdp_neighbors_lst
 
 
 @given(u'I create a CDP object from a Cumulus API output named o0102')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0102 = _cumulus_cdp_ssh_converter(
+        hostname="leaf01",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/cdp/cumulus/api/"
+                "cumulus_api_get_cdp.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a CDP object from a Cumulus Netconf named o0103')
@@ -52,7 +89,16 @@ def step_impl(context):
 
 @given(u'I create a CDP object from a Cumulus SSH output named o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0104 = _cumulus_cdp_ssh_converter(
+        hostname="leaf01",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/cdp/cumulus/ssh/"
+                "cumulus_net_show_lldp.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a CDP object equals to Extreme VSP manually named o0201')
@@ -106,7 +152,6 @@ def step_impl(context):
     )
 
     context.o0301 = cdp_neighbors_lst
-
 
 
 @given(u'I create a CDP object from a IOS API output named o0302')
@@ -215,137 +260,149 @@ def step_impl(context):
 
 @given(u'CDP o0001 should be equal to o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'CDP o0001 should be equal to o0003')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'CDP o0001 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'CDP o0002 should be equal to o0003')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'CDP o0002 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'CDP o0003 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'CDP YAML file should be equal to o0002')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'CDP YAML file should be equal to o0003')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'CDP YAML file should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Arista Networks doesn't support CDP")
 
 
 @given(u'CDP o0101 should be equal to o0102')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0101 == context.o0102
 
 
 @given(u'CDP o0101 should be equal to o0103')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus Networks CDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'CDP o0101 should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0101 == context.o0104
 
 
 @given(u'CDP o0102 should be equal to o0103')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus Networks CDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'CDP o0102 should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0102 == context.o0104
 
 
 @given(u'CDP o0103 should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus Networks CDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'CDP YAML file should be equal to o0102')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_cdp(
+        host_keys=CDP_DATA_HOST_KEY,
+        hostname="leaf01",
+        groups=['linux'],
+        cdp_host_data=context.o0102,
+        test=True
+    )
 
 
 @given(u'CDP YAML file should be equal to o0103')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Cumulus Networks CDP Netconf doesn't exist -> Not tested")
 
 
 @given(u'CDP YAML file should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_cdp(
+        host_keys=CDP_DATA_HOST_KEY,
+        hostname="leaf01",
+        groups=['linux'],
+        cdp_host_data=context.o0104,
+        test=True
+    )
 
 
 @given(u'CDP o0201 should be equal to o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'CDP o0201 should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'CDP o0201 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'CDP o0202 should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'CDP o0202 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'CDP o0203 should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'CDP YAML file should be equal to o0202')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'CDP YAML file should be equal to o0203')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'CDP YAML file should be equal to o0204')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Extreme Networks VSP doesn't support CDP")
 
 
 @given(u'CDP o0301 should be equal to o0302')
@@ -446,47 +503,47 @@ def step_impl(context):
 
 @given(u'CDP o0501 should be equal to o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'CDP o0501 should be equal to o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'CDP o0501 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'CDP o0502 should be equal to o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'CDP o0502 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'CDP o0503 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'CDP YAML file should be equal to o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'CDP YAML file should be equal to o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'CDP YAML file should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    print("Juniper Networks doesn't support CDP")
 
 
 @given(u'CDP o0601 should be equal to o0602')

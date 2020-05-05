@@ -26,13 +26,14 @@ def _cumulus_cdp_ssh_converter(
         cmd_output = json.loads(cmd_output)
 
     if (
-        "cdp" in cmd_output.keys() and
-        "interface" in cmd_output.get('cdp')[0].keys()
+        'lldp' in cmd_output.keys() and
+        'interface' in cmd_output.get('lldp')[0].keys()
     ):
-        for l in cmd_output.get('cdp')[0].get("interface"):
-            if l.get("via", NOT_SET) == "CDP":
+        for l in cmd_output.get('lldp')[0].get("interface"):
+            if "CDP" in l.get("via", NOT_SET):
                 neighbor_type_lst = list()
-                for c in l.get("chassis", NOT_SET)[0].get("capability", NOT_SET):
+                for c in l.get("chassis", NOT_SET)[0] \
+                          .get("capability", NOT_SET):
                     neighbor_type_lst.append(c.get("type", NOT_SET))
 
                 if l.get("chassis", NOT_SET)[0].get("descr", NOT_SET) == NOT_SET:

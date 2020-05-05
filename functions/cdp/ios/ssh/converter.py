@@ -27,7 +27,6 @@ def _ios_cdp_ssh_converter(
         template_file="cisco_ios_show_cdp_neighbors_detail.textfsm"
     )
 
-    print(cmd_output)
     cdp_neighbors_lst = ListCDP(
         cdp_neighbors_lst=list()
     )
