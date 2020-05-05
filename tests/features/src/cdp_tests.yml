@@ -1,0 +1,15 @@
+
+leaf05:
+  - local_name: leaf05
+    local_port: GigabitEthernet0/2
+    neighbor_mgmt_ip: 172.16.194.2
+    neighbor_name: cumulus
+    neighbor_os: Cumulus Linux version 3.7.5
+    neighbor_port: swp4
+    neighbor_type: ['Router']
+  - local_name: leaf05
+    local_port: GigabitEthernet0/1
+    neighbor_name: ios
+    neighbor_os: Cisco IOS XR Software, Version 6.1.3[Default]
+    neighbor_port: GigabitEthernet0/0/0/3
+    neighbor_type: ['Router']

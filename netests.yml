@@ -18,9 +18,11 @@ config:
     bgp_all_up:
       test: false
 
+    cdp:
+      test: false
+
     lldp:
       test: true
-
 
     facts:
       test: false

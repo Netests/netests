@@ -10,7 +10,6 @@ ERROR_HEADER = "Error import [lldp.py]"
 
 class LLDP(DiscoveryProtocols):
 
-
     def __init__(
         self,
         local_name=NOT_SET,
@@ -19,7 +18,8 @@ class LLDP(DiscoveryProtocols):
         neighbor_port=NOT_SET,
         neighbor_os=NOT_SET,
         neighbor_mgmt_ip=NOT_SET,
-        neighbor_type=list()
+        neighbor_type=list(),
+        options={}
     ):
         super(LLDP, self).__init__(local_name, 
                                    local_port,
@@ -27,7 +27,8 @@ class LLDP(DiscoveryProtocols):
                                    neighbor_port,
                                    neighbor_os,
                                    neighbor_mgmt_ip,
-                                   neighbor_type)
+                                   neighbor_type,
+                                   options)
 
     def __eq__(self, other):
         if not isinstance(other, LLDP):

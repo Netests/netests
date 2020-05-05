@@ -16,6 +16,7 @@ class DiscoveryProtocols(ABC):
     neighbor_os:str
     neighbor_mgmt_ip: str
     neighbor_type: list
+    options: dict
 
 
     def __init__(
@@ -26,7 +27,8 @@ class DiscoveryProtocols(ABC):
         neighbor_port=NOT_SET,
         neighbor_os=NOT_SET,
         neighbor_mgmt_ip=NOT_SET,
-        neighbor_type=list()
+        neighbor_type=list(),
+        options={}
     ):
         self.local_name = local_name
         self.local_port = local_port
@@ -35,6 +37,7 @@ class DiscoveryProtocols(ABC):
         self.neighbor_os = neighbor_os
         self.neighbor_mgmt_ip = neighbor_mgmt_ip
         self.neighbor_type = neighbor_type
+        self.options = options
 
     def __eq__(self, other):
         if not isinstance(other, DiscoveryProtocols):
