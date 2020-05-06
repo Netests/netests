@@ -23,6 +23,20 @@ leaf01:
     neighbor_port: Ethernet1
     neighbor_type: ['Bridge', 'Router']
 
+leaf02:
+  - local_name: leaf02
+    local_port: mgmt0
+    neighbor_mgmt_ip: 100.96.0.20
+    neighbor_name: spine02.tesuto.internal
+    neighbor_port: Gi1
+    neighbor_type: ['Bridge', 'Router']
+  - local_name: leaf02
+    local_port: Eth1/2
+    neighbor_mgmt_ip: 100.96.0.20
+    neighbor_name: spine02.tesuto.internal
+    neighbor_port: Gi3
+    neighbor_type: ['Bridge', 'Router']
+
 leaf03:
   - local_name: leaf03
     local_port: Ethernet2

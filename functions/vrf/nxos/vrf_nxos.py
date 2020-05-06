@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import json
 from ncclient import manager
 from xml.etree import ElementTree
-from nornir.plugins.tasks.networking import netmiko_send_command
-from const.constants import VRF_DATA_KEY, NEXUS_GET_VRF
+from functions.verbose_mode import verbose_mode
 from functions.http_request import exec_http_call
+from nornir.plugins.functions.text import print_result
+from nornir.plugins.tasks.networking import netmiko_send_command
+from const.constants import NOT_SET, LEVEL2, VRF_DATA_KEY, NEXUS_GET_VRF
 from functions.vrf.nxos.api.converter import _nxos_vrf_api_converter
 from functions.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
 from functions.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
@@ -62,17 +65,19 @@ def _nxos_get_vrf_netconf(task, options={}):
 
 
 def _nxos_get_vrf_ssh(task, options={}):
-    if VRF_DATA_KEY not in task.host.keys():
-        output = task.run(
-            name=f"{NEXUS_GET_VRF}",
-            task=netmiko_send_command,
-            command_string=f"{NEXUS_GET_VRF}",
-        )
+    output = task.run(
+        name=f"{NEXUS_GET_VRF}",
+        task=netmiko_send_command,
+        command_string=f"{NEXUS_GET_VRF}",
+    )
+    if verbose_mode(
+        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        needed_value=LEVEL2
+    ):
+        print_result(output)
 
-        vrf_list = _nxos_vrf_ssh_converter(
-            hostname=task.host.name,
-            cmd_output=json.loads(output.result),
-            options=options
-        )
-
-        task.host[VRF_DATA_KEY] = vrf_list
+    task.host[VRF_DATA_KEY] = _nxos_vrf_ssh_converter(
+        hostname=task.host.name,
+        cmd_output=json.loads(output.result),
+        options=options
+    )

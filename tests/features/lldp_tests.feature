@@ -52,6 +52,11 @@ Feature: Test protocols LLDP python class ./protocols/lldp.py
     And I create a LLDP object from a NXOS Netconf output named o0703
     And I create a LLDP object from a NXOS SSH output named o0704
 
+    And I create a LLDP object equals to NXOS only one manually named o0711
+    And I create a LLDP object from a NXOS only one API output named o0712
+    And I create a LLDP object from a NXOS only one Netconf output named o0713
+    And I create a LLDP object from a NXOS only one SSH output named o0714
+
     # COMPARAISON
     # Arista Networks
     And LLDP o0001 should be equal to o0002
@@ -139,6 +144,13 @@ Feature: Test protocols LLDP python class ./protocols/lldp.py
     And LLDP YAML file should be equal to o0702
     And LLDP YAML file should be equal to o0703
     And LLDP YAML file should be equal to o0704
+
+    And LLDP o0711 should be equal to o0712
+    And LLDP o0711 should be equal to o0713
+    And LLDP o0711 should be equal to o0714
+    And LLDP o0712 should be equal to o0713
+    And LLDP o0712 should be equal to o0714
+    And LLDP o0713 should be equal to o0714
     
     # By Protocols
     And I Finish my LLDP tests and list tests not implemented

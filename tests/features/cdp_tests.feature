@@ -52,6 +52,11 @@ Feature: Test protocols CDP python class ./protocols/cdp.py
         And I create a CDP object from a NXOS Netconf output named o0703
         And I create a CDP object from a NXOS SSH output named o0704
 
+        And I create a CDP object equals to NXOS only one manually named o0711
+        And I create a CDP object from a NXOS only one API output named o0712
+        And I create a CDP object from a NXOS only one Netconf output named o0713
+        And I create a CDP object from a NXOS only one SSH output named o0714
+
         # COMPARAISON
         # Arista Networks
         And CDP o0001 should be equal to o0002
@@ -139,6 +144,13 @@ Feature: Test protocols CDP python class ./protocols/cdp.py
         And CDP YAML file should be equal to o0702
         And CDP YAML file should be equal to o0703
         And CDP YAML file should be equal to o0704
+
+        And CDP o0711 should be equal to o0712
+        And CDP o0711 should be equal to o0713
+        And CDP o0711 should be equal to o0714
+        And CDP o0712 should be equal to o0713
+        And CDP o0712 should be equal to o0714
+        And CDP o0713 should be equal to o0714
 
         # By Protocols
         And I Finish my CDP tests and list tests not implemented

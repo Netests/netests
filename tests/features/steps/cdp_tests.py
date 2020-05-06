@@ -8,6 +8,8 @@ from functions.global_tools import open_json_file, open_txt_file
 from functions.cdp.cdp_compare import _compare_cdp
 from functions.cdp.cumulus.ssh.converter import _cumulus_cdp_ssh_converter
 from functions.cdp.ios.ssh.converter import _ios_cdp_ssh_converter
+from functions.cdp.nxos.api.converter import _nxos_cdp_api_converter
+from functions.cdp.nxos.ssh.converter import _nxos_cdp_ssh_converter
 from const.constants import NOT_SET, FEATURES_SRC_PATH, CDP_DATA_HOST_KEY
 
 
@@ -240,12 +242,61 @@ def step_impl(context):
 
 @given(u'I create a CDP object equals to NXOS manually named o0701')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cdp_neighbors_lst = ListCDP(
+        cdp_neighbors_lst=list()
+    )
+
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="leaf02",
+            local_port="mgmt0",
+            neighbor_port="eth0",
+            neighbor_name="cumulus",
+            neighbor_os="Cumulus Linux version 3.7.5",
+            neighbor_mgmt_ip="100.96.0.14",
+            neighbor_type=['Router']
+        )
+    )
+
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="leaf02",
+            local_port="mgmt0",
+            neighbor_port="GigabitEthernet1",
+            neighbor_name="spine02.tesuto.internal",
+            neighbor_os="Cisco IOS Software [Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2017 by Cisco Systems, Inc.\nCompiled Sat 22-Jul-17 05:51 by mcpre",
+            neighbor_mgmt_ip="100.96.0.20",
+            neighbor_type=['Router']
+        )
+    )
+
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="leaf02",
+            local_port="Ethernet1/2",
+            neighbor_port="GigabitEthernet3",
+            neighbor_name="spine02.tesuto.internal",
+            neighbor_os="Cisco IOS Software [Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2017 by Cisco Systems, Inc.\nCompiled Sat 22-Jul-17 05:51 by mcpre",
+            neighbor_mgmt_ip="100.96.0.20",
+            neighbor_type=['Router']
+        )
+    )
+
+    context.o0701 = cdp_neighbors_lst
 
 
 @given(u'I create a CDP object from a NXOS API output named o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0702 = _nxos_cdp_api_converter(
+        hostname="leaf02",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/cdp/nxos/api/"
+                "nxos_api_get_cdp_neighbors.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a CDP object from a NXOS Netconf output named o0703')
@@ -255,7 +306,69 @@ def step_impl(context):
 
 @given(u'I create a CDP object from a NXOS SSH output named o0704')
 def step_impl(context):
+    context.o0704 = _nxos_cdp_ssh_converter(
+        hostname="leaf02",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/cdp/nxos/ssh/"
+                "nxos_show_cdp_neighbors.json"
+            )
+        ),
+        options={}
+    )
+
+
+@given(u'I create a CDP object equals to NXOS only one manually named o0711')
+def step_impl(context):
+    cdp_neighbors_lst = ListCDP(
+        cdp_neighbors_lst=list()
+    )
+
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="leaf02",
+            local_port="mgmt0",
+            neighbor_port="eth0",
+            neighbor_name="cumulus",
+            neighbor_os="Cumulus Linux version 3.7.5",
+            neighbor_mgmt_ip="100.96.0.14",
+            neighbor_type=['Router']
+        )
+    )
+
+    context.o0711 = cdp_neighbors_lst
+
+
+@given(u'I create a CDP object from a NXOS only one API output named o0712')
+def step_impl(context):
+    context.o0712 = _nxos_cdp_api_converter(
+        hostname="leaf02",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/cdp/nxos/api/"
+                "nxos_api_get_cdp_neighbors_only_one.json"
+            )
+        ),
+        options={}
+    )
+
+
+@given(u'I create a CDP object from a NXOS only one Netconf output named o0713')
+def step_impl(context):
     context.scenario.tags.append("own_skipped")
+
+@given(u'I create a CDP object from a NXOS only one SSH output named o0714')
+def step_impl(context):
+    context.o0714 = _nxos_cdp_ssh_converter(
+        hostname="leaf02",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/cdp/nxos/ssh/"
+                "nxos_show_cdp_neighbors_only_one.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'CDP o0001 should be equal to o0002')
@@ -553,7 +666,14 @@ def step_impl(context):
 
 @given(u'CDP o0701 should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0701 == context.o0702 and
+        context.o0701.cdp_neighbors_lst[0].local_port == context.o0702.cdp_neighbors_lst[0].local_port and
+        context.o0701.cdp_neighbors_lst[0].neighbor_mgmt_ip == context.o0702.cdp_neighbors_lst[0].neighbor_mgmt_ip and
+        context.o0701.cdp_neighbors_lst[0].neighbor_name == context.o0702.cdp_neighbors_lst[0].neighbor_name and
+        context.o0701.cdp_neighbors_lst[0].neighbor_port == context.o0702.cdp_neighbors_lst[0].neighbor_port and
+        context.o0701.cdp_neighbors_lst[0].neighbor_type == context.o0702.cdp_neighbors_lst[0].neighbor_type
+    )
 
 
 @given(u'CDP o0701 should be equal to o0703')
@@ -563,7 +683,14 @@ def step_impl(context):
 
 @given(u'CDP o0701 should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0701 == context.o0704 and
+        context.o0701.cdp_neighbors_lst[0].local_port == context.o0704.cdp_neighbors_lst[0].local_port and
+        context.o0701.cdp_neighbors_lst[0].neighbor_mgmt_ip == context.o0704.cdp_neighbors_lst[0].neighbor_mgmt_ip and
+        context.o0701.cdp_neighbors_lst[0].neighbor_name == context.o0704.cdp_neighbors_lst[0].neighbor_name and
+        context.o0701.cdp_neighbors_lst[0].neighbor_port == context.o0704.cdp_neighbors_lst[0].neighbor_port and
+        context.o0701.cdp_neighbors_lst[0].neighbor_type == context.o0704.cdp_neighbors_lst[0].neighbor_type
+    )
 
 
 @given(u'CDP o0702 should be equal to o0703')
@@ -573,7 +700,7 @@ def step_impl(context):
 
 @given(u'CDP o0702 should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0702 == context.o0702
 
 
 @given(u'CDP o0703 should be equal to o0704')
@@ -583,7 +710,13 @@ def step_impl(context):
 
 @given(u'CDP YAML file should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_cdp(
+        host_keys=CDP_DATA_HOST_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        cdp_host_data=context.o0702,
+        test=True
+    )
 
 
 @given(u'CDP YAML file should be equal to o0703')
@@ -592,6 +725,56 @@ def step_impl(context):
 
 
 @given(u'CDP YAML file should be equal to o0704')
+def step_impl(context):
+    assert _compare_cdp(
+        host_keys=CDP_DATA_HOST_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        cdp_host_data=context.o0704,
+        test=True
+    )
+
+
+@given(u'CDP o0711 should be equal to o0712')
+def step_impl(context):
+    assert (
+        context.o0711 == context.o0712 and
+        context.o0711.cdp_neighbors_lst[0].local_port == context.o0712.cdp_neighbors_lst[0].local_port and
+        context.o0711.cdp_neighbors_lst[0].neighbor_mgmt_ip == context.o0712.cdp_neighbors_lst[0].neighbor_mgmt_ip and
+        context.o0711.cdp_neighbors_lst[0].neighbor_name == context.o0712.cdp_neighbors_lst[0].neighbor_name and
+        context.o0711.cdp_neighbors_lst[0].neighbor_port == context.o0712.cdp_neighbors_lst[0].neighbor_port and
+        context.o0711.cdp_neighbors_lst[0].neighbor_type == context.o0712.cdp_neighbors_lst[0].neighbor_type
+    )
+
+
+@given(u'CDP o0711 should be equal to o0713')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'CDP o0711 should be equal to o0714')
+def step_impl(context):
+    assert (
+        context.o0711 == context.o0714 and
+        context.o0711.cdp_neighbors_lst[0].local_port == context.o0714.cdp_neighbors_lst[0].local_port and
+        context.o0711.cdp_neighbors_lst[0].neighbor_mgmt_ip == context.o0714.cdp_neighbors_lst[0].neighbor_mgmt_ip and
+        context.o0711.cdp_neighbors_lst[0].neighbor_name == context.o0714.cdp_neighbors_lst[0].neighbor_name and
+        context.o0711.cdp_neighbors_lst[0].neighbor_port == context.o0714.cdp_neighbors_lst[0].neighbor_port and
+        context.o0711.cdp_neighbors_lst[0].neighbor_type == context.o0714.cdp_neighbors_lst[0].neighbor_type
+    )
+
+
+@given(u'CDP o0712 should be equal to o0713')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'CDP o0712 should be equal to o0714')
+def step_impl(context):
+    assert context.o0712 == context.o0714
+
+
+@given(u'CDP o0713 should be equal to o0714')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
 

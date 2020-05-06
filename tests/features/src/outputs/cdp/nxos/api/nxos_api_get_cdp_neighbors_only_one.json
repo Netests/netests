@@ -1,0 +1,33 @@
+{
+    "ins_api": {
+        "outputs": {
+            "output": {
+                "body": {
+                    "TABLE_cdp_neighbor_detail_info": {
+                        "ROW_cdp_neighbor_detail_info": {
+                            "capability": "router",
+                            "device_id": "cumulus",
+                            "ifindex": 83886080,
+                            "intf_id": "mgmt0",
+                            "mtu": 0,
+                            "num_mgmtaddr": 0,
+                            "numaddr": 1,
+                            "platform_id": "Linux",
+                            "port_id": "eth0",
+                            "ttl": 95,
+                            "v4addr": "100.96.0.14",
+                            "version": "Cumulus Linux version 3.7.9",
+                            "version_no": "v2"
+                        }
+                    }
+                },
+                "code": "200",
+                "input": "show cdp neighbors detail",
+                "msg": "Success"
+            }
+        },
+        "sid": "eoc",
+        "type": "cli_show",
+        "version": "1.0"
+    }
+}

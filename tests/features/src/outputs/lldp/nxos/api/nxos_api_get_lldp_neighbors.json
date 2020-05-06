@@ -1,0 +1,58 @@
+{
+    "ins_api": {
+        "outputs": {
+            "output": {
+                "body": {
+                    "TABLE_nbor_detail": {
+                        "ROW_nbor_detail": [
+                            {
+                                "chassis_id": "001e.f6be.d500",
+                                "chassis_type": "Mac Address",
+                                "enabled_capability": "R",
+                                "l_port_id": "mgmt0",
+                                "mgmt_addr": "100.96.0.20",
+                                "mgmt_addr_ipv6": "not advertised",
+                                "mgmt_addr_ipv6_type": "Address not advertised",
+                                "mgmt_addr_type": "IPV4",
+                                "port_desc": "GigabitEthernet1",
+                                "port_id": "Gi1",
+                                "port_type": "Interface Name",
+                                "sys_desc": "Cisco IOS Software [Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http: //www.cisco.com/techsupport\nCopyright (c) 1986-2017 by Cisco Systems, Inc.\nCompiled Sat 22-Jul-17 05: 51 by ",
+                                "sys_name": "spine02.tesuto.internal",
+                                "system_capability": "B, R",
+                                "ttl": "90",
+                                "vlan_id": "not advertised"
+                            },
+                            {
+                                "chassis_id": "001e.f6be.d500",
+                                "chassis_type": "Mac Address",
+                                "enabled_capability": "R",
+                                "l_port_id": "Eth1/2",
+                                "mgmt_addr": "100.96.0.20",
+                                "mgmt_addr_ipv6": "not advertised",
+                                "mgmt_addr_ipv6_type": "Address not advertised",
+                                "mgmt_addr_type": "IPV4",
+                                "port_desc": "GigabitEthernet3",
+                                "port_id": "Gi3",
+                                "port_type": "Interface Name",
+                                "sys_desc": "Cisco IOS Software [Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http: //www.cisco.com/techsupport\nCopyright (c) 1986-2017 by Cisco Systems, Inc.\nCompiled Sat 22-Jul-17 05: 51 by ",
+                                "sys_name": "spine02.tesuto.internal",
+                                "system_capability": "B, R",
+                                "ttl": "114",
+                                "vlan_id": "not advertised"
+                            }
+                        ]
+                    },
+                    "neigh_count": "2",
+                    "neigh_hdr": "neigh_hdr"
+                },
+                "code": "200",
+                "input": "show lldp neighbors detail",
+                "msg": "Success"
+            }
+        },
+        "sid": "eoc",
+        "type": "cli_show",
+        "version": "1.0"
+    }
+}

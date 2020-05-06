@@ -21,6 +21,8 @@ from functions.lldp.juniper.api.converter import _juniper_lldp_api_converter
 from functions.lldp.juniper.netconf.converter import _juniper_lldp_netconf_converter
 from functions.lldp.juniper.ssh.converter import _juniper_lldp_ssh_converter
 from functions.lldp.napalm.converter import _napalm_lldp_converter
+from functions.lldp.nxos.api.converter import _nxos_lldp_api_converter
+from functions.lldp.nxos.ssh.converter import _nxos_lldp_ssh_converter
 from const.constants import NOT_SET, FEATURES_SRC_PATH, LLDP_DATA_HOST_KEY
 
 
@@ -415,12 +417,49 @@ def step_impl(context):
 
 @given(u'I create a LLDP object equals to NXOS manually named o0701')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    lldp_neighbors_lst = ListLLDP(
+        lldp_neighbors_lst=list()
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf02",
+            local_port="mgmt0",
+            neighbor_port="Gi1",
+            neighbor_name="spine02.tesuto.internal",
+            neighbor_os="Cisco IOS Software[Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright(c) 1986-2017 by Cisco Systems, Inc.",
+            neighbor_mgmt_ip="100.96.0.20",
+            neighbor_type=['Bridge', 'Router']
+        )
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf02",
+            local_port="Eth1/2",
+            neighbor_port="Gi3",
+            neighbor_name="spine02.tesuto.internal",
+            neighbor_os="Cisco IOS Software[Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright(c) 1986-2017 by Cisco Systems, Inc.",
+            neighbor_mgmt_ip="100.96.0.20",
+            neighbor_type=['Bridge', 'Router']
+        )
+    )
+
+    context.o0701 = lldp_neighbors_lst
 
 
 @given(u'I create a LLDP object from a NXOS API output named o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0702 = _nxos_lldp_api_converter(
+        hostname="leaf02",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/nxos/api/"
+                "nxos_api_get_lldp_neighbors.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a LLDP object from a NXOS Netconf output named o0703')
@@ -430,7 +469,70 @@ def step_impl(context):
 
 @given(u'I create a LLDP object from a NXOS SSH output named o0704')
 def step_impl(context):
+    context.o0704 = _nxos_lldp_ssh_converter(
+        hostname="leaf02",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/nxos/ssh/"
+                "nxos_show_lldp_neighbors.json"
+            )
+        ),
+        options={}
+    )
+
+
+@given(u'I create a LLDP object equals to NXOS only one manually named o0711')
+def step_impl(context):
+    lldp_neighbors_lst = ListLLDP(
+        lldp_neighbors_lst=list()
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf02",
+            local_port="mgmt0",
+            neighbor_port="Gi1",
+            neighbor_name="spine02.tesuto.internal",
+            neighbor_os="Cisco IOS Software[Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright(c) 1986-2017 by Cisco Systems, Inc.",
+            neighbor_mgmt_ip="100.96.0.20",
+            neighbor_type=['Bridge', 'Router']
+        )
+    )
+
+    context.o0711 = lldp_neighbors_lst
+
+
+@given(u'I create a LLDP object from a NXOS only one API output named o0712')
+def step_impl(context):
+    context.o0712 = _nxos_lldp_api_converter(
+        hostname="leaf02",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/nxos/api/"
+                "nxos_api_get_lldp_neighbors_only_one.json"
+            )
+        ),
+        options={}
+    )
+
+
+@given(u'I create a LLDP object from a NXOS only one Netconf output named o0713')
+def step_impl(context):
     context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a LLDP object from a NXOS only one SSH output named o0714')
+def step_impl(context):
+    context.o0714 = _nxos_lldp_ssh_converter(
+        hostname="leaf02",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/nxos/ssh/"
+                "nxos_show_lldp_neighbors_only_one.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'LLDP o0001 should be equal to o0002')
@@ -770,7 +872,7 @@ def step_impl(context):
 
 @given(u'LLDP o0701 should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0701 == context.o0702
 
 
 @given(u'LLDP o0701 should be equal to o0703')
@@ -780,7 +882,7 @@ def step_impl(context):
 
 @given(u'LLDP o0701 should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0701 == context.o0704
 
 
 @given(u'LLDP o0702 should be equal to o0703')
@@ -790,7 +892,7 @@ def step_impl(context):
 
 @given(u'LLDP o0702 should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0702 == context.o0704
 
 
 @given(u'LLDP o0703 should be equal to o0704')
@@ -800,7 +902,13 @@ def step_impl(context):
 
 @given(u'LLDP YAML file should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_lldp(
+        host_keys=LLDP_DATA_HOST_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        lldp_host_data=context.o0702,
+        test=True
+    )
 
 
 @given(u'LLDP YAML file should be equal to o0703')
@@ -809,6 +917,42 @@ def step_impl(context):
 
 
 @given(u'LLDP YAML file should be equal to o0704')
+def step_impl(context):
+    assert _compare_lldp(
+        host_keys=LLDP_DATA_HOST_KEY,
+        hostname="leaf02",
+        groups=['nxos'],
+        lldp_host_data=context.o0704,
+        test=True
+    )
+
+
+@given(u'LLDP o0711 should be equal to o0712')
+def step_impl(context):
+    assert context.o0711 == context.o0712
+
+
+@given(u'LLDP o0711 should be equal to o0713')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'LLDP o0711 should be equal to o0714')
+def step_impl(context):
+    assert context.o0711 == context.o0714
+
+
+@given(u'LLDP o0712 should be equal to o0713')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'LLDP o0712 should be equal to o0714')
+def step_impl(context):
+    assert context.o0712 == context.o0714
+
+
+@given(u'LLDP o0713 should be equal to o0714')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
 

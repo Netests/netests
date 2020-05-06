@@ -1,0 +1,75 @@
+{
+    "ins_api": {
+        "outputs": {
+            "output": {
+                "body": {
+                    "TABLE_cdp_neighbor_detail_info": {
+                        "ROW_cdp_neighbor_detail_info": [
+                            {
+                                "capability": "router",
+                                "device_id": "cumulus",
+                                "ifindex": 83886080,
+                                "intf_id": "mgmt0",
+                                "mtu": 0,
+                                "num_mgmtaddr": 0,
+                                "numaddr": 1,
+                                "platform_id": "Linux",
+                                "port_id": "eth0",
+                                "ttl": 93,
+                                "v4addr": "100.96.0.14",
+                                "version": "Cumulus Linux version 3.7.9",
+                                "version_no": "v2"
+                            },
+                            {
+                                "capability": [
+                                    "router",
+                                    "IGMP_cnd_filtering"
+                                ],
+                                "device_id": "spine02.tesuto.internal",
+                                "duplexmode": "full",
+                                "ifindex": 83886080,
+                                "intf_id": "mgmt0",
+                                "mtu": 0,
+                                "num_mgmtaddr": 1,
+                                "numaddr": 1,
+                                "platform_id": "cisco CSR1000V",
+                                "port_id": "GigabitEthernet1",
+                                "ttl": 171,
+                                "v4addr": "100.96.0.20",
+                                "v4mgmtaddr": "100.96.0.20",
+                                "version": "Cisco IOS Software [Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http: //www.cisco.com/techsupport\nCopyright (c) 1986-2017 by Cisco Systems, Inc.\nCompiled Sat 22-Jul-17 05: 51 by mcpre",
+                            "version_no": "v2"
+                        },
+                        {
+                            "capability": [
+                                "router",
+                                "IGMP_cnd_filtering"
+                            ],
+                            "device_id": "spine02.tesuto.internal",
+                            "duplexmode": "full",
+                            "ifindex": 436208128,
+                            "intf_id": "Ethernet1/2",
+                            "mtu": 0,
+                            "num_mgmtaddr": 1,
+                            "numaddr": 1,
+                            "platform_id": "cisco CSR1000V",
+                            "port_id": "GigabitEthernet3",
+                            "ttl": 171,
+                            "v4addr": "100.96.0.20",
+                            "v4mgmtaddr": "100.96.0.20",
+                            "version": "Cisco IOS Software [Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http: //www.cisco.com/techsupport\nCopyright (c) 1986-2017 by Cisco Systems, Inc.\nCompiled Sat 22-Jul-17 05: 51 by mcpre",
+                        "version_no": "v2"
+                    }
+                ]
+            }
+        },
+        "code": "200",
+        "input": "show cdp neighbors detail",
+        "msg": "Success"
+    }
+},
+"sid": "eoc",
+"type": "cli_show",
+"version": "1.0"
+}
+}
