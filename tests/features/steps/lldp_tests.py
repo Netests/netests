@@ -5,7 +5,7 @@ from behave import given, when, then
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import printline
 from functions.lldp.lldp_compare import _compare_lldp
-from functions.global_tools import open_json_file, open_txt_file
+from functions.global_tools import open_json_file, open_txt_file, open_file
 from functions.lldp.arista.api.converter import _arista_lldp_api_converter
 from functions.lldp.arista.ssh.converter import _arista_lldp_ssh_converter
 from functions.lldp.cumulus.api.converter import _cumulus_lldp_api_converter
@@ -17,6 +17,9 @@ from functions.lldp.extreme_vsp.ssh.converter import (
     _extreme_vsp_lldp_ssh_converter
 )
 from functions.lldp.ios.ssh.converter import _ios_lldp_ssh_converter
+from functions.lldp.juniper.api.converter import _juniper_lldp_api_converter
+from functions.lldp.juniper.netconf.converter import _juniper_lldp_netconf_converter
+from functions.lldp.juniper.ssh.converter import _juniper_lldp_ssh_converter
 from functions.lldp.napalm.converter import _napalm_lldp_converter
 from const.constants import NOT_SET, FEATURES_SRC_PATH, LLDP_DATA_HOST_KEY
 
@@ -290,22 +293,77 @@ def step_impl(context):
 
 @given(u'I create a LLDP object equals to Juniper manually named o0501')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    lldp_neighbors_lst = ListLLDP(
+        lldp_neighbors_lst=list()
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf04",
+            local_port="fxp0",
+            neighbor_port="Gi1",
+            neighbor_name="spine02.tesuto.internal",
+            neighbor_os=NOT_SET,
+            neighbor_mgmt_ip=NOT_SET,
+            neighbor_type=NOT_SET
+        )
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf04",
+            local_port="fxp0",
+            neighbor_port="mgmt0",
+            neighbor_name="leaf02",
+            neighbor_os=NOT_SET,
+            neighbor_mgmt_ip=NOT_SET,
+            neighbor_type=NOT_SET
+        )
+    )
+
+    context.o0501 = lldp_neighbors_lst
 
 
 @given(u'I create a LLDP object from a Juniper API output named o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0502 = _juniper_lldp_api_converter(
+        hostname="leaf04",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/juniper/api/"
+                "juniper_api_get_lldp_neighbors.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a LLDP object from a Juniper Netconf output named o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0503 = _juniper_lldp_netconf_converter(
+        hostname="leaf04",
+        cmd_output=open_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/juniper/netconf/"
+                "juniper_nc_get_lldp_neighbors.xml"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a LLDP object from a Juniper SSH output named o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0504 = _juniper_lldp_ssh_converter(
+        hostname="leaf04",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/juniper/ssh/"
+                "juniper_show_lldp_neighbors.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a LLDP object equals to NAPALM manually named o0601')
@@ -644,47 +702,65 @@ def step_impl(context):
 
 @given(u'LLDP o0501 should be equal to o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0501 == context.o0502
 
 
 @given(u'LLDP o0501 should be equal to o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0501 == context.o0503
 
 
 @given(u'LLDP o0501 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0501 == context.o0504
 
 
 @given(u'LLDP o0502 should be equal to o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0502 == context.o0503
 
 
 @given(u'LLDP o0502 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0502 == context.o0503
 
 
 @given(u'LLDP o0503 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0503 == context.o0504
 
 
 @given(u'LLDP YAML file should be equal to o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_lldp(
+        host_keys=LLDP_DATA_HOST_KEY,
+        hostname="leaf04",
+        groups=['junos'],
+        lldp_host_data=context.o0502,
+        test=True
+    )
 
 
 @given(u'LLDP YAML file should be equal to o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_lldp(
+        host_keys=LLDP_DATA_HOST_KEY,
+        hostname="leaf04",
+        groups=['junos'],
+        lldp_host_data=context.o0503,
+        test=True
+    )
 
 
 @given(u'LLDP YAML file should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_lldp(
+        host_keys=LLDP_DATA_HOST_KEY,
+        hostname="leaf04",
+        groups=['junos'],
+        lldp_host_data=context.o0504,
+        test=True
+    )
 
 
 @given(u'LLDP o0601 should be equal to o0602')
