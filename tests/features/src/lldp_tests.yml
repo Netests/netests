@@ -14,6 +14,13 @@ spine02:
     neighbor_os: ""
     neighbor_port: Ethernet2
 
+spine03:
+  - local_name: spine03
+    local_port: GigabitEthernet0/0/0/2
+    neighbor_name: spine02.tesuto.inter
+    neighbor_port: Gi4
+
+
 leaf01:
   - local_name: leaf01
     local_port: swp1

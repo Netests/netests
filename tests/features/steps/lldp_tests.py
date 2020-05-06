@@ -17,6 +17,7 @@ from functions.lldp.extreme_vsp.ssh.converter import (
     _extreme_vsp_lldp_ssh_converter
 )
 from functions.lldp.ios.ssh.converter import _ios_lldp_ssh_converter
+from functions.lldp.iosxr.ssh.converter import _iosxr_lldp_ssh_converter
 from functions.lldp.juniper.api.converter import _juniper_lldp_api_converter
 from functions.lldp.juniper.netconf.converter import _juniper_lldp_netconf_converter
 from functions.lldp.juniper.ssh.converter import _juniper_lldp_ssh_converter
@@ -265,7 +266,23 @@ def step_impl(context):
 
 @given(u'I create a LLDP object equals to IOS-XR manually named o0401')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    lldp_neighbors_lst = ListLLDP(
+        lldp_neighbors_lst=list()
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="spine03",
+            local_port="GigabitEthernet0/0/0/2",
+            neighbor_port="Gi4",
+            neighbor_name="spine02.tesuto.inter",
+            neighbor_os=NOT_SET,
+            neighbor_mgmt_ip=NOT_SET,
+            neighbor_type=NOT_SET
+        )
+    )
+
+    context.o0401 = lldp_neighbors_lst
 
 
 @given(u'I create a LLDP object from a IOS-XR API output named o0402')
@@ -280,17 +297,16 @@ def step_impl(context):
 
 @given(u'I create a LLDP object from a IOS-XR SSH output named o0404')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a LLDP object equals IOS-XR multi manually output named o0405')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a LLDP object from a IOS-XR multi Netconf output named o0406')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0404 = _iosxr_lldp_ssh_converter(
+        hostname="spine03",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/lldp/iosxr/ssh/"
+                "cisco_iosxr_show_lldp_neighbors.txt"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a LLDP object equals to Juniper manually named o0501')
@@ -769,7 +785,7 @@ def step_impl(context):
 
 @given(u'LLDP o0401 should be equal to o0404')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0401 == context.o0404
 
 
 @given(u'LLDP o0402 should be equal to o0403')
@@ -799,7 +815,13 @@ def step_impl(context):
 
 @given(u'LLDP YAML file should be equal to o0404')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_lldp(
+        host_keys=LLDP_DATA_HOST_KEY,
+        hostname="spine03",
+        groups=['xr'],
+        lldp_host_data=context.o0404,
+        test=True
+    )
 
 
 @given(u'LLDP o0501 should be equal to o0502')

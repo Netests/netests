@@ -33,8 +33,6 @@ Feature: Test protocols LLDP python class ./protocols/lldp.py
     And I create a LLDP object from a IOS-XR API output named o0402
     And I create a LLDP object from a IOS-XR Netconf output named o403
     And I create a LLDP object from a IOS-XR SSH output named o0404
-    And I create a LLDP object equals IOS-XR multi manually output named o0405
-    And I create a LLDP object from a IOS-XR multi Netconf output named o0406
 
     # Juniper Networks ID Device = o05
     And I create a LLDP object equals to Juniper manually named o0501

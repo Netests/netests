@@ -1,0 +1,52 @@
+
+Wed May  6 10:24:25.254 UTC
+
+-------------------------
+Device ID: cumulus
+SysName :
+Entry address(es):
+  IPv4 address: 100.96.0.14
+Platform: Linux,  Capabilities: Router
+Interface: MgmtEth0/RP0/CPU0/0
+Port ID (outgoing port): eth0
+Holdtime : 97 sec
+
+Version :
+Cumulus Linux version 3.7.9
+
+advertisement version: 2
+
+-------------------------
+Device ID: leaf02(9OSPMF3QIF6)
+SysName : leaf02
+Entry address(es):
+  IPv4 address: 100.96.0.16
+Platform: N9K-9000v,  Capabilities: Router Switch
+Interface: MgmtEth0/RP0/CPU0/0
+Port ID (outgoing port): mgmt0
+Holdtime : 159 sec
+
+Version :
+Cisco Nexus Operating System (NX-OS) Software, Version 9.2(3)
+
+advertisement version: 2
+Duplex: full
+
+-------------------------
+Device ID: spine02.tesuto.internal
+SysName :
+Entry address(es):
+  IPv4 address: 100.96.0.20
+Platform: cisco CSR1000V,  Capabilities: Router IGMP
+Interface: GigabitEthernet0/0/0/2
+Port ID (outgoing port): GigabitEthernet4
+Holdtime : 163 sec
+
+Version :
+Cisco IOS Software [Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2017 by Cisco Systems, Inc.
+Compiled Sat 22-Jul-17 05:51 by mcpre
+
+advertisement version: 2
+Duplex: full

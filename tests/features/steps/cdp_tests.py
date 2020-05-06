@@ -8,6 +8,7 @@ from functions.global_tools import open_json_file, open_txt_file
 from functions.cdp.cdp_compare import _compare_cdp
 from functions.cdp.cumulus.ssh.converter import _cumulus_cdp_ssh_converter
 from functions.cdp.ios.ssh.converter import _ios_cdp_ssh_converter
+from functions.cdp.iosxr.ssh.converter import _iosxr_cdp_ssh_converter
 from functions.cdp.nxos.api.converter import _nxos_cdp_api_converter
 from functions.cdp.nxos.ssh.converter import _nxos_cdp_ssh_converter
 from const.constants import NOT_SET, FEATURES_SRC_PATH, CDP_DATA_HOST_KEY
@@ -182,7 +183,47 @@ def step_impl(context):
 
 @given(u'I create a CDP object equals to IOS-XR manually named o0401')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cdp_neighbors_lst = ListCDP(
+        cdp_neighbors_lst=list()
+    )
+
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="spine03",
+            local_port="MgmtEth0/RP0/CPU0/0",
+            neighbor_port="eth0",
+            neighbor_name="cumulus",
+            neighbor_os="Cumulus Linux version 3.7.9",
+            neighbor_mgmt_ip="100.96.0.14",
+            neighbor_type=['Router']
+        )
+    )
+
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="spine03",
+            local_port="MgmtEth0/RP0/CPU0/0",
+            neighbor_port="mgmt0",
+            neighbor_name="leaf02(9OSPMF3QIF6)",
+            neighbor_os="Cisco Nexus Operating System(NX-OS) Software, Version 9.2(3)",
+            neighbor_mgmt_ip="100.96.0.20",
+            neighbor_type=['Router', 'Bridge']
+        )
+    )
+
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="spine03",
+            local_port="GigabitEthernet0/0/0/2",
+            neighbor_port="GigabitEthernet4",
+            neighbor_name="spine02.tesuto.internal",
+            neighbor_os="Cisco IOS Software [Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)",
+            neighbor_mgmt_ip="100.96.0.20",
+            neighbor_type=['Router']
+        )
+    )
+
+    context.o0401 = cdp_neighbors_lst
 
 
 @given(u'I create a CDP object from a IOS-XR API output named o0402')
@@ -197,7 +238,16 @@ def step_impl(context):
 
 @given(u'I create a CDP object from a IOS-XR SSH output named o0404')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0404 = _iosxr_cdp_ssh_converter(
+        hostname="spine03",
+        cmd_output=open_txt_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/cdp/iosxr/ssh/"
+                "cisco_iosxr_show_cdp_neighbors_detail.txt"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a CDP object equals IOS-XR multi manually output named o0405')
@@ -581,7 +631,14 @@ def step_impl(context):
 
 @given(u'CDP o0401 should be equal to o0404')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert (
+        context.o0401 == context.o0404 and
+        context.o0401.cdp_neighbors_lst[0].local_port == context.o0404.cdp_neighbors_lst[0].local_port and
+        context.o0401.cdp_neighbors_lst[0].neighbor_mgmt_ip == context.o0404.cdp_neighbors_lst[0].neighbor_mgmt_ip and
+        context.o0401.cdp_neighbors_lst[0].neighbor_name == context.o0404.cdp_neighbors_lst[0].neighbor_name and
+        context.o0401.cdp_neighbors_lst[0].neighbor_port == context.o0404.cdp_neighbors_lst[0].neighbor_port and
+        context.o0401.cdp_neighbors_lst[0].neighbor_type == context.o0404.cdp_neighbors_lst[0].neighbor_type
+    )
 
 
 @given(u'CDP o0402 should be equal to o0403')
@@ -611,7 +668,13 @@ def step_impl(context):
 
 @given(u'CDP YAML file should be equal to o0404')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_cdp(
+        host_keys=CDP_DATA_HOST_KEY,
+        hostname="spine03",
+        groups=['xr'],
+        cdp_host_data=context.o0404,
+        test=True
+    )
 
 
 @given(u'CDP o0501 should be equal to o0502')
