@@ -105,7 +105,7 @@ def _execute_generic_ping_cmd(task, *, use_netmiko=False, enable=False):
         if use_netmiko:
             # IOS devices don't support "task=remote_command"
             data = task.run(
-                name=f"Ping network devices",
+                name="Ping network devices",
                 task=netmiko_send_command,
                 command_string=f"{ping_line}"
             )
@@ -117,7 +117,7 @@ def _execute_generic_ping_cmd(task, *, use_netmiko=False, enable=False):
 
         else:
             data = task.run(
-                name=f"Ping network devices",
+                name="Ping network devices",
                 task=remote_command,
                 command=f"{ping_line}"
             )
