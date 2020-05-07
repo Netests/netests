@@ -9,10 +9,10 @@ from functions.bgp.bgp_compare import compare_bgp
 from functions.bgp.bgp_checks import get_bgp_up
 from functions.bond.bond_get import get_bond
 from functions.bond.bond_compare import compare_bond
-from functions.discovery_protocols.cdp.cdp_get import get_cdp
-from functions.discovery_protocols.cdp.cdp_compare import compare_cdp
-from functions.discovery_protocols.lldp.lldp_get import get_lldp
-from functions.discovery_protocols.lldp.lldp_compare import compare_lldp
+from functions.cdp.cdp_get import get_cdp
+from functions.cdp.cdp_compare import compare_cdp
+from functions.lldp.lldp_get import get_lldp
+from functions.lldp.lldp_compare import compare_lldp
 from functions.facts.facts_get import get_facts
 from functions.facts.facts_compare import compare_facts
 from functions.ip.ipv4.ipv4_get import get_ipv4
@@ -27,6 +27,7 @@ from functions.mtu.mtu_get import get_mtu
 from functions.mtu.mtu_compare import compare_mtu
 from functions.ospf.ospf_get import get_ospf
 from functions.ospf.ospf_compare import compare_ospf
+from functions.ping.ping_get import get_ping
 from functions.ping.ping_execute import execute_ping
 from functions.socket.socket_execute import execute_socket
 from functions.static.static_get import get_static
@@ -51,8 +52,7 @@ from const.constants import (
     SOCKET_SRC_FILENAME,
     STATIC_SRC_FILENAME,
     VLAN_SRC_FILENAME,
-    VRF_SRC_FILENAME,
-    PATH_TO_VERITY_FILES
+    VRF_SRC_FILENAME
 )
 
 HEADER = "[netests - base_run.py]"
@@ -117,8 +117,9 @@ RUN = {
         "compare": compare_ospf
     },
     "ping": {
-        "function": execute_ping,
-        "file": PING_SRC_FILENAME
+        "function": get_ping,
+        "file": PING_SRC_FILENAME,
+        "compare": execute_ping
     },
     "socket": {
         "function": execute_socket,
@@ -145,6 +146,7 @@ RUN = {
 def run_base(
     nr: Nornir,
     protocol: str,
+    not_compare: bool,
     parameters: dict,
     init_data: bool
 ) -> bool:
@@ -152,6 +154,7 @@ def run_base(
         parameters.get('test', False) is True or
         str(parameters.get('test', False)).upper() == "INFO"
     ):
+        result_output = list()
         same = RUN.get(protocol).get('function')(
             nr=nr,
             options=parameters.get('options', {}),
@@ -162,21 +165,15 @@ def run_base(
                 nr=nr,
                 protocol=protocol
             )
-        elif (
-            protocol != "ping" and
-            protocol != "socket" and
-            protocol != "bgp_all_up"
-        ):
+        elif not_compare is False:
             same = RUN.get(protocol).get('compare')(
                 nr=nr,
                 options=parameters.get('options', {})
             )
+            result_output.append(f"{HEADER}({protocol}) is working = {same}")
 
-            printline()
-            print(
-                f"{HEADER} ({protocol}) defined in {PATH_TO_VERITY_FILES}"
-                f"{RUN.get(protocol).get('file')} work = {same} !!"
-            )
+        printline()
+        print("\n".join(result_output))
 
         return (
             parameters.get('test', False) is True and

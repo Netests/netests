@@ -4,7 +4,7 @@ Value PLATFORM (.*)
 Value REMOTE_PORT (.*)
 Value LOCAL_PORT (.*)
 Value SOFTWARE_VERSION (.*$)
-Value CAPABILITIES (.*)
+Value CAPABILITIES (\S+)
 
 Start
   ^Device ID: ${DESTINATION_HOST}

@@ -3,7 +3,7 @@ config:
   inventory: ./inventory/ansible/hosts
   protocols:
     bgp:
-      test: true
+      test: false
       options:
         compare:
           src_hostname: true
@@ -18,9 +18,14 @@ config:
     bgp_all_up:
       test: false
 
+    cdp:
+      test: false
+
+    lldp:
+      test: false
 
     facts:
-      test: true
+      test: false
 
     
     ospf:
@@ -33,39 +38,13 @@ config:
         session_state: true
         peer_hostname: true
 
-    ipv4:
-      test: false
-      options:
-        filters:
-          get_physical: false
-          get_vlan: true
-          get_loopback: false
-          get_peerlink: false
-          get_vni: false
-    
-    static:
-      test: false
-      options:
-        compare:
-          vrf_name: true
-          prefix: true
-          netmask: true
-          nexthop: true
-        own_vars:
-          enable: false
-          dict_keys: routing>static>ipv4
-          your_keys:
-            prefix: subnet
-            ip_address: ip
-            nexthop: via
-            netmask: mask
-            preference: pref
 
-    vlan:
-      test: false
-      
-    vrf:
+    ping:
       test: true
+
+ 
+    vrf:
+      test: false
       options:
         compare:
           vrf_name: true

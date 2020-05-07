@@ -8,6 +8,9 @@ from protocols.bgp import BGPSession
 from functions.facts.facts_get import get_facts
 from functions.facts.facts_compare import _compare_facts
 from protocols.facts import Facts
+from functions.lldp.lldp_get import get_lldp
+from functions.lldp.lldp_compare import _compare_lldp
+from protocols.lldp import LLDP
 from functions.vrf.vrf_get import get_vrf
 from functions.vrf.vrf_compare import _compare_vrf
 from protocols.vrf import VRF
@@ -16,6 +19,7 @@ from exceptions.netests_cli_exceptions import NetestsCLINornirObjectIsNone
 from const.constants import (
     BGP_SESSIONS_HOST_KEY,
     FACTS_DATA_HOST_KEY,
+    LLDP_DATA_HOST_KEY,
     VRF_DATA_KEY
 )
 import pprint
@@ -48,6 +52,11 @@ class NetestsCLI():
             "class": Facts,
             "get": get_facts,
             "compare": _compare_facts
+        },
+        "lldp": {
+            "class": LLDP,
+            "get": get_lldp,
+            "compare": _compare_lldp
         },
         "vrf": {
             "class": VRF,
@@ -171,6 +180,19 @@ class NetestsCLI():
                                                     .hosts
                                                     .get(d)
                                                    .get(FACTS_DATA_HOST_KEY)
+
+                    )
+                    if r:
+                        w.append(d)
+                elif prot.lower() == "lldp":
+                    r = _compare_lldp(
+                        host_keys=self.nornir.inventory.hosts[d].keys(),
+                        hostname=d,
+                        groups=self.nornir.inventory.hosts[d].groups,
+                        lldp_host_data=self.nornir.inventory
+                                                   .hosts
+                                                   .get(d)
+                                                   .get(LLDP_DATA_HOST_KEY)
 
                     )
                     if r:
@@ -353,12 +375,20 @@ class NetestsCLI():
                             "print": self.options.get('facts', {})
                         }
                     )
+                elif prot.lower() == "lldp":
+                    get_lldp(
+                        nr=self.nornir,
+                        options={
+                            "from_cli": True,
+                            "print": self.options.get('lldp', {})
+                        }
+                    )
                 elif prot.lower() == "bgp":
                     get_bgp(
                         nr=self.nornir,
                         options={
                             "from_cli": True,
-                            "print": self.options.get('facts', {})
+                            "print": self.options.get('bgp', {})
                         }
                     )
                 else:

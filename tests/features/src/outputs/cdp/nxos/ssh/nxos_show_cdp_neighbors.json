@@ -1,0 +1,61 @@
+{
+    "TABLE_cdp_neighbor_detail_info": {
+        "ROW_cdp_neighbor_detail_info": [
+            {
+                "ifindex": "83886080",
+                "device_id": "cumulus",
+                "numaddr": "1",
+                "v4addr": "100.96.0.14",
+                "platform_id": "Linux",
+                "capability": "router",
+                "intf_id": "mgmt0",
+                "port_id": "eth0",
+                "ttl": "94",
+                "version": "Cumulus Linux version 3.7.9",
+                "version_no": "v2",
+                "mtu": "0",
+                "num_mgmtaddr": "0"
+            },
+            {
+                "ifindex": "83886080",
+                "device_id": "spine02.tesuto.internal",
+                "numaddr": "1",
+                "v4addr": "100.96.0.20",
+                "platform_id": "cisco CSR1000V",
+                "capability": [
+                    "router",
+                    "IGMP_cnd_filtering"
+                ],
+                "intf_id": "mgmt0",
+                "port_id": "GigabitEthernet1",
+                "ttl": "170",
+                "version": "Cisco IOS Software [Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2017 by Cisco Systems, Inc.\nCompiled Sat 22-Jul-17 05:51 by mcpre",
+                "version_no": "v2",
+                "duplexmode": "full",
+                "mtu": "0",
+                "num_mgmtaddr": "1",
+                "v4mgmtaddr": "100.96.0.20"
+            },
+            {
+                "ifindex": "436208128",
+                "device_id": "spine02.tesuto.internal",
+                "numaddr": "1",
+                "v4addr": "100.96.0.20",
+                "platform_id": "cisco CSR1000V",
+                "capability": [
+                    "router",
+                    "IGMP_cnd_filtering"
+                ],
+                "intf_id": "Ethernet1/2",
+                "port_id": "GigabitEthernet3",
+                "ttl": "168",
+                "version": "Cisco IOS Software [Everest], Virtual XE Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 16.6.1, RELEASE SOFTWARE (fc2)\nTechnical Support: http://www.cisco.com/techsupport\nCopyright (c) 1986-2017 by Cisco Systems, Inc.\nCompiled Sat 22-Jul-17 05:51 by mcpre",
+                "version_no": "v2",
+                "duplexmode": "full",
+                "mtu": "0",
+                "num_mgmtaddr": "1",
+                "v4mgmtaddr": "100.96.0.20"
+            }
+        ]
+    }
+}

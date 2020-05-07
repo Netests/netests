@@ -1,0 +1,19 @@
+{
+    "TABLE_cdp_neighbor_detail_info": {
+        "ROW_cdp_neighbor_detail_info": {
+            "ifindex": "83886080",
+            "device_id": "cumulus",
+            "numaddr": "1",
+            "v4addr": "100.96.0.14",
+            "platform_id": "Linux",
+            "capability": "router",
+            "intf_id": "mgmt0",
+            "port_id": "eth0",
+            "ttl": "114",
+            "version": "Cumulus Linux version 3.7.9",
+            "version_no": "v2",
+            "mtu": "0",
+            "num_mgmtaddr": "0"
+        }
+    }
+}

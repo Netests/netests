@@ -1,40 +1,14 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-########################################################################################################################
-#
-# Constantes
-#
-ERROR_HEADER = "Error import [setup.py]"
-HEADER = "[netests - setup.py]"
+from setuptools import setup, find_packages
+
+
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
 
-########################################################################################################################
-#
-# Import Library
-#
-
-try:
-    from setuptools import setup, find_packages
-except ImportError as importError:
-    print(f"{ERROR_HEADER} setuptools")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-
-########################################################################################################################
-#
-# Functions
-#
 
 def parse_requirements(filename):
-    """ 
-    load requirements from a pip requirements file 
-    
-    :param filename:
-    """
-    
     lineiter = (line.strip() for line in open(filename))
     return [line for line in lineiter if line and not line.startswith("#")]
 
@@ -48,7 +22,7 @@ setup(
     install_requires=parse_requirements("requirements.txt"),
     entry_points={
         "console_scripts": [
-            "noc-connections = netests.netests:main",
+            "netests = netests.netests:main",
         ]
     },
 )

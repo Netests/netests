@@ -1,0 +1,1718 @@
+{
+    "openconfig-lldp:interfaces": {
+        "interface": [
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/3"
+                },
+                "name": "1/3",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/3"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/14"
+                },
+                "name": "1/14",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/14"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/4"
+                },
+                "name": "2/4",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/4"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/3"
+                },
+                "name": "2/3",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/3"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/2"
+                },
+                "name": "2/2",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/2"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/1"
+                },
+                "name": "2/1",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/1"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/18"
+                },
+                "name": "2/18",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/18"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/42"
+                },
+                "name": "2/42",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/42"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/12"
+                },
+                "name": "2/12",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/12"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/6"
+                },
+                "name": "2/6",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/6"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/38"
+                },
+                "name": "2/38",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/38"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/37"
+                },
+                "name": "2/37",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/37"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/36"
+                },
+                "name": "2/36",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/36"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/35"
+                },
+                "name": "2/35",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/35"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/11"
+                },
+                "name": "2/11",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/11"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/41"
+                },
+                "name": "2/41",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/41"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/40"
+                },
+                "name": "2/40",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/40"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/39"
+                },
+                "name": "2/39",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/39"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/20"
+                },
+                "name": "2/20",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/20"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/30"
+                },
+                "name": "1/30",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/30"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/5"
+                },
+                "name": "1/5",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/5"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/19"
+                },
+                "name": "2/19",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/19"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/20"
+                },
+                "name": "1/20",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/20"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/22"
+                },
+                "name": "1/22",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/22"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/21"
+                },
+                "name": "1/21",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/21"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/22"
+                },
+                "name": "2/22",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/22"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/19"
+                },
+                "name": "1/19",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/19"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/26"
+                },
+                "name": "1/26",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/26"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/15"
+                },
+                "name": "2/15",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/15"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/24"
+                },
+                "name": "1/24",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/24"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/17"
+                },
+                "name": "2/17",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/17"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/40"
+                },
+                "name": "1/40",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/40"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/39"
+                },
+                "name": "1/39",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/39"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/28"
+                },
+                "name": "1/28",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/28"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/27"
+                },
+                "name": "1/27",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/27"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/24"
+                },
+                "name": "2/24",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/24"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/23"
+                },
+                "name": "2/23",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/23"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/25"
+                },
+                "name": "1/25",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/25"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/29"
+                },
+                "name": "2/29",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/29"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/30"
+                },
+                "name": "2/30",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/30"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/31"
+                },
+                "name": "2/31",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/31"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/32"
+                },
+                "name": "2/32",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/32"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/25"
+                },
+                "name": "2/25",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/25"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/26"
+                },
+                "name": "2/26",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/26"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/27"
+                },
+                "name": "2/27",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/27"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/28"
+                },
+                "name": "2/28",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/28"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/23"
+                },
+                "name": "1/23",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/23"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/33"
+                },
+                "name": "2/33",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/33"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/21"
+                },
+                "name": "2/21",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/21"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/41"
+                },
+                "name": "1/41",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/41"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/34"
+                },
+                "name": "2/34",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/34"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/12"
+                },
+                "name": "1/12",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/12"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/31"
+                },
+                "name": "1/31",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/31"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/18"
+                },
+                "name": "1/18",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/18"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/9"
+                },
+                "name": "2/9",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/9"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/7"
+                },
+                "name": "2/7",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/7"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/34"
+                },
+                "name": "1/34",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/34"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/29"
+                },
+                "name": "1/29",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/29"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/38"
+                },
+                "name": "1/38",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/38"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/11"
+                },
+                "name": "1/11",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/11"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/15"
+                },
+                "name": "1/15",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/15"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/2"
+                },
+                "name": "1/2",
+                "neighbors": {
+                    "neighbor": [
+                        {
+                            "capabilities": {
+                                "capability": [
+                                    {
+                                        "name": "MAC_BRIDGE",
+                                        "state": {
+                                            "enabled": true,
+                                            "name": "MAC_BRIDGE"
+                                        }
+                                    }
+                                ]
+                            },
+                            "id": "ifc193Nbr1",
+                            "state": {
+                                "age": null,
+                                "chassis-id": "500000d7ee0b",
+                                "chassis-id-type": "MAC_ADDRESS",
+                                "id": "ifc193Nbr1",
+                                "last-update": null,
+                                "management-address": "192.168.1.199",
+                                "management-address-type": "ipV4",
+                                "port-description": "",
+                                "port-id": "Ethernet2",
+                                "port-id-type": "INTERFACE_NAME",
+                                "system-description": "",
+                                "system-name": "leaf03.dh.local"
+                            }
+                        }
+                    ]
+                },
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "26",
+                        "frame-out": "25",
+                        "tlv-discard": "78",
+                        "tlv-unknown": "78"
+                    },
+                    "enabled": "True",
+                    "name": "1/2"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/6"
+                },
+                "name": "1/6",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/6"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/9"
+                },
+                "name": "1/9",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/9"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/16"
+                },
+                "name": "2/16",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/16"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/36"
+                },
+                "name": "1/36",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/36"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/42"
+                },
+                "name": "1/42",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/42"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/4"
+                },
+                "name": "1/4",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/4"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/7"
+                },
+                "name": "1/7",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/7"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/8"
+                },
+                "name": "1/8",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/8"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/37"
+                },
+                "name": "1/37",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/37"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/10"
+                },
+                "name": "2/10",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/10"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/17"
+                },
+                "name": "1/17",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/17"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/33"
+                },
+                "name": "1/33",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/33"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/5"
+                },
+                "name": "2/5",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/5"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/8"
+                },
+                "name": "2/8",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/8"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/13"
+                },
+                "name": "1/13",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/13"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/32"
+                },
+                "name": "1/32",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/32"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/1"
+                },
+                "name": "1/1",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "25",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/1"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/16"
+                },
+                "name": "1/16",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/16"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/35"
+                },
+                "name": "1/35",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/35"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "1/10"
+                },
+                "name": "1/10",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "1/10"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/13"
+                },
+                "name": "2/13",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/13"
+                }
+            },
+            {
+                "config": {
+                    "enabled": "True",
+                    "name": "2/14"
+                },
+                "name": "2/14",
+                "state": {
+                    "counters": {
+                        "frame-discard": "0",
+                        "frame-error-in": "0",
+                        "frame-error-out": null,
+                        "frame-in": "0",
+                        "frame-out": "0",
+                        "tlv-discard": "0",
+                        "tlv-unknown": "0"
+                    },
+                    "enabled": "True",
+                    "name": "2/14"
+                }
+            }
+        ]
+    }
+}

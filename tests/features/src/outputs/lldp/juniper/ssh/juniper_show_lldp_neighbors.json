@@ -1,0 +1,83 @@
+{
+    "lldp-neighbors-information" : [
+    {
+        "attributes" : {"junos:style" : "brief"},
+        "lldp-neighbor-information" : [
+        {
+            "lldp-local-port-id" : [
+            {
+                "data" : "fxp0"
+            }
+            ],
+            "lldp-local-parent-interface-name" : [
+            {
+                "data" : "-"
+            }
+            ],
+            "lldp-remote-chassis-id-subtype" : [
+            {
+                "data" : "Mac address"
+            }
+            ],
+            "lldp-remote-chassis-id" : [
+            {
+                "data" : "00:1e:f6:be:d5:00"
+            }
+            ],
+            "lldp-remote-port-id-subtype" : [
+            {
+                "data" : "Interface name"
+            }
+            ],
+            "lldp-remote-port-id" : [
+            {
+                "data" : "Gi1"
+            }
+            ],
+            "lldp-remote-system-name" : [
+            {
+                "data" : "spine02.tesuto.internal"
+            }
+            ]
+        },
+        {
+            "lldp-local-port-id" : [
+            {
+                "data" : "fxp0"
+            }
+            ],
+            "lldp-local-parent-interface-name" : [
+            {
+                "data" : "-"
+            }
+            ],
+            "lldp-remote-chassis-id-subtype" : [
+            {
+                "data" : "Mac address"
+            }
+            ],
+            "lldp-remote-chassis-id" : [
+            {
+                "data" : "92:99:00:0e:00:00"
+            }
+            ],
+            "lldp-remote-port-id-subtype" : [
+            {
+                "data" : "Interface name"
+            }
+            ],
+            "lldp-remote-port-id" : [
+            {
+                "data" : "mgmt0"
+            }
+            ],
+            "lldp-remote-system-name" : [
+            {
+                "data" : "leaf02"
+            }
+            ]
+        }
+        ]
+    }
+    ]
+}

@@ -1,3 +1,5 @@
+inventory/*
+images/*
 nornir/nornir.log
 .DS_Store
 bin/*

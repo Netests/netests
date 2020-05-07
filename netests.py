@@ -158,6 +158,13 @@ HEADER = "[netests - main.py]"
     is_flag=True,
     help="To create truth_vars files.",
 )
+@click.option(
+    "-N",
+    "--not-compare",
+    default=False,
+    is_flag=True,
+    help="To avoid compare/excute step. Will only get data or generate cmd.",
+)
 def main(
     netest_config_file,
     inventory_config_file,
@@ -178,7 +185,8 @@ def main(
     ansible_inventory,
     netbox_inventory,
     nornir_inventory,
-    init_data
+    init_data,
+    not_compare
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -226,6 +234,7 @@ def main(
             run_base(
                 nr=nr,
                 protocol=k,
+                not_compare=not_compare,
                 parameters=v,
                 init_data=init_data
             ) is False and

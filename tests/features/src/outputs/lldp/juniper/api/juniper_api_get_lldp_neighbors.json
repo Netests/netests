@@ -1,0 +1,25 @@
+{
+    "lldp-neighbors-information": {
+        "@style": "brief",
+        "lldp-neighbor-information": [
+            {
+                "lldp-local-parent-interface-name": "-",
+                "lldp-local-port-id": "fxp0",
+                "lldp-remote-chassis-id": "00:1e:f6:be:d5: 00",
+                "lldp-remote-chassis-id-subtype": "Mac address",
+                "lldp-remote-port-id": "Gi1",
+                "lldp-remote-port-id-subtype": "Interface name",
+                "lldp-remote-system-name": "spine02.tesuto.internal"
+            },
+            {
+                "lldp-local-parent-interface-name": "-",
+                "lldp-local-port-id": "fxp0",
+                "lldp-remote-chassis-id": "92: 99: 00:0e: 00: 00",
+                "lldp-remote-chassis-id-subtype": "Mac address",
+                "lldp-remote-port-id": "mgmt0",
+                "lldp-remote-port-id-subtype": "Interface name",
+                "lldp-remote-system-name": "leaf02"
+            }
+        ]
+    }
+}
