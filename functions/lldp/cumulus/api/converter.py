@@ -6,8 +6,7 @@ import json
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
-from const.constants import NOT_SET, LEVEL1, LEVEL3
+from const.constants import NOT_SET as NSET, LEVEL1
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -30,31 +29,31 @@ def _cumulus_lldp_api_converter(
         "interface" in cmd_output.get('lldp')[0].keys()
     ):
         for l in cmd_output.get('lldp')[0].get("interface"):
-            if l.get("via", NOT_SET) == "LLDP":
+            if l.get("via", NSET) == "LLDP":
                 neighbor_type_lst = list()
-                for c in l.get("chassis", NOT_SET)[0].get("capability", NOT_SET):
-                    neighbor_type_lst.append(c.get("type", NOT_SET))
+                for c in l.get("chassis", NSET)[0].get("capability", NSET):
+                    neighbor_type_lst.append(c.get("type", NSET))
 
-                if l.get("chassis", NOT_SET)[0].get("descr", NOT_SET) == NOT_SET:
-                    neighbor_os = NOT_SET
+                if l.get("chassis", NSET)[0].get("descr", NSET) == NSET:
+                    neighbor_os = NSET
                 else:
                     neighbor_os = l.get("chassis")[0] \
                                    .get("descr")[0] \
-                                   .get("value", NOT_SET)
+                                   .get("value", NSET)
 
                 lldp_neighbors_lst.lldp_neighbors_lst.append(
                     LLDP(
                         local_name=hostname,
-                        local_port=l.get("name", NOT_SET),
+                        local_port=l.get("name", NSET),
                         neighbor_mgmt_ip=l.get("chassis")[0]
                                           .get("mgmt-ip")[0]
-                                          .get("value", NOT_SET),
+                                          .get("value", NSET),
                         neighbor_name=l.get("chassis")[0]
                                        .get("name")[0]
-                                       .get("value", NOT_SET),
+                                       .get("value", NSET),
                         neighbor_port=l.get("port")[0]
                                        .get("id")[0]
-                                       .get("value", NOT_SET),
+                                       .get("value", NSET),
                         neighbor_os=neighbor_os,
                         neighbor_type=neighbor_type_lst,
                         options=options
@@ -62,7 +61,7 @@ def _cumulus_lldp_api_converter(
                 )
 
     if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
+        user_value=os.environ.get("NETESTS_VERBOSE", NSET),
         needed_value=LEVEL1
     ):
         printline()

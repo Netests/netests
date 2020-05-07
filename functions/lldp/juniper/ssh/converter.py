@@ -6,8 +6,7 @@ import json
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
-from const.constants import NOT_SET, LEVEL1, LEVEL3
+from const.constants import NOT_SET, LEVEL1
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -27,7 +26,8 @@ def _juniper_lldp_ssh_converter(
 
     if (
         'lldp-neighbors-information' in cmd_output.keys() and
-        'lldp-neighbor-information' in cmd_output.get("lldp-neighbors-information")[0].keys()
+        'lldp-neighbor-information' in cmd_output.get(
+            "lldp-neighbors-information")[0].keys()
     ):
         for n in cmd_output.get("lldp-neighbors-information")[0] \
                            .get("lldp-neighbor-information"):

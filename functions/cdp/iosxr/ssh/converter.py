@@ -2,16 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 from protocols.cdp import CDP, ListCDP
 from functions.global_tools import printline
 from functions.cli_tools import parse_textfsm
 from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
 from functions.discovery_protocols.discovery_functions import (
     _mapping_sys_capabilities
 )
-from const.constants import NOT_SET, LEVEL1, LEVEL3
+from const.constants import NOT_SET, LEVEL1
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 

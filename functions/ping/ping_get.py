@@ -3,7 +3,6 @@
 
 import os
 from nornir.core import Nornir
-from nornir.core.filter import F
 from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from functions.ping.retrieve_ping import retrieve_ping_from_yaml

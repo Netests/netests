@@ -2,16 +2,14 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import printline
 from functions.cli_tools import parse_textfsm
 from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
 from functions.discovery_protocols.discovery_functions import (
     _mapping_sys_capabilities
 )
-from const.constants import NOT_SET, LEVEL1, LEVEL3
+from const.constants import NOT_SET, LEVEL1
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -42,10 +40,10 @@ def _iosxr_lldp_ssh_converter(
         lldp_neighbors_lst.lldp_neighbors_lst.append(
             LLDP(
                 local_name=hostname,
-                local_port=l[1] if l[1] is not '' else NOT_SET,
+                local_port=l[1] if l[1] != '' else NOT_SET,
                 neighbor_mgmt_ip=NOT_SET,
-                neighbor_name=l[0] if l[0] is not '' else NOT_SET,
-                neighbor_port=l[2] if l[2] is not '' else NOT_SET,
+                neighbor_name=l[0] if l[0] != '' else NOT_SET,
+                neighbor_port=l[2] if l[2] != '' else NOT_SET,
                 neighbor_os=NOT_SET,
                 neighbor_type=capabilities,
                 options=options

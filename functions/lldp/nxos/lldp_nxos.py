@@ -4,7 +4,6 @@
 import os
 from ncclient import manager
 from xml.etree import ElementTree
-from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.http_request import exec_http_nxos
 from nornir.plugins.functions.text import print_result
@@ -48,7 +47,9 @@ def _nxos_get_lldp_netconf(task, options={}):
         device_params={'name': 'nexus'}
     ) as m:
 
-        lldp_config=dict()
+        m.server_capabilities
+
+        lldp_config = dict()
 
         ElementTree.fromstring(lldp_config)
 

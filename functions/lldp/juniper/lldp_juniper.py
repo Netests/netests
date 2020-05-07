@@ -23,7 +23,6 @@ from functions.lldp.juniper.netconf.converter import (
 from functions.lldp.juniper.ssh.converter import _juniper_lldp_ssh_converter
 
 
-
 def _juniper_get_lldp_api(task, options={}):
     lldp_config = exec_http_call_juniper(
         hostname=task.host.hostname,

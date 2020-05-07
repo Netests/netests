@@ -2,14 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import os
-import textfsm
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from const.constants import NOT_SET, LEVEL1, LEVEL3
-from functions.discovery_protocols.discovery_functions import (
-    _mapping_sys_capabilities
-)
+from const.constants import NOT_SET, LEVEL1
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -68,5 +64,3 @@ def _extreme_vsp_lldp_api_converter(
         PP.pprint(lldp_neighbors_lst.to_json())
 
     return lldp_neighbors_lst
-
-

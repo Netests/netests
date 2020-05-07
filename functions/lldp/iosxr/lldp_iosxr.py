@@ -4,11 +4,12 @@
 import os
 from ncclient import manager
 from xml.etree import ElementTree
-from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import netmiko_send_command
-from functions.lldp.iosxr.netconf.converter import _iosxr_lldp_netconf_converter
+from functions.lldp.iosxr.netconf.converter import (
+    _iosxr_lldp_netconf_converter
+)
 from functions.lldp.iosxr.ssh.converter import _iosxr_lldp_ssh_converter
 from const.constants import (
     NOT_SET,
@@ -36,14 +37,15 @@ def _iosxr_get_lldp_netconf(task, options={}):
             source='running',
             filter=NETCONF_FILTER.format(
                 "<lldp "
-                "xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XR-ethernet-lldp-oper\""
+                "xmlns="
+                "\"http://cisco.com/ns/yang/Cisco-IOS-XR-ethernet-lldp-oper\""
                 "/>"
             )
         ).data_xml
 
     ElementTree.fromstring(bgp_config)
 
-    task.host[BGP_SESSIONS_HOST_KEY] = _iosxr_lldp_netconf_converter(
+    task.host[LLDP_DATA_HOST_KEY] = _iosxr_lldp_netconf_converter(
         hostname=task.host.name,
         cmd_output=bgp_config,
         options=options

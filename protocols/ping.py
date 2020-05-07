@@ -13,14 +13,14 @@ class PING:
     ip_address: str
     vrf:  str
 
-    def __init__(self, src_host= NOT_SET, ip_address=NOT_SET, vrf=NOT_SET):
+    def __init__(self, src_host=NOT_SET, ip_address=NOT_SET, vrf=NOT_SET):
         self.src_host = src_host
         self.ip_address = ip_address
         self.vrf = vrf
 
     def __eq__(self, other):
         if not isinstance(other, PING):
-            return NotImplemented
+            return NotImplementedError()
 
         return ((str(self.ip_address) == str(other.ip_address)) and
                 (str(self.src_host) == str(other.src_host)) and
@@ -30,7 +30,7 @@ class PING:
         return f"<PING src_host={self.src_host} " \
                f"ip_address={self.ip_address} " \
                f"vrf={self.vrf}>\n"
-               
+
     def to_json(self):
         return {
             "src_host": self.src_host,
@@ -48,7 +48,7 @@ class ListPING:
 
     def __eq__(self, others):
         if not isinstance(others, ListPING):
-            raise NotImplemented
+            raise NotImplementedError()
 
         for ping in self.ping_lst:
             if ping not in others.ping_lst:
@@ -67,7 +67,7 @@ class ListPING:
         return result + ">"
 
     def to_json(self):
-        l = list()
+        data = list()
         for p in self.ping_lst:
-            l.append(p.to_json())
-        return l
+            data.append(p.to_json())
+        return data

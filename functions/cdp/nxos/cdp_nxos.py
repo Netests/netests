@@ -4,7 +4,6 @@
 import os
 from ncclient import manager
 from xml.etree import ElementTree
-from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.http_request import exec_http_nxos
 from nornir.plugins.functions.text import print_result
@@ -47,6 +46,8 @@ def _nxos_get_cdp_netconf(task, options={}):
         hostkey_verify=False,
         device_params={'name': 'nexus'}
     ) as m:
+
+        m.server_capabilities
 
         cdp_config = dict()
 

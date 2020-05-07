@@ -6,8 +6,7 @@ import json
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
-from const.constants import NOT_SET, LEVEL1, LEVEL3
+from const.constants import NOT_SET, LEVEL1
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -24,22 +23,20 @@ def _arista_lldp_ssh_converter(
 
     if not isinstance(cmd_output, dict):
         cmd_output = json.loads(cmd_output)
-        
 
     if 'lldpNeighbors' in cmd_output.keys():
         for i, f in cmd_output.get('lldpNeighbors').items():
             for n in f.get('lldpNeighborInfo'):
                 n_type_lst = list()
                 for sys_capability in n.get("systemCapabilities", NOT_SET):
-                        n_type_lst.append((str(sys_capability).capitalize()))
+                    n_type_lst.append((str(sys_capability).capitalize()))
 
                 neighbor_mgmt_ip = str()
-                neighbor_mgmt_ipv6 = str()
                 for address in n.get("managementAddresses", NOT_SET):
                     if address.get("addressType", NOT_SET) == "ipv4":
                         neighbor_mgmt_ip = address.get("address", NOT_SET)
                     if address.get("addressType", NOT_SET) == "ipv6":
-                        neighbor_mgmt_ipv6 = address.get("address", NOT_SET)
+                        pass
 
                 lldp_neighbors_lst.lldp_neighbors_lst.append(
                     LLDP(

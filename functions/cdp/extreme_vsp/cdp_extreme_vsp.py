@@ -9,6 +9,7 @@ def _extreme_vsp_get_cdp_api(task, options={}):
         "Extreme VSP - CDP - API - Not Available"
     )
 
+
 def _extreme_vsp_get_cdp_netconf(task):
     raise NetestsFunctionNotPossible(
         "Extreme VSP - CDP - NETCONF - Not Available"

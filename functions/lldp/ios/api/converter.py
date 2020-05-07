@@ -3,11 +3,10 @@
 
 import os
 import json
-from protocols.lldp import LLDP, ListLLDP
+from protocols.lldp import ListLLDP
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
-from const.constants import NOT_SET, LEVEL1, LEVEL3
+from const.constants import NOT_SET, LEVEL1
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -17,7 +16,7 @@ def _ios_lldp_api_converter(
     cmd_output,
     options={}
 ) -> ListLLDP:
-    
+
     if not isinstance(cmd_output, dict):
         if isinstance(cmd_output, bytes):
             if cmd_output.decode() != "":
@@ -28,7 +27,6 @@ def _ios_lldp_api_converter(
     lldp_neighbors_lst = ListLLDP(
         lldp_neighbors_lst=list()
     )
-
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),

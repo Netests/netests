@@ -9,6 +9,7 @@ def _arista_get_cdp_api(task, options={}):
         "Arista - CDP - API - Not Available"
     )
 
+
 def _arista_get_cdp_netconf(task):
     raise NetestsFunctionNotPossible(
         "Arista - CDP - NETCONF - Not Available"

@@ -6,7 +6,7 @@ import json
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from const.constants import NOT_SET, LEVEL1, LEVEL3
+from const.constants import NOT_SET, LEVEL1
 from functions.discovery_protocols.discovery_functions import (
     _mapping_sys_capabilities
 )
@@ -30,7 +30,7 @@ def _nxos_lldp_ssh_converter(
     if (
         "TABLE_nbor_detail" in cmd_output.keys() and
         "ROW_nbor_detail" in cmd_output.get("TABLE_nbor_detail").keys()
-    ):  
+    ):
         if isinstance(
             cmd_output.get('TABLE_nbor_detail')
                       .get('ROW_nbor_detail'),

@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import os
-from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.networking import napalm_get
 from functions.lldp.napalm.converter import _napalm_lldp_converter
 from const.constants import NOT_SET, LEVEL2, LLDP_DATA_HOST_KEY
+
 
 def _generic_lldp_napalm(task, options={}):
     output = task.run(

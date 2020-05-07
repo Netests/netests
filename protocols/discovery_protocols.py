@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from const.constants import NOT_SET
-from abc import ABC, abstractmethod
+from abc import ABC
 
 
 ERROR_HEADER = "Error import [discovery_protocols.py]"
+
 
 class DiscoveryProtocols(ABC):
 
@@ -13,11 +14,10 @@ class DiscoveryProtocols(ABC):
     local_port: str
     neighbor_name: str
     neighbor_port: str
-    neighbor_os:str
+    neighbor_os: str
     neighbor_mgmt_ip: str
     neighbor_type: list
     options: dict
-
 
     def __init__(
         self,

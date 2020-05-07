@@ -2,13 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
 from functions.netconf_tools import format_xml_output
-from const.constants import NOT_SET, LEVEL1, LEVEL3
+from const.constants import NOT_SET, LEVEL1
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -28,10 +26,11 @@ def _juniper_lldp_netconf_converter(
 
     if (
         'lldp-neighbors-information' in cmd_output.keys() and
-        'lldp-neighbor-information' in cmd_output.get("lldp-neighbors-information").keys()
+        'lldp-neighbor-information' in cmd_output.get(
+            "lldp-neighbors-information").keys()
     ):
         if isinstance(
-            cmd_output.get("lldp-neighbors-information") \
+            cmd_output.get("lldp-neighbors-information")
                       .get("lldp-neighbor-information"),
             dict
         ):
@@ -71,7 +70,7 @@ def _juniper_lldp_netconf_converter(
                         neighbor_type=NOT_SET,
                         options=options
                     )
-            )
+                )
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),

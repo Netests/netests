@@ -9,8 +9,10 @@ declare -a commands_lst=(
     'pylama netests.py'
     'pylama exceptions/'
     'pylama functions/bgp/*'
+    'pylama functions/cdp/*'
     'pylama functions/facts/*'
     'pylama functions/lldp/*'
+    'pylama functions/ping/*'
     'pylama functions/vrf/*'
     'pylama functions/base_selection.py'
     'pylama functions/base_run.py'
@@ -23,11 +25,12 @@ declare -a commands_lst=(
     'pylama functions/verbose_mode.py'
     'pylama const/constants.py'
     'pylama protocols/bgp.py'
-    'pylama protocols/facts.py'
-    'pylama protocols/vrf.py'
-    'pylama protocols/discovery_protocols.py'
-    'pylama protocols/lldp.py'
     'pylama protocols/cdp.py'
+    'pylama protocols/discovery_protocols.py'
+    'pylama protocols/facts.py'
+    'pylama protocols/lldp.py'
+    'pylama protocols/ping.py'
+    'pylama protocols/vrf.py'
 )
 
 for command in "${commands_lst[@]}"

@@ -9,6 +9,7 @@ def _juniper_get_cdp_api(task, options={}):
         "Juniper - CDP - API - Not Available"
     )
 
+
 def _juniper_get_cdp_netconf(task):
     raise NetestsFunctionNotPossible(
         "Juniper - CDP - NETCONF - Not Available"

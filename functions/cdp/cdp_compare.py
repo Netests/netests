@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
 from nornir.core.task import Task
 from protocols.cdp import CDP, ListCDP
 from functions.global_tools import open_file
 from functions.select_vars import select_host_vars
-from nornir.plugins.functions.text import print_result
 from const.constants import NOT_SET, CDP_DATA_HOST_KEY, CDP_WORKS_KEY
 from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 
@@ -96,13 +94,13 @@ def _compare_cdp(
                     neighbor_port=n.get("neighbor_port", NOT_SET),
                     neighbor_os=n.get("neighbor_os", NOT_SET),
                     neighbor_mgmt_ip=n.get("neighbor_mgmt_ip", NOT_SET),
-                    neighbor_type=n.get("neighbor_type", NOT_SET),    
+                    neighbor_type=n.get("neighbor_type", NOT_SET),
                 )
 
                 verity_cdp.cdp_neighbors_lst.append(cdp_obj)
 
             return verity_cdp == cdp_host_data
-        
+
         else:
             print(f"Key {CDP_DATA_HOST_KEY} is missing for {hostname}")
             return False

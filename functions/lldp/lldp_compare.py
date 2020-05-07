@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
 from nornir.core.task import Task
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import open_file
 from functions.select_vars import select_host_vars
-from nornir.plugins.functions.text import print_result
 from const.constants import NOT_SET, LLDP_DATA_HOST_KEY, LLDP_WORKS_KEY
 from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 

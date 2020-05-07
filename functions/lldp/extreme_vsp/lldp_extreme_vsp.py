@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import pyeapi
-from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from functions.http_request import exec_http_extreme_vsp
@@ -17,12 +15,10 @@ from functions.lldp.extreme_vsp.ssh.converter import (
 from const.constants import (
     NOT_SET,
     LEVEL2,
-    TEXTFSM_PATH,
     LLDP_DATA_HOST_KEY,
     EXTREME_VSP_GET_LLDP
 )
 from exceptions.netests_exceptions import NetestsFunctionNotPossible
-
 
 
 def _extreme_vsp_get_lldp_api(task, options={}):

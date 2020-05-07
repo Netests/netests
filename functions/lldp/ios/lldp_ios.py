@@ -2,10 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-import pyeapi
 from ncclient import manager
 from xml.etree import ElementTree
-from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.http_request import exec_http_call
 from nornir.plugins.functions.text import print_result

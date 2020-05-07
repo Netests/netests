@@ -2,13 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
-from protocols.cdp import CDP, ListCDP
+from protocols.cdp import ListCDP
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
 from functions.netconf_tools import format_xml_output
-from const.constants import NOT_SET, LEVEL1, LEVEL3
+from const.constants import NOT_SET, LEVEL1
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -18,10 +16,8 @@ def _ios_cdp_netconf_converter(
     cmd_output,
     options={}
 ) -> ListCDP:
-    
-    cmd_output = format_xml_output(cmd_output)
 
-    print(cmd_output)
+    cmd_output = format_xml_output(cmd_output)
 
     cdp_neighbors_lst = ListCDP(
         cdp_neighbors_lst=list()

@@ -52,8 +52,7 @@ from const.constants import (
     SOCKET_SRC_FILENAME,
     STATIC_SRC_FILENAME,
     VLAN_SRC_FILENAME,
-    VRF_SRC_FILENAME,
-    PATH_TO_VERITY_FILES
+    VRF_SRC_FILENAME
 )
 
 HEADER = "[netests - base_run.py]"

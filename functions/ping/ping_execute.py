@@ -3,14 +3,11 @@
 
 import os
 from nornir.core import Nornir
-from nornir.core.filter import F
 from nornir.core.task import MultiResult
-from protocols.ping import PING, ListPING
 from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.commands import remote_command
 from nornir.plugins.tasks.networking import netmiko_send_command
-from nornir.core.exceptions import NornirExecutionError
 from const.constants import (
     NOT_SET,
     LEVEL4,
@@ -19,9 +16,7 @@ from const.constants import (
     CUMULUS_PLATEFORM_NAME,
     EXTREME_PLATEFORM_NAME,
     CISCO_IOS_PLATEFORM_NAME,
-    CISCO_IOSXR_PLATEFORM_NAME,
     JUNOS_PLATEFORM_NAME,
-    NEXUS_PLATEFORM_NAME,
     PING_DATA_HOST_KEY
 )
 
@@ -95,7 +90,7 @@ def _execute_arista_ping_cmd(task):
 
 
 def _execute_generic_ping_cmd(task, *, use_netmiko=False, enable=False):
-   
+
     file = open(f"{JINJA2_PING_RESULT}{task.host.name}_ping_cmd", "r")
     for ping_line in file:
         if enable:
@@ -132,7 +127,6 @@ def _execute_generic_ping_cmd(task, *, use_netmiko=False, enable=False):
             ):
                 print_result(data)
 
-        
         if task.host.platform != CUMULUS_PLATEFORM_NAME:
             _raise_exception_on_ping_cmd(
                 output=data,
@@ -147,33 +141,43 @@ def _raise_exception_on_ping_cmd(
     hostname: str,
     ping_line: str,
     must_work: bool
-) -> None :
+) -> None:
 
     if must_work:
         if (
-            "Invalid host/interface " in output.result or \
-            "Network is unreachable" in output.result or \
-            "Temporary failure in name resolution" in output.result or \
-            "100% packet loss" in output.result or \
-            "0 received" in output.result or \
-            "Success rate is 0 percent" in output.result or \
-            "invalid routing instance" in output.result or \
-            "no answer from" in output.result or \
+            "Invalid host/interface " in output.result or
+            "Network is unreachable" in output.result or
+            "Temporary failure in name resolution" in output.result or
+            "100% packet loss" in output.result or
+            "0 received" in output.result or
+            "Success rate is 0 percent" in output.result or
+            "invalid routing instance" in output.result or
+            "no answer from" in output.result or
             "ping: timeout" in output.result
         ):
-            print(f"[PINGS] ERROR WITH {hostname} _> {ping_line} = must_work={must_work}")
+            print(
+                f"[PINGS] ERROR WITH {hostname} _> {ping_line}"
+                f"= must_work={must_work}"
+            )
             raise Exception("ERROR")
     else:
         # PING MUST NOT WORK !
         if (
-            ("1 packets received" in output.result and "0.00% packet loss" in output.result) or \
-            ("1 received" in output.result and "0% packet loss" in output.result) or \
-            ("is alive" in output.result) or \
-            ("Success rate is 100 percent" in output.result)
+            (
+                "1 packets received" in output.result and
+                "0.00% packet loss" in output.result) or
+            (
+                "1 received" in output.result and
+                "0% packet loss" in output.result) or
+            "is alive" in output.result or
+            "Success rate is 100 percent" in output.result
         ):
-            print(f"[PINGS] ERROR WITH {hostname} _> {ping_line} = must_work={must_work}")
+            print(
+                f"[PINGS] ERROR WITH {hostname} _> {ping_line}"
+                f"= must_work={must_work}"
+            )
             raise Exception("ERROR")
 
 
 def _execute_napalm_ping_cmd(task, *, enable=False):
-    raise NotImplemented
+    raise NotImplementedError()

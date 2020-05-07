@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import yaml
-from const.constants import *
+from const.constants import NOT_SET, PING_DATA_HOST_KEY
 from protocols.ping import PING, ListPING
 from functions.global_tools import open_file
 from functions.select_vars import select_host_vars
@@ -30,7 +29,7 @@ def retrieve_ping_from_yaml(task, test=False, options={}) -> ListPING:
                 groups=task.host.groups,
                 protocol="ping"
             )
-    
+
     ping_lst = ListPING(
         ping_lst=list()
     )

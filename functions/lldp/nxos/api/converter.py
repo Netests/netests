@@ -6,10 +6,10 @@ import json
 from protocols.lldp import LLDP, ListLLDP
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from const.constants import NOT_SET, LEVEL1, LEVEL3
+from const.constants import NOT_SET, LEVEL1
 from functions.discovery_protocols.discovery_functions import (
     _mapping_sys_capabilities
-)   
+)
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -46,14 +46,17 @@ def _nxos_lldp_api_converter(
                                        .get('body')
                                        .get('TABLE_nbor_detail')
                                        .keys() and
-        cmd_output.get('ins_api').get('outputs').get('output').get('code') == '200'
+        cmd_output.get('ins_api')
+                  .get('outputs')
+                  .get('output')
+                  .get('code') == '200'
     ):
         if isinstance(
-            cmd_output.get('ins_api') \
-                      .get('outputs') \
-                      .get('output') \
-                      .get('body') \
-                      .get('TABLE_nbor_detail') \
+            cmd_output.get('ins_api')
+                      .get('outputs')
+                      .get('output')
+                      .get('body')
+                      .get('TABLE_nbor_detail')
                       .get('ROW_nbor_detail'),
             list
         ):

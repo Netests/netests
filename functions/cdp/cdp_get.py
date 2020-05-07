@@ -65,7 +65,6 @@ from functions.base_selection import (
     device_not_compatible_with_napalm
 )
 from functions.verbose_mode import verbose_mode
-from functions.vrf.vrf_get import get_vrf
 
 
 HEADER = "[netests - get_cdp]"

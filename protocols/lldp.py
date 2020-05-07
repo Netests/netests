@@ -21,7 +21,7 @@ class LLDP(DiscoveryProtocols):
         neighbor_type=list(),
         options={}
     ):
-        super(LLDP, self).__init__(local_name, 
+        super(LLDP, self).__init__(local_name,
                                    local_port,
                                    neighbor_name,
                                    neighbor_port,
@@ -32,7 +32,7 @@ class LLDP(DiscoveryProtocols):
 
     def __eq__(self, other):
         if not isinstance(other, LLDP):
-            return NotImplemented
+            return NotImplementedError()
 
         return (self.local_name == other.local_name and
                 self.local_port == other.local_port and
@@ -55,7 +55,7 @@ class ListLLDP:
 
     def __eq__(self, others):
         if not isinstance(others, ListLLDP):
-            raise NotImplemented
+            raise NotImplementedError()
 
         for lldp in self.lldp_neighbors_lst:
             if lldp not in others.lldp_neighbors_lst:

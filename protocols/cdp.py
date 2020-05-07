@@ -7,7 +7,6 @@ from protocols.discovery_protocols import DiscoveryProtocols
 
 class CDP(DiscoveryProtocols):
 
-
     def __init__(
         self,
         local_name=NOT_SET,
@@ -28,10 +27,9 @@ class CDP(DiscoveryProtocols):
                                   neighbor_type,
                                   options)
 
-
     def __eq__(self, other):
         if not isinstance(other, CDP):
-            return NotImplemented
+            return NotImplementedError()
 
         return (self.local_name == other.local_name and
                 self.local_port == other.local_port and
@@ -54,7 +52,7 @@ class ListCDP:
 
     def __eq__(self, others):
         if not isinstance(others, ListCDP):
-            raise NotImplemented
+            raise NotImplementedError()
 
         for cdp in self.cdp_neighbors_lst:
             if cdp not in others.cdp_neighbors_lst:
