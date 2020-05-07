@@ -8,6 +8,8 @@ from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.commands import remote_command
 from nornir.plugins.tasks.networking import netmiko_send_command
+from functions.ping.juniper.netconf.ping import _juniper_ping_netconf_exec
+from functions.ping.juniper.api.ping import _juniper_ping_api_exec
 from const.constants import (
     NOT_SET,
     LEVEL4,
@@ -17,7 +19,11 @@ from const.constants import (
     EXTREME_PLATEFORM_NAME,
     CISCO_IOS_PLATEFORM_NAME,
     JUNOS_PLATEFORM_NAME,
-    PING_DATA_HOST_KEY
+    NEXUS_PLATEFORM_NAME,
+    PING_DATA_HOST_KEY,
+    API_CONNECTION,
+    NETCONF_CONNECTION,
+    SSH_CONNECTION
 )
 
 
@@ -29,7 +35,7 @@ def execute_ping(nr: Nornir, options={}) -> bool:
 
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{HEADER}] no device selected.")
-
+    
     data = devices.run(
         task=_execute_ping_cmd,
         on_failed=True,
@@ -45,24 +51,47 @@ def execute_ping(nr: Nornir, options={}) -> bool:
 
 
 def _execute_ping_cmd(task):
-    if task.host.platform == ARISTA_PLATEFORM_NAME:
+
+    if (
+        task.host.platform == JUNOS_PLATEFORM_NAME and
+        task.host.get('connexion') == NETCONF_CONNECTION
+    ):
+        _juniper_ping_netconf_exec(task)
+
+    elif (
+        task.host.platform == JUNOS_PLATEFORM_NAME and
+        task.host.get('connexion') == API_CONNECTION
+    ):
+        _juniper_ping_api_exec(task)
+
+    elif task.host.platform == ARISTA_PLATEFORM_NAME:
         _execute_generic_ping_cmd(
             task,
             use_netmiko=False,
             enable=True
         )
 
-    elif task.host.platform == CISCO_IOS_PLATEFORM_NAME or \
+    elif (
+        task.host.get('connexion') == SSH_CONNECTION and
+        (
+            task.host.platform == CISCO_IOS_PLATEFORM_NAME or \
             task.host.platform == JUNOS_PLATEFORM_NAME or \
-            task.host.platform == EXTREME_PLATEFORM_NAME:
+            task.host.platform == EXTREME_PLATEFORM_NAME
+        )
+    ):
         _execute_generic_ping_cmd(
             task,
             use_netmiko=True,
             enable=False
         )
 
-    else:
-        # Ok for Cumulus & Cisco Nexus
+    elif (
+        task.host.get('connexion') == SSH_CONNECTION and
+        (
+            task.host.platform == NEXUS_PLATEFORM_NAME or
+            task.host.platform == CUMULUS_PLATEFORM_NAME
+        )
+    ):
         _execute_generic_ping_cmd(
             task,
             use_netmiko=False,
@@ -165,10 +194,17 @@ def _raise_exception_on_ping_cmd(
         if (
             (
                 "1 packets received" in output.result and
-                "0.00% packet loss" in output.result) or
+                "0.00% packet loss" in output.result
+            ) or
+            (
+                # For Juniper VMX
+                "1 packets received" in output.result and
+                "0% packet loss" in output.result
+            ) or
             (
                 "1 received" in output.result and
-                "0% packet loss" in output.result) or
+                "0% packet loss" in output.result
+            ) or
             "is alive" in output.result or
             "Success rate is 100 percent" in output.result
         ):

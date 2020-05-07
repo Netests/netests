@@ -40,7 +40,8 @@ def retrieve_ping_from_yaml(task, test=False, options={}) -> ListPING:
                 PING(
                     src_host=task.host.name,
                     ip_address=p.get('ip', NOT_SET),
-                    vrf=p.get('vrf', "default")
+                    vrf=p.get('vrf', "default"),
+                    works=p.get('works', True),
                 )
             )
 

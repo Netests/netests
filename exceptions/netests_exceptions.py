@@ -24,3 +24,7 @@ class NetestsHTTPStatusCodeError(NetestsException):
 
 class NetestsOverideTruthVarsKeyUnsupported(NetestsException):
     pass
+
+
+class NetestsErrorWithPingExecution(NetestsException):
+    pass

@@ -11,12 +11,20 @@ class PING:
 
     src_host: str
     ip_address: str
-    vrf:  str
+    vrf: str
+    works: bool
 
-    def __init__(self, src_host=NOT_SET, ip_address=NOT_SET, vrf=NOT_SET):
+    def __init__(
+        self,
+        src_host=NOT_SET,
+        ip_address=NOT_SET,
+        vrf=NOT_SET,
+        works=True
+    ):
         self.src_host = src_host
         self.ip_address = ip_address
         self.vrf = vrf
+        self.works = works
 
     def __eq__(self, other):
         if not isinstance(other, PING):
@@ -24,17 +32,20 @@ class PING:
 
         return ((str(self.ip_address) == str(other.ip_address)) and
                 (str(self.src_host) == str(other.src_host)) and
+                (str(self.works) == str(other.works)) and
                 (str(self.vrf) == str(other.vrf)))
 
     def __repr__(self):
         return f"<PING src_host={self.src_host} " \
                f"ip_address={self.ip_address} " \
+               f"works={self.works} " \
                f"vrf={self.vrf}>\n"
 
     def to_json(self):
         return {
             "src_host": self.src_host,
             "ip_address": self.ip_address,
+            "works": self.works,
             "vrf": self.vrf
         }
 
