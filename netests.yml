@@ -22,7 +22,7 @@ config:
       test: false
 
     lldp:
-      test: true
+      test: false
 
     facts:
       test: false
@@ -38,37 +38,11 @@ config:
         session_state: true
         peer_hostname: true
 
-    ipv4:
-      test: false
-      options:
-        filters:
-          get_physical: false
-          get_vlan: true
-          get_loopback: false
-          get_peerlink: false
-          get_vni: false
-    
-    static:
-      test: false
-      options:
-        compare:
-          vrf_name: true
-          prefix: true
-          netmask: true
-          nexthop: true
-        own_vars:
-          enable: false
-          dict_keys: routing>static>ipv4
-          your_keys:
-            prefix: subnet
-            ip_address: ip
-            nexthop: via
-            netmask: mask
-            preference: pref
 
-    vlan:
-      test: false
-      
+    ping:
+      test: true
+
+ 
     vrf:
       test: false
       options:
