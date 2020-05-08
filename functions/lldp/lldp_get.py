@@ -43,7 +43,6 @@ from functions.lldp.nxos.lldp_nxos import (
     _nxos_get_lldp_api,
     _nxos_get_lldp_netconf
 )
-
 from const.constants import (
     NOT_SET,
     LEVEL1,
