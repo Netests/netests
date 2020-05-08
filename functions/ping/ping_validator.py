@@ -30,6 +30,12 @@ def _raise_exception_on_ping_cmd(
                 "Bad hostname or protocol" in output or
                 "Success rate is 0 percent" in output or
                 "Invalid vrf table name" in output
+            )or
+            (
+                # For Extreme Networks
+                "The VRF Name entered does not correspond" in output or
+                "no answer from" in output or
+                "Invalid host name format or IP address" in output
             ) or
             "Invalid host/interface " in output or
             "Network is unreachable" in output or
@@ -46,7 +52,6 @@ def _raise_exception_on_ping_cmd(
                 f"{ping_line}"
             )
     else:
-        print(output)
         # PING MUST NOT WORK !
         # Defined that a ping is working to raise an Error
         if (

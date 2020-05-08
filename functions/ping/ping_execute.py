@@ -117,7 +117,10 @@ def _execute_ping_cmd(task, from_cli=False):
         )
 
     else:
-        raise NetestsFunctionNotImplemented("Cisco IOSXR - PING")
+        raise NetestsFunctionNotImplemented(
+            f"{task.host.name} - {task.host.get('connexion')} "
+            f"- {task.host.platform} - NotImplemented"
+        )
 
 
 def _execute_arista_ping_cmd(task):
