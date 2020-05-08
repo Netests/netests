@@ -32,6 +32,12 @@ def _raise_exception_on_ping_cmd(
                 "Invalid vrf table name" in output
             )or
             (
+                # For Cisco IOS-XE
+                "Unrecognized host or address" in output or
+                "Success rate is 0 percent" in output or
+                "Invalid input detected at" in output
+            ) or
+            (
                 # For Extreme Networks
                 "The VRF Name entered does not correspond" in output or
                 "no answer from" in output or
@@ -68,6 +74,11 @@ def _raise_exception_on_ping_cmd(
             ) or
             (
                 # For Cisco IOS-XR
+                "Success rate is 100 percent" in output or
+                "round-trip min/avg/max" in output
+            ) or
+            (
+                # For Cisco IOS-XE
                 "Success rate is 100 percent" in output or
                 "round-trip min/avg/max" in output
             ) or

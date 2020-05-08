@@ -447,10 +447,10 @@ Run the command `get` and the protocols that you would like retrieve.
 | Nexus SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |            |
 | Nexus Netconf       | :white_check_mark: |                    |                    |                    |                    | :no_entry:               |            |
 | Nexus API           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |            |
-| IOS SSH             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                          |            |
+| IOS SSH             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |            |
 | IOS API             | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |                          |            |
 | IOS Netconf         | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |                          |            |
-| Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |                          |            |
+| Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |            |
 | Extreme VSP API     | :x:                | :white_check_mark: | :x:                | :white_check_mark: | :no_entry:         | :no_entry:               |            |
 | Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry: |
 | IOSXR SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |            |
