@@ -1,7 +1,0 @@
-leaf01:
-  sys_mac: "44:38:39:ff:01:02"
-  local_id: "50:00:00:03:00:06"
-  peer_id: "50:00:00:04:00:06"
-  peer_int: peerlink.4094
-  peer_ip: 169.254.1.2
-  peer_alive: True

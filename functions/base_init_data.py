@@ -7,6 +7,7 @@ from nornir.core import Nornir
 from functions.global_tools import printline
 from const.constants import (
     BGP_SESSIONS_HOST_KEY,
+    CDP_DATA_HOST_KEY,
     FACTS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
     VRF_DATA_KEY
@@ -18,6 +19,10 @@ M = {
     "bgp": {
         "filename": "bgp.yml",
         "key": BGP_SESSIONS_HOST_KEY
+    },
+    "cdp": {
+        "filename": "cdp.yml",
+        "key": CDP_DATA_HOST_KEY
     },
     "facts": {
         "filename": "facts.yml",

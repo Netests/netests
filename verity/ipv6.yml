@@ -1,3 +1,0 @@
-leaf01:
-  - interface_name: swp1
-    ipv6_address: 2001:a:b:c::1001/64
