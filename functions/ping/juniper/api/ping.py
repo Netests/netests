@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-from jnpr.junos import Device
-from xml.etree import ElementTree
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.netconf_tools import format_xml_output
@@ -31,7 +29,7 @@ def _juniper_ping_api_exec(task, options={}):
             ),
             secure_api=task.host.get('secure_api', False)
         )
-        
+
         o = format_xml_output(o)
 
         if verbose_mode(

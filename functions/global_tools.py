@@ -74,13 +74,13 @@ def is_alive(task) -> None:
     """
 
     if task.host.platform in NETMIKO_NAPALM_MAPPING_PLATEFORM.keys():
-        plateform = NETMIKO_NAPALM_MAPPING_PLATEFORM.get(task.host.platform)
+        platform = NETMIKO_NAPALM_MAPPING_PLATEFORM.get(task.host.platform)
     else:
-        plateform = task.host.platform
+        platform = task.host.platform
 
-    print(plateform)
+    print(platform)
     device = ConnectHandler(
-        device_type=plateform,
+        device_type=platform,
         host=task.host.hostname,
         username=task.host.username,
         password=task.host.password,

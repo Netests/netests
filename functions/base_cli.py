@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
 from nornir.core import Nornir
 from functions.bgp.bgp_gets import get_bgp
 from functions.bgp.bgp_compare import _compare_bgp
@@ -21,6 +22,7 @@ from functions.vrf.vrf_get import get_vrf
 from functions.vrf.vrf_compare import _compare_vrf
 from protocols.vrf import VRF
 from functions.global_tools import printline
+from functions.global_tools import is_valid_ipv4_address
 from exceptions.netests_cli_exceptions import NetestsCLINornirObjectIsNone
 from const.constants import (
     BGP_SESSIONS_HOST_KEY,
@@ -37,11 +39,11 @@ PP = pprint.PrettyPrinter(indent=4)
 class NetestsCLI():
 
     ACTION = ["get", "select", "unselect", "exit", "help", "options", "more",
-              "show", "print", "selected", "compare", ""]
+              "show", "print", "selected", "compare", "", "execute"]
     APRINT = ["get", "select", "unselect", "exit", "help", "options", "more",
-              "show", "print", "selected", "compare"]
+              "show", "print", "selected", "compare", "execute"]
     AARGS = ["get", "select", "unselect", "options", "more", "show", "print",
-             "help", "compare"]
+             "help", "compare", "execute"]
 
     ASIMPLE = ["help", "", "selected", "exit"]
 
@@ -49,6 +51,8 @@ class NetestsCLI():
               "compare"]
 
     A3ARGS = ["options"]
+
+    AMANYARGS = ["execute"]
 
     MAPPING = {
         "bgp": {
@@ -120,6 +124,14 @@ class NetestsCLI():
             print(f"@{self.AARGS}")
             return False
 
+        if user_input[0] == "execute":
+            if user_input[1] != "ping":
+                print("@execute command only support ping. Use help")
+            if len(user_input) < 3:
+                print("@execute command take at least 2 arguments. Use help")
+            elif is_valid_ipv4_address(user_input[2]) is False:
+                print("@Second arguments of execute ping has to be an IPv4")
+
         if (
             user_input[0] == "help" and (
                 len(user_input) == 1 or
@@ -165,12 +177,17 @@ class NetestsCLI():
             self.get_protocol_class(user_inputs[1])
         if user_inputs[0] == "print":
             self.get_device_info(user_inputs[1])
+        if user_inputs[0] == "execute":
+            self.execute_ping(user_inputs)
         if user_inputs[0] == "compare":
             if self.devices_not_empty():
                 self.compare_config(user_inputs[1])
             else:
                 print("@Please select some hosts before use compare command")
         return True
+
+    def execute_cli_ping(self, parameters) -> None:
+        print("@execute command not Implemented ...")
 
     def compare_config(self, protocols_selected) -> None:
         self.call_get_generic(protocols_selected)

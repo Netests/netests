@@ -3,7 +3,6 @@
 
 import os
 from jnpr.junos import Device
-from xml.etree import ElementTree
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.netconf_tools import format_xml_output
@@ -45,14 +44,14 @@ def _juniper_ping_netconf_exec(task, options={}):
                     ping_line.works is True
                 ):
                     error_lst.append(ping_line)
-            
+
                 if (
                     'ping-success' in o.get('ping-results') and
                     ping_line.works is False
                 ):
                     error_lst.append(ping_line)
             else:
-                    error_lst.append(ping_line)
+                error_lst.append(ping_line)
 
     if len(error_lst) > 0:
         raise NetestsErrorWithPingExecution(error_lst)

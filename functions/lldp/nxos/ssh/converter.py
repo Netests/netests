@@ -76,11 +76,11 @@ def _nxos_lldp_ssh_converter(
                     LLDP(
                         local_name=hostname,
                         local_port=cmd_output.get('TABLE_nbor_detail')
-                                            .get('ROW_nbor_detail')
-                                            .get("l_port_id", NOT_SET),
+                                             .get('ROW_nbor_detail')
+                                             .get("l_port_id", NOT_SET),
                         neighbor_mgmt_ip=cmd_output.get('TABLE_nbor_detail')
-                                                .get('ROW_nbor_detail')
-                                                .get("mgmt_addr", NOT_SET),
+                                                   .get('ROW_nbor_detail')
+                                                   .get("mgmt_addr", NOT_SET),
                         neighbor_name=cmd_output.get('TABLE_nbor_detail')
                                                 .get('ROW_nbor_detail')
                                                 .get("sys_name", NOT_SET),
@@ -88,8 +88,8 @@ def _nxos_lldp_ssh_converter(
                                                 .get('ROW_nbor_detail')
                                                 .get("port_id", NOT_SET),
                         neighbor_os=cmd_output.get('TABLE_nbor_detail')
-                                            .get('ROW_nbor_detail')
-                                            .get("sys_desc", NOT_SET),
+                                              .get('ROW_nbor_detail')
+                                              .get("sys_desc", NOT_SET),
                         neighbor_type=neighbor_type_lst,
                         options=options
                     )

@@ -28,3 +28,7 @@ class NetestsOverideTruthVarsKeyUnsupported(NetestsException):
 
 class NetestsErrorWithPingExecution(NetestsException):
     pass
+
+
+class NetestsPingConnectionNotPossible(NetestsException):
+    pass
