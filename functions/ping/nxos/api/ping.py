@@ -44,6 +44,7 @@ def _nxos_ping_api_exec(task, options={}):
         _raise_exception_on_ping_cmd(
             output=o.get('result').get('msg'),
             hostname=task.host.name,
+            platform=task.host.platform,
             ping_line=ping_line,
             must_work=must_works
         )
