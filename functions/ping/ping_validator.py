@@ -25,6 +25,12 @@ def _raise_exception_on_ping_cmd(
                 "ping: bad context" in output or
                 "Invalid host/interface" in output
             ) or
+            (
+                # For Cisco IOS-XR
+                "Bad hostname or protocol" in output or
+                "Success rate is 0 percent" in output or
+                "Invalid vrf table name" in output
+            ) or
             "Invalid host/interface " in output or
             "Network is unreachable" in output or
             "Temporary failure in name resolution" in output or
@@ -54,6 +60,11 @@ def _raise_exception_on_ping_cmd(
                 "1 packets received" in output or
                 # DONT REMOVE THE SPACE BEFORE THE '0' !!!
                 " 0.00% packet loss" in output
+            ) or
+            (
+                # For Cisco IOS-XR
+                "Success rate is 100 percent" in output or
+                "round-trip min/avg/max" in output
             ) or
             (
                 "1 received" in output and

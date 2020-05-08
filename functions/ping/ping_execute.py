@@ -7,10 +7,12 @@ from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.commands import remote_command
 from nornir.plugins.tasks.networking import netmiko_send_command
+from functions.ping.iosxr.netconf.ping import _iosxr_ping_netconf_exec
 from functions.ping.juniper.netconf.ping import _juniper_ping_netconf_exec
 from functions.ping.juniper.api.ping import _juniper_ping_api_exec
 from functions.ping.nxos.api.ping import _nxos_ping_api_exec
 from functions.ping.ping_validator import _raise_exception_on_ping_cmd
+from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 from const.constants import (
     NOT_SET,
     LEVEL4,
@@ -19,6 +21,7 @@ from const.constants import (
     CUMULUS_PLATEFORM_NAME,
     EXTREME_PLATEFORM_NAME,
     CISCO_IOS_PLATEFORM_NAME,
+    CISCO_IOSXR_PLATEFORM_NAME,
     JUNOS_PLATEFORM_NAME,
     NEXUS_PLATEFORM_NAME,
     PING_DATA_HOST_KEY,
@@ -55,6 +58,12 @@ def execute_ping(nr: Nornir, options={}, from_cli=False) -> bool:
 def _execute_ping_cmd(task, from_cli=False):
 
     if (
+        task.host.platform == CISCO_IOSXR_PLATEFORM_NAME and
+        task.host.get('connexion') == NETCONF_CONNECTION
+    ):
+        _iosxr_ping_netconf_exec(task)
+
+    elif (
         task.host.platform == JUNOS_PLATEFORM_NAME and
         task.host.get('connexion') == NETCONF_CONNECTION
     ):
@@ -84,7 +93,8 @@ def _execute_ping_cmd(task, from_cli=False):
         (
             task.host.platform == CISCO_IOS_PLATEFORM_NAME or
             task.host.platform == JUNOS_PLATEFORM_NAME or
-            task.host.platform == EXTREME_PLATEFORM_NAME
+            task.host.platform == EXTREME_PLATEFORM_NAME or
+            task.host.platform == CISCO_IOSXR_PLATEFORM_NAME
         )
     ):
         _execute_generic_ping_cmd(
@@ -105,6 +115,9 @@ def _execute_ping_cmd(task, from_cli=False):
             use_netmiko=False,
             enable=False
         )
+
+    else:
+        raise NetestsFunctionNotImplemented("Cisco IOSXR - PING")
 
 
 def _execute_arista_ping_cmd(task):
