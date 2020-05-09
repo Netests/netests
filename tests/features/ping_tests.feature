@@ -53,6 +53,19 @@ Feature: Test protocols PING python class ./protocols/ping.py
         And A Ping output from a Cisco IOS-XR Netconf with wrong IPv4 named o0413
         And A Ping output from a Cisco IOS-XR Netconf with unreachable IPv4 named o0414
         And A Ping output from a Cisco IOS-XR Netconf with no route to IPv4 named o0415
+
+        # Cisco IOS-XR ID Device = o04
+        And A Ping output from a Cisco NXOS CLI that works named o0501
+        And A Ping output from a Cisco NXOS CLI with wrong VRF named o0502
+        And A Ping output from a Cisco NXOS CLI with wrong IPv4 named o0503
+        And A Ping output from a Cisco NXOS CLI with unreachable IPv4 named o0504
+        And A Ping output from a Cisco NXOS CLI with no route to IPv4 named o0505
+
+        And A Ping output from a Cisco NXOS Netconf that works named o0511
+        And A Ping output from a Cisco NXOS Netconf with wrong VRF named o0512
+        And A Ping output from a Cisco NXOS Netconf with wrong IPv4 named o0513
+        And A Ping output from a Cisco NXOS Netconf with unreachable IPv4 named o0514
+        And A Ping output from a Cisco NXOS Netconf with no route to IPv4 named o0515
         
         # COMPARAISON
         # Arista Networks
@@ -141,3 +154,28 @@ Feature: Test protocols PING python class ./protocols/ping.py
         And Ping Cisco IOS-XR Netconf wrong IPv4 named o0413 raise an Exception reverse
         And Ping Cisco IOS-XR Netconf unreachable named o0414 raise an Exception reverse
         And Ping Cisco IOS-XR Netconf no route named o0415 raise an Exception reverse
+
+        # Cisco NXOS
+        And Ping Cisco NXOS CLI works does named o0501 not raise an Exception
+        And Ping Cisco NXOS CLI wrong VRF named o0502 raise an Exception
+        And Ping Cisco NXOS CLI wrong IPv4 named o0503 raise an Exception
+        And Ping Cisco NXOS CLI unreachable named o0504 raise an Exception
+        And Ping Cisco NXOS CLI no route named o0505 raise an Exception
+
+        And Ping Cisco NXOS CLI works does named o0501 not raise an Exception reverse
+        And Ping Cisco NXOS CLI wrong VRF named o0502 raise an Exception reverse
+        And Ping Cisco NXOS CLI wrong IPv4 named o0503 raise an Exception reverse
+        And Ping Cisco NXOS CLI unreachable named o0504 raise an Exception reverse
+        And Ping Cisco NXOS CLI no route named o0505 raise an Exception reverse
+
+        And Ping Cisco NXOS Netconf works does named o0511 not raise an Exception
+        And Ping Cisco NXOS Netconf wrong VRF named o0512 raise an Exception
+        And Ping Cisco NXOS Netconf wrong IPv4 named o0513 raise an Exception
+        And Ping Cisco NXOS Netconf unreachable named o0514 raise an Exception
+        And Ping Cisco NXOS Netconf no route named o0515 raise an Exception
+
+        And Ping Cisco NXOS Netconf works does named o0511 not raise an Exception reverse
+        And Ping Cisco NXOS Netconf wrong VRF named o0512 raise an Exception reverse
+        And Ping Cisco NXOS Netconf wrong IPv4 named o0513 raise an Exception reverse
+        And Ping Cisco NXOS Netconf unreachable named o0514 raise an Exception reverse
+        And Ping Cisco NXOS Netconf no route named o0515 raise an Exception reverse

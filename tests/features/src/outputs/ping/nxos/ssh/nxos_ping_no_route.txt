@@ -1,0 +1,6 @@
+PING 3.3.3.3 (3.3.3.3): 56 data bytes
+ping: sendto 3.3.3.3 64 chars, No route to host
+Request 0 timed out
+
+--- 3.3.3.3 ping statistics ---
+1 packets transmitted, 0 packets received, 100.00% packet loss

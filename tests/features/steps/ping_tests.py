@@ -369,6 +369,106 @@ def step_impl(context):
     )
 
 
+@given(u'A Ping output from a Cisco NXOS CLI that works named o0501')
+def step_impl(context):
+    context.o0501 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/nxos/ssh/"
+            "nxos_ping_works.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco NXOS CLI with wrong VRF named o0502')
+def step_impl(context):
+    context.o0502 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/nxos/ssh/"
+            "nxos_ping_wrong_vrf.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco NXOS CLI with wrong IPv4 named o0503')
+def step_impl(context):
+    context.o0503 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/nxos/ssh/"
+            "nxos_ping_wrong_ip.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco NXOS CLI with unreachable IPv4 named o0504')
+def step_impl(context):
+    context.o0504 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/nxos/ssh/"
+            "nxos_ping_unreachable.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco NXOS CLI with no route to IPv4 named o0505')
+def step_impl(context):
+    context.o0505 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/nxos/ssh/"
+            "nxos_ping_no_route.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco NXOS Netconf that works named o0511')
+def step_impl(context):
+    context.o0511 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/nxos/api/"
+            "nxos_ping_works.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco NXOS Netconf with wrong VRF named o0512')
+def step_impl(context):
+    context.o0512 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/nxos/api/"
+            "nxos_ping_wrong_vrf.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco NXOS Netconf with wrong IPv4 named o0513')
+def step_impl(context):
+    context.o0513 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/nxos/api/"
+            "nxos_ping_wrong_ip.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco NXOS Netconf with unreachable IPv4 named o0514')
+def step_impl(context):
+    context.o0514 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/nxos/api/"
+            "nxos_ping_unreachable.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco NXOS Netconf with no route to IPv4 named o0515')
+def step_impl(context):
+    context.o0515 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/nxos/api/"
+            "nxos_ping_no_route.json"
+        )
+    )
+
+
 @given(u'Ping Arista CLI works does named o0001 not raise an Exception')
 def step_impl(context):
     try:
@@ -1381,6 +1481,316 @@ def step_impl(context):
             platform=CISCO_IOSXR_PLATEFORM_NAME,
             connexion=NETCONF_CONNECTION,
             ping_line="o0415",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco NXOS CLI works does named o0501 not raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0501,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0501",
+            must_work=True
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco NXOS CLI wrong VRF named o0502 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0502,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0502",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco NXOS CLI wrong IPv4 named o0503 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0503,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0503",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco NXOS CLI unreachable named o0504 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0504,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0504",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco NXOS CLI no route named o0505 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0505,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0505",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco NXOS CLI works does named o0501 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0501,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0501",
+            must_work=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco NXOS CLI wrong VRF named o0502 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0502,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0502",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco NXOS CLI wrong IPv4 named o0503 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0503,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0503",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco NXOS CLI unreachable named o0504 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0504,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0504",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco NXOS CLI no route named o0505 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0505,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0505",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco NXOS Netconf works does named o0511 not raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0511,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0511",
+            must_work=True
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco NXOS Netconf wrong VRF named o0512 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0512,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0512",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco NXOS Netconf wrong IPv4 named o0513 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0513,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0513",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco NXOS Netconf unreachable named o0514 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0514,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0514",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco NXOS Netconf no route named o0515 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0515,
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0515",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco NXOS Netconf works does named o0511 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0511.get('result').get('msg'),
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0511",
+            must_work=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco NXOS Netconf wrong VRF named o0512 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0512.get('result').get('msg'),
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0512",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco NXOS Netconf wrong IPv4 named o0513 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0513.get('result').get('msg'),
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0513",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco NXOS Netconf unreachable named o0514 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0514.get('result').get('msg'),
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0514",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco NXOS Netconf no route named o0515 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0515.get('result').get('msg'),
+            hostname='leaf02',
+            platform=NEXUS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0515",
             must_work=True
         )
         assert False

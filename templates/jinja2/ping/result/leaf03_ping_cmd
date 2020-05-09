@@ -1,4 +1,5 @@
 ping 192.168.1.1 repeat 1
+ping 192.168.1.111 repeat 1 !
 ping 8.8.8.8 repeat 1 !
 ping vrf dowiejdoiewdouehw 9.9.9.9 repeat 1 !
-ping 192.168.1.199 repeat 1
+ping 192.168.1.199kh repeat 1 !

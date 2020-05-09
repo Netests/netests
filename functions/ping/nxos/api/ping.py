@@ -15,7 +15,6 @@ PP = pprint.PrettyPrinter(indent=4)
 def _nxos_ping_api_exec(task, options={}):
     file = open(f"{JINJA2_PING_RESULT}{task.host.name}_ping_cmd", "r")
     for ping_line in file:
-
         if "!" in ping_line and "PING NOT AVAILABLE" not in ping_line:
             ping_line = ping_line.replace("!", "")
             must_works = False

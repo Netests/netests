@@ -4,7 +4,7 @@
 {% if ip_to_ping['works'] == false %}
 ping {{ ip_to_ping['ip_address'] }} timeout 2 count 1 vrf {% if ip_to_ping['vrf'] == "mgmt" %}management{% else %}{{ ip_to_ping['vrf'] }}{% endif %} !
 {% else %}
-ping {{ ip_to_ping['ip_address'] }} timeout 2 count 1 vrf {% if ip_to_ping['vrf'] == "mgmt" %}management{% else %}{{ ip_to_ping['vrf'] }}{% endif %}
+ping {{ ip_to_ping['ip_address'] }} timeout 2 count 1 vrf {% if ip_to_ping['vrf'] == "mgmt" %}management{% else %}{{ ip_to_ping['vrf'] }}{% endif %} 
 {% endif %}
 {% else %}
 {% if ip_to_ping['works'] == false %}

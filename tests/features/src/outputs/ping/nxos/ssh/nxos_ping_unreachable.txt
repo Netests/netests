@@ -1,0 +1,5 @@
+PING 3.3.3.3 (3.3.3.3): 56 data bytes
+Request 0 timed out
+
+--- 3.3.3.3 ping statistics ---
+1 packets transmitted, 0 packets received, 100.00% packet loss
