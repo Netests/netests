@@ -45,6 +45,7 @@ def _nxos_ping_api_exec(task, options={}):
             output=o.get('result').get('msg'),
             hostname=task.host.name,
             platform=task.host.platform,
+            connexion=task.host.get('connexion', 'host'),
             ping_line=ping_line,
             must_work=must_works
         )

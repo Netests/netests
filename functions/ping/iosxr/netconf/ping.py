@@ -7,6 +7,7 @@ from ncclient.operations import RPC, RPCReply
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.netconf_tools import format_xml_output
+from functions.ping.ping_validator import _raise_exception_on_ping_cmd
 from exceptions.netests_exceptions import NetestsErrorWithPingExecution
 from const.constants import NOT_SET, LEVEL5, PING_DATA_HOST_KEY
 import pprint
@@ -36,7 +37,7 @@ def _iosxr_ping_netconf_exec(task, options={}):
         </destination>
         </ping>
         </rpc>'''
-    error_lst = list()
+
     with manager.connect(
         host=task.host.hostname,
         port=task.host.port,
@@ -72,29 +73,31 @@ def _iosxr_ping_netconf_exec(task, options={}):
                 PP.pprint(o)
                 PP.pprint(ping_line.to_json())
 
-            if (
-                isinstance(o, dict) and
-                'rpc-reply' in o.keys() and
-                'ping-response' in o.get('rpc-reply').keys() and
-                'ipv4' in o.get('rpc-reply').get('ping-response').keys()
-            ):
-                if (
-                    (
-                        o.get('rpc-reply')
-                         .get('ping-response')
-                         .get('ipv4')
-                         .get('success-rate') == '100' and
-                        ping_line.works is False
-                    ) or
-                    (
-                        o.get('rpc-reply')
-                         .get('ping-response')
-                         .get('ipv4')
-                         .get('success-rate') == '0' and
-                        ping_line.works is True
-                    )
-                ):
-                    error_lst.append(ping_line)
 
-    if len(error_lst) > 0:
-        raise NetestsErrorWithPingExecution(error_lst)
+            if isinstance(o, dict) and 'rpc-reply' in o.keys():
+                iosxr_netconf_validate_output(
+                    output=o,
+                    hostname=task.host.name,
+                    platform=task.host.platform,
+                    connexion=task.host.get('connexion'),
+                    ping_print=ping_line,
+                    ping_works=ping_line.works
+                )
+
+            
+def iosxr_netconf_validate_output(
+    output: dict,
+    hostname: str,
+    platform: str,
+    connexion: str,
+    ping_print: str,
+    ping_works: bool
+) -> None:
+    _raise_exception_on_ping_cmd(
+        output=output,
+        hostname=hostname,
+        platform=platform,
+        connexion=connexion,
+        ping_line=ping_print,
+        must_work=ping_works
+    )

@@ -1,0 +1,15 @@
+{
+    "rpc-reply": {
+        "@message-id": "urn:uuid:a6d684b5-ba77-4664-a83b-46f55c3fb696",
+        "@xmlns": "urn:ietf:params:xml:ns:netconf:base: 1.0",
+        "rpc-error": {
+            "error-message": {
+                "#text": "IPv4PingTrace detected the warning condition Bad hostname or protocol not running",
+                "@xml:lang": "en"
+            },
+            "error-severity": "error",
+            "error-tag": "operation-failed",
+            "error-type": "application"
+        }
+    }
+}

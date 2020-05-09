@@ -1,3 +1,5 @@
+reports/*
+netbox/*
 inventory/*
 images/*
 nornir/nornir.log

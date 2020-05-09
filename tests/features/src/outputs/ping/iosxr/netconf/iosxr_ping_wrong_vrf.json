@@ -1,0 +1,15 @@
+{
+    "rpc-reply": {
+        "@message-id": "urn:uuid: 416e6d71-b8dc-4b6e-908a-48e8048bd992",
+        "@xmlns": "urn:ietf:params:xml:ns:netconf:base: 1.0",
+        "rpc-error": {
+            "error-message": {
+                "#text": "IPv4PingTrace detected the warningcondition Invalid VRF table name",
+                "@xml:lang": "en"
+            },
+            "error-severity": "error",
+            "error-tag": "operation-failed",
+            "error-type": "application"
+        }
+    }
+}

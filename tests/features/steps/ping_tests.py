@@ -4,6 +4,7 @@
 from functions.global_tools import open_txt_file, open_json_file
 from functions.ping.arista.api.ping import arista_api_validate_output
 from functions.ping.ping_validator import _raise_exception_on_ping_cmd
+from exceptions.netests_exceptions import NetestsErrorWithPingExecution
 from const.constants import (
     FEATURES_SRC_PATH,
     ARISTA_PLATEFORM_NAME,
@@ -12,9 +13,16 @@ from const.constants import (
     CISCO_IOS_PLATEFORM_NAME,
     CISCO_IOSXR_PLATEFORM_NAME,
     JUNOS_PLATEFORM_NAME,
-    NEXUS_PLATEFORM_NAME
+    NEXUS_PLATEFORM_NAME,
+    API_CONNECTION,
+    NETCONF_CONNECTION,
+    SSH_CONNECTION
 )
 
+
+@given(u'A network protocols named PING defined in protocols/ping.py')
+def step_impl(context):
+    context.test_not_implemented = list()
 
 @given(u'A Ping output from a Arista CLI that works named o0001')
 def step_impl(context):
@@ -116,6 +124,251 @@ def step_impl(context):
     )
 
 
+@given(u'A Ping output from a Cumulus CLI that works named o0101')
+def step_impl(context):
+    print("Cumulus - Ping execute with 'remote_command' => Not tested")
+
+
+@given(u'A Ping output from a Cumulus CLI with wrong VRF named o0102')
+def step_impl(context):
+    print("Cumulus - Ping execute with 'remote_command' => Not tested")
+
+
+@given(u'A Ping output from a Cumulus CLI with wrong IPv4 named o0103')
+def step_impl(context):
+    print("Cumulus - Ping execute with 'remote_command' => Not tested")
+
+
+@given(u'A Ping output from a Cumulus CLI with unreachable IPv4 named o0104')
+def step_impl(context):
+    print("Cumulus - Ping execute with 'remote_command' => Not tested")
+
+
+@given(u'A Ping output from a Cumulus CLI with no route to IPv4 named o0105')
+def step_impl(context):
+    print("Cumulus - Ping execute with 'remote_command' => Not tested")
+
+
+@given(u'A Ping output from a Extreme VSP CLI that works named o0201')
+def step_impl(context):
+    context.o0201 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/extreme_vsp/ssh/"
+            "extreme_vsp_ping_works.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Extreme VSP CLI with wrong VRF named o0202')
+def step_impl(context):
+    context.o0202 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/extreme_vsp/ssh/"
+            "extreme_vsp_ping_wrong_vrf.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Extreme VSP CLI with wrong IPv4 named o0203')
+def step_impl(context):
+    context.o0203 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/extreme_vsp/ssh/"
+            "extreme_vsp_ping_wrong_ip.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Extreme VSP CLI with unreachable IPv4 named o0204')
+def step_impl(context):
+    context.o0204 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/extreme_vsp/ssh/"
+            "extreme_vsp_ping_unreachable.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Extreme VSP CLI with no route to IPv4 named o0205')
+def step_impl(context):
+    context.o0205 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/extreme_vsp/ssh/"
+            "extreme_vsp_ping_no_route.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XE CLI that works named o0301')
+def step_impl(context):
+    context.o0301 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/ios/ssh/"
+            "ios_ping_works.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XE CLI with wrong VRF named o0302')
+def step_impl(context):
+    context.o0302 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/ios/ssh/"
+            "ios_ping_wrong_vrf.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XE CLI with wrong IPv4 named o0303')
+def step_impl(context):
+    context.o0303 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/ios/ssh/"
+            "ios_ping_wrong_ip.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XE CLI with unreachable IPv4 named o0304')
+def step_impl(context):
+    context.o0304 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/ios/ssh/"
+            "ios_ping_unreachable.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XE CLI with no route to IPv4 named o0305')
+def step_impl(context):
+    context.o0305 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/ios/ssh/"
+            "ios_ping_no_route.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XE CLI with no src ip to IPv4 named o0306')
+def step_impl(context):
+    context.o0306 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/ios/ssh/"
+            "ios_ping_vrf_no_ip_src.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XE CLI with no vrf config to IPv4 named o0307')
+def step_impl(context):
+    context.o0307 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/ios/ssh/"
+            "ios_ping_no_vrf_configured.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XR CLI that works named o0401')
+def step_impl(context):
+    context.o0401 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/iosxr/ssh/"
+            "iosxr_ping_works.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XR CLI with wrong VRF named o0402')
+def step_impl(context):
+    context.o0402 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/iosxr/ssh/"
+            "iosxr_ping_wrong_vrf.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XR CLI with wrong IPv4 named o0403')
+def step_impl(context):
+    context.o0403 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/iosxr/ssh/"
+            "iosxr_ping_wrong_ip.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XR CLI with unreachable IPv4 named o0404')
+def step_impl(context):
+    context.o0404 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/iosxr/ssh/"
+            "iosxr_ping_unreachable.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XR CLI with no route to IPv4 named o0405')
+def step_impl(context):
+    context.o0405 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/iosxr/ssh/"
+            "iosxr_ping_no_route.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XR Netconf that works named o0411')
+def step_impl(context):
+    context.o0411 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/iosxr/netconf/"
+            "iosxr_ping_works.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XR Netconf with wrong VRF named o0412')
+def step_impl(context):
+    context.o0412 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/iosxr/netconf/"
+            "iosxr_ping_wrong_vrf.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XR Netconf with wrong IPv4 named o0413')
+def step_impl(context):
+    context.o0413 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/iosxr/netconf/"
+            "iosxr_ping_wrong_ip.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XR Netconf with unreachable IPv4 named o0414')
+def step_impl(context):
+    context.o0414 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/iosxr/netconf/"
+            "iosxr_ping_unreachable.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Cisco IOS-XR Netconf with no route to IPv4 named o0415')
+def step_impl(context):
+    context.o0415 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/iosxr/netconf/"
+            "iosxr_ping_no_route.json"
+        )
+    )
+
+
 @given(u'Ping Arista CLI works does named o0001 not raise an Exception')
 def step_impl(context):
     try:
@@ -123,6 +376,7 @@ def step_impl(context):
             output=context.o0001,
             hostname="leaf02",
             platform=ARISTA_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
             ping_line="o0001",
             must_work=True
         )
@@ -137,6 +391,7 @@ def step_impl(context):
             output=context.o0002,
             hostname="leaf02",
             platform=ARISTA_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
             ping_line="o0002",
             must_work=False
         )
@@ -151,6 +406,7 @@ def step_impl(context):
             output=context.o0003,
             hostname="leaf02",
             platform=ARISTA_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
             ping_line="o0002",
             must_work=False
         )
@@ -165,6 +421,7 @@ def step_impl(context):
             output=context.o0004,
             hostname="leaf02",
             platform=ARISTA_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
             ping_line="o0002",
             must_work=False
         )
@@ -179,11 +436,93 @@ def step_impl(context):
             output=context.o0005,
             hostname="leaf02",
             platform=ARISTA_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
             ping_line="o0002",
             must_work=False
         )
     except Exception:
         assert False
+
+
+@given(u'Ping Arista CLI works does named o0001 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0001,
+            hostname='spine03',
+            platform=ARISTA_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0001",
+            must_work=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Arista CLI wrong VRF named o0002 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0002,
+            hostname='spine03',
+            platform=ARISTA_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0002",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Arista CLI wrong IPv4 named o0003 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0003,
+            hostname='spine03',
+            platform=ARISTA_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0003",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Arista CLI unreachable named o0004 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0004,
+            hostname='spine03',
+            platform=ARISTA_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0004",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Arista CLI no route named o0005 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0005,
+            hostname='spine03',
+            platform=ARISTA_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0005",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
 
 
 @given(u'Ping Arista API works does named o0011 not raise an Exception')
@@ -193,6 +532,7 @@ def step_impl(context):
             output=context.o0011,
             hostname='leaf02',
             platform=ARISTA_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
             ping_print="o0011",
             ping_works=True
         )
@@ -207,6 +547,7 @@ def step_impl(context):
             output=context.o0012,
             hostname='leaf02',
             platform=ARISTA_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
             ping_print="o0012",
             ping_works=False
         )
@@ -221,6 +562,7 @@ def step_impl(context):
             output=context.o0013,
             hostname='leaf02',
             platform=ARISTA_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
             ping_print="o0013",
             ping_works=False
         )
@@ -235,6 +577,7 @@ def step_impl(context):
             output=context.o0014,
             hostname='leaf02',
             platform=ARISTA_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
             ping_print="o0014",
             ping_works=False
         )
@@ -249,8 +592,797 @@ def step_impl(context):
             output=context.o0015,
             hostname='leaf02',
             platform=ARISTA_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
             ping_print="o0015",
             ping_works=False
         )
     except Exception:
         assert False
+
+
+@given(u'Ping Arista API works does named o0011 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        arista_api_validate_output(
+            output=context.o0011,
+            hostname='leaf03',
+            platform=ARISTA_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_print="o0011",
+            ping_works=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Arista API wrong VRF named o0012 raise an Exception reverse')
+def step_impl(context):
+    try:
+        arista_api_validate_output(
+            output=context.o0012,
+            hostname='leaf03',
+            platform=ARISTA_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_print="o0012",
+            ping_works=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Arista API wrong IPv4 named o0013 raise an Exception reverse')
+def step_impl(context):
+    try:
+        arista_api_validate_output(
+            output=context.o0013,
+            hostname='leaf03',
+            platform=ARISTA_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_print="o0013",
+            ping_works=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Arista API unreachable named o0014 raise an Exception reverse')
+def step_impl(context):
+    try:
+        arista_api_validate_output(
+            output=context.o0014,
+            hostname='leaf03',
+            platform=ARISTA_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_print="o0014",
+            ping_works=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Arista API no route named o0015 raise an Exception reverse')
+def step_impl(context):
+    try:
+        arista_api_validate_output(
+            output=context.o0015,
+            hostname='leaf03',
+            platform=ARISTA_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_print="o0015",
+            ping_works=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cumulus CLI works does named o0101 not raise an Exception')
+def step_impl(context):
+    print("Cumulus - Ping execute with 'remote_command' => Not tested")
+
+
+@given(u'Ping Cumulus CLI wrong VRF named o0102 raise an Exception')
+def step_impl(context):
+    print("Cumulus - Ping execute with 'remote_command' => Not tested")
+
+
+@given(u'Ping Cumulus CLI wrong IPv4 named o0103 raise an Exception')
+def step_impl(context):
+    print("Cumulus - Ping execute with 'remote_command' => Not tested")
+
+
+@given(u'Ping Cumulus CLI unreachable named o0104 raise an Exception')
+def step_impl(context):
+    print("Cumulus - Ping execute with 'remote_command' => Not tested")
+
+
+@given(u'Ping Cumulus CLI no route named o0105 raise an Exception')
+def step_impl(context):
+    print("Cumulus - Ping execute with 'remote_command' => Not tested")
+
+
+@given(u'Ping Extreme VSP CLI works does named o0201 not raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0201,
+            hostname='spine02',
+            platform=EXTREME_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0201",
+            must_work=True
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Extreme VSP CLI wrong VRF named o0202 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0202,
+            hostname='spine02',
+            platform=EXTREME_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0202",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Extreme VSP CLI wrong IPv4 named o0203 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0202,
+            hostname='spine03',
+            platform=EXTREME_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0203",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Extreme VSP CLI unreachable named o0204 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0204,
+            hostname='spine02',
+            platform=EXTREME_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0204",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Extreme VSP CLI no route named o0205 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0205,
+            hostname='spine02',
+            platform=EXTREME_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0205",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Extreme VSP CLI works does named o0201 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0201,
+            hostname='spine02',
+            platform=EXTREME_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0201",
+            must_work=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Extreme VSP CLI wrong VRF named o0202 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0202,
+            hostname='spine02',
+            platform=EXTREME_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0202",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Extreme VSP CLI wrong IPv4 named o0203 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0203,
+            hostname='spine02',
+            platform=EXTREME_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0203",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Extreme VSP CLI unreachable named o0204 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0204,
+            hostname='spine02',
+            platform=EXTREME_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0204",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Extreme VSP CLI no route named o0205 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0205,
+            hostname='spine02',
+            platform=EXTREME_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0205",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XE CLI works does named o0301 not raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0301,
+            hostname='leaf05',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0301",
+            must_work=True
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XE CLI wrong VRF named o0302 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0302,
+            hostname='leaf05',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0302",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XE CLI wrong IPv4 named o0303 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0303,
+            hostname='leaf05',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0303",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XE CLI unreachable named o0304 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0304,
+            hostname='leaf05',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0304",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XE CLI no route named o0305 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0305,
+            hostname='leaf05',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0305",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XE CLI no src ip named o0306 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0306,
+            hostname='leaf05',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0306",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XE CLI no vrf config named o0307 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0307,
+            hostname='leaf05',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0307",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XE CLI works does named o0301 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0301,
+            hostname='spine03',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0301",
+            must_work=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XE CLI wrong VRF named o0302 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0302,
+            hostname='spine03',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0302",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XE CLI wrong IPv4 named o0303 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0303,
+            hostname='spine03',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0303",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XE CLI unreachable named o0304 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0304,
+            hostname='spine03',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0304",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XE CLI no route named o0305 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0305,
+            hostname='spine03',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0305",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XE CLI no src ip named o0306 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0306,
+            hostname='spine03',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0306",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XE CLI no vrf config named o0307 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0307,
+            hostname='spine03',
+            platform=CISCO_IOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0307",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XR CLI works does named o0401 not raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0401,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0401",
+            must_work=True
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XR CLI wrong VRF named o0402 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0402,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0402",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XR CLI wrong IPv4 named o0403 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0403,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0403",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XR CLI unreachable named o0404 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0404,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0404",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XR CLI no route named o0405 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0405,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0405",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XR CLI works does named o0401 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0401,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0401",
+            must_work=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XR CLI wrong VRF named o0402 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0403,
+            hostname='spine02',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0402",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XR CLI wrong IPv4 named o0403 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0403,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0403",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XR CLI unreachable named o0404 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0404,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0404",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XR CLI no route named o0405 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0405,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0405",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+
+@given(u'Ping Cisco IOS-XR Netconf works does named o0411 not raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0411,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0411",
+            must_work=True
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XR Netconf wrong VRF named o0412 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0412,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0412",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XR Netconf wrong IPv4 named o0413 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0413,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0413",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XR Netconf unreachable named o0414 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0414,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0414",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XR Netconf no route named o0415 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0415,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0415",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Cisco IOS-XR Netconf works does named o0411 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0411,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0411",
+            must_work=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XR Netconf wrong VRF named o0412 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0413,
+            hostname='spine02',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0412",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XR Netconf wrong IPv4 named o0413 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0413,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0413",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XR Netconf unreachable named o0414 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0414,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0414",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Cisco IOS-XR Netconf no route named o0415 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0415,
+            hostname='spine03',
+            platform=CISCO_IOSXR_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0415",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True

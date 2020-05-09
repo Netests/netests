@@ -1,0 +1,2 @@
+ping: timeout
+no answer from 8.8.8.8

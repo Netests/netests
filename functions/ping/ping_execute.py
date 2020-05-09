@@ -167,6 +167,7 @@ def _execute_generic_ping_cmd(task, *, use_netmiko=False, enable=False):
                 output=data.result,
                 hostname=task.host.name,
                 platform=task.host.platform,
+                connexion=task.host.get('connexion', 'ssh'),
                 ping_line=ping_line,
                 must_work=must_works
             )

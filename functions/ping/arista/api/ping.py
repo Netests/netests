@@ -43,6 +43,7 @@ def _arista_ping_api_exec(task, options={}):
             output=output,
             hostname=task.host.name,
             platform=task.host.platform,
+            connexion=task.host.get('connexion', 'ssh'),
             ping_print=p.to_json(),
             ping_works=p.works,
         )
@@ -52,6 +53,7 @@ def arista_api_validate_output(
     output: dict,
     hostname: str,
     platform: str,
+    connexion: str,
     ping_print: str,
     ping_works: bool
 ) -> None:
@@ -62,6 +64,7 @@ def arista_api_validate_output(
                     output=d.get('messages')[0],
                     hostname=hostname,
                     platform=platform,
+                    connexion=connexion,
                     ping_line=ping_print,
                     must_work=ping_works
                 )
