@@ -1,5 +1,0 @@
-data:
-  vrfs:
-    - name: management
-      bgp: True
-      ospf: True

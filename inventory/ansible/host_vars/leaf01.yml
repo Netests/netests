@@ -1,6 +1,0 @@
-hostname: 10.0.5.201
-username: cumulus
-password: CumulusLinux!
-platform: linux
-connexion: ssh
-port: 22
