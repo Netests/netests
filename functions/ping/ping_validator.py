@@ -31,7 +31,7 @@ def _raise_exception_on_ping_cmd(
                 platform == ARISTA_PLATEFORM_NAME and
                 (
                     "Network is unreachable" in output or
-                    "Temporary failure in name resolution" in output or
+                    "failure in name resolution" in output or
                     "100% packet loss" in output or
                     "0 received" in output or
                     "Invalid input - VRF" in output
@@ -99,9 +99,9 @@ def _raise_exception_on_ping_cmd(
                 platform == ARISTA_PLATEFORM_NAME and
                 (
                     "rtt min/avg/max/mdev" in output or
-                    "1 packets transmitted" in output or
                     "1 received" in output or
-                    "0% packet loss" in output
+                    # DONT REMOVE THE SPACE BEFORE THE '0' !!!
+                    " 0% packet loss" in output
                 )
             ) or
             (

@@ -37,14 +37,31 @@ def _arista_ping_api_exec(task, options={}):
         ):
             printline()
             PP.pprint(output)
+            PP.pprint(p.to_json())
 
-        if isinstance(output, dict) and 'result' in output.keys():
-            for d in output.get('result'):
-                if 'messages' in d.keys():
-                    _raise_exception_on_ping_cmd(
-                        output="\n".join(d.get('messages')),
-                        hostname=task.host.name,
-                        platform=task.host.platform,
-                        ping_line=p,
-                        must_work=p.works
-                    )
+        arista_api_validate_output(
+            output=output,
+            hostname=task.host.name,
+            platform=task.host.platform,
+            ping_print=p.to_json(),
+            ping_works=p.works,
+        )
+
+
+def arista_api_validate_output(
+    output: dict,
+    hostname: str,
+    platform: str,
+    ping_print: str,
+    ping_works: bool
+) -> None:
+    if isinstance(output, dict) and 'result' in output.keys():
+        for d in output.get('result'):
+            if 'messages' in d.keys():
+                _raise_exception_on_ping_cmd(
+                    output=d.get('messages')[0],
+                    hostname=hostname,
+                    platform=platform,
+                    ping_line=ping_print,
+                    must_work=ping_works
+                )
