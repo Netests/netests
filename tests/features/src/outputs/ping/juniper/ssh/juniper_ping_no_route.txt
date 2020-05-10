@@ -1,0 +1,5 @@
+PING 9.9.99.88 (9.9.99.88): 56 data bytes
+ping: sendto: No route to host
+
+--- 9.9.99.88 ping statistics ---
+1 packets transmitted, 0 packets received, 100% packet loss

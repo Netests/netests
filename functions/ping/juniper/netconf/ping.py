@@ -7,13 +7,12 @@ from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.netconf_tools import format_xml_output
 from const.constants import NOT_SET, LEVEL5, PING_DATA_HOST_KEY
-from exceptions.netests_exceptions import NetestsErrorWithPingExecution
+from functions.ping.ping_validator import _raise_exception_on_ping_cmd
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_ping_netconf_exec(task, options={}):
-    error_lst = list()
     with Device(
         host=task.host.hostname,
         port=task.host.port,
@@ -39,19 +38,11 @@ def _juniper_ping_netconf_exec(task, options={}):
                 PP.pprint(ping_line.to_json())
 
             if 'ping-results' in o.keys():
-                if (
-                    'ping-failure' in o.get('ping-results') and
-                    ping_line.works is True
-                ):
-                    error_lst.append(ping_line)
-
-                if (
-                    'ping-success' in o.get('ping-results') and
-                    ping_line.works is False
-                ):
-                    error_lst.append(ping_line)
-            else:
-                error_lst.append(ping_line)
-
-    if len(error_lst) > 0:
-        raise NetestsErrorWithPingExecution(error_lst)
+                _raise_exception_on_ping_cmd(
+                    output=o,
+                    hostname=task.host.name,
+                    platform=task.host.platform,
+                    connexion=task.host.get('connexion'),
+                    ping_line=ping_line,
+                    must_work=ping_line.works
+                )

@@ -1,0 +1,12 @@
+{
+    "ping-results": {
+        "ping-failure": "usage error",
+        "rpc-error": {
+            "error-message": "cannot resolve 100.123.1.11110: Host name lookup failure",
+            "error-severity": "error",
+            "error-tag": "operation-failed",
+            "error-type": "protocol",
+            "source-daemon": "ping"
+        }
+    }
+}

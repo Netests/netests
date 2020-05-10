@@ -469,6 +469,188 @@ def step_impl(context):
     )
 
 
+@given(u'A Ping output from a Juniper CLI that works named o0601')
+def step_impl(context):
+    context.o0601 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/ssh/"
+            "juniper_ping_works.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper CLI with wrong VRF named o0602')
+def step_impl(context):
+    context.o0602 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/ssh/"
+            "juniper_ping_wrong_vrf.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper CLI with wrong IPv4 named o0603')
+def step_impl(context):
+    context.o0603 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/ssh/"
+            "juniper_ping_wrong_ip.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper CLI with unreachable IPv4 named o0604')
+def step_impl(context):
+    context.o0604 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/ssh/"
+            "juniper_ping_unreachable.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper CLI with no route to IPv4 named o0605')
+def step_impl(context):
+    context.o0605 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/ssh/"
+            "juniper_ping_no_route.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper CLI with no src ip to IPv4 named o0606')
+def step_impl(context):
+    context.o0606 = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/ssh/"
+            "juniper_ping_no_src_ip.txt"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper Netconf that works named o0611')
+def step_impl(context):
+    context.o0611 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/netconf/"
+            "juniper_ping_works.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper Netconf with wrong VRF named o0612')
+def step_impl(context):
+    context.o0612 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/netconf/"
+            "juniper_ping_wrong_vrf.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper Netconf with wrong IPv4 named o0613')
+def step_impl(context):
+    context.o0613 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/netconf/"
+            "juniper_ping_wrong_ip.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper Netconf with unreachable IPv4 named o0614')
+def step_impl(context):
+    context.o0614 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/netconf/"
+            "juniper_ping_unreachable.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper Netconf with no route to IPv4 named o0615')
+def step_impl(context):
+    context.o0615 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/netconf/"
+            "juniper_ping_no_route.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper Netconf with no src ip to IPv4 named o0616')
+def step_impl(context):
+    context.o0616 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/netconf/"
+            "juniper_ping_no_src_ip.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper API that works named o0621')
+def step_impl(context):
+    context.o0621 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/api/"
+            "juniper_ping_works.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper API with wrong VRF named o0622')
+def step_impl(context):
+    context.o0622 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/api/"
+            "juniper_ping_wrong_vrf.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper API with wrong IPv4 named o0623')
+def step_impl(context):
+    context.o0623 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/api/"
+            "juniper_ping_wrong_ip.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper API with unreachable IPv4 named o0624')
+def step_impl(context):
+    context.o0624 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/api/"
+            "juniper_ping_unreachable.json"
+        )
+    )
+
+
+
+@given(u'A Ping output from a Juniper API with no route to IPv4 named o0625')
+def step_impl(context):
+    context.o0625 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/api/"
+            "juniper_ping_no_route.json"
+        )
+    )
+
+
+@given(u'A Ping output from a Juniper API with no src ip to IPv4 named o0626')
+def step_impl(context):
+    context.o0626 = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ping/juniper/api/"
+            "juniper_ping_no_src_ip.json"
+        )
+    )
+
+
+
 @given(u'Ping Arista CLI works does named o0001 not raise an Exception')
 def step_impl(context):
     try:
@@ -1791,6 +1973,563 @@ def step_impl(context):
             platform=NEXUS_PLATEFORM_NAME,
             connexion=API_CONNECTION,
             ping_line="o0515",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper CLI works does named o0601 not raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0601,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0601",
+            must_work=True
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper CLI wrong VRF named o0602 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0602,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0602",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper CLI wrong IPv4 named o0603 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0603,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0603",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper CLI unreachable named o0604 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0604,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0604",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper CLI no route named o0605 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0605,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0605",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper CLI no src ip named o0606 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0606,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0606",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper CLI works does named o0601 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0601,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0601",
+            must_work=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+@given(u'Ping Juniper CLI wrong VRF named o0602 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0602,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0602",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper CLI wrong IPv4 named o0603 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0603,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0603",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper CLI unreachable named o0604 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0604,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0604",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper CLI no route named o0605 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0605,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0605",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper CLI no src ip named o0606 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0606,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=SSH_CONNECTION,
+            ping_line="o0606",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper Netconf works does named o0611 not raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0611,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0611",
+            must_work=True
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper Netconf wrong VRF named o0612 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0612,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0612",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper Netconf wrong IPv4 named o0613 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0613,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0613",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper Netconf unreachable named o0614 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0614,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0614",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper Netconf no route named o0615 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0615,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0615",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper Netconf no src ip named o0616 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0616,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0616",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper Netconf works does named o0611 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0611,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0611",
+            must_work=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper Netconf wrong VRF named o0612 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0612,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0612",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper Netconf wrong IPv4 named o0613 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0613,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0613",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper Netconf unreachable named o0614 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0614,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0614",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper Netconf no route named o0615 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0615,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0615",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper Netconf no src ip named o0616 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0616,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=NETCONF_CONNECTION,
+            ping_line="o0616",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper API works does named o0621 not raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0621,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0621",
+            must_work=True
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper API wrong VRF named o0622 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0622,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0622",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper API wrong IPv4 named o0623 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0623,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0623",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper API unreachable named o0624 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0624,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o064",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper API no route named o0625 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0625,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0625",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper API no src ip named o0626 raise an Exception')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0626,
+            hostname='leaf02',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0626",
+            must_work=False
+        )
+    except NetestsErrorWithPingExecution:
+        assert False
+
+
+@given(u'Ping Juniper API works does named o0621 not raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0621,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0621",
+            must_work=False
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper API wrong VRF named o0622 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0622,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0622",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper API wrong IPv4 named o0623 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0623,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0623",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper API unreachable named o0624 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0624,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0624",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper API no route named o0625 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0625,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0625",
+            must_work=True
+        )
+        assert False
+    except NetestsErrorWithPingExecution:
+        assert True
+
+
+@given(u'Ping Juniper API no src ip named o0626 raise an Exception reverse')
+def step_impl(context):
+    try:
+        _raise_exception_on_ping_cmd(
+            output=context.o0626,
+            hostname='leaf04',
+            platform=JUNOS_PLATEFORM_NAME,
+            connexion=API_CONNECTION,
+            ping_line="o0626",
             must_work=True
         )
         assert False

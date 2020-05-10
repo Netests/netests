@@ -1,0 +1,18 @@
+{
+    "ping-results": {
+        "packet-size": "56",
+        "ping-failure": "no response",
+        "probe-results-summary": {
+            "packet-loss": "100",
+            "probes-sent": "1",
+            "responses-received": "0"
+        },
+        "rpc-error": {
+            "error-message": "sendto: No route to host",
+            "error-severity": "warning",
+            "source-daemon": "ping"
+        },
+        "target-host": "9.9.99.88",
+        "target-ip": "9.9.99.88"
+    }
+}

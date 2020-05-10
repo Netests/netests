@@ -1,0 +1,12 @@
+{
+    "ping-results": {
+        "ping-failure": "usage error",
+        "rpc-error": {
+            "error-message": "invalid routing instance `edkwedlwewjdnw",
+            "error-severity": "error",
+            "error-tag": "operation-failed",
+            "error-type": "protocol",
+            "source-daemon": "ping"
+        }
+    }
+}

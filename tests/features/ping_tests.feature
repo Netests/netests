@@ -54,7 +54,7 @@ Feature: Test protocols PING python class ./protocols/ping.py
         And A Ping output from a Cisco IOS-XR Netconf with unreachable IPv4 named o0414
         And A Ping output from a Cisco IOS-XR Netconf with no route to IPv4 named o0415
 
-        # Cisco IOS-XR ID Device = o04
+        # Cisco NXOS ID Device = o05
         And A Ping output from a Cisco NXOS CLI that works named o0501
         And A Ping output from a Cisco NXOS CLI with wrong VRF named o0502
         And A Ping output from a Cisco NXOS CLI with wrong IPv4 named o0503
@@ -66,7 +66,30 @@ Feature: Test protocols PING python class ./protocols/ping.py
         And A Ping output from a Cisco NXOS Netconf with wrong IPv4 named o0513
         And A Ping output from a Cisco NXOS Netconf with unreachable IPv4 named o0514
         And A Ping output from a Cisco NXOS Netconf with no route to IPv4 named o0515
+
+        # Juniper VMX ID Device = o06
+        And A Ping output from a Juniper CLI that works named o0601
+        And A Ping output from a Juniper CLI with wrong VRF named o0602
+        And A Ping output from a Juniper CLI with wrong IPv4 named o0603
+        And A Ping output from a Juniper CLI with unreachable IPv4 named o0604
+        And A Ping output from a Juniper CLI with no route to IPv4 named o0605
+        And A Ping output from a Juniper CLI with no src ip to IPv4 named o0606
         
+        And A Ping output from a Juniper Netconf that works named o0611
+        And A Ping output from a Juniper Netconf with wrong VRF named o0612
+        And A Ping output from a Juniper Netconf with wrong IPv4 named o0613
+        And A Ping output from a Juniper Netconf with unreachable IPv4 named o0614
+        And A Ping output from a Juniper Netconf with no route to IPv4 named o0615
+        And A Ping output from a Juniper Netconf with no src ip to IPv4 named o0616
+
+        And A Ping output from a Juniper API that works named o0621
+        And A Ping output from a Juniper API with wrong VRF named o0622
+        And A Ping output from a Juniper API with wrong IPv4 named o0623
+        And A Ping output from a Juniper API with unreachable IPv4 named o0624
+        And A Ping output from a Juniper API with no route to IPv4 named o0625
+        And A Ping output from a Juniper API with no src ip to IPv4 named o0626
+
+
         # COMPARAISON
         # Arista Networks
         And Ping Arista CLI works does named o0001 not raise an Exception
@@ -179,3 +202,46 @@ Feature: Test protocols PING python class ./protocols/ping.py
         And Ping Cisco NXOS Netconf wrong IPv4 named o0513 raise an Exception reverse
         And Ping Cisco NXOS Netconf unreachable named o0514 raise an Exception reverse
         And Ping Cisco NXOS Netconf no route named o0515 raise an Exception reverse
+
+        # Juniper
+        And Ping Juniper CLI works does named o0601 not raise an Exception
+        And Ping Juniper CLI wrong VRF named o0602 raise an Exception
+        And Ping Juniper CLI wrong IPv4 named o0603 raise an Exception
+        And Ping Juniper CLI unreachable named o0604 raise an Exception
+        And Ping Juniper CLI no route named o0605 raise an Exception
+        And Ping Juniper CLI no src ip named o0606 raise an Exception
+
+        And Ping Juniper CLI works does named o0601 not raise an Exception reverse
+        And Ping Juniper CLI wrong VRF named o0602 raise an Exception reverse
+        And Ping Juniper CLI wrong IPv4 named o0603 raise an Exception reverse
+        And Ping Juniper CLI unreachable named o0604 raise an Exception reverse
+        And Ping Juniper CLI no route named o0605 raise an Exception reverse
+        And Ping Juniper CLI no src ip named o0606 raise an Exception reverse
+
+        And Ping Juniper Netconf works does named o0611 not raise an Exception
+        And Ping Juniper Netconf wrong VRF named o0612 raise an Exception
+        And Ping Juniper Netconf wrong IPv4 named o0613 raise an Exception
+        And Ping Juniper Netconf unreachable named o0614 raise an Exception
+        And Ping Juniper Netconf no route named o0615 raise an Exception
+        And Ping Juniper Netconf no src ip named o0616 raise an Exception
+
+        And Ping Juniper Netconf works does named o0611 not raise an Exception reverse
+        And Ping Juniper Netconf wrong VRF named o0612 raise an Exception reverse
+        And Ping Juniper Netconf wrong IPv4 named o0613 raise an Exception reverse
+        And Ping Juniper Netconf unreachable named o0614 raise an Exception reverse
+        And Ping Juniper Netconf no route named o0615 raise an Exception reverse
+        And Ping Juniper Netconf no src ip named o0616 raise an Exception reverse
+
+        And Ping Juniper API works does named o0621 not raise an Exception
+        And Ping Juniper API wrong VRF named o0622 raise an Exception
+        And Ping Juniper API wrong IPv4 named o0623 raise an Exception
+        And Ping Juniper API unreachable named o0624 raise an Exception
+        And Ping Juniper API no route named o0625 raise an Exception
+        And Ping Juniper API no src ip named o0626 raise an Exception
+
+        And Ping Juniper API works does named o0621 not raise an Exception reverse
+        And Ping Juniper API wrong VRF named o0622 raise an Exception reverse
+        And Ping Juniper API wrong IPv4 named o0623 raise an Exception reverse
+        And Ping Juniper API unreachable named o0624 raise an Exception reverse
+        And Ping Juniper API no route named o0625 raise an Exception reverse
+        And Ping Juniper API no src ip named o0626 raise an Exception reverse

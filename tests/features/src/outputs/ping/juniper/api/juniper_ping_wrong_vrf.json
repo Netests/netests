@@ -1,0 +1,12 @@
+{
+    "ping-results": {
+        "@xmlns": "http: //xml.juniper.net/junos/19.4R0/junos-probe-tests",
+        "ping-failure": "usage error",
+        "xnm:error": {
+            "@xmlns": "http: //xml.juniper.net/xnm/1.1/xnm",
+            "@xmlns:xnm": "http: //xml.juniper.net/xnm/1.1/xnm",
+            "message": "invalid routing instance `edkwedlwewjdnw",
+            "source-daemon": "ping"
+        }
+    }
+}   

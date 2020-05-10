@@ -1,0 +1,6 @@
+PING 100.123.1.0 (100.123.1.0): 56 data bytes
+64 bytes from 100.123.1.0: icmp_seq=0 ttl=64 time=0.041 ms
+
+--- 100.123.1.0 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.041/0.041/0.041/0.000 ms

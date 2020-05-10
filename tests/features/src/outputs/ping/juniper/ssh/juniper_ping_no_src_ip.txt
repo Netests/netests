@@ -1,0 +1,5 @@
+PING 1.1.1.1 (1.1.1.1): 56 data bytes
+ping: sendto: Can't assign requested address
+
+--- 1.1.1.1 ping statistics ---
+1 packets transmitted, 0 packets received, 100% packet loss
