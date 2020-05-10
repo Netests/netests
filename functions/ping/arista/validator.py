@@ -27,7 +27,7 @@ def arista_generic_ping_validator(output: str, must_works: bool) -> bool:
         return False
 
     return True
-                
+
 
 def arista_api_ping_validator(output: str, must_works: bool) -> bool:
     return arista_generic_ping_validator(output, must_works)

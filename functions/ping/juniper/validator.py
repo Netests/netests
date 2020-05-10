@@ -3,7 +3,7 @@
 
 
 def juniper_api_ping_validator(output: str, must_works: bool) -> bool:
-    pass 
+    pass
 
 
 def juniper_netconf_ping_validator(output: str, must_works: bool) -> bool:

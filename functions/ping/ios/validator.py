@@ -9,6 +9,7 @@ def ios_api_ping_validator(output: str, must_works: bool) -> bool:
 def ios_netconf_ping_validator(output: str, must_works: bool) -> bool:
     return False
 
+
 def ios_ssh_ping_validator(output: str, must_works: bool) -> bool:
     if (
         must_works is True and

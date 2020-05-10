@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-def nxos_generic_ping_validator(output:str, must_works: bool) -> bool:
+def nxos_generic_ping_validator(output: str, must_works: bool) -> bool:
     if (
         must_works is True and
         (
@@ -15,7 +15,7 @@ def nxos_generic_ping_validator(output:str, must_works: bool) -> bool:
         )
     ):
         return False
-    
+
     if (
         must_works is False and
         (

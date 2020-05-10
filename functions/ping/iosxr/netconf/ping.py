@@ -8,7 +8,6 @@ from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from functions.netconf_tools import format_xml_output
 from functions.ping.ping_validator import _raise_exception_on_ping_cmd
-from exceptions.netests_exceptions import NetestsErrorWithPingExecution
 from const.constants import NOT_SET, LEVEL5, PING_DATA_HOST_KEY
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
@@ -73,7 +72,6 @@ def _iosxr_ping_netconf_exec(task, options={}):
                 PP.pprint(o)
                 PP.pprint(ping_line.to_json())
 
-
             if isinstance(o, dict) and 'rpc-reply' in o.keys():
                 iosxr_netconf_validate_output(
                     output=o,
@@ -84,7 +82,7 @@ def _iosxr_ping_netconf_exec(task, options={}):
                     ping_works=ping_line.works
                 )
 
-            
+
 def iosxr_netconf_validate_output(
     output: dict,
     hostname: str,
