@@ -173,6 +173,44 @@ def exec_http_nxos(
     return res.content
 
 
+def exec_http_rpc_nxos(
+    hostname: str,
+    port: str,
+    username: str,
+    password: str,
+    command: str,
+    secure_api=True
+) -> json:
+    if secure_api:
+        protocol = "https"
+    else:
+        protocol = "http"
+    res = requests.post(
+        url=f"{protocol}://{hostname}:{port}/ins",
+        headers={
+            'Content-Type': 'application/json-rpc',
+        },
+        auth=requests.auth.HTTPBasicAuth(
+            f"{username}",
+            f"{password}"
+        ),
+        verify=False,
+        data="""[
+            {
+                "jsonrpc": "2.0",
+                "method": "cli",
+                "params": {
+                    "cmd": "%s",
+                    "version": 1
+                },
+                "id": 1
+            }
+        ]""" % (str(command).replace("\n", ""))
+    )
+
+    return res.content
+
+
 def exec_http_extreme_vsp(
     hostname: str,
     port: str,

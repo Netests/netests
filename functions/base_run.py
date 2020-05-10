@@ -161,10 +161,11 @@ def run_base(
         )
 
         if init_data is True:
-            create_truth_vars(
-                nr=nr,
-                protocol=protocol
-            )
+            if protocol != "ping":
+                create_truth_vars(
+                    nr=nr,
+                    protocol=protocol
+                )
         elif not_compare is False:
             same = RUN.get(protocol).get('compare')(
                 nr=nr,

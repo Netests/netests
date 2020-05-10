@@ -1,0 +1,14 @@
+{
+    "ping-results": {
+        "@xmlns": "http: //xml.juniper.net/junos/19.4R0/junos-probe-tests",
+        "packet-size": "56",
+        "ping-failure": "no response",
+        "probe-results-summary": {
+            "packet-loss": "100",
+            "probes-sent": "1",
+            "responses-received": "0"
+        },
+        "target-host": "100.123.1.88",
+        "target-ip": "100.123.1.88"
+    }
+}

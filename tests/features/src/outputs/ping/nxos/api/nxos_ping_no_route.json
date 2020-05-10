@@ -1,0 +1,6 @@
+{   "id": 1,
+    "jsonrpc": "2.0",
+    "result": {   
+        "msg": "PING 8.8.8.8 (8.8.8.8): 56 data bytes\nping: sendto 8.8.8.8 64 chars, No route to host\nRequest 0 timed out\n\n--- 8.8.8.8 ping statistics ---\n1 packets transmitted 0 packets received, 100.00% packet loss\n"
+    }
+}

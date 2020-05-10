@@ -1,0 +1,18 @@
+{
+    "ping-results": {
+        "packet-size": "56",
+        "ping-failure": "no response",
+        "probe-results-summary": {
+            "packet-loss": "100",
+            "probes-sent": "1",
+            "responses-received": "0"
+        },
+        "rpc-error": {
+            "error-message": "sendto: Can't assign requested address",
+            "error-severity": "warning",
+            "source-daemon": "ping"
+        },
+        "target-host": "1.1.1.1",
+        "target-ip": "1.1.1.1"
+    }
+}

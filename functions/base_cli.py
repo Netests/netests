@@ -1,25 +1,35 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
 from nornir.core import Nornir
 from functions.bgp.bgp_gets import get_bgp
 from functions.bgp.bgp_compare import _compare_bgp
 from protocols.bgp import BGPSession
+from functions.cdp.cdp_get import get_cdp
+from functions.cdp.cdp_compare import _compare_cdp
+from protocols.cdp import CDP
 from functions.facts.facts_get import get_facts
 from functions.facts.facts_compare import _compare_facts
 from protocols.facts import Facts
 from functions.lldp.lldp_get import get_lldp
 from functions.lldp.lldp_compare import _compare_lldp
 from protocols.lldp import LLDP
+from protocols.ping import PING
+from functions.ping.ping_get import get_ping
+from functions.ping.ping_execute import execute_ping
 from functions.vrf.vrf_get import get_vrf
 from functions.vrf.vrf_compare import _compare_vrf
 from protocols.vrf import VRF
 from functions.global_tools import printline
+from functions.global_tools import is_valid_ipv4_address
 from exceptions.netests_cli_exceptions import NetestsCLINornirObjectIsNone
 from const.constants import (
     BGP_SESSIONS_HOST_KEY,
+    CDP_DATA_HOST_KEY,
     FACTS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
+    PING_DATA_HOST_KEY,
     VRF_DATA_KEY
 )
 import pprint
@@ -29,11 +39,11 @@ PP = pprint.PrettyPrinter(indent=4)
 class NetestsCLI():
 
     ACTION = ["get", "select", "unselect", "exit", "help", "options", "more",
-              "show", "print", "selected", "compare", ""]
+              "show", "print", "selected", "compare", "", "execute"]
     APRINT = ["get", "select", "unselect", "exit", "help", "options", "more",
-              "show", "print", "selected", "compare"]
+              "show", "print", "selected", "compare", "execute"]
     AARGS = ["get", "select", "unselect", "options", "more", "show", "print",
-             "help", "compare"]
+             "help", "compare", "execute"]
 
     ASIMPLE = ["help", "", "selected", "exit"]
 
@@ -42,11 +52,18 @@ class NetestsCLI():
 
     A3ARGS = ["options"]
 
+    AMANYARGS = ["execute"]
+
     MAPPING = {
         "bgp": {
             "class": BGPSession,
             "get": get_bgp,
             "compare": _compare_bgp
+        },
+        "cdp": {
+            "class": CDP,
+            "get": get_cdp,
+            "compare": _compare_cdp
         },
         "facts": {
             "class": Facts,
@@ -57,6 +74,11 @@ class NetestsCLI():
             "class": LLDP,
             "get": get_lldp,
             "compare": _compare_lldp
+        },
+        "ping": {
+            "class": PING,
+            "get": get_ping,
+            "compare": execute_ping
         },
         "vrf": {
             "class": VRF,
@@ -101,6 +123,14 @@ class NetestsCLI():
             print("@The followings commands take some arguments :")
             print(f"@{self.AARGS}")
             return False
+
+        if user_input[0] == "execute":
+            if user_input[1] != "ping":
+                print("@execute command only support ping. Use help")
+            if len(user_input) < 3:
+                print("@execute command take at least 2 arguments. Use help")
+            elif is_valid_ipv4_address(user_input[2]) is False:
+                print("@Second arguments of execute ping has to be an IPv4")
 
         if (
             user_input[0] == "help" and (
@@ -147,12 +177,17 @@ class NetestsCLI():
             self.get_protocol_class(user_inputs[1])
         if user_inputs[0] == "print":
             self.get_device_info(user_inputs[1])
+        if user_inputs[0] == "execute":
+            self.execute_ping(user_inputs)
         if user_inputs[0] == "compare":
             if self.devices_not_empty():
                 self.compare_config(user_inputs[1])
             else:
                 print("@Please select some hosts before use compare command")
         return True
+
+    def execute_cli_ping(self, parameters) -> None:
+        print("@execute command not Implemented ...")
 
     def compare_config(self, protocols_selected) -> None:
         self.call_get_generic(protocols_selected)
@@ -171,6 +206,18 @@ class NetestsCLI():
                     )
                     if r:
                         w.append(d)
+                elif prot.lower() == "cdp":
+                    r = _compare_cdp(
+                        host_keys=self.nornir.inventory.hosts[d].keys(),
+                        hostname=d,
+                        groups=self.nornir.inventory.hosts[d].groups,
+                        cdp_host_data=self.nornir.inventory
+                                          .hosts
+                                          .get(d)
+                                          .get(CDP_DATA_HOST_KEY)
+                    )
+                    if r:
+                        w.append(d)
                 elif prot.lower() == "facts":
                     r = _compare_facts(
                         host_keys=self.nornir.inventory.hosts[d].keys(),
@@ -180,6 +227,19 @@ class NetestsCLI():
                                                     .hosts
                                                     .get(d)
                                                    .get(FACTS_DATA_HOST_KEY)
+
+                    )
+                    if r:
+                        w.append(d)
+                elif prot.lower() == "ping":
+                    r = execute_ping(
+                        host_keys=self.nornir.inventory.hosts[d].keys(),
+                        hostname=d,
+                        groups=self.nornir.inventory.hosts[d].groups,
+                        facts_host_data=self.nornir.inventory
+                                                   .hosts
+                                                   .get(d)
+                                                   .get(PING_DATA_HOST_KEY)
 
                     )
                     if r:
@@ -206,6 +266,19 @@ class NetestsCLI():
                                                     .hosts
                                                     .get(d)
                                                     .get(BGP_SESSIONS_HOST_KEY)
+
+                    )
+                    if r:
+                        w.append(d)
+                elif prot.lower() == "bgp":
+                    r = _compare_bgp(
+                        host_keys=self.nornir.inventory.hosts[d].keys(),
+                        hostname=d,
+                        groups=self.nornir.inventory.hosts[d].groups,
+                        bgp_host_data=self.nornir.inventory
+                        .hosts
+                        .get(d)
+                        .get(BGP_SESSIONS_HOST_KEY)
 
                     )
                     if r:
@@ -367,6 +440,14 @@ class NetestsCLI():
                             "print": self.options.get('vrf', {})
                         }
                     )
+                elif prot.lower() == "cdp":
+                    get_cdp(
+                        nr=self.nornir,
+                        options={
+                            "from_cli": True,
+                            "print": self.options.get('cdp', {})
+                        }
+                    )
                 elif prot.lower() == "facts":
                     get_facts(
                         nr=self.nornir,
@@ -389,6 +470,14 @@ class NetestsCLI():
                         options={
                             "from_cli": True,
                             "print": self.options.get('bgp', {})
+                        }
+                    )
+                elif prot.lower() == "ping":
+                    get_ping(
+                        nr=self.nornir,
+                        options={
+                            "from_cli": True,
+                            "print": self.options.get('ping', {})
                         }
                     )
                 else:

@@ -1,0 +1,4 @@
+PING 192.168.1.111 (192.168.1.111) 72(100) bytes of data.
+
+--- 192.168.1.111 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms

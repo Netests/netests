@@ -1,0 +1,8 @@
+{   "id": "4611274624",
+    "jsonrpc": "2.0",
+    "result": [
+        {},
+        {   "messages": ["ping: 192.168.1.199kh: Temporary failure in name resolution\n"]
+        }
+    ]
+}

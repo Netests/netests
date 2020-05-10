@@ -1,3 +1,6 @@
+turth_vars/*
+reports/*
+netbox/*
 inventory/*
 images/*
 nornir/nornir.log
@@ -13,3 +16,4 @@ __pycache__/
 *.pyc
 **/bck.*
 req.txt
+**log.*

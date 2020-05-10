@@ -375,8 +375,8 @@ Run the command `get` and the protocols that you would like retrieve.
 
 |           |      Juniper       |      Cumulus       | Arista             |        NXOS        |        IOS         |       IOS-XR       |    Extreme VSP     | NAPALM             |
 | --------- | :----------------: | ------------------ | :----------------: | :----------------: | :----------------: | :----------------: | ------------------ | :----------------: |
-| BGP       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-| OSPF      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
+| BGP       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| OSPF      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :sleepy:        |
 | Facts | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
 | Ping      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
 | LLDP | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :white_check_mark: |
@@ -432,30 +432,32 @@ Run the command `get` and the protocols that you would like retrieve.
 
 ## Pipeline
 
-|                     | VRF                | FACTS              | BGP                | LLDP               | CDP                | PING               | OSPF       |
-| ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ---------- |
-| NAPALM              | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :no_entry:         |            |
-| Juniper SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |                    |            |
-| Juniper Netconf     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |                    |            |
-| Juniper API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |                    |            |
-| Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |            |
-| Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: |
-| Cumulus API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |            |
-| Arista SSH          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |                    |            |
-| Arista API          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |                    |            |
-| Arista Netconf      | :white_check_mark: |                    |                    |                    | :no_entry:         |                    |            |
-| Nexus SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |            |
-| Nexus Netconf       | :white_check_mark: |                    |                    |                    |                    |                    |            |
-| Nexus API           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |            |
-| IOS SSH             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |            |
-| IOS API             | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |                    |            |
-| IOS Netconf         | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |                    |                    |            |
-| Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         |                    |            |
-| Extreme VSP API     | :x:                | :white_check_mark: | :x:                | :white_check_mark: | :no_entry:         |                    |            |
-| Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: |
-| IOSXR SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |                    |            |
-| IOSXR Netconf       | :white_check_mark: |                    | :white_check_mark: |                    |                    |                    |            |
-| IOSXR API           | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry: |
+|                     | VRF                | FACTS              | BGP                | LLDP               | CDP                | PING                     | OSPF       |
+| ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------------ | ---------- |
+| NAPALM              | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :no_entry:               |            |
+| Juniper SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |            |
+| Juniper Netconf     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |            |
+| Juniper API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |            |
+| Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |            |
+| Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry: |
+| Cumulus API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:               |            |
+| Arista SSH          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |            |
+| Arista API          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |            |
+| Arista Netconf      | :white_check_mark: | :warning:          | :warning:          | :warning:          | :no_entry:         | :warning:                |            |
+| Nexus SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |            |
+| Nexus Netconf       | :white_check_mark: | :warning:          | :warning:          | :warning:          | :warning:          | :no_entry:               |            |
+| Nexus API           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |            |
+| IOS SSH             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |            |
+| IOS API             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :warning:                |            |
+| IOS Netconf         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :warning:                |            |
+| Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |            |
+| Extreme VSP API     | :x:                | :white_check_mark: | :x:                | :white_check_mark: | :x:                | :x:                      |            |
+| Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry: |
+| IOSXR SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |            |
+| IOSXR Netconf       | :white_check_mark: | :warning:          | :white_check_mark: | :warning:          | :warning:          | :white_check_mark: ​6.2.1 |            |
+| IOSXR API           | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry: |
+
+:warning: = Not Implemented
 
 :no_entry: = Not Supported
 

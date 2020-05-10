@@ -1,6 +1,0 @@
-hostname: 10.0.5.104
-username: admin
-password: admin
-platform: iosxr
-port: 22
-connextion: ssh

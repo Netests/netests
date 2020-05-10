@@ -1,0 +1,20 @@
+{
+    "ping-results": {
+        "@xmlns": "http: //xml.juniper.net/junos/19.4R0/junos-probe-tests",
+        "packet-size": "56",
+        "ping-failure": "no response",
+        "probe-results-summary": {
+            "packet-loss": "100",
+            "probes-sent": "1",
+            "responses-received": "0"
+        },
+        "target-host": "9.9.99.88",
+        "target-ip": "9.9.99.88",
+        "xnm:warning": {
+            "@xmlns": "http: //xml.juniper.net/xnm/1.1/xnm",
+            "@xmlns:xnm": "http: //xml.juniper.net/xnm/1.1/xnm",
+            "message": "sendto: No route to host",
+            "source-daemon": "ping"
+        }
+    }
+}

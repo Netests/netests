@@ -1,0 +1,1 @@
+ping: 1.12.234.3423: Temporary failure in name resolution

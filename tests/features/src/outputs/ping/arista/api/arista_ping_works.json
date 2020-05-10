@@ -1,0 +1,9 @@
+{   "id": "4556220456",
+    "jsonrpc": "2.0",
+    "result": [
+        {},
+        {   "messages": ["PING 192.168.1.1 (192.168.1.1) 72(100) bytes of data.\n80 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=3.35 ms\n\n--- 192.168.1.1 ping statistics ---\n1 packets transmitted, 1 received, 0% packet loss, time 0ms\nrtt min/avg/max/mdev = 3.359/3.359/3.359/0.000 ms\n"
+            ]
+        }
+    ]
+}

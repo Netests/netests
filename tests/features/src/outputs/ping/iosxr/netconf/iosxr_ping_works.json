@@ -1,0 +1,29 @@
+{
+    "rpc-reply": {
+        "@message-id": "urn:uuid: 3a4e22d2-ebc6-4e25-9a9a-c5602c493e8d",
+        "@xmlns": "urn:ietf:params:xml:ns:netconf:base: 1.0",
+        "ping-response": {
+            "@xmlns": "http: //cisco.com/ns/yang/Cisco-IOS-XR-ping-act",
+            "ipv4": {
+                "data-size": "100",
+                "destination": "1.1.1.20",
+                "hits": "1",
+                "pattern": "abcd",
+                "repeat-count": "1",
+                "replies": {
+                    "reply": {
+                        "reply-index": "1",
+                        "result": "!"
+                    }
+                },
+                "rotate-pattern": "false",
+                "rtt-avg": "29",
+                "rtt-max": "29",
+                "rtt-min": "29",
+                "success-rate": "100",
+                "timeout": "2",
+                "total": "1"
+            }
+        }
+    }
+}

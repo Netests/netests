@@ -1,0 +1,27 @@
+{
+    "ping-results": {
+        "packet-size": "56",
+        "ping-success": "None",
+        "probe-result": {
+            "@date-determined": "1589101001",
+            "ip-address": "100.123.1.0",
+            "probe-index": "1",
+            "probe-success": "None",
+            "response-size": "64",
+            "rtt": "43",
+            "sequence-number": "0",
+            "time-to-live": "64"
+        },
+        "probe-results-summary": {
+            "packet-loss": "0",
+            "probes-sent": "1",
+            "responses-received": "1",
+            "rtt-average": "43",
+            "rtt-maximum": "43",
+            "rtt-minimum": "43",
+            "rtt-stddev": "0"
+        },
+        "target-host": "100.123.1.0",
+        "target-ip": "100.123.1.0"
+    }
+}
