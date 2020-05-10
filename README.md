@@ -58,7 +58,24 @@ Model: vmx
 Junos: 19.4R1.10
 ```
 
+#### Cumulus 
 
+```
+Version 3.7.9
+Version 4.0.0
+```
+
+#### Arista
+
+```
+Version 4.23.1F
+```
+
+#### Extreme Network VSP (VOSS)
+
+```
+Version 8.1.0.0
+```
 
 
 
@@ -85,164 +102,131 @@ In addition, this platform does not consider the OS, it is possible to run tests
 
 ```yaml
 [leaf]
-leaf01	# Cumulus Networks
-leaf02	# Cisco Nexus 9k
-leaf03	# Arista vEOS
-leaf04	# Juniper Networks
-leaf05	# Cisco IOS
+leaf01 # Cumulus Networks
+leaf02 # Cisco Nexus 9k
+leaf03 # Arista vEOS
+leaf04 # Juniper Networks
+leaf05 # Cisco IOS
 
 [spine]
-spine01	# Cumulus Networks
-spine02	# Extreme Networks VSP
-spine03	# Cisco IOS-XR
+spine01 # Cumulus Networks
+spine02 # Extreme Networks VSP
+spine03 # Cisco IOS-XR
 ```
 
 2) Define device parameters in ``host_vars/inventory_hostname.yml`` files
 
 ```yaml
 hostname: 10.0.5.202
+platform: linux        # <<=== specify device OS (Cumulus Linux)
 username: admin
 password: Ci$co123
-platform: linux			# <<=== specify device OS
+connexion: ssh         # <<=== specify connexion method - check supported protocols 
 port: 22
-connexion: ssh
 ```
 
 ```yaml
 hostname: 10.0.5.204
+platform: junos        # <<=== specify device OS (Juniper)
 username: root
 password: Jun1p3r
-platform: junos			# <<=== specify device OS
-port: 2222
-connexion: ssh
+connexion: netconf     # <<=== specify connexion method - check supported protocols 
+port: 830
 ```
 
 ```yaml
 hostname: 10.0.5.203
+platform: eos          # <<=== specify device OS (Arista)
 username: admin
 password: admin123
-platform: eos				# <<=== specify device OS
+connexion: api         # <<=== specify connexion method - check supported protocols 
 port: 443
 ```
 
-If `connexion: ssh` is not specify and the OS is supported by NAPALM, NAPALM will be used.
 
-* Cumulus --->> SSH session on port 22
-* Juniper --->> SSH session on port 2222
-* Arista --->> REST API call on port 443
 
 #### Define tests
 
-Tests are defined in the file `verity/_test_to_execute.yml`. In this file you can define which test will be executed.
+Tests are defined in the file `netests.yml`. In this file you can define which test will be executed.
 
 ```yaml
-# Each test can be in 3 types.
-# 1) yes || true => (Mandatory) - If test failed Pipeline will be stopped
-# 2) info =>  (Informations) - If test failed you will only see a message
-# 3) no || false => (Exclude) - Test will not be executed
-# Check Link Discovery Protocols sessions
-lldp: true
+config:
+  nornir_cfg: ./nornir/config_ansible.yml
+  inventory: ./inventory/ansible/hosts
+  protocols:
+    bgp:
+      test: false
+
+    cdp:
+      test: false
+
+    lldp:
+      test: true
+
+    facts:
+      test: false
+      
+    ping:
+      test: false
 ```
 
-In the same directory you can describe which LLDP sessions you want have on devices (`verity/lldp.yml`).
+In `truth_vars/` you need to define the configuration that you want on your production devices.
+
+### Exemple  :
+
+There are three ways to define variables :
+
+1. For a specific host - define your configuration in `truth_vars/hosts/hostname/protocol.yml`
+
+LLDP configuration
 
 ```yaml
-spine01:
-  - local_port: swp1
-    neighbor_name: leaf01
-    neighbor_port: swp1
-  - local_port: swp2
-    neighbor_name: leaf02
-    neighbor_port: Eth1/1
-  - local_port: swp3
-    neighbor_name: leaf03
-    neighbor_port: Eth1/1
-
-leaf02:
-  - local_port: Eth1/1
-    neighbor_name: spine01
-    neighbor_port: swp2
-  - local_port: Eth1/7
-    neighbor_name: leaf03
-    neighbor_port: Eth1/3
-
-leaf03:
-  - local_port: Eth1/1
-    neighbor_name: spine01
-    neighbor_port: swp3
-  - local_port: Eth1/3
-    neighbor_name: leaf02.dh.local
-    neighbor_port: Eth1/7
+- local_name: leaf03
+  local_port: Ethernet1
+  neighbor_mgmt_ip: 192.168.1.148
+  neighbor_name: cumulus
+  neighbor_os: Cumulus Linux version 4.0.0
+  neighbor_port: swp1
+  neighbor_type: ["Bridge", "Router"]
 ```
 
-The script will connect on each device and retrieve LLDP sessions informations and campre them with the data define in ``verity/lldp.yml``.
+> Will test that the neighbor on the port `Ethernet1` is a device named `cumulus` and the connexion is on the port `swp1`.
+
+2. For all hosts defined in a group - such as `spines` - define in `truth_vars/groups/group/protocol.yml`
+
+Group is `spine-arista`.
+Facts configuration
+
+```yaml
+domain: dh.local
+version: 4.24.0F
+```
+
+>Will test if all devices linked to this group has `dh.local` as domain name, `4.24.0F` as version.
+
+3. for all devices - define `truth_vars/all/{{ protocol }}.yml`
+
+```
+domain: dh.local
+```
+
+> Will test if all devices in your inventory have t domain `dh.local`.
+
+
+
+The script will connect on each devices, retrieveinformations and campre them with the data define in your `truth_vars/` (source of truth).
 
 If the informations are the same the tests is OK :smile:
 
 #### Run the script
 
 ```shell
-» ./main.py --ansible=True
-[netests - main.py] BGP_SESSIONS tests are not executed !!
-[netests - main.py] All BGP sessions tests are not executed !!
-[netests - main.py] LLDP sessions are the same that defined in ./verity/lldp.yml = True
-[netests - main.py] CDP sessions tests are not executed !!
-[netests - main.py] VRF tests are not executed !!
-[netests - main.py] Pings have not been executed !!
-[netests - main.py] OSPF have not been executed !!
-[netests - main.py] IPv4 addresses have not been executed !!
-[netests - main.py] Static routes have not been executed !!
-[netests - main.py] System informations have not been executed !!
-```
+./netests.py -x -i inventory/ansible/hosts -a netests.yml
+[netests - base_run.py](ping) is working = True
 
-
-
-#### BGP with VRF example
-
-```yaml
----
-spine01:
-  default:
-    asn: 65100
-    router_id: 10.255.255.101
-    neighbors:
-      - peer_ip: 10.255.255.201
-        remote_as: 65201
-      - peer_ip: 10.255.255.202
-        remote_as: 65202
-      - peer_ip: 10.255.255.203
-        remote_as: 65203
-        state: DOWN
-  mgmt:
-    asn: 65100
-    router_id: 1.1.1.1
-    neighbors:
-      - peer_ip: 10.0.5.203
-        remote_as: 65203
-        state: UP
-      - peer_ip: 10.0.5.202
-        remote_as: 65202
-        state: DOWN
-
-
-leaf02:
-  default:
-    asn: 65202
-    router_id: 10.255.255.202
-    neighbors:
-      - peer_ip: 10.255.255.101
-        remote_as: 65100
-
-leaf03:
-  default:
-    asn: 65203
-    router_id: 10.255.255.203
-    neighbors:
-      - peer_ip: 10.255.255.101
-        remote_as: 65100
-        state: UP
-      - peer_ip: 10.255.255.202
-        remote_as: 65202
+# -x / Define that you will use an Ansible inventory
+# -i / Path to your Ansible inventory
+# -a / Path to your netests configuration file (default is netests.yml)
 ```
 
 
@@ -270,7 +254,7 @@ spine03
 #### Run the CLI tool
 
 ```shell
-⚡ ./netests.py -a True -t True
+⚡ ./netests.py -x -i inventory/ansible/hosts -a netests.yml -t
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 Welcome to Netests CLI
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -286,9 +270,62 @@ Welcome to Netests CLI
 | [help]      Display help                                   |
 | [select]    Select devices on which on action will be exec |
 | [unselect]  Remove a device from the selected              |
-| [get xxx]   Get XXX protocols informations                 |
+| [selected]  Show devices currently selected                |
+| [get xx]   Get XX protocols informations                   |
+| [options]   Set arguments that will retrieve for a Protocol|
+| [more xx]  Show XX Protocol class arguments selected       |
+| [show xx]  Show XX Protocol class arguments                |
+| [print yy]  Show YY devices informations                   |
+| [compare yy xx]  Compare device config with source of truth|
+| [exit]  Quit Netests CLI                                   |
 +------------------------------------------------------------+
 ```
+
+
+
+#### Get help for a specific command
+
+```
+> help options
++------------------------------------------------------------+
+|                 Netests - Options Commands                 |
++------------------------------------------------------------+
+| This command is used to define which parameter will be     |
+| retrieve for a protocol.                                   |
+| It is possible to get a subset of protocols parameters.    |
+| Format :                                                   |
+|   > options  {{ protocol }}  {{ classArg1,classArg2  }}    |
+|   (To get all protocols parameters use the 'show' command) |
+|                                                            |
+| Examples :                                                 |
+|   > options vrf vrf_name,rd,rt_imp,rt_exp                  |
++------------------------------------------------------------+
+```
+
+
+
+#### Print hosts defined in your inventory :
+
+```
+{   'leaf01': {   'connexion': 'ssh',
+                  'hostname': '172.16.194.51',
+                  'platform': 'linux',
+                  'port': 22},
+    'leaf02': {   'connexion': 'api',
+                  'hostname': 'sbx-nxos-mgmt.cisco.com',
+                  'platform': 'nxos',
+                  'port': 443},
+    'leaf04': {   'connexion': 'netconf',
+                  'hostname': '66.129.235.11',
+                  'platform': 'junos',
+                  'port': 40002},
+    'leaf05': {   'connexion': 'ssh',
+                  'hostname': 'ios-xe-mgmt.cisco.com',
+                  'platform': 'ios',
+                  'port': 8181}}
+```
+
+
 
 #### Select devices
 
@@ -319,6 +356,18 @@ You have to select devices on which one you would get informations
 @Followings devices will be added to the list :
 @['leaf01', 'spine03']
 ```
+
+
+
+#### Print selected devices
+
+```
+> selected
+@Followings devices are selected :
+@['leaf01', 'leaf02', 'leaf04', 'leaf05']
+```
+
+
 
 #### Execute GET
 
@@ -367,70 +416,50 @@ Run the command `get` and the protocols that you would like retrieve.
 
 
 
+#### Compare config with `truth_vars/`
+
+```
+> compare facts
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+{   'Facts': {   'base_mac': 'NOT_SET',
+                 'build': 'fc2',
+                 'domain': 'NOT_SET',
+                 'hostname': 'csr1000v',
+                 'interfaces_lst': [   'GigabitEthernet1',
+                                       'GigabitEthernet2',
+                                       'GigabitEthernet3',
+                                       'Loopback3',
+                                       'Loopback1234',
+                                       'Loopback9009'],
+                 'memory': '8113280',
+                 'model': 'CSR1000V',
+                 'serial': '9OOFTICVAFM',
+                 'vendor': 'Cisco',
+                 'version': '16.9.3'}}
+[netests - compare_facts] Key infos_data is missingfor leaf05 or no Facts data has been found.
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+@The following devices have the same configuration that defined in the source of truth :
+@[leaf05].
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+>
+```
+
+
+
+#### Screenshot
+
 ![images/netests_cli.png](images/netests_cli.png)
 
 
 
-## Capabilities
+#### Video
 
-|           |      Juniper       |      Cumulus       | Arista             |        NXOS        |        IOS         |       IOS-XR       |    Extreme VSP     | NAPALM             |
-| --------- | :----------------: | ------------------ | :----------------: | :----------------: | :----------------: | :----------------: | ------------------ | :----------------: |
-| BGP       | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| OSPF      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :sleepy:        |
-| Facts | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-| Ping      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| LLDP | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :white_check_mark: |
-| VRF | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-|  |  |  |  |  |  |  |  |  |
-| **MVP ^^^** |  |  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |  |  |
-| Socket v4 |        :x:         | :white_check_mark:(1) | :white_check_mark:(4) |        :x:         |        :x:         |        :x:         |        :x:         | :sleepy:        |
-| Static    | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :sleepy:        |
-| IS-IS       |        :x:         | :x:                   |          :x:          |        :x:         |        :x:         |        :x:         | :x:                | :x: |
-| IPv4        | :white_check_mark: | :white_check_mark:    |  :white_check_mark:   | :white_check_mark: | :white_check_mark: |        :x:         | :white_check_mark: | :white_check_mark: |
-|             |                    |                       |                       |                    |                    |                    |                    |                    |
-| **P2 ^^^** |                    |                       |                       |                    |                    |                    |                    |                    |
-|  |                    |                       |                       |                    |                    |                    |                    |                    |
-| VLAN        |        :x:         | :white_check_mark:    |  :white_check_mark:   |        :x:         |        :x:         |        :x:         | :x:                |        :x:         |
-| LACP        |        :x:         | :white_check_mark:    |          :x:          |        :x:         |        :x:         |        :x:         | :x:                | :sleepy: |
-| MTU | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :white_check_mark: | :sleepy:(3) |
-| SNMP | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
-| Syslog | :x: | :x: | :x: | :x: | :x: | :x: | :x: | :x: |
-| | | | | | | | | |
-| **P3 ^^^** |  |  |  |  |  |  |  |  |
-|  | | | | | | | | |
-| IPv6 | :x: | :white_check_mark: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: |
-| MLAG | :x: | :white_check_mark: | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| L2VNI | :x: | :sleepy:(2) | :x: | :x: | :x: | :x: | :x: | :sleepy: |
-| LDP         |        :x:         | :x:                   |          :x:          |        :x:         |        :x:         |        :x:         | :x:                |        :x:         |
-|             |                    |                       |                       |                    |                    |                    |                    |                    |
-| **P4 ^^^** |                    |                       |                       |                    |                    |                    |                    |                    |
-|  |                    |                    |                    |                    |                    |                    |                    |                    |
-| VTEP      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| Multicast |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| VXLAN     |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-| EVPN      |        :x:         |        :x:         | :x:                |        :x:         |        :x:         |        :x:         |        :x:         | :x:                |
-|             |                    |                       |                       |                    |                    |                    |                    |                    |
-| **P5 ^^^** |  |  |  |  |  |  |  |  |
-
-:white_check_mark: = Implemented
-
-:warning: = Implemented but need to be verified
-
-:x: = Not implemented​
-
-:sleepy: = Impossible to implement
-
-(1)`[Cumulus - Socket]` => netcat must be installed on Cumulus devices ``sudo apt install netcat``.
-
-(2)`[Cumulus - L2VNI]` => `net show evpn vni detail json` command give a wrong JSON output...
-
-(4)`[Arista - Socket]` => Works only from "default" vrf => `bash nc  -w 1  -i 2s  8.8.8.8 80`
+https://www.youtube.com/watch?v=_WStUkQLWEU
 
 
 
 
-## Pipeline
+## Capabilities Supported by Protocols & Connexion modes
 
 |                     | VRF                | FACTS              | BGP                | LLDP               | CDP                | PING                     | OSPF       |
 | ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------------ | ---------- |
@@ -451,7 +480,7 @@ Run the command `get` and the protocols that you would like retrieve.
 | IOS API             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :warning:                |            |
 | IOS Netconf         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :warning:                |            |
 | Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |            |
-| Extreme VSP API     | :x:                | :white_check_mark: | :x:                | :white_check_mark: | :x:                | :x:                      |            |
+| Extreme VSP API     | :no_entry:         | :white_check_mark: | :no_entry:         | :white_check_mark: | :no_entry:         | :no_entry:               |            |
 | Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry: |
 | IOSXR SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |            |
 | IOSXR Netconf       | :white_check_mark: | :warning:          | :white_check_mark: | :warning:          | :warning:          | :white_check_mark: ​6.2.1 |            |
@@ -461,26 +490,11 @@ Run the command `get` and the protocols that you would like retrieve.
 
 :no_entry: = Not Supported
 
-:x: = Not Supported by the vendor (Exemple: RestConf available but get VRF with RestConf not possible).
-
-[EMPTY] => Not Implemented
-
-
-
-## Devices supported by NAPALM
-
-|      Juniper       | Cumulus |       Arista       |     Cisco NXOS     |    Cisco IOS-XR    |     Cisco IOS      | Extreme |
-| :----------------: | :-----: | :----------------: | :----------------: | :----------------: | :----------------: | :-----: |
-| :white_check_mark: |   :x:   | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |   :x:   |
-|       junos        |   ---   |        eos         |        nxos        |       iosxr        |        ios         |   ---   |
-
-For the moment Cumulus Linux is only compatible with SSH. Utilization with REST API is int development.
-
 
 
 ## TextFSM templates
 
-Some templates have be retreieve on :
+Some templates have be retreieved on :
 
 **https://github.com/networktocode/ntc-templates/tree/master/templates**
 
@@ -511,42 +525,3 @@ https://napalm.readthedocs.io/en/latest/
 Dylan Hamel - <dylan.hamle@protonmail.com>
 
 **Become a contributor** !!!
-
-
-
-
-
-## *(3) NAPALM
-
-In the documentation MTU is retrieve with `get_interfaces()` function : 
-https://napalm.readthedocs.io/en/latest/base.html#napalm.base.base.NetworkDriver.get_interfaces
-
-But actually...
-
-```json
-													'em3': {   'description': '',
-                                     'is_enabled': True,
-                                     'is_up': True,
-                                     'last_flapped': 1506443.0,
-                                     'mac_address': '50:00:00:06:00:03',
-                                     'speed': 1000},
-                          'em3.0': {   'description': 'TO_SPINE01',
-                                       'is_enabled': True,
-                                       'is_up': True,
-                                       'last_flapped': 1506444.0,
-                                       'mac_address': '50:00:00:06:00:03',
-                                       'speed': 1000},
-                          'em4': {   'description': '',
-                                     'is_enabled': True,
-                                     'is_up': True,
-                                     'last_flapped': 1506443.0,
-                                     'mac_address': '50:00:00:06:00:04',
-                                     'speed': 1000},
-                          'em4.32768': {   'description': '',
-                                           'is_enabled': True,
-                                           'is_up': True,
-                                           'last_flapped': 1506444.0,
-                                           'mac_address': '50:00:00:06:00:04',
-                                           'speed': 1000},
-```
-
