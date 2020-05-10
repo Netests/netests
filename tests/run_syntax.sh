@@ -30,6 +30,7 @@ declare -a commands_lst=(
     'pylama protocols/discovery_protocols.py'
     'pylama protocols/facts.py'
     'pylama protocols/lldp.py'
+    'pylama protocols/ospf.py'
     'pylama protocols/ping.py'
     'pylama protocols/vrf.py'
 )
