@@ -15,6 +15,9 @@ from protocols.facts import Facts
 from functions.lldp.lldp_get import get_lldp
 from functions.lldp.lldp_compare import _compare_lldp
 from protocols.lldp import LLDP
+from protocols.ospf import OSPF
+from functions.ospf.ospf_compare import _compare_ospf
+from functions.ospf.ospf_get import get_ospf
 from protocols.ping import PING
 from functions.ping.ping_get import get_ping
 from functions.ping.ping_execute import execute_ping
@@ -29,6 +32,7 @@ from const.constants import (
     CDP_DATA_HOST_KEY,
     FACTS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
+    OSPF_SESSIONS_HOST_KEY,
     PING_DATA_HOST_KEY,
     VRF_DATA_KEY
 )
@@ -74,6 +78,11 @@ class NetestsCLI():
             "class": LLDP,
             "get": get_lldp,
             "compare": _compare_lldp
+        },
+        "ospf": {
+            "class": OSPF,
+            "get": get_ospf,
+            "compare": _compare_ospf
         },
         "ping": {
             "class": PING,
@@ -253,6 +262,19 @@ class NetestsCLI():
                                                    .hosts
                                                    .get(d)
                                                    .get(LLDP_DATA_HOST_KEY)
+
+                    )
+                    if r:
+                        w.append(d)
+                elif prot.lower() == "ospf":
+                    r = _compare_ospf(
+                        host_keys=self.nornir.inventory.hosts[d].keys(),
+                        hostname=d,
+                        groups=self.nornir.inventory.hosts[d].groups,
+                        ospf_host_data=self.nornir.inventory
+                                                  .hosts
+                                                  .get(d)
+                                                  .get(OSPF_SESSIONS_HOST_KEY)
 
                     )
                     if r:
@@ -462,6 +484,14 @@ class NetestsCLI():
                         options={
                             "from_cli": True,
                             "print": self.options.get('lldp', {})
+                        }
+                    )
+                elif prot.lower() == "ospf":
+                    get_ospf(
+                        nr=self.nornir,
+                        options={
+                            "from_cli": True,
+                            "print": self.options.get('ospf', {})
                         }
                     )
                 elif prot.lower() == "bgp":
