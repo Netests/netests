@@ -1,0 +1,1 @@
+ERROR: ospfd is not running

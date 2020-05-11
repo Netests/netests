@@ -1,0 +1,50 @@
+{
+    "NETESTS_VRF": {
+        "vrfName": "NETESTS_VRF",
+        "vrfId": 11,
+        "routerId": "151.151.151.151",
+        "tosRoutesOnly": true,
+        "rfc2328Conform": true,
+        "spfScheduleDelayMsecs": 0,
+        "holdtimeMinMsecs": 50,
+        "holdtimeMaxMsecs": 5000,
+        "holdtimeMultplier": 1,
+        "spfLastExecutedMsecs": 2617467,
+        "spfLastDurationMsecs": 0,
+        "lsaMinIntervalMsecs": 5000,
+        "lsaMinArrivalMsecs": 1000,
+        "writeMultiplier": 20,
+        "refreshTimerMsecs": 10000,
+        "lsaExternalCounter": 0,
+        "lsaExternalChecksum": 0,
+        "lsaAsopaqueCounter": 0,
+        "lsaAsOpaqueChecksum": 0,
+        "attachedAreaCounter": 1,
+        "adjacencyChangesLogged": true,
+        "areas": {
+            "0.0.0.0": {
+                "backbone": true,
+                "areaIfTotalCounter": 2,
+                "areaIfActiveCounter": 2,
+                "nbrFullAdjacentCounter": 2,
+                "authentication": "authenticationNone",
+                "spfExecutedCounter": 9,
+                "lsaNumber": 5,
+                "lsaRouterNumber": 3,
+                "lsaRouterChecksum": 150911,
+                "lsaNetworkNumber": 2,
+                "lsaNetworkChecksum": 48108,
+                "lsaSummaryNumber": 0,
+                "lsaSummaryChecksum": 0,
+                "lsaAsbrNumber": 0,
+                "lsaAsbrChecksum": 0,
+                "lsaNssaNumber": 0,
+                "lsaNssaChecksum": 0,
+                "lsaOpaqueLinkNumber": 0,
+                "lsaOpaqueLinkChecksum": 0,
+                "lsaOpaqueAreaNumber": 0,
+                "lsaOpaqueAreaChecksum": 0
+            }
+        }
+    }
+}

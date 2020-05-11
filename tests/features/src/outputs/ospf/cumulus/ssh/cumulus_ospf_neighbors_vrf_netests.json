@@ -1,0 +1,54 @@
+{
+    "NETESTS_VRF": {
+        "vrfName": "NETESTS_VRF",
+        "vrfId": 11,
+        "neighbors": {
+            "53.53.53.53": [
+                {
+                    "ifaceAddress": "10.1.2.2",
+                    "areaId": "0.0.0.0",
+                    "ifaceName": "swp1",
+                    "nbrPriority": 1,
+                    "nbrState": "Full",
+                    "stateChangeCounter": 6,
+                    "lastPrgrsvChangeMsec": 7589445,
+                    "routerDesignatedId": "10.1.2.2",
+                    "routerDesignatedBackupId": "10.1.2.1",
+                    "optionsCounter": 2,
+                    "optionsList": "*|-|-|-|-|-|E|-",
+                    "routerDeadIntervalTimerDueMsec": 30530,
+                    "databaseSummaryListCounter": 0,
+                    "linkStateRequestListCounter": 0,
+                    "linkStateRetransmissionListCounter": 0,
+                    "threadInactivityTimer": "on",
+                    "threadLinkStateRequestRetransmission": "on",
+                    "threadLinkStateUpdateRetransmission": "on"
+                }
+            ],
+            "62.62.62.62": [
+                {
+                    "ifaceAddress": "10.1.20.2",
+                    "areaId": "0.0.0.0",
+                    "ifaceName": "swp2",
+                    "nbrPriority": 1,
+                    "nbrState": "Full",
+                    "stateChangeCounter": 7,
+                    "lastPrgrsvChangeMsec": 2620190,
+                    "lastRegressiveChangeMsec": 2632383,
+                    "lastRegressiveChangeReason": "1-WayReceived",
+                    "routerDesignatedId": "10.1.20.1",
+                    "routerDesignatedBackupId": "10.1.20.2",
+                    "optionsCounter": 2,
+                    "optionsList": "*|-|-|-|-|-|E|-",
+                    "routerDeadIntervalTimerDueMsec": 38938,
+                    "databaseSummaryListCounter": 0,
+                    "linkStateRequestListCounter": 0,
+                    "linkStateRetransmissionListCounter": 0,
+                    "threadInactivityTimer": "on",
+                    "threadLinkStateRequestRetransmission": "on",
+                    "threadLinkStateUpdateRetransmission": "on"
+                }
+            ]
+        }
+    }
+}

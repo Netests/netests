@@ -93,7 +93,7 @@ def _compare_ospf(
         )
 
         if OSPF_SESSIONS_HOST_KEY in host_keys:
-            for v, f in ospf_yaml_data.get(hostname).items():
+            for v, f in ospf_yaml_data.items():
                 ospf_sessions_vrf = OSPFSessionsVRF(
                     router_id=f.get('router_id', NOT_SET),
                     vrf_name=v,
