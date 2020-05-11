@@ -18,7 +18,6 @@ class OSPFSession:
 
     def __init__(
         self,
-        hostname=NOT_SET,
         peer_rid=NOT_SET,
         session_state=NOT_SET,
         peer_hostname=NOT_SET,
@@ -26,7 +25,6 @@ class OSPFSession:
         peer_ip=NOT_SET,
         options={}
     ):
-        self.hostname = hostname
         self.peer_rid = peer_rid
         self.session_state = str(session_state).upper()
         self.peer_hostname = peer_hostname
@@ -38,12 +36,13 @@ class OSPFSession:
         if not isinstance(other, OSPFSession):
             return NotImplemented
 
-        return ((str(self.hostname) == str(other.hostname)) and
+        return (
                 (str(self.local_interface) == str(other.local_interface)) and
-                (str(self.peer_rid) == str(other.peer_rid)))
+                (str(self.peer_rid) == str(other.peer_rid))
+        )
 
     def __repr__(self):
-        return f"<OSPFSession hostname={self.hostname} " \
+        return f"<OSPFSession " \
                f"peer_rid={self.peer_rid} " \
                f"session_state={self.session_state} " \
                f"peer_hostname={self.peer_hostname} " \
@@ -52,7 +51,6 @@ class OSPFSession:
 
     def to_json(self):
         return {
-            "hostname": self.hostname,
             "peer_rid": self.peer_rid,
             "session_state": self.session_state,
             "peer_hostname": self.peer_hostname,
@@ -170,9 +168,11 @@ class OSPFSessionsVRF:
 
     def __init__(
         self,
-        vrf_name: str,
+        vrf_name=NOT_SET,
         router_id=NOT_SET,
-        ospf_sessions_area_lst=[]
+        ospf_sessions_area_lst=ListOSPFSessionsArea(
+            ospf_sessions_area_lst=list()
+        )
     ):
         self.vrf_name = vrf_name
         self.router_id = router_id

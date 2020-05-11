@@ -110,7 +110,6 @@ def _compare_ospf(
                         if isinstance(n, dict):
                             ospf_a.ospf_sessions.ospf_sessions_lst.append(
                                 OSPFSession(
-                                    hostname=hostname,
                                     peer_rid=n.get('peer_rid', NOT_SET),
                                     peer_hostname=n.get('peer_name', NOT_SET),
                                     session_state=n.get('state', NOT_SET),
