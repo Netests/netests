@@ -30,3 +30,13 @@ leaf03:
     router_id: 153.153.153.153
     area_id: {}
     
+
+
+spine02:
+  default:
+    router_id: 62.62.62.62
+    area_id:
+      0.0.0.0:
+        - peer_rid: 151.151.151.151
+          peer_ip: 10.1.20.1
+          state: FULL 

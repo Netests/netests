@@ -479,7 +479,7 @@ https://www.youtube.com/watch?v=_WStUkQLWEU
 | IOS SSH             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |                    |
 | IOS API             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :warning:                |                    |
 | IOS Netconf         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :warning:                |                    |
-| Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |                    |
+| Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
 | Extreme VSP API     | :no_entry:         | :white_check_mark: | :no_entry:         | :white_check_mark: | :no_entry:         | :no_entry:               | :no_entry:         |
 | Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry:         |
 | IOSXR SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |                    |
