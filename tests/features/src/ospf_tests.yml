@@ -16,3 +16,17 @@ leaf01:
           peer_ip: 10.1.20.2
           state: FULL
 
+
+leaf03:
+  default:
+    router_id: 123.123.123.123
+    area_id:
+      0.0.0.0:
+        - peer_rid: 151.151.151.151
+          local_interface: Ethernet1
+          peer_ip: 10.1.2.1
+          state: FULL 
+  NETESTS_VRF:
+    router_id: 153.153.153.153
+    area_id: {}
+    

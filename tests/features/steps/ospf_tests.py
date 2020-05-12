@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from functions.ospf.ospf_compare import _compare_ospf
+from functions.ospf.arista.ssh.converter import _arista_ospf_ssh_converter
 from functions.ospf.cumulus.ssh.converter import _cumulus_ospf_ssh_converter
 from functions.global_tools import open_json_file, open_txt_file
 from const.constants import FEATURES_SRC_PATH, OSPF_SESSIONS_HOST_KEY
@@ -23,7 +24,60 @@ def step_impl(context):
 
 @given(u'I create a OSPF object equals to Arista manually named o0001')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    ### VRF - Netests
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="CUSTOMER_NETESTS",
+            router_id="153.153.153.153",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    ### VRF - default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="151.151.151.151",
+            peer_ip="10.1.2.1",
+            local_interface="Ethernet1",
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="default",
+            router_id="123.123.123.123",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    context.o0001 = OSPF(
+        hostname="leaf01",
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
 
 
 @given(u'I create a OSPF object from a Arista API output named o0002')
@@ -38,7 +92,52 @@ def step_impl(context):
 
 @given(u'I create a OSPF object from a Arista SSH output named o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_rid.json"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_neighbors.json"
+        )
+    )
+    cmd_output['CUSTOMER_NETESTS'] = dict()
+    cmd_output['CUSTOMER_NETESTS']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_rid_vrf_netests.json"
+        )
+    )
+    cmd_output['CUSTOMER_NETESTS']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_neighbors_vrf_netests.json"
+        )
+    )
+    cmd_output['CUSTOMER_WEJOB'] = dict()
+    cmd_output['CUSTOMER_WEJOB']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_rid_vrf_wejob.json"
+        )
+    )
+    cmd_output['CUSTOMER_WEJOB']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_neighbors_vrf_wejob.json"
+        )
+    )
+
+    context.o0004 = _arista_ospf_ssh_converter(
+        hostname="leaf01",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a OSPF object equals to Cumulus manually named o0101')
@@ -300,7 +399,7 @@ def step_impl(context):
 
 @given(u'OSPF o0001 should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0001 == context.o0004
 
 
 @given(u'OSPF o0002 should be equal to o0003')
@@ -330,7 +429,14 @@ def step_impl(context):
 
 @given(u'OSPF YAML file should be equal to o0004')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname='leaf03',
+        groups=['eos'],
+        ospf_host_data=context.o0004,
+        test=True,
+        options={}
+    )
 
 
 @given(u'OSPF o0101 should be equal to o0102')
