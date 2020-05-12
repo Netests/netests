@@ -470,9 +470,9 @@ https://www.youtube.com/watch?v=_WStUkQLWEU
 | Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       | :white_check_mark: |
 | Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry:         |
 | Cumulus API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:               | :white_check_mark: |
-| Arista SSH          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |                    |
-| Arista API          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |                    |
-| Arista Netconf      | :white_check_mark: | :warning:          | :warning:          | :warning:          | :no_entry:         | :warning:                |                    |
+| Arista SSH          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
+| Arista API          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
+| Arista Netconf      | :white_check_mark: | :warning:          | :warning:          | :warning:          | :no_entry:         | :warning:                | :warning:          |
 | Nexus SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |                    |
 | Nexus Netconf       | :white_check_mark: | :warning:          | :warning:          | :warning:          | :warning:          | :no_entry:               |                    |
 | Nexus API           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |                    |
@@ -480,7 +480,7 @@ https://www.youtube.com/watch?v=_WStUkQLWEU
 | IOS API             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :warning:                |                    |
 | IOS Netconf         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :warning:                |                    |
 | Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |                    |
-| Extreme VSP API     | :no_entry:         | :white_check_mark: | :no_entry:         | :white_check_mark: | :no_entry:         | :no_entry:               |                    |
+| Extreme VSP API     | :no_entry:         | :white_check_mark: | :no_entry:         | :white_check_mark: | :no_entry:         | :no_entry:               | :no_entry:         |
 | Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry:         |
 | IOSXR SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |                    |
 | IOSXR Netconf       | :white_check_mark: | :warning:          | :white_check_mark: | :warning:          | :warning:          | :white_check_mark: ​6.2.1 |                    |

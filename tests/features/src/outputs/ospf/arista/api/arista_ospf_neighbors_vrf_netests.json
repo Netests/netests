@@ -1,0 +1,17 @@
+{
+    "jsonrpc": "2.0",
+    "id": "EapiExplorer-1",
+    "result": [
+        {
+            "vrfs": {
+                "CUSTOMER_NETESTS": {
+                    "instList": {
+                        "1": {
+                            "ospfNeighborEntries": []
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

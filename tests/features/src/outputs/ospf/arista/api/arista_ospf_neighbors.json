@@ -1,0 +1,54 @@
+{
+    "jsonrpc": "2.0",
+    "id": "EapiExplorer-1",
+    "result": [
+        {
+            "vrfs": {
+                "default": {
+                    "instList": {
+                        "4": {
+                            "ospfNeighborEntries": [
+                                {
+                                    "routerId": "151.151.151.151",
+                                    "priority": 1,
+                                    "drState": "BDR",
+                                    "interfaceName": "Ethernet1",
+                                    "adjacencyState": "full",
+                                    "inactivity": 1589241467.379844,
+                                    "interfaceAddress": "10.1.2.1",
+                                    "options": {
+                                        "multitopologyCapability": false,
+                                        "doNotUseInRouteCalc": false,
+                                        "demandCircuitsSupport": false,
+                                        "nssaCapability": false,
+                                        "externalRoutingCapability": true,
+                                        "opaqueLsaSupport": false,
+                                        "linkLocalSignaling": false,
+                                        "multicastCapability": false
+                                    },
+                                    "details": {
+                                        "areaId": "0.0.0.0",
+                                        "bfdState": "adminDown",
+                                        "backupDesignatedRouter": "10.1.2.1",
+                                        "stateTime": 1589196300.379877,
+                                        "retransmissionCount": 1,
+                                        "grLastRestartTime": null,
+                                        "designatedRouter": "10.1.2.2",
+                                        "grHelperTimer": null,
+                                        "numberOfStateChanges": 7,
+                                        "bfdRequestSent": false,
+                                        "grNumAttempts": 0,
+                                        "inactivityDefers": 0
+                                    }
+                                }
+                            ]
+                        },
+                        "6": {
+                            "ospfNeighborEntries": []
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

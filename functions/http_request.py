@@ -6,6 +6,53 @@ import requests
 from exceptions.netests_exceptions import NetestsHTTPStatusCodeError
 
 
+def exec_http_call_arista(
+    hostname: str,
+    port: str,
+    username: str,
+    password: str,
+    command: str,
+    secure_api=True,
+) -> json:
+    if secure_api:
+        protocol = "https"
+    else:
+        protocol = "http"
+
+    res = requests.post(
+        url=f"{protocol}://{hostname}:{port}/command-api",
+        data=json.dumps(
+            {
+                "jsonrpc": "2.0",
+                "method": "runCmds",
+                "params": {
+                    "format": "json",
+                    "timestamps": False,
+                    "autoComplete": False,
+                    "expandAliases": False,
+                    "includeErrorDetail": False,
+                    "cmds": [
+                        f"{command}"
+                    ],
+                    "version": 1
+                },
+                "id": "EapiExplorer-1"
+            }
+        ),
+        headers={'content-type': 'application/json'},
+        auth=requests.auth.HTTPBasicAuth(
+            f"{username}",
+            f"{password}"
+        ),
+        verify=False
+    )
+
+    if res.status_code != 200:
+        raise NetestsHTTPStatusCodeError()
+
+    return res.content
+
+
 def exec_http_call_cumulus(
     hostname: str,
     port: str,

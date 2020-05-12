@@ -1,0 +1,82 @@
+{
+    "jsonrpc": "2.0",
+    "id": "EapiExplorer-1",
+    "result": [
+        {
+            "vrfs": {
+                "CUSTOMER_NETESTS": {
+                    "instList": {
+                        "1": {
+                            "asbr": true,
+                            "lsaInformation": {
+                                "numLsa": 0,
+                                "lsaStartInterval": 1000,
+                                "lsaMaxWaitInterval": 5000,
+                                "lsaHoldInterval": 5000,
+                                "lsaArrivalInterval": 1000
+                            },
+                            "gracefulRestartInfo": {
+                                "gracefulRestart": false,
+                                "plannedOnly": false,
+                                "helperLooseLsaCheck": true,
+                                "gracePeriod": 120.0,
+                                "lastExitReason": "lastExitNone",
+                                "lastExitTime": null,
+                                "state": "none",
+                                "restartExpirationTime": null,
+                                "lastRestartReason": "Unknown",
+                                "restartDuration": null,
+                                "helperMode": true
+                            },
+                            "externalLsaInformation": {
+                                "asExternalCksum": 0,
+                                "treeSize": 0
+                            },
+                            "instanceId": 1,
+                            "spfInformation": {
+                                "spfStartInterval": 0,
+                                "spfMaxWaitInterval": 5000,
+                                "spfCurrHoldInterval": 5000,
+                                "spfHoldInterval": 5000,
+                                "spfInterval": 5,
+                                "lastSpf": 18347,
+                                "nextSpf": 0
+                            },
+                            "referenceBandwidth": 0,
+                            "opaqueLsaInformation": {
+                                "opaqueTreeSize": 0,
+                                "opaqueCksum": 0,
+                                "opaque": true
+                            },
+                            "tunnelRoutesEnabled": false,
+                            "numNormalAreas": 0,
+                            "maxLsaInformation": {
+                                "maxLsaCurrentIgnoreCount": 0,
+                                "maxLsaThreshold": 75,
+                                "maxLsaIgnoring": false,
+                                "maxLsaAllowedIgnoreCount": 5,
+                                "maxLsaWarningOnly": false,
+                                "maxLsa": 12000,
+                                "maxLsaResetTime": 5,
+                                "maxLsaIgnoreTime": 5
+                            },
+                            "ecmpMaximumNexthops": 128,
+                            "numBackboneNeighbors": 0,
+                            "adjacencyExchangeStartThreshold": 20,
+                            "areaList": {},
+                            "numAreas": 0,
+                            "abr": false,
+                            "routerId": "153.153.153.153",
+                            "numStubAreas": 0,
+                            "shutDown": false,
+                            "numNssaAreas": 0,
+                            "lsaRetransmissionThreshold": 10,
+                            "floodPacing": 0,
+                            "vrf": "CUSTOMER_NETESTS"
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
