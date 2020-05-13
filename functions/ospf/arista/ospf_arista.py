@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import pyeapi
 from ncclient import manager
 from xml.etree import ElementTree
 from functions.verbose_mode import verbose_mode
@@ -14,11 +13,11 @@ from functions.ospf.arista.netconf.converter import (
     _arista_ospf_netconf_converter
 )
 from functions.ospf.arista.ssh.converter import _arista_ospf_ssh_converter
+from exceptions.netests_exceptions import NetestsFunctionNotImplemented
 from const.constants import (
     NOT_SET,
     LEVEL2,
     LEVEL4,
-    NETCONF_FILTER,
     OSPF_SESSIONS_HOST_KEY,
     ARISTA_GET_OSPF,
     ARISTA_GET_OSPF_RID,
@@ -103,6 +102,9 @@ def _arista_get_ospf_api(task, options={}):
 
 
 def _arista_get_ospf_netconf(task, options={}):
+    raise NetestsFunctionNotImplemented(
+        "Arista - OSPF - Netconf - Not Implemented"
+    )
     with manager.connect(
         host=task.host.hostname,
         port=task.host.port,
@@ -120,7 +122,7 @@ def _arista_get_ospf_netconf(task, options={}):
 
         ElementTree.fromstring(vrf_config)
 
-        task.host[VRF_DATA_KEY] = _arista_ospf_netconf_converter(
+        task.host[OSPF_SESSIONS_HOST_KEY] = _arista_ospf_netconf_converter(
             hostname=task.host.name,
             cmd_output=vrf_config,
             options=options

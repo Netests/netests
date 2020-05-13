@@ -70,8 +70,12 @@ def _arista_ospf_api_converter(
                         options=options
                     )
 
-                    if n.get('details').get('areaId') not in result_area.keys():
-                        result_area[n.get('details').get('areaId')] = OSPFSessionsArea(
+                    if (
+                        n.get('details')
+                         .get('areaId') not in result_area.keys()
+                    ):
+                        result_area[n.get('details').get('areaId')] \
+                            = OSPFSessionsArea(
                             area_number=n.get('details').get('areaId'),
                             ospf_sessions=ListOSPFSessions(
                                 ospf_sessions_lst=list()
@@ -83,7 +87,7 @@ def _arista_ospf_api_converter(
                     ).ospf_sessions.ospf_sessions_lst.append(o)
 
             for area_number, neighbors in result_area.items():
-                    o_a_lst.ospf_sessions_area_lst.append(neighbors)
+                o_a_lst.ospf_sessions_area_lst.append(neighbors)
 
             rid = NOT_SET
             for j, jfacts in v.get('rid') \

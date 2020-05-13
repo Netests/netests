@@ -42,7 +42,7 @@ def _cumulus_bgp_ssh_converter(
     for k, v in cmd_output.items():
         peer = False
         if (
-            'ipv4 unicast' in v.keys() and 
+            'ipv4 unicast' in v.keys() and
             isinstance(v.get('ipv4 unicast'), dict) and
             'ipv4Unicast' in v.get('ipv4 unicast').keys() and
             'peers' in v.get('ipv4 unicast').get('ipv4Unicast').keys()

@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import json
 from functions.global_tools import printline
 from functions.cli_tools import parse_textfsm
 from functions.verbose_mode import verbose_mode
@@ -70,7 +69,8 @@ def _extreme_vsp_ospf_ssh_converter(
                             ospf_session_lst.ospf_sessions_lst.append(
                                 OSPFSession(
                                     peer_rid=n[1] if n[1] != '' else NOT_SET,
-                                    session_state=n[4] if n[4] != '' else NOT_SET,
+                                    session_state=n[4]
+                                        if n[4] != '' else NOT_SET,
                                     peer_hostname=NOT_SET,
                                     local_interface=NOT_SET,
                                     peer_ip=n[2] if n[2] != '' else NOT_SET,

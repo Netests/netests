@@ -34,12 +34,12 @@ def _juniper_ospf_ssh_converter(
             v['data'] = json.loads(v.get('data'))
         if not isinstance(v.get('rid'), dict):
             v['rid'] = json.loads(v.get('rid'))
-        
+
         if (
             'output' not in v.get('data').keys() and
             'output' not in v.get('rid').keys()
         ):
-            
+
             o_a_lst = ListOSPFSessionsArea(
                 ospf_sessions_area_lst=list()
             )
@@ -48,7 +48,7 @@ def _juniper_ospf_ssh_converter(
                 result_area = dict()
                 for n in v.get('data').get('ospf-neighbor-information')[0] \
                                       .get('ospf-neighbor'):
-                    
+
                     o = OSPFSession(
                         peer_rid=n.get('neighbor-id')[0]
                                   .get('data', NOT_SET),
@@ -61,9 +61,12 @@ def _juniper_ospf_ssh_converter(
                                  .get('data', NOT_SET),
                     )
 
-                    if n.get('ospf-area')[0].get('data') not in result_area.keys():
+                    if (
+                        n.get('ospf-area')[0]
+                         .get('data') not in result_area.keys()
+                    ):
                         result_area[n.get('ospf-area')[0].get('data')] \
-                        = OSPFSessionsArea(
+                            = OSPFSessionsArea(
                             area_number=n.get('ospf-area')[0].get('data'),
                             ospf_sessions=ListOSPFSessions(
                                 ospf_sessions_lst=list()

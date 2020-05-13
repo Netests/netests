@@ -10,7 +10,9 @@ from nornir.plugins.functions.text import print_result
 from functions.http_request import exec_http_call_juniper
 from nornir.plugins.tasks.networking import netmiko_send_command
 from functions.ospf.juniper.api.converter import _juniper_ospf_api_converter
-from functions.ospf.juniper.netconf.converter import _juniper_ospf_netconf_converter
+from functions.ospf.juniper.netconf.converter import (
+    _juniper_ospf_netconf_converter
+)
 from functions.ospf.juniper.ssh.converter import _juniper_ospf_ssh_converter
 from const.constants import (
     NOT_SET,

@@ -48,12 +48,12 @@ def _cumulus_ospf_ssh_converter(
                 v['rid'] = json.loads(v.get('rid'))
             if not isinstance(v.get('data'), dict):
                 v['data'] = json.loads(v.get('data'))
-            
+
             if k != 'default':
                 rid = v.get('rid').get(k).get('routerId')
             elif k == 'default':
                 rid = v.get('rid').get('routerId')
-            
+
             o_a_lst = ListOSPFSessionsArea(
                 ospf_sessions_area_lst=list()
             )
@@ -85,7 +85,7 @@ def _cumulus_ospf_ssh_converter(
                                     ospf_sessions_lst=list()
                                 )
                             )
-   
+
                         result_area.get(i.get('areaId')).ospf_sessions \
                                                         .ospf_sessions_lst \
                                                         .append(o)

@@ -23,7 +23,6 @@ from const.constants import (
 )
 
 
-
 def _extreme_vsp_get_ospf_api(task, options={}):
     pass
 
