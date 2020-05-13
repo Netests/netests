@@ -30,7 +30,28 @@ leaf03:
     router_id: 153.153.153.153
     area_id: {}
     
-
+leaf04:
+  default:
+    router_id: 10.100.100.1
+    area_id:
+      0.0.0.0:
+        - peer_rid: 10.100.100.2
+          local_interface: ge-0/0/0.0
+          peer_ip: 10.100.12.2
+          state: FULL 
+        - peer_rid: 10.100.100.4
+          local_interface: ge-0/0/1.0
+          peer_ip: 10.100.14.2
+          state: FULL 
+      0.0.0.1:
+        - peer_rid: 10.100.100.3
+          local_interface: ge-0/0/0.0
+          peer_ip: 10.100.13.2
+          state: FULL 
+        - peer_rid: 10.100.100.5
+          local_interface: ge-0/0/3.0
+          peer_ip: 10.100.15.2
+          state: FULL 
 
 spine02:
   default:

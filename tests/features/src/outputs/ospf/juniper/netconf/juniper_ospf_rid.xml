@@ -1,0 +1,42 @@
+<ospf-overview-information>
+    <ospf-overview>
+        <instance-name>master</instance-name>
+        <ospf-router-id>10.100.100.1</ospf-router-id>
+        <ospf-route-table-index>0</ospf-route-table-index>
+        <ospf-abr />
+        <ospf-lsa-refresh-time>50</ospf-lsa-refresh-time>
+        <ospf-tilfa-overview>
+            <ospf-tilfa-enabled>Disabled</ospf-tilfa-enabled>
+        </ospf-tilfa-overview>
+        <ospf-area-overview>
+            <ospf-area>0.0.0.0</ospf-area>
+            <ospf-stub-type>Not Stub</ospf-stub-type>
+            <authentication-type>None</authentication-type>
+            <ospf-abr-count>3</ospf-abr-count>
+            <ospf-asbr-count>0</ospf-asbr-count>
+            <ospf-nbr-overview>
+                <ospf-nbr-up-count>2</ospf-nbr-up-count>
+            </ospf-nbr-overview>
+        </ospf-area-overview>
+        <ospf-area-overview>
+            <ospf-area>0.0.0.1</ospf-area>
+            <ospf-stub-type>Not Stub</ospf-stub-type>
+            <authentication-type>None</authentication-type>
+            <ospf-abr-count>1</ospf-abr-count>
+            <ospf-asbr-count>0</ospf-asbr-count>
+            <ospf-nbr-overview>
+                <ospf-nbr-up-count>2</ospf-nbr-up-count>
+            </ospf-nbr-overview>
+        </ospf-area-overview>
+        <ospf-topology-overview>
+            <ospf-topology-name>default</ospf-topology-name>
+            <ospf-topology-id>0</ospf-topology-id>
+            <ospf-prefix-export-count>0</ospf-prefix-export-count>
+            <ospf-full-spf-count>9</ospf-full-spf-count>
+            <ospf-spf-delay>0.200000</ospf-spf-delay>
+            <ospf-spf-holddown>5</ospf-spf-holddown>
+            <ospf-spf-rapid-runs>3</ospf-spf-rapid-runs>
+            <ospf-backup-spf-status>Not Needed</ospf-backup-spf-status>
+        </ospf-topology-overview>
+    </ospf-overview>
+</ospf-overview-information>

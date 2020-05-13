@@ -43,7 +43,7 @@ def _juniper_get_bgp_api(task, options={}):
         username=task.host.username,
         password=task.host.password,
         endpoint="get-bgp-neighbor-information?exact-instance=master",
-        secure_api=task.host['secure_api']
+        secure_api=task.host.get('secure_api', False)
     )
     output_dict['default']['rid'] = exec_http_call_juniper(
         hostname=task.host.hostname,
@@ -51,7 +51,7 @@ def _juniper_get_bgp_api(task, options={}):
         username=task.host.username,
         password=task.host.password,
         endpoint="get-instance-information?instance-name=master&detail=",
-        secure_api=task.host['secure_api']
+        secure_api=task.host.get('secure_api', False)
     )
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
@@ -70,7 +70,7 @@ def _juniper_get_bgp_api(task, options={}):
                 username=task.host.username,
                 password=task.host.password,
                 endpoint=f"get-bgp-neighbor-information?exact-instance={v}",
-                secure_api=task.host['secure_api']
+                secure_api=task.host.get('secure_api', False)
             )
             output_dict[v]['rid'] = exec_http_call_juniper(
                 hostname=task.host.hostname,
@@ -78,7 +78,7 @@ def _juniper_get_bgp_api(task, options={}):
                 username=task.host.username,
                 password=task.host.password,
                 endpoint=f"get-instance-information?instance-name={v}&detail=",
-                secure_api=task.host['secure_api']
+                secure_api=task.host.get('secure_api', False)
             )
             if verbose_mode(
                 user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),

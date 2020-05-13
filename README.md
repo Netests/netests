@@ -464,9 +464,9 @@ https://www.youtube.com/watch?v=_WStUkQLWEU
 |                     | VRF                | FACTS              | BGP                | LLDP               | CDP                | PING                     | OSPF               |
 | ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------------ | ------------------ |
 | NAPALM              | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :no_entry:               |                    |
-| Juniper SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |                    |
-| Juniper Netconf     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |                    |
-| Juniper API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       |                    |
+| Juniper SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
+| Juniper Netconf     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
+| Juniper API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
 | Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       | :white_check_mark: |
 | Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry:         |
 | Cumulus API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:               | :white_check_mark: |

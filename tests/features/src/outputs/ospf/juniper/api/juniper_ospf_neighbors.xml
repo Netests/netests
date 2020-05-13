@@ -1,0 +1,58 @@
+<ospf-neighbor-information>
+    <ospf-neighbor>
+        <neighbor-address>10.100.12.2</neighbor-address>
+        <interface-name>ge-0/0/0.0</interface-name>
+        <ospf-neighbor-state>Full</ospf-neighbor-state>
+        <neighbor-id>10.100.100.2</neighbor-id>
+        <neighbor-priority>128</neighbor-priority>
+        <activity-timer>33</activity-timer>
+        <ospf-area>0.0.0.0</ospf-area>
+        <options>0x52</options>
+        <dr-address>10.100.12.2</dr-address>
+        <bdr-address>10.100.12.1</bdr-address>
+        <neighbor-up-time seconds="7067">\n01:57:47\n</neighbor-up-time>
+        <neighbor-adjacency-time seconds="7023">\n01:57:03\n</neighbor-adjacency-time>
+    </ospf-neighbor>
+    <ospf-neighbor>
+        <neighbor-address>10.100.14.2</neighbor-address>
+        <interface-name>ge-0/0/1.0</interface-name>
+        <ospf-neighbor-state>Full</ospf-neighbor-state>
+        <neighbor-id>10.100.100.4</neighbor-id>
+        <neighbor-priority>128</neighbor-priority>
+        <activity-timer>35</activity-timer>
+        <ospf-area>0.0.0.0</ospf-area>
+        <options>0x52</options>
+        <dr-address>10.100.14.2</dr-address>
+        <bdr-address>10.100.14.1</bdr-address>
+        <neighbor-up-time seconds="7057">\n01:57:37\n</neighbor-up-time>
+        <neighbor-adjacency-time seconds="7017">\n01:56:57\n</neighbor-adjacency-time>
+    </ospf-neighbor>
+    <ospf-neighbor>
+        <neighbor-address>10.100.13.2</neighbor-address>
+        <interface-name>ge-0/0/2.0</interface-name>
+        <ospf-neighbor-state>Full</ospf-neighbor-state>
+        <neighbor-id>10.100.100.3</neighbor-id>
+        <neighbor-priority>128</neighbor-priority>
+        <activity-timer>34</activity-timer>
+        <ospf-area>0.0.0.1</ospf-area>
+        <options>0x52</options>
+        <dr-address>10.100.13.2</dr-address>
+        <bdr-address>10.100.13.1</bdr-address>
+        <neighbor-up-time seconds="7068">\n01:57:48\n</neighbor-up-time>
+        <neighbor-adjacency-time seconds="7028">\n01:57:08\n</neighbor-adjacency-time>
+    </ospf-neighbor>
+    <ospf-neighbor>
+        <neighbor-address>10.100.15.2</neighbor-address>
+        <interface-name>ge-0/0/3.0</interface-name>
+        <ospf-neighbor-state>Full</ospf-neighbor-state>
+        <neighbor-id>10.100.100.5</neighbor-id>
+        <neighbor-priority>128</neighbor-priority>
+        <activity-timer>39</activity-timer>
+        <ospf-area>0.0.0.1</ospf-area>
+        <options>0x52</options>
+        <dr-address>10.100.15.2</dr-address>
+        <bdr-address>10.100.15.1</bdr-address>
+        <neighbor-up-time seconds="7068">\n01:57:48\n</neighbor-up-time>
+        <neighbor-adjacency-time seconds="7012">\n01:56:52\n</neighbor-adjacency-time>
+    </ospf-neighbor>
+</ospf-neighbor-information>

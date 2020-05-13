@@ -6,6 +6,9 @@ from functions.ospf.arista.api.converter import _arista_ospf_api_converter
 from functions.ospf.arista.ssh.converter import _arista_ospf_ssh_converter
 from functions.ospf.cumulus.ssh.converter import _cumulus_ospf_ssh_converter
 from functions.ospf.extreme_vsp.ssh.converter import _extreme_vsp_ospf_ssh_converter
+from functions.ospf.juniper.api.converter import _juniper_ospf_api_converter
+from functions.ospf.juniper.netconf.converter import _juniper_ospf_netconf_converter
+from functions.ospf.juniper.ssh.converter import _juniper_ospf_ssh_converter
 from const.constants import NOT_SET, FEATURES_SRC_PATH, OSPF_SESSIONS_HOST_KEY
 from functions.global_tools import (
     open_json_file,
@@ -494,22 +497,193 @@ def step_impl(context):
 
 @given(u'I create a OSPF object equals to Juniper manually named o0501')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    ### VRF - default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="10.100.100.2",
+            peer_ip="10.100.12.2",
+            local_interface="ge-0/0/0.0",
+            session_state="FULL"
+        )
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="10.100.100.4",
+            peer_ip="10.100.14.2",
+            local_interface="ge-0/0/1.0",
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="10.100.100.3",
+            peer_ip="10.100.13.2",
+            local_interface="ge-0/0/2.0",
+            session_state="FULL"
+        )
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="10.100.100.5",
+            peer_ip="10.100.15.2",
+            local_interface="ge-0/0/3.0",
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.1",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="default",
+            router_id="10.100.100.1",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    context.o0501 = OSPF(
+        hostname="leaf04",
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
 
 
 @given(u'I create a OSPF object from a Juniper API output named o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/api/"
+            "juniper_ospf_rid.xml"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/api/"
+            "juniper_ospf_neighbors.xml"
+        )
+    )
+    cmd_output['mgmt'] = dict()
+    cmd_output['mgmt']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/api/"
+            "juniper_ospf_rid_vrf_mgmt.xml"
+        )
+    )
+    cmd_output['mgmt']['data'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/api/"
+            "juniper_ospf_neighbors_vrf_mgmt.xml"
+        )
+    )
+    context.o0502 = _juniper_ospf_api_converter(
+        hostname="leaf04",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a OSPF object from a Juniper Netconf output named o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/netconf/"
+            "juniper_ospf_rid.xml"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/netconf/"
+            "juniper_ospf_neighbors.xml"
+        )
+    )
+    cmd_output['mgmt'] = dict()
+    cmd_output['mgmt']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/netconf/"
+            "juniper_ospf_rid_vrf_mgmt.xml"
+        )
+    )
+    cmd_output['mgmt']['data'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/netconf/"
+            "juniper_ospf_neighbors_vrf_mgmt.xml"
+        )
+    )
+    context.o0503 = _juniper_ospf_netconf_converter(
+        hostname="leaf04",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a OSPF object from a Juniper SSH output named o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/ssh/"
+            "juniper_ospf_rid.json"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/ssh/"
+            "juniper_ospf_neighbors.json"
+        )
+    )
+    cmd_output['mgmt'] = dict()
+    cmd_output['mgmt']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/ssh/"
+            "juniper_ospf_rid_vrf_mgmt.json"
+        )
+    )
+    cmd_output['mgmt']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/ssh/"
+            "juniper_ospf_neighbors_vrf_mgmt.json"
+        )
+    )
+    context.o0504 = _juniper_ospf_ssh_converter(
+        hostname="leaf04",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a OSPF object equals to NAPALM manually named o0601')
@@ -797,47 +971,68 @@ def step_impl(context):
 
 @given(u'OSPF o0501 should be equal to o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0501 == context.o0502
 
 
 @given(u'OSPF o0501 should be equal to o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0501 == context.o0503
 
 
 @given(u'OSPF o0501 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0501 == context.o0504
 
 
 @given(u'OSPF o0502 should be equal to o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0502 == context.o0503
 
 
 @given(u'OSPF o0502 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0502 == context.o0504
 
 
 @given(u'OSPF o0503 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0503 == context.o0504
 
 
 @given(u'OSPF YAML file should be equal to o0502')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname='leaf04',
+        groups=['junos'],
+        ospf_host_data=context.o0502,
+        test=True,
+        options={}
+    )
 
 
 @given(u'OSPF YAML file should be equal to o0503')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname='leaf04',
+        groups=['junos'],
+        ospf_host_data=context.o0503,
+        test=True,
+        options={}
+    )
 
 
 @given(u'OSPF YAML file should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname='leaf04',
+        groups=['junos'],
+        ospf_host_data=context.o0504,
+        test=True,
+        options={}
+    )
 
 
 @given(u'OSPF o0601 should be equal to o0602')

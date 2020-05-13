@@ -1,0 +1,283 @@
+{
+    "ospf-neighbor-information": [
+        {
+            "attributes": {
+                "xmlns": "http://xml.juniper.net/junos/19.4R0/junos-routing"
+            },
+            "ospf-neighbor": [
+                {
+                    "neighbor-address": [
+                        {
+                            "data": "10.100.12.2"
+                        }
+                    ],
+                    "interface-name": [
+                        {
+                            "data": "ge-0/0/0.0"
+                        }
+                    ],
+                    "ospf-neighbor-state": [
+                        {
+                            "data": "Full"
+                        }
+                    ],
+                    "neighbor-id": [
+                        {
+                            "data": "10.100.100.2"
+                        }
+                    ],
+                    "neighbor-priority": [
+                        {
+                            "data": "128"
+                        }
+                    ],
+                    "activity-timer": [
+                        {
+                            "data": "33"
+                        }
+                    ],
+                    "ospf-area": [
+                        {
+                            "data": "0.0.0.0"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "data": "0x52"
+                        }
+                    ],
+                    "dr-address": [
+                        {
+                            "data": "10.100.12.2"
+                        }
+                    ],
+                    "bdr-address": [
+                        {
+                            "data": "10.100.12.1"
+                        }
+                    ],
+                    "neighbor-up-time": [
+                        {
+                            "data": "01:01:49",
+                            "attributes": {
+                                "junos:seconds": "3709"
+                            }
+                        }
+                    ],
+                    "neighbor-adjacency-time": [
+                        {
+                            "data": "01:01:05",
+                            "attributes": {
+                                "junos:seconds": "3665"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "neighbor-address": [
+                        {
+                            "data": "10.100.14.2"
+                        }
+                    ],
+                    "interface-name": [
+                        {
+                            "data": "ge-0/0/1.0"
+                        }
+                    ],
+                    "ospf-neighbor-state": [
+                        {
+                            "data": "Full"
+                        }
+                    ],
+                    "neighbor-id": [
+                        {
+                            "data": "10.100.100.4"
+                        }
+                    ],
+                    "neighbor-priority": [
+                        {
+                            "data": "128"
+                        }
+                    ],
+                    "activity-timer": [
+                        {
+                            "data": "36"
+                        }
+                    ],
+                    "ospf-area": [
+                        {
+                            "data": "0.0.0.0"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "data": "0x52"
+                        }
+                    ],
+                    "dr-address": [
+                        {
+                            "data": "10.100.14.2"
+                        }
+                    ],
+                    "bdr-address": [
+                        {
+                            "data": "10.100.14.1"
+                        }
+                    ],
+                    "neighbor-up-time": [
+                        {
+                            "data": "01:01:39",
+                            "attributes": {
+                                "junos:seconds": "3699"
+                            }
+                        }
+                    ],
+                    "neighbor-adjacency-time": [
+                        {
+                            "data": "01:00:59",
+                            "attributes": {
+                                "junos:seconds": "3659"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "neighbor-address": [
+                        {
+                            "data": "10.100.13.2"
+                        }
+                    ],
+                    "interface-name": [
+                        {
+                            "data": "ge-0/0/2.0"
+                        }
+                    ],
+                    "ospf-neighbor-state": [
+                        {
+                            "data": "Full"
+                        }
+                    ],
+                    "neighbor-id": [
+                        {
+                            "data": "10.100.100.3"
+                        }
+                    ],
+                    "neighbor-priority": [
+                        {
+                            "data": "128"
+                        }
+                    ],
+                    "activity-timer": [
+                        {
+                            "data": "35"
+                        }
+                    ],
+                    "ospf-area": [
+                        {
+                            "data": "0.0.0.1"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "data": "0x52"
+                        }
+                    ],
+                    "dr-address": [
+                        {
+                            "data": "10.100.13.2"
+                        }
+                    ],
+                    "bdr-address": [
+                        {
+                            "data": "10.100.13.1"
+                        }
+                    ],
+                    "neighbor-up-time": [
+                        {
+                            "data": "01:01:50",
+                            "attributes": {
+                                "junos:seconds": "3710"
+                            }
+                        }
+                    ],
+                    "neighbor-adjacency-time": [
+                        {
+                            "data": "01:01:10",
+                            "attributes": {
+                                "junos:seconds": "3670"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "neighbor-address": [
+                        {
+                            "data": "10.100.15.2"
+                        }
+                    ],
+                    "interface-name": [
+                        {
+                            "data": "ge-0/0/3.0"
+                        }
+                    ],
+                    "ospf-neighbor-state": [
+                        {
+                            "data": "Full"
+                        }
+                    ],
+                    "neighbor-id": [
+                        {
+                            "data": "10.100.100.5"
+                        }
+                    ],
+                    "neighbor-priority": [
+                        {
+                            "data": "128"
+                        }
+                    ],
+                    "activity-timer": [
+                        {
+                            "data": "34"
+                        }
+                    ],
+                    "ospf-area": [
+                        {
+                            "data": "0.0.0.1"
+                        }
+                    ],
+                    "options": [
+                        {
+                            "data": "0x52"
+                        }
+                    ],
+                    "dr-address": [
+                        {
+                            "data": "10.100.15.2"
+                        }
+                    ],
+                    "bdr-address": [
+                        {
+                            "data": "10.100.15.1"
+                        }
+                    ],
+                    "neighbor-up-time": [
+                        {
+                            "data": "01:01:50",
+                            "attributes": {
+                                "junos:seconds": "3710"
+                            }
+                        }
+                    ],
+                    "neighbor-adjacency-time": [
+                        {
+                            "data": "01:00:54",
+                            "attributes": {
+                                "junos:seconds": "3654"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
