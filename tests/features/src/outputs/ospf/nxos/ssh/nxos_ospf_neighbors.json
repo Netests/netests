@@ -1,0 +1,41 @@
+{
+    "TABLE_ctx": {
+        "ROW_ctx": {
+            "ptag": "4",
+            "cname": "default",
+            "TABLE_nbr": {
+                "ROW_nbr": [
+                    {
+                        "rid": "61.61.61.61",
+                        "addr": "10.2.1.2",
+                        "area": "0.0.0.0",
+                        "intf": "Ethernet1/1",
+                        "state": "FULL",
+                        "transition": "5",
+                        "lastchange": "PT12M24S",
+                        "priority": "1",
+                        "dr": "10.2.1.1",
+                        "bdr": "10.2.1.2",
+                        "helloptions": "0x2",
+                        "dbdoptions": "0x2",
+                        "lastnonhello": "PT1H33M59S",
+                        "deadtimer": "PT39S"
+                    },
+                    {
+                        "rid": "63.63.63.63",
+                        "addr": "10.2.3.2",
+                        "area": "0.0.0.0",
+                        "intf": "Ethernet1/3",
+                        "state": "FULL",
+                        "transition": "5",
+                        "lastchange": "PT27M25S",
+                        "helloptions": "0x12",
+                        "dbdoptions": "0x52",
+                        "lastnonhello": "PT1H34M2S",
+                        "deadtimer": "PT42S"
+                    }
+                ]
+            }
+        }
+    }
+}
