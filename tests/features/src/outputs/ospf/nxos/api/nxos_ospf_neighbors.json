@@ -1,0 +1,55 @@
+{
+    "ins_api": {
+        "outputs": {
+            "output": {
+                "body": {
+                    "TABLE_ctx": {
+                        "ROW_ctx": {
+                            "TABLE_nbr": {
+                                "ROW_nbr": [
+                                    {
+                                        "addr": "10.2.1.2",
+                                        "area": "0.0.0.0",
+                                        "bdr": "10.2.1.2",
+                                        "dbdoptions": "0x2",
+                                        "deadtimer": "PT36S",
+                                        "dr": "10.2.1.1",
+                                        "helloptions": "0x2",
+                                        "intf": "Ethernet1/1",
+                                        "lastchange": "PT41M16S",
+                                        "lastnonhello": "PT2H4M10S",
+                                        "priority": "1",
+                                        "rid": "61.61.61.61",
+                                        "state": "FULL",
+                                        "transition": "5"
+                                    },
+                                    {
+                                        "addr": "10.2.3.2",
+                                        "area": "0.0.0.0",
+                                        "dbdoptions": "0x52",
+                                        "deadtimer": "PT33S",
+                                        "helloptions": "0x12",
+                                        "intf": "Ethernet1/3",
+                                        "lastchange": "PT56M17S",
+                                        "lastnonhello": "PT2H4M11S",
+                                        "rid": "63.63.63.63",
+                                        "state": "FULL",
+                                        "transition": "5"
+                                    }
+                                ]
+                            },
+                            "cname": "default",
+                            "ptag": "4"
+                        }
+                    }
+                },
+                "code": "200",
+                "input": "show ip ospf neighbors detail",
+                "msg": "Success"
+            }
+        },
+        "sid": "eoc",
+        "type": "cli_show",
+        "version": "1.0"
+    }
+}

@@ -9,6 +9,8 @@ from functions.ospf.extreme_vsp.ssh.converter import _extreme_vsp_ospf_ssh_conve
 from functions.ospf.juniper.api.converter import _juniper_ospf_api_converter
 from functions.ospf.juniper.netconf.converter import _juniper_ospf_netconf_converter
 from functions.ospf.juniper.ssh.converter import _juniper_ospf_ssh_converter
+from functions.ospf.nxos.api.converter import _nxos_ospf_api_converter
+from functions.ospf.nxos.ssh.converter import _nxos_ospf_ssh_converter
 from const.constants import NOT_SET, FEATURES_SRC_PATH, OSPF_SESSIONS_HOST_KEY
 from functions.global_tools import (
     open_json_file,
@@ -698,12 +700,126 @@ def step_impl(context):
 
 @given(u'I create a OSPF object equals to NXOS manually named o0701')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    
+    ### VRF - Netests
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="63.63.63.63",
+            peer_ip="10.2.3.2",
+            local_interface="Ethernet1/3",
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="NETESTS_VRF",
+            router_id="52.52.52.52",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    ### VRF - Default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="63.63.63.63",
+            peer_ip="10.2.3.2",
+            local_interface="Ethernet1/3",
+            session_state="FULL"
+        )
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="61.61.61.61",
+            peer_ip="10.2.1.2",
+            local_interface="Ethernet1/1",
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="default",
+            router_id="52.52.52.52",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    context.o0701 = OSPF(
+        hostname="leaf02",
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
 
 
 @given(u'I create a OSPF object from a NXOS API output named o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/api/"
+            "nxos_ospf_rid.json"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/api/"
+            "nxos_ospf_neighbors.json"
+        )
+    )
+    cmd_output['NETESTS_VRF'] = dict()
+    cmd_output['NETESTS_VRF']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/api/"
+            "nxos_ospf_rid_vrf_netests.json"
+        )
+    )
+    cmd_output['NETESTS_VRF']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/api/"
+            "nxos_ospf_neighbors_vrf_netests.json"
+        )
+    )
+    context.o0702 = _nxos_ospf_api_converter(
+        hostname="leaf02",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a OSPF object from a NXOS Netconf output named o0703')
@@ -713,7 +829,38 @@ def step_impl(context):
 
 @given(u'I create a OSPF object from a NXOS SSH output named o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/ssh/"
+            "nxos_ospf_rid.json"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/ssh/"
+            "nxos_ospf_neighbors.json"
+        )
+    )
+    cmd_output['NETESTS_VRF'] = dict()
+    cmd_output['NETESTS_VRF']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/ssh/"
+            "nxos_ospf_rid_vrf_netests.json"
+        )
+    )
+    cmd_output['NETESTS_VRF']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/ssh/"
+            "nxos_ospf_neighbors_vrf_netests.json"
+        )
+    )
+    context.o0704 = _nxos_ospf_ssh_converter(
+        hostname="leaf02",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'OSPF o0001 should be equal to o0002')
@@ -1042,7 +1189,7 @@ def step_impl(context):
 
 @given(u'OSPF o0701 should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0701 == context.o0702
 
 
 @given(u'OSPF o0701 should be equal to o0703')
@@ -1052,7 +1199,7 @@ def step_impl(context):
 
 @given(u'OSPF o0701 should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0701 == context.o0704
 
 
 @given(u'OSPF o0702 should be equal to o0703')
@@ -1062,7 +1209,7 @@ def step_impl(context):
 
 @given(u'OSPF o0702 should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0702 == context.o0704
 
 
 @given(u'OSPF o0703 should be equal to o0704')
@@ -1072,7 +1219,15 @@ def step_impl(context):
 
 @given(u'OSPF YAML file should be equal to o0702')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname='leaf02',
+        groups=['nxos'],
+        ospf_host_data=context.o0702,
+        test=True,
+        options={}
+    )
+
 
 
 @given(u'OSPF YAML file should be equal to o0703')
@@ -1082,7 +1237,14 @@ def step_impl(context):
 
 @given(u'OSPF YAML file should be equal to o0704')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname='leaf02',
+        groups=['nxos'],
+        ospf_host_data=context.o0704,
+        test=True,
+        options={}
+    )
 
 
 @given(u'I Finish my OSPF tests and list tests not implemented')

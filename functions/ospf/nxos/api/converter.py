@@ -56,8 +56,6 @@ def _nxos_ospf_api_converter(
                 dict
             )
         ):
-            
-            PP.pprint(v)
 
             o_a_lst = ListOSPFSessionsArea(
                 ospf_sessions_area_lst=list()
