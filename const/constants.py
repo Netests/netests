@@ -193,6 +193,7 @@ NEXUS_API_GET_BGP = 'show bgp sessions'
 NEXUS_GET_BGP_VRF = "show bgp sessions vrf {} | json"
 NEXUS_API_GET_BGP_VRF = "show bgp sessions vrf {}"
 NEXUS_GET_VRF = "show vrf all detail | json"
+NEXUS_API_GET_VRF = "show vrf all detail"
 NEXUS_GET_LLDP = "show lldp neighbors detail | json"
 NEXUS_API_GET_LLDP = "show lldp neighbors detail"
 NEXUS_GET_CDP = "show cdp neighbors detail | json"
