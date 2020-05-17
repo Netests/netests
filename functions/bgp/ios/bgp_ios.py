@@ -18,7 +18,7 @@ from const.constants import (
     BGP_SESSIONS_HOST_KEY,
     IOS_GET_BGP,
     IOS_GET_BGP_VRF,
-    VRF_NAME_DATA_KEY,
+    VRF_DATA_KEY,
     VRF_DEFAULT_RT_LST
 )
 
@@ -88,12 +88,12 @@ def _ios_get_bgp_ssh(task, options={}):
     if output.result != "":
         output_dict["default"] = output.result
 
-    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
-        if vrf not in VRF_DEFAULT_RT_LST:
+    for vrf in task.host[VRF_DATA_KEY].vrf_lst:
+        if vrf.vrf_name not in VRF_DEFAULT_RT_LST:
             output = task.run(
-                name=IOS_GET_BGP_VRF.format(vrf),
+                name=IOS_GET_BGP_VRF.format(vrf.vrf_name),
                 task=netmiko_send_command,
-                command_string=IOS_GET_BGP_VRF.format(vrf),
+                command_string=IOS_GET_BGP_VRF.format(vrf.vrf_name),
             )
             if verbose_mode(
                 user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
@@ -102,7 +102,7 @@ def _ios_get_bgp_ssh(task, options={}):
                 print_result(output)
 
             if output.result != "":
-                output_dict[vrf] = output.result
+                output_dict[vrf.vrf_name] = output.result
 
     task.host[BGP_SESSIONS_HOST_KEY] = _ios_bgp_ssh_converter(
         hostname=task.host.name,

@@ -17,7 +17,7 @@ from const.constants import (
     NEXUS_API_GET_BGP,
     NEXUS_GET_BGP_VRF,
     NEXUS_API_GET_BGP_VRF,
-    VRF_NAME_DATA_KEY,
+    VRF_DATA_KEY,
     VRF_DEFAULT_RT_LST
 )
 
@@ -38,21 +38,21 @@ def _nexus_get_bgp_api(task, options={}):
     ):
         print(output_dict['default'])
 
-    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
-        if vrf not in VRF_DEFAULT_RT_LST:
-            output_dict[vrf] = exec_http_nxos(
+    for vrf in task.host[VRF_DATA_KEY].vrf_lst:
+        if vrf.vrf_name not in VRF_DEFAULT_RT_LST:
+            output_dict[vrf.vrf_name] = exec_http_nxos(
                 hostname=task.host.hostname,
                 port=task.host.port,
                 username=task.host.username,
                 password=task.host.password,
-                command=NEXUS_API_GET_BGP_VRF.format(vrf),
+                command=NEXUS_API_GET_BGP_VRF.format(vrf.vrf_name),
                 secure_api=task.host.get('secure_api', True)
             )
         if verbose_mode(
             user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
             needed_value=LEVEL2
         ):
-            print(output_dict[vrf])
+            print(output_dict[vrf.vrf_name])
 
     task.host[BGP_SESSIONS_HOST_KEY] = _nxos_bgp_api_converter(
         hostname=task.host.name,
@@ -102,12 +102,12 @@ def _nexus_get_bgp_ssh(task, options={}):
     if output.result != "":
         output_dict['default'] = output.result
 
-    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
-        if vrf not in VRF_DEFAULT_RT_LST:
+    for vrf in task.host[VRF_DATA_KEY].vrf_lst:
+        if vrf.vrf_name not in VRF_DEFAULT_RT_LST:
             output = task.run(
-                name=NEXUS_GET_BGP_VRF.format(vrf),
+                name=NEXUS_GET_BGP_VRF.format(vrf.vrf_name),
                 task=netmiko_send_command,
-                command_string=NEXUS_GET_BGP_VRF.format(vrf),
+                command_string=NEXUS_GET_BGP_VRF.format(vrf.vrf_name),
             )
             if verbose_mode(
                 user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
@@ -116,7 +116,7 @@ def _nexus_get_bgp_ssh(task, options={}):
                 print_result(output)
 
             if output.result != "":
-                output_dict[vrf] = output.result
+                output_dict[vrf.vrf_name] = output.result
 
     task.host[BGP_SESSIONS_HOST_KEY] = _nxos_bgp_ssh_converter(
         hostname=task.host.name,

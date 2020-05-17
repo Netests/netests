@@ -13,7 +13,7 @@ from const.constants import (
     BGP_SESSIONS_HOST_KEY,
     EXTREME_VSP_GET_BGP,
     EXTREME_VSP_GET_BGP_VRF,
-    VRF_NAME_DATA_KEY,
+    VRF_DATA_KEY,
     VRF_DEFAULT_RT_LST
 )
 from exceptions.netests_exceptions import (
@@ -52,12 +52,12 @@ def _extreme_vsp_get_bgp_ssh(task, options={}):
     ):
         outputs_dict["default"] = output.result
 
-    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
-        if vrf not in VRF_DEFAULT_RT_LST:
+    for vrf in task.host[VRF_DATA_KEY].vrf_lst:
+        if vrf.vrf_name not in VRF_DEFAULT_RT_LST:
             output = task.run(
-                name=EXTREME_VSP_GET_BGP_VRF.format(vrf),
+                name=EXTREME_VSP_GET_BGP_VRF.format(vrf.vrf_name),
                 task=netmiko_send_command,
-                command_string=EXTREME_VSP_GET_BGP_VRF.format(vrf),
+                command_string=EXTREME_VSP_GET_BGP_VRF.format(vrf.vrf_name),
             )
             if verbose_mode(
                 user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
@@ -69,7 +69,7 @@ def _extreme_vsp_get_bgp_ssh(task, options={}):
                 output.result != "" and
                 "BGP instance does not exist for VRF" not in output.result
             ):
-                outputs_dict[vrf] = output.result
+                outputs_dict[vrf.vrf_name] = output.result
 
     task.host[BGP_SESSIONS_HOST_KEY] = _extreme_vsp_bgp_ssh_converter(
         hostname=task.host.name,

@@ -17,7 +17,7 @@ from const.constants import (
     ARISTA_API_GET_BGP,
     ARISTA_GET_BGP_VRF,
     ARISTA_API_GET_BGP_VRF,
-    VRF_NAME_DATA_KEY,
+    VRF_DATA_KEY,
     VRF_DEFAULT_RT_LST
 )
 from exceptions.netests_exceptions import (
@@ -27,9 +27,11 @@ from exceptions.netests_exceptions import (
 
 def _arista_get_bgp_api(task, options={}):
     commands_to_execute = [ARISTA_API_GET_BGP]
-    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
-        if vrf not in VRF_DEFAULT_RT_LST:
-            commands_to_execute.append(ARISTA_API_GET_BGP_VRF.format(vrf))
+    for vrf in task.host[VRF_DATA_KEY].vrf_lst:
+        if vrf.vrf_name not in VRF_DEFAULT_RT_LST:
+            commands_to_execute.append(
+                ARISTA_API_GET_BGP_VRF.format(vrf.vrf_name)
+            )
 
     c = pyeapi.connect(
         transport=task.host.get('secure_api', 'https'),
@@ -75,12 +77,12 @@ def _arista_get_bgp_ssh(task, options={}):
 
     output_dict['default'] = output.result
 
-    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
-        if vrf not in VRF_DEFAULT_RT_LST:
+    for vrf in task.host[VRF_DATA_KEY].vrf_lst:
+        if vrf.vrf_name not in VRF_DEFAULT_RT_LST:
             output = task.run(
-                name=ARISTA_GET_BGP_VRF.format(vrf),
+                name=ARISTA_GET_BGP_VRF.format(vrf.vrf_name),
                 task=netmiko_send_command,
-                command_string=ARISTA_GET_BGP_VRF.format(vrf),
+                command_string=ARISTA_GET_BGP_VRF.format(vrf.vrf_name),
             )
             if verbose_mode(
                 user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
@@ -88,7 +90,7 @@ def _arista_get_bgp_ssh(task, options={}):
             ):
                 print_result(output)
 
-            output_dict[vrf] = output.result
+            output_dict[vrf.vrf_name] = output.result
 
     task.host[BGP_SESSIONS_HOST_KEY] = _arista_bgp_ssh_converter(
         hostname=task.host.name,

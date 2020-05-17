@@ -16,7 +16,7 @@ from const.constants import (
     IOSXR_GET_BGP_PEERS,
     IOSXR_VRF_GET_BGP_RID,
     IOSXR_VRF_GET_BGP_PEERS,
-    VRF_NAME_DATA_KEY,
+    VRF_DATA_KEY,
     VRF_DEFAULT_RT_LST
 )
 from exceptions.netests_exceptions import NetestsFunctionNotPossible
@@ -87,12 +87,12 @@ def _iosxr_get_bgp_ssh(task, options={}):
 
     output_dict['default']['rid'] = output.result
 
-    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
-        if vrf not in VRF_DEFAULT_RT_LST:
+    for vrf in task.host[VRF_DATA_KEY].vrf_lst:
+        if vrf.vrf_name not in VRF_DEFAULT_RT_LST:
             output = task.run(
-                name=IOSXR_VRF_GET_BGP_PEERS.format(vrf),
+                name=IOSXR_VRF_GET_BGP_PEERS.format(vrf.vrf_name),
                 task=netmiko_send_command,
-                command_string=IOSXR_VRF_GET_BGP_PEERS.format(vrf),
+                command_string=IOSXR_VRF_GET_BGP_PEERS.format(vrf.vrf_name),
             )
             if verbose_mode(
                 user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
@@ -100,13 +100,13 @@ def _iosxr_get_bgp_ssh(task, options={}):
             ):
                 print_result(output)
 
-            output_dict[vrf] = dict()
-            output_dict[vrf]['peers'] = output.result
+            output_dict[vrf.vrf_name] = dict()
+            output_dict[vrf.vrf_name]['peers'] = output.result
 
             output = task.run(
                 name=f"{IOSXR_VRF_GET_BGP_RID}",
                 task=netmiko_send_command,
-                command_string=IOSXR_VRF_GET_BGP_RID.format(vrf)
+                command_string=IOSXR_VRF_GET_BGP_RID.format(vrf.vrf_name)
             )
             if verbose_mode(
                 user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
@@ -114,7 +114,7 @@ def _iosxr_get_bgp_ssh(task, options={}):
             ):
                 print_result(output)
 
-            output_dict[vrf]['rid'] = output.result
+            output_dict[vrf.vrf_name]['rid'] = output.result
 
     task.host[BGP_SESSIONS_HOST_KEY] = _iosxr_bgp_ssh_converter(
         hostname=task.host.name,
