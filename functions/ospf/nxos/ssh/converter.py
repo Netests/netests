@@ -41,13 +41,13 @@ def _nxos_ospf_ssh_converter(
         ):
             if (
                 not isinstance(v.get('data'), dict) and
-                'Invalid command at' not in v.get('data') and 
+                'Invalid command at' not in v.get('data') and
                 'process currently not running' not in v.get('data')
             ):
                 v['data'] = json.loads(v.get('data'))
             if (
                 not isinstance(v.get('rid'), dict) and
-                'Invalid command at' not in v.get('rid') and 
+                'Invalid command at' not in v.get('rid') and
                 'process currently not running' not in v.get('rid')
             ):
                 v['rid'] = json.loads(v.get('rid'))
@@ -94,11 +94,11 @@ def _nxos_ospf_ssh_converter(
                 )
 
                 if (
-                    v.get('data') \
-                     .get('TABLE_ctx') \
-                     .get('ROW_ctx') \
-                     .get('TABLE_nbr') \
-                     .get('ROW_nbr') \
+                    v.get('data')
+                     .get('TABLE_ctx')
+                     .get('ROW_ctx')
+                     .get('TABLE_nbr')
+                     .get('ROW_nbr')
                      .get('area', NOT_SET) not in result_area.keys()
                 ):
                     result_area[v.get('data')
@@ -118,14 +118,15 @@ def _nxos_ospf_ssh_converter(
                         )
                     )
 
-                    result_area.get(v.get('data')
-                                     .get('TABLE_ctx')
-                                     .get('ROW_ctx')
-                                     .get('TABLE_nbr')
-                                     .get('ROW_nbr')
-                                     .get('area', NOT_SET)
+                    result_area.get(
+                        v.get('data')
+                         .get('TABLE_ctx')
+                         .get('ROW_ctx')
+                         .get('TABLE_nbr')
+                         .get('ROW_nbr')
+                         .get('area', NOT_SET)
                     ).ospf_sessions.ospf_sessions_lst.append(o)
-            
+
             elif isinstance(
                 v.get('data')
                  .get('TABLE_ctx')
@@ -159,7 +160,7 @@ def _nxos_ospf_ssh_converter(
                     result_area.get(
                         n.get('area', NOT_SET)
                     ).ospf_sessions.ospf_sessions_lst.append(o)
-                    
+
             if 'TABLE_ctx' in v.get('rid').keys():
                 rid = v.get('rid') \
                        .get('TABLE_ctx') \
@@ -167,9 +168,9 @@ def _nxos_ospf_ssh_converter(
                        .get('rid', NOT_SET)
             else:
                 rid = NOT_SET
-            
+
             for area_number, neighbors in result_area.items():
-                    o_a_lst.ospf_sessions_area_lst.append(neighbors)
+                o_a_lst.ospf_sessions_area_lst.append(neighbors)
 
             ospf_vrf_lst.ospf_sessions_vrf_lst.append(
                 OSPFSessionsVRF(

@@ -5,7 +5,6 @@ import os
 import json
 from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
-from functions.netconf_tools import format_xml_output
 from const.constants import NOT_SET, LEVEL1
 from protocols.ospf import (
     OSPFSession,
@@ -41,7 +40,7 @@ def _nxos_ospf_api_converter(
              .get('ins_api')
              .get('outputs')
              .get('output')
-             .get('code') == '200' and 
+             .get('code') == '200' and
             v.get('rid')
              .get('ins_api')
              .get('outputs')
@@ -61,7 +60,7 @@ def _nxos_ospf_api_converter(
                 ospf_sessions_area_lst=list()
             )
             result_area = dict()
-            
+
             if isinstance(
                 v.get('data')
                  .get('ins_api')
@@ -222,7 +221,7 @@ def _nxos_ospf_api_converter(
                 rid = NOT_SET
 
             for area_number, neighbors in result_area.items():
-                    o_a_lst.ospf_sessions_area_lst.append(neighbors)
+                o_a_lst.ospf_sessions_area_lst.append(neighbors)
 
             ospf_vrf_lst.ospf_sessions_vrf_lst.append(
                 OSPFSessionsVRF(

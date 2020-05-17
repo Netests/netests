@@ -4,8 +4,7 @@
 import os
 import json
 from functions.global_tools import printline
-from functions.netconf_tools import format_xml_output
-from const.constants import NOT_SET, LEVEL1, LEVEL4, LEVEL5
+from const.constants import NOT_SET, LEVEL4, LEVEL5
 from protocols.vrf import VRF, ListVRF
 from functions.verbose_mode import verbose_mode
 import pprint
@@ -37,7 +36,6 @@ def _nxos_vrf_api_converter(
         PP.pprint(cmd_output)
 
     vrf_list = ListVRF(vrf_lst=list())
-
 
     if (
         'ins_api' in cmd_output.keys() and
@@ -133,13 +131,5 @@ def _nxos_vrf_api_converter(
                         options=options
                     )
                 )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(vrf_list.to_json())
 
     return vrf_list

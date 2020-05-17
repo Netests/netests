@@ -2,9 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-from jnpr.junos import Device
-from xml.etree import ElementTree
-from functions.global_tools import printline
 from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from functions.http_request import exec_http_nxos
@@ -14,7 +11,6 @@ from functions.ospf.nxos.ssh.converter import _nxos_ospf_ssh_converter
 from const.constants import (
     NOT_SET,
     LEVEL2,
-    LEVEL5,
     OSPF_SESSIONS_HOST_KEY,
     NEXUS_GET_OSPF,
     NEXUS_GET_OSPF_RID,

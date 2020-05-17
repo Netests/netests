@@ -3,18 +3,9 @@
 
 import os
 from functions.global_tools import printline
-from functions.cli_tools import parse_textfsm
 from functions.verbose_mode import verbose_mode
 from const.constants import NOT_SET, LEVEL1, LEVEL3
-from protocols.ospf import (
-    OSPFSession,
-    ListOSPFSessions,
-    OSPFSessionsArea,
-    ListOSPFSessionsArea,
-    OSPFSessionsVRF,
-    ListOSPFSessionsVRF,
-    OSPF
-)
+from protocols.ospf import ListOSPFSessionsVRF, OSPF
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 

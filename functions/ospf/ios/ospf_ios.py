@@ -3,7 +3,7 @@
 
 import os
 from ncclient import manager
-from functions.global_tools import printline
+from xml.etree import ElementTree
 from functions.verbose_mode import verbose_mode
 from functions.http_request import exec_http_call
 from nornir.plugins.functions.text import print_result
@@ -14,7 +14,6 @@ from nornir.plugins.tasks.networking import netmiko_send_command
 from const.constants import (
     NOT_SET,
     LEVEL2,
-    LEVEL5,
     NETCONF_FILTER,
     OSPF_SESSIONS_HOST_KEY,
     IOS_GET_OSPF,

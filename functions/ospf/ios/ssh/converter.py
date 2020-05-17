@@ -36,10 +36,14 @@ def _ios_ospf_ssh_converter(
     ospf_vrf_lst = ListOSPFSessionsVRF(
         ospf_sessions_vrf_lst=list()
     )
-    
+
     if (
-        'int' in cmd_output.keys() and 'data' in cmd_output.keys() and 'rid' in cmd_output.keys() and
-        cmd_output.get('int') != '' and cmd_output.get('data') != '' and cmd_output.get('rid') != ''
+        'int' in cmd_output.keys() and
+        'data' in cmd_output.keys() and
+        'rid' in cmd_output.keys() and
+        cmd_output.get('int') != ''
+        and cmd_output.get('data') != ''
+        and cmd_output.get('rid') != ''
     ):
         cmd_output['data'] = parse_textfsm(
             content=cmd_output.get('data'),
@@ -115,14 +119,11 @@ def _ios_ospf_ssh_converter(
 
     return ospf
 
-#['61.61.61.61', '10.5.1.2', '0', 'GigabitEthernet2', 'FULL', '10.5.1.1', '10.5.1.2', '00:26:42']
-# [['4', '55.55.55.55', '']]
-# [['Gi3', '4', '0', '10.5.3.1/24', '1', 'DR', '0/0'], ['Gi2', '4', '0', '10.5.1.1/24', '1', 'DR', '1/1']]
-
 
 def _ios_format_data(cmd_outputs: json) -> json:
     """
-    This function will retrieve data from differents commands outputs and gegroup them in a structured data format.
+    This function will retrieve data from differents
+    commands outputs and gegroup them in a structured data format.
     Three command are executed on devices
         -> show ip ospf neighbor detail
         -> show ip ospf interface
@@ -151,22 +152,26 @@ def _ios_format_data(cmd_outputs: json) -> json:
                 router_id[vrf[2]] = vrf[1]
 
     if 'int' in cmd_outputs.keys():
-        for interface in cmd_outputs.get('int'):
-
-            if interface[1] in result.keys():
-                if interface[2] not in result.get(interface[1]).keys():
-                    result[interface[1]][interface[2]] = dict()
-
-                result[interface[1]][interface[2]
-                                     ][_mapping_interface_name(interface[0])] = list()
+        for i in cmd_outputs.get('int'):
+            if i[1] in result.keys():
+                if i[2] not in result.get(i[1]).keys():
+                    result[i[1]][i[2]] = dict()
+                result.get(i[1]) \
+                      .get(i[2])[_mapping_interface_name(i[0])] = list()
 
     if 'data' in cmd_outputs.keys() and 'rid' in cmd_outputs.keys():
         for neighbor in cmd_outputs.get('data'):
             for instance_id in result:
                 for area in result.get(instance_id):
-                    if _mapping_interface_name(neighbor[3]) in result.get(instance_id).get(area).keys():
+                    if (
+                        _mapping_interface_name(neighbor[3]) in
+                        result.get(instance_id).get(area).keys()
+                    ):
 
-                        result[instance_id][area][_mapping_interface_name(neighbor[3])].append(
+                        result.get(instance_id) \
+                              .get(area) \
+                              .get(_mapping_interface_name(neighbor[3])) \
+                              .append(
                             {
                                 'peer_rid': neighbor[0],
                                 'peer_ip': neighbor[1],
@@ -182,7 +187,8 @@ def _ios_format_data(cmd_outputs: json) -> json:
 
 def _mapping_interface_name(int_name) -> str():
     """
-    This function will receive an interface name in parameter and return the standard interface name.
+    This function will receive an interface name in
+    parameter and return the standard interface name.
 
     For example:
         * (Arista) Ethernet3 => Eth1/3
@@ -191,7 +197,10 @@ def _mapping_interface_name(int_name) -> str():
     :return:
     """
 
-    if "Ethernet1/" in int_name and "GIGABITETHERNET" not in str(int_name).upper():
+    if (
+        "Ethernet1/" in int_name and
+        "GIGABITETHERNET" not in str(int_name).upper()
+    ):
         number = ""
         slash_index = int_name.find("/")
         for char in int_name[slash_index:]:
@@ -199,7 +208,10 @@ def _mapping_interface_name(int_name) -> str():
                 number = number + str(char)
         return str("Eth1/").lower() + str(number)
 
-    elif "Ethernet" in int_name and "GIGABITETHERNET" not in str(int_name).upper():
+    elif (
+        "Ethernet" in int_name and
+        "GIGABITETHERNET" not in str(int_name).upper()
+    ):
         number = ""
         for char in int_name:
             if str(char).isdigit():
