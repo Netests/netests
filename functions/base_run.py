@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from functions.getters.vrf_get import GetterVRF
 from nornir.core import Nornir
 from functions.global_tools import printline
 from functions.base_init_data import create_truth_vars
@@ -136,7 +137,7 @@ RUN = {
         "compare": compare_vlan
     },
     "vrf": {
-        "function": get_vrf,
+        "function": GetterVRF,
         "file": VRF_SRC_FILENAME,
         "compare": compare_vrf
     }
@@ -148,18 +149,26 @@ def run_base(
     protocol: str,
     not_compare: bool,
     parameters: dict,
-    init_data: bool
+    init_data: bool,
+    num_workers: int,
+    verbose: str
 ) -> bool:
     if (
         parameters.get('test', False) is True or
         str(parameters.get('test', False)).upper() == "INFO"
     ):
         result_output = list()
-        same = RUN.get(protocol).get('function')(
+        getter = RUN.get(protocol).get('function')(
             nr=nr,
             options=parameters.get('options', {}),
+            from_cli=False,
+            num_workers=num_workers,
+            verbose=verbose
         )
 
+        getter.run()
+
+        """
         if init_data is True:
             if protocol != "ping":
                 create_truth_vars(
@@ -172,7 +181,7 @@ def run_base(
                 options=parameters.get('options', {})
             )
             result_output.append(f"{HEADER}({protocol}) is working = {same}")
-
+        
         printline()
         print("\n".join(result_output))
 
@@ -180,6 +189,7 @@ def run_base(
             parameters.get('test', False) is True and
             same is False
         )
+        """
 
     else:
         return True

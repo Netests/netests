@@ -8,6 +8,7 @@ declare -i return_value=0
 declare -a commands_lst=(
     'pylama netests.py'
     'pylama exceptions/'
+    'pylama functions/getters/*'
     'pylama functions/bgp/*'
     'pylama functions/cdp/*'
     'pylama functions/facts/*'

@@ -236,7 +236,9 @@ def main(
                 protocol=k,
                 not_compare=not_compare,
                 parameters=v,
-                init_data=init_data
+                init_data=init_data,
+                num_workers=num_workers,
+                verbose=verbose
             ) is False and
             exit_value is True
         ):
