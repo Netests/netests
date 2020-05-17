@@ -84,12 +84,4 @@ def _arista_vrf_netconf_converter(
                     )
                 )
 
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(vrf_list.to_json())
-
     return vrf_list

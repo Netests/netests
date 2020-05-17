@@ -74,11 +74,4 @@ def _iosxr_vrf_ssh_converter(
 
         list_vrf.vrf_lst.append(vrf)
 
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        PP.pprint(list_vrf.to_json())
-
     return list_vrf

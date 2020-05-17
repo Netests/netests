@@ -34,17 +34,10 @@ def _cumulus_vrf_ssh_converter(
 
     vrf_list = ListVRF(list())
 
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
-    ):
-        printline()
-        print(parsed_results)
-
-    for line in parsed_results:
-        vrf = VRF(
-            vrf_name=line[0],
-            vrf_id=line[1],
+    vrf_list.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id="1000",
             vrf_type=NOT_SET,
             l3_vni=NOT_SET,
             rd=NOT_SET,
@@ -54,15 +47,29 @@ def _cumulus_vrf_ssh_converter(
             exp_targ=NOT_SET,
             options=options
         )
-
-        vrf_list.vrf_lst.append(vrf)
+    )
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
+        needed_value=LEVEL3
     ):
         printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(vrf_list.to_json())
+        print(parsed_results)
+
+    for line in parsed_results:
+        vrf_list.vrf_lst.append(
+            VRF(
+                vrf_name=line[0],
+                vrf_id=line[1],
+                vrf_type=NOT_SET,
+                l3_vni=NOT_SET,
+                rd=NOT_SET,
+                rt_imp=NOT_SET,
+                rt_exp=NOT_SET,
+                imp_targ=NOT_SET,
+                exp_targ=NOT_SET,
+                options=options
+            )
+        )
 
     return vrf_list

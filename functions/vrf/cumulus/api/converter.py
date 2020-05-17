@@ -33,18 +33,10 @@ def _cumulus_vrf_api_converter(
     parsed_results = results_template.ParseText(cmd_output.decode())
 
     list_vrf = ListVRF(list())
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
-    ):
-        printline()
-        print(parsed_results)
-
-    for line in parsed_results:
-        vrf = VRF(
-            vrf_name=line[0],
-            vrf_id=line[1],
+    list_vrf.vrf_list.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id="1000",
             vrf_type=NOT_SET,
             l3_vni=NOT_SET,
             rd=NOT_SET,
@@ -54,14 +46,28 @@ def _cumulus_vrf_api_converter(
             exp_targ=NOT_SET,
             options=options
         )
-
-        list_vrf.vrf_lst.append(vrf)
+    )
 
     if verbose_mode(
         user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
+        needed_value=LEVEL3
     ):
         printline()
-        PP.pprint(list_vrf.to_json())
+        print(parsed_results)
+
+    for line in parsed_results:
+        list_vrf.vrf_lst.append(VRF(
+                vrf_name=line[0],
+                vrf_id=line[1],
+                vrf_type=NOT_SET,
+                l3_vni=NOT_SET,
+                rd=NOT_SET,
+                rt_imp=NOT_SET,
+                rt_exp=NOT_SET,
+                imp_targ=NOT_SET,
+                exp_targ=NOT_SET,
+                options=options
+            )
+        )
 
     return list_vrf
