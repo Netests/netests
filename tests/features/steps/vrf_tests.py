@@ -28,7 +28,7 @@ from functions.vrf.juniper.ssh.converter import _juniper_vrf_ssh_converter
 from functions.vrf.napalm.converter import _napalm_vrf_converter
 from functions.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
 from functions.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
-from functions.vrf.nxos.api.converter import _nxos_vrf_api_converter
+from functions.vrf.nxos.restconf.converter import _nxos_vrf_restconf_converter
 from protocols.vrf import (
     VRF,
     ListVRF
@@ -1161,7 +1161,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a NXOS API output named o0702')
 def step_impl(context):
-    context.o0702 = _nxos_vrf_api_converter(
+    context.o0702 = _nxos_vrf_restconf_converter(
         hostname="leaf02",
         cmd_output=open_file(
             path=(
@@ -1767,6 +1767,8 @@ def step_impl(context):
 
 @given(u'VRF o0701 should be equal to o0702')
 def step_impl(context):
+    print(context.o0701)
+    print(context.o0702)
     assert context.o0701 == context.o0702
 
 
