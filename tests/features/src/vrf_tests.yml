@@ -1,6 +1,8 @@
 ---
 leaf01:
   # Cumulus Networks
+  - vrf_name: default
+    vrf_id: 1000
   - vrf_name: mgmt
     vrf_id: 1001
 

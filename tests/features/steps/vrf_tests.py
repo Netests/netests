@@ -278,6 +278,20 @@ def step_impl(context):
 
     context.o0101.vrf_lst.append(
         VRF(
+            vrf_name="default",
+            vrf_id="1000",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o0101.vrf_lst.append(
+        VRF(
             vrf_name="mgmt",
             vrf_id="1001",
             vrf_type=NOT_SET,
@@ -1767,8 +1781,6 @@ def step_impl(context):
 
 @given(u'VRF o0701 should be equal to o0702')
 def step_impl(context):
-    print(context.o0701)
-    print(context.o0702)
     assert context.o0701 == context.o0702
 
 

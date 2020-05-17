@@ -33,7 +33,7 @@ def _cumulus_vrf_api_converter(
     parsed_results = results_template.ParseText(cmd_output.decode())
 
     list_vrf = ListVRF(list())
-    list_vrf.vrf_list.vrf_lst.append(
+    list_vrf.vrf_lst.append(
         VRF(
             vrf_name="default",
             vrf_id="1000",
