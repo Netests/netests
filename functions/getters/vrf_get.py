@@ -48,36 +48,27 @@ HEADER = "[netests - get_vrf]"
 
 class GetterVRF(GetterBase):
 
-    MAPPING_FUNCTION = {}
-
     def __init__(
         self,
         nr,
         options,
         from_cli,
         num_workers,
-        verbose
+        verbose,
+        print_task_output
     ):
-        super().__init__(nr, options, from_cli, num_workers, verbose)
+        super().__init__(
+            nr,
+            options,
+            from_cli,
+            num_workers,
+            verbose,
+            print_task_output
+        )
         self.init_mapping_function()
 
-    def print_result(self,):
-        self.printline()
-        for host in self.devices.inventory.hosts:
-            if VRF_DATA_KEY in self.devices.inventory.hosts.get(host).keys():
-                self.print_json(
-                    self.devices.inventory.hosts.get(host)
-                                          .get(VRF_DATA_KEY)
-                                          .to_json()
-                    )
-
-    def save_vrf_name_in_a_list(self, task):
-        vrf_name_lst = dict()
-
-        for vrf in task.host[self.VRF_DATA_KEY].vrf_lst:
-            vrf_name_lst[vrf.vrf_name] = vrf.vrf_id
-
-        task.host[VRF_NAME_DATA_KEY] = vrf_name_lst
+    def print_result(self):
+        self.print_protocols_result(VRF_DATA_KEY, "VRF")
 
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {

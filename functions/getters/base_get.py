@@ -19,6 +19,7 @@ class GetterBase(ABC):
     num_worker: int
     verbose: str
     devices: str
+    print_task_output: bool
 
     HEADER = "[netests - GetterBase]"
     NOT_SET = "NOT_SET"
@@ -53,15 +54,25 @@ class GetterBase(ABC):
         options,
         from_cli,
         num_workers=NOT_SET,
-        verbose=NOT_SET
+        verbose=NOT_SET,
+        print_task_output=True
     ):
         self.nr = nr
         self.options = options
         self.from_cli = from_cli if from_cli is not None else False
-        self.verbose = verbose if verbose != self.NOT_SET else self.LEVEL0
         self.num_workers = num_workers if num_workers != self.NOT_SET else 50
+        self.verbose = verbose if verbose != self.NOT_SET else self.LEVEL0
+        self.print_task_output = print_task_output
         self.devices = self.select_devices()
         self.hosts = self.devices.inventory.hosts
+        
+    @abstractmethod
+    def print_result(self):
+        pass
+
+    @abstractmethod
+    def init_mapping_function(self):
+        pass
 
     @abstractmethod
     def print_result(self):
@@ -73,7 +84,22 @@ class GetterBase(ABC):
             on_failed=True,
             num_workers=self.num_workers
         )
-        self.print_verbose()
+        self.print_result()
+
+    def print_protocols_result(self, pkey, protocol):
+        self.printline()
+        for host in self.devices.inventory.hosts:
+            if (
+                pkey in self.devices.inventory.hosts.get(host).keys() and
+                self.print_task_output is True
+            ):
+                self.printline()
+                print(f">>>>> {host} -- ({protocol})")
+                self.print_json(
+                    self.devices.inventory.hosts.get(host)
+                                          .get(pkey)
+                                          .to_json()
+                )
 
     def print_json(self, data):
         PP.pprint(data)

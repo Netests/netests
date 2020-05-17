@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from functions.getters.bgp_get import GetterBGP
 from functions.getters.vrf_get import GetterVRF
 from nornir.core import Nornir
 from functions.global_tools import printline
@@ -59,7 +60,7 @@ from const.constants import (
 HEADER = "[netests - base_run.py]"
 RUN = {
     "bgp": {
-        "function": get_bgp,
+        "function": GetterBGP,
         "file": BGP_SRC_FILENAME,
         "compare": compare_bgp
     },
@@ -163,7 +164,8 @@ def run_base(
             options=parameters.get('options', {}),
             from_cli=False,
             num_workers=num_workers,
-            verbose=verbose
+            verbose=verbose,
+            print_task_output=True
         )
 
         getter.run()
