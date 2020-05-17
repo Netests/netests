@@ -1,131 +1,72 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-This file is used for CI test to validate OSPF protocols usage
+from functions.ospf.ospf_compare import _compare_ospf
+from functions.ospf.arista.api.converter import _arista_ospf_api_converter
+from functions.ospf.arista.ssh.converter import _arista_ospf_ssh_converter
+from functions.ospf.cumulus.ssh.converter import _cumulus_ospf_ssh_converter
+from functions.ospf.extreme_vsp.ssh.converter import _extreme_vsp_ospf_ssh_converter
+from functions.ospf.juniper.api.converter import _juniper_ospf_api_converter
+from functions.ospf.juniper.netconf.converter import _juniper_ospf_netconf_converter
+from functions.ospf.juniper.ssh.converter import _juniper_ospf_ssh_converter
+from functions.ospf.nxos.api.converter import _nxos_ospf_api_converter
+from functions.ospf.nxos.ssh.converter import _nxos_ospf_ssh_converter
+from const.constants import NOT_SET, FEATURES_SRC_PATH, OSPF_SESSIONS_HOST_KEY
+from functions.global_tools import (
+    open_json_file,
+    open_txt_file,
+    open_txt_file_as_bytes
+)
+from protocols.ospf import (
+    OSPFSession,
+    ListOSPFSessions,
+    OSPFSessionsArea,
+    ListOSPFSessionsArea,
+    OSPFSessionsVRF,
+    ListOSPFSessionsVRF,
+    OSPF
+)
 
-"""
 
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "1.0"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
+@given(u'A network protocols named OSPF defined in protocols/bgp.py')
+def step_impl(context):
+    context.test_not_implemented = list()
 
-########################################################################################################################
-#
-# Constantes
-#
-ERROR_HEADER = "Error import [ospf_tests.py]"
-HEADER = "[netests - ospf_tests.py]"
-########################################################################################################################
-#
-# Import Library
-#
 
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from functions.ospf.ospf_converters import _extreme_vsp_ospf_converter, _juniper_ospf_converter
-    from functions.ospf.ospf_converters import _ios_ospf_converter, _cumulus_ospf_converter
-    from functions.ospf.ospf_compare import _compare_ospf
-    from protocols.ospf import OSPF, ListOSPFSessionsVRF, OSPFSessionsVRF, ListOSPFSessionsArea, OSPFSessionsArea
-    from protocols.ospf import ListOSPFSessions, OSPFSession
-except ImportError as importError:
-    print(f"{ERROR_HEADER} protocols.ospf ")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from functions.global_tools import open_file, open_txt_file
-except ImportError as importError:
-    print(f"{ERROR_HEADER} functions.global_tools")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    from behave import given, when, then
-except ImportError as importError:
-    print(f"{ERROR_HEADER} behave")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import json
-except ImportError as importError:
-    print(f"{ERROR_HEADER} json")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import yaml
-except ImportError as importError:
-    print(f"{ERROR_HEADER} yaml")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import textfsm
-except ImportError as importError:
-    print(f"{ERROR_HEADER} textfsm")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-########################################################################################################################
-#
-# Functions
-#
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@given(u'I create an OSPF python object corresponding to Cumulus device manually named object_01')
-def create_an_ospf_object_manually(context) -> None:
-    """
-    Create a OSPF object manually
-
-    :param context:
-    :return None:
-    """
-
+@given(u'I create a OSPF object equals to Arista manually named o0001')
+def step_impl(context):
     ospf_vrf_lst = ListOSPFSessionsVRF(
         ospf_sessions_vrf_lst=list()
     )
 
-    ### VRF - Default
+    ### VRF - Netests
     ospf_area_lst = ListOSPFSessionsArea(
         ospf_sessions_area_lst=list()
     )
 
-    ###### Area 0.0.0.0
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="CUSTOMER_NETESTS",
+            router_id="153.153.153.153",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    ### VRF - default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
     ospf_session_lst = ListOSPFSessions(
         ospf_sessions_lst=list()
     )
 
     ospf_session_lst.ospf_sessions_lst.append(
         OSPFSession(
-            hostname="spine01",
-            peer_rid="10.255.255.203",
-            peer_ip="10.1.3.2",
-            local_interface="swp3",
-            session_state="Full"
-        )
-    )
-
-    ospf_session_lst.ospf_sessions_lst.append(
-        OSPFSession(
-            hostname="spine01",
-            peer_rid="10.255.255.204",
-            peer_ip="10.1.4.2",
-            local_interface="swp4",
-            session_state="Full"
+            peer_rid="151.151.151.151",
+            peer_ip="10.1.2.1",
+            local_interface="Ethernet1",
+            session_state="FULL"
         )
     )
 
@@ -139,7 +80,660 @@ def create_an_ospf_object_manually(context) -> None:
     ospf_vrf_lst.ospf_sessions_vrf_lst.append(
         OSPFSessionsVRF(
             vrf_name="default",
-            router_id="10.255.255.101",
+            router_id="123.123.123.123",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    context.o0001 = OSPF(
+        hostname="leaf03",
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
+
+
+@given(u'I create a OSPF object from a Arista API output named o0002')
+def step_impl(context):
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/api/"
+            "arista_ospf_rid.json"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/api/"
+            "arista_ospf_neighbors.json"
+        )
+    )
+    cmd_output['CUSTOMER_NETESTS'] = dict()
+    cmd_output['CUSTOMER_NETESTS']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/api/"
+            "arista_ospf_rid_vrf_netests.json"
+        )
+    )
+    cmd_output['CUSTOMER_NETESTS']['data'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/api/"
+            "arista_ospf_neighbors_vrf_netests.json"
+        )
+    )
+    cmd_output['CUSTOMER_WEJOB'] = dict()
+    cmd_output['CUSTOMER_WEJOB']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/api/"
+            "arista_ospf_rid_vrf_wejob.json"
+        )
+    )
+    cmd_output['CUSTOMER_WEJOB']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/api/"
+            "arista_ospf_neighbors_vrf_wejob.json"
+        )
+    )
+
+    context.o0002 = _arista_ospf_api_converter(
+        hostname="leaf03",
+        cmd_output=cmd_output,
+        options={}
+    )
+
+
+@given(u'I create a OSPF object from a Arista Netconf named o0003')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object from a Arista SSH output named o0004')
+def step_impl(context):
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_rid.json"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_neighbors.json"
+        )
+    )
+    cmd_output['CUSTOMER_NETESTS'] = dict()
+    cmd_output['CUSTOMER_NETESTS']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_rid_vrf_netests.json"
+        )
+    )
+    cmd_output['CUSTOMER_NETESTS']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_neighbors_vrf_netests.json"
+        )
+    )
+    cmd_output['CUSTOMER_WEJOB'] = dict()
+    cmd_output['CUSTOMER_WEJOB']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_rid_vrf_wejob.json"
+        )
+    )
+    cmd_output['CUSTOMER_WEJOB']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/arista/ssh/"
+            "arista_ospf_neighbors_vrf_wejob.json"
+        )
+    )
+
+    context.o0004 = _arista_ospf_ssh_converter(
+        hostname="leaf03",
+        cmd_output=cmd_output,
+        options={}
+    )
+
+
+@given(u'I create a OSPF object equals to Cumulus manually named o0101')
+def step_impl(context):
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    ### VRF - Default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="default",
+            router_id="51.51.51.51",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+    
+    ### VRF - Netests
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="53.53.53.53",
+            peer_ip="10.1.2.2",
+            local_interface="swp1",
+            session_state="FULL"
+        )
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="62.62.62.62",
+            peer_ip="10.1.20.2",
+            local_interface="swp2",
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="NETESTS_VRF",
+            router_id="151.151.151.151",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    context.o0101 = OSPF(
+        hostname="leaf01",
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
+
+
+@given(u'I create a OSPF object from a Cumulus API output named o0102')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object from a Cumulus Netconf named o0103')
+def step_impl(context):
+    print("Cumulus Networks OSPF with Netconf not possible -> Not tested")
+
+
+@given(u'I create a OSPF object from a Cumulus SSH output named o0104')
+def step_impl(context):
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/cumulus/ssh/"
+            "cumulus_ospf_rid.json"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/cumulus/ssh/"
+            "cumulus_ospf_neighbors.json"
+        )
+    )
+    cmd_output['NETESTS_VRF'] = dict()
+    cmd_output['NETESTS_VRF']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/cumulus/ssh/"
+            "cumulus_ospf_rid_vrf_netests.json"
+        )
+    )
+    cmd_output['NETESTS_VRF']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/cumulus/ssh/"
+            "cumulus_ospf_neighbors_vrf_netests.json"
+        )
+    )
+    cmd_output['mgmt'] = dict()
+    cmd_output['mgmt']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/cumulus/ssh/"
+            "cumulus_ospf_rid_vrf_mgmt.json"
+        )
+    )
+    cmd_output['mgmt']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/cumulus/ssh/"
+            "cumulus_ospf_neighbors_vrf_mgmt.json"
+        )
+    )
+
+    context.o0104 = _cumulus_ospf_ssh_converter(
+        hostname="leaf01",
+        cmd_output=cmd_output,
+        options={}
+    )
+
+
+@given(u'I create a OSPF object equals to Extreme VSP manually named o0201')
+def step_impl(context):
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    ### VRF - Default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="151.151.151.151",
+            peer_hostname=NOT_SET,
+            peer_ip="10.1.20.1",
+            local_interface=NOT_SET,
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="default",
+            router_id="62.62.62.62",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    context.o0201 = OSPF(
+        hostname="spine02",
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
+
+
+@given(u'I create a OSPF object from a Extreme VSP API output named o0202')
+def step_impl(context):
+    print("Extreme VSP OSPF with API not possible -> Not tested")
+
+
+@given(u'I create a OSPF object from a Extreme VSP Netconf output named o0203')
+def step_impl(context):
+    print("Extreme VSP OSPF with Netconf not possible -> Not tested")
+
+
+@given(u'I create a OSPF object from a Extreme VSP SSH output named o0204')
+def step_impl(context):
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/extreme_vsp/ssh/"
+            "extreme_vsp_ospf_rid.txt"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/extreme_vsp/ssh/"
+            "extreme_vsp_ospf_neighbors.txt"
+        )
+    )
+    cmd_output['default']['int'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/extreme_vsp/ssh/"
+            "extreme_vsp_ospf_interface.txt"
+        )
+    )
+    cmd_output['netests_vrf'] = dict()
+    cmd_output['netests_vrf']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/extreme_vsp/ssh/"
+            "extreme_vsp_ospf_rid_vrf_netests.txt"
+        )
+    )
+    cmd_output['netests_vrf']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/extreme_vsp/ssh/"
+            "extreme_vsp_ospf_neighbors_vrf_netests.txt"
+        )
+    )
+    cmd_output['netests_vrf']['int'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/extreme_vsp/ssh/"
+            "extreme_vsp_ospf_interface_vrf_netests.txt"
+        )
+    )
+    cmd_output['MgmtRouter'] = dict()
+    cmd_output['MgmtRouter']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/extreme_vsp/ssh/"
+            "extreme_vsp_ospf_rid_vrf_mgmt.txt"
+        )
+    )
+    cmd_output['MgmtRouter']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/extreme_vsp/ssh/"
+            "extreme_vsp_ospf_neighbors_vrf_mgmt.txt"
+        )
+    )
+    cmd_output['MgmtRouter']['int'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/extreme_vsp/ssh/"
+            "extreme_vsp_ospf_interface_vrf_mgmt.txt"
+        )
+    )
+
+    context.o0204 = _extreme_vsp_ospf_ssh_converter(
+        hostname="spine02",
+        cmd_output=cmd_output,
+        options={}
+    )
+
+
+@given(u'I create a OSPF object equals to IOS manually named o0301')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object from a IOS API output named o0302')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object from a IOS Netconf named o0303')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object from a IOS SSH named o0304')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object equals to IOS-XR manually named o0401')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object from a IOS-XR API output named o0402')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object from a IOS-XR Netconf output named o0403')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object from a IOS-XR SSH output named o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object equals IOS-XR multi manually output named o0405')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object from a IOS-XR multi Netconf output named o0406')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object equals to Juniper manually named o0501')
+def step_impl(context):
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    ### VRF - default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="10.100.100.2",
+            peer_ip="10.100.12.2",
+            local_interface="ge-0/0/0.0",
+            session_state="FULL"
+        )
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="10.100.100.4",
+            peer_ip="10.100.14.2",
+            local_interface="ge-0/0/1.0",
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="10.100.100.3",
+            peer_ip="10.100.13.2",
+            local_interface="ge-0/0/2.0",
+            session_state="FULL"
+        )
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="10.100.100.5",
+            peer_ip="10.100.15.2",
+            local_interface="ge-0/0/3.0",
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.1",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="default",
+            router_id="10.100.100.1",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    context.o0501 = OSPF(
+        hostname="leaf04",
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
+
+
+@given(u'I create a OSPF object from a Juniper API output named o0502')
+def step_impl(context):
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/api/"
+            "juniper_ospf_rid.xml"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/api/"
+            "juniper_ospf_neighbors.xml"
+        )
+    )
+    cmd_output['mgmt'] = dict()
+    cmd_output['mgmt']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/api/"
+            "juniper_ospf_rid_vrf_mgmt.xml"
+        )
+    )
+    cmd_output['mgmt']['data'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/api/"
+            "juniper_ospf_neighbors_vrf_mgmt.xml"
+        )
+    )
+    context.o0502 = _juniper_ospf_api_converter(
+        hostname="leaf04",
+        cmd_output=cmd_output,
+        options={}
+    )
+
+
+@given(u'I create a OSPF object from a Juniper Netconf output named o0503')
+def step_impl(context):
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/netconf/"
+            "juniper_ospf_rid.xml"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/netconf/"
+            "juniper_ospf_neighbors.xml"
+        )
+    )
+    cmd_output['mgmt'] = dict()
+    cmd_output['mgmt']['rid'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/netconf/"
+            "juniper_ospf_rid_vrf_mgmt.xml"
+        )
+    )
+    cmd_output['mgmt']['data'] = open_txt_file_as_bytes(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/netconf/"
+            "juniper_ospf_neighbors_vrf_mgmt.xml"
+        )
+    )
+    context.o0503 = _juniper_ospf_netconf_converter(
+        hostname="leaf04",
+        cmd_output=cmd_output,
+        options={}
+    )
+
+
+@given(u'I create a OSPF object from a Juniper SSH output named o0504')
+def step_impl(context):
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/ssh/"
+            "juniper_ospf_rid.json"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/ssh/"
+            "juniper_ospf_neighbors.json"
+        )
+    )
+    cmd_output['mgmt'] = dict()
+    cmd_output['mgmt']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/ssh/"
+            "juniper_ospf_rid_vrf_mgmt.json"
+        )
+    )
+    cmd_output['mgmt']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/juniper/ssh/"
+            "juniper_ospf_neighbors_vrf_mgmt.json"
+        )
+    )
+    context.o0504 = _juniper_ospf_ssh_converter(
+        hostname="leaf04",
+        cmd_output=cmd_output,
+        options={}
+    )
+
+
+@given(u'I create a OSPF object equals to NAPALM manually named o0601')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object from a NAPALM output named o0602')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'I create a OSPF object equals to NXOS manually named o0701')
+def step_impl(context):
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    
+    ### VRF - Netests
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="63.63.63.63",
+            peer_ip="10.2.3.2",
+            local_interface="Ethernet1/3",
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="NETESTS_VRF",
+            router_id="52.52.52.52",
             ospf_sessions_area_lst=ospf_area_lst
         )
     )
@@ -149,452 +743,510 @@ def create_an_ospf_object_manually(context) -> None:
         ospf_sessions_area_lst=list()
     )
 
-    ###### Area 0.0.0.100
     ospf_session_lst = ListOSPFSessions(
         ospf_sessions_lst=list()
     )
 
     ospf_session_lst.ospf_sessions_lst.append(
         OSPFSession(
-            hostname="spine01",
-            peer_rid="201.201.201.201",
-            peer_ip="10.0.5.201",
-            local_interface="eth0",
-            session_state="Full"
+            peer_rid="63.63.63.63",
+            peer_ip="10.2.3.2",
+            local_interface="Ethernet1/3",
+            session_state="FULL"
         )
     )
 
     ospf_session_lst.ospf_sessions_lst.append(
         OSPFSession(
-            hostname="spine01",
-            peer_rid="205.205.205.205",
-            peer_ip="10.0.5.205",
-            local_interface="eth0",
-            session_state="Full"
+            peer_rid="61.61.61.61",
+            peer_ip="10.2.1.2",
+            local_interface="Ethernet1/1",
+            session_state="FULL"
         )
     )
 
     ospf_area_lst.ospf_sessions_area_lst.append(
         OSPFSessionsArea(
-            area_number="0.0.0.100",
+            area_number="0.0.0.0",
             ospf_sessions=ospf_session_lst
         )
     )
 
     ospf_vrf_lst.ospf_sessions_vrf_lst.append(
         OSPFSessionsVRF(
-            vrf_name="mgmt",
-            router_id="10.0.5.101",
+            vrf_name="default",
+            router_id="52.52.52.52",
             ospf_sessions_area_lst=ospf_area_lst
         )
     )
 
-    context.object_01 = OSPF(
-        hostname="spine01",
+    context.o0701 = OSPF(
+        hostname="leaf02",
         ospf_sessions_vrf_lst=ospf_vrf_lst
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@given('I retrieve data from a YAML file corresponding to devices to create an OSPF python object named object_02')
-def create_an_ospf_object_from_a_yaml_corresponding_to_cumulus(context) -> None:
-    """
-    Retrieve data from a YAML file to compare with a OSPF object
 
-    :param context:
-    :return None:
-    """
-
-    context.object_02 = open_file(
-        path=f"{FEATURES_SRC_PATH}ospf_tests.yml"
+@given(u'I create a OSPF object from a NXOS API output named o0702')
+def step_impl(context):
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/api/"
+            "nxos_ospf_rid.json"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/api/"
+            "nxos_ospf_neighbors.json"
+        )
+    )
+    cmd_output['NETESTS_VRF'] = dict()
+    cmd_output['NETESTS_VRF']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/api/"
+            "nxos_ospf_rid_vrf_netests.json"
+        )
+    )
+    cmd_output['NETESTS_VRF']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/api/"
+            "nxos_ospf_neighbors_vrf_netests.json"
+        )
+    )
+    context.o0702 = _nxos_ospf_api_converter(
+        hostname="leaf02",
+        cmd_output=cmd_output,
+        options={}
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@given('I create an OSPF python object from a Cumulus output command named object_03')
-def create_an_ospf_object_from_a_cumulus_output_command(context) -> None:
-    """
-    Create an OSPF object from a Cumulus output
 
-    :param context:
-    :return None:
-    """
-    outputs_lst = list()
+@given(u'I create a OSPF object from a NXOS Netconf output named o0703')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
 
-    # VRF - Default
-    data = dict()
 
-    data['rid'] = open_file(
-        path=f"{FEATURES_OUTPUT_PATH}cumulus_net_show_ospf.json"
+@given(u'I create a OSPF object from a NXOS SSH output named o0704')
+def step_impl(context):
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/ssh/"
+            "nxos_ospf_rid.json"
+        )
+    )
+    cmd_output['default']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/ssh/"
+            "nxos_ospf_neighbors.json"
+        )
+    )
+    cmd_output['NETESTS_VRF'] = dict()
+    cmd_output['NETESTS_VRF']['rid'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/ssh/"
+            "nxos_ospf_rid_vrf_netests.json"
+        )
+    )
+    cmd_output['NETESTS_VRF']['data'] = open_txt_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/ospf/nxos/ssh/"
+            "nxos_ospf_neighbors_vrf_netests.json"
+        )
+    )
+    context.o0704 = _nxos_ospf_ssh_converter(
+        hostname="leaf02",
+        cmd_output=cmd_output,
+        options={}
     )
 
-    data['data'] = open_file(
-        path=f"{FEATURES_OUTPUT_PATH}cumulus_net_show_ospf_neighbor_detail.json"
-    )
 
-    outputs_lst.append(data)
-
-    # VRF - mgmt
-    data = dict()
-
-    data['rid'] = open_file(
-        path=f"{FEATURES_OUTPUT_PATH}cumulus_net_show_ospf_vrf.json"
-    )
-
-    data['data'] = open_file(
-        path=f"{FEATURES_OUTPUT_PATH}cumulus_net_show_ospf_vrf_neighbor_detail.json"
-    )
-
-    outputs_lst.append(data)
+@given(u'OSPF o0001 should be equal to o0002')
+def step_impl(context):
+    assert context.o0001 == context.o0002
 
 
-    context.object_03 = _cumulus_ospf_converter(
-        hostname="spine01",
-        cmd_outputs=outputs_lst
-    )
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@given('I create an OSPF python object from a Juniper output command named object_04')
-def create_an_ospf_object_from_a_juniper_output_command(context) -> None:
-    """
-    Create an OSPF object from a Juniper output
-
-    :param context:
-    :return None:
-    """
-    outputs_dict = dict()
-
-    outputs_dict['default'] = dict()
-    outputs_dict['default'][OSPF_NEI_KEY] = open_file(
-        path=f"{FEATURES_OUTPUT_PATH}juniper_show_ospf_neighbor_detail.json"
-    )
-
-    outputs_dict['default'][OSPF_RIB_KEY] = open_file(
-        path=f"{FEATURES_OUTPUT_PATH}juniper_show_ospf_overview.json"
-    )
-
-    context.object_04 = _juniper_ospf_converter(
-        hostname="leaf04",
-        cmd_outputs=outputs_dict
-    )
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@given('I create an OSPF python object from a Extreme VSP output command named object_05')
-def create_an_ospf_object_from_a_extreme_vsp_output_command(context) -> None:
-    """
-    Create an OSPF object from a Extreme VSP output
-
-    :param context:
-    :return None:
-    """
-
-    outputs_dict = dict()
-    outputs_dict['default'] = dict()
-
-    ospf_data = open_txt_file(
-        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_ospf_neighbor.output"
-    )
-
-    if ospf_data != "":
-        template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_neighbor.textfsm")
-        results_template = textfsm.TextFSM(template)
-
-        parsed_results = results_template.ParseText(ospf_data)
-
-        outputs_dict['default'][OSPF_NEI_KEY] = parsed_results
+@given(u'OSPF o0001 should be equal to o0003')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
 
 
-    ospf_data = open_txt_file(
-        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_ospf_interface.output"
-    )
-
-    if ospf_data != "":
-        template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf_interface.textfsm")
-        results_template = textfsm.TextFSM(template)
-
-        parsed_results = results_template.ParseText(ospf_data)
-
-        outputs_dict['default'][OSPF_INT_KEY] = parsed_results
-
-    ospf_data = open_txt_file(
-        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_ospf.output"
-    )
-
-    if ospf_data != "":
-        template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_ospf.textfsm")
-        results_template = textfsm.TextFSM(template)
-
-        parsed_results = results_template.ParseText(ospf_data)
-
-        outputs_dict['default'][OSPF_RIB_KEY] = parsed_results
-
-    ospf_data = open_txt_file(
-        path=f"{FEATURES_OUTPUT_PATH}extreme_vsp_show_ip_interface.output"
-    )
-
-    if ospf_data != "":
-        template = open(
-            f"{TEXTFSM_PATH}extreme_vsp_show_ip_interface.textfsm")
-        results_template = textfsm.TextFSM(template)
-
-        parsed_results = results_template.ParseText(ospf_data)
-
-        outputs_dict['default'][OSPF_INT_NAME_KEY] = parsed_results
-
-    context.object_05 = _extreme_vsp_ospf_converter(
-        hostname="spine02",
-        cmd_outputs=outputs_dict
-    )
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@given('I create an OSPF python object from a Cisco IOS output command named object_06')
-def create_an_ospf_object_from_a_cisco_ios_output_command(context) -> None:
-    """
-    Create an OSPF object from a Cisco IOS output
-
-    :param context:
-    :return None:
-    """
-
-    outputs_dict = dict()
-
-    ospf_data = open_txt_file(
-        path=f"{FEATURES_OUTPUT_PATH}cisco_ios_show_ip_ospf.output"
-    )
-
-    if ospf_data != "":
-        template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf.textfsm")
-        results_template = textfsm.TextFSM(template)
-
-        parsed_results = results_template.ParseText(ospf_data)
-
-        outputs_dict[OSPF_RIB_KEY] = parsed_results
+@given(u'OSPF o0001 should be equal to o0004')
+def step_impl(context):
+    assert context.o0001 == context.o0004
 
 
-    ospf_data = open_txt_file(
-        path=f"{FEATURES_OUTPUT_PATH}cisco_ios_show_ip_ospf_neighbor_detail.output"
-    )
+@given(u'OSPF o0002 should be equal to o0003')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
 
-    if ospf_data != "":
-        template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf_neighbor_detail.textfsm")
-        results_template = textfsm.TextFSM(template)
 
-        parsed_results = results_template.ParseText(ospf_data)
+@given(u'OSPF o0002 should be equal to o0004')
+def step_impl(context):
+    assert context.o0002 == context.o0004
 
-        outputs_dict[OSPF_NEI_KEY] = parsed_results
 
-    ospf_data = open_txt_file(
-        path=f"{FEATURES_OUTPUT_PATH}cisco_ios_show_ip_ospf_interface_brief.output"
-    )
+@given(u'OSPF o0003 should be equal to o0004')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
 
-    if ospf_data != "":
-        template = open(
-            f"{TEXTFSM_PATH}cisco_ios_show_ip_ospf_interface_brief.textfsm")
-        results_template = textfsm.TextFSM(template)
 
-        parsed_results = results_template.ParseText(ospf_data)
-
-        outputs_dict[OSPF_INT_KEY] = parsed_results
-
-    context.object_06 = _ios_ospf_converter(
-        hostname="leaf05",
-        cmd_outputs=outputs_dict
-    )
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@then('OSPF object_01 should be equal to object_02')
-def compare_ospf_object_01_and_object_02(context) -> None:
-    """
-    Compare object_01 and object_02
-
-    :param context:
-    :return:
-    """
-
-    assert _compare_ospf(
+@given(u'OSPF YAML file should be equal to o0002')
+def step_impl(context):
+    _compare_ospf(
         host_keys=OSPF_SESSIONS_HOST_KEY,
-        hostname="spine01",
-        ospf_host_data=context.object_01,
-        ospf_yaml_data=context.object_02,
-        level_test=0
+        hostname='leaf03',
+        groups=['eos'],
+        ospf_host_data=context.o0002,
+        test=True,
+        options={}
     )
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@then('OSPF object_01 should be equal to object_03')
-def compare_ospf_object_01_and_object_03(context) -> None:
-    """
-    Compare object_01 and object_03
-
-    :param context:
-    :return:
-    """
-
-    assert context.object_01 == context.object_03
+@given(u'OSPF YAML file should be equal to o0003')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
 
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@then('OSPF object_03 should be equal to object_01')
-def compare_ospf_object_03_and_object_01(context) -> None:
-    """
-    Compare object_03 and object_01
-
-    :param context:
-    :return:
-    """
-
-    assert context.object_03 == context.object_01
-
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@then('OSPF object_02 should be equal to object_03')
-def compare_ospf_object_02_and_object_03(context) -> None:
-    """
-    Compare object_02 and object_03
-
-    :param context:
-    :return:
-    """
-    assert _compare_ospf(
+@given(u'OSPF YAML file should be equal to o0004')
+def step_impl(context):
+    _compare_ospf(
         host_keys=OSPF_SESSIONS_HOST_KEY,
-        hostname="spine01",
-        ospf_host_data=context.object_03,
-        ospf_yaml_data=context.object_02,
-        level_test=0
+        hostname='leaf03',
+        groups=['eos'],
+        ospf_host_data=context.o0004,
+        test=True,
+        options={}
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@then('OSPF object_02 should be equal to object_04')
-def compare_ospf_object_02_and_object_04(context) -> None:
-    """
-    Compare object_02 and object_04
 
-    :param context:
-    :return:
-    """
-    assert _compare_ospf(
+@given(u'OSPF o0101 should be equal to o0102')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0101 should be equal to o0103')
+def step_impl(context):
+    print("Cumulus Networks OSPF with Netconf not possible -> Not tested")
+
+
+@given(u'OSPF o0101 should be equal to o0104')
+def step_impl(context):
+    assert context.o0101 == context.o0104
+
+
+@given(u'OSPF o0102 should be equal to o0103')
+def step_impl(context):
+    print("Cumulus Networks OSPF with Netconf not possible -> Not tested")
+
+
+@given(u'OSPF o0102 should be equal to o0104')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0103 should be equal to o0104')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF YAML file should be equal to o0102')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF YAML file should be equal to o0103')
+def step_impl(context):
+    print("Cumulus Networks OSPF with Netconf not possible -> Not tested")
+
+
+@given(u'OSPF YAML file should be equal to o0104')
+def step_impl(context):
+    _compare_ospf(
         host_keys=OSPF_SESSIONS_HOST_KEY,
-        hostname="leaf04",
-        ospf_host_data=context.object_04,
-        ospf_yaml_data=context.object_02,
-        level_test=0
+        hostname='leaf01',
+        groups=['linux'],
+        ospf_host_data=context.o0104,
+        test=True,
+        options={}
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@then('OSPF object_02 should be equal to object_05')
-def compare_ospf_object_02_and_object_05(context) -> None:
-    """
-    Compare object_02 and object_05
 
-    :param context:
-    :return:
-    """
-    assert _compare_ospf(
+@given(u'OSPF o0201 should be equal to o0202')
+def step_impl(context):
+    print("Extreme VSP OSPF with API not possible -> Not tested")
+
+
+@given(u'OSPF o0201 should be equal to o0203')
+def step_impl(context):
+    print("Extreme VSP OSPF with Netconf not possible -> Not tested")
+
+
+@given(u'OSPF o0201 should be equal to o0204')
+def step_impl(context):
+    assert context.o0201 == context.o0204
+
+
+@given(u'OSPF o0202 should be equal to o0203')
+def step_impl(context):
+    print("Extreme VSP OSPF with Netconf not possible -> Not tested")
+
+
+@given(u'OSPF o0202 should be equal to o0204')
+def step_impl(context):
+    print("Extreme VSP OSPF with API not possible -> Not tested")
+
+
+@given(u'OSPF o0203 should be equal to o0204')
+def step_impl(context):
+    print("Extreme VSP OSPF with Netconf not possible -> Not tested")
+
+
+@given(u'OSPF YAML file should be equal to o0202')
+def step_impl(context):
+    print("Extreme VSP OSPF with API not possible -> Not tested")
+
+
+@given(u'OSPF YAML file should be equal to o0203')
+def step_impl(context):
+    print("Extreme VSP OSPF with Netconf not possible -> Not tested")
+
+
+@given(u'OSPF YAML file should be equal to o0204')
+def step_impl(context):
+    _compare_ospf(
         host_keys=OSPF_SESSIONS_HOST_KEY,
-        hostname="spine02",
-        ospf_host_data=context.object_05,
-        ospf_yaml_data=context.object_02,
-        level_test=0
+        hostname='spine02',
+        groups=['extreme_vsp'],
+        ospf_host_data=context.o0204,
+        test=True,
+        options={}
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@then('OSPF object_02 should be equal to object_06')
-def compare_ospf_object_02_and_object_06(context) -> None:
-    """
-    Compare object_02 and object_06
 
-    :param context:
-    :return:
-    """
+@given(u'OSPF o0301 should be equal to o0302')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
 
-    assert _compare_ospf(
+
+@given(u'OSPF o0301 should be equal to o0303')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0301 should be equal to o0304')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0302 should be equal to o0303')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0302 should be equal to o0304')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0303 should be equal to o0304')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF YAML file should be equal to o0302')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF YAML file should be equal to o0303')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF YAML file should be equal to o0304')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0401 should be equal to o0402')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0401 should be equal to o0403')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0401 should be equal to o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0402 should be equal to o0403')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0402 should be equal to o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0403 should be equal to o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF YAML file should be equal to o0402')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF YAML file should be equal to o0403')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF YAML file should be equal to o0404')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0501 should be equal to o0502')
+def step_impl(context):
+    assert context.o0501 == context.o0502
+
+
+@given(u'OSPF o0501 should be equal to o0503')
+def step_impl(context):
+    assert context.o0501 == context.o0503
+
+
+@given(u'OSPF o0501 should be equal to o0504')
+def step_impl(context):
+    assert context.o0501 == context.o0504
+
+
+@given(u'OSPF o0502 should be equal to o0503')
+def step_impl(context):
+    assert context.o0502 == context.o0503
+
+
+@given(u'OSPF o0502 should be equal to o0504')
+def step_impl(context):
+    assert context.o0502 == context.o0504
+
+
+@given(u'OSPF o0503 should be equal to o0504')
+def step_impl(context):
+    assert context.o0503 == context.o0504
+
+
+@given(u'OSPF YAML file should be equal to o0502')
+def step_impl(context):
+    _compare_ospf(
         host_keys=OSPF_SESSIONS_HOST_KEY,
-        hostname="leaf05",
-        ospf_host_data=context.object_06,
-        ospf_yaml_data=context.object_02,
-        level_test=0
+        hostname='leaf04',
+        groups=['junos'],
+        ospf_host_data=context.o0502,
+        test=True,
+        options={}
     )
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@then('OSPF object_03 should not be equal to object_04')
-def compare_ospf_object_03_and_object_04(context) -> None:
-    """
-    Compare object_03 and object_04
 
-    :param context:
-    :return:
-    """
+@given(u'OSPF YAML file should be equal to o0503')
+def step_impl(context):
+    _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname='leaf04',
+        groups=['junos'],
+        ospf_host_data=context.o0503,
+        test=True,
+        options={}
+    )
 
-    assert context.object_03 != context.object_04
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@then('OSPF object_03 should not be equal to object_05')
-def compare_ospf_object_03_and_object_05(context) -> None:
-    """
-    Compare object_03 and object_05
+@given(u'OSPF YAML file should be equal to o0504')
+def step_impl(context):
+    _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname='leaf04',
+        groups=['junos'],
+        ospf_host_data=context.o0504,
+        test=True,
+        options={}
+    )
 
-    :param context:
-    :return:
-    """
 
-    assert context.object_03 != context.object_05
+@given(u'OSPF o0601 should be equal to o0602')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
 
-# ----------------------------------------------------------------------------------------------------------------------
-#
-#
-#
-@then('OSPF object_03 should not be equal to object_06')
-def compare_ospf_object_03_and_object_06(context) -> None:
-    """
-    Compare object_03 and object_06
 
-    :param context:
-    :return:
-    """
+@given(u'OSPF o0701 should be equal to o0702')
+def step_impl(context):
+    assert context.o0701 == context.o0702
 
-    assert context.object_03 != context.object_06
+
+@given(u'OSPF o0701 should be equal to o0703')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0701 should be equal to o0704')
+def step_impl(context):
+    assert context.o0701 == context.o0704
+
+
+@given(u'OSPF o0702 should be equal to o0703')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF o0702 should be equal to o0704')
+def step_impl(context):
+    assert context.o0702 == context.o0704
+
+
+@given(u'OSPF o0703 should be equal to o0704')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF YAML file should be equal to o0702')
+def step_impl(context):
+    _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname='leaf02',
+        groups=['nxos'],
+        ospf_host_data=context.o0702,
+        test=True,
+        options={}
+    )
+
+
+
+@given(u'OSPF YAML file should be equal to o0703')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")
+
+
+@given(u'OSPF YAML file should be equal to o0704')
+def step_impl(context):
+    _compare_ospf(
+        host_keys=OSPF_SESSIONS_HOST_KEY,
+        hostname='leaf02',
+        groups=['nxos'],
+        ospf_host_data=context.o0704,
+        test=True,
+        options={}
+    )
+
+
+@given(u'I Finish my OSPF tests and list tests not implemented')
+def step_impl(context):
+    context.scenario.tags.append("own_skipped")

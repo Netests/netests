@@ -1,0 +1,11 @@
+{
+    "vrfs": {
+        "CUSTOMER_NETESTS": {
+            "instList": {
+                "1": {
+                    "ospfNeighborEntries": []
+                }
+            }
+        }
+    }
+}

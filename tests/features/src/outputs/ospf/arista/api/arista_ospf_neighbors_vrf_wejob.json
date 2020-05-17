@@ -1,0 +1,16 @@
+{
+    "jsonrpc": "2.0",
+    "id": "EapiExplorer-1",
+    "error": {
+        "data": [
+            {
+                "vrfs": {},
+                "errors": [
+                    "OSPF instance does not exist in vrf CUSTOMER_WEJOB"
+                ]
+            }
+        ],
+        "message": "CLI command 1 of 1 \"show ip ospf neighbor detail vrf CUSTOMER_WEJOB\" failed: could not run command",
+        "code": 1000
+    }
+}

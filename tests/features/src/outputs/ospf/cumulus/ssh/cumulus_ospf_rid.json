@@ -1,0 +1,21 @@
+{
+    "routerId": "51.51.51.51",
+    "tosRoutesOnly": true,
+    "rfc2328Conform": true,
+    "spfScheduleDelayMsecs": 0,
+    "holdtimeMinMsecs": 50,
+    "holdtimeMaxMsecs": 5000,
+    "holdtimeMultplier": 1,
+    "spfHasNotRun": true,
+    "lsaMinIntervalMsecs": 5000,
+    "lsaMinArrivalMsecs": 1000,
+    "writeMultiplier": 20,
+    "refreshTimerMsecs": 10000,
+    "lsaExternalCounter": 0,
+    "lsaExternalChecksum": 0,
+    "lsaAsopaqueCounter": 0,
+    "lsaAsOpaqueChecksum": 0,
+    "attachedAreaCounter": 0,
+    "adjacencyChangesLogged": true,
+    "areas": {}
+}

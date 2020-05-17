@@ -29,7 +29,7 @@ config:
 
     
     ospf:
-      test: false
+      test: true
       compare:
         hostname: true
         peer_rid: true
@@ -40,7 +40,7 @@ config:
 
 
     ping:
-      test: true
+      test: false
 
  
     vrf:

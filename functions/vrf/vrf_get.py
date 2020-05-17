@@ -66,6 +66,8 @@ from functions.base_selection import (
     device_not_compatible_with_napalm
 )
 from functions.verbose_mode import verbose_mode
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 
 
 HEADER = "[netests - get_vrf]"
@@ -143,7 +145,13 @@ def get_vrf(nr: Nornir, options={}):
             user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
             needed_value=LEVEL2
         ):
-            print_result(data)
+            for host in devices.inventory.hosts:
+                if VRF_DATA_KEY in devices.inventory.hosts.get(host).keys():
+                    PP.pprint(
+                        devices.inventory.hosts.get(host)
+                                               .get(VRF_DATA_KEY)
+                                               .to_json()
+                    )
 
         data = devices.run(
             task=save_vrf_name_in_a_list,

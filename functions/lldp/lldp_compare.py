@@ -89,15 +89,15 @@ def _compare_lldp(
         )
 
         if LLDP_DATA_HOST_KEY in host_keys:
-            for l in lldp_yaml_data:
+            for nei in lldp_yaml_data:
                 lldp_obj = LLDP(
                     local_name=hostname,
-                    local_port=l.get("local_port", NOT_SET),
-                    neighbor_name=l.get("neighbor_name", NOT_SET),
-                    neighbor_port=l.get("neighbor_port", NOT_SET),
-                    neighbor_os=l.get("neighbor_os", NOT_SET),
-                    neighbor_mgmt_ip=l.get("neighbor_mgmt_ip", NOT_SET),
-                    neighbor_type=l.get("neighbor_type", NOT_SET),
+                    local_port=nei.get("local_port", NOT_SET),
+                    neighbor_name=nei.get("neighbor_name", NOT_SET),
+                    neighbor_port=nei.get("neighbor_port", NOT_SET),
+                    neighbor_os=nei.get("neighbor_os", NOT_SET),
+                    neighbor_mgmt_ip=nei.get("neighbor_mgmt_ip", NOT_SET),
+                    neighbor_type=nei.get("neighbor_type", NOT_SET),
                 )
 
                 verity_lldp.lldp_neighbors_lst.append(lldp_obj)

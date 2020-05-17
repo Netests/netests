@@ -1,0 +1,23 @@
+ Neighbor 61.61.61.61, interface address 10.5.1.2
+    In the area 0 via interface GigabitEthernet2
+    Neighbor priority is 1, State is FULL, 6 state changes
+    DR is 10.5.1.1 BDR is 10.5.1.2
+    Options is 0x2 in Hello (E-bit)
+    Options is 0x2 in DBD (E-bit)
+    Dead timer due in 00:00:37
+    Neighbor is up for 01:11:51
+    Index 1/1/1, retransmission queue length 0, number of retransmission 1
+    First 0x0(0)/0x0(0)/0x0(0) Next 0x0(0)/0x0(0)/0x0(0)
+    Last retransmission scan length is 1, maximum is 1
+    Last retransmission scan time is 0 msec, maximum is 0 msec
+ Neighbor 63.63.63.63, interface address 10.5.3.2, interface-id 11
+    In the area 0 via interface GigabitEthernet3
+    Neighbor priority is 1, State is INIT, 7 state changes
+    DR is 0.0.0.0 BDR is 0.0.0.0
+    Options is 0x12 in Hello (E-bit, L-bit)
+    LLS Options is 0x1 (LR)
+    Dead timer due in 00:00:36
+    Index 0/0/0, retransmission queue length 0, number of retransmission 1
+    First 0x0(0)/0x0(0)/0x0(0) Next 0x0(0)/0x0(0)/0x0(0)
+    Last retransmission scan length is 1, maximum is 1
+    Last retransmission scan time is 0 msec, maximum is 0 msec

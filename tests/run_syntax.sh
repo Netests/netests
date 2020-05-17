@@ -12,6 +12,7 @@ declare -a commands_lst=(
     'pylama functions/cdp/*'
     'pylama functions/facts/*'
     'pylama functions/lldp/*'
+    'pylama functions/ospf/*'
     'pylama functions/ping/*'
     'pylama functions/vrf/*'
     'pylama functions/base_selection.py'
@@ -29,6 +30,7 @@ declare -a commands_lst=(
     'pylama protocols/discovery_protocols.py'
     'pylama protocols/facts.py'
     'pylama protocols/lldp.py'
+    'pylama protocols/ospf.py'
     'pylama protocols/ping.py'
     'pylama protocols/vrf.py'
 )

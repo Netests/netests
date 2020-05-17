@@ -29,9 +29,9 @@ def _extreme_vsp_lldp_ssh_converter(
         template_file='extreme_vsp_show_lldp_neighbor.textfsm'
     )
 
-    for l in v:
+    for nei in v:
         neighbor_type_lst = list()
-        for sys_capability in l[4]:
+        for sys_capability in nei[4]:
             neighbor_type_lst.append(
                 _mapping_sys_capabilities(
                     str(sys_capability).capitalize()
@@ -41,11 +41,11 @@ def _extreme_vsp_lldp_ssh_converter(
         lldp_neighbors_lst.lldp_neighbors_lst.append(
             LLDP(
                 local_name=hostname,
-                local_port=l[0] if l[0] != '' else NOT_SET,
-                neighbor_mgmt_ip=l[7] if l[7] != '' else NOT_SET,
-                neighbor_name=l[3] if l[3] != '' else NOT_SET,
-                neighbor_port=l[2] if l[2] != '' else NOT_SET,
-                neighbor_os=l[6] if l[6] != '' else NOT_SET,
+                local_port=nei[0] if nei[0] != '' else NOT_SET,
+                neighbor_mgmt_ip=nei[7] if nei[7] != '' else NOT_SET,
+                neighbor_name=nei[3] if nei[3] != '' else NOT_SET,
+                neighbor_port=nei[2] if nei[2] != '' else NOT_SET,
+                neighbor_os=nei[6] if nei[6] != '' else NOT_SET,
                 neighbor_type=neighbor_type_lst,
                 options=options
             )

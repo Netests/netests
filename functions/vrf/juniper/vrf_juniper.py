@@ -37,7 +37,7 @@ def _juniper_get_vrf_api(task, options={}):
         username=task.host.username,
         password=task.host.password,
         endpoint="get-instance-information?detail=",
-        secure_api=task.host['secure_api']
+        secure_api=task.host.get('secure_api', False)
     )
 
     ElementTree.fromstring(vrf_config)

@@ -29,11 +29,11 @@ def _ios_cdp_ssh_converter(
         cdp_neighbors_lst=list()
     )
 
-    for l in cmd_output:
+    for nei in cmd_output:
         neighbor_type_lst = list()
 
-        if isinstance(l[6], list):
-            for sys_capability in l[6]:
+        if isinstance(nei[6], list):
+            for sys_capability in nei[6]:
                 print(">>", sys_capability)
                 neighbor_type_lst.append(
                     _mapping_sys_capabilities(
@@ -41,16 +41,16 @@ def _ios_cdp_ssh_converter(
                     )
                 )
         else:
-            neighbor_type_lst.append(l[6])
+            neighbor_type_lst.append(nei[6])
 
         cdp_neighbors_lst.cdp_neighbors_lst.append(
             CDP(
                 local_name=hostname,
-                local_port=l[4] if l[4] != '' else NOT_SET,
-                neighbor_mgmt_ip=l[1] if l[1] != '' else NOT_SET,
-                neighbor_name=l[0] if l[0] != '' else NOT_SET,
-                neighbor_port=l[3] if l[3] != '' else NOT_SET,
-                neighbor_os=l[5] if l[5] != '' else NOT_SET,
+                local_port=nei[4] if nei[4] != '' else NOT_SET,
+                neighbor_mgmt_ip=nei[1] if nei[1] != '' else NOT_SET,
+                neighbor_name=nei[0] if nei[0] != '' else NOT_SET,
+                neighbor_port=nei[3] if nei[3] != '' else NOT_SET,
+                neighbor_os=nei[5] if nei[5] != '' else NOT_SET,
                 neighbor_type=neighbor_type_lst,
                 options=options
             )
