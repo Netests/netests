@@ -28,33 +28,33 @@ def _cumulus_lldp_ssh_converter(
         "lldp" in cmd_output.keys() and
         "interface" in cmd_output.get('lldp')[0].keys()
     ):
-        for l in cmd_output.get('lldp')[0].get("interface"):
-            if l.get("via", NSET) == "LLDP":
+        for nei in cmd_output.get('lldp')[0].get("interface"):
+            if nei.get("via", NSET) == "LLDP":
                 neighbor_type_lst = list()
-                for c in l.get("chassis", NSET)[0] \
-                          .get("capability", NSET):
+                for c in nei.get("chassis", NSET)[0] \
+                            .get("capability", NSET):
                     neighbor_type_lst.append(c.get("type", NSET))
 
-                if l.get("chassis", NSET)[0].get("descr", NSET) == NSET:
+                if nei.get("chassis", NSET)[0].get("descr", NSET) == NSET:
                     neighbor_os = NSET
                 else:
-                    neighbor_os = l.get("chassis")[0] \
-                                   .get("descr")[0] \
-                                   .get("value", NSET)
+                    neighbor_os = nei.get("chassis")[0] \
+                                     .get("descr")[0] \
+                                     .get("value", NSET)
 
                 lldp_neighbors_lst.lldp_neighbors_lst.append(
                     LLDP(
                         local_name=hostname,
-                        local_port=l.get("name", NSET),
-                        neighbor_mgmt_ip=l.get("chassis")[0]
-                                          .get("mgmt-ip")[0]
-                                          .get("value", NSET),
-                        neighbor_name=l.get("chassis")[0]
-                                       .get("name")[0]
-                                       .get("value", NSET),
-                        neighbor_port=l.get("port")[0]
-                                       .get("id")[0]
-                                       .get("value", NSET),
+                        local_port=nei.get("name", NSET),
+                        neighbor_mgmt_ip=nei.get("chassis")[0]
+                                            .get("mgmt-ip")[0]
+                                            .get("value", NSET),
+                        neighbor_name=nei.get("chassis")[0]
+                                         .get("name")[0]
+                                         .get("value", NSET),
+                        neighbor_port=nei.get("port")[0]
+                                         .get("id")[0]
+                                         .get("value", NSET),
                         neighbor_os=neighbor_os,
                         neighbor_type=neighbor_type_lst,
                         options=options

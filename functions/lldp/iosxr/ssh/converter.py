@@ -29,9 +29,9 @@ def _iosxr_lldp_ssh_converter(
         lldp_neighbors_lst=list()
     )
 
-    for l in cmd_output:
+    for nei in cmd_output:
         capabilities = list()
-        for c in l[3]:
+        for c in nei[3]:
             if c.isdigit():
                 capabilities.append(
                     _mapping_sys_capabilities(c)
@@ -40,10 +40,10 @@ def _iosxr_lldp_ssh_converter(
         lldp_neighbors_lst.lldp_neighbors_lst.append(
             LLDP(
                 local_name=hostname,
-                local_port=l[1] if l[1] != '' else NOT_SET,
+                local_port=nei[1] if nei[1] != '' else NOT_SET,
                 neighbor_mgmt_ip=NOT_SET,
-                neighbor_name=l[0] if l[0] != '' else NOT_SET,
-                neighbor_port=l[2] if l[2] != '' else NOT_SET,
+                neighbor_name=nei[0] if nei[0] != '' else NOT_SET,
+                neighbor_port=nei[2] if nei[2] != '' else NOT_SET,
                 neighbor_os=NOT_SET,
                 neighbor_type=capabilities,
                 options=options

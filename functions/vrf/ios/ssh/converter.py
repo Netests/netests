@@ -64,16 +64,20 @@ def _ios_vrf_ssh_converter(
         )
     )
 
-    for l in parsed_results:
+    for nei in parsed_results:
         vrf_list.vrf_lst.append(
             VRF(
-                vrf_name=l[0] if l[0] != "<not set>" and l[0] != '' else NSET,
-                vrf_id=l[1] if l[1] != "<not set>" and l[1] != '' else NSET,
+                vrf_name=nei[0]
+                    if nei[0] != "<not set>" and nei[0] != '' else NSET,
+                vrf_id=nei[1]
+                    if nei[1] != "<not set>" and nei[1] != '' else NSET,
                 vrf_type=NSET,
                 l3_vni=NSET,
-                rd=l[2] if l[2] != "<not set>" and l[2] != '' else NSET,
-                rt_imp=l[5] if l[5] != "<not set>" and l[5] != '' else NSET,
-                rt_exp=l[6] if l[6] != "<not set>" and l[6] != '' else NSET,
+                rd=nei[2] if nei[2] != "<not set>" and nei[2] != '' else NSET,
+                rt_imp=nei[5]
+                    if nei[5] != "<not set>" and nei[5] != '' else NSET,
+                rt_exp=nei[6]
+                    if nei[6] != "<not set>" and nei[6] != '' else NSET,
                 exp_targ=NSET,
                 imp_targ=NSET,
                 options=options
