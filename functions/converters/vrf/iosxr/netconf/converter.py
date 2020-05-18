@@ -47,6 +47,21 @@ def _iosxr_vrf_netconf_converter(
 
     vrf_list = ListVRF(vrf_lst=list())
 
+    vrf_list.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET,
+            options=options
+        )
+    )
+
     if (
         'VRF' in cmd_output.keys() and
         'data' in cmd_output.get('VRF').keys() and

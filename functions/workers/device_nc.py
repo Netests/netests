@@ -32,8 +32,14 @@ class DeviceNC(Device, ABC):
         return ElementTree.fromstring(output)
 
     def get_no_vrf(self, task):
-        for key, command in self.commands.get('default_vrf').items():
-            self.commands_output = self.exec_call(task, command)
+        if "no_key" in self.commands.get('default_vrf').keys():
+            self.commands_output = self.exec_call(
+                task,
+                self.commands.get('default_vrf').get('no_key')
+            )
+        else:
+            for key, command in self.commands.get('default_vrf').items():
+                self.commands_output[key] = self.exec_call(task, command)
 
     def get_loop_vrf(self, task):
         output_dict = dict()
@@ -52,3 +58,33 @@ class DeviceNC(Device, ABC):
                             task,
                             command
                         )
+
+    def exec_call(self, task, command):
+        if self.nc_method == 'get':
+            return self.exec_call_get(task, command)
+        elif self.nc_method == 'get_config':
+            return self.exec_call_get_config(task, command)
+
+    def exec_call_get(self, task, command):
+        pass
+
+    def exec_call_get_config(self, task, command):
+        with manager.connect(
+            host=task.host.hostname,
+            port=task.host.port,
+            username=task.host.username,
+            password=task.host.password,
+            hostkey_verify=False
+        ) as m:
+
+            vrf_config = m.get_config(
+                source=self.source,
+                filter=(
+                    'subtree',
+                    (
+                        command
+                    )
+                )
+            ).data_xml
+            self.validate_xml(vrf_config)
+            return vrf_config
