@@ -31,6 +31,9 @@ class DeviceNC(Device, ABC):
     def validate_xml(self, output):
         return ElementTree.fromstring(output)
 
+    def format_rpc_output(self, output):
+        return ElementTree.tostring(output, encoding='utf8', method='xml')
+
     def get_no_vrf(self, task):
         if "no_key" in self.commands.get('default_vrf').keys():
             self.commands_output = self.exec_call(

@@ -7,7 +7,7 @@ from protocols.vrf import VRF, ListVRF
 from const.constants import NOT_SET, LEVEL1, LEVEL4, LEVEL5
 from functions.netconf_tools import format_xml_output
 from functions.global_tools import printline
-from functions.vrf.juniper.vrf_juniper_filters import (
+from functions.converters.vrf.juniper.vrf_juniper_filters import (
     _juniper_vrf_filter,
     _juniper_vrf_default_mapping
 )

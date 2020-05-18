@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from const.constants import NOT_SET, LEVEL1
+import json
+from const.constants import NOT_SET
 from protocols.vrf import VRF, ListVRF
 from functions.converters.vrf.juniper.vrf_juniper_filters import (
     _juniper_vrf_filter,
     _juniper_vrf_default_mapping
 )
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_vrf_ssh_converter(
@@ -19,6 +15,9 @@ def _juniper_vrf_ssh_converter(
     cmd_output,
     options={}
 ) -> ListVRF:
+
+    if not isinstance(cmd_output, dict):
+        cmd_output = json.loads(cmd_output)
 
     vrf_list = ListVRF(list())
 

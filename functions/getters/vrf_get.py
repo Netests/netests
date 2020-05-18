@@ -4,8 +4,9 @@
 from functions.workers.arista_api import VRFAristaAPI
 from functions.workers.arista_nc import VRFAristaNC
 from functions.workers.arista_ssh import VRFAristaSSH
-from functions.workers.cumulus_ssh import VRFCumulusSSH
 from functions.workers.cumulus_api import VRFCumulusAPI
+from functions.workers.cumulus_nc import CumulusNC
+from functions.workers.cumulus_ssh import VRFCumulusSSH
 from functions.workers.extreme_vsp_api import VRFExtremeVSPAPI
 from functions.workers.extreme_vsp_nc import ExtremeVSPNC
 from functions.workers.extreme_vsp_ssh import VRFExtremeVSPSSH
@@ -15,6 +16,8 @@ from functions.workers.ios_ssh import VRFIosSSH
 from functions.workers.iosxr_api import IosxrAPI
 from functions.workers.iosxr_nc import VRFIosxrNC
 from functions.workers.iosxr_ssh import VRFIosxrSSH
+from functions.workers.juniper_api import VRFJuniperAPI
+from functions.workers.juniper_nc import VRFJuniperNC
 from functions.workers.juniper_ssh import VRFJuniperSSH
 from functions.workers.nxos_api import VRFNxosAPI
 from functions.workers.nxos_nc import VRFNxosNC
@@ -59,6 +62,7 @@ class GetterVRF(GetterBase):
             },
             self.CUMULUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: VRFCumulusAPI,
+                self.NETCONF_CONNECTION: CumulusNC,
                 self.SSH_CONNECTION: VRFCumulusSSH,
             },
             self.EXTREME_PLATEFORM_NAME: {
@@ -77,6 +81,8 @@ class GetterVRF(GetterBase):
                 self.SSH_CONNECTION: VRFIosxrSSH
             },
             self.JUNOS_PLATEFORM_NAME: {
+                self.API_CONNECTION: VRFJuniperAPI,
+                self.NETCONF_CONNECTION: VRFJuniperNC,
                 self.SSH_CONNECTION: VRFJuniperSSH
             },
             self.NEXUS_PLATEFORM_NAME: {

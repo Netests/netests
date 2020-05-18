@@ -1,21 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-import json
-import lxml
-import xmltodict
-from xml.etree import ElementTree
-from const.constants import NOT_SET, LEVEL1, LEVEL4
+from const.constants import NOT_SET
+from functions.netconf_tools import format_xml_output
 from protocols.vrf import VRF, ListVRF
-from functions.vrf.juniper.vrf_juniper_filters import (
+from functions.converters.vrf.juniper.vrf_juniper_filters import (
     _juniper_vrf_filter,
     _juniper_vrf_default_mapping
 )
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_vrf_netconf_converter(
@@ -23,23 +15,9 @@ def _juniper_vrf_netconf_converter(
     cmd_output,
     options={}
 ) -> ListVRF:
-    if isinstance(cmd_output, lxml.etree._Element):
-        cmd_output = json.dumps(
-            xmltodict.parse(
-                ElementTree.tostring(cmd_output)
-            )
-        )
-    elif isinstance(cmd_output, str):
-        cmd_output = json.dumps(xmltodict.parse(cmd_output))
-
-    cmd_output = json.loads(cmd_output)
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL4
-    ):
-        printline()
-        PP.pprint(cmd_output)
+    
+    if not isinstance(cmd_output, dict):
+        cmd_output = format_xml_output(cmd_output)
 
     vrf_list = ListVRF(list())
 
