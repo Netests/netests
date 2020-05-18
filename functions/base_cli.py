@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
+"""
 from nornir.core import Nornir
 from functions.bgp.bgp_gets import get_bgp
 from functions.bgp.bgp_compare import _compare_bgp
@@ -699,13 +699,13 @@ class NetestsCLI():
         print("|                                                            |")
         print("+------------------------------------------------------------+")
 
-
+"""
 def netests_cli(nr) -> None:
     user_input = "START"
-    cli = NetestsCLI(nornir=nr)
+    """cli = NetestsCLI(nornir=nr)
 
     while user_input != "exit":
         user_input = input("> ")
 
         if cli.check_input(user_input):
-            cli.select_action(user_input)
+            cli.select_action(user_input)"""
