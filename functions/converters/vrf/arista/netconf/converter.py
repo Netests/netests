@@ -26,6 +26,8 @@ def _arista_vrf_netconf_converter(
         printline()
         PP.pprint(cmd_output)
 
+    vrf_list = ListVRF(list())
+
     if (
         'data' in cmd_output.keys() and
         'network-instances' in cmd_output.get('data').keys() and
@@ -33,7 +35,6 @@ def _arista_vrf_netconf_converter(
                                         .get('network-instances')
                                         .keys()
     ):
-        vrf_list = ListVRF(list())
 
         if isinstance(
             cmd_output.get('data')

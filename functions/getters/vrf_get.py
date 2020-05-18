@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from functions.workers.arista_api import VRFAristaAPI
+from functions.workers.arista_nc import VRFAristaNC
 from functions.workers.arista_ssh import VRFAristaSSH
 from functions.workers.cumulus_ssh import VRFCumulusSSH
 from functions.workers.cumulus_api import VRFCumulusAPI
@@ -8,6 +10,7 @@ from functions.workers.extreme_vsp_ssh import VRFExtremeVSPSSH
 from functions.workers.ios_ssh import VRFIosSSH
 from functions.workers.iosxr_ssh import VRFIosxrSSH
 from functions.workers.juniper_ssh import VRFJuniperSSH
+from functions.workers.nxos_api import VRFNxosAPI
 from functions.workers.nxos_ssh import VRFNxosSSH
 from functions.getters.base_get import GetterBase
 from const.constants import VRF_DATA_KEY, VRF_NAME_DATA_KEY
@@ -43,6 +46,8 @@ class GetterVRF(GetterBase):
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {
             self.ARISTA_PLATEFORM_NAME: {
+                self.API_CONNECTION: VRFAristaAPI,
+                self.NETCONF_CONNECTION: VRFAristaNC,
                 self.SSH_CONNECTION: VRFAristaSSH
             },
             self.CUMULUS_PLATEFORM_NAME: {
@@ -62,6 +67,7 @@ class GetterVRF(GetterBase):
                 self.SSH_CONNECTION: VRFJuniperSSH
             },
             self.NEXUS_PLATEFORM_NAME: {
+                self.API_CONNECTION: VRFNxosAPI,
                 self.SSH_CONNECTION: VRFNxosSSH
             },
         }
