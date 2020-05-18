@@ -5,6 +5,7 @@ import shutil
 from abc import ABC, abstractmethod
 from nornir.core import Nornir
 from nornir.core.filter import F
+from nornir.plugins.functions.text import print_result
 from exceptions.netests_exceptions import NetestsDeviceNotCompatibleWithNapalm
 from const.constants import PLATFORM_SUPPORTED, CONNEXION_MODE
 import pprint
@@ -79,11 +80,12 @@ class GetterBase(ABC):
         pass
 
     def run(self):
-        self.devices.run(
+        output = self.devices.run(
             task=self.generic_get,
             on_failed=True,
             num_workers=self.num_workers
         )
+        print_result(output)
         self.print_result()
 
     def print_protocols_result(self, pkey, protocol):
@@ -117,11 +119,12 @@ class GetterBase(ABC):
         return self.from_cli
 
     def generic_get(self, task):
-        self.base_selection(
+        worker = self.base_selection(
             platform=task.host.platform,
             connection_mode=task.host.data.get("connexion"),
             functions_mapping=self.MAPPING_FUNCTION
-        )(task)
+        )(task, self.options)
+        worker.get(task)
 
     def base_selection(
         self,

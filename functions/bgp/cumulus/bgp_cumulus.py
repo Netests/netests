@@ -39,7 +39,7 @@ def _cumulus_get_bgp_api(task, options={}):
     ):
         print(output_dict['default'])
 
-    for vrf in task.host[VRF_NAME_DATA_KEY].keys():
+    for vrf in task.host[VRF_DATA_KEY].keys():
         if vrf not in VRF_DEFAULT_RT_LST:
             output_dict[vrf] = exec_http_call_cumulus(
                 hostname=task.host.hostname,

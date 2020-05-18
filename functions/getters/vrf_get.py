@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from const.constants import CUMULUS_GET_VRF
+from functions.workers.cumulus_ssh_vrf import VRFCumulusSSH
+from functions.workers.cumulus_api_vrf import VRFCumulusREST
 from functions.getters.base_get import GetterBase
 from functions.vrf.arista.vrf_arista import (
     _arista_get_vrf_api,
@@ -79,8 +82,8 @@ class GetterVRF(GetterBase):
                 self.NAPALM_CONNECTION: _generic_vrf_napalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
-                self.API_CONNECTION: _cumulus_get_vrf_api,
-                self.SSH_CONNECTION: _cumulus_get_vrf_ssh,
+                self.API_CONNECTION: VRFCumulusREST,
+                self.SSH_CONNECTION: VRFCumulusSSH,
                 self.NETCONF_CONNECTION: _cumulus_get_vrf_netconf,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
