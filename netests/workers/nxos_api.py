@@ -3,9 +3,9 @@
 
 import requests
 from abc import ABC
-from functions.workers.device_api import DeviceAPI
-from const.constants import NEXUS_API_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
-from functions.converters.vrf.nxos.api.converter import _nxos_vrf_api_converter
+from netests.workers.device_api import DeviceAPI
+from netests.constants import NEXUS_API_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
+from netests.converters.vrf.nxos.api.converter import _nxos_vrf_api_converter
 
 
 class NxosAPI(DeviceAPI, ABC):

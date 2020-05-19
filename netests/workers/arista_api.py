@@ -3,9 +3,9 @@
 
 import pyeapi
 from abc import ABC
-from functions.workers.device_api import DeviceAPI
-from const.constants import ARISTA_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
-from functions.converters.vrf.arista.api.converter import _arista_vrf_api_converter
+from netests.workers.device_api import DeviceAPI
+from netests.constants import ARISTA_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
+from netests.converters.vrf.arista.api.converter import _arista_vrf_api_converter
 
 
 class AristaAPI(DeviceAPI, ABC):

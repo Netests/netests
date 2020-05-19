@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.workers.device_ssh import DeviceSSH
-from const.constants import JUNOS_GET_VRF_DETAIL, VRF_DATA_KEY
-from functions.converters.vrf.juniper.ssh.converter import _juniper_vrf_ssh_converter
+from netests.workers.device_ssh import DeviceSSH
+from netests.constants import JUNOS_GET_VRF_DETAIL, VRF_DATA_KEY
+from netests.converters.vrf.juniper.ssh.converter import _juniper_vrf_ssh_converter
 
 
 class VRFJuniperSSH(DeviceSSH):

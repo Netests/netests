@@ -1,13 +1,7 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from const.constants import NOT_SET, LEVEL2
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-
-
-H = "[ListVRF - __eq__] -"
+from netests.constants import NOT_SET
 
 
 class VRF:
@@ -137,24 +131,10 @@ class ListVRF:
 
         for vrf in self.vrf_lst:
             if vrf not in others.vrf_lst:
-                if verbose_mode(
-                    user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-                    needed_value=LEVEL2
-                ):
-                    printline()
-                    print(f"{H} The following VRF is not in the list \n {vrf}")
-                    print(f"{H} List: \n {others.vrf_lst}")
                 return False
 
         for vrf in others.vrf_lst:
             if vrf not in self.vrf_lst:
-                if verbose_mode(
-                    user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-                    needed_value=LEVEL2
-                ):
-                    printline()
-                    print(f"{H} The following VRF is not in the list \n {vrf}")
-                    print(f"{H} List: \n {others.vrf_lst}")
                 return False
 
         return True

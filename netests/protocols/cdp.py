@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from const.constants import NOT_SET
-from protocols.discovery_protocols import DiscoveryProtocols
+from netests.constants import NOT_SET
+from netests.protocols.discovery_protocols import DiscoveryProtocols
 
 
 class CDP(DiscoveryProtocols):

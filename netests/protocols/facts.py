@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from const.constants import NOT_SET
+from netests.constants import NOT_SET
 
 
 class Facts:

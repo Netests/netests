@@ -4,8 +4,8 @@
 from abc import ABC
 from ncclient import manager
 from xml.etree import ElementTree
-from functions.workers.device import Device
-from const.constants import VRF_DATA_KEY, VRF_DEFAULT_RT_LST
+from netests.workers.device import Device
+from netests.constants import VRF_DATA_KEY, VRF_DEFAULT_RT_LST
 
 
 class DeviceNC(Device, ABC):

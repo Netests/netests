@@ -1,62 +1,16 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
-Description ...
-
-"""
-
-__author__ = "Dylan Hamel"
-__maintainer__ = "Dylan Hamel"
-__version__ = "0.1"
-__email__ = "dylan.hamel@protonmail.com"
-__status__ = "Prototype"
-__copyright__ = "Copyright 2019"
-
-########################################################################################################################
-#
-# HEADERS
-#
-ERROR_HEADER = "Error import [ipv4.py]"
-
-########################################################################################################################
-#
-# Default value used for exit()
-#
-try:
-    from const.constants import *
-except ImportError as importError:
-    print(f"{ERROR_HEADER} const.constants")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-try:
-    import ipaddress
-except ImportError as importError:
-    print(f"{ERROR_HEADER} ipaddress")
-    print(importError)
-    exit(EXIT_FAILURE)
+import ipaddress
+from netests.constants import NOT_SET
+from netests.protocols.ip import IPAddress
 
 
-try:
-    from protocols.ip import IPAddress
-except ImportError as importError:
-    print(f"{ERROR_HEADER} protocols.ip")
-    print(importError)
-    exit(EXIT_FAILURE)
-
-########################################################################################################################
-#
-# IPv4 NEIGHBORS CLASS
-#
 class IPV4(IPAddress):
 
     ip_address: str
     netmask: str
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def __init__(self, ip_address_with_mask=NOT_SET, netmask=NOT_SET):
 
         if netmask == NOT_SET:
@@ -72,12 +26,11 @@ class IPV4(IPAddress):
             super().__init__(ip_address, netmask)
         else:
             super().__init__(NOT_SET, NOT_SET)
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
+
     def _is_valid_ip_and_mask(self, ip_address, netmask) -> bool:
         """
-        This function will check if an IP address and the netmask given in parameter are correct.
+        This function will check if an IP address and the netmask
+        given in parameter are correct.
 
         :param ip_address: IPv4 address to check
         :param netmask: Netmask in CIDR (/24) or 255.255.255.255 format
@@ -91,9 +44,6 @@ class IPV4(IPAddress):
         else:
             return return_value and self._is_valid_netmask(netmask)
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def _is_cidr_notation(self, netmask) -> bool:
         """
         This function will check if the netmask is in CIDR format.
@@ -104,12 +54,10 @@ class IPV4(IPAddress):
 
         return "." not in str(netmask)
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def _convert_cidr_to_netmask(self, netmask_cidr:str) -> str:
         """
-        This function will convert a netmask CIDR in a standard netmask (255.255.255.255)
+        This function will convert a netmask CIDR in a
+        standard netmask (255.255.255.255)
         :param netmask_cidr: IP address netmask in CIDR format (/24)
         :return str: IP address netmask in 255.255.255.255 format
         """
@@ -117,11 +65,17 @@ class IPV4(IPAddress):
 
         for i in range(32 - int(netmask_cidr), 32):
             bits |= (1 << i)
-        return "%d.%d.%d.%d" % ((bits & 0xff000000) >> 24, (bits & 0xff0000) >> 16, (bits & 0xff00) >> 8, (bits & 0xff))
+        return (
+            "%d.%d.%d.%d" % 
+            (
+                (bits & 0xff000000) >> 24,
+                (bits & 0xff0000) >> 16,
+                (bits & 0xff00) >> 8,
+                (bits & 0xff)
+            )
+        )
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
+
     def _convert_netmask_to_cidr(self, netmask:str) -> str:
         """
         This function will convert a netmask in a CIDR format.
@@ -136,12 +90,11 @@ class IPV4(IPAddress):
             return  index_first_zero
 
         return None
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
+
     def _is_valid_ipv4_address(self, ip_address) -> bool:
         """
-        This function will check is the ip_address given is parameter is a valid IP address.
+        This function will check is the ip_address given is
+        parameter is a valid IP address.
 
         :param ip_address: IP address to check
         :return bool: True if ip_address is a valid IP address
@@ -153,12 +106,10 @@ class IPV4(IPAddress):
         except ipaddress.AddressValueError as e:
             return False
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def _is_valid_cidr_netmask(self, cidr_netmask:str) -> bool:
         """
-        This function will check that the netmask given in parameter is a correct mask for IPv4 IP address.
+        This function will check that the netmask given in
+        parameter is a correct mask for IPv4 IP address.
         Using to verify a netmask in CIDR (/24) format.
 
         :param cidr_netmask: Netmask to check
@@ -169,12 +120,10 @@ class IPV4(IPAddress):
                int(cidr_netmask) >= 0 and \
                int(cidr_netmask) <= 32
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def _is_valid_netmask(self, netmask:str) -> bool:
         """
-        This function will check that the netmask given in parameter is a correct mask for IPv4 IP address.
+        This function will check that the netmask given in
+        parameter is a correct mask for IPv4 IP address.
         Using to verify a netmask in 255.255.255.255 format.
 
         :param netmask: Netmask to check
@@ -193,12 +142,14 @@ class IPV4(IPAddress):
 
         return True
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
-    def _extract_ip_address(self, ip_address_with_netmask, separator="/") -> str:
+    def _extract_ip_address(
+        self,
+        ip_address_with_netmask,
+        separator="/"
+    ) -> str:
         """
-        This function will extract netmask from an 'IP address with netmask' receive in parameter.
+        This function will extract netmask from an 
+        'IP address with netmask' receive in parameter.
         Separator is the char that separate ip_address of netmask. Example :
 
             a) 192.168.1.1/24               - separator='/'
@@ -207,7 +158,8 @@ class IPV4(IPAddress):
 
         Separtor value can not be '.' or a digit...
 
-        :param ip_address_with_netmask: IP address with the netmask (192.168.1.1/24 or 192.168.1.1 255.255.255.0)
+        :param ip_address_with_netmask: IP address with 
+                the netmask (192.168.1.1/24 or 192.168.1.1 255.255.255.0)
         :param separator: Char that separate ip_address of netmask
         :return: ip_address value
         """
@@ -218,13 +170,10 @@ class IPV4(IPAddress):
         else:
             raise Exception
 
-
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def _extract_netmask(self, ip_address_with_netmask, separator="/") -> str:
         """
-        This function will extract netmask from an 'IP address with netmask' receive in parameter.
+        This function will extract netmask from an 
+        'IP address with netmask' receive in parameter.
         Separator is the char that separate ip_address of netmask. Example :
 
             a) 192.168.1.1/24               - separator='/'
@@ -233,7 +182,8 @@ class IPV4(IPAddress):
 
         Separtor value can not be '.' or a digit...
 
-        :param ip_address_with_netmask: IP address with the netmask (192.168.1.1/24)
+        :param ip_address_with_netmask: IP address with 
+                the netmask (192.168.1.1/24)
         :param separator: Char that separate ip_address of netmask
         :return: Netmask value can be (255.255.255.0 or 24)
         """
@@ -243,12 +193,10 @@ class IPV4(IPAddress):
         else:
             raise Exception
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def _convert_in_bit_format(self, ip_value) -> str:
         """
-        This function will receive a value in parameter an convert it in a bit format.
+        This function will receive a value in parameter 
+        an convert it in a bit format.
 
         :param ip_value: Can be a mask or an IP address
         :return str: ip_value in bit format
@@ -266,49 +214,27 @@ class IPV4(IPAddress):
         return bit_format
 
 
-########################################################################################################################
-#
-# IPv4 LIST CLASS
-#
 class ListIPV4:
 
     ipv4_addresses_lst: list
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def __init__(self, ipv4_addresses_lst: list()):
-
         self.ipv4_addresses_lst = ipv4_addresses_lst
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def __eq__(self, others):
         if not isinstance(others, ListIPV4):
             raise NotImplemented
 
         for ipv4 in self.ipv4_addresses_lst:
             if ipv4 not in others.ipv4_addresses_lst:
-                print(
-                    f"[ListIPV4 - __eq__] - The following IPv4 address is not in the list \n {ipv4}")
-                print(
-                    f"[ListIPV4 - __eq__] - List: \n {others.ipv4_addresses_lst}")
                 return False
 
         for ipv4 in others.ipv4_addresses_lst:
             if ipv4 not in self.ipv4_addresses_lst:
-                print(
-                    f"[ListIPV4 - __eq__] - The following IPv4 address is not in the list \n {ipv4}")
-                print(
-                    f"[ListIPV4 - __eq__] - List: \n {self.ipv4_addresses_lst}")
                 return False
 
         return True
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def __repr__(self):
         result = f"<ListIPV4 \n"
         for ipv4 in self.ipv4_addresses_lst:
@@ -316,25 +242,19 @@ class ListIPV4:
         return result + ">"
 
 
-########################################################################################################################
-#
-# IPv4 Interface CLASS
-#
 class IPV4Interface(IPV4):
 
     interface_name: str
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
-    def __init__(self, interface_name=NOT_SET, ip_address_with_mask=NOT_SET, netmask=NOT_SET):
-
+    def __init__(
+        self,
+        interface_name=NOT_SET,
+        ip_address_with_mask=NOT_SET,
+        netmask=NOT_SET
+    ):
         super().__init__(ip_address_with_mask, netmask)
         self.interface_name = interface_name
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def __eq__(self, other):
         if not isinstance(other, IPV4Interface):
             return NotImplemented
@@ -343,52 +263,31 @@ class IPV4Interface(IPV4):
                 str(self.netmask) == str(other.netmask) and
                 str(self.interface_name) == str(other.interface_name))
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def __repr__(self):
         return f"<{type(self)} ip_address={self.ip_address} " \
                f"netmask={self.netmask} " \
                f"interface_name={self.interface_name}>\n"
 
 
-########################################################################################################################
-#
-# IPv4 LIST CLASS
-#
 class ListIPV4Interface():
 
     hostname: str
     ipv4_addresses_lst: list
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def __init__(self, hostname:NOT_SET, ipv4_addresses_lst: list()):
         self.hostname = hostname
         self.ipv4_addresses_lst = ipv4_addresses_lst
 
-    # ------------------------------------------------------------------------------------------------------------------
-    #
-    #
     def __eq__(self, others):
         if not isinstance(others, ListIPV4Interface):
             raise NotImplemented
 
         for ipv4 in self.ipv4_addresses_lst:
             if ipv4 not in others.ipv4_addresses_lst:
-                print(
-                    f"[ListIPV4Interface - __eq__] - The following IPv4 address is not in the list \n {ipv4}")
-                print(
-                    f"[ListIPV4Interface - __eq__] - List: \n {others.ipv4_addresses_lst}")
                 return False
 
         for ipv4 in others.ipv4_addresses_lst:
             if ipv4 not in self.ipv4_addresses_lst:
-                print(
-                    f"[ListIPV4Interface - __eq__] - The following IPv4 address is not in the list \n {ipv4}")
-                print(
-                    f"[ListIPV4Interface - __eq__] - List: \n {self.ipv4_addresses_lst}")
                 return False
 
         return True

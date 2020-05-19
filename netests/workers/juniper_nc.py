@@ -3,9 +3,9 @@
 
 from abc import ABC
 from jnpr.junos import Device
-from functions.workers.device_nc import DeviceNC
-from const.constants import VRF_DATA_KEY
-from functions.converters.vrf.juniper.netconf.converter import _juniper_vrf_netconf_converter
+from netests.workers.device_nc import DeviceNC
+from netests.constants import VRF_DATA_KEY
+from netests.converters.vrf.juniper.netconf.converter import _juniper_vrf_netconf_converter
 
 
 class JuniperNC(DeviceNC, ABC):

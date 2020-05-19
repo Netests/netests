@@ -3,9 +3,9 @@
 
 import json
 from abc import ABC, abstractmethod
-from functions.workers.device import Device
-from const.constants import VRF_DATA_KEY, VRF_DEFAULT_RT_LST
-from exceptions.netests_exceptions import NetestsHTTPStatusCodeError
+from netests.workers.device import Device
+from netests.constants import VRF_DATA_KEY, VRF_DEFAULT_RT_LST
+from netests.exceptions.netests_exceptions import NetestsHTTPStatusCodeError
 
 
 class DeviceAPI(Device, ABC):

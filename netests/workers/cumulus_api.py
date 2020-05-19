@@ -3,9 +3,9 @@
 
 import requests
 from abc import ABC
-from functions.workers.device_api import DeviceAPI
-from const.constants import CUMULUS_API_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
-from functions.converters.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
+from netests.workers.device_api import DeviceAPI
+from netests.constants import CUMULUS_API_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
+from netests.converters.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
 
 
 class CumulusAPI(DeviceAPI, ABC):

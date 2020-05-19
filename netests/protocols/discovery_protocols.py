@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from const.constants import NOT_SET
 from abc import ABC
+from netests.constants import NOT_SET
 
 
 ERROR_HEADER = "Error import [discovery_protocols.py]"

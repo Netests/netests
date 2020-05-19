@@ -3,9 +3,9 @@
 
 from abc import ABC
 from ncclient import manager
-from functions.workers.device_nc import DeviceNC
-from const.constants import ARISTA_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
-from functions.converters.vrf.ios.netconf.converter import _ios_vrf_netconf_converter
+from netests.workers.device_nc import DeviceNC
+from netests.constants import ARISTA_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
+from netests.converters.vrf.ios.netconf.converter import _ios_vrf_netconf_converter
 
 
 class IosNC(DeviceNC, ABC):

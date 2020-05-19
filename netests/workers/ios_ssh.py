@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.workers.device_ssh import DeviceSSH
-from const.constants import IOS_GET_VRF, VRF_DATA_KEY
-from functions.converters.vrf.ios.ssh.converter import _ios_vrf_ssh_converter
+from netests.workers.device_ssh import DeviceSSH
+from netests.constants import IOS_GET_VRF, VRF_DATA_KEY
+from netests.converters.vrf.ios.ssh.converter import _ios_vrf_ssh_converter
 
 
 class VRFIosSSH(DeviceSSH):

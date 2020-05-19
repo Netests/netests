@@ -3,9 +3,9 @@
 
 from abc import ABC
 from ncclient import manager
-from functions.workers.device_nc import DeviceNC
-from const.constants import VRF_DATA_KEY
-from functions.converters.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
+from netests.workers.device_nc import DeviceNC
+from netests.constants import VRF_DATA_KEY
+from netests.converters.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
 
 
 class NxosNC(DeviceNC, ABC):

@@ -3,9 +3,9 @@
 
 import requests
 from abc import ABC
-from functions.workers.device_api import DeviceAPI
-from const.constants import VRF_DATA_KEY
-from functions.converters.vrf.juniper.api.converter import _juniper_vrf_api_converter
+from netests.workers.device_api import DeviceAPI
+from netests.constants import VRF_DATA_KEY
+from netests.converters.vrf.juniper.api.converter import _juniper_vrf_api_converter
 
 
 class JuniperAPI(DeviceAPI, ABC):

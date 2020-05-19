@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.workers.device_ssh import DeviceSSH
-from const.constants import CUMULUS_GET_VRF, VRF_DATA_KEY
-from functions.converters.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
+from netests.workers.device_ssh import DeviceSSH
+from netests.constants import CUMULUS_GET_VRF, VRF_DATA_KEY
+from netests.converters.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
 
 
 class VRFCumulusSSH(DeviceSSH):
