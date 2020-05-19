@@ -1,4 +1,5 @@
-turth_vars/*
+netests.yml
+truth_vars/*
 reports/*
 netbox/*
 inventory/*
