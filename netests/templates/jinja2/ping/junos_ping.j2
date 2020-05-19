@@ -1,0 +1,17 @@
+{% for ip_to_ping in host["ping_data"].ping_lst %}
+{% if  ip_to_ping['ip_address'] is defined %}
+{% if ip_to_ping['vrf'] is defined and ip_to_ping['vrf'] != "default" %}
+{% if ip_to_ping['works'] == false %}
+ping routing-instance {% if ip_to_ping['vrf'] == "mgmt" %}mgmt_junos{% else %}{{ ip_to_ping['vrf'] }}{% endif %} {{ ip_to_ping['ip_address'] }} count 1 wait 1 !
+{% else %}
+ping routing-instance {% if ip_to_ping['vrf'] == "mgmt" %}mgmt_junos{% else %}{{ ip_to_ping['vrf'] }}{% endif %} {{ ip_to_ping['ip_address'] }} count 1 wait 1 
+{% endif %}
+{% else %}
+{% if ip_to_ping['works'] == false %}
+ping {{ ip_to_ping['ip_address'] }} count 1 wait 1 !
+{% else %}
+ping {{ ip_to_ping['ip_address'] }} count 1 wait 1
+{%  endif %}
+{% endif %}
+{% endif %}
+{% endfor %}

@@ -1,0 +1,6 @@
+ping 100.123.1.0 count 1 wait 1
+ping 100.123.1.88 count 1 wait 1 !
+ping routing-instance edkwedlwewjdnw 100.123.1.0 count 1 wait 1 !
+ping 100.123.1.11110 count 1 wait 1 !
+ping routing-instance TEST 9.9.99.88 count 1 wait 1 !
+ping routing-instance NO_INTERFACE 1.1.1.1 count 1 wait 1 !

@@ -1,0 +1,5 @@
+ping 1.1.1.1 timeout 2 count 1 vrf diwehdowhweiuh !
+ping 33.33.33.33 timeout 2 count 1 !
+ping 1.1.1.20 timeout 2 count 1
+ping 1223.1.1.1 timeout 2 count 1 !
+ping 222.2.2.2 timeout 2 count 1 vrf TEST !

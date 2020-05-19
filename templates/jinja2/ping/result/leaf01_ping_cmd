@@ -1,5 +1,0 @@
-ping -W 1 -c 1 127.0.0.1
-if ping -W 1 -c 1 8.8.8.8 ; then exit 1 ; else ping 0 -c 1 ; fi
-if ping -W 1 -c 1 172.16.194.1 ; then exit 1 ; else ping 0 -c 1 ; fi
-ping -W 1 -c 1 172.16.194.1  -I mgmt 
-if ping -W 1 -c 1 172.16.194.1 -I ewfjweijfoeirjfer  ; then exit 1 ; else ping 0 -c 1 ; fi

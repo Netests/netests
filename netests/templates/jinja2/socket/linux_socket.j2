@@ -1,0 +1,40 @@
+{% for socket in host["socket_data"].socket_lst %}
+{% if  socket['ip'] is defined %}
+{% if  socket['work'] is defined %}
+{% if  socket['work'] == false %}
+{% if socket['protocol'] is defined %}
+{% if socket['protocol'] == 'udp' %}
+if nc {% if socket['protocol'] is defined %} -u {% endif %}{% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }} ; then exit 1 ; else exit 0 ; fi
+{% elif socket['protocol'] == 'both' %}
+if nc {% if socket['protocol'] is defined %} -u {% endif %}{% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }} ; then exit 1 ; else exit 0 ; fi
+if nc {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }} ; then exit 1 ; else exit 0 ; fi
+{% else %}
+if nc {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }} ; then exit 1 ; else exit 0 ; fi
+{% endif %}
+{% endif %}
+{% else %}
+{% if socket['protocol'] is defined %}
+{% if socket['protocol'] == 'udp' %}
+nc {% if socket['protocol'] is defined %} -u {% endif %}{% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }}
+{% elif socket['protocol'] == 'both' %}
+nc {% if socket['protocol'] is defined %} -u {% endif %}{% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }}
+nc {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }}
+{% else %}
+nc {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }}
+{% endif %}
+{% endif %}
+{% endif %}
+{% else %}
+{% if socket['protocol'] is defined %}
+{% if socket['protocol'] == 'udp' %}
+nc {% if socket['protocol'] is defined %} -u {% endif %}{% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }}
+{% elif socket['protocol'] == 'both' %}
+nc {% if socket['protocol'] is defined %} -u {% endif %}{% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }}
+nc {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }}
+{% else %}
+nc {% if socket['timeout'] is defined %} -w {{ socket['timeout'] }} {% endif %}{% if socket['vrf'] is defined %} -I {{ socket['vrf'] }} {% endif %}  {{ socket['ip'] }} {{ socket['port'] }}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}

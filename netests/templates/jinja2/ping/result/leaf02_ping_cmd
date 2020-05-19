@@ -1,0 +1,6 @@
+ping 8.8.8.8 timeout 2 count 1 !
+ping 10.98.98.1 timeout 2 count 1
+ping 3.3.3.3 timeout 2 count 1 vrf management !
+ping 123.45.67.89 timeout 2 count 1 vrf blablabla !
+ping 3.3.3.3 timeout 2 count 1 !
+ping 333.1.1.1 timeout 2 count 1 !

@@ -1,0 +1,3 @@
+#jinja2: lstrip_blocks: True
+nc  -w 1  -I default   192.168.254.1 443
+nc  -w 1  -I default   192.168.254.12 80

@@ -4,39 +4,39 @@
 import json
 import yaml
 import textfsm
-from functions.bgp.bgp_compare import _compare_bgp
-from functions.mappings import get_bgp_state_brief, get_bgp_peer_uptime
-from functions.bgp.arista.api.converter import _arista_bgp_api_converter
-from functions.bgp.arista.ssh.converter import _arista_bgp_ssh_converter
-from functions.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
-from functions.bgp.cumulus.ssh.converter import _cumulus_bgp_ssh_converter
-from functions.bgp.extreme_vsp.ssh.converter import _extreme_vsp_bgp_ssh_converter
-from functions.bgp.ios.api.converter import _ios_bgp_api_converter
-from functions.bgp.ios.netconf.converter import _ios_bgp_netconf_converter
-from functions.bgp.ios.ssh.converter import _ios_bgp_ssh_converter
-from functions.bgp.iosxr.netconf.converter import _iosxr_bgp_netconf_converter
-from functions.bgp.iosxr.ssh.converter import _iosxr_bgp_ssh_converter
-from functions.bgp.juniper.api.converter import _juniper_bgp_api_converter
-from functions.bgp.juniper.netconf.converter import _juniper_bgp_netconf_converter
-from functions.bgp.juniper.ssh.converter import _juniper_bgp_ssh_converter
-from functions.bgp.nxos.api.converter import _nxos_bgp_api_converter
-from functions.bgp.napalm.converter import _napalm_bgp_converter
-from functions.bgp.nxos.api.converter import _nxos_bgp_api_converter
-from functions.bgp.nxos.ssh.converter import _nxos_bgp_ssh_converter
-from const.constants import (
+from netests.converters.bgp.bgp_compare import _compare_bgp
+from netests.converters.mappings import get_bgp_state_brief, get_bgp_peer_uptime
+from netests.converters.bgp.arista.api.converter import _arista_bgp_api_converter
+from netests.converters.bgp.arista.ssh.converter import _arista_bgp_ssh_converter
+from netests.converters.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
+from netests.converters.bgp.cumulus.ssh.converter import _cumulus_bgp_ssh_converter
+from netests.converters.bgp.extreme_vsp.ssh.converter import _extreme_vsp_bgp_ssh_converter
+from netests.converters.bgp.ios.api.converter import _ios_bgp_api_converter
+from netests.converters.bgp.ios.netconf.converter import _ios_bgp_netconf_converter
+from netests.converters.bgp.ios.ssh.converter import _ios_bgp_ssh_converter
+from netests.converters.bgp.iosxr.netconf.converter import _iosxr_bgp_netconf_converter
+from netests.converters.bgp.iosxr.ssh.converter import _iosxr_bgp_ssh_converter
+from netests.converters.bgp.juniper.api.converter import _juniper_bgp_api_converter
+from netests.converters.bgp.juniper.netconf.converter import _juniper_bgp_netconf_converter
+from netests.converters.bgp.juniper.ssh.converter import _juniper_bgp_ssh_converter
+from netests.converters.bgp.nxos.api.converter import _nxos_bgp_api_converter
+from netests.converters.bgp.napalm.converter import _napalm_bgp_converter
+from netests.converters.bgp.nxos.api.converter import _nxos_bgp_api_converter
+from netests.converters.bgp.nxos.ssh.converter import _nxos_bgp_ssh_converter
+from netests.const.constants import (
     NOT_SET,
     FEATURES_SRC_PATH,
     BGP_SESSIONS_HOST_KEY,
     BGP_UPTIME_FORMAT_MS
 )
-from protocols.bgp import (
+from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
     ListBGPSessionsVRF,
     BGP
 )
-from functions.global_tools import (
+from netests.global_tools import (
     open_file,
     open_txt_file,
     open_json_file,

@@ -2,7 +2,7 @@
 
 ###### <dylan.hamel@protonmail.com> - November 2019 - Copyright
 
-![logo.png](./images/logo.png)
+![logo.png](./docs/images/logo.png)
 
 ## Install
 

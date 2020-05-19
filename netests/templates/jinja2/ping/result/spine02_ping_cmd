@@ -1,0 +1,5 @@
+ping 172.16.194.1 count 1 -t 1 vrf MgmtRouter 
+ping 172.16.194.62 count 1 -t 1 vrf MgmtRouter 
+ping 172.16.194.7 count 1 -t 1 vrf MgmtRouter ! 
+ping 8.8.8.8 count 1 -t 1 !
+ping 9.9.9.9 count 1 -t 1 !

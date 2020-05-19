@@ -1,6 +1,0 @@
-Value PORT_NUMBER (\d+\/\d+)
-
-Start
-  ^${PORT_NUMBER} -> Record
-
-Done
