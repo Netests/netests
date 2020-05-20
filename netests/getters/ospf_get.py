@@ -2,14 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from netests.getters.routing_get import GetterRouting
-from netests.constants import BGP_SESSIONS_HOST_KEY
-from netests.workers.arista_api import BGPAristaAPI
-from netests.workers.cumulus_ssh import BGPCumulusSSH
+from netests.constants import OSPF_SESSIONS_HOST_KEY
+from netests.workers.arista_api import OSPFAristaAPI
+from netests.workers.cumulus_ssh import OSPFCumulusSSH
+from netests.workers.cumulus_ssh import OSPFCumulusSSH
 
-HEADER = "[netests - get_bgp]"
+HEADER = "[netests - get_ospf]"
 
 
-class GetterBGP(GetterRouting):
+class GetterOSPF(GetterRouting):
 
     def __init__(
         self,
@@ -40,19 +41,19 @@ class GetterBGP(GetterRouting):
         self.print_result()
 
     def print_result(self):
-        self.print_protocols_result(BGP_SESSIONS_HOST_KEY, "BGP")
+        self.print_protocols_result(OSPF_SESSIONS_HOST_KEY, "OSPF")
 
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {
             self.ARISTA_PLATEFORM_NAME: {
-                self.API_CONNECTION: BGPAristaAPI,
+                self.API_CONNECTION: OSPFAristaAPI,
                 self.SSH_CONNECTION: "pass",
                 self.NETCONF_CONNECTION: "pass",
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: "pass",
-                self.SSH_CONNECTION: BGPCumulusSSH,
+                self.SSH_CONNECTION: OSPFCumulusSSH,
                 self.NETCONF_CONNECTION: "pass",
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }

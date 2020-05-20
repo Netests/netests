@@ -3,12 +3,20 @@
 
 from nornir.core import Nornir
 from netests.getters.bgp_get import GetterBGP
+from netests.getters.cdp_get import GetterCDP
+from netests.getters.facts_get import GetterFacts
+from netests.getters.lldp_get import GetterLLDP
+from netests.getters.ospf_get import GetterOSPF
 from netests.getters.vrf_get import GetterVRF
 from netests.base_init_data import create_truth_vars
 
 HEADER = "[netests - base_run.py]"
 RUN = {
     "bgp": GetterBGP,
+    "cdp": GetterCDP,
+    "facts": GetterFacts,
+    "lldp": GetterLLDP,
+    "ospf": GetterOSPF,
     "vrf": GetterVRF
 }
 

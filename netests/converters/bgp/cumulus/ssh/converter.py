@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import json
+from netests.mappings import get_bgp_state_brief, get_bgp_peer_uptime
+from netests.constants import NOT_SET, BGP_UPTIME_FORMAT_MS
 from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
@@ -8,9 +11,6 @@ from netests.protocols.bgp import (
     ListBGPSessionsVRF,
     BGP
 )
-from netests.verbose_mode import verbose_mode
-from netests.mappings import get_bgp_state_brief, get_bgp_peer_uptime
-from netests.constants import NOT_SET, BGP_UPTIME_FORMAT_MS
 
 
 
@@ -25,6 +25,9 @@ def _cumulus_bgp_ssh_converter(
     )
 
     for k, v in cmd_output.items():
+        if not isinstance(v, dict):
+            v = json.loads(v)
+
         peer = False
         if (
             'ipv4 unicast' in v.keys() and

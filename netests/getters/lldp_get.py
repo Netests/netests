@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from netests.getters.routing_get import GetterRouting
-from netests.constants import BGP_SESSIONS_HOST_KEY
-from netests.workers.arista_api import BGPAristaAPI
-from netests.workers.cumulus_ssh import BGPCumulusSSH
+from netests.getters.base_get import GetterBase
+from netests.workers.arista_api import LLDPAristaAPI
+from netests.constants import LLDP_DATA_HOST_KEY
 
-HEADER = "[netests - get_bgp]"
+HEADER = "[netests - get_lldp]"
 
 
-class GetterBGP(GetterRouting):
+class GetterLLDP(GetterBase):
 
     def __init__(
         self,
@@ -31,7 +30,6 @@ class GetterBGP(GetterRouting):
         self.init_mapping_function()
 
     def run(self):
-        self.get_vrf()
         self.devices.run(
             task=self.generic_get,
             on_failed=True,
@@ -40,19 +38,13 @@ class GetterBGP(GetterRouting):
         self.print_result()
 
     def print_result(self):
-        self.print_protocols_result(BGP_SESSIONS_HOST_KEY, "BGP")
+        self.print_protocols_result(LLDP_DATA_HOST_KEY, "LLDP")
 
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {
             self.ARISTA_PLATEFORM_NAME: {
-                self.API_CONNECTION: BGPAristaAPI,
+                self.API_CONNECTION: LLDPAristaAPI,
                 self.SSH_CONNECTION: "pass",
-                self.NETCONF_CONNECTION: "pass",
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
-            },
-            self.CUMULUS_PLATEFORM_NAME: {
-                self.API_CONNECTION: "pass",
-                self.SSH_CONNECTION: BGPCumulusSSH,
                 self.NETCONF_CONNECTION: "pass",
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }
