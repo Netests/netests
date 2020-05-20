@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from const.constants import NOT_SET, LEVEL1, LEVEL3
-from protocols.vrf import VRF, ListVRF
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.protocols.vrf import VRF, ListVRF
 
 
 def _arista_vrf_ssh_converter(
@@ -19,13 +14,6 @@ def _arista_vrf_ssh_converter(
 
     if not isinstance(cmd_output, dict):
         cmd_output = json.loads(cmd_output)
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
-    ):
-        printline()
-        print(cmd_output)
 
     vrf_list = ListVRF(list())
     for vrf_name, facts in cmd_output.get('vrfs').items():

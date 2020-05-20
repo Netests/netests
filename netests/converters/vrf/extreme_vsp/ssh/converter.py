@@ -1,23 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-import textfsm
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-    TEXTFSM_PATH
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
-from functions.global_tools import printline
-from functions.verbose_mode import (
-    verbose_mode
-)
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+import json
+from netests.constants import NOT_SET
+from netests.tools.cli import parse_textfsm
+from netests.protocols.vrf import VRF, ListVRF
 
 
 def _extreme_vsp_vrf_ssh_converter(
@@ -25,14 +12,15 @@ def _extreme_vsp_vrf_ssh_converter(
     cmd_output,
     options={}
 ) -> ListVRF:
-    template = open(
-        f"{TEXTFSM_PATH}extreme_vsp_show_ip_vrf.textfsm")
-    results_template = textfsm.TextFSM(template)
-    parsed_results = results_template.ParseText(cmd_output)
+
+    cmd_output = parse_textfsm(
+        content=cmd_output,
+        template_file='extreme_vsp_show_ip_vrf.textfsm'
+    )
 
     vrf_list = ListVRF(list())
 
-    for vrf in parsed_results:
+    for vrf in cmd_output:
         vrf_list.vrf_lst.append(
             VRF(
                 vrf_name=vrf[0],

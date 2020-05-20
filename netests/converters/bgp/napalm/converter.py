@@ -1,20 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from const.constants import NOT_SET, LEVEL1
-from functions.verbose_mode import verbose_mode
-from functions.global_tools import printline
-from protocols.bgp import (
+from netests.constants import NOT_SET
+from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
     ListBGPSessionsVRF,
     BGP
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _napalm_bgp_converter(
@@ -58,20 +53,10 @@ def _napalm_bgp_converter(
 
             bgp_sessions_vrf_lst.bgp_sessions_vrf.append(bgp_session_vrf)
 
-    bgp = BGP(
+    return BGP(
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
-
-    if verbose_mode(
-        user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f'>>>>> {hostname}')
-        PP.pprint(bgp.to_json())
-
-    return bgp
 
 
 def _napalm_bgp_status_converter(status: str) -> str:

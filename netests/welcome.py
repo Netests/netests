@@ -4,22 +4,21 @@
 import os
 import click
 import urllib3
-from functions.base_run import run_base
-from functions.base_cli import netests_cli
-from functions.global_tools import (
+from netests.base_run import run_base
+from netests.base_cli import netests_cli
+from netests.tools.std import (
     printline_comment_json as p,
     open_file,
     check_devices_connectivity,
 )
-from functions.nornir_inventory import init_nornir
-from const.constants import EXIT_FAILURE, EXIT_SUCCESS
+from netests.nornir_inventory import init_nornir
+from netests.constants import EXIT_FAILURE, EXIT_SUCCESS
 
 
 HEADER = "[netests - main.py]"
 
 
 @click.command()
-@click.version_option(version="© Dylan Hamel v0.0.1")
 @click.option(
     "-a",
     "--netest-config-file",

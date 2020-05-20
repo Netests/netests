@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from protocols.vrf import VRF, ListVRF
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from functions.netconf_tools import format_xml_output
-from const.constants import NOT_SET, LEVEL1, LEVEL3
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+import json
+from netests.constants import NOT_SET
+from netests.protocols.vrf import VRF, ListVRF
+from netests.tools.nc import format_xml_output
 
 
 def _arista_vrf_netconf_converter(
@@ -18,13 +14,6 @@ def _arista_vrf_netconf_converter(
 ) -> ListVRF:
 
     cmd_output = format_xml_output(cmd_output)
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
-    ):
-        printline()
-        PP.pprint(cmd_output)
 
     vrf_list = ListVRF(list())
 

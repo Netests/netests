@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.workers.device_api import DeviceAPI
-from exceptions.netests_exceptions import NetestsFunctionNotPossible
+from netests.workers.device_api import DeviceAPI
+from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
 
 
 class IosxrAPI(DeviceAPI):

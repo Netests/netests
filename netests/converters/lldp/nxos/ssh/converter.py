@@ -1,17 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from protocols.lldp import LLDP, ListLLDP
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from const.constants import NOT_SET, LEVEL1
-from functions.discovery_protocols.discovery_functions import (
-    _mapping_sys_capabilities
-)
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.tools.cli import parse_textfsm
+from netests.protocols.lldp import LLDP, ListLLDP
+from netests.mappings import mapping_sys_capabilities
 
 
 def _nxos_lldp_ssh_converter(
@@ -43,7 +37,7 @@ def _nxos_lldp_ssh_converter(
                     for s in n.get("system_capability", []):
                         if s.isalpha():
                             neighbor_type_lst.append(
-                                _mapping_sys_capabilities(s)
+                                mapping_sys_capabilities(s)
                             )
 
                     lldp_neighbors_lst.lldp_neighbors_lst.append(
@@ -69,7 +63,7 @@ def _nxos_lldp_ssh_converter(
                                    .get("system_capability", []):
                     if s.isalpha():
                         neighbor_type_lst.append(
-                            _mapping_sys_capabilities(s)
+                            mapping_sys_capabilities(s)
                         )
 
                 lldp_neighbors_lst.lldp_neighbors_lst.append(
@@ -94,13 +88,5 @@ def _nxos_lldp_ssh_converter(
                         options=options
                     )
                 )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(lldp_neighbors_lst.to_json())
 
     return lldp_neighbors_lst

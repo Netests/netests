@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from const.constants import NOT_SET, PING_DATA_HOST_KEY
-from protocols.ping import PING, ListPING
-from functions.global_tools import open_file
-from functions.select_vars import select_host_vars
-from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from netests.constants import NOT_SET, PING_DATA_HOST_KEY
+from netests.protocols.ping import PING, ListPING
+from netests.tools.std import open_file
+from netests.select_vars import select_host_vars
+from netests.exceptions.netests_exceptions import (
+    NetestsOverideTruthVarsKeyUnsupported
+)
+
 
 HEADER = "[netests - retrieve_ping]"
 

@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from const.constants import NOT_SET
-from functions.netconf_tools import format_xml_output
-from protocols.vrf import VRF, ListVRF
-from functions.converters.vrf.juniper.vrf_juniper_filters import (
+from netests.constants import NOT_SET
+from netests.tools.nc import format_xml_output
+from netests.protocols.vrf import VRF, ListVRF
+from netests.converters.vrf.juniper.vrf_juniper_filters import (
     _juniper_vrf_filter,
     _juniper_vrf_default_mapping
 )
-
 
 def _juniper_vrf_netconf_converter(
     hostname: str(),

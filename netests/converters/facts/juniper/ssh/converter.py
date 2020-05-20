@@ -1,24 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from protocols.facts import Facts
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from functions.discovery_protocols.discovery_functions import (
-    _mapping_interface_name
-)
-from const.constants import (
+from netests.protocols.facts import Facts
+from netests.mappings import mapping_interface_name
+from netests.constants import (
     NOT_SET,
-    LEVEL1,
     FACTS_SYS_DICT_KEY,
     FACTS_INT_DICT_KEY,
     FACTS_MEMORY_DICT_KEY,
     FACTS_CONFIG_DICT_KEY,
     FACTS_SERIAL_DICT_KEY
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_facts_ssh_converter(
@@ -76,7 +68,7 @@ def _juniper_facts_ssh_converter(
                            .get("serial-number")[0] \
                            .get("data", NOT_SET)
 
-    facts = Facts(
+    return Facts(
         hostname=hostname,
         domain=domain,
         version=version,
@@ -89,20 +81,6 @@ def _juniper_facts_ssh_converter(
         interfaces_lst=interface_lst,
         options=options
     )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        PP.pprint(facts.to_json())
-
-    return facts
-
-# ----------------------------------------------------------------------------------------------------------------------
-#
-# Juniper Network interfacer filter
-#
 
 
 def _juniper_retrieve_int_name(interface_data: dict) -> list:
@@ -121,7 +99,7 @@ def _juniper_retrieve_int_name(interface_data: dict) -> list:
             interface_name.get("name")[0].get("data", NOT_SET) != NOT_SET
         ):
             int_name_lst.append(
-                _mapping_interface_name(
+                mapping_interface_name(
                     interface_name.get("name")[0].get("data"))
             )
 

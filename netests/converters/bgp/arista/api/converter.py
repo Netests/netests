@@ -1,20 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from protocols.bgp import (
+from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
     ListBGPSessionsVRF,
     BGP
 )
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
-from const.constants import NOT_SET, LEVEL1, LEVEL3
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.mappings import get_bgp_state_brief
+from netests.constants import NOT_SET
 
 
 def _arista_bgp_api_converter(
@@ -23,19 +18,9 @@ def _arista_bgp_api_converter(
     options={}
 ) -> BGP:
 
-    bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
-    ):
-        printline()
-        PP.pprint(cmd_output)
-
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(
         list()
     )
-
     for vrf in cmd_output.get('result', []):
         if 'vrfs' in vrf.keys() and len(vrf.get('vrfs').keys()) > 0:
             bgp_sessions_lst = ListBGPSessions(
@@ -67,17 +52,7 @@ def _arista_bgp_api_converter(
                     )
                 )
 
-    bgp = BGP(
+    return BGP(
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(bgp.to_json())
-
-    return bgp

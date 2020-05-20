@@ -4,8 +4,7 @@
 import yaml
 from pathlib import Path
 from nornir.core import Nornir
-from functions.global_tools import printline
-from const.constants import (
+from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,
     FACTS_DATA_HOST_KEY,

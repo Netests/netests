@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from protocols.cdp import CDP, ListCDP
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from const.constants import NOT_SET, LEVEL1
-from functions.discovery_protocols.discovery_functions import (
-    _mapping_sys_capabilities
-)
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.protocols.cdp import CDP, ListCDP
+from netests.constants import NOT_SET, LEVEL1
+from netests.mappings import mapping_sys_capabilities
 
 
 def _nxos_cdp_api_converter(
@@ -73,11 +66,11 @@ def _nxos_cdp_api_converter(
                     for s in n.get("capability", []):
                         if s.isalpha():
                             neighbor_type_lst.append(
-                                _mapping_sys_capabilities(s)
+                                mapping_sys_capabilities(s)
                             )
                 else:
                     neighbor_type_lst.append(
-                        _mapping_sys_capabilities(
+                        mapping_sys_capabilities(
                             n.get("capability")
                         )
                     )
@@ -123,11 +116,11 @@ def _nxos_cdp_api_converter(
                                    .get("capability"):
                     if s.isalpha():
                         neighbor_type_lst.append(
-                            _mapping_sys_capabilities(s)
+                            mapping_sys_capabilities(s)
                         )
             else:
                 neighbor_type_lst.append(
-                    _mapping_sys_capabilities(
+                    mapping_sys_capabilities(
                         cmd_output.get('ins_api')
                                   .get('outputs')
                                   .get('output')
@@ -180,13 +173,5 @@ def _nxos_cdp_api_converter(
                     options=options
                 )
             )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(cdp_neighbors_lst.to_json())
 
     return cdp_neighbors_lst

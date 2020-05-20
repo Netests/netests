@@ -1,21 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from functions.global_tools import printline
-from functions.cli_tools import parse_textfsm
-from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
-from const.constants import NOT_SET, LEVEL1, LEVEL3
-from protocols.bgp import (
+from netests.tools.cli import parse_textfsm
+from netests.mappings import get_bgp_state_brief
+from netests.constants import NOT_SET
+from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
     ListBGPSessionsVRF,
     BGP
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _iosxr_bgp_ssh_converter(
@@ -37,12 +32,6 @@ def _iosxr_bgp_ssh_converter(
             content=v.get('rid'),
             template_file='cisco_xr_show_bgp.textfsm'
         )
-        if verbose_mode(
-            user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
-            needed_value=LEVEL3
-        ):
-            printline()
-            print(v)
 
         bgp_sessions_lst = ListBGPSessions(
             list()
@@ -80,17 +69,8 @@ def _iosxr_bgp_ssh_converter(
                 )
             )
 
-    bgp = BGP(
+    return BGP(
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
-
-    if verbose_mode(
-        user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f'>>>>> {hostname}')
-        PP.pprint(bgp.to_json())
-
-    return bgp
+    

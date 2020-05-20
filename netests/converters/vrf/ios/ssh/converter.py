@@ -2,22 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import re
-import os
-import textfsm
-from const.constants import (
-    NOT_SET as NSET,
-    LEVEL1,
-    LEVEL4,
-    TEXTFSM_PATH
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+import json
+from netests.constants import NOT_SET as NSET
+from netests.tools.cli import parse_textfsm
+from netests.protocols.vrf import VRF, ListVRF
 
 
 def _ios_vrf_ssh_converter(
@@ -25,27 +13,17 @@ def _ios_vrf_ssh_converter(
     cmd_output,
     options={}
 ) -> ListVRF:
+
     cmd_output = re.sub(
         pattern=r"communities[\n\r]\s+RT",
         repl="communities:RT",
         string=cmd_output
     )
 
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NSET),
-        needed_value=LEVEL4
-    ):
-        printline()
-        print(cmd_output)
-
-    template = open(
-        f"{TEXTFSM_PATH}cisco_ios_show_ip_vrf_detail.textfsm")
-    results_template = textfsm.TextFSM(template)
-    # Example : [
-    #   ['mgmt', '1', '<not set>'],
-    #   ['tenant-1', '2', '10.255.255.103:103']
-    # ]
-    parsed_results = results_template.ParseText(cmd_output)
+    cmd_output = parse_textfsm(
+        content=cmd_output,
+        template_file='cisco_ios_show_ip_vrf_detail.textfsm'
+    )
 
     vrf_list = ListVRF(list())
     # Add the default VRF maually
@@ -64,7 +42,7 @@ def _ios_vrf_ssh_converter(
         )
     )
 
-    for nei in parsed_results:
+    for nei in cmd_output:
         vrf_list.vrf_lst.append(
             VRF(
                 vrf_name=nei[0]

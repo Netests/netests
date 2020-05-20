@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from protocols.lldp import LLDP, ListLLDP
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from const.constants import NOT_SET, LEVEL1
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.protocols.lldp import LLDP, ListLLDP
 
 
 def _arista_lldp_ssh_converter(
@@ -52,13 +47,5 @@ def _arista_lldp_ssh_converter(
                         options=options
                     )
                 )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(lldp_neighbors_lst.to_json())
 
     return lldp_neighbors_lst

@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from protocols.cdp import ListCDP
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from functions.netconf_tools import format_xml_output
-from const.constants import NOT_SET, LEVEL1
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.tools.nc import format_xml_output
+from netests.protocols.cdp import ListCDP
 
 
 def _ios_cdp_netconf_converter(
@@ -27,14 +22,6 @@ def _ios_cdp_netconf_converter(
         'data' in cmd_output.keys() and
         'cdp-neighbor-details' in cmd_output.get('data').keys()
     ):
-        print("jhdh")
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(cdp_neighbors_lst.to_json())
+        pass
 
     return cdp_neighbors_lst

@@ -1,21 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from functions.global_tools import printline
-from functions.mappings import get_bgp_state_brief
-from const.constants import NOT_SET, LEVEL1, LEVEL3
-from functions.verbose_mode import verbose_mode
-from protocols.bgp import (
+from netests.mappings import get_bgp_state_brief
+from netests.constants import NOT_SET, LEVEL1, LEVEL3
+from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
     ListBGPSessionsVRF,
     BGP
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _nxos_bgp_ssh_converter(
@@ -31,12 +26,6 @@ def _nxos_bgp_ssh_converter(
     for k, v in cmd_output.items():
         if not isinstance(v, dict):
             v = json.loads(v)
-        if verbose_mode(
-            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-            needed_value=LEVEL3
-        ):
-            printline()
-            PP.pprint(v)
 
         bgp_sessions_lst = ListBGPSessions(
             list()
@@ -145,17 +134,7 @@ def _nxos_bgp_ssh_converter(
                 )
             )
 
-    bgp = BGP(
+    return BGP(
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(bgp.to_json())
-
-    return bgp

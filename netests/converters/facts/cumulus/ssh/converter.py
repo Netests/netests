@@ -1,18 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from protocols.facts import Facts
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-    FACTS_SYS_DICT_KEY,
-    FACTS_INT_DICT_KEY
-)
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.protocols.facts import Facts
+from netests.constants import NOT_SET, FACTS_SYS_DICT_KEY, FACTS_INT_DICT_KEY
 
 
 def _cumulus_facts_ssh_converter(
@@ -70,7 +60,7 @@ def _cumulus_facts_ssh_converter(
             if "swp" in interface_name or "eth" in interface_name:
                 interfaces_lst.append(interface_name)
 
-    facts = Facts(
+    return Facts(
         hostname=hostname,
         domain=NOT_SET,
         version=version,
@@ -83,12 +73,3 @@ def _cumulus_facts_ssh_converter(
         interfaces_lst=interfaces_lst,
         options=options
     )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        PP.pprint(facts.to_json())
-
-    return facts

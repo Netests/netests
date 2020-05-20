@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from const.constants import NOT_SET, LEVEL1
-from protocols.ospf import (
+from netests.constants import NOT_SET
+from netests.tools.nc import format_xml_output
+from netests.protocols.ospf import (
     OSPFSession,
     ListOSPFSessions,
     OSPFSessionsArea,
@@ -15,8 +13,6 @@ from protocols.ospf import (
     ListOSPFSessionsVRF,
     OSPF
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _nxos_ospf_ssh_converter(
@@ -180,17 +176,7 @@ def _nxos_ospf_ssh_converter(
                 )
             )
 
-    ospf = OSPF(
+    return OSPF(
         hostname=hostname,
         ospf_sessions_vrf_lst=ospf_vrf_lst
     )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(ospf.to_json())
-
-    return ospf

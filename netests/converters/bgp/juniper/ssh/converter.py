@@ -1,21 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
-from const.constants import NOT_SET, LEVEL1, LEVEL3
-from protocols.bgp import (
+from netests.mappings import get_bgp_state_brief
+from netests.constants import NOT_SET, LEVEL1, LEVEL3
+from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
     ListBGPSessionsVRF,
     BGP
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_bgp_ssh_converter(
@@ -33,12 +28,6 @@ def _juniper_bgp_ssh_converter(
             v['bgp'] = json.loads(v.get('bgp'))
         if not isinstance(v.get('rid'), dict):
             v['rid'] = json.loads(v.get('rid'))
-        if verbose_mode(
-            user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
-            needed_value=LEVEL3
-        ):
-            printline()
-            PP.pprint(v)
 
         bgp_sessions_lst = ListBGPSessions(list())
         local_as = ''
@@ -101,20 +90,10 @@ def _juniper_bgp_ssh_converter(
 
             bgp_sessions_vrf_lst.bgp_sessions_vrf.append(bgp_session_vrf)
 
-    bgp = BGP(
+    return BGP(
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
-
-    if verbose_mode(
-        user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f'>>>>> {hostname}')
-        PP.pprint(bgp.to_json())
-
-    return bgp
 
 
 def _juniper_bgp_addr_filter(ip_addr: str) -> str:

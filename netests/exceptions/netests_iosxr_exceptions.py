@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from exceptions.netests_exceptions import (
-    NetestsException
-)
+from netests.exceptions.netests_exceptions import NetestsException
 
 
 class NetestsIOSXRNetconfOutputError(NetestsException):

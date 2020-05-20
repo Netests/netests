@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.getters.routing_get import GetterRouting
-from const.constants import BGP_SESSIONS_HOST_KEY
+from netests.getters.routing_get import GetterRouting
+from netests.constants import BGP_SESSIONS_HOST_KEY
 
 
 HEADER = "[netests - get_bgp]"

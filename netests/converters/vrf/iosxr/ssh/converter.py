@@ -2,25 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import re
-import os
-import textfsm
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-    LEVEL3,
-    LEVEL4,
-    TEXTFSM_PATH
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
-from functions.global_tools import printline
-from functions.verbose_mode import (
-    verbose_mode
-)
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.tools.cli import parse_textfsm
+from netests.protocols.vrf import VRF, ListVRF
 
 
 def _iosxr_vrf_ssh_converter(
@@ -35,26 +19,12 @@ def _iosxr_vrf_ssh_converter(
         string=cmd_output
     )
 
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL4
-    ):
-        printline()
-        print(cmd_output)
-
-    template = open(
-        f"{TEXTFSM_PATH}cisco_xr_show_vrf_all_detail.textfsm")
-    results_template = textfsm.TextFSM(template)
-    parsed_results = results_template.ParseText(cmd_output)
+    cmd_output = parse_textfsm(
+        content=cmd_output,
+        template_file='cisco_xr_show_vrf_all_detail.textfsm'
+    )
 
     list_vrf = ListVRF(list())
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
-    ):
-        printline()
-        print(parsed_results)
 
     list_vrf.vrf_lst.append(
         VRF(
@@ -69,7 +39,7 @@ def _iosxr_vrf_ssh_converter(
         )
     )
     
-    for nei in parsed_results:
+    for nei in cmd_output:
         list_vrf.vrf_lst.append(
             VRF(
                 vrf_name=nei[0]

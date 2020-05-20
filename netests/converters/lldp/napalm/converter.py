@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from protocols.lldp import LLDP, ListLLDP
-from const.constants import NOT_SET as NSET, LEVEL1
-from functions.verbose_mode import verbose_mode
-from functions.global_tools import printline
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET as NSET
+from netests.protocols.lldp import LLDP, ListLLDP
 
 
 def _napalm_lldp_converter(
@@ -39,12 +34,5 @@ def _napalm_lldp_converter(
                         options=options
                     )
                 )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NSET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        PP.pprint(lldp_neighbors_lst.to_json())
 
     return lldp_neighbors_lst

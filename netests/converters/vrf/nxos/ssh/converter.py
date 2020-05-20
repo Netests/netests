@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from const.constants import NOT_SET
-from protocols.vrf import VRF, ListVRF
+from netests.constants import NOT_SET
+from netests.protocols.vrf import VRF, ListVRF
 
 
 def _nxos_vrf_ssh_converter(

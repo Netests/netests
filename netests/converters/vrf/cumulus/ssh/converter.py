@@ -1,24 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-import textfsm
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-    LEVEL3,
-    TEXTFSM_PATH
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
-from functions.global_tools import printline
-from functions.verbose_mode import (
-    verbose_mode
-)
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+import json
+from netests.constants import NOT_SET
+from netests.tools.cli import parse_textfsm
+from netests.protocols.vrf import VRF, ListVRF
 
 
 def _cumulus_vrf_ssh_converter(
@@ -26,11 +12,11 @@ def _cumulus_vrf_ssh_converter(
     cmd_output,
     options={}
 ) -> ListVRF:
-    template = open(
-        f"{TEXTFSM_PATH}cumulus_net_show_vrf.textfsm"
+
+    cmd_output = parse_textfsm(
+        content=cmd_output,
+        template_file='cumulus_net_show_vrf.textfsm'
     )
-    results_template = textfsm.TextFSM(template)
-    parsed_results = results_template.ParseText(cmd_output)
 
     vrf_list = ListVRF(list())
 
@@ -49,14 +35,7 @@ def _cumulus_vrf_ssh_converter(
         )
     )
 
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL3
-    ):
-        printline()
-        print(parsed_results)
-
-    for line in parsed_results:
+    for line in cmd_output:
         vrf_list.vrf_lst.append(
             VRF(
                 vrf_name=line[0],

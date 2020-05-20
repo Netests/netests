@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from functions.global_tools import printline
-from functions.netconf_tools import format_xml_output
-from const.constants import NOT_SET, LEVEL1, LEVEL4, LEVEL5
-from protocols.vrf import VRF, ListVRF
-from functions.verbose_mode import verbose_mode
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.protocols.vrf import VRF, ListVRF
+from netests.tools.nc import format_xml_output
 
 
 def _nxos_vrf_restconf_converter(
@@ -16,28 +11,12 @@ def _nxos_vrf_restconf_converter(
     cmd_output,
     options={}
 ) -> ListVRF:
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL5
-    ):
-        printline()
-        print(type(cmd_output))
-        print(cmd_output)
 
     cmd_output = format_xml_output(cmd_output)
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL4
-    ):
-        printline()
-        print(type(cmd_output))
-        PP.pprint(cmd_output)
 
     vrf_list = ListVRF(vrf_lst=list())
 
     for v in cmd_output.get('inst-items').get('Inst-list'):
-
         rd = NOT_SET
         rt_exp = NOT_SET
         rt_imp = NOT_SET

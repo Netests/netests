@@ -2,20 +2,16 @@
 # -*- coding: utf-8 -*-
 
 import os
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from functions.mappings import get_bgp_state_brief
-from functions.netconf_tools import format_xml_output
-from const.constants import NOT_SET, LEVEL1, LEVEL3
-from protocols.bgp import (
+from netests.mappings import get_bgp_state_brief
+from netests.tools.nc import format_xml_output
+from netests.constants import NOT_SET, LEVEL1, LEVEL3
+from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
     ListBGPSessionsVRF,
     BGP
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_bgp_api_converter(
@@ -33,12 +29,6 @@ def _juniper_bgp_api_converter(
             v['bgp'] = format_xml_output(v.get('bgp'))
         if not isinstance(v.get('rid'), dict):
             v['rid'] = format_xml_output(v.get('rid'))
-        if verbose_mode(
-            user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
-            needed_value=LEVEL3
-        ):
-            printline()
-            PP.pprint(v)
 
         bgp_sessions_lst = ListBGPSessions(
             list()
@@ -91,17 +81,7 @@ def _juniper_bgp_api_converter(
                 )
             )
 
-    bgp = BGP(
+    return BGP(
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
-
-    if verbose_mode(
-        user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f'>>>>> {hostname}')
-        PP.pprint(bgp.to_json())
-
-    return bgp

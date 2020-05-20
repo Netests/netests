@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
 from nornir.plugins.tasks.text import template_file
-from const.constants import (
+from netests.constants import (
     NOT_SET,
-    LEVEL1,
     TEMPLATES_PATH,
     JINJA2_PATH,
     JINJA2_PING_PATH,

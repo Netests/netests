@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import textfsm
-from const.constants import TEXTFSM_PATH
+from netests.constants import TEXTFSM_PATH
 
 
 def parse_textfsm(content, template_file) -> list:

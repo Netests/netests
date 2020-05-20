@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from protocols.cdp import CDP, ListCDP
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from const.constants import NOT_SET, LEVEL1
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.protocols.cdp import CDP, ListCDP
 
 
 def _cumulus_cdp_api_converter(
@@ -61,13 +56,5 @@ def _cumulus_cdp_api_converter(
                         options=options
                     )
                 )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(cdp_neighbors_lst.to_json())
 
     return cdp_neighbors_lst

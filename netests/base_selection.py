@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from const.constants import PLATFORM_SUPPORTED, CONNEXION_MODE
+from netests.constants import PLATFORM_SUPPORTED, CONNEXION_MODE
 
-from exceptions.netests_exceptions import (
+from netests.exceptions.netests_exceptions import (
     NetestsDeviceNotCompatibleWithNapalm
 )
 

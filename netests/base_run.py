@@ -1,29 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.getters.bgp_get import GetterBGP
-from functions.getters.vrf_get import GetterVRF
 from nornir.core import Nornir
-from functions.global_tools import printline
-from functions.base_init_data import create_truth_vars
-from const.constants import (
-    BGP_SRC_FILENAME,
-    BOND_SRC_FILENAME,
-    CDP_SRC_FILENAME,
-    LLDP_SRC_FILENAME,
-    FACTS_SRC_FILENAME,
-    IPV4_SRC_FILENAME,
-    IPV6_SRC_FILENAME,
-    L2VNI_SRC_FILENAME,
-    MLAG_SRC_FILENAME,
-    MTU_SRC_FILENAME,
-    OSPF_SRC_FILENAME,
-    PING_SRC_FILENAME,
-    SOCKET_SRC_FILENAME,
-    STATIC_SRC_FILENAME,
-    VLAN_SRC_FILENAME,
-    VRF_SRC_FILENAME
-)
+from netests.getters.bgp_get import GetterBGP
+from netests.getters.vrf_get import GetterVRF
+from netests.base_init_data import create_truth_vars
 
 HEADER = "[netests - base_run.py]"
 RUN = {

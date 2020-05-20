@@ -1,29 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.workers.arista_api import VRFAristaAPI
-from functions.workers.arista_nc import VRFAristaNC
-from functions.workers.arista_ssh import VRFAristaSSH
-from functions.workers.cumulus_api import VRFCumulusAPI
-from functions.workers.cumulus_nc import CumulusNC
-from functions.workers.cumulus_ssh import VRFCumulusSSH
-from functions.workers.extreme_vsp_api import VRFExtremeVSPAPI
-from functions.workers.extreme_vsp_nc import ExtremeVSPNC
-from functions.workers.extreme_vsp_ssh import VRFExtremeVSPSSH
-from functions.workers.ios_api import VRFIosAPI
-from functions.workers.ios_nc import VRFIosNC
-from functions.workers.ios_ssh import VRFIosSSH
-from functions.workers.iosxr_api import IosxrAPI
-from functions.workers.iosxr_nc import VRFIosxrNC
-from functions.workers.iosxr_ssh import VRFIosxrSSH
-from functions.workers.juniper_api import VRFJuniperAPI
-from functions.workers.juniper_nc import VRFJuniperNC
-from functions.workers.juniper_ssh import VRFJuniperSSH
-from functions.workers.nxos_api import VRFNxosAPI
-from functions.workers.nxos_nc import VRFNxosNC
-from functions.workers.nxos_ssh import VRFNxosSSH
-from functions.getters.base_get import GetterBase
-from const.constants import VRF_DATA_KEY, VRF_NAME_DATA_KEY
+from netests.workers.arista_api import VRFAristaAPI
+from netests.workers.arista_nc import VRFAristaNC
+from netests.workers.arista_ssh import VRFAristaSSH
+from netests.workers.cumulus_api import VRFCumulusAPI
+from netests.workers.cumulus_nc import CumulusNC
+from netests.workers.cumulus_ssh import VRFCumulusSSH
+from netests.workers.extreme_vsp_api import VRFExtremeVSPAPI
+from netests.workers.extreme_vsp_nc import ExtremeVSPNC
+from netests.workers.extreme_vsp_ssh import VRFExtremeVSPSSH
+from netests.workers.ios_api import VRFIosAPI
+from netests.workers.ios_nc import VRFIosNC
+from netests.workers.ios_ssh import VRFIosSSH
+from netests.workers.iosxr_api import IosxrAPI
+from netests.workers.iosxr_nc import VRFIosxrNC
+from netests.workers.iosxr_ssh import VRFIosxrSSH
+from netests.workers.juniper_api import VRFJuniperAPI
+from netests.workers.juniper_nc import VRFJuniperNC
+from netests.workers.juniper_ssh import VRFJuniperSSH
+from netests.workers.nxos_api import VRFNxosAPI
+from netests.workers.nxos_nc import VRFNxosNC
+from netests.workers.nxos_ssh import VRFNxosSSH
+from netests.getters.base_get import GetterBase
+from netests.constants import VRF_DATA_KEY, VRF_NAME_DATA_KEY
 
 
 HEADER = "[netests - get_vrf]"

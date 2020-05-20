@@ -1,43 +1,43 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.ping.arista.validator import (
+from netests.converters.ping.arista.validator import (
     arista_api_ping_validator,
     arista_netconf_ping_validator,
     arista_ssh_ping_validator,
 )
-from functions.ping.extreme_vsp.validator import (
+from netests.converters.ping.extreme_vsp.validator import (
     extreme_vsp_api_ping_validator,
     extreme_vsp_netconf_ping_validator,
     extreme_vsp_ssh_ping_validator
 )
-from functions.ping.cumulus.validator import (
+from netests.converters.ping.cumulus.validator import (
     cumulus_api_ping_validator,
     cumulus_netconf_ping_validator,
     cumulus_ssh_ping_validator
 )
-from functions.ping.ios.validator import (
+from netests.converters.ping.ios.validator import (
     ios_api_ping_validator,
     ios_netconf_ping_validator,
     ios_ssh_ping_validator
 )
-from functions.ping.iosxr.validator import (
+from netests.converters.ping.iosxr.validator import (
     iosxr_api_ping_validator,
     iosxr_netconf_ping_validator,
     iosxr_ssh_ping_validator
 )
-from functions.ping.juniper.validator import (
+from netests.converters.ping.juniper.validator import (
     juniper_api_ping_validator,
     juniper_netconf_ping_validator,
     juniper_ssh_ping_validator
 )
-from functions.ping.nxos.validator import (
+from netests.converters.ping.nxos.validator import (
     nxos_api_ping_validator,
     nxos_netconf_ping_validator,
     nxos_ssh_ping_validator
 )
-from exceptions.netests_exceptions import NetestsErrorWithPingExecution
-from const.constants import (
+from netests.exceptions.netests_exceptions import NetestsErrorWithPingExecution
+from netests.constants import (
     ARISTA_PLATEFORM_NAME,
     CUMULUS_PLATEFORM_NAME,
     EXTREME_PLATEFORM_NAME,

@@ -1,22 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 from nornir.core import Nornir
-from functions.verbose_mode import verbose_mode
 from nornir.plugins.functions.text import print_result
 from nornir.plugins.tasks.commands import remote_command
 from nornir.plugins.tasks.networking import netmiko_send_command
-from functions.ping.arista.api.ping import _arista_ping_api_exec
-from functions.ping.iosxr.netconf.ping import _iosxr_ping_netconf_exec
-from functions.ping.juniper.netconf.ping import _juniper_ping_netconf_exec
-from functions.ping.juniper.api.ping import _juniper_ping_api_exec
-from functions.ping.nxos.api.ping import _nxos_ping_api_exec
-from functions.ping.ping_validator import _raise_exception_on_ping_cmd
-from exceptions.netests_exceptions import NetestsFunctionNotImplemented
-from const.constants import (
+from netests.converters.ping.arista.api.ping import _arista_ping_api_exec
+from netests.converters.ping.iosxr.netconf.ping import _iosxr_ping_netconf_exec
+from netests.converters.ping.juniper.netconf.ping import _juniper_ping_netconf_exec
+from netests.converters.ping.juniper.api.ping import _juniper_ping_api_exec
+from netests.converters.ping.nxos.api.ping import _nxos_ping_api_exec
+from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
+from netests.exceptions.netests_exceptions import NetestsFunctionNotImplemented
+from netests.constants import (
     NOT_SET,
-    LEVEL4,
     JINJA2_PING_RESULT,
     ARISTA_PLATEFORM_NAME,
     CUMULUS_PLATEFORM_NAME,
@@ -46,11 +43,6 @@ def execute_ping(nr: Nornir, options={}, from_cli=False) -> bool:
         from_cli=from_cli,
         num_workers=10
     )
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL4
-    ):
-        print_result(data)
 
     return (not data.failed)
 
@@ -144,11 +136,6 @@ def _execute_generic_ping_cmd(task, *, use_netmiko=False, enable=False):
                 command_string=f"{ping_line}",
                 enable=True
             )
-            if verbose_mode(
-                user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-                needed_value=LEVEL4
-            ):
-                print_result(data)
 
         else:
             data = task.run(
@@ -156,11 +143,6 @@ def _execute_generic_ping_cmd(task, *, use_netmiko=False, enable=False):
                 task=remote_command,
                 command=f"{ping_line}",
             )
-            if verbose_mode(
-                user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-                needed_value=LEVEL4
-            ):
-                print_result(data)
 
         if task.host.platform != CUMULUS_PLATEFORM_NAME:
             _raise_exception_on_ping_cmd(

@@ -1,18 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from functions.verbose_mode import verbose_mode
-from protocols.vrf import VRF, ListVRF
-from const.constants import NOT_SET, LEVEL1, LEVEL4, LEVEL5
-from functions.netconf_tools import format_xml_output
-from functions.global_tools import printline
-from functions.converters.vrf.juniper.vrf_juniper_filters import (
+from netests.constants import NOT_SET
+from netests.tools.nc import format_xml_output
+from netests.protocols.vrf import VRF, ListVRF
+from netests.converters.vrf.juniper.vrf_juniper_filters import (
     _juniper_vrf_filter,
     _juniper_vrf_default_mapping
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _juniper_vrf_api_converter(
@@ -20,28 +15,13 @@ def _juniper_vrf_api_converter(
     cmd_output: list,
     options={}
 ) -> ListVRF:
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL5
-    ):
-        printline()
-        print(type(cmd_output))
-        print(cmd_output)
 
     cmd_output = format_xml_output(cmd_output)
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL4
-    ):
-        printline()
-        print(type(cmd_output))
-        PP.pprint(cmd_output)
 
     vrf_list = ListVRF(vrf_lst=list())
 
     for vrf in cmd_output.get('instance-information') \
-            .get('instance-core'):
+                         .get('instance-core'):
         if _juniper_vrf_filter(vrf.get('instance-name')):
             rd = NOT_SET,
             rt_imp = NOT_SET

@@ -1,22 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-    LEVEL4,
-    LEVEL5
-)
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from functions.netconf_tools import format_xml_output
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.tools.nc import format_xml_output
+from netests.protocols.vrf import VRF, ListVRF
 
 
 def _iosxr_vrf_netconf_converter(
@@ -24,26 +11,11 @@ def _iosxr_vrf_netconf_converter(
     cmd_output,
     options={}
 ) -> ListVRF:
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL5
-    ):
-        printline()
-        print(type(cmd_output))
-        PP.pprint(cmd_output)
 
     if cmd_output.get('VRF') is not None:
         cmd_output['VRF'] = format_xml_output(cmd_output.get('VRF'))
     if cmd_output.get('BGP') is not None:
         cmd_output['BGP'] = format_xml_output(cmd_output.get('BGP'))
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL4
-    ):
-        printline()
-        print(type(cmd_output))
-        PP.pprint(cmd_output)
 
     vrf_list = ListVRF(vrf_lst=list())
 

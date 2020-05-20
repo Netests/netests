@@ -1,18 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from protocols.facts import Facts
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from const.constants import (
-    NOT_SET,
-    LEVEL1,
-    FACTS_SYS_DICT_KEY,
-    FACTS_INT_DICT_KEY
-)
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.protocols.facts import Facts
+from netests.constants import NOT_SET, FACTS_SYS_DICT_KEY, FACTS_INT_DICT_KEY
 
 
 def _extreme_vsp_facts_api_converter(
@@ -47,7 +37,7 @@ def _extreme_vsp_facts_api_converter(
                            .get('interface'):
             interfaces_lst.append(i.get('name'))
 
-    facts = Facts(
+    return Facts(
         hostname=hostname,
         domain=domain,
         version=NOT_SET,
@@ -60,12 +50,3 @@ def _extreme_vsp_facts_api_converter(
         interfaces_lst=interfaces_lst,
         options=options
     )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        PP.pprint(facts.to_json())
-
-    return facts

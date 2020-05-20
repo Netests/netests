@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-NOT_SET = "NOT_SET"
+NOT_SET = 'NOT_SET'
+NORNIR_DEBUG_MODE = 'debug'
+EXIT_FAILURE = 1
+EXIT_SUCCESS = 0
 
 NETMIKO_NAPALM_MAPPING_PLATEFORM = {
     'ios': 'cisco_ios',
@@ -28,7 +31,7 @@ NETESTS_CONFIG = "netests.yml"
 
 # REPORT PATH
 REPORT_FOLDER = "reports/"
-TEMPLATES_PATH = "templates/"
+TEMPLATES_PATH = "netests/templates/"
 TESTS_PATH = "tests/"
 FEATURES_PATH = f"{TESTS_PATH}features/"
 FEATURES_SRC_PATH = f"{FEATURES_PATH}src/"

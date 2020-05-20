@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from functions.global_tools import printline
-from const.constants import NOT_SET, LEVEL4, LEVEL5
-from protocols.vrf import VRF, ListVRF
-from functions.verbose_mode import verbose_mode
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.protocols.vrf import VRF, ListVRF
 
 
 def _nxos_vrf_api_converter(
@@ -16,24 +11,9 @@ def _nxos_vrf_api_converter(
     cmd_output,
     options={}
 ) -> ListVRF:
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL5
-    ):
-        printline()
-        print(type(cmd_output))
-        print(cmd_output)
 
     if not isinstance(cmd_output, dict):
         cmd_output = json.loads(cmd_output)
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL4
-    ):
-        printline()
-        print(type(cmd_output))
-        PP.pprint(cmd_output)
 
     vrf_list = ListVRF(vrf_lst=list())
 

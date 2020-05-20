@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from protocols.cdp import CDP, ListCDP
-from functions.global_tools import printline
-from functions.cli_tools import parse_textfsm
-from functions.verbose_mode import verbose_mode
-from functions.discovery_protocols.discovery_functions import (
-    _mapping_sys_capabilities
-)
-from const.constants import NOT_SET, LEVEL1
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.tools.cli import parse_textfsm
+from netests.protocols.cdp import CDP, ListCDP
+from netests.mappings import mapping_sys_capabilities
 
 
 def _ios_cdp_ssh_converter(
@@ -34,9 +27,8 @@ def _ios_cdp_ssh_converter(
 
         if isinstance(nei[6], list):
             for sys_capability in nei[6]:
-                print(">>", sys_capability)
                 neighbor_type_lst.append(
-                    _mapping_sys_capabilities(
+                    mapping_sys_capabilities(
                        str(sys_capability).capitalize()
                     )
                 )
@@ -55,13 +47,5 @@ def _ios_cdp_ssh_converter(
                 options=options
             )
         )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(cdp_neighbors_lst.to_json())
 
     return cdp_neighbors_lst

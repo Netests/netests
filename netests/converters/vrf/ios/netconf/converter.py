@@ -1,14 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-from functions.global_tools import printline
-from functions.netconf_tools import format_xml_output
-from const.constants import NOT_SET, LEVEL1, LEVEL4, LEVEL5
-from protocols.vrf import VRF, ListVRF
-from functions.verbose_mode import verbose_mode
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+import json
+from netests.constants import NOT_SET
+from netests.tools.nc import format_xml_output
+from netests.protocols.vrf import VRF, ListVRF
 
 
 def _ios_vrf_netconf_converter(
@@ -16,23 +12,8 @@ def _ios_vrf_netconf_converter(
     cmd_output,
     options={}
 ) -> ListVRF:
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL5
-    ):
-        printline()
-        print(type(cmd_output))
-        print(cmd_output)
 
     cmd_output = format_xml_output(cmd_output)
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL4
-    ):
-        printline()
-        print(type(cmd_output))
-        PP.pprint(cmd_output)
 
     vrf_list = ListVRF(vrf_lst=list())
 

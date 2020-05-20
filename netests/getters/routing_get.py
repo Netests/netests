@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.getters.vrf_get import GetterVRF
-from functions.getters.base_get import GetterBase
+from netests.getters.vrf_get import GetterVRF
+from netests.getters.base_get import GetterBase
 
 
 class GetterRouting(GetterBase):

@@ -1,20 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from protocols.facts import Facts
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from const.constants import (
+from netests.protocols.facts import Facts
+from netests.constants import (
     NOT_SET,
-    LEVEL1,
     FACTS_SYS_DICT_KEY,
     FACTS_INT_DICT_KEY,
     FACTS_DOMAIN_DICT_KEY
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _arista_facts_ssh_converter(
@@ -69,7 +63,7 @@ def _arista_facts_ssh_converter(
         else:
             domain = cmd_output.get(FACTS_DOMAIN_DICT_KEY).get("fqdn")
 
-    facts = Facts(
+    return Facts(
         hostname=hostname,
         domain=domain,
         version=version,
@@ -82,12 +76,3 @@ def _arista_facts_ssh_converter(
         interfaces_lst=interfaces_lst,
         options=options
     )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        PP.pprint(facts.to_json())
-
-    return facts

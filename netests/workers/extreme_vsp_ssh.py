@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.workers.device_ssh import DeviceSSH
-from const.constants import EXTREME_VSP_GET_VRF, VRF_DATA_KEY
-from functions.converters.vrf.extreme_vsp.ssh.converter import _extreme_vsp_vrf_ssh_converter
+from netests.workers.device_ssh import DeviceSSH
+from netests.constants import EXTREME_VSP_GET_VRF, VRF_DATA_KEY
+from netests.converters.vrf.extreme_vsp.ssh.converter import _extreme_vsp_vrf_ssh_converter
 
 
 class VRFExtremeVSPSSH(DeviceSSH):

@@ -6,8 +6,8 @@ from abc import ABC, abstractmethod
 from nornir.core import Nornir
 from nornir.core.filter import F
 from nornir.plugins.functions.text import print_result
-from exceptions.netests_exceptions import NetestsDeviceNotCompatibleWithNapalm
-from const.constants import PLATFORM_SUPPORTED, CONNEXION_MODE
+from netests.exceptions.netests_exceptions import NetestsDeviceNotCompatibleWithNapalm
+from netests.constants import PLATFORM_SUPPORTED, CONNEXION_MODE
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 

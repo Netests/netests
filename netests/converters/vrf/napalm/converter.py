@@ -1,14 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
-import json
-from protocols.vrf import VRF, ListVRF
-from const.constants import NOT_SET, LEVEL1
-from functions.verbose_mode import verbose_mode
-from functions.global_tools import printline
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.protocols.vrf import VRF, ListVRF
 
 
 def _napalm_vrf_converter(

@@ -4,13 +4,13 @@
 from setuptools import setup, find_packages
 
 
-EXIT_SUCCESS = 0
-EXIT_FAILURE = 1
-
-
 def parse_requirements(filename):
     lineiter = (line.strip() for line in open(filename))
     return [line for line in lineiter if line and not line.startswith("#")]
+
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 
 setup(
@@ -19,10 +19,15 @@ setup(
     packages=find_packages(),
     author="Dylan Hamel",
     author_email="dylan.hamel@protonmail.com",
+    description="Netests.io install package",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://gitlab.com/DylanHamel/netests/-/tree/master",
     install_requires=parse_requirements("requirements.txt"),
     entry_points={
         "console_scripts": [
             "netests = netests.netests:main",
         ]
     },
+    python_requires='>=3.6',
 )

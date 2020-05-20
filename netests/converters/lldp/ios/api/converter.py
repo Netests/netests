@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from protocols.lldp import ListLLDP
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from const.constants import NOT_SET, LEVEL1
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests.constants import NOT_SET
+from netests.protocols.lldp import LLDP, ListLLDP
 
 
 def _ios_lldp_api_converter(
@@ -27,13 +22,5 @@ def _ios_lldp_api_converter(
     lldp_neighbors_lst = ListLLDP(
         lldp_neighbors_lst=list()
     )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f">>>>> {hostname}")
-        PP.pprint(lldp_neighbors_lst.to_json())
 
     return lldp_neighbors_lst

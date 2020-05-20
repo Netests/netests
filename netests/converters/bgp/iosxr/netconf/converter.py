@@ -2,19 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import os
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from functions.netconf_tools import format_xml_output
-from const.constants import NOT_SET, LEVEL1, LEVEL4
-from protocols.bgp import (
+from netests.tools.nc import format_xml_output
+from netests.constants import NOT_SET
+from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
     ListBGPSessionsVRF,
     BGP
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _iosxr_bgp_netconf_converter(
@@ -26,14 +22,6 @@ def _iosxr_bgp_netconf_converter(
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(
         list()
     )
-
-    cmd_output = format_xml_output(cmd_output)
-    if verbose_mode(
-        user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
-        needed_value=LEVEL4
-    ):
-        printline()
-        PP.pprint(cmd_output)
 
     if (
         'data' in cmd_output.keys() and
@@ -54,14 +42,6 @@ def _iosxr_bgp_netconf_converter(
                       .get('instance') \
                       .get('instance-as') \
                       .get('four-byte-as')
-
-        if verbose_mode(
-            user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
-            needed_value=LEVEL4
-        ):
-            printline()
-            PP.pprint(w)
-
         as_number = NOT_SET
 
         # Retrieve information from the Default VRF
@@ -343,17 +323,7 @@ def _iosxr_bgp_netconf_converter(
                             )
                         )
 
-    bgp = BGP(
+    return BGP(
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
-
-    if verbose_mode(
-        user_value=os.environ.get('NETESTS_VERBOSE', NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        print(f'>>>>> {hostname}')
-        PP.pprint(bgp.to_json())
-
-    return bgp
