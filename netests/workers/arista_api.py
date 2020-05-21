@@ -76,7 +76,6 @@ class AristaAPI(DeviceAPI, ABC):
 
         self.commands_output = self.exec_call(task, command_to_exec)
 
-
     def exec_call_without_pyeapi(self, task, command):
         """
         This function is used to avoid exception from pyeapi library.
@@ -114,9 +113,6 @@ class AristaAPI(DeviceAPI, ABC):
 
         self.check_status_code(res.status_code)
         return res.content
-
-
-
 
 
 class BGPAristaAPI(AristaAPI):
@@ -157,9 +153,9 @@ class FactsAristaAPI(AristaAPI):
             task=task,
             commands={
                 "default_vrf": {
-                    "no_key": ARISTA_GET_FACTS,
-                    "no_key1": ARISTA_GET_INT,
-                    "no_key2": ARISTA_GET_DOMAIN,
+                    "get_infos_sys": ARISTA_GET_FACTS,
+                    "get_infos_int": ARISTA_GET_INT,
+                    "get_infos_domain": ARISTA_GET_DOMAIN,
                 }
             },
             vrf_loop=False,

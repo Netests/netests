@@ -3,6 +3,10 @@
 
 from netests.getters.base_get import GetterBase
 from netests.workers.arista_api import LLDPAristaAPI
+from netests.workers.arista_ssh import LLDPAristaSSH
+from netests.workers.cumulus_api import LLDPCumulusAPI
+from netests.workers.cumulus_nc import CumulusNC
+from netests.workers.cumulus_ssh import LLDPCumulusSSH
 from netests.constants import LLDP_DATA_HOST_KEY
 
 HEADER = "[netests - get_lldp]"
@@ -44,8 +48,14 @@ class GetterLLDP(GetterBase):
         self.MAPPING_FUNCTION = {
             self.ARISTA_PLATEFORM_NAME: {
                 self.API_CONNECTION: LLDPAristaAPI,
-                self.SSH_CONNECTION: "pass",
                 self.NETCONF_CONNECTION: "pass",
+                self.SSH_CONNECTION: LLDPAristaSSH,
+                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+            },
+            self.CUMULUS_PLATEFORM_NAME: {
+                self.API_CONNECTION: LLDPCumulusAPI,
+                self.NETCONF_CONNECTION: CumulusNC,
+                self.SSH_CONNECTION: LLDPCumulusSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }
         }

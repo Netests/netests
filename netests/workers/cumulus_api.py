@@ -5,14 +5,23 @@ import requests
 from abc import ABC
 from netests.workers.device_api import DeviceAPI
 from netests.converters.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
+from netests.converters.cdp.cumulus.api.converter import _cumulus_cdp_api_converter
+from netests.converters.facts.cumulus.api.converter import _cumulus_facts_api_converter
+from netests.converters.lldp.cumulus.api.converter import _cumulus_lldp_api_converter
 from netests.converters.ospf.cumulus.api.converter import _cumulus_ospf_api_converter
 from netests.converters.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
+    CDP_DATA_HOST_KEY,
+    FACTS_DATA_HOST_KEY,
+    LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
     VRF_DATA_KEY,
     CUMULUS_API_GET_BGP,
     CUMULUS_API_GET_BGP_VRF,
+    CUMULUS_API_GET_LLDP_CDP,
+    CUMULUS_API_GET_FACTS,
+    CUMULUS_API_GET_INT,
     CUMULUS_API_GET_OSPF,
     CUMULUS_API_GET_OSPF_RID,
     CUMULUS_API_GET_OSPF_VRF,
@@ -78,9 +87,61 @@ class BGPCumulusAPI(CumulusAPI):
                     "no_key": CUMULUS_API_GET_BGP_VRF
                 }
             },
-            vrf_loop=False,
+            vrf_loop=True,
             converter=_cumulus_vrf_api_converter,
             key_store=VRF_DATA_KEY,
+            options=options
+        )
+
+
+class CDPCumulusAPI(CumulusAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": CUMULUS_API_GET_LLDP_CDP
+                }
+            },
+            vrf_loop=False,
+            converter=_cumulus_cdp_api_converter,
+            key_store=CDP_DATA_HOST_KEY,
+            options=options
+        )
+
+
+class FactsCumulusAPI(CumulusAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "get_infos_sys": CUMULUS_API_GET_FACTS,
+                    "get_infos_int": CUMULUS_API_GET_INT
+                }
+            },
+            vrf_loop=False,
+            converter=_cumulus_facts_api_converter,
+            key_store=FACTS_DATA_HOST_KEY,
+            options=options
+        )
+
+
+class LLDPCumulusAPI(CumulusAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": CUMULUS_API_GET_LLDP_CDP
+                }
+            },
+            vrf_loop=False,
+            converter=_cumulus_lldp_api_converter,
+            key_store=LLDP_DATA_HOST_KEY,
             options=options
         )
 

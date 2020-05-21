@@ -64,6 +64,7 @@ class Device(ABC):
                 self.commands.get('default_vrf').get('no_key')
             )
         else:
+            self.commands_output = dict()
             for key, command in self.commands.get('default_vrf').items():
                 self.commands_output[key] = self.exec_call(task, command)
 

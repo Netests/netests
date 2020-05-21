@@ -4,6 +4,11 @@
 from netests.getters.base_get import GetterBase
 from netests.constants import FACTS_DATA_HOST_KEY
 from netests.workers.arista_api import FactsAristaAPI
+from netests.workers.arista_ssh import FactsAristaSSH
+from netests.workers.cumulus_api import FactsCumulusAPI
+from netests.workers.cumulus_nc import CumulusNC
+from netests.workers.cumulus_ssh import FactsCumulusSSH
+
 
 HEADER = "[netests - get_facts]"
 
@@ -44,14 +49,14 @@ class GetterFacts(GetterBase):
         self.MAPPING_FUNCTION = {
             self.ARISTA_PLATEFORM_NAME: {
                 self.API_CONNECTION: FactsAristaAPI,
-                self.SSH_CONNECTION: "pass",
                 self.NETCONF_CONNECTION: "pass",
+                self.SSH_CONNECTION: FactsAristaSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
-                self.API_CONNECTION: "pass",
-                self.SSH_CONNECTION: "pass",
-                self.NETCONF_CONNECTION: "pass",
+                self.API_CONNECTION: FactsCumulusAPI,
+                self.NETCONF_CONNECTION: CumulusNC,
+                self.SSH_CONNECTION: FactsCumulusSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }
         }

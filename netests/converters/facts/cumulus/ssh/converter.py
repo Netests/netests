@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import json
 from netests.protocols.facts import Facts
 from netests.constants import NOT_SET, FACTS_SYS_DICT_KEY, FACTS_INT_DICT_KEY
 
@@ -20,6 +21,11 @@ def _cumulus_facts_ssh_converter(
     model = NOT_SET
     build = NOT_SET
     if FACTS_SYS_DICT_KEY in cmd_output.keys():
+        if not isinstance(cmd_output.get(FACTS_SYS_DICT_KEY), dict):
+            cmd_output[FACTS_SYS_DICT_KEY] = json.loads(
+                cmd_output.get(FACTS_SYS_DICT_KEY)
+            )
+
         if "\n" in cmd_output.get(FACTS_SYS_DICT_KEY) \
                              .get("hostname", NOT_SET):
             i = cmd_output.get(FACTS_SYS_DICT_KEY) \
@@ -56,6 +62,10 @@ def _cumulus_facts_ssh_converter(
 
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
+        if not isinstance(cmd_output.get(FACTS_INT_DICT_KEY), dict):
+            cmd_output[FACTS_INT_DICT_KEY] = json.loads(
+                cmd_output.get(FACTS_INT_DICT_KEY)
+            )
         for interface_name in cmd_output.get(FACTS_INT_DICT_KEY).keys():
             if "swp" in interface_name or "eth" in interface_name:
                 interfaces_lst.append(interface_name)

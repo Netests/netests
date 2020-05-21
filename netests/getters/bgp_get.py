@@ -4,6 +4,9 @@
 from netests.getters.routing_get import GetterRouting
 from netests.constants import BGP_SESSIONS_HOST_KEY
 from netests.workers.arista_api import BGPAristaAPI
+from netests.workers.arista_ssh import BGPAristaSSH
+from netests.workers.cumulus_api import BGPCumulusAPI
+from netests.workers.cumulus_nc import CumulusNC
 from netests.workers.cumulus_ssh import BGPCumulusSSH
 
 HEADER = "[netests - get_bgp]"
@@ -46,14 +49,14 @@ class GetterBGP(GetterRouting):
         self.MAPPING_FUNCTION = {
             self.ARISTA_PLATEFORM_NAME: {
                 self.API_CONNECTION: BGPAristaAPI,
-                self.SSH_CONNECTION: "pass",
                 self.NETCONF_CONNECTION: "pass",
+                self.SSH_CONNECTION: BGPAristaSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
-                self.API_CONNECTION: "pass",
+                self.API_CONNECTION: BGPCumulusAPI,
+                self.NETCONF_CONNECTION: CumulusNC,
                 self.SSH_CONNECTION: BGPCumulusSSH,
-                self.NETCONF_CONNECTION: "pass",
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }
         }
