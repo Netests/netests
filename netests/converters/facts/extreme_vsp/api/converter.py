@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import json
 from netests.protocols.facts import Facts
 from netests.constants import NOT_SET, FACTS_SYS_DICT_KEY, FACTS_INT_DICT_KEY
 
@@ -15,6 +16,11 @@ def _extreme_vsp_facts_api_converter(
     domain = NOT_SET
     memory = NOT_SET
     if FACTS_SYS_DICT_KEY in cmd_output.keys():
+        if not isinstance(cmd_output.get(FACTS_SYS_DICT_KEY), dict):
+            cmd_output[FACTS_SYS_DICT_KEY] = json.loads(
+                cmd_output.get(FACTS_SYS_DICT_KEY)
+            )
+
         hostname = cmd_output.get(FACTS_SYS_DICT_KEY) \
                              .get('openconfig-system:system') \
                              .get('config') \
@@ -32,11 +38,18 @@ def _extreme_vsp_facts_api_converter(
 
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
+        if not isinstance(cmd_output.get(FACTS_INT_DICT_KEY), dict):
+            cmd_output[FACTS_INT_DICT_KEY] = json.loads(
+                cmd_output.get(FACTS_INT_DICT_KEY)
+            )
+
         for i in cmd_output.get(FACTS_INT_DICT_KEY) \
                            .get('openconfig-interfaces:interfaces') \
                            .get('interface'):
             interfaces_lst.append(i.get('name'))
 
+
+    print(hostname)
     return Facts(
         hostname=hostname,
         domain=domain,

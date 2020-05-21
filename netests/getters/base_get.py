@@ -132,6 +132,7 @@ class GetterBase(ABC):
         connection_mode: str,
         functions_mapping: dict
     ):
+        print(functions_mapping.get(platform).get(connection_mode))
         return functions_mapping.get(platform).get(connection_mode)
 
     def printline(self):

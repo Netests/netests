@@ -9,8 +9,10 @@ from netests.workers.arista_ssh import OSPFAristaSSH
 from netests.workers.cumulus_api import OSPFCumulusAPI
 from netests.workers.cumulus_nc import CumulusNC
 from netests.workers.cumulus_ssh import OSPFCumulusSSH
+from netests.workers.extreme_vsp_api import OSPFExtremeVSPAPI
 from netests.workers.extreme_vsp_nc import ExtremeVSPNC
 from netests.workers.extreme_vsp_ssh import OSPFExtremeVSPSSH
+from netests.workers.ios_ssh import OSPFIosSSH
 
 HEADER = "[netests - get_ospf]"
 
@@ -38,6 +40,7 @@ class GetterOSPF(GetterRouting):
 
     def run(self):
         self.get_vrf()
+        print("IJOIJOIJOIj")
         self.devices.run(
             task=self.generic_get,
             on_failed=True,
@@ -63,9 +66,15 @@ class GetterOSPF(GetterRouting):
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.EXTREME_PLATEFORM_NAME: {
-                self.API_CONNECTION: "",
+                self.API_CONNECTION: OSPFExtremeVSPAPI,
                 self.NETCONF_CONNECTION: ExtremeVSPNC,
                 self.SSH_CONNECTION: OSPFExtremeVSPSSH,
+                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+            },
+            self.CISCO_IOS_PLATEFORM_NAME: {
+                self.API_CONNECTION: "",
+                self.NETCONF_CONNECTION: "",
+                self.SSH_CONNECTION: OSPFIosSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }
         }

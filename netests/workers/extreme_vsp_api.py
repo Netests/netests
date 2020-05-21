@@ -5,9 +5,10 @@ import json
 import requests
 from abc import ABC
 from netests.workers.device_api import DeviceAPI
-from netests.constants import CUMULUS_API_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
-from netests.converters.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
+from netests.converters.facts.extreme_vsp.api.converter import _extreme_vsp_facts_api_converter
+from netests.converters.lldp.extreme_vsp.api.converter import _extreme_vsp_lldp_api_converter
 from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
+from netests.constants import FACTS_DATA_HOST_KEY, LLDP_DATA_HOST_KEY, VRF_DATA_KEY
 
 
 class ExtremeVSPAPI(DeviceAPI, ABC):
@@ -28,13 +29,6 @@ class ExtremeVSPAPI(DeviceAPI, ABC):
             converter,
             key_store,
             options
-        )
-
-    def create_payload(self, command):
-        return self.payload_to_json(
-            {
-                "cmd": f"{command}"
-            }
         )
 
     def exec_call(self, task, command):
@@ -68,6 +62,61 @@ class ExtremeVSPAPI(DeviceAPI, ABC):
 
         self.check_status_code(data.status_code)
         return data.content
+
+
+class BGPExtremeVSPAPI(ExtremeVSPAPI):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotPossible(
+            "Extreme_VSP - BGP - API - Not Possible"
+        )
+
+class CDPExtremeVSPAPI(ExtremeVSPAPI):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotPossible(
+            "Extreme_VSP - CDP - API - Not Possible"
+        )
+
+class FactsExtremeVSPAPI(ExtremeVSPAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "get_infos_sys": "openconfig-system:system",
+                    "get_infos_int": "openconfig-interfaces:interfaces"
+                }
+            },
+            vrf_loop=False,
+            converter=_extreme_vsp_facts_api_converter,
+            key_store=FACTS_DATA_HOST_KEY,
+            options=options
+        )
+
+class LLDPExtremeVSPAPI(ExtremeVSPAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": "openconfig-lldp:lldp/interfaces"
+                }
+            },
+            vrf_loop=False,
+            converter=_extreme_vsp_lldp_api_converter,
+            key_store=LLDP_DATA_HOST_KEY,
+            options=options
+        )
+
+class OSPFExtremeVSPAPI(ExtremeVSPAPI):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotPossible(
+            "Extreme_VSP - OSPF - API - Not Possible"
+        )
 
 
 class VRFExtremeVSPAPI(ExtremeVSPAPI):

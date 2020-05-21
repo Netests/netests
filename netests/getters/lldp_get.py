@@ -8,8 +8,10 @@ from netests.workers.arista_ssh import LLDPAristaSSH
 from netests.workers.cumulus_api import LLDPCumulusAPI
 from netests.workers.cumulus_nc import CumulusNC
 from netests.workers.cumulus_ssh import LLDPCumulusSSH
+from netests.workers.extreme_vsp_api import LLDPExtremeVSPAPI
 from netests.workers.extreme_vsp_nc import ExtremeVSPNC
 from netests.workers.extreme_vsp_ssh import LLDPExtremeVSPSSH
+from netests.workers.ios_ssh import LLDPIosSSH
 
 from netests.constants import LLDP_DATA_HOST_KEY
 
@@ -63,9 +65,15 @@ class GetterLLDP(GetterBase):
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.EXTREME_PLATEFORM_NAME: {
-                self.API_CONNECTION: "",
+                self.API_CONNECTION: LLDPExtremeVSPAPI,
                 self.NETCONF_CONNECTION: ExtremeVSPNC,
                 self.SSH_CONNECTION: LLDPExtremeVSPSSH,
+                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+            },
+            self.CISCO_IOS_PLATEFORM_NAME: {
+                self.API_CONNECTION: "",
+                self.NETCONF_CONNECTION: "",
+                self.SSH_CONNECTION: LLDPIosSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }
         }

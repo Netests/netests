@@ -25,13 +25,18 @@ def _ios_ospf_ssh_converter(
         ospf_sessions_vrf_lst=list()
     )
 
+    print(cmd_output)
+
     if (
-        'int' in cmd_output.keys() and
-        'data' in cmd_output.keys() and
-        'rid' in cmd_output.keys() and
-        cmd_output.get('int') != ''
-        and cmd_output.get('data') != ''
-        and cmd_output.get('rid') != ''
+        (
+            'data' in cmd_output.keys() or
+            'rid' in cmd_output.keys() 
+        ) and
+        (
+            cmd_output.get('data') != '' or
+            cmd_output.get('rid') != ''
+        )
+        
     ):
         cmd_output['data'] = parse_textfsm(
             content=cmd_output.get('data'),
