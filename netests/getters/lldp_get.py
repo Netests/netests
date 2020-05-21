@@ -3,10 +3,14 @@
 
 from netests.getters.base_get import GetterBase
 from netests.workers.arista_api import LLDPAristaAPI
+from netests.workers.arista_nc import LLDPAristaNC
 from netests.workers.arista_ssh import LLDPAristaSSH
 from netests.workers.cumulus_api import LLDPCumulusAPI
 from netests.workers.cumulus_nc import CumulusNC
 from netests.workers.cumulus_ssh import LLDPCumulusSSH
+from netests.workers.extreme_vsp_nc import ExtremeVSPNC
+from netests.workers.extreme_vsp_ssh import LLDPExtremeVSPSSH
+
 from netests.constants import LLDP_DATA_HOST_KEY
 
 HEADER = "[netests - get_lldp]"
@@ -48,7 +52,7 @@ class GetterLLDP(GetterBase):
         self.MAPPING_FUNCTION = {
             self.ARISTA_PLATEFORM_NAME: {
                 self.API_CONNECTION: LLDPAristaAPI,
-                self.NETCONF_CONNECTION: "pass",
+                self.NETCONF_CONNECTION: LLDPAristaNC,
                 self.SSH_CONNECTION: LLDPAristaSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
@@ -56,6 +60,12 @@ class GetterLLDP(GetterBase):
                 self.API_CONNECTION: LLDPCumulusAPI,
                 self.NETCONF_CONNECTION: CumulusNC,
                 self.SSH_CONNECTION: LLDPCumulusSSH,
+                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+            },
+            self.EXTREME_PLATEFORM_NAME: {
+                self.API_CONNECTION: "",
+                self.NETCONF_CONNECTION: ExtremeVSPNC,
+                self.SSH_CONNECTION: LLDPExtremeVSPSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }
         }

@@ -6,7 +6,10 @@ from ncclient import manager
 from netests.workers.device_nc import DeviceNC
 from netests.constants import ARISTA_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
 from netests.converters.vrf.arista.netconf.converter import _arista_vrf_netconf_converter
-
+from netests.exceptions.netests_exceptions import (
+    NetestsFunctionNotPossible,
+    NetestsFunctionNotImplemented
+)
 
 class AristaNC(DeviceNC, ABC):
 
@@ -67,6 +70,45 @@ class AristaNC(DeviceNC, ABC):
             ).data_xml
             self.validate_xml(vrf_config)
             return vrf_config
+
+
+class BGPAristaNC(AristaNC):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Arista - Netconf - BGP not implemented"
+        )
+
+
+class CDPAristaNC(AristaNC):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotPossible(
+            "Arista doesn't support CDP"
+        )
+
+
+class FactsAristaNC(AristaNC):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Arista - Netconf - Facts not implemented"
+        )
+
+
+class LLDPAristaNC(AristaNC):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Arista - Netconf - LLDP not implemented"
+        )
+
+class OSPFAristaNC(AristaNC):
+
+    def __init__(self,task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Arista - Netconf - OSPF not implemented"
+        )
 
 
 class VRFAristaNC(AristaNC):

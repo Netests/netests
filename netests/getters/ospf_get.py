@@ -4,10 +4,13 @@
 from netests.getters.routing_get import GetterRouting
 from netests.constants import OSPF_SESSIONS_HOST_KEY
 from netests.workers.arista_api import OSPFAristaAPI
+from netests.workers.arista_nc import OSPFAristaNC
 from netests.workers.arista_ssh import OSPFAristaSSH
 from netests.workers.cumulus_api import OSPFCumulusAPI
 from netests.workers.cumulus_nc import CumulusNC
 from netests.workers.cumulus_ssh import OSPFCumulusSSH
+from netests.workers.extreme_vsp_nc import ExtremeVSPNC
+from netests.workers.extreme_vsp_ssh import OSPFExtremeVSPSSH
 
 HEADER = "[netests - get_ospf]"
 
@@ -49,7 +52,7 @@ class GetterOSPF(GetterRouting):
         self.MAPPING_FUNCTION = {
             self.ARISTA_PLATEFORM_NAME: {
                 self.API_CONNECTION: OSPFAristaAPI,
-                self.NETCONF_CONNECTION: "pass",
+                self.NETCONF_CONNECTION: OSPFAristaNC,
                 self.SSH_CONNECTION: OSPFAristaSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
@@ -57,6 +60,12 @@ class GetterOSPF(GetterRouting):
                 self.API_CONNECTION: OSPFCumulusAPI,
                 self.NETCONF_CONNECTION: CumulusNC,
                 self.SSH_CONNECTION: OSPFCumulusSSH,
+                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+            },
+            self.EXTREME_PLATEFORM_NAME: {
+                self.API_CONNECTION: "",
+                self.NETCONF_CONNECTION: ExtremeVSPNC,
+                self.SSH_CONNECTION: OSPFExtremeVSPSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }
         }

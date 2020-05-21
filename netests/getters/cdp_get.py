@@ -3,10 +3,13 @@
 
 from netests.getters.base_get import GetterBase
 from netests.workers.arista_api import CDPAristaAPI
+from netests.workers.arista_nc import CDPAristaNC
 from netests.workers.arista_ssh import CDPAristaSSH
 from netests.workers.cumulus_api import CDPCumulusAPI
 from netests.workers.cumulus_nc import CumulusNC
 from netests.workers.cumulus_ssh import CDPCumulusSSH
+from netests.workers.extreme_vsp_nc import ExtremeVSPNC
+from netests.workers.extreme_vsp_ssh import CDPExtremeVSPSSH
 from netests.constants import CDP_DATA_HOST_KEY
 
 HEADER = "[netests - get_cdp]"
@@ -48,7 +51,7 @@ class GetterCDP(GetterBase):
         self.MAPPING_FUNCTION = {
             self.ARISTA_PLATEFORM_NAME: {
                 self.API_CONNECTION: CDPAristaAPI,                
-                self.NETCONF_CONNECTION: "pass",
+                self.NETCONF_CONNECTION: CDPAristaNC,
                 self.SSH_CONNECTION: CDPAristaSSH,
                 self.NAPALM_CONNECTION: "pass"
             },
@@ -56,6 +59,12 @@ class GetterCDP(GetterBase):
                 self.API_CONNECTION: CDPCumulusAPI,
                 self.NETCONF_CONNECTION: CumulusNC,
                 self.SSH_CONNECTION: CDPCumulusSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
+            self.EXTREME_PLATEFORM_NAME: {
+                self.API_CONNECTION: "",
+                self.NETCONF_CONNECTION: ExtremeVSPNC,
+                self.SSH_CONNECTION: CDPExtremeVSPSSH,
                 self.NAPALM_CONNECTION: "pass"
             }
         }

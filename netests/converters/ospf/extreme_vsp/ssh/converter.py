@@ -24,7 +24,7 @@ def _extreme_vsp_ospf_ssh_converter(
     ospf_vrf_lst = ListOSPFSessionsVRF(
         ospf_sessions_vrf_lst=list()
     )
-
+    
     for k, v in cmd_output.items():
         if 'int' in v.keys() and 'data' in v.keys() and 'rid' in v.keys():
             v['data'] = parse_textfsm(

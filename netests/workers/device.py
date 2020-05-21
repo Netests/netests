@@ -88,24 +88,28 @@ class Device(ABC):
 
         if 'vrf' in self.commands.keys():
             for vrf in task.host[VRF_DATA_KEY].vrf_lst:
+                print(vrf.vrf_name, VRF_DEFAULT_RT_LST)
                 if vrf.vrf_name not in VRF_DEFAULT_RT_LST:
                     if (
                         "no_key" not in self.commands.get('vrf').keys() and
                         vrf.vrf_name not in self.commands_output.keys()
                     ):
                         self.commands_output[vrf.vrf_name] = dict()
-                for key, command in self.commands.get('vrf').items():    
-                    if "no_key" in self.commands.get('vrf').keys():
-                        self.commands_output[vrf.vrf_name] = self.exec_call(
-                            task,
-                            command.format(vrf.vrf_name)
-                        )
-                    else:
-                        self.commands_output[vrf.vrf_name][key] = self.exec_call(
-                            task,
-                            command.format(vrf.vrf_name)
-                        )
 
+                    for key, command in self.commands.get('vrf').items():    
+                        if "no_key" in self.commands.get('vrf').keys():
+                            self.commands_output[vrf.vrf_name] = self.exec_call(
+                                task,
+                                command.format(vrf.vrf_name)
+                            )
+                        else:
+                            print(command, key)
+                            self.commands_output[vrf.vrf_name][key] = self.exec_call(
+                                task,
+                                command.format(vrf.vrf_name)
+                            )
+
+        print(self.commands_output)
 
     def print_nr_result(self, output):
         print_result(output)
