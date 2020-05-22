@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from netests.mappings import get_bgp_state_brief
-from netests.netconf_tools import format_xml_output
-from netests.constants import NOT_SET, LEVEL1, LEVEL3
+from netests.tools.nc import format_xml_output
+from netests.constants import NOT_SET
 from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,

@@ -7,7 +7,7 @@ from netests.tools.nc import format_xml_output
 from netests.protocols.lldp import ListLLDP
 
 
-def _ios_cdp_netconf_converter(
+def _ios_lldp_netconf_converter(
     hostname: str,
     cmd_output,
     options={}

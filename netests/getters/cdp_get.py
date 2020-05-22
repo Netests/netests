@@ -12,6 +12,7 @@ from netests.workers.cumulus_ssh import CDPCumulusSSH
 from netests.workers.extreme_vsp_api import CDPExtremeVSPAPI
 from netests.workers.extreme_vsp_nc import ExtremeVSPNC
 from netests.workers.extreme_vsp_ssh import CDPExtremeVSPSSH
+from netests.workers.ios_nc import CDPIosNC
 from netests.workers.ios_ssh import CDPIosSSH
 
 
@@ -72,7 +73,7 @@ class GetterCDP(GetterBase):
             },
             self.CISCO_IOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: "",
-                self.NETCONF_CONNECTION: "",
+                self.NETCONF_CONNECTION: CDPIosNC,
                 self.SSH_CONNECTION: CDPIosSSH,
                 self.NAPALM_CONNECTION: "pass"
             }

@@ -9,4 +9,10 @@ def _ios_ospf_netconf_converter(
     cmd_output,
     options={}
 ) -> OSPF:
-    pass
+    
+    
+
+    return OSPF(
+        hostname=hostname,
+        ospf_sessions_vrf_lst=list()
+    )

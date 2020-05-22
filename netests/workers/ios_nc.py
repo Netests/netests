@@ -4,8 +4,21 @@
 from abc import ABC
 from ncclient import manager
 from netests.workers.device_nc import DeviceNC
-from netests.constants import ARISTA_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
+from netests.converters.bgp.ios.netconf.converter import _ios_bgp_netconf_converter
+from netests.converters.cdp.ios.netconf.converter import _ios_cdp_netconf_converter
+from netests.converters.facts.ios.netconf.converter import _ios_facts_netconf_converter
+from netests.converters.lldp.ios.netconf.converter import _ios_lldp_netconf_converter
+from netests.converters.ospf.ios.netconf.converter import _ios_ospf_netconf_converter
 from netests.converters.vrf.ios.netconf.converter import _ios_vrf_netconf_converter
+from netests.constants import (
+    NETCONF_FILTER,
+    BGP_SESSIONS_HOST_KEY,
+    CDP_DATA_HOST_KEY,
+    FACTS_DATA_HOST_KEY,
+    LLDP_DATA_HOST_KEY,
+    OSPF_SESSIONS_HOST_KEY,
+    VRF_DATA_KEY
+)
 
 
 class IosNC(DeviceNC, ABC):
@@ -39,15 +52,6 @@ class IosNC(DeviceNC, ABC):
         self.source = source
 
     def exec_call(self, task, command):
-        if self.nc_method == 'get':
-            return self.exec_call_get(task, command)
-        elif self.nc_method == 'get_config':
-            return self.exec_call_get_config(task, command)
-
-    def exec_call_get(self, task, command):
-        pass
-
-    def exec_call_get_config(self, task, command):
         with manager.connect(
             host=task.host.hostname,
             port=task.host.port,
@@ -56,18 +60,150 @@ class IosNC(DeviceNC, ABC):
             hostkey_verify=False,
             device_params={'name': 'iosxe'}
         ) as m:
+            if self.nc_method == 'get':
+                config = self.exec_call_get(task, command, m)
+            elif self.nc_method == 'get_config':
+                config = self.exec_call_get_config(task, command, m)
 
-            vrf_config = m.get_config(
-                source=self.source,
-                filter=(
-                    'subtree',
-                    (
-                        command
-                    )
-                )
+            self.validate_xml(config)
+            return config
+
+    def exec_call_get(self, task, command, m):
+            return m.get(
+                filter=NETCONF_FILTER.format(command)
             ).data_xml
-            self.validate_xml(vrf_config)
-            return vrf_config
+
+    def exec_call_get_config(self, task, command, m):
+        return m.get_config(
+            source=self.source,
+            filter=(
+                'subtree',
+                (
+                    command
+                )
+            )
+        ).data_xml
+            
+
+
+class BGPIosNC(IosNC):
+
+    NETCONF_FILTER = """
+        <bgp-state-data
+            xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XE-bgp-oper\"
+        />"""
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": self.NETCONF_FILTER
+                }
+            },
+            vrf_loop=False,
+            converter=_ios_bgp_netconf_converter,
+            key_store=BGP_SESSIONS_HOST_KEY,
+            nc_method='get',
+            options=options,
+            source='running'
+        )
+
+
+class CDPIosNC(IosNC):
+
+    NETCONF_FILTER = """
+        <cdp-neighbor-details
+            xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XE-cdp-oper\"
+        />"""
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": self.NETCONF_FILTER
+                }
+            },
+            vrf_loop=False,
+            converter=_ios_cdp_netconf_converter,
+            key_store=CDP_DATA_HOST_KEY,
+            nc_method='get',
+            options=options,
+            source='running'
+        )
+
+
+class FactsIosNC(IosNC):
+
+    NETCONF_FILTER = """
+        <native
+            xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XE-native\"
+        />"""
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": self.NETCONF_FILTER
+                }
+            },
+            vrf_loop=False,
+            converter=_ios_facts_netconf_converter,
+            key_store=FACTS_DATA_HOST_KEY,
+            nc_method='get',
+            options=options,
+            source='running'
+        )
+
+
+class LLDPIosNC(IosNC):
+
+    NETCONF_FILTER = """
+        <lldp-entries
+            xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XE-lldp-oper\"
+        />"""
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": self.NETCONF_FILTER
+                }
+            },
+            vrf_loop=False,
+            converter=_ios_lldp_netconf_converter,
+            key_store=LLDP_DATA_HOST_KEY,
+            nc_method='get',
+            options=options,
+            source='running'
+        )
+
+
+class OSPFIosNC(IosNC):
+
+    NETCONF_FILTER = """
+        <ospf-oper-data
+            xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XE-ospf-oper\"
+        />"""
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": self.NETCONF_FILTER
+                }
+            },
+            vrf_loop=False,
+            converter=_ios_ospf_netconf_converter,
+            key_store=OSPF_SESSIONS_HOST_KEY,
+            nc_method='get',
+            options=options,
+            source='running'
+        )
 
 
 class VRFIosNC(IosNC):
