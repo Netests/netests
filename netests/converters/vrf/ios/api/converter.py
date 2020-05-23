@@ -113,8 +113,9 @@ def _ios_vrf_api_converter(
                         'export' in v.get('route-target').keys() and
                         'asn-ip' in v.get('route-target').get('export').keys()
                     ):
-                        rt_exp = v.get(
-                            'route-target').get('export').get('asn-ip')
+                        rt_exp = v.get('route-target') \
+                                  .get('export') \
+                                  .get('asn-ip')
                     if (
                         'import' in v.get('route-target').keys() and
                         'asn-ip' in v.get('route-target').get('export').keys()

@@ -90,18 +90,25 @@ class GetterBase(ABC):
 
     def print_protocols_result(self, pkey, protocol):
         self.printline()
-        for host in self.devices.inventory.hosts:
-            if (
-                pkey in self.devices.inventory.hosts.get(host).keys() and
-                self.print_task_output is True
-            ):
-                self.printline()
+        if self.print_task_output:
+            for host in self.devices.inventory.hosts:
                 print(f">>>>> {host} -- ({protocol})")
-                self.print_json(
-                    self.devices.inventory.hosts.get(host)
-                                          .get(pkey)
-                                          .to_json()
-                )
+                if (
+                    pkey in self.devices
+                                .inventory
+                                .hosts
+                                .get(host)
+                                .keys() and
+                    self.print_task_output is True
+                ):
+                    self.printline()
+                    self.print_json(
+                        self.devices.inventory.hosts.get(host)
+                                            .get(pkey)
+                                            .to_json()
+                    )
+                else:
+                    print("No value found for this host.")
 
     def print_json(self, data):
         PP.pprint(data)

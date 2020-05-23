@@ -1,23 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.ospf.ospf_compare import _compare_ospf
-from functions.ospf.arista.api.converter import _arista_ospf_api_converter
-from functions.ospf.arista.ssh.converter import _arista_ospf_ssh_converter
-from functions.ospf.cumulus.ssh.converter import _cumulus_ospf_ssh_converter
-from functions.ospf.extreme_vsp.ssh.converter import _extreme_vsp_ospf_ssh_converter
-from functions.ospf.juniper.api.converter import _juniper_ospf_api_converter
-from functions.ospf.juniper.netconf.converter import _juniper_ospf_netconf_converter
-from functions.ospf.juniper.ssh.converter import _juniper_ospf_ssh_converter
-from functions.ospf.nxos.api.converter import _nxos_ospf_api_converter
-from functions.ospf.nxos.ssh.converter import _nxos_ospf_ssh_converter
-from const.constants import NOT_SET, FEATURES_SRC_PATH, OSPF_SESSIONS_HOST_KEY
-from functions.global_tools import (
-    open_json_file,
-    open_txt_file,
-    open_txt_file_as_bytes
-)
-from protocols.ospf import (
+from netests.converters.ospf.ospf_compare import _compare_ospf
+from netests.converters.ospf.arista.api.converter import _arista_ospf_api_converter
+from netests.converters.ospf.arista.ssh.converter import _arista_ospf_ssh_converter
+from netests.converters.ospf.cumulus.ssh.converter import _cumulus_ospf_ssh_converter
+from netests.converters.ospf.extreme_vsp.ssh.converter import _extreme_vsp_ospf_ssh_converter
+from netests.converters.ospf.juniper.api.converter import _juniper_ospf_api_converter
+from netests.converters.ospf.juniper.netconf.converter import _juniper_ospf_netconf_converter
+from netests.converters.ospf.juniper.ssh.converter import _juniper_ospf_ssh_converter
+from netests.converters.ospf.nxos.api.converter import _nxos_ospf_api_converter
+from netests.converters.ospf.nxos.ssh.converter import _nxos_ospf_ssh_converter
+from netests.constants import NOT_SET, FEATURES_SRC_PATH, OSPF_SESSIONS_HOST_KEY
+from netests.tools.file import open_json_file, open_txt_file, open_txt_file_as_bytes
+from netests.protocols.ospf import (
     OSPFSession,
     ListOSPFSessions,
     OSPFSessionsArea,

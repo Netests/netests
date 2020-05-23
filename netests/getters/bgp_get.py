@@ -12,6 +12,7 @@ from netests.workers.cumulus_ssh import BGPCumulusSSH
 from netests.workers.extreme_vsp_api import BGPExtremeVSPAPI
 from netests.workers.extreme_vsp_nc import ExtremeVSPNC
 from netests.workers.extreme_vsp_ssh import BGPExtremeVSPSSH
+from netests.workers.ios_api import BGPIosAPI
 from netests.workers.ios_nc import BGPIosNC
 from netests.workers.ios_ssh import BGPIosSSH
 
@@ -73,7 +74,7 @@ class GetterBGP(GetterRouting):
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.CISCO_IOS_PLATEFORM_NAME: {
-                self.API_CONNECTION: "",
+                self.API_CONNECTION: BGPIosAPI,
                 self.NETCONF_CONNECTION: BGPIosNC,
                 self.SSH_CONNECTION: BGPIosSSH,
                 self.NAPALM_CONNECTION: "pass"

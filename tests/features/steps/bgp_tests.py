@@ -5,7 +5,7 @@ import json
 import yaml
 import textfsm
 from netests.converters.bgp.bgp_compare import _compare_bgp
-from netests.converters.mappings import get_bgp_state_brief, get_bgp_peer_uptime
+from netests.mappings import get_bgp_state_brief, get_bgp_peer_uptime
 from netests.converters.bgp.arista.api.converter import _arista_bgp_api_converter
 from netests.converters.bgp.arista.ssh.converter import _arista_bgp_ssh_converter
 from netests.converters.bgp.cumulus.api.converter import _cumulus_bgp_api_converter
@@ -23,7 +23,7 @@ from netests.converters.bgp.nxos.api.converter import _nxos_bgp_api_converter
 from netests.converters.bgp.napalm.converter import _napalm_bgp_converter
 from netests.converters.bgp.nxos.api.converter import _nxos_bgp_api_converter
 from netests.converters.bgp.nxos.ssh.converter import _nxos_bgp_ssh_converter
-from netests.const.constants import (
+from netests.constants import (
     NOT_SET,
     FEATURES_SRC_PATH,
     BGP_SESSIONS_HOST_KEY,
@@ -36,7 +36,7 @@ from netests.protocols.bgp import (
     ListBGPSessionsVRF,
     BGP
 )
-from netests.global_tools import (
+from netests.tools.file import (
     open_file,
     open_txt_file,
     open_json_file,

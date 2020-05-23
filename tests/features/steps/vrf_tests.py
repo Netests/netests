@@ -4,43 +4,28 @@
 import json
 import yaml
 import textfsm
-from const.constants import (
-    NOT_SET,
-    FEATURES_SRC_PATH,
-    FEATURES_OUTPUT_PATH,
-    VRF_DATA_KEY
-)
-from functions.vrf.vrf_compare import _compare_vrf
-from functions.vrf.arista.api.converter import _arista_vrf_api_converter
-from functions.vrf.arista.netconf.converter import _arista_vrf_netconf_converter
-from functions.vrf.arista.ssh.converter import _arista_vrf_ssh_converter
-from functions.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
-from functions.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
-from functions.vrf.extreme_vsp.ssh.converter import _extreme_vsp_vrf_ssh_converter
-from functions.vrf.ios.api.converter import _ios_vrf_api_converter
-from functions.vrf.ios.netconf.converter import _ios_vrf_netconf_converter
-from functions.vrf.ios.ssh.converter import _ios_vrf_ssh_converter
-from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
-from functions.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
-from functions.vrf.juniper.api.converter import _juniper_vrf_api_converter
-from functions.vrf.juniper.netconf.converter import _juniper_vrf_netconf_converter
-from functions.vrf.juniper.ssh.converter import _juniper_vrf_ssh_converter
-from functions.vrf.napalm.converter import _napalm_vrf_converter
-from functions.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
-from functions.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
-from functions.vrf.nxos.restconf.converter import _nxos_vrf_restconf_converter
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
-from functions.global_tools import (
-    open_file,
-    open_txt_file,
-    open_json_file,
-    open_txt_file_as_bytes,
-    printline
-)
-from behave import given, when, then
+from protocols.vrf import VRF, ListVRF
+from netests.converters.vrf.vrf_compare import _compare_vrf
+from netests.converters.vrf.arista.api.converter import _arista_vrf_api_converter
+from netests.converters.vrf.arista.netconf.converter import _arista_vrf_netconf_converter
+from netests.converters.vrf.arista.ssh.converter import _arista_vrf_ssh_converter
+from netests.converters.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
+from netests.converters.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
+from netests.converters.vrf.extreme_vsp.ssh.converter import _extreme_vsp_vrf_ssh_converter
+from netests.converters.vrf.ios.api.converter import _ios_vrf_api_converter
+from netests.converters.vrf.ios.netconf.converter import _ios_vrf_netconf_converter
+from netests.converters.vrf.ios.ssh.converter import _ios_vrf_ssh_converter
+from netests.converters.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
+from netests.converters.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
+from netests.converters.vrf.juniper.api.converter import _juniper_vrf_api_converter
+from netests.converters.vrf.juniper.netconf.converter import _juniper_vrf_netconf_converter
+from netests.converters.vrf.juniper.ssh.converter import _juniper_vrf_ssh_converter
+from netests.converters.vrf.napalm.converter import _napalm_vrf_converter
+from netests.converters.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
+from netests.converters.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
+from netests.converters.vrf.nxos.restconf.converter import _nxos_vrf_restconf_converter
+from netests.constants import NOT_SET, FEATURES_SRC_PATH, FEATURES_OUTPUT_PATH, VRF_DATA_KEY
+from netests.tools.file import open_file, open_txt_file, open_json_file, open_txt_file_as_bytes,
 
 
 @given(u'A network protocols named VRF defined in protocols/vrf.py')

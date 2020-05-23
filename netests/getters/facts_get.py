@@ -12,6 +12,7 @@ from netests.workers.cumulus_ssh import FactsCumulusSSH
 from netests.workers.extreme_vsp_api import FactsExtremeVSPAPI
 from netests.workers.extreme_vsp_nc import ExtremeVSPNC
 from netests.workers.extreme_vsp_ssh import FactsExtremeVSPSSH
+from netests.workers.ios_api import FactsIosAPI
 from netests.workers.ios_nc import FactsIosNC
 from netests.workers.ios_ssh import FactsIosSSH
 
@@ -72,7 +73,7 @@ class GetterFacts(GetterBase):
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.CISCO_IOS_PLATEFORM_NAME: {
-                self.API_CONNECTION: "",
+                self.API_CONNECTION: FactsIosAPI,
                 self.NETCONF_CONNECTION: FactsIosNC,
                 self.SSH_CONNECTION: FactsIosSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm

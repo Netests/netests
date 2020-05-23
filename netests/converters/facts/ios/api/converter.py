@@ -4,6 +4,7 @@
 import json
 from netests.constants import NOT_SET
 from netests.protocols.facts import Facts
+from netests.tools.nc import format_xml_output
 
 
 def _ios_facts_api_converter(
@@ -11,6 +12,10 @@ def _ios_facts_api_converter(
     cmd_output,
     options={}
 ) -> Facts:
+    cmd_output = format_xml_output(cmd_output)
+    print(cmd_output)
+    print(cmd_output.keys())
+    print(type(cmd_output))
 
     hostname = NOT_SET
     domain = NOT_SET
@@ -18,8 +23,6 @@ def _ios_facts_api_converter(
     model = NOT_SET
     serial = NOT_SET
     interfaces_lst = list()
-    if not isinstance(cmd_output, dict):
-        cmd_output = json.loads(cmd_output)
     if (
         isinstance(cmd_output, dict) and
         'Cisco-IOS-XE-native:native' in cmd_output.keys()
@@ -45,6 +48,19 @@ def _ios_facts_api_converter(
             for i in cmd_output.get('Cisco-IOS-XE-native:native') \
                                .get('interface') \
                                .get(t):
+                interfaces_lst.append(f"{t}{i.get('name')}")
+
+    elif (
+        isinstance(cmd_output, dict) and
+        'native' in cmd_output.keys()
+    ):
+        hostname = cmd_output.get('native').get('hostname')
+        domain = cmd_output.get('native').get('ip').get('domain').get('name')
+        version = cmd_output.get('native').get('version')
+        serial = cmd_output.get('native').get('license').get('udi').get('sn')
+        model = cmd_output.get('native').get('license').get('udi').get('pid')
+        for t in cmd_output.get('native').get('interface').keys():
+            for i in cmd_output.get('native').get('interface').get(t):
                 interfaces_lst.append(f"{t}{i.get('name')}")
 
     return Facts(

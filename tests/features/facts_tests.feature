@@ -25,6 +25,9 @@ Feature: Test protocols Facts python class ./protocols/facts.py
         And I create a Facts object from a IOS Netconf named o0303
         And I create a Facts object from a IOS SSH named o0304
 
+        And I create a Facts object equals to IOS 16.9 manually named o0311
+        And I create a Facts object from a IOS API 16.9 output named o0302
+
         # Cisco IOS-XR Device = o04
         And I create a Facts object equals to IOS-XR manually named o0401
         And I create a Facts object from a IOS-XR API output named o0402

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.global_tools import open_txt_file, open_json_file
-from functions.ping.arista.api.ping import arista_api_validate_output
-from functions.ping.ping_validator import _raise_exception_on_ping_cmd
-from exceptions.netests_exceptions import NetestsErrorWithPingExecution
-from const.constants import (
+from netests.tools.file import open_txt_file, open_json_file
+from netests.converters.ping.arista.api.ping import arista_api_validate_output
+from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
+from netests.exceptions.netests_exceptions import NetestsErrorWithPingExecution
+from netests.constants import (
     FEATURES_SRC_PATH,
     ARISTA_PLATEFORM_NAME,
     CUMULUS_PLATEFORM_NAME,

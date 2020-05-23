@@ -3,7 +3,7 @@
 
 import json
 from netests.protocols.cdp import ListCDP
-from netests.constants import NOT_SET, LEVEL1
+from netests.constants import NOT_SET
 
 
 def _ios_cdp_api_converter(

@@ -3,7 +3,8 @@
 
 import json
 from netests.mappings import get_bgp_state_brief
-from netests.constants import NOT_SET, LEVEL1, LEVEL3
+from netests.tools.nc import format_xml_output
+from netests.constants import NOT_SET
 from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
@@ -17,6 +18,8 @@ def _ios_bgp_api_converter(
     cmd_output: dict,
     options={}
 ) -> BGP:
+
+    cmd_output = format_xml_output(cmd_output)
 
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(
         list()

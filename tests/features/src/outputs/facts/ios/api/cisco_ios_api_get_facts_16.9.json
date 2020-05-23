@@ -1,0 +1,512 @@
+{
+    "native": {
+        "@xmlns": "http: //cisco.com/ns/yang/Cisco-IOS-XE-native",
+        "@xmlns:ios": "http://cisco.com/ns/yang/Cisco-IOS-XE-native",
+        "version": "16.9",
+        "boot-start-marker": "None",
+        "boot-end-marker": "None",
+        "banner": {
+            "motd": {
+                "banner": "^C"
+            }
+        },
+        "service": {
+            "timestamps": {
+                "debug": {
+                    "datetime": {
+                        "msec": "None"
+                    }
+                },
+                "log": {
+                    "datetime": {
+                        "msec": "None"
+                    }
+                }
+            }
+        },
+        "platform": {
+            "console": {
+                "@xmlns": "http://cisco.com/ns/yang/Cisco-IOS-XE-platform",
+                "output": "virtual"
+            }
+        },
+        "hostname": "csr1000v",
+        "enable": {
+            "secret": {
+                "type": "5",
+                "secret": "$1$gkJ1$EofN9ajW9k18SoRTgkhYr/"
+            }
+        },
+        "archive": {
+            "path": "bootflash:",
+            "time-period": "1440"
+        },
+        "username": [
+            {
+                "name": "cisco",
+                "privilege": "15",
+                "secret": {
+                    "encryption": "5",
+                    "secret": "$1$aO1Y$0AFVz00ON.hE4WkY.BeYq."
+                }
+            },
+            {
+                "name": "developer",
+                "privilege": "15",
+                "secret": {
+                    "encryption": "5",
+                    "secret": "$1$HtLC$7Kj3hGBoDnSHzdEeR/2ix."
+                }
+            },
+            {
+                "name": "root",
+                "privilege": "15",
+                "secret": {
+                    "encryption": "5",
+                    "secret": "$1$vpY7$mh9d69ui3koSaITBi8k9D/"
+                }
+            }
+        ],
+        "ip": {
+            "domain": {
+                "name": "abc.inc"
+            },
+            "forward-protocol": {
+                "protocol": "nd"
+            },
+            "route": {
+                "ip-route-interface-forwarding-list": {
+                    "prefix": "0.0.0.0",
+                    "mask": "0.0.0.0",
+                    "fwd-list": {
+                        "fwd": "GigabitEthernet1",
+                        "interface-next-hop": {
+                            "ip-address": "10.10.20.254"
+                        }
+                    }
+                }
+            },
+            "scp": {
+                "server": {
+                    "enable": "None"
+                }
+            },
+            "ssh": {
+                "rsa": {
+                    "keypair-name": "ssh-key"
+                },
+                "version": "2"
+            },
+            "access-list": {
+                "extended": {
+                    "@xmlns": "http://cisco.com/ns/yang/Cisco-IOS-XE-acl",
+                    "name": "deny-rfc1918",
+                    "access-list-seq-rule": [
+                        {
+                            "sequence": "10",
+                            "ace-rule": {
+                                "action": "deny",
+                                "protocol": "ip",
+                                "any": "None",
+                                "dest-ipv4-address": "0.0.0.0",
+                                "dest-mask": "255.0.0.0"
+                            }
+                        },
+                        {
+                            "sequence": "20",
+                            "ace-rule": {
+                                "action": "deny",
+                                "protocol": "ip",
+                                "any": "None",
+                                "dest-ipv4-address": "0.0.0.0",
+                                "dest-mask": "255.240.0.0"
+                            }
+                        },
+                        {
+                            "sequence": "30",
+                            "ace-rule": {
+                                "action": "deny",
+                                "protocol": "ip",
+                                "any": "None",
+                                "dest-ipv4-address": "0.0.0.0",
+                                "dest-mask": "255.255.0.0"
+                            }
+                        },
+                        {
+                            "sequence": "40",
+                            "ace-rule": {
+                                "action": "deny",
+                                "protocol": "ip",
+                                "ipv4-address": "0.0.0.0",
+                                "mask": "255.0.0.0",
+                                "dst-any": "None"
+                            }
+                        },
+                        {
+                            "sequence": "50",
+                            "ace-rule": {
+                                "action": "deny",
+                                "protocol": "ip",
+                                "ipv4-address": "0.0.0.0",
+                                "mask": "255.240.0.0",
+                                "dst-any": "None"
+                            }
+                        },
+                        {
+                            "sequence": "60",
+                            "ace-rule": {
+                                "action": "deny",
+                                "protocol": "ip",
+                                "ipv4-address": "0.0.0.0",
+                                "mask": "255.255.0.0",
+                                "dst-any": "None"
+                            }
+                        },
+                        {
+                            "sequence": "70",
+                            "ace-rule": {
+                                "action": "permit",
+                                "protocol": "ip",
+                                "any": "None",
+                                "dst-any": "None"
+                            }
+                        }
+                    ]
+                }
+            },
+            "http": {
+                "@xmlns": "http://cisco.com/ns/yang/Cisco-IOS-XE-http",
+                "authentication": {
+                    "local": "None"
+                },
+                "server": "true",
+                "secure-server": "true"
+            }
+        },
+        "interface": {
+            "GigabitEthernet": [
+                {
+                    "name": "1",
+                    "description": "MANAGEMENT INTERFACE - DON'T TOUCH ME",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "10.10.20.48",
+                                "mask": "255.255.255.0"
+                            }
+                        }
+                    },
+                    "mop": {
+                        "enabled": "false",
+                        "sysid": "false"
+                    },
+                    "negotiation": {
+                        "@xmlns": "http: //cisco.com/ns/yang/Cisco-IOS-XE-ethernet",
+                        "auto": "true"
+                    }
+                },
+                {
+                    "name": "2",
+                    "description": "Configured by NETCONF",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "10.255.255.1",
+                                "mask": "255.255.255.0"
+                            }
+                        }
+                    },
+                    "mop": {
+                        "enabled": "false",
+                        "sysid": "false"
+                    },
+                    "negotiation": {
+                        "@xmlns": "http://cisco.com/ns/yang/Cisco-IOS-XE-ethernet",
+                        "auto": "true"
+                    }
+                },
+                {
+                    "name": "3",
+                    "description": "Network Interface",
+                    "shutdown": "None",
+                    "mop": {
+                        "enabled": "false",
+                        "sysid": "false"
+                    },
+                    "negotiation": {
+                        "@xmlns": "http://cisco.com/ns/yang/Cisco-IOS-XE-ethernet",
+                        "auto": "true"
+                    }
+                }
+            ],
+            "Loopback": [
+                {
+                    "name": "12",
+                    "description": "CONFIGURED WITH POSTMAN - ABADEE - CCNP ENCOR",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "1.2.3.40",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "101"
+                },
+                {
+                    "name": "854",
+                    "description": "Added with Restconf by Niko",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "123.123.123.123",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1500",
+                    "description": "This one has a description"
+                },
+                {
+                    "name": "1501",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "100.64.151.1",
+                                "mask": "255.255.255.0"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1609",
+                    "description": "Added by Patrick Imoh using RESTCONF",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "11.66.0.99",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1974",
+                    "description": "CONFIGURED_BY_JOGEBR",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "45.45.45.45",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1996",
+                    "description": "Added with RESTCONF by shane CCNP ENCOR",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "10.10.10.10",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1997",
+                    "description": "CONFIGURED WITH POSTMAN - Fatooma - CCNP ENCOR",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "1.2.98.250",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "1998",
+                    "description": "CONFIGURED WITH POSTMAN - ABADEE - CCNP ENCOR",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "1.2.56.244",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2000",
+                    "description": "I can see this using python",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "3.4.5.6",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "2222",
+                    "description": "PATCHED 2ND with RESTCONF by PGN Vietnam Trying create own patch command",
+                    "ip": {
+                        "address": {
+                            "secondary": {
+                                "address": "3.3.3.3",
+                                "mask": "255.255.255.255",
+                                "secondary": "None"
+                            },
+                            "primary": {
+                                "address": "2.2.2.2",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "3000",
+                    "description": "DARWIN-CCNP-ENCOR",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "11.11.11.11",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "4321",
+                    "description": "Added with RESTCONF BY JPB",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "4.3.2.1",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "5263",
+                    "description": "Added with RESTCONF",
+                    "ip": {
+                        "address": {
+                            "primary": {
+                                "address": "5.2.6.3",
+                                "mask": "255.255.255.255"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "control-plane": "None",
+        "login": {
+            "on-success": {
+                "log": "None"
+            }
+        },
+        "multilink": {
+            "bundle-name": {
+                "@xmlns": "http://cisco.com/ns/yang/Cisco-IOS-XE-ppp",
+                "#text": "authenticated"
+            }
+        },
+        "redundancy": "None",
+        "spanning-tree": {
+            "extend": {
+                "@xmlns": "http://cisco.com/ns/yang/Cisco-IOS-XE-spanning-tree",
+                "system-id": "None"
+            }
+        },
+        "subscriber": {
+            "templating": "None"
+        },
+        "crypto": {
+            "pki": {
+                "@xmlns": "http://cisco.com/ns/yang/Cisco-IOS-XE-crypto",
+                "trustpoint": {
+                    "id": "TP-self-signed-1530096085",
+                    "enrollment": {
+                        "selfsigned": "None"
+                    },
+                    "revocation-check": "none",
+                    "rsakeypair": {
+                        "key-label": "TP-self-signed-1530096085"
+                    },
+                    "subject-name": "cn=IOS-Self-Signed-Certificate-1530096085"
+                },
+                "certificate": {
+                    "chain": {
+                        "name": "TP-self-signed-1530096085",
+                        "certificate": {
+                            "serial": "01",
+                            "certtype": "self-signed"
+                        }
+                    }
+                }
+            }
+        },
+        "license": {
+            "udi": {
+                "pid": "CSR1000V",
+                "sn": "9KAAMNP24B9"
+            },
+            "boot": {
+                "level": {
+                    "ax": "None"
+                }
+            }
+        },
+        "line": {
+            "console": {
+                "first": "0",
+                "exec-timeout": {
+                    "minutes": "0",
+                    "seconds": "0"
+                },
+                "stopbits": "1"
+            },
+            "vty": {
+                "first": "0",
+                "last": "4",
+                "login": {
+                    "local": "None"
+                },
+                "transport": {
+                    "input": {
+                        "input": "ssh"
+                    }
+                }
+            }
+        },
+        "ntp": {
+            "server": {
+                "@xmlns": "http://cisco.com/ns/yang/Cisco-IOS-XE-ntp",
+                "server-list": [
+                    {
+                        "ip-address": "172.16.100.2"
+                    },
+                    {
+                        "ip-address": "172.16.100.3"
+                    }
+                ]
+            }
+        },
+        "diagnostic": {
+            "@xmlns": "http://cisco.com/ns/yang/Cisco-IOS-XE-diagnostics",
+            "bootup": {
+                "level": "minimal"
+            }
+        }
+    }
+}
