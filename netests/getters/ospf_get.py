@@ -28,7 +28,8 @@ class GetterOSPF(GetterRouting):
         from_cli,
         num_workers,
         verbose,
-        print_task_output
+        print_task_output,
+        compare
     ):
         super().__init__(
             nr,
@@ -36,7 +37,8 @@ class GetterOSPF(GetterRouting):
             from_cli,
             num_workers,
             verbose,
-            print_task_output
+            print_task_output,
+            compare
         )
         self.init_mapping_function()
 

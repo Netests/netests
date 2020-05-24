@@ -2,12 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-from netests.global_tools import open_file
-from netests.global_tools import printline
-from netests.constants import (
-    NOT_SET,
-    LEVEL4
-)
+from netests.tools.file import open_file
+from netests.constants import NOT_SET
 
 
 HEADER = "[netests - select_vars.py] -"
@@ -15,26 +11,22 @@ HEADER = "[netests - select_vars.py] -"
 
 def select_host_vars(hostname: str, groups: list, protocol: str):
     if truth_vars_exists() is False:
-        printline()
         print(f"{HEADER} Truth_vars doesn't exists")
         return {}
 
     if host_vars_exists(hostname, protocol):
-        printline()
         print(f"{HEADER} Select hosts variables")
         return open_file(
             path=f"truth_vars/hosts/{hostname}/{protocol}.yml"
         )
 
     if group_vars_exists(groups[0], protocol):
-        printline()
         print(f"{HEADER} Select groups variables")
         return open_file(
             path=f"truth_vars/groups/{groups[0]}/{protocol}.yml"
         )
 
     if all_vars_exists(protocol):
-        printline()
         print(f"{HEADER} Select all variables")
         return open_file(
             path=f"truth_vars/all/{protocol}.yml"

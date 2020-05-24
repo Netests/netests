@@ -152,17 +152,17 @@ HEADER = "[netests - main.py]"
     help="Specify that an Nornir inventory will be used.",
 )
 @click.option(
+    "-C",
+    "--compare",
+    default=False,
+    is_flag=True,
+    help="To compare/excute step. Will only get data or generate cmd.",
+)
+@click.option(
     "-I",
     "--init-data",
     is_flag=True,
     help="To create truth_vars files.",
-)
-@click.option(
-    "-N",
-    "--not-compare",
-    default=False,
-    is_flag=True,
-    help="To avoid compare/excute step. Will only get data or generate cmd.",
 )
 def main(
     netest_config_file,
@@ -184,8 +184,8 @@ def main(
     ansible_inventory,
     netbox_inventory,
     nornir_inventory,
+    compare,
     init_data,
-    not_compare
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -233,7 +233,7 @@ def main(
             run_base(
                 nr=nr,
                 protocol=k,
-                not_compare=not_compare,
+                compare=compare,
                 parameters=v,
                 init_data=init_data,
                 num_workers=num_workers,

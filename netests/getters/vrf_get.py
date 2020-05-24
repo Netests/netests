@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests.comparators.vrf_compare import _compare_transit_vrf
 from netests.workers.arista_api import VRFAristaAPI
 from netests.workers.arista_nc import VRFAristaNC
 from netests.workers.arista_ssh import VRFAristaSSH
@@ -31,6 +32,8 @@ HEADER = "[netests - get_vrf]"
 
 class GetterVRF(GetterBase):
 
+    compare_function: str
+
     def __init__(
         self,
         nr,
@@ -38,7 +41,8 @@ class GetterVRF(GetterBase):
         from_cli,
         num_workers,
         verbose,
-        print_task_output
+        print_task_output,
+        compare
     ):
         super().__init__(
             nr,
@@ -46,9 +50,11 @@ class GetterVRF(GetterBase):
             from_cli,
             num_workers,
             verbose,
-            print_task_output
+            print_task_output,
+            compare
         )
         self.init_mapping_function()
+        self.compare_function = _compare_transit_vrf
 
     def print_result(self):
         self.print_protocols_result(VRF_DATA_KEY, "VRF")

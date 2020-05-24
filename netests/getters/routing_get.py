@@ -14,7 +14,8 @@ class GetterRouting(GetterBase):
         from_cli,
         num_workers,
         verbose,
-        print_task_output
+        print_task_output,
+        compare
     ):
         super().__init__(
             nr,
@@ -22,7 +23,8 @@ class GetterRouting(GetterBase):
             from_cli,
             num_workers,
             verbose,
-            print_task_output
+            print_task_output,
+            compare
         )
 
     def get_vrf(self):

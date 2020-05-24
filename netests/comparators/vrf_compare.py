@@ -3,52 +3,15 @@
 
 import os
 from nornir.core.task import Task
-from functions.verbose_mode import verbose_mode
-from functions.select_vars import select_host_vars
-from functions.global_tools import open_file
 from nornir.plugins.functions.text import print_result
-from const.constants import (
-    NOT_SET,
-    LEVEL2,
-    VRF_DATA_KEY,
-    VRF_WORKS_KEY
-)
-from protocols.vrf import VRF, ListVRF
-from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from netests.tools.file import open_file
+from netests.protocols.vrf import VRF, ListVRF
+from netests.select_vars import select_host_vars
+from netests.constants import NOT_SET, VRF_DATA_KEY, VRF_WORKS_KEY
+from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 
 
 HEADER = "[netests - compare_vrf]"
-
-
-def compare_vrf(nr, options={}) -> bool:
-    devices = nr.filter()
-
-    if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER}] no device selected.")
-
-    data = devices.run(
-        task=_compare_transit_vrf,
-        options=options,
-        on_failed=True,
-        num_workers=10
-    )
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL2
-    ):
-        print_result(data)
-
-    return_value = True
-
-    for value in data.values():
-        if value.result is False:
-            print(
-                f"{HEADER} Task '_compare' has failed for {value.host}"
-                f"(value.result={value.result})."
-            )
-            return_value = False
-
-    return (not data.failed and return_value)
 
 
 def _compare_transit_vrf(task, options={}):
@@ -119,12 +82,4 @@ def _compare_vrf(
                 f"for {hostname} or no VRF data has been found."
             )
 
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL2
-    ):
-        print(
-            f"{HEADER} Return value for host {hostname}"
-            f"is {verity_vrf == vrf_host_data}"
-        )
     return verity_vrf == vrf_host_data

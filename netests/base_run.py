@@ -24,7 +24,7 @@ RUN = {
 def run_base(
     nr: Nornir,
     protocol: str,
-    not_compare: bool,
+    compare: bool,
     parameters: dict,
     init_data: bool,
     num_workers: int,
@@ -41,11 +41,12 @@ def run_base(
             from_cli=False,
             num_workers=num_workers,
             verbose=verbose,
-            print_task_output=True
+            print_task_output=True,
+            compare=compare
         )
 
         getter.run()
-
+        
         """
         if init_data is True:
             if protocol != "ping":
