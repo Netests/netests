@@ -34,5 +34,6 @@ class GetterRouting(GetterBase):
             from_cli=False,
             num_workers=self.num_workers,
             verbose=self.verbose,
-            print_task_output=False
+            print_task_output=False,
+            compare=False
         ).run()

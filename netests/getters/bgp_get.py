@@ -15,6 +15,14 @@ from netests.workers.extreme_vsp_ssh import BGPExtremeVSPSSH
 from netests.workers.ios_api import BGPIosAPI
 from netests.workers.ios_nc import BGPIosNC
 from netests.workers.ios_ssh import BGPIosSSH
+from netests.workers.iosxr_api import IosxrAPI
+from netests.workers.iosxr_nc import BGPIosxrNC
+from netests.workers.iosxr_ssh import BGPIosxrSSH
+
+from netests.workers.nxos_api import BGPNxosAPI
+from netests.workers.nxos_nc import BGPNxosNC
+from netests.workers.nxos_ssh import BGPNxosSSH
+
 
 
 HEADER = "[netests - get_bgp]"
@@ -79,6 +87,18 @@ class GetterBGP(GetterRouting):
                 self.API_CONNECTION: BGPIosAPI,
                 self.NETCONF_CONNECTION: BGPIosNC,
                 self.SSH_CONNECTION: BGPIosSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
+            self.CISCO_IOSXR_PLATEFORM_NAME: {
+                self.API_CONNECTION: IosxrAPI,
+                self.NETCONF_CONNECTION: BGPIosxrNC,
+                self.SSH_CONNECTION: BGPIosxrSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
+            self.NEXUS_PLATEFORM_NAME: {
+                self.API_CONNECTION: BGPNxosAPI,
+                self.NETCONF_CONNECTION: BGPNxosNC,
+                self.SSH_CONNECTION: BGPNxosSSH,
                 self.NAPALM_CONNECTION: "pass"
             }
         }

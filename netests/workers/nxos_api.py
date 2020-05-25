@@ -4,8 +4,34 @@
 import requests
 from abc import ABC
 from netests.workers.device_api import DeviceAPI
+from netests.converters.bgp.nxos.api.converter import _nxos_bgp_api_converter
+from netests.converters.cdp.nxos.api.converter import _nxos_cdp_api_converter
+from netests.converters.facts.nxos.api.converter import _nxos_facts_api_converter
+from netests.converters.lldp.nxos.api.converter import _nxos_lldp_api_converter
+from netests.converters.ospf.nxos.api.converter import _nxos_ospf_api_converter
+from netests.converters.vrf.nxos.api.converter import _nxos_vrf_api_converter
 from netests.constants import NEXUS_API_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
 from netests.converters.vrf.nxos.api.converter import _nxos_vrf_api_converter
+from netests.constants import (
+    BGP_SESSIONS_HOST_KEY,
+    CDP_DATA_HOST_KEY,
+    FACTS_DATA_HOST_KEY,
+    LLDP_DATA_HOST_KEY,
+    OSPF_SESSIONS_HOST_KEY,
+    VRF_DATA_KEY,
+    NEXUS_API_GET_BGP,
+    NEXUS_API_GET_BGP_VRF,
+    NEXUS_API_GET_CDP,
+    NEXUS_API_GET_FACTS,
+    NEXUS_API_GET_INT,
+    NEXUS_API_GET_DOMAIN,
+    NEXUS_API_GET_LLDP,
+    NEXUS_API_GET_OSPF,
+    NEXUS_API_GET_OSPF_RID,
+    NEXUS_API_GET_OSPF_VRF,
+    NEXUS_API_GET_OSPF_RID_VRF,
+    NEXUS_API_GET_VRF
+)
 
 
 class NxosAPI(DeviceAPI, ABC):
@@ -54,6 +80,101 @@ class NxosAPI(DeviceAPI, ABC):
         )
         self.check_status_code(res.status_code)
         return res.content
+
+
+class BGPNxosAPI(NxosAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": NEXUS_API_GET_BGP,
+                },
+                "vrf": {
+                    "no_key": NEXUS_API_GET_BGP_VRF,
+                },
+            },
+            vrf_loop=True,
+            converter=_nxos_bgp_api_converter,
+            key_store=BGP_SESSIONS_HOST_KEY,
+            options=options
+        )
+
+
+class CDPNxosAPI(NxosAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": NEXUS_API_GET_CDP
+                }
+            },
+            vrf_loop=False,
+            converter=_nxos_cdp_api_converter,
+            key_store=CDP_DATA_HOST_KEY,
+            options=options
+        )
+
+
+class FactsNxosAPI(NxosAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "get_infos_sys": NEXUS_API_GET_FACTS,
+                    "get_infos_int": NEXUS_API_GET_INT,
+                    "get_infos_domain": NEXUS_API_GET_DOMAIN
+                }
+            },
+            vrf_loop=False,
+            converter=_nxos_facts_api_converter,
+            key_store=FACTS_DATA_HOST_KEY,
+            options=options
+        )
+
+
+class LLDPNxosAPI(NxosAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": NEXUS_API_GET_LLDP
+                }
+            },
+            vrf_loop=False,
+            converter=_nxos_lldp_api_converter,
+            key_store=LLDP_DATA_HOST_KEY,
+            options=options
+        )
+
+
+class OSPFNxosAPI(NxosAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "data": NEXUS_API_GET_OSPF,
+                    "rid": NEXUS_API_GET_OSPF_RID
+                },
+                "vrf": {
+                    "data": NEXUS_API_GET_OSPF_VRF,
+                    "rid": NEXUS_API_GET_OSPF_RID_VRF
+                },
+            },
+            vrf_loop=True,
+            converter=_nxos_ospf_api_converter,
+            key_store=OSPF_SESSIONS_HOST_KEY,
+            options=options
+        )
 
 
 class VRFNxosAPI(NxosAPI):

@@ -4,8 +4,10 @@
 from abc import ABC
 from ncclient import manager
 from netests.workers.device_nc import DeviceNC
-from netests.constants import ARISTA_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
+from netests.exceptions.netests_exceptions import NetestsFunctionNotImplemented
+from netests.converters.bgp.iosxr.netconf.converter import _iosxr_bgp_netconf_converter
 from netests.converters.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
+from netests.constants import BGP_SESSIONS_HOST_KEY, VRF_DATA_KEY
 
 
 class IosxrNC(DeviceNC, ABC):
@@ -68,6 +70,59 @@ class IosxrNC(DeviceNC, ABC):
             ).data_xml
             self.validate_xml(vrf_config)
             return vrf_config
+
+
+class BGPIosxrNC(IosxrNC):
+
+    NETCONF_FILTER = """
+        <bgp
+            xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XR-ipv4-bgp-cfg\"
+        />"""
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "BGP": self.NETCONF_FILTER_BGP
+                }
+            },
+            vrf_loop=False,
+            converter=_iosxr_bgp_netconf_converter,
+            key_store=BGP_SESSIONS_HOST_KEY,
+            nc_method='get_config',
+            options=options,
+            source='running'
+        )
+
+
+class CDPIosxrNC(IosxrNC):
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Cisco IOS-XR - Netconf - CDP not implemented"
+        )
+
+
+class FactsIosxrNC(IosxrNC):
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Cisco IOS-XR - Netconf - Facts not implemented"
+        )
+
+
+class LLDPIosxrNC(IosxrNC):
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Cisco IOS-XR - Netconf - LLDP not implemented"
+        )
+
+
+class OSPFIosxrNC(IosxrNC):
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Cisco IOS-XR - Netconf - OSPF not implemented"
+        )
+
 
 
 class VRFIosxrNC(IosxrNC):

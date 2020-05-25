@@ -15,6 +15,13 @@ from netests.workers.extreme_vsp_ssh import CDPExtremeVSPSSH
 from netests.workers.ios_api import CDPIosAPI
 from netests.workers.ios_nc import CDPIosNC
 from netests.workers.ios_ssh import CDPIosSSH
+from netests.workers.iosxr_api import IosxrAPI
+from netests.workers.iosxr_nc import CDPIosxrNC
+from netests.workers.iosxr_ssh import CDPIosxrSSH
+
+from netests.workers.nxos_api import CDPNxosAPI
+from netests.workers.nxos_nc import CDPNxosNC
+from netests.workers.nxos_ssh import CDPNxosSSH
 
 
 HEADER = "[netests - get_cdp]"
@@ -74,10 +81,16 @@ class GetterCDP(GetterBase):
                 self.SSH_CONNECTION: CDPExtremeVSPSSH,
                 self.NAPALM_CONNECTION: "pass"
             },
-            self.CISCO_IOS_PLATEFORM_NAME: {
-                self.API_CONNECTION: CDPIosAPI,
-                self.NETCONF_CONNECTION: CDPIosNC,
-                self.SSH_CONNECTION: CDPIosSSH,
+            self.CISCO_IOSXR_PLATEFORM_NAME: {
+                self.API_CONNECTION: IosxrAPI,
+                self.NETCONF_CONNECTION: CDPIosxrNC,
+                self.SSH_CONNECTION: CDPIosxrSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
+            self.NEXUS_PLATEFORM_NAME: {
+                self.API_CONNECTION: CDPNxosAPI,
+                self.NETCONF_CONNECTION: CDPNxosNC,
+                self.SSH_CONNECTION: CDPNxosSSH,
                 self.NAPALM_CONNECTION: "pass"
             }
         }

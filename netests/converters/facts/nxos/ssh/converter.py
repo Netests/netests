@@ -17,8 +17,14 @@ def _nxos_facts_ssh_converter(
     options={}
 ) -> Facts:
 
+
+
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
+        if not isinstance(cmd_output.get(FACTS_INT_DICT_KEY), dict):
+            cmd_output[FACTS_INT_DICT_KEY] = json.loads(
+                cmd_output.get(FACTS_INT_DICT_KEY)
+            )
         for i in cmd_output.get(FACTS_INT_DICT_KEY) \
                            .get('TABLE_interface') \
                            .get('ROW_interface'):
@@ -31,6 +37,10 @@ def _nxos_facts_ssh_converter(
     vendor = NOT_SET
     model = NOT_SET
     if FACTS_SYS_DICT_KEY in cmd_output.keys():
+        if not isinstance(cmd_output.get(FACTS_SYS_DICT_KEY), dict):
+            cmd_output[FACTS_SYS_DICT_KEY] = json.loads(
+                cmd_output.get(FACTS_SYS_DICT_KEY)
+            )
         hostname = cmd_output.get(FACTS_SYS_DICT_KEY) \
                              .get("host_name", NOT_SET)
         version = cmd_output.get(FACTS_SYS_DICT_KEY) \
@@ -46,6 +56,10 @@ def _nxos_facts_ssh_converter(
 
     domain = NOT_SET
     if FACTS_DOMAIN_DICT_KEY in cmd_output.keys():
+        if not isinstance(cmd_output.get(FACTS_DOMAIN_DICT_KEY), dict):
+            cmd_output[FACTS_DOMAIN_DICT_KEY] = json.loads(
+                cmd_output.get(FACTS_DOMAIN_DICT_KEY)
+            )
         if "." in cmd_output.get(FACTS_DOMAIN_DICT_KEY) \
                             .get('hostname', NOT_SET):
             i = cmd_output.get(FACTS_DOMAIN_DICT_KEY) \

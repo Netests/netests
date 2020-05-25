@@ -224,6 +224,8 @@ IOSXR_GET_BGP_PEERS = "show bgp neighbors"
 IOSXR_GET_BGP_RID = "show bgp summary"
 IOSXR_VRF_GET_BGP_PEERS = "show bgp vrf {} neighbors"
 IOSXR_VRF_GET_BGP_RID = "show bgp vrf {} summary"
+IOSXR_GET_FACTS = "show version"
+IOSXR_GET_INT = "show ip interface brief"
 IOSXR_GET_LLDP = "show lldp neighbors"
 IOSXR_GET_CDP = "show cdp neighbors detail"
 

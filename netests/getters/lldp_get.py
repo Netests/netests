@@ -14,6 +14,13 @@ from netests.workers.extreme_vsp_ssh import LLDPExtremeVSPSSH
 from netests.workers.ios_api import LLDPIosAPI
 from netests.workers.ios_nc import LLDPIosNC
 from netests.workers.ios_ssh import LLDPIosSSH
+from netests.workers.iosxr_api import IosxrAPI
+from netests.workers.iosxr_nc import LLDPIosxrNC
+from netests.workers.iosxr_ssh import LLDPIosxrSSH
+
+from netests.workers.nxos_api import LLDPNxosAPI
+from netests.workers.nxos_nc import LLDPNxosNC
+from netests.workers.nxos_ssh import LLDPNxosSSH
 
 from netests.constants import LLDP_DATA_HOST_KEY
 
@@ -79,5 +86,17 @@ class GetterLLDP(GetterBase):
                 self.NETCONF_CONNECTION: LLDPIosNC,
                 self.SSH_CONNECTION: LLDPIosSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+            },
+            self.CISCO_IOSXR_PLATEFORM_NAME: {
+                self.API_CONNECTION: IosxrAPI,
+                self.NETCONF_CONNECTION: LLDPIosxrNC,
+                self.SSH_CONNECTION: LLDPIosxrSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
+            self.NEXUS_PLATEFORM_NAME: {
+                self.API_CONNECTION: LLDPNxosAPI,
+                self.NETCONF_CONNECTION: LLDPNxosNC,
+                self.SSH_CONNECTION: LLDPNxosSSH,
+                self.NAPALM_CONNECTION: "pass"
             }
         }

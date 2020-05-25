@@ -15,6 +15,13 @@ from netests.workers.extreme_vsp_ssh import FactsExtremeVSPSSH
 from netests.workers.ios_api import FactsIosAPI
 from netests.workers.ios_nc import FactsIosNC
 from netests.workers.ios_ssh import FactsIosSSH
+from netests.workers.iosxr_api import IosxrAPI
+from netests.workers.iosxr_nc import FactsIosxrNC
+from netests.workers.iosxr_ssh import FactsIosxrSSH
+
+from netests.workers.nxos_api import FactsNxosAPI
+from netests.workers.nxos_nc import FactsNxosNC
+from netests.workers.nxos_ssh import FactsNxosSSH
 
 
 HEADER = "[netests - get_facts]"
@@ -79,5 +86,11 @@ class GetterFacts(GetterBase):
                 self.NETCONF_CONNECTION: FactsIosNC,
                 self.SSH_CONNECTION: FactsIosSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+            },
+            self.NEXUS_PLATEFORM_NAME: {
+                self.API_CONNECTION: FactsNxosAPI,
+                self.NETCONF_CONNECTION: FactsNxosNC,
+                self.SSH_CONNECTION: FactsNxosSSH,
+                self.NAPALM_CONNECTION: "pass"
             }
         }

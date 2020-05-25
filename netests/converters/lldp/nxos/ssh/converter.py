@@ -18,7 +18,10 @@ def _nxos_lldp_ssh_converter(
         lldp_neighbors_lst=list()
     )
 
-    if "Invalid command" not in cmd_output:
+    if (
+        "Invalid command" not in cmd_output and
+        "ERROR: No neighbour information" not in cmd_output
+    ):
         if not isinstance(cmd_output, dict):
             cmd_output = json.loads(cmd_output)
 

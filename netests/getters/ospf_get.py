@@ -15,6 +15,12 @@ from netests.workers.extreme_vsp_ssh import OSPFExtremeVSPSSH
 from netests.workers.ios_api import OSPFIosAPI
 from netests.workers.ios_nc import OSPFIosNC
 from netests.workers.ios_ssh import OSPFIosSSH
+from netests.workers.iosxr_api import IosxrAPI
+from netests.workers.iosxr_nc import OSPFIosxrNC
+from netests.workers.iosxr_ssh import OSPFIosxrSSH
+from netests.workers.nxos_api import OSPFNxosAPI
+from netests.workers.nxos_nc import OSPFNxosNC
+from netests.workers.nxos_ssh import OSPFNxosSSH
 
 HEADER = "[netests - get_ospf]"
 
@@ -79,5 +85,17 @@ class GetterOSPF(GetterRouting):
                 self.NETCONF_CONNECTION: OSPFIosNC,
                 self.SSH_CONNECTION: OSPFIosSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+            },
+            self.CISCO_IOSXR_PLATEFORM_NAME: {
+                self.API_CONNECTION: IosxrAPI,
+                self.NETCONF_CONNECTION: OSPFIosxrNC,
+                self.SSH_CONNECTION: OSPFIosxrSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
+            self.NEXUS_PLATEFORM_NAME: {
+                self.API_CONNECTION: OSPFNxosAPI,
+                self.NETCONF_CONNECTION: OSPFNxosNC,
+                self.SSH_CONNECTION: OSPFNxosSSH,
+                self.NAPALM_CONNECTION: "pass"
             }
         }

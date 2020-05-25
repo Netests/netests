@@ -4,9 +4,9 @@
 from abc import ABC
 from ncclient import manager
 from netests.workers.device_nc import DeviceNC
-from netests.constants import VRF_DATA_KEY
+from netests.exceptions.netests_exceptions import NetestsFunctionNotImplemented
 from netests.converters.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
-
+from netests.constants import VRF_DATA_KEY
 
 class NxosNC(DeviceNC, ABC):
 
@@ -68,6 +68,46 @@ class NxosNC(DeviceNC, ABC):
             ).data_xml
             self.validate_xml(vrf_config)
             return vrf_config
+
+
+class BGPNxosNC(NxosNC):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Cisco NXOS - BGP - Netconf - Not Possible"
+        )
+
+
+class CDPNxosNC(NxosNC):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Cisco NXOS - CDP - Netconf - Not Possible"
+        )
+
+
+class FactsNxosNC(NxosNC):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Cisco NXOS - Facts - Netconf - Not Possible"
+        )
+
+
+class LLDPNxosNC(NxosNC):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Cisco NXOS - LLDP - Netconf - Not Possible"
+        )
+
+
+class OSPFNxosNC(NxosNC):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotImplemented(
+            "Cisco NXOS - OSPF - Netconf - Not Possible"
+        )
 
 
 class VRFNxosNC(NxosNC):

@@ -3,7 +3,7 @@
 
 import json
 from netests.protocols.cdp import CDP, ListCDP
-from netests.constants import NOT_SET, LEVEL1
+from netests.constants import NOT_SET
 from netests.mappings import mapping_sys_capabilities
 
 
@@ -28,19 +28,25 @@ def _nxos_cdp_api_converter(
                             .get('outputs')
                             .get('output')
                             .keys() and
+        cmd_output.get('ins_api')
+                  .get('outputs')
+                  .get('output')
+                  .get('code') == '200' and
+        cmd_output.get('ins_api')
+                  .get('outputs')
+                  .get('output')
+                  .get('body') != '' and
         'TABLE_cdp_neighbor_detail_info' in cmd_output.get('ins_api')
-                                         .get('outputs')
-                                         .get('output')
-                                         .get('body')
-                                         .keys() and
+                                                      .get('outputs')
+                                                      .get('output')
+                                                      .get('body')
+                                                      .keys() and
         'ROW_cdp_neighbor_detail_info' in cmd_output.get('ins_api')
-                                       .get('outputs')
-                                       .get('output')
-                                       .get('body')
-                                       .get('TABLE_cdp_neighbor_detail_info')
-                                       .keys() and
-        cmd_output.get('ins_api').get('outputs').get(
-            'output').get('code') == '200'
+                                                    .get('outputs')
+                                                    .get('output')
+                                                    .get('body')
+                                                    .get('TABLE_cdp_neighbor_detail_info')
+                                                    .keys()
     ):
         if isinstance(
             cmd_output.get('ins_api')
