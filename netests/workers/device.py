@@ -37,7 +37,7 @@ class Device(ABC):
         converter,
         key_store,
         options={},
-        format_command=True
+        format_command=True,
     ):
         self.task = task
         self.commands = commands
@@ -123,9 +123,6 @@ class Device(ABC):
                                 command_to_exec,
                                 vrf.vrf_name
                             )
-
-    def print_nr_result(self, output):
-        print_result(output)
 
     def call_converter(self, task):
         task.host[self.key_store] = self.converter(

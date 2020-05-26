@@ -520,6 +520,7 @@ def printline_comment_json(comment: str, json_to_print) -> None:
     This function print a line :)
     :return None:
     """
+
     printline()
     print(f"///////////////\t {comment}")
     printline()
@@ -532,3 +533,15 @@ def get_level_test(level_value: int) -> int:
         return 0
     else:
         return level_value
+
+
+def print_inv(nr):
+    to_print = dict()
+    for host in nr.inventory.hosts:
+        to_print[host] = dict()
+        to_print[host]['hostname'] = nr.inventory.hosts[host].hostname
+        to_print[host]['connexion'] = nr.inventory.hosts[host]['connexion']
+        to_print[host]['port'] = nr.inventory.hosts[host].port
+        to_print[host]['platform'] = nr.inventory.hosts[host].platform
+    printline()
+    PP.pprint(to_print)

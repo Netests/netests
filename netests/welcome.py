@@ -6,11 +6,7 @@ import click
 import urllib3
 from netests.base_run import run_base
 from netests.base_cli import netests_cli
-from netests.tools.std import (
-    printline_comment_json as p,
-    open_file,
-    check_devices_connectivity,
-)
+from netests.tools.std import print_inv, open_file, check_devices_connectivity
 from netests.nornir_inventory import init_nornir
 from netests.constants import EXIT_FAILURE, EXIT_SUCCESS
 
@@ -191,8 +187,6 @@ def main(
 
     t = open_file(path=netest_config_file)
 
-    os.environ["NETESTS_VERBOSE"] = f"{verbose}"
-
     # Create Nornir object
     try:
         nr = init_nornir(
@@ -219,7 +213,7 @@ def main(
         netests_cli(nr)
         exit(EXIT_SUCCESS)
 
-    p(comment="Devices selected", json_to_print=nr.inventory.hosts)
+    print_inv(nr)
 
     if check_connectivity:
         if check_devices_connectivity(nr):

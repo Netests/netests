@@ -88,7 +88,6 @@ class GetterBase(ABC):
             on_failed=True,
             num_workers=self.num_workers
         )
-        print_result(output)
         self.print_result()
 
     def print_protocols_result(self, pkey, protocol):
@@ -145,7 +144,6 @@ class GetterBase(ABC):
         connection_mode: str,
         functions_mapping: dict
     ):
-        print(functions_mapping.get(platform).get(connection_mode))
         return functions_mapping.get(platform).get(connection_mode)
 
     def printline(self):

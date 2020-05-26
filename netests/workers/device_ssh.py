@@ -36,5 +36,4 @@ class DeviceSSH(Device, ABC):
             command_string=command,
             enable=enable
         )
-        self.print_nr_result(output)
         return output.result
