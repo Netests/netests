@@ -27,7 +27,7 @@ class DeviceSSH(Device, ABC):
             options,
         )
 
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         enable = task.host.platform != CUMULUS_PLATEFORM_NAME
 
         output = task.run(

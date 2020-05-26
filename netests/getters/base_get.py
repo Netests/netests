@@ -95,6 +95,7 @@ class GetterBase(ABC):
         self.printline()
         if self.print_task_output:
             for host in self.devices.inventory.hosts:
+                self.printline()
                 print(f">>>>> {host} -- ({protocol})")
                 if (
                     pkey in self.devices
@@ -104,11 +105,10 @@ class GetterBase(ABC):
                                 .keys() and
                     self.print_task_output is True
                 ):
-                    self.printline()
                     self.print_json(
                         self.devices.inventory.hosts.get(host)
-                                            .get(pkey)
-                                            .to_json()
+                                                    .get(pkey)
+                                                    .to_json()
                     )
                 else:
                     print("No value found for this host.")
@@ -150,7 +150,7 @@ class GetterBase(ABC):
 
     def printline(self):
         size = int(shutil.get_terminal_size()[0] / 2)
-        print("*-" * size)
+        print("-*" * size)
 
     def device_not_compatible_with_napalm(self):
         raise NetestsDeviceNotCompatibleWithNapalm()

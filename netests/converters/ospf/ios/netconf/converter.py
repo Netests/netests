@@ -10,9 +10,9 @@ def _ios_ospf_netconf_converter(
     options={}
 ) -> OSPF:
     
-    
-
     return OSPF(
         hostname=hostname,
-        ospf_sessions_vrf_lst=list()
+        ospf_sessions_vrf_lst=ListOSPFSessionsVRF(
+            ospf_sessions_vrf_lst=list()
+        )
     )

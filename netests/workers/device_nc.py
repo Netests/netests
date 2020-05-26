@@ -5,6 +5,7 @@ from ncclient import manager
 from xml.etree import ElementTree
 from abc import ABC, abstractmethod
 from netests.workers.device import Device
+from jnpr.junos.factcache import _FactCache
 
 
 class DeviceNC(Device, ABC):
@@ -16,7 +17,8 @@ class DeviceNC(Device, ABC):
         vrf_loop,
         converter,
         key_store,
-        options={}
+        options={},
+        format_command=False
     ):
         super().__init__(
             task,
@@ -25,15 +27,20 @@ class DeviceNC(Device, ABC):
             converter,
             key_store,
             options,
+            format_command
         )
 
     def validate_xml(self, output):
+        if isinstance(output, dict):
+            return output
         return ElementTree.fromstring(output)
 
     def format_rpc_output(self, output):
+        if isinstance(output, dict):
+            return output
         return ElementTree.tostring(output, encoding='utf8', method='xml')
 
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         if self.nc_method == 'get':
             return self.exec_call_get(task, command)
         elif self.nc_method == 'get_config':

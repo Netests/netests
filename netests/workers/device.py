@@ -27,6 +27,7 @@ class Device(ABC):
     converter: str
     key_store: str
     options: dict
+    format_command: bool
 
     def __init__(
         self,
@@ -35,7 +36,8 @@ class Device(ABC):
         vrf_loop,
         converter,
         key_store,
-        options={}
+        options={},
+        format_command=True
     ):
         self.task = task
         self.commands = commands
@@ -45,6 +47,7 @@ class Device(ABC):
         self.key_store = key_store
         self.options = options
         self.results = list()
+        self.format_command = format_command
 
     def get(self, task):
         if self.vrf_loop and "vrf" in self.commands.keys():
@@ -54,19 +57,24 @@ class Device(ABC):
         self.call_converter(task)
 
     @abstractmethod
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         pass
 
     def get_no_vrf(self, task):
         if "no_key" in self.commands.get('default_vrf').keys():
             self.commands_output = self.exec_call(
                 task,
-                self.commands.get('default_vrf').get('no_key')
+                self.commands.get('default_vrf').get('no_key'),
+                "master"
             )
         else:
             self.commands_output = dict()
             for key, command in self.commands.get('default_vrf').items():
-                self.commands_output[key] = self.exec_call(task, command)
+                self.commands_output[key] = self.exec_call(
+                    task,
+                    command,
+                    "master"
+                )
 
     def get_loop_vrf(self, task):
         self.commands_output = dict()
@@ -78,17 +86,18 @@ class Device(ABC):
                 if "no_key" in self.commands.get('default_vrf').keys():
                     self.commands_output['default'] = self.exec_call(
                         task,
-                        command
+                        command,
+                        "master"
                     )
                 else:
                     self.commands_output['default'][key] = self.exec_call(
                         task,
-                        command
+                        command,
+                        "master"
                     )
 
         if 'vrf' in self.commands.keys():
             for vrf in task.host[VRF_DATA_KEY].vrf_lst:
-                print(vrf.vrf_name, VRF_DEFAULT_RT_LST)
                 if vrf.vrf_name not in VRF_DEFAULT_RT_LST:
                     if (
                         "no_key" not in self.commands.get('vrf').keys() and
@@ -96,20 +105,24 @@ class Device(ABC):
                     ):
                         self.commands_output[vrf.vrf_name] = dict()
 
-                    for key, command in self.commands.get('vrf').items():    
+                    for key, command in self.commands.get('vrf').items():
+                        if self.format_command:
+                            command_to_exec = command.format(vrf.vrf_name)
+                        else:
+                            command_to_exec = command
+                            
                         if "no_key" in self.commands.get('vrf').keys():
                             self.commands_output[vrf.vrf_name] = self.exec_call(
                                 task,
-                                command.format(vrf.vrf_name)
+                                command_to_exec,
+                                vrf.vrf_name
                             )
                         else:
-                            print(command, key)
                             self.commands_output[vrf.vrf_name][key] = self.exec_call(
                                 task,
-                                command.format(vrf.vrf_name)
+                                command_to_exec,
+                                vrf.vrf_name
                             )
-
-        print(self.commands_output)
 
     def print_nr_result(self, output):
         print_result(output)

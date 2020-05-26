@@ -12,12 +12,7 @@ def _ios_lldp_api_converter(
     options={}
 ) -> ListLLDP:
 
-    if not isinstance(cmd_output, dict):
-        if isinstance(cmd_output, bytes):
-            if cmd_output.decode() != "":
-                cmd_output = json.loads(cmd_output)
-        else:
-            cmd_output = json.loads(cmd_output)
+    print(cmd_output)
 
     lldp_neighbors_lst = ListLLDP(
         lldp_neighbors_lst=list()

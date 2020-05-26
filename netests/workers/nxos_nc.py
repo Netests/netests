@@ -38,7 +38,7 @@ class NxosNC(DeviceNC, ABC):
             self.nc_method = 'get'
         self.source = source
 
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         if self.nc_method == 'get':
             return self.exec_call_get(task, command)
         elif self.nc_method == 'get_config':

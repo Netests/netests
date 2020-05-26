@@ -18,7 +18,9 @@ from netests.workers.ios_ssh import FactsIosSSH
 from netests.workers.iosxr_api import IosxrAPI
 from netests.workers.iosxr_nc import FactsIosxrNC
 from netests.workers.iosxr_ssh import FactsIosxrSSH
-
+from netests.workers.juniper_api import FactsJuniperAPI
+from netests.workers.juniper_nc import FactsJuniperNC
+from netests.workers.juniper_ssh import FactsJuniperSSH
 from netests.workers.nxos_api import FactsNxosAPI
 from netests.workers.nxos_nc import FactsNxosNC
 from netests.workers.nxos_ssh import FactsNxosSSH
@@ -86,6 +88,18 @@ class GetterFacts(GetterBase):
                 self.NETCONF_CONNECTION: FactsIosNC,
                 self.SSH_CONNECTION: FactsIosSSH,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+            },
+            self.CISCO_IOSXR_PLATEFORM_NAME: {
+                self.API_CONNECTION: IosxrAPI,
+                self.NETCONF_CONNECTION: FactsIosxrNC,
+                self.SSH_CONNECTION: FactsIosxrSSH,
+                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+            },
+            self.JUNOS_PLATEFORM_NAME: {
+                self.API_CONNECTION: FactsJuniperAPI,
+                self.NETCONF_CONNECTION: FactsJuniperNC,
+                self.SSH_CONNECTION: FactsJuniperSSH,
+                self.NAPALM_CONNECTION: "pass"
             },
             self.NEXUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: FactsNxosAPI,

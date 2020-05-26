@@ -31,7 +31,7 @@ class ExtremeVSPAPI(DeviceAPI, ABC):
             options
         )
 
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         protocol = self.use_https(task.host.get('secure_api', True))
         login = requests.post(
             url=(

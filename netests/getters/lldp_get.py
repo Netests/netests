@@ -17,7 +17,9 @@ from netests.workers.ios_ssh import LLDPIosSSH
 from netests.workers.iosxr_api import IosxrAPI
 from netests.workers.iosxr_nc import LLDPIosxrNC
 from netests.workers.iosxr_ssh import LLDPIosxrSSH
-
+from netests.workers.juniper_api import LLDPJuniperAPI
+from netests.workers.juniper_nc import LLDPJuniperNC
+from netests.workers.juniper_ssh import LLDPJuniperSSH
 from netests.workers.nxos_api import LLDPNxosAPI
 from netests.workers.nxos_nc import LLDPNxosNC
 from netests.workers.nxos_ssh import LLDPNxosSSH
@@ -91,6 +93,12 @@ class GetterLLDP(GetterBase):
                 self.API_CONNECTION: IosxrAPI,
                 self.NETCONF_CONNECTION: LLDPIosxrNC,
                 self.SSH_CONNECTION: LLDPIosxrSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
+            self.JUNOS_PLATEFORM_NAME: {
+                self.API_CONNECTION: LLDPJuniperAPI,
+                self.NETCONF_CONNECTION: LLDPJuniperNC,
+                self.SSH_CONNECTION: LLDPJuniperSSH,
                 self.NAPALM_CONNECTION: "pass"
             },
             self.NEXUS_PLATEFORM_NAME: {

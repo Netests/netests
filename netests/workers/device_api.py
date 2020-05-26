@@ -29,7 +29,7 @@ class DeviceAPI(Device, ABC):
         )
 
     @abstractmethod
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         pass
 
     def check_status_code(self, status_code):

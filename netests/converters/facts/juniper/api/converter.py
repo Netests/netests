@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from netests.protocols.facts import Facts
-from netests.tools.cli import format_xml_output
+from netests.tools.nc import format_xml_output
 from netests.constants import (
     NOT_SET,
     FACTS_INT_DICT_KEY,

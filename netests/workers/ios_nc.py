@@ -51,7 +51,7 @@ class IosNC(DeviceNC, ABC):
             self.nc_method = 'get'
         self.source = source
 
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         with manager.connect(
             host=task.host.hostname,
             port=task.host.port,

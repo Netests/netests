@@ -18,7 +18,9 @@ from netests.workers.ios_ssh import BGPIosSSH
 from netests.workers.iosxr_api import IosxrAPI
 from netests.workers.iosxr_nc import BGPIosxrNC
 from netests.workers.iosxr_ssh import BGPIosxrSSH
-
+from netests.workers.juniper_api import BGPJuniperAPI
+from netests.workers.juniper_nc import BGPJuniperNC
+from netests.workers.juniper_ssh import BGPJuniperSSH
 from netests.workers.nxos_api import BGPNxosAPI
 from netests.workers.nxos_nc import BGPNxosNC
 from netests.workers.nxos_ssh import BGPNxosSSH
@@ -93,6 +95,12 @@ class GetterBGP(GetterRouting):
                 self.API_CONNECTION: IosxrAPI,
                 self.NETCONF_CONNECTION: BGPIosxrNC,
                 self.SSH_CONNECTION: BGPIosxrSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
+            self.JUNOS_PLATEFORM_NAME: {
+                self.API_CONNECTION: BGPJuniperAPI,
+                self.NETCONF_CONNECTION: BGPJuniperNC,
+                self.SSH_CONNECTION: BGPJuniperSSH,
                 self.NAPALM_CONNECTION: "pass"
             },
             self.NEXUS_PLATEFORM_NAME: {

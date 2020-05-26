@@ -24,13 +24,16 @@ def _cumulus_ospf_ssh_converter(
         ospf_sessions_vrf_lst=list()
     )
 
+    if not isinstance(cmd_output, dict):
+        cmd_output = json.loads(cmd_output)
+
     for k, v in cmd_output.items():
         if (
             'ospfd is not running' not in v.get('rid') and
             'ospfd is not running' not in v.get('data') and
             v.get('data') is not None and v.get('rid') is not None and
-            v.get('data') != '{\n}' and v.get('data') != '{\n}' and
-            v.get('data') != '' and v.get('data') != ''
+            v.get('data') != '{\n}' and v.get('rid') != '{\n}' and
+            v.get('data') != '' and v.get('rid') != ''
         ):
             if not isinstance(v.get('rid'), dict):
                 v['rid'] = json.loads(v.get('rid'))
@@ -45,7 +48,7 @@ def _cumulus_ospf_ssh_converter(
             o_a_lst = ListOSPFSessionsArea(
                 ospf_sessions_area_lst=list()
             )
-
+            
             if (
                 k == 'default' and bool(v.get('data').get('neighbors')) or
                 k != 'default' and bool(v.get('data').get(k).get('neighbors'))

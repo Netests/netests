@@ -54,7 +54,7 @@ class NxosAPI(DeviceAPI, ABC):
             options
         )
 
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         protocol = self.use_https(task.host.get('secure_api', True))
 
         res = requests.post(

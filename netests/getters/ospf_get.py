@@ -18,6 +18,9 @@ from netests.workers.ios_ssh import OSPFIosSSH
 from netests.workers.iosxr_api import IosxrAPI
 from netests.workers.iosxr_nc import OSPFIosxrNC
 from netests.workers.iosxr_ssh import OSPFIosxrSSH
+from netests.workers.juniper_api import OSPFJuniperAPI
+from netests.workers.juniper_nc import OSPFJuniperNC
+from netests.workers.juniper_ssh import OSPFJuniperSSH
 from netests.workers.nxos_api import OSPFNxosAPI
 from netests.workers.nxos_nc import OSPFNxosNC
 from netests.workers.nxos_ssh import OSPFNxosSSH
@@ -90,6 +93,12 @@ class GetterOSPF(GetterRouting):
                 self.API_CONNECTION: IosxrAPI,
                 self.NETCONF_CONNECTION: OSPFIosxrNC,
                 self.SSH_CONNECTION: OSPFIosxrSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
+            self.JUNOS_PLATEFORM_NAME: {
+                self.API_CONNECTION: OSPFJuniperAPI,
+                self.NETCONF_CONNECTION: OSPFJuniperNC,
+                self.SSH_CONNECTION: OSPFJuniperSSH,
                 self.NAPALM_CONNECTION: "pass"
             },
             self.NEXUS_PLATEFORM_NAME: {

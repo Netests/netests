@@ -12,11 +12,9 @@ def _ios_facts_api_converter(
     cmd_output,
     options={}
 ) -> Facts:
-    cmd_output = format_xml_output(cmd_output)
-    print(cmd_output)
-    print(cmd_output.keys())
-    print(type(cmd_output))
 
+    cmd_output = format_xml_output(cmd_output)
+    
     hostname = NOT_SET
     domain = NOT_SET
     version = NOT_SET
@@ -54,6 +52,7 @@ def _ios_facts_api_converter(
         isinstance(cmd_output, dict) and
         'native' in cmd_output.keys()
     ):
+        
         hostname = cmd_output.get('native').get('hostname')
         domain = cmd_output.get('native').get('ip').get('domain').get('name')
         version = cmd_output.get('native').get('version')
@@ -61,7 +60,8 @@ def _ios_facts_api_converter(
         model = cmd_output.get('native').get('license').get('udi').get('pid')
         for t in cmd_output.get('native').get('interface').keys():
             for i in cmd_output.get('native').get('interface').get(t):
-                interfaces_lst.append(f"{t}{i.get('name')}")
+                if isinstance(i, dict):
+                    interfaces_lst.append(f"{t}{i.get('name')}")
 
     return Facts(
         hostname=hostname,

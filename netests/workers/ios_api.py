@@ -40,7 +40,7 @@ class IosAPI(DeviceAPI, ABC):
             options
         )
 
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         protocol = self.use_https(task.host.get('secure_api', True))
 
         res = requests.get(
@@ -137,7 +137,7 @@ class OSPFIosAPI(IosAPI):
                 }
             },
             vrf_loop=False,
-            converter=_ios_vrf_api_converter,
+            converter=_ios_ospf_api_converter,
             key_store=OSPF_SESSIONS_HOST_KEY,
             options=options
         )

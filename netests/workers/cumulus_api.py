@@ -57,7 +57,7 @@ class CumulusAPI(DeviceAPI, ABC):
             }
         )
 
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         p = self.use_https(task.host.get('secure_api', True))
 
         res = requests.post(

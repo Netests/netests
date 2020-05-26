@@ -12,6 +12,8 @@ def _juniper_facts_netconf_converter(
     options={}
 ) -> Facts:
 
+    print(cmd_output.get(FACTS_SYS_DICT_KEY))
+
     interfaces_lst = list()
     for i in format_xml_output(
         cmd_output.get(FACTS_INT_DICT_KEY)

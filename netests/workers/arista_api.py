@@ -52,7 +52,7 @@ class AristaAPI(DeviceAPI, ABC):
             options
         )
 
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         c = pyeapi.connect(
             transport=task.host.get('secure_api', 'https'),
             host=task.host.hostname,
@@ -62,7 +62,7 @@ class AristaAPI(DeviceAPI, ABC):
         )
         return c.execute(command)
 
-    def exec_call_list(self, task):
+    def exec_call_list(self, task, vrf):
         command_to_exec = list()
         if 'default_vrf' in self.commands.keys():
             for key, command in self.commands.get('default_vrf').items():
@@ -74,7 +74,7 @@ class AristaAPI(DeviceAPI, ABC):
                     for key, command in self.commands.get('vrf').items():
                         command_to_exec.append(command.format(vrf.vrf_name))
 
-        self.commands_output = self.exec_call(task, command_to_exec)
+        self.commands_output = self.exec_call(task, command_to_exec, vrf)
 
     def exec_call_without_pyeapi(self, task, command):
         """
@@ -206,7 +206,7 @@ class OSPFAristaAPI(AristaAPI):
             options=options
         )
 
-    def exec_call(self, task, command):
+    def exec_call(self, task, command, vrf):
         return self.exec_call_without_pyeapi(task, command)
         
 
