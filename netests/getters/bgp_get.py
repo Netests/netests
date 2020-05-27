@@ -40,7 +40,7 @@ class GetterBGP(GetterRouting):
         num_workers,
         verbose,
         print_task_output,
-        compare
+        compare_data
     ):
         super().__init__(
             nr,
@@ -49,7 +49,7 @@ class GetterBGP(GetterRouting):
             num_workers,
             verbose,
             print_task_output,
-            compare
+            compare_data
         )
         self.init_mapping_function()
 

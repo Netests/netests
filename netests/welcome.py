@@ -5,7 +5,7 @@ import os
 import click
 import shutil
 import urllib3
-import logging
+from netests import log
 from netests.base_run import run_base
 from netests.base_cli import netests_cli
 from netests.tools.std import open_file, check_devices_connectivity
@@ -55,14 +55,6 @@ def printline() -> None:
 
 def print_result(result) -> None:
     PP.pprint(result)
-
-
-logging.basicConfig(
-    filename='netests.log',
-    level=logging.DEBUG,
-    format='[%(asctime)s.%(msecs)03d][%(levelname)s][%(module)s][%(funcName)s:] %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S',
-)
 
 
 @click.command()
@@ -237,11 +229,12 @@ def main(
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     t = open_file(path=netest_config_file)
+    log.debug(t)
 
     # Create Nornir object
     try:
         nr = init_nornir(
-            log_file="./nornir/nornir.log",
+            log_file="./netests.log",
             log_level="debug",
             ansible_inventory=ansible_inventory,
             nornir_inventory=nornir_inventory,
@@ -284,6 +277,7 @@ def main(
             verbose=verbose
         )
 
+    printline()
     print_result(result)
 
 if __name__ == "__main__":

@@ -1,3 +1,5 @@
+
+from netests import log
 from nornir import InitNornir
 from nornir.core import Nornir
 
@@ -20,13 +22,28 @@ def init_nornir(
     Initialize Nornir object with the following files
     """
 
+    log.debug(
+        "\n"
+        f"Inventory : ansible_inventory={ansible_inventory}\n"
+        f"Inventory : nornir_inventory={nornir_inventory}\n"
+        f"Inventory : netbox_inventory={netbox_inventory}\n"
+        f"Nornir Setup : num_workers={num_workers}\n"
+        f"Nornir Setup : inventory_config_file={inventory_config_file}\n"
+        f"Nornir Setup : inventory={inventory}\n"
+        f"Nornir Setup : nornir_groups_file={nornir_groups_file}\n"
+        f"Nornir Setup : nornir_defaults_file={nornir_defaults_file}\n"
+        f"Netbox Setup : netbox_url={netbox_url}\n"
+        f"Netbox Setup : netbox_token={netbox_token}\n"
+        f"Netbox Setup : netbox_ssl={netbox_ssl}\n"
+    )
+
     config_file = ""
     plugin = ""
     options = ""
 
     if nornir_inventory:
         if inventory_config_file:
-            config_file = ".nornir/config_netbox.yml"
+            config_file = ".nornir/config_nornir.yml"
         else:
             plugin = "nornir.plugins.inventory.simple.SimpleInventory"
             options = {
@@ -46,12 +63,21 @@ def init_nornir(
             }
     elif ansible_inventory is not False:
         if inventory_config_file:
-            config_file = ".nornir/config_netbox.yml"
+            config_file = ".nornir/config_ansible.yml"
         else:
             plugin = "nornir.plugins.inventory.ansible.AnsibleInventory"
             options = {
                 "hostsfile": inventory
             }
+
+    log.debug(
+        "\n"
+        f"Init_Nornir : num_workers={num_workers}\n"
+        f"Init_Nornir : plugin={plugin}\n"
+        f"Init_Nornir : options={options}\n"
+        f"Init_Nornir : log_file={log_file}\n"
+        f"Init_Nornir : log_level={log_level}\n"
+    )
 
     nr = InitNornir(
         core={"num_workers": num_workers},

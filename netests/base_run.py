@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
 from nornir.core import Nornir
 from netests.getters.bgp_get import GetterBGP
 from netests.getters.cdp_get import GetterCDP
@@ -30,11 +31,23 @@ def run_base(
     num_workers: int,
     verbose: str
 ) -> bool:
+
+    log.debug(
+        "\n"
+        f"protocol={protocol}\n"
+        f"compare_data={compare_data}\n"
+        f"parameters={parameters}\n"
+        f"init_data={init_data}\n"
+        f"num_workers={num_workers}\n"
+        f"verbose={verbose}\n"
+    )
+
     result = dict()
     if (
         parameters.get('test', False) is True or
         str(parameters.get('test', False)).upper() == "INFO"
     ):
+        log.debug(f"Execute {RUN.get(protocol)}")
         result_output = list()
         getter = RUN.get(protocol)(
             nr=nr,

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import shutil
+from netests import log
 from abc import ABC, abstractmethod
 from nornir.core import Nornir
 from nornir.core.filter import F
@@ -61,6 +62,15 @@ class GetterBase(ABC):
         print_task_output=True,
         compare_data=False
     ):
+        log.debug(
+            "\n"
+            f"Init new Object : <{self.__class__.__name__}>\n"
+            f"options={options}\n"
+            f"from_cli={from_cli}\n"
+            f"num_workers={num_workers}\n"
+            f"print_task_output={print_task_output}\n"
+            f"compare_data={compare_data}\n"
+        )
         self.nr = nr
         self.options = options
         self.from_cli = from_cli if from_cli is not None else False
@@ -96,6 +106,7 @@ class GetterBase(ABC):
         self.print_json(self.compare_result)
 
     def run(self):
+        log.debug("Run <generic_get>")
         output = self.devices.run(
             task=self.generic_get,
             on_failed=True,
@@ -141,6 +152,14 @@ class GetterBase(ABC):
         return self.from_cli
 
     def generic_get(self, task):
+        log.debug(
+            "\n"
+            f"host={task.host.name}\n"
+            f"platform={task.host.platform}\n"
+            f"connexion={task.host.data.get('connexion')}\n"
+            f"functions_mapping={self.MAPPING_FUNCTION}\n"
+            f"options={self.options}\n"
+        )
         worker = self.base_selection(
             platform=task.host.platform,
             connection_mode=task.host.data.get("connexion"),
@@ -154,6 +173,7 @@ class GetterBase(ABC):
         connection_mode: str,
         functions_mapping: dict
     ):
+        log.debug(functions_mapping.get(platform).get(connection_mode))
         return functions_mapping.get(platform).get(connection_mode)
 
     def printline(self):
