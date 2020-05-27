@@ -64,6 +64,7 @@ class Device(ABC):
         log.debug(
             "\n"
             f"Function get(self, task)\n"
+            f"hostname={task.host.name}\n"
             f"vrf_loop={self.vrf_loop}\n"
             f"self.commands.keys()={self.commands.keys()}\n"
             f"'vrf' in self.commands.keys()={'vrf' in self.commands.keys()}\n"
@@ -84,12 +85,14 @@ class Device(ABC):
 
     def get_no_vrf(self, task):
         log.debug(
+            f"hostname={task.host.name}\n"
             "if 'no_key' in self.commands.get('default_vrf').keys()="
             f"{'no_key' in self.commands.get('default_vrf').keys()}\n"
         )
         if "no_key" in self.commands.get('default_vrf').keys():
             log.debug(
                 "Call self.exec_call with the followings parameters : \n"
+                f"hostname={task.host.name}\n"
                 f" - task={task} \n"
                 f" - cmd={self.commands.get('default_vrf').get('no_key')} \n"
                 f" - vrf='master' \n"
@@ -104,6 +107,7 @@ class Device(ABC):
             for key, command in self.commands.get('default_vrf').items():
                 log.debug(
                     "Call self.exec_call (LOOP) with the followings parameters : \n"
+                    f"hostname={task.host.name}\n"
                     f" - task={task} \n"
                     f" - cmd={command} \n"
                     f" - vrf='master' \n"
@@ -117,6 +121,7 @@ class Device(ABC):
     def get_loop_vrf(self, task):
         self.commands_output = dict()
         log.debug(
+            f"hostname={task.host.name}\n"
             "if 'default_vrf' in self.commands.keys()="
             f"{'default_vrf' in self.commands.keys()}\n"
         )
@@ -129,6 +134,7 @@ class Device(ABC):
                 if "no_key" in self.commands.get('default_vrf').keys():
                     log.debug(
                         "Call self.exec_call with the followings parameters : \n"
+                        f"hostname={task.host.name}\n"
                         f" - task={task} \n"
                         f" - cmd={command} \n"
                         f" - vrf='master' \n"
@@ -142,6 +148,7 @@ class Device(ABC):
                 else:
                     log.debug(
                         "Call self.exec_call with the followings parameters : \n"
+                        f"hostname={task.host.name}\n"
                         f" - task={task} \n"
                         f" - cmd={command} \n"
                         f" - vrf='master' \n"
@@ -155,6 +162,7 @@ class Device(ABC):
                     )
 
         log.debug(
+            f"hostname={task.host.name}\n"
             "if 'vrf' in self.commands.keys()="
             f"{'vrf' in self.commands.keys()}\n"
         )
@@ -178,6 +186,7 @@ class Device(ABC):
                         if "no_key" in self.commands.get('vrf').keys():
                             log.debug(
                                 "Call self.exec_call with the followings parameters : \n"
+                                f"hostname={task.host.name}\n"
                                 f" - task={task} \n"
                                 f" - cmd={command_to_exec} \n"
                                 f" - vrf={vrf.vrf_name} \n"
@@ -191,6 +200,7 @@ class Device(ABC):
                         else:
                             log.debug(
                                 "Call self.exec_call with the followings parameters : \n"
+                                f"hostname={task.host.name}\n"
                                 f" - task={task} \n"
                                 f" - cmd={command_to_exec} \n"
                                 f" - vrf={vrf.vrf_name} \n"
@@ -204,8 +214,29 @@ class Device(ABC):
                             )
 
     def call_converter(self, task):
+        log.debug(
+            "\n"
+            "CALL self.converter : \n"
+            f" - self.key_store={self.key_store} \n"
+            f" - converter={self.converter} \n"
+            f" - hostname={task.host.name} \n"
+            f" - commands_output={self.commands_output} \n"
+            f" - options={self.options} \n"
+        )
         task.host[self.key_store] = self.converter(
             hostname=task.host.name,
             cmd_output=self.commands_output,
             options=self.options
         )
+
+        log.debug(
+            "\n"
+            "RESULT self.converter : \n"
+            f" - converter={self.converter} \n"
+            f" - hostname={task.host.name} \n"
+            f" - commands_output={self.commands_output} \n"
+            " ==> Result converter :\n"
+            f"{task.host[self.key_store]}"
+        )
+
+

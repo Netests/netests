@@ -3,6 +3,7 @@
 
 import requests
 from abc import ABC
+from netests import log
 from netests.workers.device_api import DeviceAPI
 from netests.converters.bgp.nxos.api.converter import _nxos_bgp_api_converter
 from netests.converters.cdp.nxos.api.converter import _nxos_cdp_api_converter
@@ -57,6 +58,26 @@ class NxosAPI(DeviceAPI, ABC):
     def exec_call(self, task, command, vrf):
         protocol = self.use_https(task.host.get('secure_api', True))
 
+        log.debug(
+            "\n"
+            f"CALL exec_call for Cisco NXOS\n"
+            f"method=POST\n"
+            f"auth=requests.auth.HTTPBasicAuth(username, password)\n"
+            f"endpoint={protocol}://{task.host.hostname}:{task.host.port}/ins\n"
+            f"headers='Content-Type': 'application/json'\n"
+            """data={
+                "ins_api": {
+                    "version": "1.0",
+                    "type": "cli_show",
+                    "chunk": "0",
+                    "sid": "1",
+                    "input": "%s",
+                    "output_format": "json"
+                }
+            }""" % (str(command))
+        )
+
+
         res = requests.post(
             url=f"{protocol}://{task.host.hostname}:{task.host.port}/ins",
             headers={
@@ -79,6 +100,14 @@ class NxosAPI(DeviceAPI, ABC):
             }""" % (str(command))
         )
         self.check_status_code(res.status_code)
+
+        log.debug(
+            "\n"
+            f"RESULT exec_call for Cisco NXOS\n"
+            f"status_code={res.status_code}\n"
+            f"content={res.content}\n"
+        )
+
         return res.content
 
 

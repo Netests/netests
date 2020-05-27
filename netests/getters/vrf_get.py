@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
 from netests.comparators.vrf_compare import _compare_transit_vrf
 from netests.workers.arista_api import VRFAristaAPI
 from netests.workers.arista_nc import VRFAristaNC
@@ -59,6 +60,7 @@ class GetterVRF(GetterBase):
         self.print_protocols_result(VRF_DATA_KEY, "VRF")
 
     def compare(self):
+        log.debug(f"CALL _compare_transit_vrf  num_workers={self.num_workers}")
         data = self.devices.run(
             task=_compare_transit_vrf,
             on_failed=True,
@@ -67,9 +69,16 @@ class GetterVRF(GetterBase):
 
         return_value = True
 
+        log.debug(
+            f"RESULT - {self.__class__.__name__}"
+            f"data.values()={data.values()}"
+        )
         for value in data.values():
             self.compare_result[value.host] = value.result
-
+        log.debug(
+            f"RESULT - {self.__class__.__name__}"
+            f"self.compare_result={self.compare_result}"
+        )
 
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {
