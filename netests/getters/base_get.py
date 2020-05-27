@@ -21,7 +21,8 @@ class GetterBase(ABC):
     verbose: str
     devices: str
     print_task_output: bool
-    compare: bool
+    compare_data: bool
+    compare_result: dict
 
     HEADER = "[netests - GetterBase]"
     NOT_SET = "NOT_SET"
@@ -58,7 +59,7 @@ class GetterBase(ABC):
         num_workers=NOT_SET,
         verbose=NOT_SET,
         print_task_output=True,
-        compare=False
+        compare_data=False
     ):
         self.nr = nr
         self.options = options
@@ -66,9 +67,10 @@ class GetterBase(ABC):
         self.num_workers = num_workers if num_workers != self.NOT_SET else 50
         self.verbose = verbose if verbose != self.NOT_SET else self.LEVEL0
         self.print_task_output = print_task_output
-        self.compare = compare
+        self.compare_data = compare_data
         self.devices = self.select_devices()
         self.hosts = self.devices.inventory.hosts
+        self.compare_result = dict()
         
     @abstractmethod
     def print_result(self):
@@ -81,6 +83,17 @@ class GetterBase(ABC):
     @abstractmethod
     def print_result(self):
         pass
+
+    @abstractmethod
+    def compare(self):
+        pass
+
+    def get_compare_result(self):
+        return self.compare_result
+
+    def print_compare_result(self):
+        self.printline()
+        self.print_json(self.compare_result)
 
     def run(self):
         output = self.devices.run(
@@ -111,9 +124,6 @@ class GetterBase(ABC):
                     )
                 else:
                     print("No value found for this host.")
-
-    def compare(self):
-        pass
 
     def print_json(self, data):
         PP.pprint(data)

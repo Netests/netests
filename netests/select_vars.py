@@ -11,23 +11,23 @@ HEADER = "[netests - select_vars.py] -"
 
 def select_host_vars(hostname: str, groups: list, protocol: str):
     if truth_vars_exists() is False:
-        print(f"{HEADER} Truth_vars doesn't exists")
+        #print(f"{HEADER} Truth_vars doesn't exists")
         return {}
 
     if host_vars_exists(hostname, protocol):
-        print(f"{HEADER} Select hosts variables")
+        #print(f"{HEADER} Select hosts variables")
         return open_file(
             path=f"truth_vars/hosts/{hostname}/{protocol}.yml"
         )
 
     if group_vars_exists(groups[0], protocol):
-        print(f"{HEADER} Select groups variables")
+        #print(f"{HEADER} Select groups variables")
         return open_file(
             path=f"truth_vars/groups/{groups[0]}/{protocol}.yml"
         )
 
     if all_vars_exists(protocol):
-        print(f"{HEADER} Select all variables")
+        #print(f"{HEADER} Select all variables")
         return open_file(
             path=f"truth_vars/all/{protocol}.yml"
         )

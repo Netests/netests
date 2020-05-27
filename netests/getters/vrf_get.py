@@ -42,7 +42,7 @@ class GetterVRF(GetterBase):
         num_workers,
         verbose,
         print_task_output,
-        compare
+        compare_data
     ):
         super().__init__(
             nr,
@@ -51,13 +51,25 @@ class GetterVRF(GetterBase):
             num_workers,
             verbose,
             print_task_output,
-            compare
+            compare_data
         )
         self.init_mapping_function()
-        self.compare_function = _compare_transit_vrf
 
     def print_result(self):
         self.print_protocols_result(VRF_DATA_KEY, "VRF")
+
+    def compare(self):
+        data = self.devices.run(
+            task=_compare_transit_vrf,
+            on_failed=True,
+            num_workers=self.num_workers
+        )
+
+        return_value = True
+
+        for value in data.values():
+            self.compare_result[value.host] = value.result
+
 
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {

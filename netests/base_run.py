@@ -24,12 +24,13 @@ RUN = {
 def run_base(
     nr: Nornir,
     protocol: str,
-    compare: bool,
+    compare_data: bool,
     parameters: dict,
     init_data: bool,
     num_workers: int,
     verbose: str
 ) -> bool:
+    result = dict()
     if (
         parameters.get('test', False) is True or
         str(parameters.get('test', False)).upper() == "INFO"
@@ -42,33 +43,9 @@ def run_base(
             num_workers=num_workers,
             verbose=verbose,
             print_task_output=True,
-            compare=compare
+            compare_data=compare_data
         )
 
         getter.run()
-        
-        """
-        if init_data is True:
-            if protocol != "ping":
-                create_truth_vars(
-                    nr=nr,
-                    protocol=protocol
-                )
-        elif not_compare is False:
-            same = RUN.get(protocol).get('compare')(
-                nr=nr,
-                options=parameters.get('options', {})
-            )
-            result_output.append(f"{HEADER}({protocol}) is working = {same}")
-        
-        printline()
-        print("\n".join(result_output))
-
-        return (
-            parameters.get('test', False) is True and
-            same is False
-        )
-        """
-
-    else:
-        return True
+        getter.compare()
+        return getter.get_compare_result()

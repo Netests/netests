@@ -3,15 +3,66 @@
 
 import os
 import click
+import shutil
 import urllib3
+import logging
 from netests.base_run import run_base
 from netests.base_cli import netests_cli
-from netests.tools.std import print_inv, open_file, check_devices_connectivity
+from netests.tools.std import open_file, check_devices_connectivity
 from netests.nornir_inventory import init_nornir
 from netests.constants import EXIT_FAILURE, EXIT_SUCCESS
+import pprint
+PP = pprint.PrettyPrinter(indent=4)
 
 
 HEADER = "[netests - main.py]"
+
+
+def print_banner(nr, content_file):
+    printline()
+    print_hello()
+    printline()
+    print_inv(nr)
+    printline()
+    print_protocols(content_file)
+
+
+def print_protocols(content_file):
+    pdict = dict()
+    for k, v in content_file.get('config').get('protocols').items():
+        pdict[k] = v.get('tests', False)
+    PP.pprint(pdict)
+
+def print_inv(nr):
+    to_print = dict()
+    for host in nr.inventory.hosts:
+        to_print[host] = dict()
+        to_print[host]['hostname'] = nr.inventory.hosts[host].hostname
+        to_print[host]['connexion'] = nr.inventory.hosts[host]['connexion']
+        to_print[host]['port'] = nr.inventory.hosts[host].port
+        to_print[host]['platform'] = nr.inventory.hosts[host].platform
+    PP.pprint(to_print)
+
+
+def print_hello() -> None:
+    print(f"\t Welcome to Netests.io ")
+
+
+def printline() -> None:
+    size = int(shutil.get_terminal_size()[0] / 2)
+    print("*-" * size)
+
+
+def print_result(result) -> None:
+    PP.pprint(result)
+
+
+logging.basicConfig(
+    filename='netests.log',
+    level=logging.DEBUG,
+    format='[%(asctime)s.%(msecs)03d][%(levelname)s][%(module)s][%(funcName)s:] %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+)
 
 
 @click.command()
@@ -213,7 +264,7 @@ def main(
         netests_cli(nr)
         exit(EXIT_SUCCESS)
 
-    print_inv(nr)
+    print_banner(nr, t)
 
     if check_connectivity:
         if check_devices_connectivity(nr):
@@ -221,24 +272,20 @@ def main(
         else:
             exit(EXIT_FAILURE)
 
-    exit_value = True
+    result = dict()
     for k, v in t.get('config').get('protocols').items():
-        if (
-            run_base(
-                nr=nr,
-                protocol=k,
-                compare=compare,
-                parameters=v,
-                init_data=init_data,
-                num_workers=num_workers,
-                verbose=verbose
-            ) is False and
-            exit_value is True
-        ):
-            exit_value = False
+        result[k] = run_base(
+            nr=nr,
+            protocol=k,
+            compare_data=compare,
+            parameters=v,
+            init_data=init_data,
+            num_workers=num_workers,
+            verbose=verbose
+        )
 
-    return exit_value
-
+    print_result(result)
 
 if __name__ == "__main__":
     main()
+

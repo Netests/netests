@@ -19,3 +19,4 @@ __pycache__/
 req.txt
 **log.*
 netests.egg-info
+netests.log

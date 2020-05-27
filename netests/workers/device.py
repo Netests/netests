@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 from nornir.plugins.functions.text import print_result
 from netests.constants import VRF_DATA_KEY, VRF_DEFAULT_RT_LST
 
+
 class Device(ABC):
 
     task: Task

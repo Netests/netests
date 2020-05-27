@@ -16,8 +16,6 @@ from netests.constants import (
     BGP_STATE_BRIEF_UP,
     BGP_STATE_BRIEF_DOWN
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 ERROR_HEADER = "Error import [global.py]"
 
 
@@ -505,43 +503,3 @@ def open_json_file(path: str()) -> str():
 
     return content
 
-
-def printline() -> None:
-    """
-    This function print a line :)
-    :return None:
-    """
-    size = int(shutil.get_terminal_size()[0] / 2)
-    print("*-" * size)
-
-
-def printline_comment_json(comment: str, json_to_print) -> None:
-    """
-    This function print a line :)
-    :return None:
-    """
-
-    printline()
-    print(f"///////////////\t {comment}")
-    printline()
-    PP.pprint(json_to_print)
-
-
-def get_level_test(level_value: int) -> int:
-
-    if level_value != 1 and level_value != 2:
-        return 0
-    else:
-        return level_value
-
-
-def print_inv(nr):
-    to_print = dict()
-    for host in nr.inventory.hosts:
-        to_print[host] = dict()
-        to_print[host]['hostname'] = nr.inventory.hosts[host].hostname
-        to_print[host]['connexion'] = nr.inventory.hosts[host]['connexion']
-        to_print[host]['port'] = nr.inventory.hosts[host].port
-        to_print[host]['platform'] = nr.inventory.hosts[host].platform
-    printline()
-    PP.pprint(to_print)
