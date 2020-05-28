@@ -66,19 +66,7 @@ class GetterVRF(GetterBase):
             on_failed=True,
             num_workers=self.num_workers
         )
-
-        return_value = True
-
-        log.debug(
-            f"RESULT - {self.__class__.__name__}"
-            f"data.values()={data.values()}"
-        )
-        for value in data.values():
-            self.compare_result[value.host] = value.result
-        log.debug(
-            f"RESULT - {self.__class__.__name__}"
-            f"self.compare_result={self.compare_result}"
-        )
+        super()._compare_result(data)
 
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {

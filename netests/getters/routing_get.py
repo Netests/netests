@@ -15,7 +15,7 @@ class GetterRouting(GetterBase):
         num_workers,
         verbose,
         print_task_output,
-        compare
+        compare_data
     ):
         super().__init__(
             nr,
@@ -24,7 +24,7 @@ class GetterRouting(GetterBase):
             num_workers,
             verbose,
             print_task_output,
-            compare
+            compare_data
         )
 
     def get_vrf(self):
@@ -35,5 +35,5 @@ class GetterRouting(GetterBase):
             num_workers=self.num_workers,
             verbose=self.verbose,
             print_task_output=False,
-            compare=False
+            compare_data=False
         ).run()

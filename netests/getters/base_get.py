@@ -98,6 +98,19 @@ class GetterBase(ABC):
     def compare(self):
         pass
 
+    def _compare_result(self, data):
+        return_value = True
+        log.debug(
+            f"RESULT - {self.__class__.__name__}"
+            f"data.values()={data.values()}"
+        )
+        for value in data.values():
+            self.compare_result[value.host] = value.result
+        log.debug(
+            f"RESULT - {self.__class__.__name__}"
+            f"self.compare_result={self.compare_result}"
+        )
+
     def get_compare_result(self):
         return self.compare_result
 
@@ -157,8 +170,6 @@ class GetterBase(ABC):
             f"host={task.host.name}\n"
             f"platform={task.host.platform}\n"
             f"connexion={task.host.data.get('connexion')}\n"
-            f"functions_mapping={self.MAPPING_FUNCTION}\n"
-            f"options={self.options}\n"
         )
         worker = self.base_selection(
             platform=task.host.platform,

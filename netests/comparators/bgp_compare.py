@@ -1,52 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
+from netests.comparators.log_compare import log_compare
 from nornir.core.task import Task
-from const.constants import NOT_SET, BGP_SESSIONS_HOST_KEY, BGP_WORKS_KEY
-from protocols.bgp import (
+from netests.constants import NOT_SET, BGP_SESSIONS_HOST_KEY, BGP_WORKS_KEY
+from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
     BGPSessionsVRF,
     ListBGPSessionsVRF,
     BGP
 )
-from functions.global_tools import open_file
-from functions.select_vars import select_host_vars
-from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from netests.tools.file import open_file
+from netests.select_vars import select_host_vars
+from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 
 
 HEADER = "[netests - compare_bgp]"
 
 
-def compare_bgp(nr, options={}) -> bool:
-
-    devices = nr.filter()
-
-    if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER}] no device selected.")
-
-    data = devices.run(
-        task=_compare_transit_bgp,
-        options=options,
-        on_failed=True,
-        num_workers=10
-    )
-
-    return_value = True
-
-    for value in data.values():
-        if value.result is False:
-            print(
-                f"{HEADER} Task '_compare' has failed for "
-                f"{value.host} (value.result={value.result})."
-            )
-            return_value = False
-
-    return (not data.failed and return_value)
-
-
 def _compare_transit_bgp(task, options={}):
-
     task.host[BGP_WORKS_KEY] = _compare_bgp(
         host_keys=task.host.keys(),
         hostname=task.host.name,
@@ -90,7 +64,16 @@ def _compare_bgp(
 
         bgp_sessions_vrf_lst = ListBGPSessionsVRF(list())
 
-        if BGP_SESSIONS_HOST_KEY in host_keys:
+        log.debug(
+            "BGP_SESSIONS_HOST_KEY in host_keys="
+            f"{BGP_SESSIONS_HOST_KEY in host_keys}"
+            "bgp_yaml_data is not None="
+            f"{bgp_yaml_data is not None}"
+        )
+        if (
+            BGP_SESSIONS_HOST_KEY in host_keys and 
+            bgp_yaml_data is not None
+        ):
             for vrf_name, facts in bgp_yaml_data.items():
                 bgp_sessions_lst = ListBGPSessions(
                     list()
@@ -122,6 +105,7 @@ def _compare_bgp(
                 bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
             )
 
+            log_compare(verity_bgp, bgp_host_data, hostname, groups)
             return verity_bgp == bgp_host_data
 
         else:

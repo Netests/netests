@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
+from netests.comparators.bgp_compare import _compare_transit_bgp
 from netests.getters.routing_get import GetterRouting
 from netests.constants import BGP_SESSIONS_HOST_KEY
 from netests.workers.arista_api import BGPAristaAPI
@@ -61,6 +63,15 @@ class GetterBGP(GetterRouting):
             num_workers=self.num_workers
         )
         self.print_result()
+
+    def compare(self):
+        log.debug(f"CALL _compare_transit_bgp  num_workers={self.num_workers}")
+        data = self.devices.run(
+            task=_compare_transit_bgp,
+            on_failed=True,
+            num_workers=self.num_workers
+        )
+        self._compare_result(data)
 
     def print_result(self):
         self.print_protocols_result(BGP_SESSIONS_HOST_KEY, "BGP")

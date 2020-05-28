@@ -51,25 +51,7 @@ class AristaNC(DeviceNC, ABC):
         pass
 
     def exec_call_get_config(self, task, command):
-        with manager.connect(
-            host=task.host.hostname,
-            port=task.host.port,
-            username=task.host.username,
-            password=task.host.password,
-            hostkey_verify=False
-        ) as m:
-
-            vrf_config = m.get_config(
-                source=self.source,
-                filter=(
-                    'subtree',
-                    (
-                        command
-                    )
-                )
-            ).data_xml
-            self.validate_xml(vrf_config)
-            return vrf_config
+        return super().exec_call_get_config(task, command)
 
 
 class BGPAristaNC(AristaNC):

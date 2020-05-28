@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
+import os 
 from nornir.core.task import Task
 from nornir.plugins.functions.text import print_result
+from netests import log
+from netests.comparators.log_compare import log_compare
 from netests.tools.file import open_file
 from netests.protocols.vrf import VRF, ListVRF
 from netests.select_vars import select_host_vars
@@ -58,6 +60,12 @@ def _compare_vrf(
                 protocol="vrf"
             )
 
+        log.debug(
+            "VRF_DATA_KEY in host_keys="
+            f"{VRF_DATA_KEY in host_keys}"
+            "vrf_yaml_data is not None="
+            f"{vrf_yaml_data is not None}"
+        )
         if (
             VRF_DATA_KEY in host_keys and
             vrf_yaml_data is not None
@@ -82,4 +90,5 @@ def _compare_vrf(
                 f"for {hostname} or no VRF data has been found."
             )
 
+    log_compare(verity_vrf, vrf_host_data, hostname, groups)
     return verity_vrf == vrf_host_data

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from abc import ABC
+from netests import log
 from ncclient import manager
 from netests.workers.device_nc import DeviceNC
 from netests.converters.bgp.ios.netconf.converter import _ios_bgp_netconf_converter
@@ -52,6 +53,17 @@ class IosNC(DeviceNC, ABC):
         self.source = source
 
     def exec_call(self, task, command, vrf):
+        log.debug(
+            f"CALL Netconf function for IOSXE"
+            f"hostname={task.host.hostname}",
+            f"port={task.host.port}",
+            "hostkey_verify=False"
+            "device_params={'name': 'nexus'}"
+            f"command={command}"
+            f"source={self.source}"
+            "Use Filter with 'subtree'"
+        )
+
         with manager.connect(
             host=task.host.hostname,
             port=task.host.port,
@@ -61,12 +73,25 @@ class IosNC(DeviceNC, ABC):
             device_params={'name': 'iosxe'}
         ) as m:
             if self.nc_method == 'get':
-                config = self.exec_call_get(task, command, m)
+                data = self.exec_call_get(task, command, m)
             elif self.nc_method == 'get_config':
-                config = self.exec_call_get_config(task, command, m)
+                data = self.exec_call_get_config(task, command, m)
 
-            self.validate_xml(config)
-            return config
+            self.validate_xml(data)
+
+            log.debug(
+                f"RESULT Netconf function for IOSXR"
+                f"hostname={task.host.hostname}",
+                f"port={task.host.port}",
+                "hostkey_verify=False"
+                "device_params={'name': 'nexus'}"
+                f"command={command}"
+                f"source={self.source}"
+                "Use Filter with 'subtree'"
+                f"==> {data}"
+            )
+
+            return data
 
     def exec_call_get(self, task, command, m):
             return m.get(
@@ -83,7 +108,6 @@ class IosNC(DeviceNC, ABC):
                 )
             )
         ).data_xml
-            
 
 
 class BGPIosNC(IosNC):

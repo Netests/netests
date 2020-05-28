@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from abc import ABC
+from netests import log
 from ncclient import manager
 from netests.workers.device_nc import DeviceNC
 from netests.exceptions.netests_exceptions import NetestsFunctionNotImplemented
@@ -39,6 +40,8 @@ class NxosNC(DeviceNC, ABC):
         self.source = source
 
     def exec_call(self, task, command, vrf):
+        log.debug(f"netconf method for ({task.host.name}) = {self.nc_method}")
+
         if self.nc_method == 'get':
             return self.exec_call_get(task, command)
         elif self.nc_method == 'get_config':
@@ -48,6 +51,17 @@ class NxosNC(DeviceNC, ABC):
         pass
 
     def exec_call_get_config(self, task, command):
+        log.debug(
+            f"CALL Netconf function for NXOS\n"
+            f"hostname={task.host.hostname}\n"
+            f"port={task.host.port}\n"
+            "hostkey_verify=False\n"
+            "device_params={'name': 'nexus'}\n"
+            f"command={command}\n"
+            f"source={self.source}\n"
+            "Use Filter with 'subtree'\n"
+        )
+
         with manager.connect(
             host=task.host.hostname,
             port=task.host.port,
@@ -57,7 +71,7 @@ class NxosNC(DeviceNC, ABC):
             device_params={'name': 'nexus'}
         ) as m:
 
-            vrf_config = m.get_config(
+            data = m.get_config(
                 source=self.source,
                 filter=(
                     'subtree',
@@ -66,8 +80,20 @@ class NxosNC(DeviceNC, ABC):
                     )
                 )
             ).data_xml
-            self.validate_xml(vrf_config)
-            return vrf_config
+            self.validate_xml(data)
+
+            log.debug(
+                f"RESULT Netconf function for NXOS\n"
+                f"hostname={task.host.hostname}\n"
+                f"port={task.host.port}\n"
+                "hostkey_verify=False\n"
+                "device_params={'name': 'nexus'}\n"
+                f"command={command}\n"
+                f"source={self.source}\n"
+                "Use Filter with 'subtree'\n"
+                f"==> {data}"
+            )
+            return data
 
 
 class BGPNxosNC(NxosNC):

@@ -30,7 +30,7 @@ def print_banner(nr, content_file):
 def print_protocols(content_file):
     pdict = dict()
     for k, v in content_file.get('config').get('protocols').items():
-        pdict[k] = v.get('tests', False)
+        pdict[k] = v.get('test', False)
     PP.pprint(pdict)
 
 def print_inv(nr):

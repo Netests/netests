@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
 from ncclient import manager
 from xml.etree import ElementTree
 from abc import ABC, abstractmethod
@@ -51,6 +52,17 @@ class DeviceNC(Device, ABC):
         pass
 
     def exec_call_get_config(self, task, command):
+        log.debug(
+            f"CALL Netconf function\n"
+            f"hostname={task.host.hostname}\n",
+            f"port={task.host.port}\n",
+            "hostkey_verify=False\n"
+            "device_params={'name': 'nexus'}\n"
+            f"command={command}\n"
+            f"source={self.source}\n"
+            "Use Filter with 'subtree'\n"
+        )
+
         with manager.connect(
             host=task.host.hostname,
             port=task.host.port,
@@ -59,7 +71,7 @@ class DeviceNC(Device, ABC):
             hostkey_verify=False
         ) as m:
 
-            vrf_config = m.get_config(
+            data = m.get_config(
                 source=self.source,
                 filter=(
                     'subtree',
@@ -68,5 +80,18 @@ class DeviceNC(Device, ABC):
                     )
                 )
             ).data_xml
-            self.validate_xml(vrf_config)
-            return vrf_config
+            self.validate_xml(data)
+
+            log.info(
+                f"RESULT Netconf function\n"
+                f"hostname={task.host.hostname}\n",
+                f"port={task.host.port}\n",
+                "hostkey_verify=False\n"
+                "device_params={'name': 'nexus'}\n"
+                f"command={command}\n"
+                f"source={self.source}\n"
+                "Use Filter with 'subtree'\n"
+                f"==> {data}\n"
+            )
+
+            return data

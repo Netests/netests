@@ -18,7 +18,6 @@ from netests.workers.ios_ssh import CDPIosSSH
 from netests.workers.iosxr_api import IosxrAPI
 from netests.workers.iosxr_nc import CDPIosxrNC
 from netests.workers.iosxr_ssh import CDPIosxrSSH
-
 from netests.workers.nxos_api import CDPNxosAPI
 from netests.workers.nxos_nc import CDPNxosNC
 from netests.workers.nxos_ssh import CDPNxosSSH
