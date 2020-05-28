@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
+from netests.comparators.facts_compare import _compare_transit_facts
 from netests.getters.base_get import GetterBase
 from netests.constants import FACTS_DATA_HOST_KEY
 from netests.workers.arista_api import FactsAristaAPI
@@ -59,6 +61,15 @@ class GetterFacts(GetterBase):
             num_workers=self.num_workers
         )
         self.print_result()
+
+    def compare(self):
+        log.debug(f"CALL _compare_transit_facts num_workers={self.num_workers}")
+        data = self.devices.run(
+            task=_compare_transit_facts,
+            on_failed=True,
+            num_workers=self.num_workers
+        )
+        self._compare_result(data)
 
     def print_result(self):
         self.print_protocols_result(FACTS_DATA_HOST_KEY, "Facts")

@@ -135,7 +135,7 @@ class BGPAristaAPI(AristaAPI):
         )
 
     def get_loop_vrf(self, task):
-        self.exec_call_list(task)
+        self.exec_call_list(task, "vrf")
         
 
 class CDPAristaAPI(AristaAPI):
@@ -165,7 +165,7 @@ class FactsAristaAPI(AristaAPI):
         )
 
     def get_no_vrf(self, task):
-        self.exec_call_list(task)
+        self.exec_call_list(task, "vrf")
 
 
 class LLDPAristaAPI(AristaAPI):

@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from nornir.core.task import Task
-from functions.global_tools import open_file
-from functions.select_vars import select_host_vars
-from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
-from protocols.ospf import (
+from netests import log
+from netests.tools.file import open_file
+from netests.select_vars import select_host_vars
+from netests.comparators.log_compare import log_compare, log_no_yaml_data
+from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from netests.protocols.ospf import (
     OSPFSession,
     ListOSPFSessions,
     OSPFSessionsArea,
@@ -14,44 +16,15 @@ from protocols.ospf import (
     ListOSPFSessionsVRF,
     OSPF
 )
-from const.constants import NOT_SET, OSPF_WORKS_KEY, OSPF_SESSIONS_HOST_KEY
-
-
-HEADER = "[netests - compare_ospf]"
-
-
-def compare_ospf(nr, options={}) -> bool:
-
-    devices = nr.filter()
-
-    if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER}] no device selected.")
-
-    data = devices.run(
-        task=_compare_transit_ospf,
-        options=options,
-        on_failed=True,
-        num_workers=10
-    )
-
-    return_value = True
-
-    for value in data.values():
-        if value.result is False:
-            print(
-                f"{HEADER} Task '_compare' has failed for "
-                f"{value.host} (value.result={value.result})."
-            )
-            return_value = False
-
-    return (not data.failed and return_value)
+from netests.constants import NOT_SET, OSPF_WORKS_KEY, OSPF_SESSIONS_HOST_KEY
 
 
 def _compare_transit_ospf(task, options={}):
     task.host[OSPF_WORKS_KEY] = _compare_ospf(
         host_keys=task.host.keys(),
         hostname=task.host.name,
-        ospf_host_data=task.host[OSPF_SESSIONS_HOST_KEY],
+        groups=task.host.groups,
+        ospf_host_data=task.host.get(OSPF_SESSIONS_HOST_KEY, None),
         test=False,
         options=options,
         task=task
@@ -92,7 +65,16 @@ def _compare_ospf(
             list()
         )
 
-        if OSPF_SESSIONS_HOST_KEY in host_keys:
+        log.debug(
+            "OSPF_SESSIONS_HOST_KEY in host_keys="
+            f"{OSPF_SESSIONS_HOST_KEY in host_keys}\n"
+            "ospf_yaml_data is not None="
+            f"{ospf_yaml_data is not None}"
+        )
+        if (
+            OSPF_SESSIONS_HOST_KEY in host_keys and
+            ospf_yaml_data is not None
+        ):
             for v, f in ospf_yaml_data.items():
                 ospf_sessions_vrf = OSPFSessionsVRF(
                     router_id=f.get('router_id', NOT_SET),
@@ -132,8 +114,16 @@ def _compare_ospf(
                 ospf_sessions_vrf_lst=ospf_sessions_vrf_lst
             )
 
+            log_compare(verity_ospf, ospf_host_data, hostname, groups)
             return verity_ospf == ospf_host_data
 
         else:
-            print(f"Key {OSPF_SESSIONS_HOST_KEY} is missing for {hostname}")
-            return False
+            log_no_yaml_data(
+                "ospf",
+                OSPF_SESSIONS_HOST_KEY,
+                "OSPF_SESSIONS_HOST_KEY",
+                hostname,
+                groups
+            )
+            return True
+

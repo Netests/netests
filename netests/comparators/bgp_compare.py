@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from netests import log
-from netests.comparators.log_compare import log_compare
 from nornir.core.task import Task
+from netests import log
+from netests.tools.file import open_file
+from netests.select_vars import select_host_vars
+from netests.comparators.log_compare import log_compare, log_no_yaml_data
 from netests.constants import NOT_SET, BGP_SESSIONS_HOST_KEY, BGP_WORKS_KEY
+from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
@@ -12,12 +15,6 @@ from netests.protocols.bgp import (
     ListBGPSessionsVRF,
     BGP
 )
-from netests.tools.file import open_file
-from netests.select_vars import select_host_vars
-from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
-
-
-HEADER = "[netests - compare_bgp]"
 
 
 def _compare_transit_bgp(task, options={}):
@@ -25,7 +22,7 @@ def _compare_transit_bgp(task, options={}):
         host_keys=task.host.keys(),
         hostname=task.host.name,
         groups=task.host.groups,
-        bgp_host_data=task.host[BGP_SESSIONS_HOST_KEY],
+        bgp_host_data=task.host.get(BGP_SESSIONS_HOST_KEY, None),
         test=False,
         options=options,
         task=task
@@ -66,7 +63,7 @@ def _compare_bgp(
 
         log.debug(
             "BGP_SESSIONS_HOST_KEY in host_keys="
-            f"{BGP_SESSIONS_HOST_KEY in host_keys}"
+            f"{BGP_SESSIONS_HOST_KEY in host_keys}\n"
             "bgp_yaml_data is not None="
             f"{bgp_yaml_data is not None}"
         )
@@ -109,5 +106,11 @@ def _compare_bgp(
             return verity_bgp == bgp_host_data
 
         else:
-            print(f"Key {BGP_SESSIONS_HOST_KEY} is missing for {hostname}")
-            return False
+            log_no_yaml_data(
+                "bgp",
+                BGP_SESSIONS_HOST_KEY,
+                "BGP_SESSIONS_HOST_KEY",
+                hostname,
+                groups
+            )
+            return True

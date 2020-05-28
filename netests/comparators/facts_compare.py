@@ -1,48 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 from nornir.core.task import Task
-from protocols.facts import Facts
-from functions.verbose_mode import verbose_mode
-from functions.select_vars import select_host_vars
-from functions.global_tools import open_file
-from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
-from const.constants import (
-    NOT_SET,
-    LEVEL2,
-    FACTS_WORKS_KEY,
-    FACTS_DATA_HOST_KEY
-)
-
-
-HEADER = "[netests - compare_facts]"
-
-
-def compare_facts(nr, options={}) -> bool:
-
-    devices = nr.filter()
-
-    if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER}] no device selected.")
-
-    data = devices.run(
-        task=_compare_transit_facts,
-        options=options,
-        on_failed=True,
-        num_workers=10
-    )
-
-    return_value = True
-    for value in data.values():
-        if value.result is False:
-            print(
-                f"{HEADER} Task '_compare' has failed for {value.host} "
-                f"(value.result={value.result})."
-            )
-            return_value = False
-
-    return (not data.failed and return_value)
+from netests import log
+from netests.tools.file import open_file
+from netests.protocols.facts import Facts
+from netests.select_vars import select_host_vars
+from netests.comparators.log_compare import log_compare, log_no_yaml_data
+from netests.constants import NOT_SET,FACTS_WORKS_KEY, FACTS_DATA_HOST_KEY
+from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 
 
 def _compare_transit_facts(task, options={}):
@@ -51,7 +17,7 @@ def _compare_transit_facts(task, options={}):
         host_keys=task.host.keys(),
         hostname=task.host.name,
         groups=task.host.groups,
-        facts_host_data=task.host[FACTS_DATA_HOST_KEY],
+        facts_host_data=task.host.get(FACTS_DATA_HOST_KEY, None),
         test=False,
         options=options,
         task=task
@@ -87,7 +53,13 @@ def _compare_facts(
                 groups=groups,
                 protocol="facts"
             )
-
+        
+        log.debug(
+            "FACTS_DATA_HOST_KEY in host_keys="
+            f"{FACTS_DATA_HOST_KEY in host_keys}\n"
+            "facts_yaml_data is not None="
+            f"{facts_yaml_data is not None}"
+        )
         if (
             FACTS_DATA_HOST_KEY in host_keys and
             facts_yaml_data is not None
@@ -106,20 +78,15 @@ def _compare_facts(
                 options=facts_host_data.options
             )
 
+            log_compare(verity_facts, facts_host_data, hostname, groups)
+            return verity_facts == facts_host_data
+
         else:
-            print(
-                f"{HEADER} Key {FACTS_DATA_HOST_KEY} is missing"
-                f"for {hostname} or no Facts data has been found."
+            log_no_yaml_data(
+                "facts",
+                FACTS_DATA_HOST_KEY,
+                "FACTS_DATA_HOST_KEY",
+                hostname,
+                groups
             )
-            return False
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL2
-    ):
-        print(
-            f"{HEADER} Return value for host {hostname}"
-            f"is {verity_facts == facts_host_data}"
-        )
-
-    return verity_facts == facts_host_data
+            return True

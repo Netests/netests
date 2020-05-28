@@ -24,8 +24,6 @@ def _arista_ospf_api_converter(
         ospf_sessions_vrf_lst=list()
     )
 
-    print(cmd_output)
-
     for k, v in cmd_output.items():
         if not isinstance(v.get('rid'), dict):
             v['rid'] = json.loads(v.get('rid'))

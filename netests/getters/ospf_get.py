@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
+from netests.comparators.ospf_compare import _compare_transit_ospf
 from netests.getters.routing_get import GetterRouting
 from netests.constants import OSPF_SESSIONS_HOST_KEY
 from netests.workers.arista_api import OSPFAristaAPI
@@ -59,6 +61,15 @@ class GetterOSPF(GetterRouting):
             num_workers=self.num_workers
         )
         self.print_result()
+
+    def compare(self):
+        log.debug(f"CALL _compare_transit_ospf num_workers={self.num_workers}")
+        data = self.devices.run(
+            task=_compare_transit_ospf,
+            on_failed=True,
+            num_workers=self.num_workers
+        )
+        self._compare_result(data)
 
     def print_result(self):
         self.print_protocols_result(OSPF_SESSIONS_HOST_KEY, "OSPF")

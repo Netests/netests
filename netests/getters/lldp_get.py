@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
+from netests.comparators.lldp_compare import _compare_transit_lldp
 from netests.getters.base_get import GetterBase
 from netests.workers.arista_api import LLDPAristaAPI
 from netests.workers.arista_nc import LLDPAristaNC
@@ -59,6 +61,15 @@ class GetterLLDP(GetterBase):
             num_workers=self.num_workers
         )
         self.print_result()
+
+    def compare(self):
+        log.debug(f"CALL _compare_transit_lldp num_workers={self.num_workers}")
+        data = self.devices.run(
+            task=_compare_transit_lldp,
+            on_failed=True,
+            num_workers=self.num_workers
+        )
+        self._compare_result(data)
 
     def print_result(self):
         self.print_protocols_result(LLDP_DATA_HOST_KEY, "LLDP")

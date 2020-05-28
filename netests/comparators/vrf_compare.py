@@ -1,19 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os 
 from nornir.core.task import Task
-from nornir.plugins.functions.text import print_result
 from netests import log
-from netests.comparators.log_compare import log_compare
 from netests.tools.file import open_file
 from netests.protocols.vrf import VRF, ListVRF
 from netests.select_vars import select_host_vars
 from netests.constants import NOT_SET, VRF_DATA_KEY, VRF_WORKS_KEY
+from netests.comparators.log_compare import log_compare, log_no_yaml_data
 from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
-
-
-HEADER = "[netests - compare_vrf]"
 
 
 def _compare_transit_vrf(task, options={}):
@@ -21,7 +16,7 @@ def _compare_transit_vrf(task, options={}):
         host_keys=task.host.keys(),
         hostname=task.host.name,
         groups=task.host.groups,
-        vrf_host_data=task.host[VRF_DATA_KEY],
+        vrf_host_data=task.host.get(VRF_DATA_KEY, None),
         test=False,
         options=options,
         task=task
@@ -62,7 +57,7 @@ def _compare_vrf(
 
         log.debug(
             "VRF_DATA_KEY in host_keys="
-            f"{VRF_DATA_KEY in host_keys}"
+            f"{VRF_DATA_KEY in host_keys}\n"
             "vrf_yaml_data is not None="
             f"{vrf_yaml_data is not None}"
         )
@@ -84,11 +79,19 @@ def _compare_vrf(
                             exp_targ=vrf.get('exp_targ', NOT_SET)
                         )
                     )
-        else:
-            print(
-                f"{HEADER} Key {VRF_DATA_KEY} is missing"
-                f"for {hostname} or no VRF data has been found."
-            )
 
-    log_compare(verity_vrf, vrf_host_data, hostname, groups)
-    return verity_vrf == vrf_host_data
+            log_compare(verity_vrf, vrf_host_data, hostname, groups)
+            return verity_vrf == vrf_host_data
+                
+        else:
+            log_no_yaml_data(
+                "vrf",
+                VRF_DATA_KEY,
+                "VRF_DATA_KEY",
+                hostname,
+                groups
+            )
+            return True
+
+
+    

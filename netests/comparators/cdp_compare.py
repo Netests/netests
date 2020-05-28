@@ -2,41 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from nornir.core.task import Task
-from protocols.cdp import CDP, ListCDP
-from functions.global_tools import open_file
-from functions.select_vars import select_host_vars
-from const.constants import NOT_SET, CDP_DATA_HOST_KEY, CDP_WORKS_KEY
-from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
-
-
-HEADER = "[netests - compare_cdp]"
-
-
-def compare_cdp(nr, options={}) -> bool:
-
-    devices = nr.filter()
-
-    if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER}] no device selected.")
-
-    data = devices.run(
-        task=_compare_transit_cdp,
-        options=options,
-        on_failed=True,
-        num_workers=10
-    )
-
-    return_value = True
-
-    for value in data.values():
-        if value.result is False:
-            print(
-                f"{HEADER} Task '_compare' has failed for "
-                f"{value.host} (value.result={value.result})."
-            )
-            return_value = False
-
-    return (not data.failed and return_value)
+from netests import log
+from netests.tools.file import open_file
+from netests.protocols.cdp import CDP, ListCDP
+from netests.select_vars import select_host_vars
+from netests.constants import NOT_SET, CDP_DATA_HOST_KEY, CDP_WORKS_KEY
+from netests.comparators.log_compare import log_compare, log_no_yaml_data
+from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 
 
 def _compare_transit_cdp(task, options={}):
@@ -44,7 +16,7 @@ def _compare_transit_cdp(task, options={}):
         host_keys=task.host.keys(),
         hostname=task.host.name,
         groups=task.host.groups,
-        cdp_host_data=task.host[CDP],
+        cdp_host_data=task.host.get(CDP_DATA_HOST_KEY, None),
         test=False,
         options=options,
         task=task
@@ -85,7 +57,16 @@ def _compare_cdp(
             list()
         )
 
-        if CDP_DATA_HOST_KEY in host_keys:
+        log.debug(
+            "CDP_DATA_HOST_KEY in host_keys="
+            f"{CDP_DATA_HOST_KEY in host_keys}\n"
+            "cdp_yaml_data is not None="
+            f"{cdp_yaml_data is not None}"
+        )
+        if (
+            CDP_DATA_HOST_KEY in host_keys and
+            cdp_yaml_data is not None
+        ):
             for n in cdp_yaml_data:
                 cdp_obj = CDP(
                     local_name=hostname,
@@ -99,8 +80,15 @@ def _compare_cdp(
 
                 verity_cdp.cdp_neighbors_lst.append(cdp_obj)
 
+            log_compare(verity_cdp, cdp_host_data, hostname, groups)
             return verity_cdp == cdp_host_data
-
+        
         else:
-            print(f"Key {CDP_DATA_HOST_KEY} is missing for {hostname}")
-            return False
+            log_no_yaml_data(
+                "cdp",
+                CDP_DATA_HOST_KEY,
+                "CDP_DATA_HOST_KEY",
+                hostname,
+                groups
+            )
+            return True

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
+from netests.comparators.cdp_compare import _compare_transit_cdp
 from netests.constants import CDP_DATA_HOST_KEY
 from netests.getters.base_get import GetterBase
 from netests.workers.arista_api import CDPAristaAPI
@@ -56,6 +58,15 @@ class GetterCDP(GetterBase):
             num_workers=self.num_workers
         )
         self.print_result()
+
+    def compare(self):
+        log.debug(f"CALL _compare_transit_cdp  num_workers={self.num_workers}")
+        data = self.devices.run(
+            task=_compare_transit_cdp,
+            on_failed=True,
+            num_workers=self.num_workers
+        )
+        self._compare_result(data)
 
     def print_result(self):
         self.print_protocols_result(CDP_DATA_HOST_KEY, "CDP")

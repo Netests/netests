@@ -2,41 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from nornir.core.task import Task
-from protocols.lldp import LLDP, ListLLDP
-from functions.global_tools import open_file
-from functions.select_vars import select_host_vars
-from const.constants import NOT_SET, LLDP_DATA_HOST_KEY, LLDP_WORKS_KEY
-from exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
-
-
-HEADER = "[netests - compare_lldp]"
-
-
-def compare_lldp(nr, options={}) -> bool:
-
-    devices = nr.filter()
-
-    if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER}] no device selected.")
-
-    data = devices.run(
-        task=_compare_transit_lldp,
-        options=options,
-        on_failed=True,
-        num_workers=10
-    )
-
-    return_value = True
-
-    for value in data.values():
-        if value.result is False:
-            print(
-                f"{HEADER} Task '_compare' has failed for "
-                f"{value.host} (value.result={value.result})."
-            )
-            return_value = False
-
-    return (not data.failed and return_value)
+from netests import log
+from netests.tools.file import open_file
+from netests.select_vars import select_host_vars
+from netests.protocols.lldp import LLDP, ListLLDP
+from netests.comparators.log_compare import log_compare, log_no_yaml_data
+from netests.constants import NOT_SET, LLDP_DATA_HOST_KEY, LLDP_WORKS_KEY
+from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
 
 
 def _compare_transit_lldp(task, options={}):
@@ -45,7 +17,7 @@ def _compare_transit_lldp(task, options={}):
         host_keys=task.host.keys(),
         hostname=task.host.name,
         groups=task.host.groups,
-        lldp_host_data=task.host[LLDP_DATA_HOST_KEY],
+        lldp_host_data=task.host.get(LLDP_DATA_HOST_KEY, None),
         test=False,
         options=options,
         task=task
@@ -88,7 +60,16 @@ def _compare_lldp(
             list()
         )
 
-        if LLDP_DATA_HOST_KEY in host_keys:
+        log.debug(
+            "LLDP_DATA_HOST_KEY in host_keys="
+            f"{LLDP_DATA_HOST_KEY in host_keys}\n"
+            "lldp_yaml_data is not None="
+            f"{lldp_yaml_data is not None}"
+        )
+        if (
+            LLDP_DATA_HOST_KEY in host_keys and
+            lldp_yaml_data is not None
+        ):
             for nei in lldp_yaml_data:
                 lldp_obj = LLDP(
                     local_name=hostname,
@@ -102,8 +83,15 @@ def _compare_lldp(
 
                 verity_lldp.lldp_neighbors_lst.append(lldp_obj)
 
+            log_compare(verity_lldp, lldp_host_data, hostname, groups)
             return verity_lldp == lldp_host_data
 
         else:
-            print(f"Key {LLDP_DATA_HOST_KEY} is missing for {hostname}")
-            return False
+            log_no_yaml_data(
+                "lldp",
+                LLDP_DATA_HOST_KEY,
+                "LLDP_DATA_HOST_KEY",
+                hostname,
+                groups
+            )
+            return True
