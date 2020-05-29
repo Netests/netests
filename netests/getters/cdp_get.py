@@ -37,7 +37,10 @@ class GetterCDP(GetterBase):
         from_cli,
         num_workers,
         verbose,
-        print_task_output
+        print_task_output,
+        filename,
+        protocol,
+        key_store,
     ):
         super().__init__(
             nr,
@@ -45,17 +48,12 @@ class GetterCDP(GetterBase):
             from_cli,
             num_workers,
             verbose,
-            print_task_output
+            print_task_output,
+            filename,
+            protocol,
+            key_store,
         )
         self.init_mapping_function()
-
-    def run(self):
-        self.devices.run(
-            task=self.generic_get,
-            on_failed=True,
-            num_workers=self.num_workers
-        )
-        self.print_result()
 
     def compare(self):
         log.debug(f"CALL _compare_transit_cdp  num_workers={self.num_workers}")

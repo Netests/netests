@@ -57,7 +57,6 @@ class GetterVRF(GetterBase):
             filename,
             protocol,
             key_store
-
         )
         self.init_mapping_function()
 

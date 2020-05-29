@@ -9,7 +9,6 @@ from netests.getters.facts_get import GetterFacts
 from netests.getters.lldp_get import GetterLLDP
 from netests.getters.ospf_get import GetterOSPF
 from netests.getters.vrf_get import GetterVRF
-from netests.base_init_data import create_truth_vars
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,

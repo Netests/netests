@@ -39,7 +39,10 @@ class GetterOSPF(GetterRouting):
         from_cli,
         num_workers,
         verbose,
-        print_task_output
+        print_task_output,
+        filename,
+        protocol,
+        key_store,
     ):
         super().__init__(
             nr,
@@ -47,18 +50,12 @@ class GetterOSPF(GetterRouting):
             from_cli,
             num_workers,
             verbose,
-            print_task_output
+            print_task_output,
+            filename,
+            protocol,
+            key_store,
         )
         self.init_mapping_function()
-
-    def run(self):
-        self.get_vrf()
-        self.devices.run(
-            task=self.generic_get,
-            on_failed=True,
-            num_workers=self.num_workers
-        )
-        self.print_result()
 
     def compare(self):
         log.debug(f"CALL _compare_transit_ospf num_workers={self.num_workers}")
@@ -68,9 +65,6 @@ class GetterOSPF(GetterRouting):
             num_workers=self.num_workers
         )
         self._compare_result(data)
-
-    def print_result(self):
-        self.print_protocols_result(OSPF_SESSIONS_HOST_KEY, "OSPF")
 
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {

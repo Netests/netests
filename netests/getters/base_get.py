@@ -133,25 +133,26 @@ class GetterBase(ABC):
 
     def init_data(self) -> None:
         for host in self.nr.inventory.hosts:
-            self.create_directories("truth_vars/")
-            self.create_directories("truth_vars/hosts")
-            self.create_directories(f"truth_vars/hosts/{host}")
-            with open(
-                f"truth_vars/hosts/{host}/{self.filename}",
-                'w'
-            ) as outfile:
-                log.debug(
-                    "\n"
-                    "Write the following data into "
-                    f"truth_vars/hosts/{host}/{self.filename}"
-                    "\n"
-                    f"{self.nr.inventory.hosts[host][self.key_store].to_json()}"
-                )
-                yaml.dump(
-                    self.nr.inventory.hosts[host][self.key_store].to_json(),
-                    outfile,
-                    default_flow_style=False
-                )
+            if self.key_store in self.nr.inventory.hosts[host].keys():
+                self.create_directories("truth_vars/")
+                self.create_directories("truth_vars/hosts")
+                self.create_directories(f"truth_vars/hosts/{host}")
+                with open(
+                    f"truth_vars/hosts/{host}/{self.filename}",
+                    'w'
+                ) as outfile:
+                    log.debug(
+                        "\n"
+                        "Write the following data into "
+                        f"truth_vars/hosts/{host}/{self.filename}"
+                        "\n"
+                        f"{self.nr.inventory.hosts[host][self.key_store].to_json()}"
+                    )
+                    yaml.dump(
+                        self.nr.inventory.hosts[host][self.key_store].to_json(),
+                        outfile,
+                        default_flow_style=False
+                    )
 
     def create_directories(self, path: str) -> None:
         log.debug(f"Create new folder if not exist {path}")

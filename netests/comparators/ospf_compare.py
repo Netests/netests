@@ -75,29 +75,29 @@ def _compare_ospf(
             OSPF_SESSIONS_HOST_KEY in host_keys and
             ospf_yaml_data is not None
         ):
-            for v, f in ospf_yaml_data.items():
+            for f in ospf_yaml_data.get('vrfs', list()):
                 ospf_sessions_vrf = OSPFSessionsVRF(
                     router_id=f.get('router_id', NOT_SET),
-                    vrf_name=v,
+                    vrf_name=f.get('vrf_name', NOT_SET),
                     ospf_sessions_area_lst=ListOSPFSessionsArea(list())
                 )
 
-                for a, s in f.get('area_id', NOT_SET).items():
+                for n in f.get('areas', list()):
                     ospf_a = OSPFSessionsArea(
-                        area_number=a,
+                        area_number=n.get('area_number', NOT_SET),
                         ospf_sessions=ListOSPFSessions(list())
                     )
 
-                    for n in s:
-                        if isinstance(n, dict):
+                    for s in n.get('neighbors', list()):
+                        if isinstance(s, dict):
                             ospf_a.ospf_sessions.ospf_sessions_lst.append(
                                 OSPFSession(
-                                    peer_rid=n.get('peer_rid', NOT_SET),
-                                    peer_hostname=n.get('peer_name', NOT_SET),
-                                    session_state=n.get('state', NOT_SET),
-                                    local_interface=n.get(
+                                    peer_rid=s.get('peer_rid', NOT_SET),
+                                    peer_hostname=s.get('peer_name', NOT_SET),
+                                    session_state=s.get('state', NOT_SET),
+                                    local_interface=s.get(
                                         'local_interface', NOT_SET),
-                                    peer_ip=n.get('peer_ip', NOT_SET)
+                                    peer_ip=s.get('peer_ip', NOT_SET)
                                 )
                             )
 
