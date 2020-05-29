@@ -18,8 +18,6 @@ def _arista_bgp_api_converter(
     options={}
 ) -> BGP:
 
-    print(cmd_output)
-
     bgp_sessions_vrf_lst = ListBGPSessionsVRF(
         list()
     )

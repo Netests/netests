@@ -193,8 +193,7 @@ def print_result(result) -> None:
 @click.option(
     "-C",
     "--compare",
-    default=False,
-    is_flag=True,
+    default=True,
     help="To compare/excute step. Will only get data or generate cmd.",
 )
 @click.option(

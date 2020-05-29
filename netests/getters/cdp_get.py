@@ -37,8 +37,7 @@ class GetterCDP(GetterBase):
         from_cli,
         num_workers,
         verbose,
-        print_task_output,
-        compare_data
+        print_task_output
     ):
         super().__init__(
             nr,
@@ -46,8 +45,7 @@ class GetterCDP(GetterBase):
             from_cli,
             num_workers,
             verbose,
-            print_task_output,
-            compare_data
+            print_task_output
         )
         self.init_mapping_function()
 

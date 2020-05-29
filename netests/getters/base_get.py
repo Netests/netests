@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import yaml
 import shutil
-from netests import log
+from pathlib import Path
 from abc import ABC, abstractmethod
 from nornir.core import Nornir
 from nornir.core.filter import F
 from nornir.plugins.functions.text import print_result
+from netests import log
 from netests.exceptions.netests_exceptions import NetestsDeviceNotCompatibleWithNapalm
 from netests.constants import PLATFORM_SUPPORTED, CONNEXION_MODE
 import pprint
@@ -22,18 +24,14 @@ class GetterBase(ABC):
     verbose: str
     devices: str
     print_task_output: bool
-    compare_data: bool
+    filename: str
+    protocol: str
+    key_store: str
     compare_result: dict
 
     HEADER = "[netests - GetterBase]"
     NOT_SET = "NOT_SET"
     MAPPING_FUNCTION = {}
-    LEVEL0 = "level0"
-    LEVEL1 = "level1"
-    LEVEL2 = "level2"
-    LEVEL3 = "level3"
-    LEVEL4 = "level4"
-    LEVEL5 = "level5"
     NETCONF_CONNECTION = "netconf"
     SSH_CONNECTION = "ssh"
     API_CONNECTION = "api"
@@ -60,7 +58,9 @@ class GetterBase(ABC):
         num_workers=NOT_SET,
         verbose=NOT_SET,
         print_task_output=True,
-        compare_data=False
+        filename="",
+        protocol="",
+        key_store=""
     ):
         log.debug(
             "\n"
@@ -69,7 +69,9 @@ class GetterBase(ABC):
             f"from_cli={from_cli}\n"
             f"num_workers={num_workers}\n"
             f"print_task_output={print_task_output}\n"
-            f"compare_data={compare_data}\n"
+            f"filename={filename}\n"
+            f"protocol={protocol}\n"
+            f"key_store={key_store}\n"
         )
         self.nr = nr
         self.options = options
@@ -77,7 +79,9 @@ class GetterBase(ABC):
         self.num_workers = num_workers if num_workers != self.NOT_SET else 50
         self.verbose = verbose if verbose != self.NOT_SET else self.LEVEL0
         self.print_task_output = print_task_output
-        self.compare_data = compare_data
+        self.filename = filename
+        self.protocol = protocol
+        self.key_store = key_store
         self.devices = self.select_devices()
         self.hosts = self.devices.inventory.hosts
         self.compare_result = dict()
@@ -126,6 +130,35 @@ class GetterBase(ABC):
             num_workers=self.num_workers
         )
         self.print_result()
+
+    def init_data(self) -> None:
+        for host in self.nr.inventory.hosts:
+            self.create_directories("truth_vars/")
+            self.create_directories("truth_vars/hosts")
+            self.create_directories(f"truth_vars/hosts/{host}")
+            with open(
+                f"truth_vars/hosts/{host}/{self.filename}",
+                'w'
+            ) as outfile:
+                log.debug(
+                    "\n"
+                    "Write the following data into "
+                    f"truth_vars/hosts/{host}/{self.filename}"
+                    "\n"
+                    f"{self.nr.inventory.hosts[host][self.key_store].to_json()}"
+                )
+                yaml.dump(
+                    self.nr.inventory.hosts[host][self.key_store].to_json(),
+                    outfile,
+                    default_flow_style=False
+                )
+
+    def create_directories(self, path: str) -> None:
+        log.debug(f"Create new folder if not exist {path}")
+        Path(path).mkdir(parents=True, exist_ok=True)
+
+    def print_result(self):
+        self.print_protocols_result(self.key_store, self.protocol)
 
     def print_protocols_result(self, pkey, protocol):
         self.printline()

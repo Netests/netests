@@ -43,7 +43,9 @@ class GetterVRF(GetterBase):
         num_workers,
         verbose,
         print_task_output,
-        compare_data
+        filename,
+        protocol,
+        key_store
     ):
         super().__init__(
             nr,
@@ -52,12 +54,12 @@ class GetterVRF(GetterBase):
             num_workers,
             verbose,
             print_task_output,
-            compare_data
+            filename,
+            protocol,
+            key_store
+
         )
         self.init_mapping_function()
-
-    def print_result(self):
-        self.print_protocols_result(VRF_DATA_KEY, "VRF")
 
     def compare(self):
         log.debug(f"CALL _compare_transit_vrf  num_workers={self.num_workers}")
