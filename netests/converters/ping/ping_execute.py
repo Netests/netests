@@ -87,13 +87,14 @@ def _execute_linux_ping_cmd(task):
                 "\n"
                 "Execute the following ping command with Remote Command\n"
                 f"{ping_line}"
-                f"must_works={must_works}"
+                f"must_works={must_works}\n"
                 "Result is :\n"
                 f"{data.result}"
             )
+
         except Exception:
             log.debug(
-                "\n"
+                "\n In Exception part !\n"
                 "Execute the following ping command with Remote Command\n"
                 f"{ping_line}"
                 f"must_works={must_works}"
