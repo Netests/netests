@@ -4,7 +4,7 @@
 import json
 import yaml
 import textfsm
-from netests.converters.bgp.bgp_compare import _compare_bgp
+from netests.comparators.bgp_compare import _compare_bgp
 from netests.mappings import get_bgp_state_brief, get_bgp_peer_uptime
 from netests.converters.bgp.arista.api.converter import _arista_bgp_api_converter
 from netests.converters.bgp.arista.ssh.converter import _arista_bgp_ssh_converter
@@ -40,13 +40,12 @@ from netests.tools.file import (
     open_file,
     open_txt_file,
     open_json_file,
-    open_txt_file_as_bytes,
-    printline
+    open_txt_file_as_bytes
 )
 from behave import given, when, then
 
 
-@given(u'A network protocols named BGP defined in protocols/bgp.py')
+@given(u'A network protocols named BGP defined in netests/protocols/bgp.py')
 def step_impl(context):
     context.test_not_implemented = list()
 

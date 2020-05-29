@@ -44,5 +44,6 @@ spine02:
 
 spine03:
   # Cisco IOS-XR
+  - vrf_name: default
   - vrf_name: MGMT_VRF
   - vrf_name: EXTERNAL_PEERING

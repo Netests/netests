@@ -6,7 +6,7 @@ echo "------------------------------------------"
 
 declare -i return_value=0
 declare -a commands_lst=(
-    'behave tests/features/cli_tests.feature --no-capture'
+    #'behave tests/features/cli_tests.feature --no-capture'
     'behave tests/features/bgp_tests.feature --no-capture'
     'behave tests/features/cdp_tests.feature --no-capture'
     'behave tests/features/facts_tests.feature --no-capture'

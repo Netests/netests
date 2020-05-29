@@ -1,10 +1,10 @@
 # Created by dylan.hamel at 09.12.19
-Feature: Test protocols VRF python class ./protocols/vrf.py
+Feature: Test protocols VRF python class netests/protocols/vrf.py
   # Description
   Scenario:
     # Description
     # Arista Networks ID Device = o00
-    Given A network protocols named VRF defined in protocols/vrf.py
+    Given A network protocols named VRF defined in netests/protocols/vrf.py
     And I create a VRF object equals to Arista manually named o0001
     And I create a VRF object from a Arista API output named o0002
     And I create a VRF object from a Arista Netconf named o0003

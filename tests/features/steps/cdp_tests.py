@@ -4,7 +4,7 @@
 from behave import given, when, then
 from netests.protocols.cdp import CDP, ListCDP
 from netests.tools.file import open_json_file, open_txt_file
-from netests.converters.cdp.cdp_compare import _compare_cdp
+from netests.comparators.cdp_compare import _compare_cdp
 from netests.converters.cdp.cumulus.ssh.converter import _cumulus_cdp_ssh_converter
 from netests.converters.cdp.ios.ssh.converter import _ios_cdp_ssh_converter
 from netests.converters.cdp.iosxr.ssh.converter import _iosxr_cdp_ssh_converter
@@ -13,7 +13,7 @@ from netests.converters.cdp.nxos.ssh.converter import _nxos_cdp_ssh_converter
 from netests.constants import NOT_SET, FEATURES_SRC_PATH, CDP_DATA_HOST_KEY
 
 
-@given(u'A network protocols named CDP defined in protocols/cdp.py')
+@given(u'A network protocols named CDP defined in netests/protocols/cdp.py')
 def step_impl(context):
     context.test_not_implemented = list()
 

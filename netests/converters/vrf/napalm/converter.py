@@ -7,7 +7,7 @@ from netests.protocols.vrf import VRF, ListVRF
 
 def _napalm_vrf_converter(
     hostname: str(),
-    cmd_output: json,
+    cmd_output: dict,
     options={}
 ) -> ListVRF:
 

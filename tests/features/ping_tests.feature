@@ -1,9 +1,9 @@
 # Created by dylan.hamel at 09.05.2020
-Feature: Test protocols PING python class ./protocols/ping.py
+Feature: Test protocols PING python class netests/protocols/ping.py
     # Description
     Scenario:
         # Description
-        Given A network protocols named PING defined in protocols/ping.py
+        Given A network protocols named PING defined in netests/protocols/ping.py
 
         # Arista Networks ID Device = o00
         And A Ping output from a Arista CLI that works named o0001

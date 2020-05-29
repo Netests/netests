@@ -1,10 +1,10 @@
 # Created by dylan.hamel at 09.12.19
-Feature: Test protocols CDP python class ./protocols/cdp.py
+Feature: Test protocols CDP python class netests/protocols/cdp.py
     # Description
     Scenario:
         # Description
         # Arista Networks ID Device = o00
-        Given A network protocols named CDP defined in protocols/cdp.py
+        Given A network protocols named CDP defined in netests/protocols/cdp.py
         And I create a CDP object equals to Arista manually named o0001
         And I create a CDP object from a Arista API output named o0002
         And I create a CDP object from a Arista Netconf named o0003

@@ -1,10 +1,10 @@
 # Created by dylan.hamel at 09.12.19
-Feature: Test protocols OSPF python class ./protocols/bgp.py
+Feature: Test protocols OSPF python class netests/protocols/bgp.py
   # Description
   Scenario:
     # Description
     # Arista Networks ID Device = o00
-    Given A network protocols named OSPF defined in protocols/bgp.py
+    Given A network protocols named OSPF defined in netests/protocols/bgp.py
     And I create a OSPF object equals to Arista manually named o0001
     And I create a OSPF object from a Arista API output named o0002
     And I create a OSPF object from a Arista Netconf named o0003

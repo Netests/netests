@@ -22,8 +22,8 @@ from netests.converters.facts.juniper.ssh.converter import _juniper_facts_ssh_co
 from netests.converters.facts.napalm.converter import _napalm_facts_converter
 from netests.converters.facts.nxos.api.converter import _nxos_facts_api_converter
 from netests.converters.facts.nxos.ssh.converter import _nxos_facts_ssh_converter
-from netests.converters.facts.facts_compare import _compare_facts
-from netests.tools.file import open_file, open_txt_file, open_json_file, open_txt_file_as_bytes,
+from netests.comparators.facts_compare import _compare_facts
+from netests.tools.file import open_file, open_txt_file, open_json_file, open_txt_file_as_bytes
 from netests.constants import (
     NOT_SET,
     FEATURES_SRC_PATH,
@@ -38,7 +38,7 @@ from netests.constants import (
 )
 
 
-@given(u'A network protocols named Facts defined in protocols/facts.py')
+@given(u'A network protocols named Facts defined in netests/protocols/facts.py')
 def step_impl(context):
     context.test_not_implemented = list()
 
@@ -374,7 +374,7 @@ def step_impl(context):
         cmd_output=open_file(
             path=(
                 f"{FEATURES_SRC_PATH}outputs/facts/ios/api/"
-                "cisco_ios_api_get_facts.json"
+                "cisco_ios_api_get_facts_16.8.json"
             )
         ),
         options={}
@@ -413,6 +413,53 @@ def step_impl(context):
     context.o0304 = _ios_facts_ssh_converter(
         hostname="spine02",
         cmd_output=cmd_output,
+        options={}
+    )
+
+@given(u'I create a Facts object equals to IOS 16.9 manually named o0311')
+def step_impl(context):
+    context.o0311 = Facts(
+        hostname='csr1000v',
+        domain='abc.inc',
+        version='16.9',
+        build=NOT_SET,
+        serial='9KAAMNP24B9',
+        base_mac=NOT_SET,
+        memory=NOT_SET,
+        vendor='Cisco',
+        model='CSR1000V',
+        interfaces_lst=['GigabitEthernet1',
+                        'GigabitEthernet2',
+                        'GigabitEthernet3',
+                        'Loopback12',
+                        'Loopback101',
+                        'Loopback854',
+                        'Loopback1500',
+                        'Loopback1501',
+                        'Loopback1609',
+                        'Loopback1974',
+                        'Loopback1996',
+                        'Loopback1997',
+                        'Loopback1998',
+                        'Loopback2000',
+                        'Loopback2222',
+                        'Loopback3000',
+                        'Loopback4321',
+                        'Loopback5263'],
+        options={}
+    )
+
+
+@given(u'I create a Facts object from a IOS API 16.9 output named o0312')
+def step_impl(context):
+    context.o0312 = _ios_facts_api_converter(
+        hostname="leaf05",
+        cmd_output=open_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/facts/ios/api/"
+                "cisco_ios_api_get_facts_16.9.json"
+            )
+        ),
         options={}
     )
 
@@ -1008,6 +1055,18 @@ def step_impl(context):
     )
 
 
+@given(u'Facts o0311 should be equal to o0312')
+def step_impl(context):
+    assert (
+        context.o0311.hostname == context.o0312.hostname and
+        context.o0311.domain == context.o0312.domain and
+        context.o0311.vendor == context.o0312.vendor and
+        context.o0311.serial == context.o0312.serial and
+        context.o0311.model == context.o0312.model and
+        context.o0311.interfaces_lst == context.o0312.interfaces_lst
+    )
+
+
 @given(u'Facts YAML file should be equal to o0302')
 def step_impl(context):
     print("/!\\/!\\ Facts YAML file should be equal to o0302 /!\\/!\\")
@@ -1273,9 +1332,6 @@ def step_impl(context):
 
 @given(u'I Finish my Facts tests and list tests not implemented')
 def step_impl(context):
-    printline()
     print("| The following tests are not implemented :")
-    printline()
     for test in context.test_not_implemented:
         print(f"| {test}")
-    printline()

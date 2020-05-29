@@ -3,21 +3,14 @@
 
 import os
 import json
-from protocols.facts import Facts
-from functions.verbose_mode import verbose_mode
-from functions.global_tools import printline
-from functions.discovery_protocols.discovery_functions import (
-    _mapping_interface_name
-)
-from const.constants import (
+from netests.protocols.facts import Facts
+from netests.mappings import mapping_interface_name
+from netests.constants import (
     NOT_SET,
-    LEVEL1,
     CISCO_IOS_PLATEFORM_NAME,
     JUNOS_PLATEFORM_NAME,
     NEXUS_PLATEFORM_NAME
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 def _napalm_facts_converter(
@@ -57,13 +50,6 @@ def _napalm_facts_converter(
                         != '' else [],
         options=options
     )
-
-    if verbose_mode(
-        user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-        needed_value=LEVEL1
-    ):
-        printline()
-        PP.pprint(facts.to_json())
 
     return facts
 

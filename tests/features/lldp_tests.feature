@@ -1,10 +1,10 @@
 # Created by dylan.hamel at 09.12.19
-Feature: Test protocols LLDP python class ./protocols/lldp.py
+Feature: Test protocols LLDP python class netests/protocols/lldp.py
   # Description
   Scenario:
     # Description
     # Arista Networks ID Device = o00
-    Given A network protocols named LLDP defined in protocols/lldp.py
+    Given A network protocols named LLDP defined in netests/protocols/lldp.py
     And I create a LLDP object equals to Arista manually named o0001
     And I create a LLDP object from a Arista API output named o0002
     And I create a LLDP object from a Arista Netconf named o0003

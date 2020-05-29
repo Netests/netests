@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from functions.base_cli import NetestsCLI
-from functions.nornir_inventory import init_nornir
+"""
+from netests.base_cli import NetestsCLI
+from netests.nornir_inventory import init_nornir
 
 
 @given(u'I create a NetestsCLI object with Ansible parameters named cli')
@@ -183,3 +184,4 @@ def step_impl(context):
 @then(u'I can print help for exit commands')
 def step_impl(context):
     context.cli.print_exit_help()
+"""

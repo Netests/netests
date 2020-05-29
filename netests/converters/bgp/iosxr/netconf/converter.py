@@ -23,6 +23,8 @@ def _iosxr_bgp_netconf_converter(
         list()
     )
 
+    cmd_output = format_xml_output(cmd_output)
+
     if (
         'data' in cmd_output.keys() and
         'bgp' in cmd_output.get('data').keys() and

@@ -3,7 +3,7 @@
 
 from behave import given, when, then
 from netests.protocols.lldp import LLDP, ListLLDP
-from netests.converters.lldp.lldp_compare import _compare_lldp
+from netests.comparators.lldp_compare import _compare_lldp
 from netests.tools.file import open_json_file, open_txt_file, open_file
 from netests.converters.lldp.arista.api.converter import _arista_lldp_api_converter
 from netests.converters.lldp.arista.ssh.converter import _arista_lldp_ssh_converter
@@ -22,7 +22,7 @@ from netests.converters.lldp.nxos.ssh.converter import _nxos_lldp_ssh_converter
 from netests.constants import NOT_SET, FEATURES_SRC_PATH, LLDP_DATA_HOST_KEY
 
 
-@given(u'A network protocols named LLDP defined in protocols/lldp.py')
+@given(u'A network protocols named LLDP defined in netests/protocols/lldp.py')
 def step_impl(context):
     context.test_not_implemented = list()
 
@@ -976,9 +976,6 @@ def step_impl(context):
 
 @given(u'I Finish my LLDP tests and list tests not implemented')
 def step_impl(context):
-    printline()
     print("| The following tests are not implemented :")
-    printline()
     for test in context.test_not_implemented:
         print(f"| {test}")
-    printline()

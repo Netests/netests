@@ -1,10 +1,10 @@
 # Created by dylan.hamel at 09.12.19
-Feature: Test protocols BGP python class ./protocols/bgp.py
+Feature: Test protocols BGP python class netests/protocols/bgp.py
   # Description
   Scenario:
     # Description
     # Arista Networks ID Device = o00
-    Given A network protocols named BGP defined in protocols/bgp.py
+    Given A network protocols named BGP defined in netests/protocols/bgp.py
     And I create a BGP object equals to Arista manually named o0001
     And I create a BGP object from a Arista API output named o0002
     And I create a BGP object from a Arista Netconf named o0003

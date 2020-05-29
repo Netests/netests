@@ -4,8 +4,8 @@
 import json
 import yaml
 import textfsm
-from protocols.vrf import VRF, ListVRF
-from netests.converters.vrf.vrf_compare import _compare_vrf
+from netests.protocols.vrf import VRF, ListVRF
+from netests.comparators.vrf_compare import _compare_vrf
 from netests.converters.vrf.arista.api.converter import _arista_vrf_api_converter
 from netests.converters.vrf.arista.netconf.converter import _arista_vrf_netconf_converter
 from netests.converters.vrf.arista.ssh.converter import _arista_vrf_ssh_converter
@@ -25,10 +25,10 @@ from netests.converters.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
 from netests.converters.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
 from netests.converters.vrf.nxos.restconf.converter import _nxos_vrf_restconf_converter
 from netests.constants import NOT_SET, FEATURES_SRC_PATH, FEATURES_OUTPUT_PATH, VRF_DATA_KEY
-from netests.tools.file import open_file, open_txt_file, open_json_file, open_txt_file_as_bytes,
+from netests.tools.file import open_file, open_txt_file, open_json_file, open_txt_file_as_bytes
 
 
-@given(u'A network protocols named VRF defined in protocols/vrf.py')
+@given(u'A network protocols named VRF defined in netests/protocols/vrf.py')
 def step_impl(context):
     context.test_not_implemented = list()
 
@@ -712,6 +712,20 @@ def step_impl(context):
 
     context.o0401.vrf_lst.append(
         VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o0401.vrf_lst.append(
+        VRF(
             vrf_name="EXTERNAL_PEERING",
             vrf_id=NOT_SET,
             vrf_type="Regular",
@@ -787,6 +801,20 @@ def step_impl(context):
 
     context.o0405.vrf_lst.append(
         VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o0405.vrf_lst.append(
+        VRF(
             vrf_name="EXTERNAL_PEERING",
             vrf_id=NOT_SET,
             vrf_type="Regular",
@@ -857,6 +885,20 @@ def step_impl(context):
         vrf_lst=list()
     )
 
+    context.o0411.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
 
 @given(u'I create a VRF object from a IOS-XR no config API named o0412')
 def step_impl(context):
@@ -902,6 +944,20 @@ def step_impl(context):
 def step_impl(context):
     context.o0421 = ListVRF(
         vrf_lst=list()
+    )
+
+    context.o0421.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
     )
 
     context.o0421.vrf_lst.append(
@@ -1829,9 +1885,6 @@ def step_impl(context):
 
 @given(u'I Finish my VRF tests and list tests not implemented')
 def step_impl(context):
-    printline()
     print("| The following tests are not implemented :")
-    printline()
     for test in context.test_not_implemented:
         print(f"| {test}")
-    printline()

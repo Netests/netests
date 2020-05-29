@@ -1,10 +1,10 @@
 # Created by dylan.hamel at 09.12.19
-Feature: Test protocols Facts python class ./protocols/facts.py
+Feature: Test protocols Facts python class netests/protocols/facts.py
     # Description
     Scenario:
         # Description
         # Arista Networks ID Device = o00
-        Given A network protocols named Facts defined in protocols/facts.py
+        Given A network protocols named Facts defined in netests/protocols/facts.py
         And I create a Facts object equals to Arista manually named o0001
         And I create a Facts object from a Arista API output named o0002
         And I create a Facts object from a Arista Netconf named o0003
@@ -26,7 +26,7 @@ Feature: Test protocols Facts python class ./protocols/facts.py
         And I create a Facts object from a IOS SSH named o0304
 
         And I create a Facts object equals to IOS 16.9 manually named o0311
-        And I create a Facts object from a IOS API 16.9 output named o0302
+        And I create a Facts object from a IOS API 16.9 output named o0312
 
         # Cisco IOS-XR Device = o04
         And I create a Facts object equals to IOS-XR manually named o0401
@@ -90,6 +90,8 @@ Feature: Test protocols Facts python class ./protocols/facts.py
         And Facts o0302 should be equal to o0303
         And Facts o0302 should be equal to o0304
         And Facts o0303 should be equal to o0304
+
+        And Facts o0311 should be equal to o0312
 
         And Facts YAML file should be equal to o0302
         And Facts YAML file should be equal to o0303

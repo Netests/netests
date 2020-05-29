@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from netests.converters.ospf.ospf_compare import _compare_ospf
+from netests.comparators.ospf_compare import _compare_ospf
 from netests.converters.ospf.arista.api.converter import _arista_ospf_api_converter
 from netests.converters.ospf.arista.ssh.converter import _arista_ospf_ssh_converter
 from netests.converters.ospf.cumulus.ssh.converter import _cumulus_ospf_ssh_converter
@@ -24,7 +24,7 @@ from netests.protocols.ospf import (
 )
 
 
-@given(u'A network protocols named OSPF defined in protocols/bgp.py')
+@given(u'A network protocols named OSPF defined in netests/protocols/bgp.py')
 def step_impl(context):
     context.test_not_implemented = list()
 
