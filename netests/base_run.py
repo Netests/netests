@@ -8,6 +8,7 @@ from netests.getters.cdp_get import GetterCDP
 from netests.getters.facts_get import GetterFacts
 from netests.getters.lldp_get import GetterLLDP
 from netests.getters.ospf_get import GetterOSPF
+from netests.getters.ping_get import GetterPing
 from netests.getters.vrf_get import GetterVRF
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
@@ -15,6 +16,7 @@ from netests.constants import (
     FACTS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
+    PING_DATA_HOST_KEY,
     VRF_DATA_KEY,
 )
 
@@ -45,6 +47,11 @@ RUN = {
         "class": GetterOSPF,
         "filename": "ospf.yml",
         "key_store": OSPF_SESSIONS_HOST_KEY
+    },
+    "ping": {
+        "class": GetterPing,
+        "filename": "ping.yml",
+        "key_store": PING_DATA_HOST_KEY
     },
     "vrf": {
         "class": GetterVRF,

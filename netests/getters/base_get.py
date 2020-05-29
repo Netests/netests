@@ -85,7 +85,7 @@ class GetterBase(ABC):
         self.devices = self.select_devices()
         self.hosts = self.devices.inventory.hosts
         self.compare_result = dict()
-        
+
     @abstractmethod
     def print_result(self):
         pass
@@ -149,7 +149,8 @@ class GetterBase(ABC):
                         f"{self.nr.inventory.hosts[host][self.key_store].to_json()}"
                     )
                     yaml.dump(
-                        self.nr.inventory.hosts[host][self.key_store].to_json(),
+                        self.nr.inventory.hosts[host][self.key_store].to_json(
+                        ),
                         outfile,
                         default_flow_style=False
                     )
@@ -159,6 +160,7 @@ class GetterBase(ABC):
         Path(path).mkdir(parents=True, exist_ok=True)
 
     def print_result(self):
+        log.debug(f"Print informations {self.key_store} - {self.protocol}")
         self.print_protocols_result(self.key_store, self.protocol)
 
     def print_protocols_result(self, pkey, protocol):
@@ -246,6 +248,10 @@ class GetterBase(ABC):
                 f"{self.HEADER} {CONNEXION_MODE}"
             )
         return False
+
+    def function_not_implemented(self, task):
+        log.debug("Function not implemented")
+
 
     def __repr__(self) -> str:
         pass

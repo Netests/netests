@@ -99,8 +99,4 @@ def _raise_exception_on_ping_cmd(
     ping_line: str,
     must_work: bool
 ) -> None:
-    if M.get(platform).get(connexion)(output, must_work) is False:
-        raise NetestsErrorWithPingExecution(
-            f"{HEADER}({hostname}) the following ping raise an error "
-            f"{ping_line}"
-        )
+    return M.get(platform).get(connexion)(output, must_work)

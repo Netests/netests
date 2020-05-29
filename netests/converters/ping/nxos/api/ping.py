@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
-from functions.global_tools import printline
-from functions.verbose_mode import verbose_mode
-from functions.http_request import exec_http_rpc_nxos
-from functions.ping.ping_validator import _raise_exception_on_ping_cmd
-from const.constants import NOT_SET, LEVEL5, JINJA2_PING_RESULT
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
+from netests import log
+from nornir.core.task import Result
+from netests.tools.http import exec_http_rpc_nxos
+from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
+from netests.constants import NOT_SET, JINJA2_PING_RESULT
 
 
-def _nxos_ping_api_exec(task, options={}):
+def _nxos_ping_api_exec(task):
     file = open(f"{JINJA2_PING_RESULT}{task.host.name}_ping_cmd", "r")
+    result = True
     for ping_line in file:
         if "!" in ping_line and "PING NOT AVAILABLE" not in ping_line:
             ping_line = ping_line.replace("!", "")
@@ -33,14 +31,15 @@ def _nxos_ping_api_exec(task, options={}):
         if not isinstance(o, dict):
             o = json.loads(o)
 
-        if verbose_mode(
-            user_value=os.environ.get("NETESTS_VERBOSE", NOT_SET),
-            needed_value=LEVEL5
-        ):
-            printline()
-            PP.pprint(o)
+        log.debug(
+            "\n"
+            "Execute the following ping command on NXOS API\n"
+            f"{ping_line}"
+            "Result is :\n"
+            f"{o}"
+        )
 
-        _raise_exception_on_ping_cmd(
+        r = _raise_exception_on_ping_cmd(
             output=o.get('result').get('msg'),
             hostname=task.host.name,
             platform=task.host.platform,
@@ -48,3 +47,8 @@ def _nxos_ping_api_exec(task, options={}):
             ping_line=ping_line,
             must_work=must_works
         )
+
+        if r is False:
+                    result = False
+
+    return Result(host=task.host, result=result)

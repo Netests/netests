@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
 from nornir.core import Nornir
+from nornir.core.task import Result
 from nornir.plugins.functions.text import print_result
+from nornir.core.exceptions import NornirExecutionError
 from nornir.plugins.tasks.commands import remote_command
 from nornir.plugins.tasks.networking import netmiko_send_command
-from netests.converters.ping.arista.api.ping import _arista_ping_api_exec
-from netests.converters.ping.iosxr.netconf.ping import _iosxr_ping_netconf_exec
-from netests.converters.ping.juniper.netconf.ping import _juniper_ping_netconf_exec
-from netests.converters.ping.juniper.api.ping import _juniper_ping_api_exec
-from netests.converters.ping.nxos.api.ping import _nxos_ping_api_exec
 from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
 from netests.exceptions.netests_exceptions import NetestsFunctionNotImplemented
 from netests.constants import (
@@ -28,132 +26,80 @@ from netests.constants import (
 )
 
 
-HEADER = "[netests - execute_ping]"
-
-
-def execute_ping(nr: Nornir, options={}, from_cli=False) -> bool:
-    devices = nr.filter()
-
-    if len(devices.inventory.hosts) == 0:
-        raise Exception(f"[{HEADER}] no device selected.")
-
-    data = devices.run(
-        task=_execute_ping_cmd,
-        on_failed=True,
-        from_cli=from_cli,
-        num_workers=10
-    )
-
-    return (not data.failed)
-
-
-def _execute_ping_cmd(task, from_cli=False):
-
-    if (
-        task.host.platform == CISCO_IOSXR_PLATEFORM_NAME and
-        task.host.get('connexion') == NETCONF_CONNECTION
-    ):
-        _iosxr_ping_netconf_exec(task)
-
-    elif (
-        task.host.platform == JUNOS_PLATEFORM_NAME and
-        task.host.get('connexion') == NETCONF_CONNECTION
-    ):
-        _juniper_ping_netconf_exec(task)
-
-    elif (
-        task.host.platform == JUNOS_PLATEFORM_NAME and
-        task.host.get('connexion') == API_CONNECTION
-    ):
-        _juniper_ping_api_exec(task)
-
-    elif (
-        task.host.platform == NEXUS_PLATEFORM_NAME and
-        task.host.get('connexion') == API_CONNECTION
-    ):
-        _nxos_ping_api_exec(task)
-
-    elif (
-        task.host.platform == ARISTA_PLATEFORM_NAME and
-        task.host.get('connexion') == API_CONNECTION
-    ):
-        _arista_ping_api_exec(task)
-
-    elif (
-        task.host.get('connexion') == SSH_CONNECTION and
-        (
-            task.host.platform == ARISTA_PLATEFORM_NAME or
-            task.host.platform == CISCO_IOS_PLATEFORM_NAME or
-            task.host.platform == JUNOS_PLATEFORM_NAME or
-            task.host.platform == EXTREME_PLATEFORM_NAME or
-            task.host.platform == CISCO_IOSXR_PLATEFORM_NAME
-        )
-    ):
-        _execute_generic_ping_cmd(
-            task,
-            use_netmiko=True,
-            enable=False
-        )
-
-    elif (
-        task.host.get('connexion') == SSH_CONNECTION and
-        (
-            task.host.platform == NEXUS_PLATEFORM_NAME or
-            task.host.platform == CUMULUS_PLATEFORM_NAME
-        )
-    ):
-        _execute_generic_ping_cmd(
-            task,
-            use_netmiko=False,
-            enable=False
-        )
-
-    else:
-        raise NetestsFunctionNotImplemented(
-            f"{task.host.name} - {task.host.get('connexion')}"
-            f"- {task.host.platform} - NotImplemented"
-        )
-
-
-def _execute_generic_ping_cmd(task, *, use_netmiko=False, enable=False):
-
+def _execute_netmiko_ping_cmd(task):
     file = open(f"{JINJA2_PING_RESULT}{task.host.name}_ping_cmd", "r")
+    result = True
     for ping_line in file:
-        if enable:
-            ping_line = "enable \n " + ping_line
+        if "!" in ping_line and "PING NOT AVAILABLE" not in ping_line:
+            ping_line = ping_line.replace("!", "")
+            must_works = False
+        else:
+            must_works = True
+            
+        data = task.run(
+            name="Ping network devices",
+            task=netmiko_send_command,
+            command_string=f"{ping_line}",
+            enable=True
+        )
 
+        log.debug(
+            "\n"
+            "Execute the following ping command with Netmiko\n"
+            f"{ping_line}"
+            f"must_works={must_works}"
+            "Result is :\n"
+            f"{data.result}"
+        )
+
+        r = _raise_exception_on_ping_cmd(
+            output=data.result,
+            hostname=task.host.name,
+            platform=task.host.platform,
+            connexion=task.host.get('connexion', 'ssh'),
+            ping_line=ping_line,
+            must_work=must_works
+        )
+
+        if r is False:
+            result = False
+
+    return Result(host=task.host, result=result)
+
+
+def _execute_linux_ping_cmd(task):
+    file = open(f"{JINJA2_PING_RESULT}{task.host.name}_ping_cmd", "r")
+    result = True
+    for ping_line in file:
         if "!" in ping_line and "PING NOT AVAILABLE" not in ping_line:
             ping_line = ping_line.replace("!", "")
             must_works = False
         else:
             must_works = True
 
-        if use_netmiko:
-            # IOS devices don't support "task=remote_command"
-            data = task.run(
-                name="Ping network devices",
-                task=netmiko_send_command,
-                command_string=f"{ping_line}",
-                enable=True
-            )
-
-        else:
+        try:
             data = task.run(
                 name="Ping network devices",
                 task=remote_command,
                 command=f"{ping_line}",
             )
-
-        if task.host.platform != CUMULUS_PLATEFORM_NAME:
-            _raise_exception_on_ping_cmd(
-                output=data.result,
-                hostname=task.host.name,
-                platform=task.host.platform,
-                connexion=task.host.get('connexion', 'ssh'),
-                ping_line=ping_line,
-                must_work=must_works
+            log.debug(
+                "\n"
+                "Execute the following ping command with Remote Command\n"
+                f"{ping_line}"
+                f"must_works={must_works}"
+                "Result is :\n"
+                f"{data.result}"
             )
+        except Exception:
+            log.debug(
+                "\n"
+                "Execute the following ping command with Remote Command\n"
+                f"{ping_line}"
+                f"must_works={must_works}"
+                "Result is :\n"
+                f"{data.result}"
+            )
+            result = False
 
-
-def _execute_napalm_ping_cmd(task, *, enable=False):
-    raise NotImplementedError()
+    return Result(host=task.host, result=result)
