@@ -5,11 +5,11 @@ import requests
 from abc import ABC
 from netests.workers.device_api import DeviceAPI
 from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
-from netests.converters.bgp.juniper.api.converter import _juniper_bgp_api_converter
-from netests.converters.facts.juniper.api.converter import _juniper_facts_api_converter
-from netests.converters.lldp.juniper.api.converter import _juniper_lldp_api_converter
-from netests.converters.ospf.juniper.api.converter import _juniper_ospf_api_converter
-from netests.converters.vrf.juniper.api.converter import _juniper_vrf_api_converter
+from netests.converters.bgp.juniper.api import _juniper_bgp_api_converter
+from netests.converters.facts.juniper.api import _juniper_facts_api_converter
+from netests.converters.lldp.juniper.api import _juniper_lldp_api_converter
+from netests.converters.ospf.juniper.api import _juniper_ospf_api_converter
+from netests.converters.vrf.juniper.api import _juniper_vrf_api_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     FACTS_DATA_HOST_KEY,

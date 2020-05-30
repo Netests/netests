@@ -3,11 +3,11 @@
 
 from netests.workers.device_ssh import DeviceSSH
 from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
-from netests.converters.bgp.juniper.ssh.converter import _juniper_bgp_ssh_converter
-from netests.converters.facts.juniper.ssh.converter import _juniper_facts_ssh_converter
-from netests.converters.lldp.juniper.ssh.converter import _juniper_lldp_ssh_converter
-from netests.converters.ospf.juniper.ssh.converter import _juniper_ospf_ssh_converter
-from netests.converters.vrf.juniper.ssh.converter import _juniper_vrf_ssh_converter
+from netests.converters.bgp.juniper.ssh import _juniper_bgp_ssh_converter
+from netests.converters.facts.juniper.ssh import _juniper_facts_ssh_converter
+from netests.converters.lldp.juniper.ssh import _juniper_lldp_ssh_converter
+from netests.converters.ospf.juniper.ssh import _juniper_ospf_ssh_converter
+from netests.converters.vrf.juniper.ssh import _juniper_vrf_ssh_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     FACTS_DATA_HOST_KEY,

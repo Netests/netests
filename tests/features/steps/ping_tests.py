@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from netests.tools.file import open_txt_file, open_json_file
-from netests.converters.ping.arista.api.ping import arista_api_validate_output
+from netests.converters.ping.arista.api import arista_api_validate_output
 from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
 from netests.exceptions.netests_exceptions import NetestsErrorWithPingExecution
 from netests.constants import (

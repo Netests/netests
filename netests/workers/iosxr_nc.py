@@ -6,8 +6,8 @@ from netests import log
 from ncclient import manager
 from netests.workers.device_nc import DeviceNC
 from netests.exceptions.netests_exceptions import NetestsFunctionNotImplemented
-from netests.converters.bgp.iosxr.netconf.converter import _iosxr_bgp_netconf_converter
-from netests.converters.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
+from netests.converters.bgp.iosxr.nc import _iosxr_bgp_nc_converter
+from netests.converters.vrf.iosxr.nc import _iosxr_vrf_nc_converter
 from netests.constants import BGP_SESSIONS_HOST_KEY, VRF_DATA_KEY
 
 
@@ -113,7 +113,7 @@ class BGPIosxrNC(IosxrNC):
                 }
             },
             vrf_loop=False,
-            converter=_iosxr_bgp_netconf_converter,
+            converter=_iosxr_bgp_nc_converter,
             key_store=BGP_SESSIONS_HOST_KEY,
             nc_method='get_config',
             options=options,
@@ -172,7 +172,7 @@ class VRFIosxrNC(IosxrNC):
                 }
             },
             vrf_loop=False,
-            converter=_iosxr_vrf_netconf_converter,
+            converter=_iosxr_vrf_nc_converter,
             key_store=VRF_DATA_KEY,
             nc_method='get_config',
             options=options,

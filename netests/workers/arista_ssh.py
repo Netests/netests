@@ -3,11 +3,11 @@
 
 from netests.workers.device_ssh import DeviceSSH
 from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
-from netests.converters.bgp.arista.ssh.converter import _arista_bgp_ssh_converter
-from netests.converters.facts.arista.ssh.converter import _arista_facts_ssh_converter
-from netests.converters.lldp.arista.ssh.converter import _arista_lldp_ssh_converter
-from netests.converters.ospf.arista.ssh.converter import _arista_ospf_ssh_converter
-from netests.converters.vrf.arista.ssh.converter import _arista_vrf_ssh_converter
+from netests.converters.bgp.arista.ssh import _arista_bgp_ssh_converter
+from netests.converters.facts.arista.ssh import _arista_facts_ssh_converter
+from netests.converters.lldp.arista.ssh import _arista_lldp_ssh_converter
+from netests.converters.ospf.arista.ssh import _arista_ospf_ssh_converter
+from netests.converters.vrf.arista.ssh import _arista_vrf_ssh_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,

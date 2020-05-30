@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from netests.workers.device_ssh import DeviceSSH
-from netests.converters.bgp.cumulus.ssh.converter import _cumulus_bgp_ssh_converter
-from netests.converters.cdp.cumulus.ssh.converter import _cumulus_cdp_ssh_converter
-from netests.converters.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
-from netests.converters.lldp.cumulus.ssh.converter import _cumulus_lldp_ssh_converter
-from netests.converters.ospf.cumulus.ssh.converter import _cumulus_ospf_ssh_converter
-from netests.converters.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
+from netests.converters.bgp.cumulus.ssh import _cumulus_bgp_ssh_converter
+from netests.converters.cdp.cumulus.ssh import _cumulus_cdp_ssh_converter
+from netests.converters.facts.cumulus.ssh import _cumulus_facts_ssh_converter
+from netests.converters.lldp.cumulus.ssh import _cumulus_lldp_ssh_converter
+from netests.converters.ospf.cumulus.ssh import _cumulus_ospf_ssh_converter
+from netests.converters.vrf.cumulus.ssh import _cumulus_vrf_ssh_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,

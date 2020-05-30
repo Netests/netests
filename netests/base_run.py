@@ -108,7 +108,12 @@ def run_base(
         )
         getter.run()
 
-        if init_data:
+        if (
+            init_data and
+            (
+                protocol.upper() != "PING"
+            )
+        ):
             getter.init_data()
             return True
         elif compare_data:

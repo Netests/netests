@@ -5,8 +5,8 @@ import json
 import requests
 from abc import ABC
 from netests.workers.device_api import DeviceAPI
-from netests.converters.facts.extreme_vsp.api.converter import _extreme_vsp_facts_api_converter
-from netests.converters.lldp.extreme_vsp.api.converter import _extreme_vsp_lldp_api_converter
+from netests.converters.facts.extreme_vsp.api import _extreme_vsp_facts_api_converter
+from netests.converters.lldp.extreme_vsp.api import _extreme_vsp_lldp_api_converter
 from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
 from netests.constants import FACTS_DATA_HOST_KEY, LLDP_DATA_HOST_KEY, VRF_DATA_KEY
 

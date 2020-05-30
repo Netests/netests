@@ -5,14 +5,14 @@ import requests
 from abc import ABC
 from netests import log
 from netests.workers.device_api import DeviceAPI
-from netests.converters.bgp.nxos.api.converter import _nxos_bgp_api_converter
-from netests.converters.cdp.nxos.api.converter import _nxos_cdp_api_converter
-from netests.converters.facts.nxos.api.converter import _nxos_facts_api_converter
-from netests.converters.lldp.nxos.api.converter import _nxos_lldp_api_converter
-from netests.converters.ospf.nxos.api.converter import _nxos_ospf_api_converter
-from netests.converters.vrf.nxos.api.converter import _nxos_vrf_api_converter
+from netests.converters.bgp.nxos.api import _nxos_bgp_api_converter
+from netests.converters.cdp.nxos.api import _nxos_cdp_api_converter
+from netests.converters.facts.nxos.api import _nxos_facts_api_converter
+from netests.converters.lldp.nxos.api import _nxos_lldp_api_converter
+from netests.converters.ospf.nxos.api import _nxos_ospf_api_converter
+from netests.converters.vrf.nxos.api import _nxos_vrf_api_converter
 from netests.constants import NEXUS_API_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
-from netests.converters.vrf.nxos.api.converter import _nxos_vrf_api_converter
+from netests.converters.vrf.nxos.api import _nxos_vrf_api_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,

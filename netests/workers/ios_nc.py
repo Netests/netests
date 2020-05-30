@@ -5,12 +5,12 @@ from abc import ABC
 from netests import log
 from ncclient import manager
 from netests.workers.device_nc import DeviceNC
-from netests.converters.bgp.ios.netconf.converter import _ios_bgp_netconf_converter
-from netests.converters.cdp.ios.netconf.converter import _ios_cdp_netconf_converter
-from netests.converters.facts.ios.netconf.converter import _ios_facts_netconf_converter
-from netests.converters.lldp.ios.netconf.converter import _ios_lldp_netconf_converter
-from netests.converters.ospf.ios.netconf.converter import _ios_ospf_netconf_converter
-from netests.converters.vrf.ios.netconf.converter import _ios_vrf_netconf_converter
+from netests.converters.bgp.ios.nc import _ios_bgp_nc_converter
+from netests.converters.cdp.ios.nc import _ios_cdp_nc_converter
+from netests.converters.facts.ios.nc import _ios_facts_nc_converter
+from netests.converters.lldp.ios.nc import _ios_lldp_nc_converter
+from netests.converters.ospf.ios.nc import _ios_ospf_nc_converter
+from netests.converters.vrf.ios.nc import _ios_vrf_nc_converter
 from netests.constants import (
     NETCONF_FILTER,
     BGP_SESSIONS_HOST_KEY,
@@ -126,7 +126,7 @@ class BGPIosNC(IosNC):
                 }
             },
             vrf_loop=False,
-            converter=_ios_bgp_netconf_converter,
+            converter=_ios_bgp_nc_converter,
             key_store=BGP_SESSIONS_HOST_KEY,
             nc_method='get',
             options=options,
@@ -150,7 +150,7 @@ class CDPIosNC(IosNC):
                 }
             },
             vrf_loop=False,
-            converter=_ios_cdp_netconf_converter,
+            converter=_ios_cdp_nc_converter,
             key_store=CDP_DATA_HOST_KEY,
             nc_method='get',
             options=options,
@@ -174,7 +174,7 @@ class FactsIosNC(IosNC):
                 }
             },
             vrf_loop=False,
-            converter=_ios_facts_netconf_converter,
+            converter=_ios_facts_nc_converter,
             key_store=FACTS_DATA_HOST_KEY,
             nc_method='get',
             options=options,
@@ -198,7 +198,7 @@ class LLDPIosNC(IosNC):
                 }
             },
             vrf_loop=False,
-            converter=_ios_lldp_netconf_converter,
+            converter=_ios_lldp_nc_converter,
             key_store=LLDP_DATA_HOST_KEY,
             nc_method='get',
             options=options,
@@ -222,7 +222,7 @@ class OSPFIosNC(IosNC):
                 }
             },
             vrf_loop=False,
-            converter=_ios_ospf_netconf_converter,
+            converter=_ios_ospf_nc_converter,
             key_store=OSPF_SESSIONS_HOST_KEY,
             nc_method='get',
             options=options,
@@ -246,7 +246,7 @@ class VRFIosNC(IosNC):
                 }
             },
             vrf_loop=False,
-            converter=_ios_vrf_netconf_converter,
+            converter=_ios_vrf_nc_converter,
             key_store=VRF_DATA_KEY,
             nc_method='get_config',
             options=options,

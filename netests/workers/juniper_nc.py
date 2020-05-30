@@ -1,15 +1,14 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import json
 from abc import ABC
 from jnpr.junos import Device
 from netests.workers.device_nc import DeviceNC
-from netests.converters.bgp.juniper.netconf.converter import _juniper_bgp_netconf_converter
-from netests.converters.facts.juniper.netconf.converter import _juniper_facts_netconf_converter
-from netests.converters.lldp.juniper.netconf.converter import _juniper_lldp_netconf_converter
-from netests.converters.ospf.juniper.netconf.converter import _juniper_ospf_netconf_converter
-from netests.converters.vrf.juniper.netconf.converter import _juniper_vrf_netconf_converter
+from netests.converters.bgp.juniper.nc import _juniper_bgp_nc_converter
+from netests.converters.facts.juniper.nc import _juniper_facts_nc_converter
+from netests.converters.lldp.juniper.nc import _juniper_lldp_nc_converter
+from netests.converters.ospf.juniper.nc import _juniper_ospf_nc_converter
+from netests.converters.vrf.juniper.nc import _juniper_vrf_nc_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     FACTS_DATA_HOST_KEY,
@@ -122,7 +121,7 @@ class BGPJuniperNC(JuniperNC):
                 }
             },
             vrf_loop=True,
-            converter=_juniper_bgp_netconf_converter,
+            converter=_juniper_bgp_nc_converter,
             key_store=BGP_SESSIONS_HOST_KEY,
             nc_method='get',
             options=options,
@@ -143,7 +142,7 @@ class FactsJuniperNC(JuniperNC):
                 },
             },
             vrf_loop=False,
-            converter=_juniper_facts_netconf_converter,
+            converter=_juniper_facts_nc_converter,
             key_store=FACTS_DATA_HOST_KEY,
             nc_method='get',
             options=options,
@@ -162,7 +161,7 @@ class LLDPJuniperNC(JuniperNC):
                 }
             },
             vrf_loop=False,
-            converter=_juniper_lldp_netconf_converter,
+            converter=_juniper_lldp_nc_converter,
             key_store=LLDP_DATA_HOST_KEY,
             nc_method='get',
             options=options,
@@ -187,7 +186,7 @@ class OSPFJuniperNC(JuniperNC):
                 }
             },
             vrf_loop=True,
-            converter=_juniper_ospf_netconf_converter,
+            converter=_juniper_ospf_nc_converter,
             key_store=OSPF_SESSIONS_HOST_KEY,
             nc_method='get',
             options=options,
@@ -207,7 +206,7 @@ class VRFJuniperNC(JuniperNC):
                 }
             },
             vrf_loop=False,
-            converter=_juniper_vrf_netconf_converter,
+            converter=_juniper_vrf_nc_converter,
             key_store=VRF_DATA_KEY,
             nc_method='get',
             options=options,

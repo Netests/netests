@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 from netests.workers.device_ssh import DeviceSSH
-from netests.converters.bgp.nxos.ssh.converter import _nxos_bgp_ssh_converter
-from netests.converters.cdp.nxos.ssh.converter import _nxos_cdp_ssh_converter
-from netests.converters.facts.nxos.ssh.converter import _nxos_facts_ssh_converter
-from netests.converters.lldp.nxos.ssh.converter import _nxos_lldp_ssh_converter
-from netests.converters.ospf.nxos.ssh.converter import _nxos_ospf_ssh_converter
-from netests.converters.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
+from netests.converters.bgp.nxos.ssh import _nxos_bgp_ssh_converter
+from netests.converters.cdp.nxos.ssh import _nxos_cdp_ssh_converter
+from netests.converters.facts.nxos.ssh import _nxos_facts_ssh_converter
+from netests.converters.lldp.nxos.ssh import _nxos_lldp_ssh_converter
+from netests.converters.ospf.nxos.ssh import _nxos_ospf_ssh_converter
+from netests.converters.vrf.nxos.ssh import _nxos_vrf_ssh_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,

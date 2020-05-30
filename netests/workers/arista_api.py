@@ -6,11 +6,11 @@ import pyeapi
 import requests
 from abc import ABC
 from netests.workers.device_api import DeviceAPI
-from netests.converters.bgp.arista.api.converter import _arista_bgp_api_converter
-from netests.converters.facts.arista.api.converter import _arista_facts_api_converter
-from netests.converters.lldp.arista.api.converter import _arista_lldp_api_converter
-from netests.converters.ospf.arista.api.converter import _arista_ospf_api_converter
-from netests.converters.vrf.arista.api.converter import _arista_vrf_api_converter
+from netests.converters.bgp.arista.api import _arista_bgp_api_converter
+from netests.converters.facts.arista.api import _arista_facts_api_converter
+from netests.converters.lldp.arista.api import _arista_lldp_api_converter
+from netests.converters.ospf.arista.api import _arista_ospf_api_converter
+from netests.converters.vrf.arista.api import _arista_vrf_api_converter
 from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
 from netests.constants import (
     VRF_DATA_KEY,

@@ -4,11 +4,11 @@
 from netests import log
 from netests.getters.base_get import GetterBase
 
-from netests.converters.ping.arista.api.ping import _arista_ping_api_exec
-from netests.converters.ping.iosxr.netconf.ping import _iosxr_ping_netconf_exec
-from netests.converters.ping.juniper.netconf.ping import _juniper_ping_netconf_exec
-from netests.converters.ping.juniper.api.ping import _juniper_ping_api_exec
-from netests.converters.ping.nxos.api.ping import _nxos_ping_api_exec
+from netests.converters.ping.arista.api import _arista_ping_api_exec
+from netests.converters.ping.iosxr.nc import _iosxr_ping_nc_exec
+from netests.converters.ping.juniper.nc import _juniper_ping_nc_exec
+from netests.converters.ping.juniper.api import _juniper_ping_api_exec
+from netests.converters.ping.nxos.api import _nxos_ping_api_exec
 from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
 from netests.converters.ping.ping_execute import (
     _execute_netmiko_ping_cmd,
@@ -105,13 +105,13 @@ class GetterPing(GetterBase):
             },
             self.CISCO_IOSXR_PLATEFORM_NAME: {
                 self.API_CONNECTION: self.function_not_implemented,
-                self.NETCONF_CONNECTION: _iosxr_ping_netconf_exec,
+                self.NETCONF_CONNECTION: _iosxr_ping_nc_exec,
                 self.SSH_CONNECTION: _execute_netmiko_ping_cmd,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.JUNOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: _juniper_ping_api_exec,
-                self.NETCONF_CONNECTION: _juniper_ping_netconf_exec,
+                self.NETCONF_CONNECTION: _juniper_ping_nc_exec,
                 self.SSH_CONNECTION: _execute_netmiko_ping_cmd,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },

@@ -6,22 +6,22 @@ import yaml
 import textfsm
 from behave import given, when, then
 from netests.protocols.facts import Facts
-from netests.converters.facts.arista.api.converter import _arista_facts_api_converter
-from netests.converters.facts.arista.ssh.converter import _arista_facts_ssh_converter
-from netests.converters.facts.cumulus.api.converter import _cumulus_facts_api_converter
-from netests.converters.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
-from netests.converters.facts.extreme_vsp.ssh.converter import _extreme_vsp_facts_ssh_converter
-from netests.converters.facts.extreme_vsp.api.converter import _extreme_vsp_facts_api_converter
-from netests.converters.facts.ios.api.converter import _ios_facts_api_converter
-from netests.converters.facts.ios.netconf.converter import _ios_facts_netconf_converter
-from netests.converters.facts.ios.ssh.converter import _ios_facts_ssh_converter
-from netests.converters.facts.iosxr.ssh.converter import _iosxr_facts_ssh_converter
-from netests.converters.facts.juniper.api.converter import _juniper_facts_api_converter
-from netests.converters.facts.juniper.netconf.converter import _juniper_facts_netconf_converter
-from netests.converters.facts.juniper.ssh.converter import _juniper_facts_ssh_converter
+from netests.converters.facts.arista.api import _arista_facts_api_converter
+from netests.converters.facts.arista.ssh import _arista_facts_ssh_converter
+from netests.converters.facts.cumulus.api import _cumulus_facts_api_converter
+from netests.converters.facts.cumulus.ssh import _cumulus_facts_ssh_converter
+from netests.converters.facts.extreme_vsp.ssh import _extreme_vsp_facts_ssh_converter
+from netests.converters.facts.extreme_vsp.api import _extreme_vsp_facts_api_converter
+from netests.converters.facts.ios.api import _ios_facts_api_converter
+from netests.converters.facts.ios .nc import _ios_facts_nc_converter
+from netests.converters.facts.ios.ssh import _ios_facts_ssh_converter
+from netests.converters.facts.iosxr.ssh import _iosxr_facts_ssh_converter
+from netests.converters.facts.juniper.api import _juniper_facts_api_converter
+from netests.converters.facts.juniper .nc import _juniper_facts_nc_converter
+from netests.converters.facts.juniper.ssh import _juniper_facts_ssh_converter
 from netests.converters.facts.napalm.converter import _napalm_facts_converter
-from netests.converters.facts.nxos.api.converter import _nxos_facts_api_converter
-from netests.converters.facts.nxos.ssh.converter import _nxos_facts_ssh_converter
+from netests.converters.facts.nxos.api import _nxos_facts_api_converter
+from netests.converters.facts.nxos.ssh import _nxos_facts_ssh_converter
 from netests.comparators.facts_compare import _compare_facts
 from netests.tools.file import open_file, open_txt_file, open_json_file, open_txt_file_as_bytes
 from netests.constants import (
@@ -383,7 +383,7 @@ def step_impl(context):
 
 @given(u'I create a Facts object from a IOS Netconf named o0303')
 def step_impl(context):
-    context.o0303 = _ios_facts_netconf_converter(
+    context.o0303 = _ios_facts_nc_converter(
         hostname="leaf05",
         cmd_output=open_file(
             path=(
@@ -602,7 +602,7 @@ def step_impl(context):
             "juniper_nc_get_interfaces_terse.xml"
         )
     )
-    context.o0503 = _juniper_facts_netconf_converter(
+    context.o0503 = _juniper_facts_nc_converter(
         hostname="leaf04",
         cmd_output=cmd_output,
         options={}

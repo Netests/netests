@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from netests.comparators.ospf_compare import _compare_ospf
-from netests.converters.ospf.arista.api.converter import _arista_ospf_api_converter
-from netests.converters.ospf.arista.ssh.converter import _arista_ospf_ssh_converter
-from netests.converters.ospf.cumulus.ssh.converter import _cumulus_ospf_ssh_converter
-from netests.converters.ospf.extreme_vsp.ssh.converter import _extreme_vsp_ospf_ssh_converter
-from netests.converters.ospf.juniper.api.converter import _juniper_ospf_api_converter
-from netests.converters.ospf.juniper.netconf.converter import _juniper_ospf_netconf_converter
-from netests.converters.ospf.juniper.ssh.converter import _juniper_ospf_ssh_converter
-from netests.converters.ospf.nxos.api.converter import _nxos_ospf_api_converter
-from netests.converters.ospf.nxos.ssh.converter import _nxos_ospf_ssh_converter
+from netests.converters.ospf.arista.api import _arista_ospf_api_converter
+from netests.converters.ospf.arista.ssh import _arista_ospf_ssh_converter
+from netests.converters.ospf.cumulus.ssh import _cumulus_ospf_ssh_converter
+from netests.converters.ospf.extreme_vsp.ssh import _extreme_vsp_ospf_ssh_converter
+from netests.converters.ospf.juniper.api import _juniper_ospf_api_converter
+from netests.converters.ospf.juniper.nc import _juniper_ospf_nc_converter
+from netests.converters.ospf.juniper.ssh import _juniper_ospf_ssh_converter
+from netests.converters.ospf.nxos.api import _nxos_ospf_api_converter
+from netests.converters.ospf.nxos.ssh import _nxos_ospf_ssh_converter
 from netests.constants import NOT_SET, FEATURES_SRC_PATH, OSPF_SESSIONS_HOST_KEY
 from netests.tools.file import open_json_file, open_txt_file, open_txt_file_as_bytes
 from netests.protocols.ospf import (
@@ -641,7 +641,7 @@ def step_impl(context):
             "juniper_ospf_neighbors_vrf_mgmt.xml"
         )
     )
-    context.o0503 = _juniper_ospf_netconf_converter(
+    context.o0503 = _juniper_ospf_nc_converter(
         hostname="leaf04",
         cmd_output=cmd_output,
         options={}

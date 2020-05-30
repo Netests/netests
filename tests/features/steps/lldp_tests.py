@@ -5,20 +5,20 @@ from behave import given, when, then
 from netests.protocols.lldp import LLDP, ListLLDP
 from netests.comparators.lldp_compare import _compare_lldp
 from netests.tools.file import open_json_file, open_txt_file, open_file
-from netests.converters.lldp.arista.api.converter import _arista_lldp_api_converter
-from netests.converters.lldp.arista.ssh.converter import _arista_lldp_ssh_converter
-from netests.converters.lldp.cumulus.api.converter import _cumulus_lldp_api_converter
-from netests.converters.lldp.cumulus.ssh.converter import _cumulus_lldp_ssh_converter
-from netests.converters.lldp.extreme_vsp.api.converter import _extreme_vsp_lldp_api_converter
-from netests.converters.lldp.extreme_vsp.ssh.converter import _extreme_vsp_lldp_ssh_converter
-from netests.converters.lldp.ios.ssh.converter import _ios_lldp_ssh_converter
-from netests.converters.lldp.iosxr.ssh.converter import _iosxr_lldp_ssh_converter
-from netests.converters.lldp.juniper.api.converter import _juniper_lldp_api_converter
-from netests.converters.lldp.juniper.netconf.converter import _juniper_lldp_netconf_converter
-from netests.converters.lldp.juniper.ssh.converter import _juniper_lldp_ssh_converter
+from netests.converters.lldp.arista.api import _arista_lldp_api_converter
+from netests.converters.lldp.arista.ssh import _arista_lldp_ssh_converter
+from netests.converters.lldp.cumulus.api import _cumulus_lldp_api_converter
+from netests.converters.lldp.cumulus.ssh import _cumulus_lldp_ssh_converter
+from netests.converters.lldp.extreme_vsp.api import _extreme_vsp_lldp_api_converter
+from netests.converters.lldp.extreme_vsp.ssh import _extreme_vsp_lldp_ssh_converter
+from netests.converters.lldp.ios.ssh import _ios_lldp_ssh_converter
+from netests.converters.lldp.iosxr.ssh import _iosxr_lldp_ssh_converter
+from netests.converters.lldp.juniper.api import _juniper_lldp_api_converter
+from netests.converters.lldp.juniper .nc import _juniper_lldp_nc_converter
+from netests.converters.lldp.juniper.ssh import _juniper_lldp_ssh_converter
 from netests.converters.lldp.napalm.converter import _napalm_lldp_converter
-from netests.converters.lldp.nxos.api.converter import _nxos_lldp_api_converter
-from netests.converters.lldp.nxos.ssh.converter import _nxos_lldp_ssh_converter
+from netests.converters.lldp.nxos.api import _nxos_lldp_api_converter
+from netests.converters.lldp.nxos.ssh import _nxos_lldp_ssh_converter
 from netests.constants import NOT_SET, FEATURES_SRC_PATH, LLDP_DATA_HOST_KEY
 
 
@@ -353,7 +353,7 @@ def step_impl(context):
 
 @given(u'I create a LLDP object from a Juniper Netconf output named o0503')
 def step_impl(context):
-    context.o0503 = _juniper_lldp_netconf_converter(
+    context.o0503 = _juniper_lldp_nc_converter(
         hostname="leaf04",
         cmd_output=open_file(
             path=(

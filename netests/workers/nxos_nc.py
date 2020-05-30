@@ -6,7 +6,7 @@ from netests import log
 from ncclient import manager
 from netests.workers.device_nc import DeviceNC
 from netests.exceptions.netests_exceptions import NetestsFunctionNotImplemented
-from netests.converters.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
+from netests.converters.vrf.nxos.nc import _nxos_vrf_nc_converter
 from netests.constants import VRF_DATA_KEY
 
 class NxosNC(DeviceNC, ABC):
@@ -40,7 +40,7 @@ class NxosNC(DeviceNC, ABC):
         self.source = source
 
     def exec_call(self, task, command, vrf):
-        log.debug(f"netconf method for ({task.host.name}) = {self.nc_method}")
+        log.debug(f"nc method for ({task.host.name}) = {self.nc_method}")
 
         if self.nc_method == 'get':
             return self.exec_call_get(task, command)
@@ -152,7 +152,7 @@ class VRFNxosNC(NxosNC):
                 }
             },
             vrf_loop=False,
-            converter=_nxos_vrf_netconf_converter,
+            converter=_nxos_vrf_nc_converter,
             key_store=VRF_DATA_KEY,
             nc_method='get_config',
             options=options,

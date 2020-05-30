@@ -3,12 +3,12 @@
 
 from netests.workers.device_ssh import DeviceSSH
 from netests.exceptions.netests_exceptions import NetestsFunctionNotImplemented
-from netests.converters.bgp.iosxr.ssh.converter import _iosxr_bgp_ssh_converter
-from netests.converters.cdp.iosxr.ssh.converter import _iosxr_cdp_ssh_converter
-from netests.converters.facts.iosxr.ssh.converter import _iosxr_facts_ssh_converter
-from netests.converters.lldp.iosxr.ssh.converter import _iosxr_lldp_ssh_converter
-from netests.converters.ospf.iosxr.ssh.converter import _iosxr_ospf_ssh_converter
-from netests.converters.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
+from netests.converters.bgp.iosxr.ssh import _iosxr_bgp_ssh_converter
+from netests.converters.cdp.iosxr.ssh import _iosxr_cdp_ssh_converter
+from netests.converters.facts.iosxr.ssh import _iosxr_facts_ssh_converter
+from netests.converters.lldp.iosxr.ssh import _iosxr_lldp_ssh_converter
+from netests.converters.ospf.iosxr.ssh import _iosxr_ospf_ssh_converter
+from netests.converters.vrf.iosxr.ssh import _iosxr_vrf_ssh_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,

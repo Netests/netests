@@ -4,12 +4,12 @@
 import requests
 from abc import ABC
 from netests.workers.device_api import DeviceAPI
-from netests.converters.bgp.ios.api.converter import _ios_bgp_api_converter
-from netests.converters.cdp.ios.api.converter import _ios_cdp_api_converter
-from netests.converters.facts.ios.api.converter import _ios_facts_api_converter
-from netests.converters.lldp.ios.api.converter import _ios_lldp_api_converter
-from netests.converters.ospf.ios.api.converter import _ios_ospf_api_converter
-from netests.converters.vrf.ios.api.converter import _ios_vrf_api_converter
+from netests.converters.bgp.ios.api import _ios_bgp_api_converter
+from netests.converters.cdp.ios.api import _ios_cdp_api_converter
+from netests.converters.facts.ios.api import _ios_facts_api_converter
+from netests.converters.lldp.ios.api import _ios_lldp_api_converter
+from netests.converters.ospf.ios.api import _ios_ospf_api_converter
+from netests.converters.vrf.ios.api import _ios_vrf_api_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,

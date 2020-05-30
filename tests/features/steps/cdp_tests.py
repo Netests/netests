@@ -5,11 +5,11 @@ from behave import given, when, then
 from netests.protocols.cdp import CDP, ListCDP
 from netests.tools.file import open_json_file, open_txt_file
 from netests.comparators.cdp_compare import _compare_cdp
-from netests.converters.cdp.cumulus.ssh.converter import _cumulus_cdp_ssh_converter
-from netests.converters.cdp.ios.ssh.converter import _ios_cdp_ssh_converter
-from netests.converters.cdp.iosxr.ssh.converter import _iosxr_cdp_ssh_converter
-from netests.converters.cdp.nxos.api.converter import _nxos_cdp_api_converter
-from netests.converters.cdp.nxos.ssh.converter import _nxos_cdp_ssh_converter
+from netests.converters.cdp.cumulus.ssh import _cumulus_cdp_ssh_converter
+from netests.converters.cdp.ios.ssh import _ios_cdp_ssh_converter
+from netests.converters.cdp.iosxr.ssh import _iosxr_cdp_ssh_converter
+from netests.converters.cdp.nxos.api import _nxos_cdp_api_converter
+from netests.converters.cdp.nxos.ssh import _nxos_cdp_ssh_converter
 from netests.constants import NOT_SET, FEATURES_SRC_PATH, CDP_DATA_HOST_KEY
 
 
