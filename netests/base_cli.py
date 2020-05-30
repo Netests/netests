@@ -1,40 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""
+import shutil
 from nornir.core import Nornir
-from functions.bgp.bgp_gets import get_bgp
-from functions.bgp.bgp_compare import _compare_bgp
-from protocols.bgp import BGPSession
-from functions.cdp.cdp_get import get_cdp
-from functions.cdp.cdp_compare import _compare_cdp
-from protocols.cdp import CDP
-from functions.facts.facts_get import get_facts
-from functions.facts.facts_compare import _compare_facts
-from protocols.facts import Facts
-from functions.lldp.lldp_get import get_lldp
-from functions.lldp.lldp_compare import _compare_lldp
-from protocols.lldp import LLDP
-from protocols.ospf import OSPF
-from functions.ospf.ospf_compare import _compare_ospf
-from functions.ospf.ospf_get import get_ospf
-from protocols.ping import PING
-from functions.ping.ping_get import get_ping
-from functions.ping.ping_execute import execute_ping
-from functions.vrf.vrf_get import get_vrf
-from functions.vrf.vrf_compare import _compare_vrf
-from protocols.vrf import VRF
-from functions.global_tools import printline
-from functions.global_tools import is_valid_ipv4_address
-from exceptions.netests_cli_exceptions import NetestsCLINornirObjectIsNone
-from const.constants import (
-    BGP_SESSIONS_HOST_KEY,
-    CDP_DATA_HOST_KEY,
-    FACTS_DATA_HOST_KEY,
-    LLDP_DATA_HOST_KEY,
-    OSPF_SESSIONS_HOST_KEY,
-    PING_DATA_HOST_KEY,
-    VRF_DATA_KEY
+from netests.tools.std import is_valid_ipv4_address
+from netests.base_protocols import MAPPING_PROTOCOLS
+from netests.exceptions.netests_cli_exceptions import (
+    NetestsCLINornirObjectIsNone
 )
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
@@ -57,44 +29,6 @@ class NetestsCLI():
     A3ARGS = ["options"]
 
     AMANYARGS = ["execute"]
-
-    MAPPING = {
-        "bgp": {
-            "class": BGPSession,
-            "get": get_bgp,
-            "compare": _compare_bgp
-        },
-        "cdp": {
-            "class": CDP,
-            "get": get_cdp,
-            "compare": _compare_cdp
-        },
-        "facts": {
-            "class": Facts,
-            "get": get_facts,
-            "compare": _compare_facts
-        },
-        "lldp": {
-            "class": LLDP,
-            "get": get_lldp,
-            "compare": _compare_lldp
-        },
-        "ospf": {
-            "class": OSPF,
-            "get": get_ospf,
-            "compare": _compare_ospf
-        },
-        "ping": {
-            "class": PING,
-            "get": get_ping,
-            "compare": execute_ping
-        },
-        "vrf": {
-            "class": VRF,
-            "get": get_vrf,
-            "compare": _compare_vrf
-        }
-    }
 
     nornir: Nornir
     devices: dict
@@ -198,123 +132,6 @@ class NetestsCLI():
     def execute_cli_ping(self, parameters) -> None:
         print("@execute command not Implemented ...")
 
-    def compare_config(self, protocols_selected) -> None:
-        self.call_get_generic(protocols_selected)
-        w = list()
-
-        for prot in protocols_selected.split(','):
-            for d in self.devices:
-                if prot.lower() == "vrf":
-                    r = _compare_vrf(
-                        host_keys=self.nornir.inventory.hosts[d].keys(),
-                        hostname=d,
-                        groups=self.nornir.inventory.hosts[d].groups,
-                        vrf_host_data=self.nornir.inventory.hosts
-                                                           .get(d)
-                                                           .get(VRF_DATA_KEY)
-                    )
-                    if r:
-                        w.append(d)
-                elif prot.lower() == "cdp":
-                    r = _compare_cdp(
-                        host_keys=self.nornir.inventory.hosts[d].keys(),
-                        hostname=d,
-                        groups=self.nornir.inventory.hosts[d].groups,
-                        cdp_host_data=self.nornir.inventory
-                                          .hosts
-                                          .get(d)
-                                          .get(CDP_DATA_HOST_KEY)
-                    )
-                    if r:
-                        w.append(d)
-                elif prot.lower() == "facts":
-                    r = _compare_facts(
-                        host_keys=self.nornir.inventory.hosts[d].keys(),
-                        hostname=d,
-                        groups=self.nornir.inventory.hosts[d].groups,
-                        facts_host_data=self.nornir.inventory
-                                                    .hosts
-                                                    .get(d)
-                                                   .get(FACTS_DATA_HOST_KEY)
-
-                    )
-                    if r:
-                        w.append(d)
-                elif prot.lower() == "ping":
-                    r = execute_ping(
-                        host_keys=self.nornir.inventory.hosts[d].keys(),
-                        hostname=d,
-                        groups=self.nornir.inventory.hosts[d].groups,
-                        facts_host_data=self.nornir.inventory
-                                                   .hosts
-                                                   .get(d)
-                                                   .get(PING_DATA_HOST_KEY)
-
-                    )
-                    if r:
-                        w.append(d)
-                elif prot.lower() == "lldp":
-                    r = _compare_lldp(
-                        host_keys=self.nornir.inventory.hosts[d].keys(),
-                        hostname=d,
-                        groups=self.nornir.inventory.hosts[d].groups,
-                        lldp_host_data=self.nornir.inventory
-                                                   .hosts
-                                                   .get(d)
-                                                   .get(LLDP_DATA_HOST_KEY)
-
-                    )
-                    if r:
-                        w.append(d)
-                elif prot.lower() == "ospf":
-                    r = _compare_ospf(
-                        host_keys=self.nornir.inventory.hosts[d].keys(),
-                        hostname=d,
-                        groups=self.nornir.inventory.hosts[d].groups,
-                        ospf_host_data=self.nornir.inventory
-                                                  .hosts
-                                                  .get(d)
-                                                  .get(OSPF_SESSIONS_HOST_KEY)
-
-                    )
-                    if r:
-                        w.append(d)
-                elif prot.lower() == "bgp":
-                    r = _compare_bgp(
-                        host_keys=self.nornir.inventory.hosts[d].keys(),
-                        hostname=d,
-                        groups=self.nornir.inventory.hosts[d].groups,
-                        bgp_host_data=self.nornir.inventory
-                                                    .hosts
-                                                    .get(d)
-                                                    .get(BGP_SESSIONS_HOST_KEY)
-
-                    )
-                    if r:
-                        w.append(d)
-                elif prot.lower() == "bgp":
-                    r = _compare_bgp(
-                        host_keys=self.nornir.inventory.hosts[d].keys(),
-                        hostname=d,
-                        groups=self.nornir.inventory.hosts[d].groups,
-                        bgp_host_data=self.nornir.inventory
-                        .hosts
-                        .get(d)
-                        .get(BGP_SESSIONS_HOST_KEY)
-
-                    )
-                    if r:
-                        w.append(d)
-                else:
-                    print(f"@({prot}) is unavailable from CLI.")
-
-        printline()
-        print(
-            "@The following devices have the same configuration "
-            f"that defined in the source of truth : \n@{w}."
-        )
-        printline()
-
     def select_help_function(self, user_input) -> bool:
         if len(user_input) == 1:
             self.print_help()
@@ -392,7 +209,7 @@ class NetestsCLI():
         self.print_devices()
 
     def define_options(self, protocol, options) -> None:
-        for key, values in self.MAPPING.items():
+        for key, values in MAPPING_PROTOCOLS.items():
             if protocol.lower() == key:
                 if options == "*":
                     if protocol in self.options.keys():
@@ -400,12 +217,12 @@ class NetestsCLI():
                     print(f"@All options are added to ({protocol})")
                 else:
                     for opt in options.split(','):
-                        if opt in values.get('class').__annotations__.keys():
+                        if opt in values.get('proto').__annotations__.keys():
                             if key not in self.options.keys():
                                 self.options[key] = dict()
                             self.options[key][opt] = True
 
-                    for v in values.get('class').__annotations__.keys():
+                    for v in values.get('proto').__annotations__.keys():
                         if v not in options.split(','):
                             self.options[key][v] = False
 
@@ -413,9 +230,9 @@ class NetestsCLI():
                     PP.pprint(self.options.get(key))
 
     def get_protocol_class(self, protocol) -> None:
-        for key, values in self.MAPPING.items():
+        for key, values in MAPPING_PROTOCOLS.items():
             if protocol.lower() == key:
-                PP.pprint((values.get('class').__annotations__))
+                PP.pprint((values.get('proto').__annotations__))
 
     def get_protocol_info(self, protocol) -> None:
         if protocol in self.options.keys():
@@ -454,64 +271,46 @@ class NetestsCLI():
             print("@This function is unavailable for the moment...")
         else:
             for prot in protocols_selected.split(','):
-                if prot.lower() == "vrf":
-                    get_vrf(
+                if prot in MAPPING_PROTOCOLS.keys():
+                    getter = MAPPING_PROTOCOLS.get(prot).get('class')(
                         nr=self.nornir,
-                        options={
-                            "from_cli": True,
-                            "print": self.options.get('vrf', {})
-                        }
+                        options={},
+                        from_cli=True,
+                        num_workers=50,
+                        verbose=False,
+                        print_task_output=True,
+                        protocol=prot,
+                        filename=MAPPING_PROTOCOLS.get(prot).get('filename'),
+                        key_store=MAPPING_PROTOCOLS.get(prot).get('key_store')
                     )
-                elif prot.lower() == "cdp":
-                    get_cdp(
-                        nr=self.nornir,
-                        options={
-                            "from_cli": True,
-                            "print": self.options.get('cdp', {})
-                        }
-                    )
-                elif prot.lower() == "facts":
-                    get_facts(
-                        nr=self.nornir,
-                        options={
-                            "from_cli": True,
-                            "print": self.options.get('facts', {})
-                        }
-                    )
-                elif prot.lower() == "lldp":
-                    get_lldp(
-                        nr=self.nornir,
-                        options={
-                            "from_cli": True,
-                            "print": self.options.get('lldp', {})
-                        }
-                    )
-                elif prot.lower() == "ospf":
-                    get_ospf(
-                        nr=self.nornir,
-                        options={
-                            "from_cli": True,
-                            "print": self.options.get('ospf', {})
-                        }
-                    )
-                elif prot.lower() == "bgp":
-                    get_bgp(
-                        nr=self.nornir,
-                        options={
-                            "from_cli": True,
-                            "print": self.options.get('bgp', {})
-                        }
-                    )
-                elif prot.lower() == "ping":
-                    get_ping(
-                        nr=self.nornir,
-                        options={
-                            "from_cli": True,
-                            "print": self.options.get('ping', {})
-                        }
-                    )
+                    getter.run()
                 else:
                     print(f"@({prot}) is unavailable from CLI.")
+
+    def compare_config(self, protocols_selected) -> None:
+        result = dict()
+        for prot in protocols_selected.split(','):
+            for d in self.devices:
+                if prot in MAPPING_PROTOCOLS.keys():
+                    getter = MAPPING_PROTOCOLS.get(prot).get('class')(
+                        nr=self.nornir,
+                        options={},
+                        from_cli=True,
+                        num_workers=50,
+                        verbose=False,
+                        print_task_output=False,
+                        protocol=prot,
+                        filename=MAPPING_PROTOCOLS.get(prot).get('filename'),
+                        key_store=MAPPING_PROTOCOLS.get(prot).get('key_store')
+                    )
+                    getter.run()
+                    getter.compare()
+                    result[prot] = getter.get_compare_result()
+                else:
+                    print(f"@({prot}) is unavailable from CLI.")
+
+        self.printline()
+        print(f"@Compare function result :\n{result}")
 
     def ask_help(self) -> None:
         print("@User 'help' command to get help.")
@@ -521,14 +320,18 @@ class NetestsCLI():
         print(f"@{self.devices}")
 
     def print_welcome(self) -> None:
-        printline()
+        self.printline()
         print("Welcome to Netests CLI")
-        printline()
+        self.printline()
 
     def print_end_get(self) -> None:
-        printline()
+        self.printline()
         print("@End GET")
-        printline()
+        self.printline()
+
+    def printline(self):
+        size = int(shutil.get_terminal_size()[0] / 2)
+        print("-*" * size)
 
     def print_help(self) -> None:
         print("+------------------------------------------------------------+")
@@ -699,16 +502,13 @@ class NetestsCLI():
         print("|                                                            |")
         print("+------------------------------------------------------------+")
 
-"""
-
 
 def netests_cli(nr) -> None:
-    pass
-    # user_input = "START"
-    """cli = NetestsCLI(nornir=nr)
+    user_input = "START"
+    cli = NetestsCLI(nornir=nr)
 
     while user_input != "exit":
         user_input = input("> ")
 
         if cli.check_input(user_input):
-            cli.select_action(user_input)"""
+            cli.select_action(user_input)

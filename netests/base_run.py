@@ -3,62 +3,9 @@
 
 from netests import log
 from nornir.core import Nornir
-from netests.getters.bgp_get import GetterBGP
-from netests.getters.cdp_get import GetterCDP
-from netests.getters.facts_get import GetterFacts
-from netests.getters.lldp_get import GetterLLDP
-from netests.getters.ospf_get import GetterOSPF
-from netests.getters.ping_get import GetterPing
-from netests.getters.vrf_get import GetterVRF
-from netests.constants import (
-    BGP_SESSIONS_HOST_KEY,
-    CDP_DATA_HOST_KEY,
-    FACTS_DATA_HOST_KEY,
-    LLDP_DATA_HOST_KEY,
-    OSPF_SESSIONS_HOST_KEY,
-    PING_DATA_HOST_KEY,
-    VRF_DATA_KEY,
-)
-
+from netests.base_protocols import MAPPING_PROTOCOLS
 
 HEADER = "[netests - base_run.py]"
-RUN = {
-    "bgp": {
-        "class": GetterBGP,
-        "filename": "bgp.yml",
-        "key_store": BGP_SESSIONS_HOST_KEY
-    },
-    "cdp": {
-        "class": GetterCDP,
-        "filename": "cdp.yml",
-        "key_store": CDP_DATA_HOST_KEY
-    },
-    "facts": {
-        "class": GetterFacts,
-        "filename": "facts.yml",
-        "key_store": FACTS_DATA_HOST_KEY
-    },
-    "lldp": {
-        "class": GetterLLDP,
-        "filename": "lldp.yml",
-        "key_store": LLDP_DATA_HOST_KEY
-    },
-    "ospf": {
-        "class": GetterOSPF,
-        "filename": "ospf.yml",
-        "key_store": OSPF_SESSIONS_HOST_KEY
-    },
-    "ping": {
-        "class": GetterPing,
-        "filename": "ping.yml",
-        "key_store": PING_DATA_HOST_KEY
-    },
-    "vrf": {
-        "class": GetterVRF,
-        "filename": "vrf.yml",
-        "key_store": VRF_DATA_KEY
-    },
-}
 
 
 def run_base(
@@ -88,12 +35,12 @@ def run_base(
         print_task_output = not init_data
 
         log.debug(
-            f"\nExecute {RUN.get(protocol).get('class')}"
-            f"filename={RUN.get(protocol).get('filename')}"
-            f"key_store={RUN.get(protocol).get('key_store')}"
+            f"\nExecute {MAPPING_PROTOCOLS.get(protocol).get('class')}"
+            f"filename={MAPPING_PROTOCOLS.get(protocol).get('filename')}"
+            f"key_store={MAPPING_PROTOCOLS.get(protocol).get('key_store')}"
             f"print_task_output={print_task_output}"
         )
-        getter = RUN.get(protocol).get('class')(
+        getter = MAPPING_PROTOCOLS.get(protocol).get('class')(
             nr=nr,
             options=parameters.get('options', {}),
             from_cli=False,
@@ -101,8 +48,8 @@ def run_base(
             verbose=verbose,
             print_task_output=print_task_output,
             protocol=protocol,
-            filename=RUN.get(protocol).get('filename'),
-            key_store=RUN.get(protocol).get('key_store')
+            filename=MAPPING_PROTOCOLS.get(protocol).get('filename'),
+            key_store=MAPPING_PROTOCOLS.get(protocol).get('key_store')
         )
         getter.run()
 
