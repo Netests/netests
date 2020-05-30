@@ -139,8 +139,8 @@ class GetterBase(ABC):
                         f"truth_vars/hosts/{host}/{self.filename}"
                         "\n"
                         "" + str(self.nr.inventory.hosts.get(host)
-                                                    .get(self.key_store)
-                                                    .to_json())
+                                                        .get(self.key_store)
+                                                        .to_json())
                     )
                     yaml.dump(
                         self.nr.inventory.hosts.get(host)

@@ -5,6 +5,7 @@ from netests import log
 from netests.getters.bgp_get import GetterBGP
 from netests.comparators.bgp_up_compare import _compare_transit_bgp_up
 
+
 class GetterBGPUp(GetterBGP):
 
     def __init__(

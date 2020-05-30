@@ -3,24 +3,11 @@
 
 from nornir.core.task import Task
 from netests import log
-from netests.tools.file import open_file
-from netests.select_vars import select_host_vars
-from netests.comparators.log_compare import log_compare, log_no_yaml_data
+from netests.protocols.bgp import BGP
 from netests.constants import (
-    NOT_SET,
     BGP_SESSIONS_HOST_KEY,
     BGP_ALL_BGP_UP_KEY,
     BGP_STATE_BRIEF_DOWN
-)
-from netests.exceptions.netests_exceptions import (
-    NetestsOverideTruthVarsKeyUnsupported
-)
-from netests.protocols.bgp import (
-    BGPSession,
-    ListBGPSessions,
-    BGPSessionsVRF,
-    ListBGPSessionsVRF,
-    BGP
 )
 
 
@@ -59,5 +46,3 @@ def _compare_bgp_up(
                     result = False
 
     return result
-
-
