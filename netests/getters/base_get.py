@@ -138,13 +138,14 @@ class GetterBase(ABC):
                         "Write the following data into "
                         f"truth_vars/hosts/{host}/{self.filename}"
                         "\n"
-                        "" + self.nr.inventory.hosts.get(host)
+                        "" + str(self.nr.inventory.hosts.get(host)
                                                     .get(self.key_store)
-                                                    .to_json()
+                                                    .to_json())
                     )
                     yaml.dump(
-                        self.nr.inventory.hosts[host][self.key_store].to_json(
-                        ),
+                        self.nr.inventory.hosts.get(host)
+                                               .get(self.key_store)
+                                               .to_json(),
                         outfile,
                         default_flow_style=False
                     )

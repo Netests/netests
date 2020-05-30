@@ -276,8 +276,9 @@ def main(
             verbose=verbose
         )
 
-    printline()
-    print_result(result)
+    if init_data is False:
+        printline()
+        print_result(result)
 
 
 if __name__ == "__main__":

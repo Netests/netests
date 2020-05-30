@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from netests.getters.bgp_get import GetterBGP
+from netests.getters.bgp_up_get import GetterBGPUp
 from netests.getters.cdp_get import GetterCDP
 from netests.getters.facts_get import GetterFacts
 from netests.getters.lldp_get import GetterLLDP
@@ -31,6 +32,12 @@ MAPPING_PROTOCOLS = {
         "proto": BGPSession,
         "class": GetterBGP,
         "filename": "bgp.yml",
+        "key_store": BGP_SESSIONS_HOST_KEY
+    },
+    "bgp_up": {
+        "proto": BGPSession,
+        "class": GetterBGPUp,
+        "filename": None,
         "key_store": BGP_SESSIONS_HOST_KEY
     },
     "cdp": {

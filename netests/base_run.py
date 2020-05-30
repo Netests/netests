@@ -56,7 +56,9 @@ def run_base(
         if (
             init_data and
             (
-                protocol.upper() != "PING"
+                protocol.upper() != "PING" or
+                protocol.upper() != "BGP_UP"
+
             )
         ):
             getter.init_data()
