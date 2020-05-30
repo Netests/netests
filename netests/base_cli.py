@@ -700,8 +700,11 @@ class NetestsCLI():
         print("+------------------------------------------------------------+")
 
 """
+
+
 def netests_cli(nr) -> None:
-    user_input = "START"
+    pass
+    # user_input = "START"
     """cli = NetestsCLI(nornir=nr)
 
     while user_input != "exit":

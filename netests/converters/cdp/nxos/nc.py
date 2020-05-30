@@ -3,7 +3,6 @@
 
 import json
 from netests.protocols.cdp import ListCDP
-from netests.constants import NOT_SET
 
 
 def _nxos_cdp_nc_converter(

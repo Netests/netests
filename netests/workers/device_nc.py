@@ -6,7 +6,6 @@ from ncclient import manager
 from xml.etree import ElementTree
 from abc import ABC, abstractmethod
 from netests.workers.device import Device
-from jnpr.junos.factcache import _FactCache
 
 
 class DeviceNC(Device, ABC):

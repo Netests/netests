@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
-from netests.constants import NOT_SET
-from netests.protocols.ospf import OSPF
+from netests.protocols.ospf import ListOSPFSessionsVRF, OSPF
 
 
 def _arista_ospf_nc_converter(
@@ -11,4 +9,12 @@ def _arista_ospf_nc_converter(
     cmd_output,
     options={}
 ) -> OSPF:
-    pass
+
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    return OSPF(
+        hostname=hostname,
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )

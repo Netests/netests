@@ -27,7 +27,7 @@ def _extreme_vsp_bgp_ssh_converter(
         for vrf in cmd_output:
             if (
                 "BGP instance does not exist" not in cmd_output.get(vrf) and
-                "cannot be accessed by name" not in cmd_output.get(vrf)              
+                "cannot be accessed by name" not in cmd_output.get(vrf)
             ):
                 cmd_output[vrf] = parse_textfsm(
                     content=str(cmd_output[vrf]),

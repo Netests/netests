@@ -94,9 +94,9 @@ class IosNC(DeviceNC, ABC):
             return data
 
     def exec_call_get(self, task, command, m):
-            return m.get(
-                filter=NETCONF_FILTER.format(command)
-            ).data_xml
+        return m.get(
+            filter=NETCONF_FILTER.format(command)
+        ).data_xml
 
     def exec_call_get_config(self, task, command, m):
         return m.get_config(
@@ -233,7 +233,7 @@ class OSPFIosNC(IosNC):
 class VRFIosNC(IosNC):
 
     NETCONF_FILTER = """
-        <native 
+        <native
             xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"
         />"""
 

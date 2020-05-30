@@ -4,7 +4,6 @@
 from netests import log
 from netests.comparators.bgp_compare import _compare_transit_bgp
 from netests.getters.routing_get import GetterRouting
-from netests.constants import BGP_SESSIONS_HOST_KEY
 from netests.workers.arista_api import BGPAristaAPI
 from netests.workers.arista_nc import BGPAristaNC
 from netests.workers.arista_ssh import BGPAristaSSH
@@ -26,10 +25,6 @@ from netests.workers.juniper_ssh import BGPJuniperSSH
 from netests.workers.nxos_api import BGPNxosAPI
 from netests.workers.nxos_nc import BGPNxosNC
 from netests.workers.nxos_ssh import BGPNxosSSH
-
-
-
-HEADER = "[netests - get_bgp]"
 
 
 class GetterBGP(GetterRouting):
@@ -67,9 +62,6 @@ class GetterBGP(GetterRouting):
             num_workers=self.num_workers
         )
         self._compare_result(data)
-
-    def print_result(self):
-        self.print_protocols_result(BGP_SESSIONS_HOST_KEY, "BGP")
 
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {

@@ -7,8 +7,10 @@ from netests.tools.file import open_file
 from netests.protocols.facts import Facts
 from netests.select_vars import select_host_vars
 from netests.comparators.log_compare import log_compare, log_no_yaml_data
-from netests.constants import NOT_SET,FACTS_WORKS_KEY, FACTS_DATA_HOST_KEY
-from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from netests.constants import NOT_SET, FACTS_WORKS_KEY, FACTS_DATA_HOST_KEY
+from netests.exceptions.netests_exceptions import (
+    NetestsOverideTruthVarsKeyUnsupported
+)
 
 
 def _compare_transit_facts(task, options={}):
@@ -53,7 +55,7 @@ def _compare_facts(
                 groups=groups,
                 protocol="facts"
             )
-        
+
         log.debug(
             "FACTS_DATA_HOST_KEY in host_keys="
             f"{FACTS_DATA_HOST_KEY in host_keys}\n"

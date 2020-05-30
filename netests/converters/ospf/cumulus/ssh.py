@@ -48,7 +48,7 @@ def _cumulus_ospf_ssh_converter(
             o_a_lst = ListOSPFSessionsArea(
                 ospf_sessions_area_lst=list()
             )
-            
+
             if (
                 k == 'default' and bool(v.get('data').get('neighbors')) or
                 k != 'default' and bool(v.get('data').get(k).get('neighbors'))

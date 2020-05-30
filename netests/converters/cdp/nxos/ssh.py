@@ -22,7 +22,6 @@ def _nxos_cdp_ssh_converter(
             cmd_output = json.loads(cmd_output)
 
         if (
-            
             "TABLE_cdp_neighbor_detail_info" in cmd_output.keys() and
             "ROW_cdp_neighbor_detail_info" in cmd_output.get(
                 "TABLE_cdp_neighbor_detail_info").keys()
@@ -95,7 +94,8 @@ def _nxos_cdp_ssh_converter(
                         local_port=n.get('TABLE_cdp_neighbor_detail_info')
                                     .get('ROW_cdp_neighbor_detail_info')
                                     .get("intf_id", NOT_SET),
-                        neighbor_mgmt_ip=n.get('TABLE_cdp_neighbor_detail_info')
+                        neighbor_mgmt_ip=n
+                                        .get('TABLE_cdp_neighbor_detail_info')
                                         .get('ROW_cdp_neighbor_detail_info')
                                         .get("v4addr", NOT_SET),
                         neighbor_name=n.get('TABLE_cdp_neighbor_detail_info')

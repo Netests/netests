@@ -7,7 +7,10 @@ import logging
 log = logging.getLogger(__name__)
 file_handler = logging.FileHandler('netests.log')
 formatter = logging.Formatter(
-    fmt='[%(asctime)s.%(msecs)03d][%(levelname)s][%(module)s][%(funcName)s:] %(message)s',
+    fmt=(
+        "[%(asctime)s.%(msecs)03d][%(levelname)s]"
+        "[%(module)s][%(funcName)s:] %(message)s"
+    ),
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 file_handler.setFormatter(formatter)

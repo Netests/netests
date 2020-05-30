@@ -9,6 +9,7 @@ from netests.exceptions.netests_exceptions import NetestsFunctionNotImplemented
 from netests.converters.vrf.nxos.nc import _nxos_vrf_nc_converter
 from netests.constants import VRF_DATA_KEY
 
+
 class NxosNC(DeviceNC, ABC):
 
     nc_method: str

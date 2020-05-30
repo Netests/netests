@@ -81,7 +81,6 @@ def run_base(
         f"verbose={verbose}\n"
     )
 
-    result = dict()
     if (
         parameters.get('test', False) is True or
         str(parameters.get('test', False)).upper() == "INFO"
@@ -94,7 +93,6 @@ def run_base(
             f"key_store={RUN.get(protocol).get('key_store')}"
             f"print_task_output={print_task_output}"
         )
-        result_output = list()
         getter = RUN.get(protocol).get('class')(
             nr=nr,
             options=parameters.get('options', {}),

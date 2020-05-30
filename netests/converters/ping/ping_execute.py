@@ -2,28 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from netests import log
-from nornir.core import Nornir
 from nornir.core.task import Result
-from nornir.plugins.functions.text import print_result
-from nornir.core.exceptions import NornirExecutionError
+from netests.constants import JINJA2_PING_RESULT
 from nornir.plugins.tasks.commands import remote_command
 from nornir.plugins.tasks.networking import netmiko_send_command
 from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
-from netests.exceptions.netests_exceptions import NetestsFunctionNotImplemented
-from netests.constants import (
-    NOT_SET,
-    JINJA2_PING_RESULT,
-    ARISTA_PLATEFORM_NAME,
-    CUMULUS_PLATEFORM_NAME,
-    EXTREME_PLATEFORM_NAME,
-    CISCO_IOS_PLATEFORM_NAME,
-    CISCO_IOSXR_PLATEFORM_NAME,
-    JUNOS_PLATEFORM_NAME,
-    NEXUS_PLATEFORM_NAME,
-    API_CONNECTION,
-    NETCONF_CONNECTION,
-    SSH_CONNECTION
-)
 
 
 def _execute_netmiko_ping_cmd(task):
@@ -35,7 +18,7 @@ def _execute_netmiko_ping_cmd(task):
             must_works = False
         else:
             must_works = True
-            
+
         data = task.run(
             name="Ping network devices",
             task=netmiko_send_command,

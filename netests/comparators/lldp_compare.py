@@ -8,7 +8,9 @@ from netests.select_vars import select_host_vars
 from netests.protocols.lldp import LLDP, ListLLDP
 from netests.comparators.log_compare import log_compare, log_no_yaml_data
 from netests.constants import NOT_SET, LLDP_DATA_HOST_KEY, LLDP_WORKS_KEY
-from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from netests.exceptions.netests_exceptions import (
+    NetestsOverideTruthVarsKeyUnsupported
+)
 
 
 def _compare_transit_lldp(task, options={}):

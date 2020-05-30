@@ -32,6 +32,7 @@ from netests.constants import (
     ARISTA_GET_VRF
 )
 
+
 class AristaAPI(DeviceAPI, ABC):
 
     def __init__(
@@ -136,7 +137,7 @@ class BGPAristaAPI(AristaAPI):
 
     def get_loop_vrf(self, task):
         self.exec_call_list(task, "vrf")
-        
+
 
 class CDPAristaAPI(AristaAPI):
 
@@ -208,7 +209,7 @@ class OSPFAristaAPI(AristaAPI):
 
     def exec_call(self, task, command, vrf):
         return self.exec_call_without_pyeapi(task, command)
-        
+
 
 class VRFAristaAPI(AristaAPI):
 
@@ -217,7 +218,7 @@ class VRFAristaAPI(AristaAPI):
             task=task,
             commands={
                 "default_vrf": {
-                    "no_key": ARISTA_GET_VRF 
+                    "no_key": ARISTA_GET_VRF
                 }
             },
             vrf_loop=False,

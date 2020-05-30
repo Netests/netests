@@ -4,7 +4,6 @@
 from netests import log
 from netests.comparators.ospf_compare import _compare_transit_ospf
 from netests.getters.routing_get import GetterRouting
-from netests.constants import OSPF_SESSIONS_HOST_KEY
 from netests.workers.arista_api import OSPFAristaAPI
 from netests.workers.arista_nc import OSPFAristaNC
 from netests.workers.arista_ssh import OSPFAristaSSH
@@ -26,8 +25,6 @@ from netests.workers.juniper_ssh import OSPFJuniperSSH
 from netests.workers.nxos_api import OSPFNxosAPI
 from netests.workers.nxos_nc import OSPFNxosNC
 from netests.workers.nxos_ssh import OSPFNxosSSH
-
-HEADER = "[netests - get_ospf]"
 
 
 class GetterOSPF(GetterRouting):

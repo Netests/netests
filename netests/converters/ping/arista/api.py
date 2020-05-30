@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import pyeapi
 from netests import log
 from nornir.core.task import Result
-from netests.constants import NOT_SET, PING_DATA_HOST_KEY
+from netests.constants import PING_DATA_HOST_KEY
 from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
 
 
@@ -29,7 +28,7 @@ def _arista_ping_api_exec(task):
             )
         except Exception:
             pass
-        
+
         log.debug(
             "\n"
             "Execute the following ping command on Arista API\n"
@@ -41,7 +40,7 @@ def _arista_ping_api_exec(task):
             "Result is :\n"
             f"{output}"
         )
-        
+
         r = arista_api_validate_output(
             output=output,
             hostname=task.host.name,

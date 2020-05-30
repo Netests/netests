@@ -17,8 +17,6 @@ def _nxos_facts_ssh_converter(
     options={}
 ) -> Facts:
 
-
-
     interfaces_lst = list()
     if FACTS_INT_DICT_KEY in cmd_output.keys():
         if not isinstance(cmd_output.get(FACTS_INT_DICT_KEY), dict):

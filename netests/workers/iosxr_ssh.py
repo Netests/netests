@@ -7,14 +7,12 @@ from netests.converters.bgp.iosxr.ssh import _iosxr_bgp_ssh_converter
 from netests.converters.cdp.iosxr.ssh import _iosxr_cdp_ssh_converter
 from netests.converters.facts.iosxr.ssh import _iosxr_facts_ssh_converter
 from netests.converters.lldp.iosxr.ssh import _iosxr_lldp_ssh_converter
-from netests.converters.ospf.iosxr.ssh import _iosxr_ospf_ssh_converter
 from netests.converters.vrf.iosxr.ssh import _iosxr_vrf_ssh_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,
     FACTS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
-    OSPF_SESSIONS_HOST_KEY,
     VRF_DATA_KEY,
     IOSXR_GET_BGP_PEERS,
     IOSXR_GET_BGP_RID,
@@ -125,5 +123,3 @@ class VRFIosxrSSH(DeviceSSH):
             key_store=VRF_DATA_KEY,
             options=options
         )
-
-

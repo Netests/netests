@@ -36,7 +36,6 @@ from netests.converters.ping.nxos.validator import (
     nxos_netconf_ping_validator,
     nxos_ssh_ping_validator
 )
-from netests.exceptions.netests_exceptions import NetestsErrorWithPingExecution
 from netests.constants import (
     ARISTA_PLATEFORM_NAME,
     CUMULUS_PLATEFORM_NAME,

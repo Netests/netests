@@ -74,4 +74,3 @@ def _iosxr_bgp_ssh_converter(
         hostname=hostname,
         bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
     )
-    

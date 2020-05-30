@@ -4,7 +4,6 @@
 import json
 from abc import ABC, abstractmethod
 from netests.workers.device import Device
-from netests.constants import VRF_DATA_KEY, VRF_DEFAULT_RT_LST
 from netests.exceptions.netests_exceptions import NetestsHTTPStatusCodeError
 
 

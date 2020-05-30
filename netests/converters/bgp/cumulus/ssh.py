@@ -13,7 +13,6 @@ from netests.protocols.bgp import (
 )
 
 
-
 def _cumulus_bgp_ssh_converter(
     hostname: str,
     cmd_output,

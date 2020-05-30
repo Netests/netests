@@ -118,6 +118,7 @@ class OSPFIosSSH(DeviceSSH):
             options=options
         )
 
+
 class VRFIosSSH(DeviceSSH):
 
     def __init__(self, task, options={}):

@@ -4,9 +4,9 @@
 import json
 from netests import log
 from nornir.core.task import Result
+from netests.constants import JINJA2_PING_RESULT
 from netests.tools.http import exec_http_rpc_nxos
 from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
-from netests.constants import NOT_SET, JINJA2_PING_RESULT
 
 
 def _nxos_ping_api_exec(task):
@@ -49,6 +49,6 @@ def _nxos_ping_api_exec(task):
         )
 
         if r is False:
-                    result = False
+            result = False
 
     return Result(host=task.host, result=result)

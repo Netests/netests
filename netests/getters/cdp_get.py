@@ -3,7 +3,6 @@
 
 from netests import log
 from netests.comparators.cdp_compare import _compare_transit_cdp
-from netests.constants import CDP_DATA_HOST_KEY
 from netests.getters.base_get import GetterBase
 from netests.workers.arista_api import CDPAristaAPI
 from netests.workers.arista_nc import CDPAristaNC
@@ -20,12 +19,12 @@ from netests.workers.ios_ssh import CDPIosSSH
 from netests.workers.iosxr_api import IosxrAPI
 from netests.workers.iosxr_nc import CDPIosxrNC
 from netests.workers.iosxr_ssh import CDPIosxrSSH
+from netests.workers.juniper_api import CDPJuniperAPI
+from netests.workers.juniper_nc import CDPJuniperNC
+from netests.workers.juniper_ssh import CDPJuniperSSH
 from netests.workers.nxos_api import CDPNxosAPI
 from netests.workers.nxos_nc import CDPNxosNC
 from netests.workers.nxos_ssh import CDPNxosSSH
-
-
-HEADER = "[netests - get_cdp]"
 
 
 class GetterCDP(GetterBase):
@@ -64,13 +63,10 @@ class GetterCDP(GetterBase):
         )
         self._compare_result(data)
 
-    def print_result(self):
-        self.print_protocols_result(CDP_DATA_HOST_KEY, "CDP")
-
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {
             self.ARISTA_PLATEFORM_NAME: {
-                self.API_CONNECTION: CDPAristaAPI,                
+                self.API_CONNECTION: CDPAristaAPI,
                 self.NETCONF_CONNECTION: CDPAristaNC,
                 self.SSH_CONNECTION: CDPAristaSSH,
                 self.NAPALM_CONNECTION: "pass"
@@ -87,10 +83,22 @@ class GetterCDP(GetterBase):
                 self.SSH_CONNECTION: CDPExtremeVSPSSH,
                 self.NAPALM_CONNECTION: "pass"
             },
+            self.CISCO_IOS_PLATEFORM_NAME: {
+                self.API_CONNECTION: CDPIosAPI,
+                self.NETCONF_CONNECTION: CDPIosNC,
+                self.SSH_CONNECTION: CDPIosSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
             self.CISCO_IOSXR_PLATEFORM_NAME: {
                 self.API_CONNECTION: IosxrAPI,
                 self.NETCONF_CONNECTION: CDPIosxrNC,
                 self.SSH_CONNECTION: CDPIosxrSSH,
+                self.NAPALM_CONNECTION: "pass"
+            },
+            self.JUNOS_PLATEFORM_NAME: {
+                self.API_CONNECTION: CDPJuniperAPI,
+                self.NETCONF_CONNECTION: CDPJuniperNC,
+                self.SSH_CONNECTION: CDPJuniperSSH,
                 self.NAPALM_CONNECTION: "pass"
             },
             self.NEXUS_PLATEFORM_NAME: {

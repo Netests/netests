@@ -7,7 +7,9 @@ from netests.tools.file import open_file
 from netests.select_vars import select_host_vars
 from netests.comparators.log_compare import log_compare, log_no_yaml_data
 from netests.constants import NOT_SET, BGP_SESSIONS_HOST_KEY, BGP_WORKS_KEY
-from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from netests.exceptions.netests_exceptions import (
+    NetestsOverideTruthVarsKeyUnsupported
+)
 from netests.protocols.bgp import (
     BGPSession,
     ListBGPSessions,
@@ -68,7 +70,7 @@ def _compare_bgp(
             f"{bgp_yaml_data is not None}"
         )
         if (
-            BGP_SESSIONS_HOST_KEY in host_keys and 
+            BGP_SESSIONS_HOST_KEY in host_keys and
             bgp_yaml_data is not None
         ):
             for vrf_name, facts in bgp_yaml_data.items():

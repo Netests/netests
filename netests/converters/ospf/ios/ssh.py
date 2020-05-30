@@ -30,13 +30,13 @@ def _ios_ospf_ssh_converter(
     if (
         (
             'data' in cmd_output.keys() or
-            'rid' in cmd_output.keys() 
+            'rid' in cmd_output.keys()
         ) and
         (
             cmd_output.get('data') != '' or
             cmd_output.get('rid') != ''
         )
-        
+
     ):
         cmd_output['data'] = parse_textfsm(
             content=cmd_output.get('data'),

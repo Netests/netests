@@ -9,7 +9,7 @@ def _ios_ospf_api_converter(
     cmd_output,
     options={}
 ) -> OSPF:
-    
+
     return OSPF(
         hostname=hostname,
         ospf_sessions_vrf_lst=ListOSPFSessionsVRF(

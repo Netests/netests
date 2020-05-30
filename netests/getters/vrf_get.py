@@ -25,7 +25,6 @@ from netests.workers.nxos_api import VRFNxosAPI
 from netests.workers.nxos_nc import VRFNxosNC
 from netests.workers.nxos_ssh import VRFNxosSSH
 from netests.getters.base_get import GetterBase
-from netests.constants import VRF_DATA_KEY, VRF_NAME_DATA_KEY
 
 
 HEADER = "[netests - get_vrf]"

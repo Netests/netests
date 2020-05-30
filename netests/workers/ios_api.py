@@ -93,6 +93,7 @@ class CDPIosAPI(IosAPI):
             options=options
         )
 
+
 class FactsIosAPI(IosAPI):
 
     def __init__(self, task, options={}):
@@ -108,6 +109,7 @@ class FactsIosAPI(IosAPI):
             key_store=FACTS_DATA_HOST_KEY,
             options=options
         )
+
 
 class LLDPIosAPI(IosAPI):
 

@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 from netests import log
 from nornir import InitNornir
 from nornir.core import Nornir
+
 
 def init_nornir(
     log_file: str,
@@ -77,6 +80,7 @@ def init_nornir(
         f"Init_Nornir : options={options}\n"
         f"Init_Nornir : log_file={log_file}\n"
         f"Init_Nornir : log_level={log_level}\n"
+        f"Init_Nornir : config_file={config_file}\n"
     )
 
     nr = InitNornir(

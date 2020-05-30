@@ -11,8 +11,6 @@ from netests.converters.facts.nxos.api import _nxos_facts_api_converter
 from netests.converters.lldp.nxos.api import _nxos_lldp_api_converter
 from netests.converters.ospf.nxos.api import _nxos_ospf_api_converter
 from netests.converters.vrf.nxos.api import _nxos_vrf_api_converter
-from netests.constants import NEXUS_API_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
-from netests.converters.vrf.nxos.api import _nxos_vrf_api_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,
@@ -56,14 +54,14 @@ class NxosAPI(DeviceAPI, ABC):
         )
 
     def exec_call(self, task, command, vrf):
-        protocol = self.use_https(task.host.get('secure_api', True))
+        p = self.use_https(task.host.get('secure_api', True))
 
         log.debug(
             "\n"
             f"CALL exec_call for Cisco NXOS\n"
             f"method=POST\n"
             f"auth=requests.auth.HTTPBasicAuth(username, password)\n"
-            f"endpoint={protocol}://{task.host.hostname}:{task.host.port}/ins\n"
+            f"endpoint={p}://{task.host.hostname}:{task.host.port}/ins\n"
             f"headers='Content-Type': 'application/json'\n"
             """data={
                 "ins_api": {
@@ -77,9 +75,8 @@ class NxosAPI(DeviceAPI, ABC):
             }""" % (str(command))
         )
 
-
         res = requests.post(
-            url=f"{protocol}://{task.host.hostname}:{task.host.port}/ins",
+            url=f"{p}://{task.host.hostname}:{task.host.port}/ins",
             headers={
                 'Content-Type': 'application/json',
             },

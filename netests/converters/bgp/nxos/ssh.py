@@ -35,11 +35,13 @@ def _nxos_bgp_ssh_converter(
             if (
                 'TABLE_vrf' in v.keys() and
                 'ROW_vrf' in v.get('TABLE_vrf').keys() and
-                'TABLE_neighbor' in v.get('TABLE_vrf').get('ROW_vrf').keys() and
+                'TABLE_neighbor' in v.get('TABLE_vrf')
+                                     .get('ROW_vrf')
+                                     .keys() and
                 'ROW_neighbor' in v.get('TABLE_vrf')
-                                .get('ROW_vrf')
-                                .get('TABLE_neighbor')
-                                .keys()
+                                   .get('ROW_vrf')
+                                   .get('TABLE_neighbor')
+                                   .keys()
             ):
                 if isinstance(
                     v.get("TABLE_vrf")
@@ -49,9 +51,9 @@ def _nxos_bgp_ssh_converter(
                     list,
                 ):
                     for n in v.get("TABLE_vrf", NOT_SET) \
-                                    .get("ROW_vrf", NOT_SET) \
-                                    .get("TABLE_neighbor", NOT_SET) \
-                                    .get("ROW_neighbor", NOT_SET):
+                              .get("ROW_vrf", NOT_SET) \
+                              .get("TABLE_neighbor", NOT_SET) \
+                              .get("ROW_neighbor", NOT_SET):
 
                         bgp_sessions_lst.bgp_sessions.append(
                             BGPSession(
@@ -64,7 +66,9 @@ def _nxos_bgp_ssh_converter(
                                 ),
                                 session_state=n.get("state", NOT_SET),
                                 state_time=n.get("LastUpDn", NOT_SET),
-                                prefix_received=n.get("prefixReceived", NOT_SET),
+                                prefix_received=n.get(
+                                    "prefixReceived", NOT_SET
+                                ),
                                 options=options
                             )
                         )

@@ -19,4 +19,3 @@ class IosxrAPI(DeviceAPI):
         raise NetestsFunctionNotPossible(
             "Cisco IOS-XR - API - Not Possible"
         )
-

@@ -8,7 +8,9 @@ from netests.protocols.cdp import CDP, ListCDP
 from netests.select_vars import select_host_vars
 from netests.constants import NOT_SET, CDP_DATA_HOST_KEY, CDP_WORKS_KEY
 from netests.comparators.log_compare import log_compare, log_no_yaml_data
-from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from netests.exceptions.netests_exceptions import (
+    NetestsOverideTruthVarsKeyUnsupported
+)
 
 
 def _compare_transit_cdp(task, options={}):
@@ -82,7 +84,7 @@ def _compare_cdp(
 
             log_compare(verity_cdp, cdp_host_data, hostname, groups)
             return verity_cdp == cdp_host_data
-        
+
         else:
             log_no_yaml_data(
                 "cdp",

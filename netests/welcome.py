@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import click
 import shutil
 import urllib3
@@ -32,6 +31,7 @@ def print_protocols(content_file):
     for k, v in content_file.get('config').get('protocols').items():
         pdict[k] = v.get('test', False)
     PP.pprint(pdict)
+
 
 def print_inv(nr):
     to_print = dict()
@@ -279,6 +279,6 @@ def main(
     printline()
     print_result(result)
 
+
 if __name__ == "__main__":
     main()
-

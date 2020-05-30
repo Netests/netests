@@ -9,7 +9,6 @@ from netests.converters.ping.iosxr.nc import _iosxr_ping_nc_exec
 from netests.converters.ping.juniper.nc import _juniper_ping_nc_exec
 from netests.converters.ping.juniper.api import _juniper_ping_api_exec
 from netests.converters.ping.nxos.api import _nxos_ping_api_exec
-from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
 from netests.converters.ping.ping_execute import (
     _execute_netmiko_ping_cmd,
     _execute_linux_ping_cmd
@@ -49,13 +48,13 @@ class GetterPing(GetterBase):
 
     def run(self):
         log.debug("Run <retrieve_ping_from_yaml>")
-        output = self.devices.run(
+        self.devices.run(
             task=retrieve_ping_from_yaml,
             on_failed=True,
             num_workers=self.num_workers
         )
 
-        data = self.devices.run(
+        self.devices.run(
             task=_generic_generate_ping_cmd,
             on_failed=True,
             num_workers=self.num_workers
@@ -84,7 +83,7 @@ class GetterPing(GetterBase):
                 self.NETCONF_CONNECTION: self.function_not_implemented,
                 self.SSH_CONNECTION: _execute_netmiko_ping_cmd,
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
-            }, 
+            },
             self.CUMULUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: self.function_not_implemented,
                 self.NETCONF_CONNECTION: self.function_not_implemented,
@@ -122,5 +121,3 @@ class GetterPing(GetterBase):
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }
         }
-
-

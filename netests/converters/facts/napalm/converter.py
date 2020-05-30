@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import json
 from netests.protocols.facts import Facts
 from netests.mappings import mapping_interface_name
@@ -80,7 +79,7 @@ def _juniper_retrieve_int_name_with_napalm(interface_data: list) -> list:
                 "local" not in interface_name
             ):
                 int_name_lst.append(
-                    _mapping_interface_name(interface_name)
+                    mapping_interface_name(interface_name)
                 )
 
     return int_name_lst
@@ -104,7 +103,7 @@ def _ios_retrieve_int_name_with_napalm(interface_data: list) -> list:
                 "VL" not in str(interface_name).upper()
             ):
                 int_name_lst.append(
-                    _mapping_interface_name(interface_name)
+                    mapping_interface_name(interface_name)
                 )
 
     return int_name_lst

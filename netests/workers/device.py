@@ -4,7 +4,6 @@
 from netests import log
 from nornir.core.task import Task
 from abc import ABC, abstractmethod
-from nornir.plugins.functions.text import print_result
 from netests.constants import VRF_DATA_KEY, VRF_DEFAULT_RT_LST
 
 
@@ -69,8 +68,9 @@ class Device(ABC):
             f"self.commands.keys()={self.commands.keys()}\n"
             f"'vrf' in self.commands.keys()={'vrf' in self.commands.keys()}\n"
             "\n"
-            f"Use get_loop_vrf={self.vrf_loop and 'vrf' in self.commands.keys()}\n"
-            f"Use get_no_vrf={'default_vrf' in self.commands.keys()}\n" 
+            "Use get_loop_vrf="
+            f"{self.vrf_loop and 'vrf' in self.commands.keys()}\n"
+            f"Use get_no_vrf={'default_vrf' in self.commands.keys()}\n"
         )
 
         if self.vrf_loop and "vrf" in self.commands.keys():
@@ -106,7 +106,7 @@ class Device(ABC):
             self.commands_output = dict()
             for key, command in self.commands.get('default_vrf').items():
                 log.debug(
-                    "Call self.exec_call (LOOP) with the followings parameters : \n"
+                    "Call self.exec_call with : \n"
                     f"hostname={task.host.name}\n"
                     f" - task={task} \n"
                     f" - cmd={command} \n"
@@ -133,7 +133,7 @@ class Device(ABC):
             for key, command in self.commands.get('default_vrf').items():
                 if "no_key" in self.commands.get('default_vrf').keys():
                     log.debug(
-                        "Call self.exec_call with the followings parameters : \n"
+                        "Call self.exec_call with : \n"
                         f"hostname={task.host.name}\n"
                         f" - task={task} \n"
                         f" - cmd={command} \n"
@@ -147,7 +147,7 @@ class Device(ABC):
                     )
                 else:
                     log.debug(
-                        "Call self.exec_call with the followings parameters : \n"
+                        "Call self.exec_call with : \n"
                         f"hostname={task.host.name}\n"
                         f" - task={task} \n"
                         f" - cmd={command} \n"
@@ -169,7 +169,7 @@ class Device(ABC):
         if 'vrf' in self.commands.keys():
             for vrf in task.host[VRF_DATA_KEY].vrf_lst:
                 log.debug("LOOP with the following VRF {vrf}")
-                
+
                 if vrf.vrf_name not in VRF_DEFAULT_RT_LST:
                     if (
                         "no_key" not in self.commands.get('vrf').keys() and
@@ -182,32 +182,36 @@ class Device(ABC):
                             command_to_exec = command.format(vrf.vrf_name)
                         else:
                             command_to_exec = command
-                            
+
                         if "no_key" in self.commands.get('vrf').keys():
                             log.debug(
-                                "Call self.exec_call with the followings parameters : \n"
+                                "Call self.exec_call with : \n"
                                 f"hostname={task.host.name}\n"
                                 f" - task={task} \n"
                                 f" - cmd={command_to_exec} \n"
                                 f" - vrf={vrf.vrf_name} \n"
-                                "=> store in self.commands_output[vrf.vrf_name]"
+                                "=> store in "
+                                "self.commands_output[vrf.vrf_name]"
                             )
-                            self.commands_output[vrf.vrf_name] = self.exec_call(
+                            self.commands_output[vrf.vrf_name] \
+                                = self.exec_call(
                                 task,
                                 command_to_exec,
                                 vrf.vrf_name
                             )
                         else:
                             log.debug(
-                                "Call self.exec_call with the followings parameters : \n"
+                                "Call self.exec_call with : \n"
                                 f"hostname={task.host.name}\n"
                                 f" - task={task} \n"
                                 f" - cmd={command_to_exec} \n"
                                 f" - vrf={vrf.vrf_name} \n"
-                                "=> store in self.commands_output[vrf.vrf_name][key]"
+                                "=> store in "
+                                "self.commands_output[vrf.vrf_name][key]"
                                 f" - key={key} \n"
                             )
-                            self.commands_output[vrf.vrf_name][key] = self.exec_call(
+                            self.commands_output[vrf.vrf_name][key] \
+                                = self.exec_call(
                                 task,
                                 command_to_exec,
                                 vrf.vrf_name
@@ -238,5 +242,3 @@ class Device(ABC):
             " ==> Result converter :\n"
             f"{task.host[self.key_store]}"
         )
-
-

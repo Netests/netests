@@ -1,18 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
-from netests.constants import NOT_SET
-from netests.tools.cli import parse_textfsm
-from netests.protocols.ospf import (
-    OSPFSession,
-    ListOSPFSessions,
-    OSPFSessionsArea,
-    ListOSPFSessionsArea,
-    OSPFSessionsVRF,
-    ListOSPFSessionsVRF,
-    OSPF
-)
+from netests.protocols.ospf import ListOSPFSessionsVRF, OSPF
 
 
 def _iosxr_ospf_ssh_converter(

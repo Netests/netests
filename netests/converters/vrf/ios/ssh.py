@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import re
-import json
 from netests.constants import NOT_SET as NSET
 from netests.tools.cli import parse_textfsm
 from netests.protocols.vrf import VRF, ListVRF

@@ -42,7 +42,7 @@ class GetterRouting(GetterBase):
         self.print_result()
 
     def get_vrf(self):
-        vrf = GetterVRF(
+        GetterVRF(
             nr=self.nr,
             options={},
             from_cli=False,

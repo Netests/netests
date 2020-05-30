@@ -26,10 +26,6 @@ from netests.workers.nxos_api import LLDPNxosAPI
 from netests.workers.nxos_nc import LLDPNxosNC
 from netests.workers.nxos_ssh import LLDPNxosSSH
 
-from netests.constants import LLDP_DATA_HOST_KEY
-
-HEADER = "[netests - get_lldp]"
-
 
 class GetterLLDP(GetterBase):
 
@@ -66,9 +62,6 @@ class GetterLLDP(GetterBase):
             num_workers=self.num_workers
         )
         self._compare_result(data)
-
-    def print_result(self):
-        self.print_protocols_result(LLDP_DATA_HOST_KEY, "LLDP")
 
     def init_mapping_function(self):
         self.MAPPING_FUNCTION = {

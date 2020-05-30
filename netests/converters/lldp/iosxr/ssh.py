@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
 from netests.constants import NOT_SET
 from netests.tools.cli import parse_textfsm
 from netests.protocols.lldp import LLDP, ListLLDP

@@ -5,7 +5,7 @@ from netests import log
 from jnpr.junos import Device
 from nornir.core.task import Result
 from netests.tools.nc import format_xml_output
-from netests.constants import NOT_SET, PING_DATA_HOST_KEY
+from netests.constants import PING_DATA_HOST_KEY
 from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
 
 

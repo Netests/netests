@@ -54,13 +54,12 @@ class BGPJuniperSSH(DeviceSSH):
         )
 
 
-class CDPExtremeVSPSSH(DeviceSSH):
+class CDPJuniperSSH(DeviceSSH):
 
     def __init__(self, task, options={}):
         raise NetestsFunctionNotPossible(
             "Juniper doesn't support CDP"
         )
-
 
 
 class FactsJuniperSSH(DeviceSSH):
@@ -96,7 +95,7 @@ class LLDPJuniperSSH(DeviceSSH):
             },
             vrf_loop=False,
             converter=_juniper_lldp_ssh_converter,
-            key_store=OSPF_SESSIONS_HOST_KEY,
+            key_store=LLDP_DATA_HOST_KEY,
             options=options
         )
 
@@ -121,7 +120,6 @@ class OSPFJuniperSSH(DeviceSSH):
             key_store=OSPF_SESSIONS_HOST_KEY,
             options=options
         )
-
 
 
 class VRFJuniperSSH(DeviceSSH):

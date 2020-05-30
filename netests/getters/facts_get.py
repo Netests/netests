@@ -59,7 +59,9 @@ class GetterFacts(GetterBase):
         self.init_mapping_function()
 
     def compare(self):
-        log.debug(f"CALL _compare_transit_facts num_workers={self.num_workers}")
+        log.debug(
+            f"CALL _compare_transit_facts num_workers={self.num_workers}"
+        )
         data = self.devices.run(
             task=_compare_transit_facts,
             on_failed=True,

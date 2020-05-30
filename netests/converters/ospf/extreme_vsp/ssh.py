@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
 from netests.constants import NOT_SET
 from netests.tools.cli import parse_textfsm
 from netests.protocols.ospf import (
@@ -24,7 +23,7 @@ def _extreme_vsp_ospf_ssh_converter(
     ospf_vrf_lst = ListOSPFSessionsVRF(
         ospf_sessions_vrf_lst=list()
     )
-    
+
     for k, v in cmd_output.items():
         if 'int' in v.keys() and 'data' in v.keys() and 'rid' in v.keys():
             v['data'] = parse_textfsm(

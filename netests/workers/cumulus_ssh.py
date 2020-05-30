@@ -26,8 +26,8 @@ from netests.constants import (
     CUMULUS_GET_OSPF_RID_VRF,
     CUMULUS_GET_VRF
 )
-    
-    
+
+
 class BGPCumulusSSH(DeviceSSH):
 
     def __init__(self, task, options={}):
@@ -121,6 +121,7 @@ class OSPFCumulusSSH(DeviceSSH):
             options=options
         )
 
+
 class VRFCumulusSSH(DeviceSSH):
 
     def __init__(self, task, options={}):
@@ -136,5 +137,3 @@ class VRFCumulusSSH(DeviceSSH):
             key_store=VRF_DATA_KEY,
             options=options
         )
-
-

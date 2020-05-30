@@ -3,9 +3,8 @@
 
 from netests import log
 from netests.getters.base_get import GetterBase
+from netests.converters.ping.arista.api import _arista_ping_api_exec
 from netests.converters.ping.ping_execute import _execute_netmiko_ping_cmd
-from netests.converters.ping.arista.api.ping import _arista_ping_api_exec
-from netests.converters.ping.ping_validator import _raise_exception_on_ping_cmd
 from netests.comparators.ping_retrieve import (
     retrieve_ping_from_yaml,
     _generic_generate_ping_cmd
@@ -41,13 +40,13 @@ class GetterPing(GetterBase):
 
     def run(self):
         log.debug("Run <retrieve_ping_from_yaml>")
-        output = self.devices.run(
+        self.devices.run(
             task=retrieve_ping_from_yaml,
             on_failed=True,
             num_workers=self.num_workers
         )
 
-        data = self.devices.run(
+        self.devices.run(
             task=_generic_generate_ping_cmd,
             on_failed=True,
             num_workers=10
@@ -78,4 +77,3 @@ class GetterPing(GetterBase):
                 self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             }
         }
-

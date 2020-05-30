@@ -13,6 +13,7 @@ from netests.protocols.bgp import (
     BGP
 )
 
+
 def _ios_bgp_api_converter(
     hostname: str,
     cmd_output: dict,

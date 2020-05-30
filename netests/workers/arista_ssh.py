@@ -10,7 +10,6 @@ from netests.converters.ospf.arista.ssh import _arista_ospf_ssh_converter
 from netests.converters.vrf.arista.ssh import _arista_vrf_ssh_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
-    CDP_DATA_HOST_KEY,
     FACTS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
@@ -74,7 +73,7 @@ class FactsAristaSSH(DeviceSSH):
             key_store=FACTS_DATA_HOST_KEY,
             options=options
         )
-        
+
 
 class LLDPAristaSSH(DeviceSSH):
 

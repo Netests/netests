@@ -26,9 +26,9 @@ from netests.constants import (
     CUMULUS_API_GET_OSPF_RID,
     CUMULUS_API_GET_OSPF_VRF,
     CUMULUS_API_GET_OSPF_RID_VRF,
-    CUMULUS_API_GET_VRF,
-    VRF_DEFAULT_RT_LST
+    CUMULUS_API_GET_VRF
 )
+
 
 class CumulusAPI(DeviceAPI, ABC):
 
@@ -49,7 +49,7 @@ class CumulusAPI(DeviceAPI, ABC):
             key_store,
             options
         )
-        
+
     def create_payload(self, command):
         return self.payload_to_json(
             {
@@ -88,8 +88,8 @@ class BGPCumulusAPI(CumulusAPI):
                 }
             },
             vrf_loop=True,
-            converter=_cumulus_vrf_api_converter,
-            key_store=VRF_DATA_KEY,
+            converter=_cumulus_bgp_api_converter,
+            key_store=BGP_SESSIONS_HOST_KEY,
             options=options
         )
 
@@ -166,6 +166,7 @@ class OSPFCumulusAPI(CumulusAPI):
             key_store=OSPF_SESSIONS_HOST_KEY,
             options=options
         )
+
 
 class VRFCumulusAPI(CumulusAPI):
 

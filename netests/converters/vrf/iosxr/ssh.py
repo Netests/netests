@@ -38,7 +38,7 @@ def _iosxr_vrf_ssh_converter(
             options=options
         )
     )
-    
+
     for nei in cmd_output:
         list_vrf.vrf_lst.append(
             VRF(
@@ -48,11 +48,11 @@ def _iosxr_vrf_ssh_converter(
                 vrf_type=nei[3]
                     if nei[3] != "not set" and nei[3] != '' else NOT_SET,
                 l3_vni=NOT_SET,
-                rd=nei[1] 
+                rd=nei[1]
                     if nei[1] != "not set" and nei[1] != '' else NOT_SET,
-                rt_imp=nei[5] 
+                rt_imp=nei[5]
                     if nei[5] != "not set" and nei[5] != '' else NOT_SET,
-                rt_exp=nei[6] 
+                rt_exp=nei[6]
                     if nei[6] != "not set" and nei[6] != '' else NOT_SET,
                 imp_targ=NOT_SET,
                 exp_targ=NOT_SET,

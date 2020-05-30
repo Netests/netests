@@ -4,7 +4,7 @@
 from netests.constants import NOT_SET
 from netests.tools.cli import parse_textfsm
 from netests.protocols.lldp import LLDP, ListLLDP
-from netests.mappings import  mapping_sys_capabilities
+from netests.mappings import mapping_sys_capabilities
 
 
 def _extreme_vsp_lldp_ssh_converter(

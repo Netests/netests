@@ -3,19 +3,19 @@
 
 import yaml
 import json
-import shutil
+import ipaddress
+from netests import log
 from nornir.core import Nornir
 from netmiko import ConnectHandler
-from jnpr.junos.device import Device
-import ipaddress
 from netests.constants import (
     NOT_SET,
     NETMIKO_NAPALM_MAPPING_PLATEFORM,
-    NORNIR_DEBUG_MODE,
     BGP_STATE_UP_LIST,
     BGP_STATE_BRIEF_UP,
     BGP_STATE_BRIEF_DOWN
 )
+
+
 ERROR_HEADER = "Error import [global.py]"
 
 
@@ -60,7 +60,6 @@ def check_devices_connectivity(nr: Nornir) -> bool:
     else:
         print(f"\nPlease check credentials in the inventory")
 
-    printline()
     return not data.failed
 
 
@@ -76,13 +75,17 @@ def is_alive(task) -> None:
     else:
         platform = task.host.platform
 
-    print(platform)
-    device = ConnectHandler(
-        device_type=platform,
-        host=task.host.hostname,
-        username=task.host.username,
-        password=task.host.password,
-    )
+    try:
+        print(platform)
+        device = ConnectHandler(
+            device_type=platform,
+            host=task.host.hostname,
+            username=task.host.username,
+            password=task.host.password,
+        )
+        log.debug(device)
+    except Exception:
+        return False
 
     return True
 
@@ -95,7 +98,7 @@ def _generic_interface_filter(
 ) -> bool:
 
     if (
-        "linux" in plateform and "bridge" not in iname and \
+        "linux" in plateform and "bridge" not in iname and
             (
                 (
                     filters.get('get_vlan', True) and
@@ -122,7 +125,7 @@ def _generic_interface_filter(
         return True
 
     elif (
-        "nxos" in plateform and \
+        "nxos" in plateform and
         (
             (
                 filters.get('get_vlan', True) and
@@ -144,7 +147,7 @@ def _generic_interface_filter(
         return True
 
     elif (
-        "eos" in plateform and \
+        "eos" in plateform and
         (
             (
                 filters.get('get_vlan', True) and
@@ -166,7 +169,7 @@ def _generic_interface_filter(
         return True
 
     elif (
-        "ios" in plateform and \
+        "ios" in plateform and
         (
             (
                 filters.get('get_vlan', True) and
@@ -188,7 +191,7 @@ def _generic_interface_filter(
         return True
 
     elif (
-        "junos" in plateform and \
+        "junos" in plateform and
         (
             (
                 filters.get('get_vlan', True) and
@@ -211,7 +214,7 @@ def _generic_interface_filter(
         return True
 
     elif (
-        "extreme_vsp" in plateform and \
+        "extreme_vsp" in plateform and
         (
             (
                 filters.get('get_vlan', True) and
@@ -237,7 +240,7 @@ def _generic_interface_filter(
 
 def is_valid_ip_and_mask(ip_address, netmask) -> bool:
     """
-    This function will check if an IP address and 
+    This function will check if an IP address and
     the netmask given in parameter are correct.
 
     :param ip_address: IPv4 address to check
@@ -275,7 +278,7 @@ def convert_cidr_to_netmask(netmask_cidr: str) -> str:
     for i in range(32 - int(netmask_cidr), 32):
         bits |= (1 << i)
     return (
-        "%d.%d.%d.%d" % 
+        "%d.%d.%d.%d" %
         (
             (bits & 0xff000000) >> 24,
             (bits & 0xff0000) >> 16,
@@ -303,7 +306,7 @@ def convert_netmask_to_cidr(netmask: str) -> str:
 
 def is_valid_ipv4_address(ip_address) -> bool:
     """
-    This function will check is the ip_address given is 
+    This function will check is the ip_address given is
     parameter is a valid IP address.
 
     :param ip_address: IP address to check
@@ -313,13 +316,13 @@ def is_valid_ipv4_address(ip_address) -> bool:
     try:
         ipaddress.IPv4Address(ip_address)
         return True
-    except ipaddress.AddressValueError as e:
+    except ipaddress.AddressValueError:
         return False
 
 
 def is_valid_cidr_netmask(cidr_netmask: str) -> bool:
     """
-    This function will check that the netmask given in 
+    This function will check that the netmask given in
     parameter is a correct mask for IPv4 IP address.
     Using to verify a netmask in CIDR (/24) format.
 
@@ -334,7 +337,7 @@ def is_valid_cidr_netmask(cidr_netmask: str) -> bool:
 
 def is_valid_netmask(netmask: str) -> bool:
     """
-    This function will check that the netmask given 
+    This function will check that the netmask given
     in parameter is a correct mask for IPv4 IP address.
     Using to verify a netmask in 255.255.255.255 format.
 
@@ -357,7 +360,7 @@ def is_valid_netmask(netmask: str) -> bool:
 
 def extract_ip_address(ip_address_with_netmask, separator="/") -> str:
     """
-    This function will extract netmask from an 
+    This function will extract netmask from an
     'IP address with netmask' receive in parameter.
     Separator is the char that separate ip_address of netmask. Example :
 
@@ -367,7 +370,7 @@ def extract_ip_address(ip_address_with_netmask, separator="/") -> str:
 
     Separtor value can not be '.' or a digit...
 
-    :param ip_address_with_netmask: IP address with the netmask 
+    :param ip_address_with_netmask: IP address with the netmask
             (192.168.1.1/24 or 192.168.1.1 255.255.255.0)
     :param separator: Char that separate ip_address of netmask
     :return: ip_address value
@@ -382,7 +385,7 @@ def extract_ip_address(ip_address_with_netmask, separator="/") -> str:
 
 def extract_netmask(ip_address_with_netmask, separator="/") -> str:
     """
-    This function will extract netmask from an 
+    This function will extract netmask from an
     'IP address with netmask' receive in parameter.
     Separator is the char that separate ip_address of netmask. Example :
 
@@ -405,7 +408,7 @@ def extract_netmask(ip_address_with_netmask, separator="/") -> str:
 
 def convert_in_bit_format(ip_value) -> str:
     """
-    This function will receive a value in parameter an 
+    This function will receive a value in parameter an
     convert it in a bit format.
 
     :param ip_value: Can be a mask or an IP address
@@ -502,4 +505,3 @@ def open_json_file(path: str()) -> str():
             print(exc)
 
     return content
-

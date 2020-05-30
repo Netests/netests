@@ -24,9 +24,10 @@ def get_bgp_peer_uptime(value: str, format: str) -> str:
 
 def mapping_sys_capabilities(code) -> str():
     """
-    This function will return systeme capability name regarding the abreviation given in parameter
+    This function will return systeme capability name
+    regarding the abreviation given in parameter
 
-    Output extract from Cisco Nexus9000 9000v Chassis NXOS: version 7.0(3)I7(5a)
+    Output extract from Cisco Nexus 9000v Chassis NXOS: version 7.0(3)I7(5a)
 
     Capability codes:
     (R) Router, (B) Bridge, (T) Telephone, (C) DOCSIS Cable Device
@@ -81,7 +82,8 @@ def get_first_digit_index(string: str) -> int:
 
 def mapping_interface_name(int_name) -> str():
     """
-    This function will receive an interface name in parameter and return the standard interface name.
+    This function will receive an interface name in parameter
+    and return the standard interface name.
 
     For example:
         * (Arista) Ethernet3 => Eth1/3
@@ -90,7 +92,10 @@ def mapping_interface_name(int_name) -> str():
     :return:
     """
 
-    if "Ethernet1/" in int_name and "GIGABITETHERNET" not in str(int_name).upper():
+    if (
+        "Ethernet1/" in int_name and
+        "GIGABITETHERNET" not in str(int_name).upper()
+    ):
         number = ""
         slash_index = int_name.find("/")
         for char in int_name[slash_index:]:
@@ -98,7 +103,10 @@ def mapping_interface_name(int_name) -> str():
                 number = number + str(char)
         return str("Eth1/").lower() + str(number)
 
-    elif "Ethernet" in int_name and "GIGABITETHERNET" not in str(int_name).upper():
+    elif (
+        "Ethernet" in int_name and
+        "GIGABITETHERNET" not in str(int_name).upper()
+    ):
         number = ""
         for char in int_name:
             if str(char).isdigit():

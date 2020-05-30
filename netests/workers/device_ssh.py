@@ -9,7 +9,7 @@ from nornir.plugins.tasks.networking import netmiko_send_command
 
 
 class DeviceSSH(Device, ABC):
-    
+
     def __init__(
         self,
         task,

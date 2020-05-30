@@ -9,12 +9,13 @@ from netests.converters.vrf.juniper.vrf_juniper_filters import (
     _juniper_vrf_default_mapping
 )
 
+
 def _juniper_vrf_nc_converter(
     hostname: str(),
     cmd_output,
     options={}
 ) -> ListVRF:
-    
+
     if not isinstance(cmd_output, dict):
         cmd_output = format_xml_output(cmd_output)
 

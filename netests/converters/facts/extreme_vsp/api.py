@@ -48,7 +48,6 @@ def _extreme_vsp_facts_api_converter(
                            .get('interface'):
             interfaces_lst.append(i.get('name'))
 
-
     print(hostname)
     return Facts(
         hostname=hostname,

@@ -1,6 +1,6 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
 from abc import ABC
 from jnpr.junos import Device
 from netests.workers.device_nc import DeviceNC
@@ -9,6 +9,7 @@ from netests.converters.facts.juniper.nc import _juniper_facts_nc_converter
 from netests.converters.lldp.juniper.nc import _juniper_lldp_nc_converter
 from netests.converters.ospf.juniper.nc import _juniper_ospf_nc_converter
 from netests.converters.vrf.juniper.nc import _juniper_vrf_nc_converter
+from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     FACTS_DATA_HOST_KEY,
@@ -59,7 +60,7 @@ class JuniperNC(DeviceNC, ABC):
     def exec_call_get(self, task, command, vrf):
         return self.__exec_call_generic(task, command, vrf)
 
-    def exec_call_get_config(self, task, command,vrf):
+    def exec_call_get_config(self, task, command, vrf):
         return self.__exec_call_generic(task, command, vrf)
 
     def __exec_call_generic(self, task, command, vrf):
@@ -97,7 +98,7 @@ class JuniperNC(DeviceNC, ABC):
     def _mapping_facts(self, m, vrf):
         a = dict(m.facts)
         return a
-    
+
     def _mapping_transit_facts(self, m, vrf):
         return self._mapping_facts(m, vrf)
 
@@ -127,6 +128,14 @@ class BGPJuniperNC(JuniperNC):
             options=options,
             source='running',
             format_command=False
+        )
+
+
+class CDPJuniperNC(JuniperNC):
+
+    def __init__(self, task, options={}):
+        raise NetestsFunctionNotPossible(
+            "Juniper doesn't support CDP"
         )
 
 
@@ -167,7 +176,6 @@ class LLDPJuniperNC(JuniperNC):
             options=options,
             source='running'
         )
-
 
 
 class OSPFJuniperNC(JuniperNC):

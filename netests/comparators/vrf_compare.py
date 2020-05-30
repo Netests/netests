@@ -8,7 +8,9 @@ from netests.protocols.vrf import VRF, ListVRF
 from netests.select_vars import select_host_vars
 from netests.constants import NOT_SET, VRF_DATA_KEY, VRF_WORKS_KEY
 from netests.comparators.log_compare import log_compare, log_no_yaml_data
-from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from netests.exceptions.netests_exceptions import (
+    NetestsOverideTruthVarsKeyUnsupported
+)
 
 
 def _compare_transit_vrf(task, options={}):
@@ -82,7 +84,7 @@ def _compare_vrf(
 
             log_compare(verity_vrf, vrf_host_data, hostname, groups)
             return verity_vrf == vrf_host_data
-                
+
         else:
             log_no_yaml_data(
                 "vrf",
@@ -92,6 +94,3 @@ def _compare_vrf(
                 groups
             )
             return True
-
-
-    

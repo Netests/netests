@@ -6,7 +6,9 @@ from netests import log
 from netests.tools.file import open_file
 from netests.select_vars import select_host_vars
 from netests.comparators.log_compare import log_compare, log_no_yaml_data
-from netests.exceptions.netests_exceptions import NetestsOverideTruthVarsKeyUnsupported
+from netests.exceptions.netests_exceptions import (
+    NetestsOverideTruthVarsKeyUnsupported
+)
 from netests.protocols.ospf import (
     OSPFSession,
     ListOSPFSessions,
@@ -126,4 +128,3 @@ def _compare_ospf(
                 groups
             )
             return True
-

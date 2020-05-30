@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-from netests.constants import NOT_SET
-from netests.protocols.lldp import LLDP, ListLLDP
+from netests.protocols.lldp import ListLLDP
 
 
 def _nxos_lldp_nc_converter(

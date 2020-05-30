@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
-from netests.constants import NOT_SET
-from netests.protocols.lldp import LLDP, ListLLDP
+from netests.protocols.lldp import ListLLDP
 
 
 def _ios_lldp_api_converter(

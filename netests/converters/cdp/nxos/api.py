@@ -45,7 +45,7 @@ def _nxos_cdp_api_converter(
                                                     .get('outputs')
                                                     .get('output')
                                                     .get('body')
-                                                    .get('TABLE_cdp_neighbor_detail_info')
+                                        .get('TABLE_cdp_neighbor_detail_info')
                                                     .keys()
     ):
         if isinstance(

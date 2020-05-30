@@ -29,6 +29,7 @@ from netests.constants import (
     NEXUS_GET_VRF
 )
 
+
 class BGPNxosSSH(DeviceSSH):
 
     def __init__(self, task, options={}):

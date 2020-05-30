@@ -15,22 +15,7 @@ from netests.constants import (
     FACTS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
-    VRF_DATA_KEY,
-    JUNOS_GET_BGP,
-    JUNOS_GET_BGP_RID,
-    JUNOS_GET_BGP_VRF,
-    JUNOS_GET_BGP_VRF_RID,
-    JUNOS_GET_FACTS,
-    JUNOS_GET_INT,
-    JUNOS_GET_MEMORY,
-    JUNOS_GET_CONFIG_SYSTEM,
-    JUNOS_GET_SERIAL,
-    JUNOS_GET_LLDP,
-    JUNOS_GET_OSPF_NEI,
-    JUNOS_GET_OSPF_RID,
-    JUNOS_GET_OSPF_NEI_VRF,
-    JUNOS_GET_OSPF_RID_VRF,
-    JUNOS_GET_VRF_DETAIL
+    VRF_DATA_KEY
 )
 
 
@@ -80,8 +65,10 @@ class BGPJuniperAPI(JuniperAPI):
             task=task,
             commands={
                 "default_vrf": {
-                    "bgp": "get-bgp-neighbor-information?exact-instance=master",
-                    "rid": "get-instance-information?instance-name=master&detail="
+                    "bgp":
+                        "get-bgp-neighbor-information?exact-instance=master",
+                    "rid":
+                        "get-instance-information?instance-name=master&detail="
                 },
                 "vrf": {
                     "bgp": "get-bgp-neighbor-information?exact-instance={}",
@@ -101,6 +88,7 @@ class CDPJuniperAPI(JuniperAPI):
         raise NetestsFunctionNotPossible(
             "Juniper doesn't support CDP"
         )
+
 
 class FactsJuniperAPI(JuniperAPI):
 
@@ -146,11 +134,13 @@ class OSPFJuniperAPI(JuniperAPI):
             task=task,
             commands={
                 "default_vrf": {
-                    "bgp": "get-ospf-neighbor-information?instance=master&detail=",
+                    "bgp":
+                       "get-ospf-neighbor-information?instance=master&detail=",
                     "rid": "get-ospf-overview-information?instance=master"
                 },
                 "vrf": {
-                    "bgp": "get-ospf-neighbor-information?instance={}&detail=",
+                    "bgp":
+                        "get-ospf-neighbor-information?instance={}&detail=",
                     "rid": "get-ospf-overview-information?instance={}"
                 }
             },

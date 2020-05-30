@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
 from netests.constants import NOT_SET
 from netests.protocols.facts import Facts
 from netests.tools.nc import format_xml_output
@@ -14,7 +13,7 @@ def _ios_facts_api_converter(
 ) -> Facts:
 
     cmd_output = format_xml_output(cmd_output)
-    
+
     hostname = NOT_SET
     domain = NOT_SET
     version = NOT_SET
@@ -52,7 +51,7 @@ def _ios_facts_api_converter(
         isinstance(cmd_output, dict) and
         'native' in cmd_output.keys()
     ):
-        
+
         hostname = cmd_output.get('native').get('hostname')
         domain = cmd_output.get('native').get('ip').get('domain').get('name')
         version = cmd_output.get('native').get('version')

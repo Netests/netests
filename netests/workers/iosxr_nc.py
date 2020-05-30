@@ -149,7 +149,6 @@ class OSPFIosxrNC(IosxrNC):
         )
 
 
-
 class VRFIosxrNC(IosxrNC):
 
     NETCONF_FILTER_VRF = """

@@ -3,14 +3,15 @@
 
 import yaml
 import shutil
+from netests import log
 from pathlib import Path
-from abc import ABC, abstractmethod
 from nornir.core import Nornir
 from nornir.core.filter import F
-from nornir.plugins.functions.text import print_result
-from netests import log
-from netests.exceptions.netests_exceptions import NetestsDeviceNotCompatibleWithNapalm
+from abc import ABC, abstractmethod
 from netests.constants import PLATFORM_SUPPORTED, CONNEXION_MODE
+from netests.exceptions.netests_exceptions import (
+    NetestsDeviceNotCompatibleWithNapalm
+)
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -87,15 +88,7 @@ class GetterBase(ABC):
         self.compare_result = dict()
 
     @abstractmethod
-    def print_result(self):
-        pass
-
-    @abstractmethod
     def init_mapping_function(self):
-        pass
-
-    @abstractmethod
-    def print_result(self):
         pass
 
     @abstractmethod
@@ -103,7 +96,6 @@ class GetterBase(ABC):
         pass
 
     def _compare_result(self, data):
-        return_value = True
         log.debug(
             f"RESULT - {self.__class__.__name__}"
             f"data.values()={data.values()}"
@@ -124,7 +116,7 @@ class GetterBase(ABC):
 
     def run(self):
         log.debug("Run <generic_get>")
-        output = self.devices.run(
+        self.devices.run(
             task=self.generic_get,
             on_failed=True,
             num_workers=self.num_workers
@@ -146,7 +138,9 @@ class GetterBase(ABC):
                         "Write the following data into "
                         f"truth_vars/hosts/{host}/{self.filename}"
                         "\n"
-                        f"{self.nr.inventory.hosts[host][self.key_store].to_json()}"
+                        "" + self.nr.inventory.hosts.get(host)
+                                                    .get(self.key_store)
+                                                    .to_json()
                     )
                     yaml.dump(
                         self.nr.inventory.hosts[host][self.key_store].to_json(
@@ -251,7 +245,6 @@ class GetterBase(ABC):
 
     def function_not_implemented(self, task):
         log.debug("Function not implemented")
-
 
     def __repr__(self) -> str:
         pass

@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 
 from abc import ABC
-from ncclient import manager
+from netests.constants import VRF_DATA_KEY
 from netests.workers.device_nc import DeviceNC
-from netests.constants import ARISTA_GET_VRF, VRF_DATA_KEY, VRF_DEFAULT_RT_LST
 from netests.converters.vrf.arista.nc import _arista_vrf_nc_converter
 from netests.exceptions.netests_exceptions import (
     NetestsFunctionNotPossible,
     NetestsFunctionNotImplemented
 )
+
 
 class AristaNC(DeviceNC, ABC):
 
@@ -35,7 +35,7 @@ class AristaNC(DeviceNC, ABC):
             key_store,
             options
         )
-        if nc_method == 'get' or nc_method =='get_config':
+        if nc_method == 'get' or nc_method == 'get_config':
             self.nc_method = nc_method
         else:
             self.nc_method = 'get'
@@ -85,9 +85,10 @@ class LLDPAristaNC(AristaNC):
             "Arista -  nc - LLDP not implemented"
         )
 
+
 class OSPFAristaNC(AristaNC):
 
-    def __init__(self,task, options={}):
+    def __init__(self, task, options={}):
         raise NetestsFunctionNotImplemented(
             "Arista -  nc - OSPF not implemented"
         )
