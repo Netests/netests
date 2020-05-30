@@ -45,7 +45,7 @@ def print_inv(nr):
 
 
 def print_hello() -> None:
-    print(f"\t Welcome to Netests.io ")
+    print("\t Welcome to Netests.io ")
 
 
 def printline() -> None:

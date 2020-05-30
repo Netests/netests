@@ -58,7 +58,7 @@ def check_devices_connectivity(nr: Nornir) -> bool:
     if not data.failed:
         print("All devices are reachable :) !")
     else:
-        print(f"\nPlease check credentials in the inventory")
+        print("\nPlease check credentials in the inventory")
 
     return not data.failed
 
