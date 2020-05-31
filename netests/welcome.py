@@ -8,8 +8,9 @@ import urllib3
 from netests import log
 from netests.base_run import run_base
 from netests.base_cli import netests_cli
-from netests.tools.std import open_file, check_devices_connectivity
+from netests.select_vars import select_host_vars
 from netests.nornir_inventory import init_nornir
+from netests.tools.std import open_file, check_devices_connectivity
 from netests.constants import EXIT_FAILURE, EXIT_SUCCESS, DATA_MODELS_PATH
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
@@ -209,6 +210,12 @@ def print_result(result) -> None:
     is_flag=True,
     help="To create truth_vars files.",
 )
+@click.option(
+    "-V",
+    "--show-truth-vars",
+    default=False,
+    help="Show vars retrieved for a specific host. Use * to select all hosts",
+)
 def main(
     netest_config_file,
     inventory_config_file,
@@ -232,10 +239,11 @@ def main(
     compare,
     show_data_model,
     init_data,
+    show_truth_vars
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-    if show_data_model:
+    if show_data_model is not False:
         if os.path.exists(f"{DATA_MODELS_PATH}{show_data_model}.yml"):
             with open(f"{DATA_MODELS_PATH}{show_data_model}.yml", 'r') as f:
                 print(f.read())
@@ -279,6 +287,26 @@ def main(
             exit(EXIT_SUCCESS)
         else:
             exit(EXIT_FAILURE)
+    elif show_truth_vars is not False:
+        result = dict()
+        result['error_not_in_inventory'] = list()
+        for hostname in show_truth_vars.split(','):
+            if hostname in nr.inventory.hosts.keys():
+                result[hostname] = dict()
+                for protocol, test in t.get('config').get('protocols').items():
+                    if test.get('test', False) is True:
+                        result[hostname][protocol] = select_host_vars(
+                            hostname=hostname,
+                            groups=nr.inventory.hosts[hostname].groups,
+                            protocol=protocol
+                        )
+
+            else:
+                result['error_not_in_inventory'].append(hostname)
+
+        printline()
+        PP.pprint(result)
+        exit(EXIT_SUCCESS)
 
     result = dict()
     for k, v in t.get('config').get('protocols').items():
