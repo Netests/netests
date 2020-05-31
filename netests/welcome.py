@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import click
 import shutil
 import urllib3
@@ -9,7 +10,7 @@ from netests.base_run import run_base
 from netests.base_cli import netests_cli
 from netests.tools.std import open_file, check_devices_connectivity
 from netests.nornir_inventory import init_nornir
-from netests.constants import EXIT_FAILURE, EXIT_SUCCESS
+from netests.constants import EXIT_FAILURE, EXIT_SUCCESS, DATA_MODELS_PATH
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -197,6 +198,12 @@ def print_result(result) -> None:
     help="To compare/excute step. Will only get data or generate cmd.",
 )
 @click.option(
+    "-D",
+    "--show-data-model",
+    default=False,
+    help="Show data models for a protocol. Can help you to create your SOT.",
+)
+@click.option(
     "-I",
     "--init-data",
     is_flag=True,
@@ -223,9 +230,18 @@ def main(
     netbox_inventory,
     nornir_inventory,
     compare,
+    show_data_model,
     init_data,
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    if show_data_model:
+        if os.path.exists(f"{DATA_MODELS_PATH}{show_data_model}.yml"):
+            with open(f"{DATA_MODELS_PATH}{show_data_model}.yml", 'r') as f:
+                print(f.read())
+        else:
+            print(f"{HEADER} {show_data_model} is not a supported protocol")
+        exit(EXIT_SUCCESS)
 
     t = open_file(path=netest_config_file)
     log.debug(t)

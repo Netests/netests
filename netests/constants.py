@@ -30,6 +30,7 @@ NETCONF_FILTER = "<filter>{}</filter>"
 NETESTS_CONFIG = "netests.yml"
 
 # REPORT PATH
+DATA_MODELS_PATH = "netests/data_models/"
 REPORT_FOLDER = "reports/"
 TEMPLATES_PATH = "netests/templates/"
 TESTS_PATH = "tests/"
