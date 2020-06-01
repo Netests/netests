@@ -21,6 +21,7 @@ from netests.workers.iosxr_ssh import VRFIosxrSSH
 from netests.workers.juniper_api import VRFJuniperAPI
 from netests.workers.juniper_nc import VRFJuniperNC
 from netests.workers.juniper_ssh import VRFJuniperSSH
+from netests.workers.napalm_any import VRFNapalm
 from netests.workers.nxos_api import VRFNxosAPI
 from netests.workers.nxos_nc import VRFNxosNC
 from netests.workers.nxos_ssh import VRFNxosSSH
@@ -60,7 +61,7 @@ class GetterVRF(GetterBase):
         self.init_mapping_function()
 
     def compare(self):
-        log.debug(f"CALL _compare_transit_vrf  num_workers={self.num_workers}")
+        log.debug(f"CALL _compare_transit_vrf num_workers={self.num_workers}")
         data = self.devices.run(
             task=_compare_transit_vrf,
             on_failed=True,
@@ -73,36 +74,43 @@ class GetterVRF(GetterBase):
             self.ARISTA_PLATEFORM_NAME: {
                 self.API_CONNECTION: VRFAristaAPI,
                 self.NETCONF_CONNECTION: VRFAristaNC,
-                self.SSH_CONNECTION: VRFAristaSSH
+                self.SSH_CONNECTION: VRFAristaSSH,
+                self.NAPALM_CONNECTION: VRFNapalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: VRFCumulusAPI,
                 self.NETCONF_CONNECTION: CumulusNC,
                 self.SSH_CONNECTION: VRFCumulusSSH,
+                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.EXTREME_PLATEFORM_NAME: {
                 self.API_CONNECTION: VRFExtremeVSPAPI,
                 self.NETCONF_CONNECTION: ExtremeVSPNC,
-                self.SSH_CONNECTION: VRFExtremeVSPSSH
+                self.SSH_CONNECTION: VRFExtremeVSPSSH,
+                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.CISCO_IOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: VRFIosAPI,
                 self.NETCONF_CONNECTION: VRFIosNC,
-                self.SSH_CONNECTION: VRFIosSSH
+                self.SSH_CONNECTION: VRFIosSSH,
+                self.NAPALM_CONNECTION: VRFNapalm
             },
             self.CISCO_IOSXR_PLATEFORM_NAME: {
                 self.API_CONNECTION: IosxrAPI,
                 self.NETCONF_CONNECTION: VRFIosxrNC,
-                self.SSH_CONNECTION: VRFIosxrSSH
+                self.SSH_CONNECTION: VRFIosxrSSH,
+                self.NAPALM_CONNECTION: VRFNapalm
             },
             self.JUNOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: VRFJuniperAPI,
                 self.NETCONF_CONNECTION: VRFJuniperNC,
-                self.SSH_CONNECTION: VRFJuniperSSH
+                self.SSH_CONNECTION: VRFJuniperSSH,
+                self.NAPALM_CONNECTION: VRFNapalm
             },
             self.NEXUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: VRFNxosAPI,
                 self.NETCONF_CONNECTION: VRFNxosNC,
-                self.SSH_CONNECTION: VRFNxosSSH
+                self.SSH_CONNECTION: VRFNxosSSH,
+                self.NAPALM_CONNECTION: VRFNapalm
             },
         }

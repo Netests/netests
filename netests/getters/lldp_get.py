@@ -22,6 +22,7 @@ from netests.workers.iosxr_ssh import LLDPIosxrSSH
 from netests.workers.juniper_api import LLDPJuniperAPI
 from netests.workers.juniper_nc import LLDPJuniperNC
 from netests.workers.juniper_ssh import LLDPJuniperSSH
+from netests.workers.napalm_any import LLDPNapalm
 from netests.workers.nxos_api import LLDPNxosAPI
 from netests.workers.nxos_nc import LLDPNxosNC
 from netests.workers.nxos_ssh import LLDPNxosSSH
@@ -69,7 +70,7 @@ class GetterLLDP(GetterBase):
                 self.API_CONNECTION: LLDPAristaAPI,
                 self.NETCONF_CONNECTION: LLDPAristaNC,
                 self.SSH_CONNECTION: LLDPAristaSSH,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: LLDPNapalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: LLDPCumulusAPI,
@@ -87,24 +88,24 @@ class GetterLLDP(GetterBase):
                 self.API_CONNECTION: LLDPIosAPI,
                 self.NETCONF_CONNECTION: LLDPIosNC,
                 self.SSH_CONNECTION: LLDPIosSSH,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: LLDPNapalm
             },
             self.CISCO_IOSXR_PLATEFORM_NAME: {
                 self.API_CONNECTION: IosxrAPI,
                 self.NETCONF_CONNECTION: LLDPIosxrNC,
                 self.SSH_CONNECTION: LLDPIosxrSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: LLDPNapalm
             },
             self.JUNOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: LLDPJuniperAPI,
                 self.NETCONF_CONNECTION: LLDPJuniperNC,
                 self.SSH_CONNECTION: LLDPJuniperSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: LLDPNapalm
             },
             self.NEXUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: LLDPNxosAPI,
                 self.NETCONF_CONNECTION: LLDPNxosNC,
                 self.SSH_CONNECTION: LLDPNxosSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: LLDPNapalm
             }
         }

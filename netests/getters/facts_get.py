@@ -23,6 +23,7 @@ from netests.workers.iosxr_ssh import FactsIosxrSSH
 from netests.workers.juniper_api import FactsJuniperAPI
 from netests.workers.juniper_nc import FactsJuniperNC
 from netests.workers.juniper_ssh import FactsJuniperSSH
+from netests.workers.napalm_any import FactsNapalm
 from netests.workers.nxos_api import FactsNxosAPI
 from netests.workers.nxos_nc import FactsNxosNC
 from netests.workers.nxos_ssh import FactsNxosSSH
@@ -78,7 +79,7 @@ class GetterFacts(GetterBase):
                 self.API_CONNECTION: FactsAristaAPI,
                 self.NETCONF_CONNECTION: FactsAristaNC,
                 self.SSH_CONNECTION: FactsAristaSSH,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: FactsNapalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: FactsCumulusAPI,
@@ -96,24 +97,24 @@ class GetterFacts(GetterBase):
                 self.API_CONNECTION: FactsIosAPI,
                 self.NETCONF_CONNECTION: FactsIosNC,
                 self.SSH_CONNECTION: FactsIosSSH,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: FactsNapalm
             },
             self.CISCO_IOSXR_PLATEFORM_NAME: {
                 self.API_CONNECTION: IosxrAPI,
                 self.NETCONF_CONNECTION: FactsIosxrNC,
                 self.SSH_CONNECTION: FactsIosxrSSH,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: FactsNapalm
             },
             self.JUNOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: FactsJuniperAPI,
                 self.NETCONF_CONNECTION: FactsJuniperNC,
                 self.SSH_CONNECTION: FactsJuniperSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: FactsNapalm
             },
             self.NEXUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: FactsNxosAPI,
                 self.NETCONF_CONNECTION: FactsNxosNC,
                 self.SSH_CONNECTION: FactsNxosSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: FactsNapalm
             }
         }

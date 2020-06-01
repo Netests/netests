@@ -22,6 +22,7 @@ from netests.workers.iosxr_ssh import CDPIosxrSSH
 from netests.workers.juniper_api import CDPJuniperAPI
 from netests.workers.juniper_nc import CDPJuniperNC
 from netests.workers.juniper_ssh import CDPJuniperSSH
+from netests.workers.napalm_any import CDPNapalm
 from netests.workers.nxos_api import CDPNxosAPI
 from netests.workers.nxos_nc import CDPNxosNC
 from netests.workers.nxos_ssh import CDPNxosSSH
@@ -69,42 +70,42 @@ class GetterCDP(GetterBase):
                 self.API_CONNECTION: CDPAristaAPI,
                 self.NETCONF_CONNECTION: CDPAristaNC,
                 self.SSH_CONNECTION: CDPAristaSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: CDPNapalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: CDPCumulusAPI,
                 self.NETCONF_CONNECTION: CumulusNC,
                 self.SSH_CONNECTION: CDPCumulusSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.EXTREME_PLATEFORM_NAME: {
                 self.API_CONNECTION: CDPExtremeVSPAPI,
                 self.NETCONF_CONNECTION: ExtremeVSPNC,
                 self.SSH_CONNECTION: CDPExtremeVSPSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
             },
             self.CISCO_IOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: CDPIosAPI,
                 self.NETCONF_CONNECTION: CDPIosNC,
                 self.SSH_CONNECTION: CDPIosSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: CDPNapalm
             },
             self.CISCO_IOSXR_PLATEFORM_NAME: {
                 self.API_CONNECTION: IosxrAPI,
                 self.NETCONF_CONNECTION: CDPIosxrNC,
                 self.SSH_CONNECTION: CDPIosxrSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: CDPNapalm
             },
             self.JUNOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: CDPJuniperAPI,
                 self.NETCONF_CONNECTION: CDPJuniperNC,
                 self.SSH_CONNECTION: CDPJuniperSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: CDPNapalm
             },
             self.NEXUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: CDPNxosAPI,
                 self.NETCONF_CONNECTION: CDPNxosNC,
                 self.SSH_CONNECTION: CDPNxosSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: CDPNapalm
             }
         }

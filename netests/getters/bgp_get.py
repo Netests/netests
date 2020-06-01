@@ -22,6 +22,7 @@ from netests.workers.iosxr_ssh import BGPIosxrSSH
 from netests.workers.juniper_api import BGPJuniperAPI
 from netests.workers.juniper_nc import BGPJuniperNC
 from netests.workers.juniper_ssh import BGPJuniperSSH
+from netests.workers.napalm_any import BGPNapalm
 from netests.workers.nxos_api import BGPNxosAPI
 from netests.workers.nxos_nc import BGPNxosNC
 from netests.workers.nxos_ssh import BGPNxosSSH
@@ -69,7 +70,7 @@ class GetterBGP(GetterRouting):
                 self.API_CONNECTION: BGPAristaAPI,
                 self.NETCONF_CONNECTION: BGPAristaNC,
                 self.SSH_CONNECTION: BGPAristaSSH,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: BGPNapalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: BGPCumulusAPI,
@@ -87,24 +88,24 @@ class GetterBGP(GetterRouting):
                 self.API_CONNECTION: BGPIosAPI,
                 self.NETCONF_CONNECTION: BGPIosNC,
                 self.SSH_CONNECTION: BGPIosSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: BGPNapalm
             },
             self.CISCO_IOSXR_PLATEFORM_NAME: {
                 self.API_CONNECTION: IosxrAPI,
                 self.NETCONF_CONNECTION: BGPIosxrNC,
                 self.SSH_CONNECTION: BGPIosxrSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: BGPNapalm
             },
             self.JUNOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: BGPJuniperAPI,
                 self.NETCONF_CONNECTION: BGPJuniperNC,
                 self.SSH_CONNECTION: BGPJuniperSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: BGPNapalm
             },
             self.NEXUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: BGPNxosAPI,
                 self.NETCONF_CONNECTION: BGPNxosNC,
                 self.SSH_CONNECTION: BGPNxosSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: BGPNapalm
             }
         }

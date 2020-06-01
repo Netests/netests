@@ -22,6 +22,7 @@ from netests.workers.iosxr_ssh import OSPFIosxrSSH
 from netests.workers.juniper_api import OSPFJuniperAPI
 from netests.workers.juniper_nc import OSPFJuniperNC
 from netests.workers.juniper_ssh import OSPFJuniperSSH
+from netests.workers.napalm_any import OSPFNapalm
 from netests.workers.nxos_api import OSPFNxosAPI
 from netests.workers.nxos_nc import OSPFNxosNC
 from netests.workers.nxos_ssh import OSPFNxosSSH
@@ -69,7 +70,7 @@ class GetterOSPF(GetterRouting):
                 self.API_CONNECTION: OSPFAristaAPI,
                 self.NETCONF_CONNECTION: OSPFAristaNC,
                 self.SSH_CONNECTION: OSPFAristaSSH,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: OSPFNapalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: OSPFCumulusAPI,
@@ -87,24 +88,24 @@ class GetterOSPF(GetterRouting):
                 self.API_CONNECTION: OSPFIosAPI,
                 self.NETCONF_CONNECTION: OSPFIosNC,
                 self.SSH_CONNECTION: OSPFIosSSH,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: OSPFNapalm
             },
             self.CISCO_IOSXR_PLATEFORM_NAME: {
                 self.API_CONNECTION: IosxrAPI,
                 self.NETCONF_CONNECTION: OSPFIosxrNC,
                 self.SSH_CONNECTION: OSPFIosxrSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: OSPFNapalm
             },
             self.JUNOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: OSPFJuniperAPI,
                 self.NETCONF_CONNECTION: OSPFJuniperNC,
                 self.SSH_CONNECTION: OSPFJuniperSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: OSPFNapalm
             },
             self.NEXUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: OSPFNxosAPI,
                 self.NETCONF_CONNECTION: OSPFNxosNC,
                 self.SSH_CONNECTION: OSPFNxosSSH,
-                self.NAPALM_CONNECTION: "pass"
+                self.NAPALM_CONNECTION: OSPFNapalm
             }
         }

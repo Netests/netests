@@ -14,7 +14,6 @@ from netests.constants import (
 
 def _napalm_facts_converter(
     hostname: str,
-    platform: str,
     cmd_output: json,
     options={}
 ) -> Facts:
