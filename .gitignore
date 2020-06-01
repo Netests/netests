@@ -20,3 +20,5 @@ req.txt
 **log.*
 netests.egg-info
 netests.log
+dist/
+backup/
