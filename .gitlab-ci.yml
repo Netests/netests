@@ -17,4 +17,4 @@ Unit Tests:
 Python Code Lint:
   stage: lint
   script:
-    - poetry run pylama netests/
+    - ./tests/run_syntax.sh
