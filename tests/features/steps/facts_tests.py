@@ -676,7 +676,6 @@ def step_impl(context):
 def step_impl(context):
     context.o0602 = _napalm_facts_converter(
         hostname="leaf03",
-        platform="nxos",
         cmd_output=open_json_file(
             path=(
                 f"{FEATURES_SRC_PATH}outputs/facts/napalm/nxos_get_facts.json"
