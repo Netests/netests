@@ -4,46 +4,31 @@
 import json
 import yaml
 import textfsm
-from const.constants import (
-    NOT_SET,
-    FEATURES_SRC_PATH,
-    FEATURES_OUTPUT_PATH,
-    VRF_DATA_KEY
-)
-from functions.vrf.vrf_compare import _compare_vrf
-from functions.vrf.arista.api.converter import _arista_vrf_api_converter
-from functions.vrf.arista.netconf.converter import _arista_vrf_netconf_converter
-from functions.vrf.arista.ssh.converter import _arista_vrf_ssh_converter
-from functions.vrf.cumulus.api.converter import _cumulus_vrf_api_converter
-from functions.vrf.cumulus.ssh.converter import _cumulus_vrf_ssh_converter
-from functions.vrf.extreme_vsp.ssh.converter import _extreme_vsp_vrf_ssh_converter
-from functions.vrf.ios.api.converter import _ios_vrf_api_converter
-from functions.vrf.ios.netconf.converter import _ios_vrf_netconf_converter
-from functions.vrf.ios.ssh.converter import _ios_vrf_ssh_converter
-from functions.vrf.iosxr.ssh.converter import _iosxr_vrf_ssh_converter
-from functions.vrf.iosxr.netconf.converter import _iosxr_vrf_netconf_converter
-from functions.vrf.juniper.api.converter import _juniper_vrf_api_converter
-from functions.vrf.juniper.netconf.converter import _juniper_vrf_netconf_converter
-from functions.vrf.juniper.ssh.converter import _juniper_vrf_ssh_converter
-from functions.vrf.napalm.converter import _napalm_vrf_converter
-from functions.vrf.nxos.ssh.converter import _nxos_vrf_ssh_converter
-from functions.vrf.nxos.netconf.converter import _nxos_vrf_netconf_converter
-from functions.vrf.nxos.restconf.converter import _nxos_vrf_restconf_converter
-from protocols.vrf import (
-    VRF,
-    ListVRF
-)
-from functions.global_tools import (
-    open_file,
-    open_txt_file,
-    open_json_file,
-    open_txt_file_as_bytes,
-    printline
-)
-from behave import given, when, then
+from netests.protocols.vrf import VRF, ListVRF
+from netests.comparators.vrf_compare import _compare_vrf
+from netests.converters.vrf.arista.api import _arista_vrf_api_converter
+from netests.converters.vrf.arista.nc import _arista_vrf_nc_converter
+from netests.converters.vrf.arista.ssh import _arista_vrf_ssh_converter
+from netests.converters.vrf.cumulus.api import _cumulus_vrf_api_converter
+from netests.converters.vrf.cumulus.ssh import _cumulus_vrf_ssh_converter
+from netests.converters.vrf.extreme_vsp.ssh import _extreme_vsp_vrf_ssh_converter
+from netests.converters.vrf.ios.api import _ios_vrf_api_converter
+from netests.converters.vrf.ios.nc import _ios_vrf_nc_converter
+from netests.converters.vrf.ios.ssh import _ios_vrf_ssh_converter
+from netests.converters.vrf.iosxr.ssh import _iosxr_vrf_ssh_converter
+from netests.converters.vrf.iosxr.nc import _iosxr_vrf_nc_converter
+from netests.converters.vrf.juniper.api import _juniper_vrf_api_converter
+from netests.converters.vrf.juniper.nc import _juniper_vrf_nc_converter
+from netests.converters.vrf.juniper.ssh import _juniper_vrf_ssh_converter
+from netests.converters.vrf.napalm.converter import _napalm_vrf_converter
+from netests.converters.vrf.nxos.nc import _nxos_vrf_nc_converter
+from netests.converters.vrf.nxos.rc import _nxos_vrf_rc_converter
+from netests.converters.vrf.nxos.ssh import _nxos_vrf_ssh_converter
+from netests.constants import NOT_SET, FEATURES_SRC_PATH, FEATURES_OUTPUT_PATH, VRF_DATA_KEY
+from netests.tools.file import open_file, open_txt_file, open_json_file, open_txt_file_as_bytes
 
 
-@given(u'A network protocols named VRF defined in protocols/vrf.py')
+@given(u'A network protocols named VRF defined in netests/protocols/vrf.py')
 def step_impl(context):
     context.test_not_implemented = list()
 
@@ -112,7 +97,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a Arista Netconf named o0003')
 def step_impl(context):
-    context.o0003 = _arista_vrf_netconf_converter(
+    context.o0003 = _arista_vrf_nc_converter(
         hostname="leaf03",
         cmd_output=open_json_file(
             path=(
@@ -172,7 +157,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a Arista no config Netconf named o0013')
 def step_impl(context):
-    context.o0013 = _arista_vrf_netconf_converter(
+    context.o0013 = _arista_vrf_nc_converter(
         hostname="leaf03",
         cmd_output=open_json_file(
             path=(
@@ -246,7 +231,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a Arista one vrf Netconf named o0023')
 def step_impl(context):
-    context.o0023 = _arista_vrf_netconf_converter(
+    context.o0023 = _arista_vrf_nc_converter(
         hostname="leaf03",
         cmd_output=open_json_file(
             path=(
@@ -274,6 +259,20 @@ def step_impl(context):
 def step_impl(context):
     context.o0101 = ListVRF(
         vrf_lst=list()
+    )
+
+    context.o0101.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id="1000",
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
     )
 
     context.o0101.vrf_lst.append(
@@ -458,7 +457,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a IOS Netconf named o0303')
 def step_impl(context):
-    context.o0303 = _ios_vrf_netconf_converter(
+    context.o0303 = _ios_vrf_nc_converter(
         hostname="leaf05",
         cmd_output=open_txt_file(
             path=(
@@ -518,7 +517,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a IOS no config Netconf named o0313')
 def step_impl(context):
-    context.o0313 = _ios_vrf_netconf_converter(
+    context.o0313 = _ios_vrf_nc_converter(
         hostname="leaf05",
         cmd_output=open_txt_file(
             path=(
@@ -592,7 +591,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a IOS one vrf Netconf named o0323')
 def step_impl(context):
-    context.o0323 = _ios_vrf_netconf_converter(
+    context.o0323 = _ios_vrf_nc_converter(
         hostname="leaf05",
         cmd_output=open_txt_file(
             path=(
@@ -680,7 +679,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a IOS many Netconf named o0333')
 def step_impl(context):
-    context.o0333 = _ios_vrf_netconf_converter(
+    context.o0333 = _ios_vrf_nc_converter(
         hostname="leaf05",
         cmd_output=open_txt_file(
             path=(
@@ -709,6 +708,20 @@ def step_impl(context):
 def step_impl(context):
     context.o0401 = ListVRF(
         vrf_lst=list()
+    )
+
+    context.o0401.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
     )
 
     context.o0401.vrf_lst.append(
@@ -761,7 +774,7 @@ def step_impl(context):
         )
     )
 
-    context.o403 = _iosxr_vrf_netconf_converter(
+    context.o403 = _iosxr_vrf_nc_converter(
         hostname="spine03",
         cmd_output=config
     )
@@ -784,6 +797,20 @@ def step_impl(context):
 def step_impl(context):
     context.o0405 = ListVRF(
         vrf_lst=list()
+    )
+
+    context.o0405.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
     )
 
     context.o0405.vrf_lst.append(
@@ -846,7 +873,7 @@ def step_impl(context):
         )
     )
 
-    context.o0406 = _iosxr_vrf_netconf_converter(
+    context.o0406 = _iosxr_vrf_nc_converter(
         hostname="spine03",
         cmd_output=config
     )
@@ -856,6 +883,20 @@ def step_impl(context):
 def step_impl(context):
     context.o0411 = ListVRF(
         vrf_lst=list()
+    )
+
+    context.o0411.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type="Regular",
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
     )
 
 
@@ -880,7 +921,7 @@ def step_impl(context):
         )
     )
 
-    context.o0413 = _iosxr_vrf_netconf_converter(
+    context.o0413 = _iosxr_vrf_nc_converter(
         hostname="spine03",
         cmd_output=config
     )
@@ -903,6 +944,20 @@ def step_impl(context):
 def step_impl(context):
     context.o0421 = ListVRF(
         vrf_lst=list()
+    )
+
+    context.o0421.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id=NOT_SET,
+            vrf_type=NOT_SET,
+            l3_vni=NOT_SET,
+            rd=NOT_SET,
+            rt_imp=NOT_SET,
+            rt_exp=NOT_SET,
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
     )
 
     context.o0421.vrf_lst.append(
@@ -941,7 +996,7 @@ def step_impl(context):
         )
     )
 
-    context.o0423 = _iosxr_vrf_netconf_converter(
+    context.o0423 = _iosxr_vrf_nc_converter(
         hostname="spine03",
         cmd_output=config
     )
@@ -1025,7 +1080,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a Juniper Netconf output named o0503')
 def step_impl(context):
-    context.o0503 = _juniper_vrf_netconf_converter(
+    context.o0503 = _juniper_vrf_nc_converter(
         hostname="leaf04",
         cmd_output=open_file(
             path=(
@@ -1161,7 +1216,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a NXOS API output named o0702')
 def step_impl(context):
-    context.o0702 = _nxos_vrf_restconf_converter(
+    context.o0702 = _nxos_vrf_rc_converter(
         hostname="leaf02",
         cmd_output=open_file(
             path=(
@@ -1174,7 +1229,7 @@ def step_impl(context):
 
 @given(u'I create a VRF object from a NXOS Netconf output named o0703')
 def step_impl(context):
-    context.o0703 = _nxos_vrf_netconf_converter(
+    context.o0703 = _nxos_vrf_nc_converter(
         hostname="leaf02",
         cmd_output=open_file(
             path=(
@@ -1767,8 +1822,6 @@ def step_impl(context):
 
 @given(u'VRF o0701 should be equal to o0702')
 def step_impl(context):
-    print(context.o0701)
-    print(context.o0702)
     assert context.o0701 == context.o0702
 
 
@@ -1832,9 +1885,6 @@ def step_impl(context):
 
 @given(u'I Finish my VRF tests and list tests not implemented')
 def step_impl(context):
-    printline()
     print("| The following tests are not implemented :")
-    printline()
     for test in context.test_not_implemented:
         print(f"| {test}")
-    printline()

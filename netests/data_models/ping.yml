@@ -1,0 +1,13 @@
+
+- ip: 127.0.0.1
+  works: true
+- ip: 8.8.8.8
+  works: false
+- ip: 172.16.194.111
+  works: false
+- ip: 172.16.194.1
+  vrf: mgmt
+  works: false
+- ip: 172.16.194.1
+  vrf: ewfjweijfoeirjfer
+  works: false

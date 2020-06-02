@@ -4,7 +4,27 @@
 import json
 import yaml
 import textfsm
-from const.constants import (
+from behave import given, when, then
+from netests.protocols.facts import Facts
+from netests.converters.facts.arista.api import _arista_facts_api_converter
+from netests.converters.facts.arista.ssh import _arista_facts_ssh_converter
+from netests.converters.facts.cumulus.api import _cumulus_facts_api_converter
+from netests.converters.facts.cumulus.ssh import _cumulus_facts_ssh_converter
+from netests.converters.facts.extreme_vsp.ssh import _extreme_vsp_facts_ssh_converter
+from netests.converters.facts.extreme_vsp.api import _extreme_vsp_facts_api_converter
+from netests.converters.facts.ios.api import _ios_facts_api_converter
+from netests.converters.facts.ios .nc import _ios_facts_nc_converter
+from netests.converters.facts.ios.ssh import _ios_facts_ssh_converter
+from netests.converters.facts.iosxr.ssh import _iosxr_facts_ssh_converter
+from netests.converters.facts.juniper.api import _juniper_facts_api_converter
+from netests.converters.facts.juniper .nc import _juniper_facts_nc_converter
+from netests.converters.facts.juniper.ssh import _juniper_facts_ssh_converter
+from netests.converters.facts.napalm.converter import _napalm_facts_converter
+from netests.converters.facts.nxos.api import _nxos_facts_api_converter
+from netests.converters.facts.nxos.ssh import _nxos_facts_ssh_converter
+from netests.comparators.facts_compare import _compare_facts
+from netests.tools.file import open_file, open_txt_file, open_json_file, open_txt_file_as_bytes
+from netests.constants import (
     NOT_SET,
     FEATURES_SRC_PATH,
     FEATURES_OUTPUT_PATH,
@@ -16,35 +36,9 @@ from const.constants import (
     FACTS_CONFIG_DICT_KEY,
     FACTS_SERIAL_DICT_KEY
 )
-from functions.facts.arista.api.converter import _arista_facts_api_converter
-from functions.facts.arista.ssh.converter import _arista_facts_ssh_converter
-from functions.facts.cumulus.api.converter import _cumulus_facts_api_converter
-from functions.facts.cumulus.ssh.converter import _cumulus_facts_ssh_converter
-from functions.facts.extreme_vsp.ssh.converter import _extreme_vsp_facts_ssh_converter
-from functions.facts.extreme_vsp.api.converter import _extreme_vsp_facts_api_converter
-from functions.facts.ios.api.converter import _ios_facts_api_converter
-from functions.facts.ios.netconf.converter import _ios_facts_netconf_converter
-from functions.facts.ios.ssh.converter import _ios_facts_ssh_converter
-from functions.facts.iosxr.ssh.converter import _iosxr_facts_ssh_converter
-from functions.facts.juniper.api.converter import _juniper_facts_api_converter
-from functions.facts.juniper.netconf.converter import _juniper_facts_netconf_converter
-from functions.facts.juniper.ssh.converter import _juniper_facts_ssh_converter
-from functions.facts.napalm.converter import _napalm_facts_converter
-from functions.facts.nxos.api.converter import _nxos_facts_api_converter
-from functions.facts.nxos.ssh.converter import _nxos_facts_ssh_converter
-from functions.facts.facts_compare import _compare_facts
-from protocols.facts import Facts
-from functions.global_tools import (
-    open_file,
-    open_txt_file,
-    open_json_file,
-    open_txt_file_as_bytes,
-    printline
-)
-from behave import given, when, then
 
 
-@given(u'A network protocols named Facts defined in protocols/facts.py')
+@given(u'A network protocols named Facts defined in netests/protocols/facts.py')
 def step_impl(context):
     context.test_not_implemented = list()
 
@@ -380,7 +374,7 @@ def step_impl(context):
         cmd_output=open_file(
             path=(
                 f"{FEATURES_SRC_PATH}outputs/facts/ios/api/"
-                "cisco_ios_api_get_facts.json"
+                "cisco_ios_api_get_facts_16.8.json"
             )
         ),
         options={}
@@ -389,7 +383,7 @@ def step_impl(context):
 
 @given(u'I create a Facts object from a IOS Netconf named o0303')
 def step_impl(context):
-    context.o0303 = _ios_facts_netconf_converter(
+    context.o0303 = _ios_facts_nc_converter(
         hostname="leaf05",
         cmd_output=open_file(
             path=(
@@ -419,6 +413,53 @@ def step_impl(context):
     context.o0304 = _ios_facts_ssh_converter(
         hostname="spine02",
         cmd_output=cmd_output,
+        options={}
+    )
+
+@given(u'I create a Facts object equals to IOS 16.9 manually named o0311')
+def step_impl(context):
+    context.o0311 = Facts(
+        hostname='csr1000v',
+        domain='abc.inc',
+        version='16.9',
+        build=NOT_SET,
+        serial='9KAAMNP24B9',
+        base_mac=NOT_SET,
+        memory=NOT_SET,
+        vendor='Cisco',
+        model='CSR1000V',
+        interfaces_lst=['GigabitEthernet1',
+                        'GigabitEthernet2',
+                        'GigabitEthernet3',
+                        'Loopback12',
+                        'Loopback101',
+                        'Loopback854',
+                        'Loopback1500',
+                        'Loopback1501',
+                        'Loopback1609',
+                        'Loopback1974',
+                        'Loopback1996',
+                        'Loopback1997',
+                        'Loopback1998',
+                        'Loopback2000',
+                        'Loopback2222',
+                        'Loopback3000',
+                        'Loopback4321',
+                        'Loopback5263'],
+        options={}
+    )
+
+
+@given(u'I create a Facts object from a IOS API 16.9 output named o0312')
+def step_impl(context):
+    context.o0312 = _ios_facts_api_converter(
+        hostname="leaf05",
+        cmd_output=open_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/facts/ios/api/"
+                "cisco_ios_api_get_facts_16.9.json"
+            )
+        ),
         options={}
     )
 
@@ -561,7 +602,7 @@ def step_impl(context):
             "juniper_nc_get_interfaces_terse.xml"
         )
     )
-    context.o0503 = _juniper_facts_netconf_converter(
+    context.o0503 = _juniper_facts_nc_converter(
         hostname="leaf04",
         cmd_output=cmd_output,
         options={}
@@ -635,7 +676,6 @@ def step_impl(context):
 def step_impl(context):
     context.o0602 = _napalm_facts_converter(
         hostname="leaf03",
-        platform="nxos",
         cmd_output=open_json_file(
             path=(
                 f"{FEATURES_SRC_PATH}outputs/facts/napalm/nxos_get_facts.json"
@@ -1014,6 +1054,18 @@ def step_impl(context):
     )
 
 
+@given(u'Facts o0311 should be equal to o0312')
+def step_impl(context):
+    assert (
+        context.o0311.hostname == context.o0312.hostname and
+        context.o0311.domain == context.o0312.domain and
+        context.o0311.vendor == context.o0312.vendor and
+        context.o0311.serial == context.o0312.serial and
+        context.o0311.model == context.o0312.model and
+        context.o0311.interfaces_lst == context.o0312.interfaces_lst
+    )
+
+
 @given(u'Facts YAML file should be equal to o0302')
 def step_impl(context):
     print("/!\\/!\\ Facts YAML file should be equal to o0302 /!\\/!\\")
@@ -1279,9 +1331,6 @@ def step_impl(context):
 
 @given(u'I Finish my Facts tests and list tests not implemented')
 def step_impl(context):
-    printline()
     print("| The following tests are not implemented :")
-    printline()
     for test in context.test_not_implemented:
         print(f"| {test}")
-    printline()

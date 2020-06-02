@@ -1,0 +1,15 @@
+
+- local_name: leaf01
+  local_port: swp1
+  neighbor_name: leaf03.dh.local
+  neighbor_port: Ethernet1
+
+- local_name: leaf01
+  local_port: swp2
+  neighbor_mgmt_ip: 172.16.194.62
+  neighbor_name: spine02
+  neighbor_os: VSP-8284XSQ (8.1.0.0)
+  neighbor_port: 1/1
+  neighbor_type:
+    - Bridge
+    - Router

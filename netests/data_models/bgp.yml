@@ -1,0 +1,26 @@
+
+default:
+  as_number: 65432
+  router_id: 10.100.20.1
+  neighbors: {}
+
+NETESTS_VRF:
+  as_number: 65432
+  router_id: 10.1.20.1
+  neighbors:
+    - peer_hostname: NOT_SET
+      peer_ip: 10.0.0.1
+      prefix_received: 0
+      remote_as: 65111
+      session_state: Active
+      src_hostname: leaf01
+      state_brief: DOWN
+      state_time: 0
+
+CUSTOMER_VRF:
+  as_number: 65432
+  router_id: 10.1.20.1
+  neighbors:
+    - peer_ip: 10.0.0.1000
+      remote_as: 65100
+      state_brief: DOWN

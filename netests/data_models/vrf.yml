@@ -1,0 +1,16 @@
+
+- exp_targ: NOT_SET
+  imp_targ: NOT_SET
+  l3_vni: NOT_SET
+  rd: NOT_SET
+  rt_exp: NOT_SET
+  rt_imp: NOT_SET
+  vrf_id: 1000
+  vrf_name: default
+  vrf_type: NOT_SET
+- vrf_name: NETESTS_VRF
+- rd: 65123:1
+  rt_exp: 65123:100
+  rt_imp: 65123:200
+  vrf_id: '1002'
+  vrf_name: mgmt

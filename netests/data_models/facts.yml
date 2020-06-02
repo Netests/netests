@@ -1,0 +1,20 @@
+
+base_mac: 50:00:00:d7:ee:0b
+build: da8d6269-c25f-4a12-930b-c3c42c12c38a
+domain: dh.local
+hostname: leaf03
+interfaces_lst:
+  - Management1
+  - Ethernet8
+  - Ethernet2
+  - Ethernet3
+  - Ethernet1
+  - Ethernet6
+  - Ethernet7
+  - Ethernet4
+  - Ethernet5
+memory: 2014424
+model: vEOS
+serial: UEH29DB23DH0238DH023
+vendor: Arista
+version: 4.24.0F

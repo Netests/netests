@@ -6,33 +6,7 @@ echo "------------------------------------------"
 
 declare -i return_value=0
 declare -a commands_lst=(
-    'pylama netests.py'
-    'pylama exceptions/'
-    'pylama functions/bgp/*'
-    'pylama functions/cdp/*'
-    'pylama functions/facts/*'
-    'pylama functions/lldp/*'
-    'pylama functions/ospf/*'
-    'pylama functions/ping/*'
-    'pylama functions/vrf/*'
-    'pylama functions/base_selection.py'
-    'pylama functions/base_run.py'
-    'pylama functions/base_cli.py'
-    'pylama functions/cli_tools.py'
-    'pylama functions/http_request.py'
-    'pylama functions/mappings.py'
-    'pylama functions/netconf_tools.py'
-    'pylama functions/select_vars.py'
-    'pylama functions/verbose_mode.py'
-    'pylama const/constants.py'
-    'pylama protocols/bgp.py'
-    'pylama protocols/cdp.py'
-    'pylama protocols/discovery_protocols.py'
-    'pylama protocols/facts.py'
-    'pylama protocols/lldp.py'
-    'pylama protocols/ospf.py'
-    'pylama protocols/ping.py'
-    'pylama protocols/vrf.py'
+    'pylama netests/'
 )
 
 for command in "${commands_lst[@]}"

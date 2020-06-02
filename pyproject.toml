@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "netests"
+version = "0.1.0"
+description = "Test your Network"
+authors = ["Dylan Hamel <dylan.hamel@protonmail.com>"]
+maintainers = ["Netests Team <ping@netests.io>"]
+repository = "https://gitlab.com/DylanHamel/netests"
+license = "MIT"
+readme = "README.md"
+keywords = ["Netests", "Testing", "Network", "Automation"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+nornir = "^2.4.0"
+click = "^7.1.2"
+pylint = "^2.5.2"
+ipaddress = "^1.0.23"
+termcolor = "^1.1.0"
+xmltodict = "^0.12.0"
+typing = "^3.7.4"
+mkdocs = "^1.1.2"
+
+[tool.poetry.dev-dependencies]
+behave = "^1.2.6"
+pylama = "^7.7.1"
+mkdocs = "^1.1.2"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

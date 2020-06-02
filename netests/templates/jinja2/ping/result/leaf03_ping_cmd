@@ -1,0 +1,5 @@
+ping 127.0.0.1 repeat 1
+ping 8.8.8.8 repeat 1 !
+ping 172.16.194.111 repeat 1 !
+ping vrf mgmt 172.16.194.1 repeat 1 !
+ping vrf ewfjweijfoeirjfer 172.16.194.1 repeat 1 !

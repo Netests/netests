@@ -1,0 +1,28 @@
+site_name: Netests.io
+theme:
+  name: material
+  language: en
+  palette:
+    primary: purple
+    accent: purple
+  font:
+    text: Ubuntu
+    code: Ubuntu Mono
+
+markdown_extensions:
+  - pymdownx.emoji
+
+nav:
+  - index.md
+  - installation.md
+  - vendors_and_protocols.md
+  - get_started.md
+  - arguments.md
+  - inventory.md
+  - source_of_truth.md
+  - data_models.md
+  - cli.md
+  - roadmap.md
+  - license.md
+  - contributors.md
+  
