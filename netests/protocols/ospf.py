@@ -9,7 +9,6 @@ ERROR_HEADER = "Error import [ospf.py]"
 
 class OSPFSession:
 
-    hostname: str
     peer_rid: str
     local_interface: str
     peer_ip: str

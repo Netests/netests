@@ -1,3 +1,5 @@
+All protocols are not supported for each platform and over all connexion types
+
 ## Vendors & Protocols supported
 
 
@@ -26,6 +28,18 @@
 | IOSXR Netconf       | :white_check_mark: | :warning:          | :white_check_mark: | :warning:          | :warning:          | :white_check_mark: ​6.2.1 |                    |
 | IOSXR API           | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry:         |
 
+:white_check_mark: = Supported​
+
 :warning: = Not Implemented
 
 :no_entry: = Not Supported
+
+
+
+
+## NAPALM supported vendors
+
+| Arista             | Cumulus    | Extreme VSP | Cisco IOS-XE       | Cisxo IOS-XR       | Juniper            | Cisco NXOS         |
+| ------------------ | ---------- | ----------- | ------------------ | ------------------ | ------------------ | ------------------ |
+| :white_check_mark: | :no_entry: | :no_entry:  | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+

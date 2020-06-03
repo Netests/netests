@@ -10,13 +10,30 @@ theme:
     code: Ubuntu Mono
 
 markdown_extensions:
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
   - pymdownx.emoji
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed
+  - pymdownx.tilde
 
 nav:
-  - index.md
+  - introduction.md
+  - vendors_and_protocols.md
+  - protocols.md
+  - protocols_arguments.md
   - installation.md
   - configuration.md
-  - vendors_and_protocols.md
   - get_started.md
   - arguments.md
   - inventory.md

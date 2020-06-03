@@ -47,6 +47,14 @@ If the two results are the same, Netests will return a success, otherwise a fail
 
 
 
+Netests.io can connect to the device with `Netconf`, `ssh`, over a `rest api` and with `NAPALM` if the vendor is supported by NAPALM.
+
+Not all connexion type are available for all devices. Some vendors don't support Netconf or REST API.
+
+Please before to start have a look on ``vendors_and_protocols``.
+
+
+
 ## Way of working
 
 The network engineer job is evolving and the ways of working too.
@@ -148,6 +156,7 @@ With network the steps are a bit differents. The verification will not be done d
        'vrf': {
    				Host: leaf02: True
    		},
+   }
    ```
 
    > Protocols with a "None" is the protocols that had not been tested
