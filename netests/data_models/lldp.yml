@@ -1,3 +1,4 @@
+
 - local_name: leaf01
   local_port: swp1
   neighbor_name: leaf03.dh.local

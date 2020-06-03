@@ -1,5 +1,3 @@
-## Arguments to use 
-
 ```shell
 Usage: welcome.py [OPTIONS]
 

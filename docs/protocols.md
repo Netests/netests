@@ -227,6 +227,12 @@ class OSPFSessionsVRF:
 
 
 
+### PING
+
+The ping is validate if it works.
+
+
+
 ### VRF
 
 In the VRF function the following parameters will be compare.

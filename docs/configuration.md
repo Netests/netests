@@ -28,6 +28,9 @@ config:
     
     ospf:
       test: false
+      
+    ping:
+      test: true
 
     vrf:
       test: true

@@ -10,28 +10,28 @@
 
 In our current world, the stability of networks has become something of paramount importance.
 
-There are many solutions to define that your network is working :
+There are many solutions to define / check that your network is working :
 
 * Monitoring - Get metrcis with SNMP, "show" command, Telemetry, etc.
-* Logging - Manage and use logs send by devices
+* Logging - Manage and use log messages send by devices.
 * Alarming - Based on metrics and logging raise an alarms if something appears on your network.
 
 And, from a few of year **Testing**.
 
 The goal of testing your network is to be sure that :
 
-* Be sure that all BGP sessions are UP and the session
-* Be sure that your wire is correctly connected by checking LLDP neighbors
-* Execute some PING to check that some destinations are reachable
+* All BGP sessions are UP and the session.
+* Wires are correctly connected by checking LLDP neighbors.
+* Destination are reachable by executing some Pings.
 * etc.
 
-One of the biggest problem is **How can I test my network ?** :
+One of the biggest problem is **How can I test my network automatically ?** :
 
 
 
-All these tests have to be executed after each modification to be sure that it not create an issue on your network.
+All these tests have to be executed after each modification to be sure that it doesn't create an issue on your network.
 
-Yet, the problem is **We have to write some code to automate tests ...** But *I'm Network Engineer not a developer*.
+Yet, the problem is that **we have to write some code to automate tests ...** But "*I'm a Network Engineer not a developer*".
 
 That's why **Netests.io** was created ! The idea of **Netests.io** is to offer a way of testing your network without writing some codes !
 

@@ -1,4 +1,4 @@
-Based on Ansible or Nornir inventory (Netbox is coming). You have to specify which inventory type will be used in the Netests.io running command :
+Netests.io will be directly connected to the Ansible or Nornir inventory (Netbox is coming). You have to specify which inventory type will be used in the Netests.io running command :
 
 
 
@@ -194,7 +194,7 @@ connexion: ssh
 port: 22
 ```
 
-> Vault integration (Hashicorp & Ansible-vault is coming)
+> Vault integration (Hashicorp & Ansible-vault) is coming.
 
 
 
