@@ -22,3 +22,4 @@ netests.egg-info
 netests.log
 dist/
 backup/
+**.graffle
