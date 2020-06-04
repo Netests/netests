@@ -8,10 +8,16 @@ import urllib3
 from netests import log
 from netests.base_run import run_base
 from netests.base_cli import netests_cli
+from netests.tools.file import create_folder
 from netests.select_vars import select_host_vars
 from netests.nornir_inventory import init_nornir
 from netests.tools.std import open_file, check_devices_connectivity
-from netests.constants import EXIT_FAILURE, EXIT_SUCCESS, DATA_MODELS_PATH
+from netests.constants import (
+    EXIT_FAILURE,
+    EXIT_SUCCESS,
+    DATA_MODELS_PATH,
+    TRUTH_VARS_PATH
+)
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
 
@@ -211,6 +217,12 @@ def print_result(result) -> None:
     help="To create truth_vars files.",
 )
 @click.option(
+    "-J",
+    "--init-folders",
+    is_flag=True,
+    help="To create truth_vars/ folders.",
+)
+@click.option(
     "-V",
     "--show-truth-vars",
     default=False,
@@ -239,6 +251,7 @@ def main(
     compare,
     show_data_model,
     init_data,
+    init_folders,
     show_truth_vars
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -250,6 +263,14 @@ def main(
         else:
             print(f"{HEADER} {show_data_model} is not a supported protocol")
         exit(EXIT_SUCCESS)
+
+    if init_folders is not False:
+        create_folder(TRUTH_VARS_PATH)
+        create_folder(f"{TRUTH_VARS_PATH}/all")
+        create_folder(f"{TRUTH_VARS_PATH}/groups")
+        create_folder(f"{TRUTH_VARS_PATH}/hosts")
+        exit(EXIT_SUCCESS)
+
 
     t = open_file(path=netest_config_file)
     log.debug(t)
