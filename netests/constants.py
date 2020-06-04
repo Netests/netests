@@ -34,7 +34,7 @@ NETCONF_FILTER = "<filter>{}</filter>"
 NETESTS_CONFIG = "netests.yml"
 
 # REPORT PATH
-TRUTH_VARS_PATH = f"truth_vars/"
+TRUTH_VARS_PATH = "truth_vars/"
 DATA_MODELS_PATH = f"{PATH}/data_models/"
 TEMPLATES_PATH = f"{PATH}/templates/"
 TESTS_PATH = "tests/"

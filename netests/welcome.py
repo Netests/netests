@@ -282,7 +282,7 @@ def main(
         with open("netests.yml", "w") as f:
             with open(f"{DATA_MODELS_PATH}netests,yml", 'r') as i:
                 f.write(i.read())
-        exit(EXIT_SUCCESS)  
+        exit(EXIT_SUCCESS)
 
     t = open_file(path=netest_config_file)
     log.debug(t)
