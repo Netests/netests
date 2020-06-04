@@ -1,11 +1,8 @@
-## Installation
+Netests.io is available via `pip`
 
-setup ....
+## Installation
 
 ```shell
 pip install netests
 ```
 
-```shell
-netests --version
-```

@@ -28,13 +28,13 @@ markdown_extensions:
   - pymdownx.tilde
 
 nav:
-  - introduction.md
+  - index.md
   - vendors_and_protocols.md
   - protocols.md
   - protocols_arguments.md
   - installation.md
   - configuration.md
-  - get_started.md
+  - run.md
   - arguments.md
   - inventory.md
   - source_of_truth.md
