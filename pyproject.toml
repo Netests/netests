@@ -10,7 +10,7 @@ readme = "README.md"
 keywords = ["Netests", "Testing", "Network", "Automation"]
 
 [tool.poetry.dependencies]
-netmiko = "2.4.2"
+netmiko = "^2.4.2"
 python = "^3.6"
 nornir = "^2.4.0"
 click = "^7.1.2"
@@ -27,7 +27,7 @@ pylama = "^7.7.1"
 mkdocs = "^1.1.2"
 
 [tool.poetry.scripts]
-netests = 'netests.netests:main'
+netests = 'netests.welcome:main'
 
 [build-system]
 requires = ["poetry>=0.12"]
