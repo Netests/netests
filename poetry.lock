@@ -384,7 +384,7 @@ description = "Multi-vendor library to simplify Paramiko SSH connections to netw
 name = "netmiko"
 optional = false
 python-versions = "*"
-version = "3.1.1"
+version = "2.4.2"
 
 [package.dependencies]
 paramiko = ">=2.4.3"
@@ -394,7 +394,7 @@ setuptools = ">=38.4.0"
 textfsm = "*"
 
 [package.extras]
-test = ["pyyaml (5.1.2)", "pytest (>=5.1.2)"]
+test = ["pyyaml (5.1)", "pytest (>=4.6.3)"]
 
 [[package]]
 category = "main"
@@ -871,7 +871,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "591a9635fb2c779df91f0f3ab5fbfba1faedc22ef377e836c275ae7b296075fc"
+content-hash = "814f96d2fcceca38bf918109bb3fafd17dce6f2bddefc447fd2cd6812a13a47d"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -1128,8 +1128,8 @@ netaddr = [
     {file = "netaddr-0.7.19.tar.gz", hash = "sha256:38aeec7cdd035081d3a4c306394b19d677623bf76fa0913f6695127c7753aefd"},
 ]
 netmiko = [
-    {file = "netmiko-3.1.1-py2.py3-none-any.whl", hash = "sha256:f9009b0b70b49422ee941db83c297155e5a0726dc58bef21f06b1fb38fb999b5"},
-    {file = "netmiko-3.1.1.tar.gz", hash = "sha256:c113b94affcfc8b80dff19ba7461bb99ba835242d749c1419c68ec9bb6adbe50"},
+    {file = "netmiko-2.4.2-py2.py3-none-any.whl", hash = "sha256:bc284272d76defd5af59a748478aae99af462793f0898f4ab43c28c9a2000e42"},
+    {file = "netmiko-2.4.2.tar.gz", hash = "sha256:e6b0cb98afb51fd1fb1d04d024d7572a0b5297dfa0bd18405ee36580deea65a1"},
 ]
 nltk = [
     {file = "nltk-3.5.zip", hash = "sha256:845365449cd8c5f9731f7cb9f8bd6fd0767553b9d53af9eb1b3abf7700936b35"},
