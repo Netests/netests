@@ -44,6 +44,18 @@ config:
 
 
 
+### Netests-API
+
+An API to execute test with an API call is in developement.
+
+This api will allow you to execute :
+
+* compare function
+* Get data formated
+* Execute ping from devices
+
+
+
 ### Ansible Module
 
 We plan to develop an Ansible playbook to execute tests directly from your Ansible playbook
@@ -64,6 +76,10 @@ We plan to develop an Ansible playbook to execute tests directly from your Ansib
 
 
 ### Protocols
+
+Improve protocols already implemented :
+
+- OSPF & BGP principaly
 
 We plan to add new protocols like
 

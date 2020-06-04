@@ -58,6 +58,7 @@ def _extreme_vsp_bgp_ssh_converter(
                                     sec=v[16],
                                 ) if v[13] != '' else NOT_SET,
                                 prefix_received=NOT_SET,
+                                options=options
                             )
                         )
 

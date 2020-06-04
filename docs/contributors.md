@@ -2,7 +2,4 @@
 
 Dylan Hamel - <dylan.hamel@protonmail.com>
 
-
-
-### Become a contributors !
-
+Mentor Reka - reka.mentor@gmail.com

@@ -32,6 +32,7 @@ def _napalm_facts_converter(
         version=cmd_output.get("facts").get("os_version", NOT_SET)
                     if cmd_output.get("facts").get("os_version", NOT_SET)
                         != '' else NOT_SET,
+        build=NOT_SET,
         serial=cmd_output.get("facts").get("serial_number", NOT_SET)
                     if cmd_output.get("facts").get("serial_number", NOT_SET)
                         != '' else NOT_SET,

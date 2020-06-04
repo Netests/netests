@@ -26,9 +26,9 @@ def _napalm_vrf_converter(
                              .get('state')
                              .get('route_distinguisher')
                 if cmd_output.get('get_network_instances')
-                .get(vrf)
-                .get('state')
-                .get('route_distinguisher', NOT_SET)
+                             .get(vrf)
+                             .get('state')
+                             .get('route_distinguisher', NOT_SET)
                 != "" else NOT_SET
             )
         )
