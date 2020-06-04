@@ -271,7 +271,6 @@ def main(
         create_folder(f"{TRUTH_VARS_PATH}/hosts")
         exit(EXIT_SUCCESS)
 
-
     t = open_file(path=netest_config_file)
     log.debug(t)
 

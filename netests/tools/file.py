@@ -10,7 +10,6 @@ def create_folder(path):
     Path(path).mkdir(parents=True, exist_ok=True)
 
 
-
 def open_file(path: str()) -> dict():
     """
     This function  will open a yaml file and return is data
