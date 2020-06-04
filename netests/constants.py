@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
+PATH = os.path.dirname(__file__)
+
+
 NOT_SET = 'NOT_SET'
 NORNIR_DEBUG_MODE = 'debug'
 EXIT_FAILURE = 1
@@ -30,13 +34,11 @@ NETCONF_FILTER = "<filter>{}</filter>"
 NETESTS_CONFIG = "netests.yml"
 
 # REPORT PATH
-DATA_MODELS_PATH = "netests/data_models/"
-REPORT_FOLDER = "reports/"
-TEMPLATES_PATH = "netests/templates/"
+DATA_MODELS_PATH = f"{PATH}/data_models/"
+TEMPLATES_PATH = f"{PATH}/templates/"
 TESTS_PATH = "tests/"
 FEATURES_PATH = f"{TESTS_PATH}features/"
 FEATURES_SRC_PATH = f"{FEATURES_PATH}src/"
-FEATURES_OUTPUT_PATH = f"{FEATURES_SRC_PATH}outputs/"
 TEXTFSM_PATH = f"{TEMPLATES_PATH}textfsm/"
 JINJA2_PATH = f"{TEMPLATES_PATH}jinja2/"
 JINJA2_PING_PATH = f"{JINJA2_PATH}ping/"

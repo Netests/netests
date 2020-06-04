@@ -82,42 +82,42 @@ class GetterPing(GetterBase):
                 self.API_CONNECTION: _arista_ping_api_exec,
                 self.NETCONF_CONNECTION: self.function_not_implemented,
                 self.SSH_CONNECTION: _execute_netmiko_ping_cmd,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: self.ping_not_available_with_napalm
             },
             self.CUMULUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: self.function_not_implemented,
                 self.NETCONF_CONNECTION: self.function_not_implemented,
                 self.SSH_CONNECTION: _execute_linux_ping_cmd,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: self.ping_not_available_with_napalm
             },
             self.EXTREME_PLATEFORM_NAME: {
                 self.API_CONNECTION: self.function_not_implemented,
                 self.NETCONF_CONNECTION: self.function_not_implemented,
                 self.SSH_CONNECTION: _execute_netmiko_ping_cmd,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: self.ping_not_available_with_napalm
             },
             self.CISCO_IOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: self.function_not_implemented,
                 self.NETCONF_CONNECTION: self.function_not_implemented,
                 self.SSH_CONNECTION: _execute_netmiko_ping_cmd,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: self.ping_not_available_with_napalm
             },
             self.CISCO_IOSXR_PLATEFORM_NAME: {
                 self.API_CONNECTION: self.function_not_implemented,
                 self.NETCONF_CONNECTION: _iosxr_ping_nc_exec,
                 self.SSH_CONNECTION: _execute_netmiko_ping_cmd,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: self.ping_not_available_with_napalm
             },
             self.JUNOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: _juniper_ping_api_exec,
                 self.NETCONF_CONNECTION: _juniper_ping_nc_exec,
                 self.SSH_CONNECTION: _execute_netmiko_ping_cmd,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: self.ping_not_available_with_napalm
             },
             self.NEXUS_PLATEFORM_NAME: {
                 self.API_CONNECTION: _nxos_ping_api_exec,
                 self.NETCONF_CONNECTION: self.function_not_implemented,
                 self.SSH_CONNECTION: _execute_linux_ping_cmd,
-                self.NAPALM_CONNECTION: self.device_not_compatible_with_napalm
+                self.NAPALM_CONNECTION: self.ping_not_available_with_napalm
             }
         }

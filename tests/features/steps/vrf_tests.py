@@ -24,7 +24,7 @@ from netests.converters.vrf.napalm.converter import _napalm_vrf_converter
 from netests.converters.vrf.nxos.nc import _nxos_vrf_nc_converter
 from netests.converters.vrf.nxos.rc import _nxos_vrf_rc_converter
 from netests.converters.vrf.nxos.ssh import _nxos_vrf_ssh_converter
-from netests.constants import NOT_SET, FEATURES_SRC_PATH, FEATURES_OUTPUT_PATH, VRF_DATA_KEY
+from netests.constants import NOT_SET, FEATURES_SRC_PATH, VRF_DATA_KEY
 from netests.tools.file import open_file, open_txt_file, open_json_file, open_txt_file_as_bytes
 
 

@@ -222,7 +222,10 @@ class GetterBase(ABC):
         size = int(shutil.get_terminal_size()[0] / 2)
         print("-*" * size)
 
-    def device_not_compatible_with_napalm(self):
+    def device_not_compatible_with_napalm(self, options):
+        raise NetestsDeviceNotCompatibleWithNapalm()
+
+    def ping_not_available_with_napalm(self, options):
         raise NetestsDeviceNotCompatibleWithNapalm()
 
     def host_vars_ok(

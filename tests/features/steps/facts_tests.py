@@ -27,7 +27,6 @@ from netests.tools.file import open_file, open_txt_file, open_json_file, open_tx
 from netests.constants import (
     NOT_SET,
     FEATURES_SRC_PATH,
-    FEATURES_OUTPUT_PATH,
     FACTS_DATA_HOST_KEY,
     FACTS_SYS_DICT_KEY,
     FACTS_INT_DICT_KEY,
