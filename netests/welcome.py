@@ -223,6 +223,12 @@ def print_result(result) -> None:
     help="To create truth_vars/ folders.",
 )
 @click.option(
+    "-K",
+    "--init-config-files",
+    is_flag=True,
+    help="To create netests.yml (Netests.io configuration file).",
+)
+@click.option(
     "-V",
     "--show-truth-vars",
     default=False,
@@ -252,6 +258,7 @@ def main(
     show_data_model,
     init_data,
     init_folders,
+    init_config_files,
     show_truth_vars
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -264,12 +271,18 @@ def main(
             print(f"{HEADER} {show_data_model} is not a supported protocol")
         exit(EXIT_SUCCESS)
 
-    if init_folders is not False:
+    elif init_folders is not False:
         create_folder(TRUTH_VARS_PATH)
         create_folder(f"{TRUTH_VARS_PATH}/all")
         create_folder(f"{TRUTH_VARS_PATH}/groups")
         create_folder(f"{TRUTH_VARS_PATH}/hosts")
         exit(EXIT_SUCCESS)
+
+    elif init_config_files:
+        with open("netests.yml", "w") as f:
+            with open(f"{DATA_MODELS_PATH}netests,yml", 'r') as i:
+                f.write(i.read())
+        exit(EXIT_SUCCESS)  
 
     t = open_file(path=netest_config_file)
     log.debug(t)
