@@ -54,8 +54,16 @@ class AristaAPI(DeviceAPI, ABC):
         )
 
     def exec_call(self, task, command, vrf):
+        secure_api = 'https'
+        if task.host.get('secure_api', True) is True:
+            secure_api = 'https'
+        elif task.host.get('secure_api', True) is False:
+            secure_api = 'http'
+
+        print(secure_api)
+
         c = pyeapi.connect(
-            transport=task.host.get('secure_api', 'https'),
+            transport=secure_api,
             host=task.host.hostname,
             username=task.host.username,
             password=task.host.password,
