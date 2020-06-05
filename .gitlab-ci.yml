@@ -1,8 +1,8 @@
 image: python:3.7
 
 stages:
-  - test
   - lint
+  - test
   - deploy
 
 before_script:
@@ -10,15 +10,15 @@ before_script:
   - poetry config virtualenvs.create false
   - poetry install
 
-Unit Tests:
-  stage: test
-  script:
-    - poetry run behave tests/features/
-
 Python Code Lint:
   stage: lint
   script:
     - ./tests/run_syntax.sh
+
+Unit Tests:
+  stage: test
+  script:
+    - poetry run behave tests/features/
 
 MkDocs Deployment:
   stage: deploy
@@ -32,7 +32,7 @@ MkDocs Deployment:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
   - ssh -p 22 -A root@netests.io "cd /srv/netests && 
-                                  git pull https://oauth2:${ACCES_TOKEN_DH}@gitlab.com/DylanHamel/netests.git &&
+                                  git pull https://oauth2:$ACCES_TOKEN_DH@gitlab.com/DylanHamel/netests.git &&
                                   mkdocs build &&
                                   service nginx restart"
 
