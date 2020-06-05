@@ -31,7 +31,10 @@ MkDocs Deployment:
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
-  - ssh -p 22 -A root@netests.io "cd /srv/netests && git pull -f && mkdocs build && service nginx restart"
+  - ssh -p 22 -A root@netests.io "cd /srv/netests && 
+                                  git pull https://oauth2:${ACCES_TOKEN_DH}@gitlab.com/DylanHamel/netests.git &&
+                                  mkdocs build &&
+                                  service nginx restart"
 
 Netests PyPi Deployement:
   stage: deploy
