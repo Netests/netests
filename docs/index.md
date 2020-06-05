@@ -232,7 +232,7 @@ With network the steps are a bit differents. The verification will not be done d
    {   'bgp': {
    				Host: leaf02: True
    		},
-       'bgp_all_up': {
+       'bgp_up': {
    				Host: leaf02: True
    		},
        'cdp': None,

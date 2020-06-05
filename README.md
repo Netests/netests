@@ -4,79 +4,9 @@
 
 ![logo.png](./docs/images/logo.png)
 
-## Install
+## Documentation
 
-Create your environnement :
-
-```shell
-» python3 -m venv .
-» source ./bin/activate
-
-(netests) ------------------------------------------------------------
-(master*) »
-
-» pip install --upgrade pip
-» pip --version
-pip 19.2.3
-```
-
-
-
-## Devices used 
-
-#### Cisco IOS-XE
-
-```shell
-ROM: IOS-XE ROMMON
-BOOTLDR: System Bootstrap, Version 16.12.1r, RELEASE SOFTWARE (P)
-```
-
-#### Cisco Nexus NXOS
-
-```shell
-Nexus 9000v is a demo version of the Nexus Operating System
-
-Software
-  BIOS: version
-  NXOS: version 7.0(3)I7(5a)
-  BIOS compile time:
-  NXOS image file is: bootflash:///nxos.7.0.3.I7.5a.bin
-  NXOS compile time:  10/12/2018 19:00:00 [10/13/2018 03:16:04]
-```
-
-#### Juniper VMX
-
-```shell
-> show version
-Hostname: leaf04
-Model: vmx
-Junos: 18.3R1.9
-#----------------------
-> show version
-Hostname: leaf04
-Model: vmx
-Junos: 19.4R1.10
-```
-
-#### Cumulus 
-
-```
-Version 3.7.9
-Version 4.0.0
-```
-
-#### Arista
-
-```
-Version 4.23.1F
-```
-
-#### Extreme Network VSP (VOSS)
-
-```
-Version 8.1.0.0
-```
-
+https://www.netests.io/
 
 
 ## How to use ??
@@ -87,12 +17,12 @@ This tool contains two modes :
 * CLI 
 
 
-
 ### Integrity & Sanity checks
 
 The idea of this project is to offer a test platform for the network to allow engineers to perform tests without having to write python code (or other languages :smile:).
 
 In addition, this platform does not consider the OS, it is possible to run tests on Cisco, Cumulus, Juniper devices without changing the data structure.
+
 
 #### Define inventory
 
@@ -444,80 +374,9 @@ Run the command `get` and the protocols that you would like retrieve.
 >
 ```
 
-
-
 #### Screenshot
 
 ![docs/images/netests_cli.png](docs/images/netests_cli.png)
-
-
-
-#### Video
-
-https://www.youtube.com/watch?v=_WStUkQLWEU
-
-
-
-
-## Capabilities Supported by Protocols & Connexion modes
-
-|                     | VRF                | FACTS              | BGP                | BGP_UP             | LLDP               | CDP                | PING                     | OSPF               |
-| ------------------- | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ | ------------------------ | ------------------ |
-| NAPALM              | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :no_entry:               | :no_entry:         |
-| Juniper SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
-| Juniper Netconf     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
-| Juniper API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
-| Cumulus SSH         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       | :white_check_mark: |
-| Cumulus Netconf     | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry:         |
-| Cumulus API         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:               | :white_check_mark: |
-| Arista SSH          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
-| Arista API          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
-| Arista Netconf      | :white_check_mark: | :warning:          | :warning:          | :warning:          | :warning:          | :no_entry:         | :warning:                | :warning:          |
-| Nexus SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       | :white_check_mark: |
-| Nexus Netconf       | :white_check_mark: | :warning:          | :warning:          | :warning:          | :warning:          | :warning:          | :no_entry:               | :warning:          |
-| Nexus API           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       | :white_check_mark: |
-| IOS SSH             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       | :white_check_mark: |
-| IOS API             | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :no_entry:               |                    |
-| IOS Netconf         | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :no_entry:               |                    |
-| Extreme VSP SSH     | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :no_entry:         | :white_check_mark:       | :white_check_mark: |
-| Extreme VSP API     | :no_entry:         | :white_check_mark: | :no_entry:         | :no_entry:         | :white_check_mark: | :no_entry:         | :no_entry:               | :no_entry:         |
-| Extreme VSP Netconf | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry:         |
-| IOSXR SSH           | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:       |                    |
-| IOSXR Netconf       | :white_check_mark: | :warning:          | :white_check_mark: | :white_check_mark: | :warning:          | :warning:          | :white_check_mark: ​6.2.1 |                    |
-| IOSXR API           | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:         | :no_entry:               | :no_entry:         |
-
-:warning: = Not Implemented
-
-:no_entry: = Not Supported
-
-
-
-## TextFSM templates
-
-Some templates have be retreieved on :
-
-**https://github.com/networktocode/ntc-templates/tree/master/templates**
-
-
-
-## Alternative to NAPALM ??
-
-The answer is definitely NO !!
-
-NAPALM has many many more functions about configuration management.
-
-Netests only gets data from devices convert in object and compares to your source of truth.
-
-Moreover, Nestests uses NAPALM.
-
-To have more informations about all posibilities offered by NAPALM have look on the following links :
-
-https://gitlab.com/DylanHamel/netests
-
-https://github.com/napalm-automation
-
-https://napalm.readthedocs.io/en/latest/
-
 
 
 ## Contributor

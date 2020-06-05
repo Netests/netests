@@ -14,7 +14,7 @@ config:
     bgp:
       test: true
 
-    bgp_all_up:
+    bgp_up:
       test: false
 
     cdp:
