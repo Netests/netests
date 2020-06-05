@@ -55,6 +55,94 @@ Please before to start have a look on ``vendors_and_protocols``.
 
 
 
+### Abstraction
+
+Netests.io offers you a vendor abstraction. Currently Netests.io supports **<u>7 differents OS.</u>**
+
+* Arista Networks
+* Cumulus Linux
+* Extreme Networks VSP (VOSS)
+* Cisco IOS-XE
+* Cisco IOS-XR
+* Juniper
+* Cisco NX-OS
+
+To run a test or get data from one of these hosts, the process is exactly the same !
+
+
+
+### Protocols
+
+For this version Netests.io is able to get information regarding <u>**6 "protocols"**</u>.
+
+* BGP
+* CDP
+* Facts
+* LLDP
+* OSPF
+* VRF
+
+All protocols have been simplified based on the OpenConfig data models. The idea of Netests.io is not to show you some output but compare and check that your network is in the state that you expect. To see protocols definition, go on the following link.
+
+https://www.netests.io/protocols/
+
+Netests.io will establish a connection to the device, get datas, and format them, into the data models.
+https://www.netests.io/data_models/
+
+
+
+### Tests
+
+To test a network Netests.io will compare datas retrived from devices running configuration and compare to the source of truth.
+
+There are also two others tests.
+
+* BGP_UP
+
+  Will verify that all BGP sessions are UP.
+
+* PING
+
+  Will execute a ping from a device. It's possible to define that the ping must work or not.
+
+![ping.png](./images/ping.png)
+
+
+
+### Connexion
+
+There are differents possibilities to connect to the device, by using
+
+* CLI over SSH
+* Netconf over SSH
+* REST API
+
+
+
+### Compatibilies
+
+For each device and each protocols with each connexion types some parameters are retrieved. Unfortunately it is not possible to get all datas with all devices and all protocols with all connexion types. 
+
+To know which parameters is getted by a connexion types and a specific OS, go on the following link.
+
+https://www.netests.io/protocols_arguments/
+
+To see compatibilies between OS and protocols, go on the following link.
+
+https://www.netests.io/vendors_and_protocols/
+
+
+
+### Architecture
+
+![archi.png](./images/archi.png)
+
+> Note: this schema doesn't show dependency between libraries
+>
+> Example: `PyEZ` with `ncclient`
+
+
+
 ## Way of working
 
 The network engineer job is evolving and the ways of working too.
