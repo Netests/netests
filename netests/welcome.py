@@ -224,7 +224,7 @@ def print_result(result) -> None:
 )
 @click.option(
     "-K",
-    "--init-config-files",
+    "--init-config-file",
     is_flag=True,
     help="To create netests.yml (Netests.io configuration file).",
 )
@@ -258,7 +258,7 @@ def main(
     show_data_model,
     init_data,
     init_folders,
-    init_config_files,
+    init_config_file,
     show_truth_vars
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -278,9 +278,9 @@ def main(
         create_folder(f"{TRUTH_VARS_PATH}/hosts")
         exit(EXIT_SUCCESS)
 
-    elif init_config_files:
+    elif init_config_file:
         with open("netests.yml", "w") as f:
-            with open(f"{DATA_MODELS_PATH}netests,yml", 'r') as i:
+            with open(f"{DATA_MODELS_PATH}netests.yml", 'r') as i:
                 f.write(i.read())
         exit(EXIT_SUCCESS)
 

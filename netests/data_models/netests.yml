@@ -1,0 +1,25 @@
+config:
+  protocols:
+    bgp:
+      test: true
+
+    bgp_up:
+      test: true
+
+    cdp:
+      test: true
+
+    facts:
+      test: true
+
+    lldp:
+      test: true
+    
+    ospf:
+      test: true
+
+    ping:
+      test: true
+
+    vrf:
+      test: true

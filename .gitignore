@@ -1,4 +1,3 @@
-netests.yml
 truth_vars/*
 reports/*
 netbox/*
