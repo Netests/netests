@@ -1,6 +1,6 @@
 # Netests.io
 
-###### <dylan.hamel@protonmail.com> - November 2019 - Copyright
+###### <dylan.hamel@protonmail.com> - June 2020 - Copyright
 
 ![logo.png](./docs/images/logo.png)
 
@@ -382,5 +382,3 @@ Run the command `get` and the protocols that you would like retrieve.
 ## Contributor
 
 Dylan Hamel - <dylan.hamle@protonmail.com>
-
-**Become a contributor** !!!
