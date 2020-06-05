@@ -60,8 +60,6 @@ class AristaAPI(DeviceAPI, ABC):
         elif task.host.get('secure_api', True) is False:
             secure_api = 'http'
 
-        print(secure_api)
-
         c = pyeapi.connect(
             transport=secure_api,
             host=task.host.hostname,
