@@ -1,4 +1,4 @@
-Netests.io offers a CLI to interact with devices without running all the scripts for all devices
+Netests.io offers a CLI to interact with devices without running all the scripts for all devices.
 
 The goal of this CLI is to troubleshoot your network with a way of working similar to the "actual" way.
 
@@ -11,7 +11,7 @@ This CLI is based on your inventory as the standard mode.
 
 It is possible to get informations only from one, or more devices. To realize it, there is a **working base**. If you would like get OSPF informations, Netests CLI will get them on all hosts that are in this working based.
 
-> It seems that some hosts can be in your inventory but not in your working based !
+> That means that some hosts can be in your inventory but not in your working based !
 
 An example of the usefulness is that if there is a problem on two hosts, it is possibe to `select` these two hosts and `get` or `compare` datas only for these two in an interactive mode.
 

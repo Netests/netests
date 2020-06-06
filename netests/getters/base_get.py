@@ -111,7 +111,6 @@ class GetterBase(ABC):
         return self.compare_result
 
     def print_compare_result(self):
-        self.printline()
         self.print_json(self.compare_result)
 
     def run(self):
@@ -159,7 +158,6 @@ class GetterBase(ABC):
         self.print_protocols_result(self.key_store, self.protocol)
 
     def print_protocols_result(self, pkey, protocol):
-        self.printline()
         if self.print_task_output:
             for host in self.devices.inventory.hosts:
                 self.printline()

@@ -16,7 +16,7 @@ There are many solutions to define / check that your network is working :
 * Logging - Manage and use log messages send by devices.
 * Alarming - Based on metrics and logging raise an alarms if something appears on your network.
 
-And, from a few of year **Testing**.
+And, for a few years **Testing**.
 
 The goal of testing your network is to be sure that :
 
@@ -25,11 +25,11 @@ The goal of testing your network is to be sure that :
 * Destination are reachable by executing some Pings.
 * etc.
 
-One of the biggest problem is **How can I test my network automatically ?** :
+One of the biggest problem is **How can I test my network automatically ?**
 
 
 
-All these tests have to be executed after each modification to be sure that it doesn't create an issue on your network.
+All of these tests should be run after each change to be sure that they have not created a problem on your netwok
 
 Yet, the problem is that **we have to write some code to automate tests ...** But "*I'm a Network Engineer not a developer*".
 
@@ -52,6 +52,73 @@ Netests.io can connect to the device with `Netconf`, `ssh`, over a `rest api` an
 Not all connexion type are available for all devices. Some vendors don't support Netconf or REST API.
 
 Please before to start have a look on ``vendors_and_protocols``.
+
+
+
+### Modes
+
+Netests.io can be used in two different ways.
+
+##### Standard Mode
+
+Run Netests.io with a shell command
+
+```shell
+netests -x -i hosts -a netests
+```
+
+Standard mode can be a step of a CI/CD pipeline or run as a scheduled script to be sure that the network works as you expect.
+
+
+
+##### CLI Mode
+
+Run Netests.io in a interactive mode
+
+```shell
+netests -x -i hosts --terminal
+```
+
+CLI mode can be used to troubleshoot the network or get informations from many devices
+
+```shell
+> get ospf
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+>>>>> leaf01 -- (ospf)
+{   'hostname': 'leaf01',
+    'vrfs': [   {   'areas': [],
+                    'router_id': '51.51.51.51',
+                    'vrf_name': 'default'},
+                {   'areas': [   {   'area_number': '0.0.0.0',
+                                     'neighbors': [   {   'local_interface': 'swp1',
+                                                          'peer_hostname': 'NOT_SET',
+                                                          'peer_ip': '10.1.2.2',
+                                                          'peer_rid': '53.53.53.53',
+                                                          'session_state': 'FULL'},
+                                                      {   'local_interface': 'swp2',
+                                                          'peer_hostname': 'NOT_SET',
+                                                          'peer_ip': '10.1.20.2',
+                                                          'peer_rid': '62.62.62.62',
+                                                          'session_state': 'FULL'}]}],
+                    'router_id': '151.151.151.151',
+                    'vrf_name': 'NETESTS_VRF'}]}
+-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+>>>>> spine02 -- (ospf)
+{   'hostname': 'spine02',
+    'vrfs': [   {   'areas': [   {   'area_number': '0.0.0.0',
+                                     'neighbors': [   {   'local_interface': 'NOT_SET',
+                                                          'peer_hostname': 'NOT_SET',
+                                                          'peer_ip': '10.1.20.1',
+                                                          'peer_rid': '151.151.151.151',
+                                                          'session_state': 'FULL'}]}],
+                    'router_id': '62.62.62.62',
+                    'vrf_name': 'default'}]}
+>
+```
+
+>`spine02` is an Extreme Networks VSP
+>
+>`leaf01` is a Cumulus Networks
 
 
 
