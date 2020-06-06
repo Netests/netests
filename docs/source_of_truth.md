@@ -17,7 +17,85 @@ truth_vars
 
 
 
-### Create your source 
+## How it works ?
+
+There are 3 locations where Netests.io will try to get your source of truth.
+
+1. The one with the highest priority `truth_vars/hosts/`.
+
+   Netests.io will try to get data defined in `truth_vars/hosts/{{ inventory_hostname }}/{{ protocol}}.yml`
+
+2. If no data was found, the second step is to search data in `truth_vars/groups/`
+
+   Netests.io will try to get data from `truth_vars/groups/{{ groups[0] }}/{{ protocols }}.yml `
+
+   > Due to the use of the group at index zero of the list of groups to which this hosts belong. This function is not currently recommended. But it can be use without any problem if you hosts belong to only one group :smiley:
+
+3. Finally, if there is still no data found, the last step is to search data in `truth_vars/all/`.
+
+   Netests.io will try to get data from `truth_vars/all/{{ protocols }}.yml `
+
+
+
+**If there is no source of truth the protocol will not be tested !!!**
+
+
+
+### Example
+
+Suppose the following architecture.
+
+![tree_truth_vars.png](./images/tree_truth_vars.png)
+
+Two devices will try to get data for 3 protocols.
+
+| Device Type        | Hostname | Groups    |
+| ------------------ | -------- | --------- |
+| Cumulus Linux      | leaf01   | ['leaf']  |
+| Juniper Network MX | spine02  | ['spine'] |
+
+![tree_truth_vars_leaf01.png](./images/tree_truth_vars_leaf01.png)
+
+1. Device will get informations that are defined in `truth_vars/hosts/leaf01/`
+
+   => Only OSPF informations are defined as source of truth for `leaf01`.
+
+2. Device will get informations that are defined in `truth_vars/groups/leaf/`
+
+   => OSPF informations are already defined, OSPF informations will not be replaced. But PING informations that are not defined will  be saved as source of truth for `leaf01`.
+
+3. Finally, device will get informations that are defined in `truth_vars/all/`
+
+   => No more informations are found.
+
+   That means that VRF will not be tested for `leaf01` !
+
+
+
+![tree_truth_vars_spine01.png](./images/tree_truth_vars_spine01.png)
+
+1. Device will get informations that are defined in `truth_vars/hosts/spine01/`
+
+   => OSPF and VRF informations are defined as source of truth for `spine01`.
+
+2. Device will get informations that are defined in `truth_vars/groups/spine/`
+
+   => The folder doesn't exist, no informations will be added.
+
+3. Finally, device will get informations that are defined in `truth_vars/all/`
+
+   => There are some PING informations. PING will be added in source of truth source of truth for `leaf01`.
+
+
+
+| Device Name | OSPF                                | PING                         | VRF                                |
+| ----------- | ----------------------------------- | ---------------------------- | ---------------------------------- |
+| leaf01      | `truth_vars/hosts/leaf01/ospf.yml`  | `truth_vars/groups/ping.yml` | Not found                          |
+| Spine01     | `truth_vars/hosts/spine01/ospf.yml` | `truth_vars/all/vrf.yml`     | `truth_vars/hosts/spine01/vrf.yml` |
+
+
+
+## Create your source 
 
 Netests.io offers an option to create all truth_vars.
 
