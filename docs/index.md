@@ -294,7 +294,7 @@ With network the steps are a bit differents. The verification will not be done d
 3. Run ``Netests.io``
 
    ```shell
-   ⚡ ./netests/welcome.py -x -i inventory/ansible/hosts -a netests.yml
+   netests -x -i hosts -a netests.yml
    
    {   'bgp': {
    				Host: leaf02: True
@@ -336,7 +336,7 @@ On of the important step is to **test** your modification. Netests can be used t
 In your CI/CD pipeline just add a step where you are running **netests**.
 
 ```shell
-⚡ ./netests/welcome.py -x -i inventory/ansible/hosts -a netests.yml
+⚡ netests -x -i hosts -a netests.yml
 ```
 
 The task will failed if a test will failed.

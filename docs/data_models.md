@@ -1,7 +1,7 @@
 ### BGP
 
 ```shell
-⚡ ./netests/welcome.py --show-data-model bgp
+⚡ netests --show-data-model bgp
 ```
 
 ```yaml
@@ -39,7 +39,7 @@ CUSTOMER_VRF:
 ### CDP
 
 ```shell
-⚡ ./netests/welcome.py --show-data-model cdp
+⚡ netests --show-data-model cdp
 ```
 
 ```yaml
@@ -66,7 +66,7 @@ CUSTOMER_VRF:
 ### Facts
 
 ```shell
-⚡ ./netests/welcome.py --show-data-model facts
+⚡ netests --show-data-model facts
 ```
 
 ```yaml
@@ -98,7 +98,7 @@ version: 4.24.0F
 ### LLDP
 
 ```shell
-⚡ ./netests/welcome.py --show-data-model lldp
+⚡ netests --show-data-model lldp
 ```
 
 ```yaml
@@ -125,7 +125,7 @@ version: 4.24.0F
 ### OSPF
 
 ```shell
-⚡ ./netests/welcome.py --show-data-model ospf
+⚡ netests --show-data-model ospf
 ```
 
 ```yaml
@@ -158,7 +158,7 @@ vrfs:
 ### PING
 
 ```shell
-⚡ ./netests/welcome.py --show-data-model ping
+⚡ netests --show-data-model ping
 ```
 
 ```yaml
@@ -183,7 +183,7 @@ vrfs:
 ### VRF
 
 ```shell
-⚡ ./netests/welcome.py --show-data-model vrf
+⚡ netests --show-data-model vrf
 ```
 
 ```yaml

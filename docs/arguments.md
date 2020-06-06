@@ -1,6 +1,6 @@
 ```shell
-⚡ ./netests/welcome.py --help
-Usage: welcome.py [OPTIONS]
+⚡ netests --help
+Usage: netests [OPTIONS]
 
 Options:
   -a, --netest-config-file TEXT   Path to Netests configuration file
@@ -69,6 +69,9 @@ Options:
 
   -I, --init-data                 To create truth_vars files.
   -J, --init-folders              To create truth_vars/ folders.
+  -K, --init-config-file          To create netests.yml (Netests.io
+                                  configuration file).
+
   -V, --show-truth-vars TEXT      Show vars retrieved for a specific host. Use
                                   * to select all hosts
 

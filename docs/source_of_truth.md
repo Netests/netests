@@ -231,3 +231,115 @@ vrfs:
 
 
 
+## Show truth vars for hosts
+
+Netests.io can show what will be the values that will defined the source of truth for a host by using `--show-truth-vars`. This arguments take a list of hostname separate by a `,`.
+
+```shell
+netests -x -i hosts -a netests.yml --show-truth-vars {{ hostname }}
+netests -x -i hosts -a netests.yml --show-truth-vars {{ hostname1 }},{{ hostname2 }}
+```
+
+```shell
+netests -x -i hosts -a netests.yml --show-truth-vars leaf01,spine02
+```
+
+Only protocols enabled in Netests configuration (by default `netests.yml`) will be printed.
+
+#### Example
+
+Netests configuration file.
+
+```yaml
+config:
+  protocols:
+    bgp:
+      test: false
+    bgp_up:
+      test: false
+    cdp:
+      test: false
+    facts:
+      test: false
+    lldp:
+      test: true
+    ospf:
+      test: true
+    ping:
+      test: false
+    vrf:
+      test: false
+```
+
+The goal is to get data about `leaf01` (for protocols VRF and OSPF).
+
+```shell
+netests -x -i hosts -a netests.yml --show-truth-vars leaf01
+```
+
+> You must specify
+>
+> 1. Network inventory type (-x)
+> 2. Network inventory path (-i)
+> 3. Netests.io configuration file (-a)
+
+```shell
+{
+	'error_not_in_inventory': [],
+	'leaf01': {
+		'lldp': [{
+				'local_name': 'leaf01',
+				'local_port': 'swp1',
+				'neighbor_mgmt_ip': '53.53.53.53',
+				'neighbor_name': 'leaf03.dh.local',
+				'neighbor_os': 'NOT_SET',
+				'neighbor_port': 'Ethernet1',
+				'neighbor_type': ['Bridge', 'Router']
+			},
+			{
+				'local_name': 'leaf01',
+				'local_port': 'swp2',
+				'neighbor_mgmt_ip': '172.16.194.62',
+				'neighbor_name': 'spine02',
+				'neighbor_os': 'VSP-8284XSQ (8.1.0.0)',
+				'neighbor_port': '1/1',
+				'neighbor_type': ['Bridge', 'Router']
+			}
+		],
+		'ospf': {
+			'hostname': 'leaf01',
+			'vrfs': [{
+					'areas': [],
+					'router_id': '51.51.51.51',
+					'vrf_name': 'default'
+				},
+				{
+					'areas': [{
+						'area_number': '0.0.0.0',
+						'neighbors': [{
+								'local_interface': 'swp1',
+								'peer_hostname': 'NOT_SET',
+								'peer_ip': '10.1.2.2',
+								'peer_rid': '53.53.53.53',
+								'session_state': 'FULL'
+							},
+							{
+								'local_interface': 'swp2',
+								'peer_hostname': 'NOT_SET',
+								'peer_ip': '10.1.20.2',
+								'peer_rid': '62.62.62.62',
+								'session_state': 'FULL'
+							}
+						]
+					}],
+					'router_id': '151.151.151.151',
+					'vrf_name': 'NETESTS_VRF'
+				}
+			]
+		}
+	}
+}
+```
+
+If a hostname is given in parameter but is not in the network inventory. It will add in the list named `error_not_in_inventory`
+
