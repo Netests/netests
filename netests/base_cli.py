@@ -210,7 +210,7 @@ class NetestsCLI():
 
     def define_options(self, protocol, options) -> None:
         for key, values in MAPPING_PROTOCOLS.items():
-            if protocol.lower() == key:
+            if protocol.upper() == key.upper():
                 if options == "*":
                     if protocol in self.options.keys():
                         del self.options[protocol]
@@ -274,7 +274,7 @@ class NetestsCLI():
                 if prot in MAPPING_PROTOCOLS.keys():
                     getter = MAPPING_PROTOCOLS.get(prot).get('class')(
                         nr=self.nornir,
-                        options={},
+                        options=self.options.get(prot, {}),
                         from_cli=True,
                         num_workers=50,
                         verbose=False,

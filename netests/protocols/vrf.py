@@ -50,23 +50,23 @@ class VRF:
     def __repr__(self):
         if 'print' in self.options.keys():
             ret = "\t<VRF \n"
-            if self.options.get('print').get('vrf_name', True):
+            if self.options.get('vrf_name', True):
                 ret += f"\t\tvrf_name={self.vrf_name}\n"
-            if self.options.get('print').get('vrf_id', True):
+            if self.options.get('vrf_id', True):
                 ret += f"\t\tvrf_id={self.vrf_id}\n"
-            if self.options.get('print').get('vrf_type', True):
+            if self.options.get('vrf_type', True):
                 ret += f"\t\tvrf_type={self.vrf_type}\n"
-            if self.options.get('print').get('l3_vni', True):
+            if self.options.get('l3_vni', True):
                 ret += f"\t\tl3_vni={self.l3_vni}\n"
-            if self.options.get('print').get('rd', True):
+            if self.options.get('rd', True):
                 ret += f"\t\trd={self.rd}\n"
-            if self.options.get('print').get('rt_imp', True):
+            if self.options.get('rt_imp', True):
                 ret += f"\t\trt_imp={self.rt_imp}\n"
-            if self.options.get('print').get('rt_exp', True):
+            if self.options.get('rt_exp', True):
                 ret += f"\t\trt_exp={self.rt_exp}\n"
-            if self.options.get('print').get('imp_targ', True):
+            if self.options.get('imp_targ', True):
                 ret += f"\t\timp_targ={self.imp_targ}\n"
-            if self.options.get('print').get('exp_targ', True):
+            if self.options.get('exp_targ', True):
                 ret += f"\t\texp_targ={self.exp_targ}\n"
             return ret
         else:
@@ -82,40 +82,26 @@ class VRF:
                    f"\t\texp_targ={self.exp_targ}>\n"
 
     def to_json(self):
-        if 'print' in self.options.keys():
-            ret = dict()
-            ret = dict()
-            if self.options.get('print').get('vrf_name', True):
-                ret['vrf_name'] = self.vrf_name
-            if self.options.get('print').get('vrf_id', True):
-                ret['vrf_id'] = self.vrf_id
-            if self.options.get('print').get('vrf_type', True):
-                ret['vrf_type'] = self.vrf_type
-            if self.options.get('print').get('l3_vni', True):
-                ret['l3_vni'] = self.l3_vni
-            if self.options.get('print').get('rd', True):
-                ret['rd'] = self.rd
-            if self.options.get('print').get('rt_imp', True):
-                ret['rt_imp'] = self.rt_imp
-            if self.options.get('print').get('rt_exp', True):
-                ret['rt_exp'] = self.rt_exp
-            if self.options.get('print').get('imp_targ', True):
-                ret['imp_targ'] = self.imp_targ
-            if self.options.get('print').get('exp_targ', True):
-                ret['exp_targ'] = self.exp_targ
-            return ret
-        else:
-            return {
-                "vrf_name": self.vrf_name,
-                "vrf_id": self.vrf_id,
-                "vrf_type": self.vrf_type,
-                "l3_vni": self.l3_vni,
-                "rd": self.rd,
-                "rt_imp": self.rt_imp,
-                "rt_exp": self.rt_exp,
-                "imp_targ": self.imp_targ,
-                "exp_targ": self.exp_targ
-            }
+        ret = dict()
+        if self.options.get('vrf_name', True):
+            ret['vrf_name'] = self.vrf_name
+        if self.options.get('vrf_id', True):
+            ret['vrf_id'] = self.vrf_id
+        if self.options.get('vrf_type', True):
+            ret['vrf_type'] = self.vrf_type
+        if self.options.get('l3_vni', True):
+            ret['l3_vni'] = self.l3_vni
+        if self.options.get('rd', True):
+            ret['rd'] = self.rd
+        if self.options.get('rt_imp', True):
+            ret['rt_imp'] = self.rt_imp
+        if self.options.get('rt_exp', True):
+            ret['rt_exp'] = self.rt_exp
+        if self.options.get('imp_targ', True):
+            ret['imp_targ'] = self.imp_targ
+        if self.options.get('exp_targ', True):
+            ret['exp_targ'] = self.exp_targ
+        return ret
 
 
 class ListVRF:
