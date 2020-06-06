@@ -40,6 +40,7 @@ nav:
   - source_of_truth.md
   - data_models.md
   - netests_cli.md
+  - troubleshooting.md
   - device_used.md
   - roadmap.md
   - license.md
