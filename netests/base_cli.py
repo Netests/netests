@@ -415,7 +415,7 @@ class NetestsCLI():
 
     def print_selected_help(self):
         print("+------------------------------------------------------------+")
-        print("|              Netests - Unselect Commands                   |")
+        print("|              Netests - Selected Commands                   |")
         print("+------------------------------------------------------------+")
         print("| Netests is based on your network inventory. Once you have  |")
         print("| selected some device, you can print the devices currently  |")
@@ -477,7 +477,7 @@ class NetestsCLI():
 
     def print_compare_help(self):
         print("+------------------------------------------------------------+")
-        print("|                 Netests - Exit Commands                    |")
+        print("|                Netests - Compare Commands                  |")
         print("+------------------------------------------------------------+")
         print("| It is possible, from the CLI, to compare your network      |")
         print("| devices configuration with the configuration defined in    |")

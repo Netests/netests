@@ -505,6 +505,65 @@ Example
 
 
 
+### Help
+
+Netests.io can help you if you are lose in the CLI :smile:.
+
+#### General
+
+ To ask general help, use `help` command.
+
+Example
+
+```Shell
+> help
++------------------------------------------------------------+
+|                       Netests Help                         |
++------------------------------------------------------------+
+| [help]      Display help                                   |
+| [select]    Select devices on which on action will be exec |
+| [unselect]  Remove a device from the selected              |
+| [selected]  Show devices currently selected                |
+| [get xx]   Get XX protocols informations                   |
+| [options]   Set arguments that will retrieve for a Protocol|
+| [more xx]  Show XX Protocol class arguments selected       |
+| [show xx]  Show XX Protocol class arguments                |
+| [print yy]  Show YY devices informations                   |
+| [compare yy xx]  Compare device config with source of truth|
+| [exit]  Quit Netests CLI                                   |
++------------------------------------------------------------+
+```
+
+#### Command
+
+To ask help about a specific command use the following syntax.
+
+```shell
+help {{ command }}
+```
+
+Example
+
+```shell
+> help compare
++------------------------------------------------------------+
+|                 Netests - Exit Commands                    |
++------------------------------------------------------------+
+| It is possible, from the CLI, to compare your network      |
+| devices configuration with the configuration defined in    |
+| the source of truth.                                       |
+|                                                            |
+| Format :                                                   |
+|   > compare {{ protocol }}                                 |
+|                                                            |
+| Examples :                                                 |
+|   > compare vrf                                            |
+|                                                            |
++------------------------------------------------------------+
+```
+
+
+
 ## Youtube
 
 On the following link you can find an basic example of Netests CLI.
