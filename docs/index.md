@@ -340,3 +340,16 @@ In your CI/CD pipeline just add a step where you are running **netests**.
 ```
 
 The task will failed if a test will failed.
+
+
+
+## Git Repositories
+
+#### Gitlab (Official)
+
+https://gitlab.com/DylanHamel/netests
+
+#### Github (Mirror)
+
+https://github.com/Netests/netests
+

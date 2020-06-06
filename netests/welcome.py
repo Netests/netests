@@ -65,6 +65,18 @@ def print_result(result) -> None:
     PP.pprint(result)
 
 
+def exit_function(result):
+    if isinstance(result, dict):
+        for protocol, values in result.items():
+            if values is not None:
+                if isinstance(values, dict):
+                    for value in values.values():
+                        if value is False:
+                            return EXIT_FAILURE
+        return EXIT_SUCCESS
+    return EXIT_FAILURE
+
+
 @click.command()
 @click.option(
     "-a",
@@ -356,6 +368,8 @@ def main(
     if init_data is False:
         printline()
         print_result(result)
+
+    exit(exit_function(result))
 
 
 if __name__ == "__main__":
