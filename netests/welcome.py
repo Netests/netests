@@ -3,10 +3,10 @@
 
 import os
 import click
-import shutil
 import urllib3
 from netests import log
 from netests.base_run import run_base
+from netests.tools.std import printline
 from netests.base_cli import netests_cli
 from netests.tools.file import create_folder
 from netests.select_vars import select_host_vars
@@ -54,11 +54,6 @@ def print_inv(nr):
 
 def print_hello() -> None:
     print("\t Welcome to Netests.io ")
-
-
-def printline() -> None:
-    size = int(shutil.get_terminal_size()[0] / 2)
-    print("*-" * size)
 
 
 def print_result(result) -> None:

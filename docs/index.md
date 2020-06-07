@@ -124,7 +124,7 @@ CLI mode can be used to troubleshoot the network or get informations from many d
 
 ### Abstraction
 
-Netests.io offers you a vendor abstraction. Currently Netests.io supports **<u>7 differents OS.</u>**
+Netests.io offers a vendor abstraction. Currently Netests.io supports **<u>7 differents OS.</u>**
 
 * Arista Networks
 * Cumulus Linux
@@ -149,7 +149,7 @@ For this version Netests.io is able to get information regarding <u>**6 "protoco
 * OSPF
 * VRF
 
-All protocols have been simplified based on the OpenConfig data models. The idea of Netests.io is not to show you some output but compare and check that your network is in the state that you expect. To see protocols definition, go on the following link.
+All protocols have been simplified based on the OpenConfig data models. The idea of Netests.io is not to show some output but compare and check that your network is in an expected state. To see protocols definition, go on the following link.
 
 https://www.netests.io/protocols/
 
@@ -218,7 +218,7 @@ The network engineer job is evolving and the ways of working too.
 
 In a network (without automation) to execute a modification the next steps have to be done :
 
-1. Execute your modification
+1. Execute a modification
 
    ```
    conf t
@@ -245,7 +245,7 @@ In a network (without automation) to execute a modification the next steps have 
 
 With network the steps are a bit differents. The verification will not be done directly one the devices.
 
-1.  Execute your modification - Directly on the device (bad :confused:) or in a file and deploy with Ansible, Nornir etc. (good :smiley:).
+1.  Execute a modification - Directly on the device (bad :confused:) or in a file and deploy with Ansible, Nornir etc. (good :smiley:).
 
    * Manually
 
@@ -269,7 +269,7 @@ With network the steps are a bit differents. The verification will not be done d
             description: MY_NEW_PEER
    ```
 
-2. Update your test in Netests
+2. Update Netests tests (source of truth).
 
    * Add check to verify that the BGP new session is UP in ``truth_vars/hosts/{{ hostname }}/bgp.yml``
 
@@ -314,7 +314,7 @@ With network the steps are a bit differents. The verification will not be done d
    }
    ```
 
-   > Protocols with a "None" is the protocols that had not been tested
+   > Protocols with a "None" is the protocols that has not been tested
    >
    > Don't be affraid about them :smiley:
 
@@ -329,7 +329,7 @@ With network the steps are a bit differents. The verification will not be done d
 
 Based on the software developement good practice some companies try to develop (or already have) a CI/CD pipeline.
 
-On of the important step is to **test** your modification. Netests can be used to do the step.
+On of the important step is to **test** the modification. Netests.io can be used to do the step.
 
 ![devops.png](./images/devops.png)
 

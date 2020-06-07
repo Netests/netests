@@ -3,13 +3,13 @@
 
 import yaml
 import json
+import shutil
+import socket
 import ipaddress
 from netests import log
 from nornir.core import Nornir
-from netmiko import ConnectHandler
 from netests.constants import (
     NOT_SET,
-    NETMIKO_NAPALM_MAPPING_PLATEFORM,
     BGP_STATE_UP_LIST,
     BGP_STATE_BRIEF_UP,
     BGP_STATE_BRIEF_DOWN
@@ -17,6 +17,11 @@ from netests.constants import (
 
 
 ERROR_HEADER = "Error import [global.py]"
+
+
+def printline() -> None:
+    size = int(shutil.get_terminal_size()[0] / 2)
+    print("*-" * size)
 
 
 def _generic_state_converter(state: str) -> str:
@@ -48,19 +53,34 @@ def check_devices_connectivity(nr: Nornir) -> bool:
     if len(devices.inventory.hosts) == 0:
         raise Exception(f"[{ERROR_HEADER}] no device selected.")
 
-    data = devices.run(task=is_alive, num_workers=100)
-    # print_result(data)
+    devices.run(
+        task=is_alive,
+        num_workers=100
+    )
 
+    all_reachable = True
+    printline()
     for device in devices.inventory.hosts:
-        if data[device].failed:
-            print(f"\t--> Connection to {device} has failed.")
+        if devices.inventory.hosts[device]['test_connectivity'] is False:
+            log.debug(
+                "\n"
+                f"Device {device} is not reachable with the following infos:\n"
+                f"\thostname={devices.inventory.hosts[device].name}\n"
+                f"\tport={devices.inventory.hosts[device].port}\n"
+                f"\tconnexion={devices.inventory.hosts[device]['connexion']}\n"
+            )
+            print(
+                f"Device {device} is not reachable with the following infos:\n"
+                f"\thostname={devices.inventory.hosts[device].name}\n"
+                f"\tport={devices.inventory.hosts[device].port}\n"
+                f"\tconnexion={devices.inventory.hosts[device]['connexion']}\n"
+            )
+            all_reachable = False
 
-    if not data.failed:
+    if all_reachable:
         print("All devices are reachable :) !")
-    else:
-        print("\nPlease check credentials in the inventory")
 
-    return not data.failed
+    return all_reachable
 
 
 def is_alive(task) -> None:
@@ -70,24 +90,25 @@ def is_alive(task) -> None:
     :return None:
     """
 
-    if task.host.platform in NETMIKO_NAPALM_MAPPING_PLATEFORM.keys():
-        platform = NETMIKO_NAPALM_MAPPING_PLATEFORM.get(task.host.platform)
-    else:
-        platform = task.host.platform
-
     try:
-        print(platform)
-        device = ConnectHandler(
-            device_type=platform,
-            host=task.host.hostname,
-            username=task.host.username,
-            password=task.host.password,
+        s = socket.socket()
+        s.connect(
+            (
+                task.host.hostname,
+                task.host.port
+            )
         )
-        log.debug(device)
+        log.debug(f"Test socket to {task.host.hostname}, {task.host.port}")
     except Exception:
-        return False
-
-    return True
+        log.debug(
+            f"Test socket to {task.host.hostname}, {task.host.port} = FALSE"
+        )
+        task.host['test_connectivity'] = False
+        return
+    finally:
+        s.close()
+    log.debug(f"Test socket to {task.host.hostname}, {task.host.port} = TRUE")
+    task.host['test_connectivity'] = True
 
 
 def _generic_interface_filter(

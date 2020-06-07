@@ -216,3 +216,69 @@ port: 8080
 secure_api: false
 ```
 
+
+
+## Check connectivity
+
+Before to run the script, Netests.io can test if all devices are reachable.
+
+Netests.io will create a TCP socket to the device. **Credentials are not tested - only TCP connexion is tested**
+
+To tests devices reachability use `--check-connectivity`
+
+```shell
+⚡ netests -x -i hosts -a netests.yml  --check-connectivity
+```
+
+### Not reachable
+
+```shell
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+	 Welcome to Netests.io
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+{   'leaf05': {   'connexion': 'netconf',
+                  'hostname': 'ios-xe-mgmt-latest.cisco.com',
+                  'platform': 'ios',
+                  'port': 10001}}
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+{   'bgp': False,
+    'bgp_up': False,
+    'cdp': False,
+    'facts': False,
+    'lldp': True,
+    'ospf': True,
+    'ping': False,
+    'vrf': False}
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+Device leaf05 is not reachable with the following infos:
+	hostname=leaf05
+	port=10001
+	connexion=netconf
+
+```
+
+### Reachable
+
+```Shell
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+	 Welcome to Netests.io
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+{   'leaf05': {   'connexion': 'netconf',
+                  'hostname': 'ios-xe-mgmt-latest.cisco.com',
+                  'platform': 'ios',
+                  'port': 10000}}
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+{   'bgp': False,
+    'bgp_up': False,
+    'cdp': False,
+    'facts': False,
+    'lldp': True,
+    'ospf': True,
+    'ping': False,
+    'vrf': False}
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+All devices are reachable :) !
+```
+
+> Port has changed.
+
