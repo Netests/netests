@@ -53,8 +53,8 @@ class IosxrNC(DeviceNC, ABC):
     def exec_call_get_config(self, task, command):
         log.debug(
             f"CALL Netconf function for IOSXR\n"
-            f"hostname={task.host.hostname}\n",
-            f"port={task.host.port}\n",
+            f"hostname={task.host.hostname}\n"
+            f"port={task.host.port}\n"
             "hostkey_verify=False\n"
             "device_params={'name': 'iosxr'}\n"
             f"command={command}\n"
@@ -84,8 +84,8 @@ class IosxrNC(DeviceNC, ABC):
 
             log.debug(
                 f"RESULT Netconf function for IOSXR\n"
-                f"hostname={task.host.hostname}\n",
-                f"port={task.host.port}\n",
+                f"hostname={task.host.hostname}\n"
+                f"port={task.host.port}\n"
                 "hostkey_verify=False\n"
                 "device_params={'name': 'iosxr'}\n"
                 f"command={command}\n"

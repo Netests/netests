@@ -55,8 +55,8 @@ class IosNC(DeviceNC, ABC):
     def exec_call(self, task, command, vrf):
         log.debug(
             f"CALL Netconf function for IOSXE"
-            f"hostname={task.host.hostname}",
-            f"port={task.host.port}",
+            f"hostname={task.host.hostname}"
+            f"port={task.host.port}"
             "hostkey_verify=False"
             "device_params={'name': 'nexus'}"
             f"command={command}"
@@ -81,8 +81,8 @@ class IosNC(DeviceNC, ABC):
 
             log.debug(
                 f"RESULT Netconf function for IOSXR"
-                f"hostname={task.host.hostname}",
-                f"port={task.host.port}",
+                f"hostname={task.host.hostname}"
+                f"port={task.host.port}"
                 "hostkey_verify=False"
                 "device_params={'name': 'nexus'}"
                 f"command={command}"

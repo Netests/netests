@@ -53,8 +53,8 @@ class DeviceNC(Device, ABC):
     def exec_call_get_config(self, task, command):
         log.debug(
             f"CALL Netconf function\n"
-            f"hostname={task.host.hostname}\n",
-            f"port={task.host.port}\n",
+            f"hostname={task.host.hostname}\n"
+            f"port={task.host.port}\n"
             "hostkey_verify=False\n"
             "device_params={'name': 'nexus'}\n"
             f"command={command}\n"
@@ -83,8 +83,8 @@ class DeviceNC(Device, ABC):
 
             log.info(
                 f"RESULT Netconf function\n"
-                f"hostname={task.host.hostname}\n",
-                f"port={task.host.port}\n",
+                f"hostname={task.host.hostname}\n"
+                f"port={task.host.port}\n"
                 "hostkey_verify=False\n"
                 "device_params={'name': 'nexus'}\n"
                 f"command={command}\n"

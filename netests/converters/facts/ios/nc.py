@@ -24,25 +24,25 @@ def _ios_facts_nc_converter(
     if isinstance(cmd_output, dict) and 'data' in cmd_output.keys():
         hostname = cmd_output.get('data') \
                              .get('native') \
-                             .get('hostname')
+                             .get('hostname', NOT_SET)
         domain = cmd_output.get('data') \
                            .get('native') \
                            .get('ip') \
                            .get('domain') \
-                           .get('name')
+                           .get('name', NOT_SET)
         version = cmd_output.get('data') \
                             .get('native') \
-                            .get('version')
+                            .get('version', NOT_SET)
         serial = cmd_output.get('data') \
                            .get('native') \
                            .get('license') \
                            .get('udi') \
-                           .get('sn')
+                           .get('sn', NOT_SET)
         model = cmd_output.get('data') \
                           .get('native') \
                           .get('license') \
                           .get('udi') \
-                          .get('pid')
+                          .get('pid', NOT_SET)
         for t in cmd_output.get('data') \
                            .get('native') \
                            .get('interface').keys():
@@ -50,7 +50,8 @@ def _ios_facts_nc_converter(
                                .get('native') \
                                .get('interface') \
                                .get(t):
-                interfaces_lst.append(f"{t}{i.get('name')}")
+                if isinstance(i, dict):
+                    interfaces_lst.append(f"{t}{i.get('name')}")
 
     return Facts(
         hostname=hostname,
