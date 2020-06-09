@@ -1,5 +1,6 @@
 ## Contributors
 
-Dylan Hamel - <dylan.hamel@protonmail.com>
+Dylan Hamel - [Linkedin](https://www.linkedin.com/in/dylan-hamel/) - <dylan.hamel@protonmail.com>
 
-Mentor Reka - reka.mentor@gmail.com
+Mentor Reka - [Linkedin](https://www.linkedin.com/in/mentor-reka/) - reka.mentor@gmail.com
+

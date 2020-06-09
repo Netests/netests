@@ -58,7 +58,7 @@ def _compare_vrf(
             )
 
         log.debug(
-            "VRF_DATA_KEY in host_keys="
+            "\nVRF_DATA_KEY in host_keys="
             f"{VRF_DATA_KEY in host_keys}\n"
             "vrf_yaml_data is not None="
             f"{vrf_yaml_data is not None}"

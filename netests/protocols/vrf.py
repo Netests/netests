@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from netests.constants import NOT_SET
+from netests.constants import COMPARE_OPTION_KEY, PRINT_OPTION_KEY, NOT_SET
 
 
 class VRF:
@@ -45,30 +45,63 @@ class VRF:
         if not isinstance(other, VRF):
             return NotImplementedError
 
-        return ((str(self.vrf_name) == str(other.vrf_name)))
+        if COMPARE_OPTION_KEY in self.options.keys():
+            is_equal = True
+            if self.options.get(COMPARE_OPTION_KEY).get('vrf_name', True):
+                if str(self.vrf_name) != str(other.vrf_name):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('vrf_id', False):
+                if str(self.vrf_id) != str(other.vrf_id):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('vrf_type', False):
+                if str(self.vrf_type) != str(other.vrf_type):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('l3_vni', False):
+                if str(self.l3_vni) != str(other.l3_vni):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('rd', False):
+                if str(self.rd) != str(other.rd):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('rt_imp', False):
+                if str(self.rt_imp) != str(other.rt_imp):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('rt_exp', False):
+                if str(self.rt_exp) != str(other.rt_exp):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('imp_targ', False):
+                if str(self.imp_targ) != str(other.imp_targ):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('exp_targ', False):
+                if str(self.exp_targ) != str(other.exp_targ):
+                    is_equal = False
+            return is_equal
+        else:
+            return (
+                str(self.vrf_name) == str(other.vrf_name)
+            )
 
     def __repr__(self):
-        if 'print' in self.options.keys():
+        if PRINT_OPTION_KEY in self.options.keys():
             ret = "\t<VRF \n"
-            if self.options.get('vrf_name', True):
+            if self.options.get(PRINT_OPTION_KEY).get('vrf_name', True):
                 ret += f"\t\tvrf_name={self.vrf_name}\n"
-            if self.options.get('vrf_id', True):
+            if self.options.get(PRINT_OPTION_KEY).get('vrf_id', True):
                 ret += f"\t\tvrf_id={self.vrf_id}\n"
-            if self.options.get('vrf_type', True):
+            if self.options.get(PRINT_OPTION_KEY).get('vrf_type', True):
                 ret += f"\t\tvrf_type={self.vrf_type}\n"
-            if self.options.get('l3_vni', True):
+            if self.options.get(PRINT_OPTION_KEY).get('l3_vni', True):
                 ret += f"\t\tl3_vni={self.l3_vni}\n"
-            if self.options.get('rd', True):
+            if self.options.get(PRINT_OPTION_KEY).get('rd', True):
                 ret += f"\t\trd={self.rd}\n"
-            if self.options.get('rt_imp', True):
+            if self.options.get(PRINT_OPTION_KEY).get('rt_imp', True):
                 ret += f"\t\trt_imp={self.rt_imp}\n"
-            if self.options.get('rt_exp', True):
+            if self.options.get(PRINT_OPTION_KEY).get('rt_exp', True):
                 ret += f"\t\trt_exp={self.rt_exp}\n"
-            if self.options.get('imp_targ', True):
+            if self.options.get(PRINT_OPTION_KEY).get('imp_targ', True):
                 ret += f"\t\timp_targ={self.imp_targ}\n"
-            if self.options.get('exp_targ', True):
+            if self.options.get(PRINT_OPTION_KEY).get('exp_targ', True):
                 ret += f"\t\texp_targ={self.exp_targ}\n"
-            return ret
+            return ret + ">\n"
         else:
             return f"\t<VRF \n" \
                    f"\t\t vrf_name={self.vrf_name}\n" \
@@ -82,26 +115,39 @@ class VRF:
                    f"\t\texp_targ={self.exp_targ}>\n"
 
     def to_json(self):
-        ret = dict()
-        if self.options.get('vrf_name', True):
-            ret['vrf_name'] = self.vrf_name
-        if self.options.get('vrf_id', True):
-            ret['vrf_id'] = self.vrf_id
-        if self.options.get('vrf_type', True):
-            ret['vrf_type'] = self.vrf_type
-        if self.options.get('l3_vni', True):
-            ret['l3_vni'] = self.l3_vni
-        if self.options.get('rd', True):
-            ret['rd'] = self.rd
-        if self.options.get('rt_imp', True):
-            ret['rt_imp'] = self.rt_imp
-        if self.options.get('rt_exp', True):
-            ret['rt_exp'] = self.rt_exp
-        if self.options.get('imp_targ', True):
-            ret['imp_targ'] = self.imp_targ
-        if self.options.get('exp_targ', True):
-            ret['exp_targ'] = self.exp_targ
-        return ret
+        if PRINT_OPTION_KEY in self.options.keys():
+            ret = dict()
+            if self.options.get(PRINT_OPTION_KEY).get('vrf_name', True):
+                ret['vrf_name'] = self.vrf_name
+            if self.options.get(PRINT_OPTION_KEY).get('vrf_id', True):
+                ret['vrf_id'] = self.vrf_id
+            if self.options.get(PRINT_OPTION_KEY).get('vrf_type', True):
+                ret['vrf_type'] = self.vrf_type
+            if self.options.get(PRINT_OPTION_KEY).get('l3_vni', True):
+                ret['l3_vni'] = self.l3_vni
+            if self.options.get(PRINT_OPTION_KEY).get('rd', True):
+                ret['rd'] = self.rd
+            if self.options.get(PRINT_OPTION_KEY).get('rt_imp', True):
+                ret['rt_imp'] = self.rt_imp
+            if self.options.get(PRINT_OPTION_KEY).get('rt_exp', True):
+                ret['rt_exp'] = self.rt_exp
+            if self.options.get(PRINT_OPTION_KEY).get('imp_targ', True):
+                ret['imp_targ'] = self.imp_targ
+            if self.options.get(PRINT_OPTION_KEY).get('exp_targ', True):
+                ret['exp_targ'] = self.exp_targ
+            return ret
+        else:
+            return {
+                "vrf_name": self.vrf_name,
+                "vrf_id": self.vrf_id,
+                "vrf_type": self.vrf_type,
+                "l3_vni": self.l3_vni,
+                "rd": self.rd,
+                "rt_imp": self.rt_imp,
+                "rt_exp": self.rt_exp,
+                "imp_targ": self.imp_targ,
+                "exp_targ": self.exp_targ
+            }
 
 
 class ListVRF:
