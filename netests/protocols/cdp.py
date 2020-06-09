@@ -30,11 +30,7 @@ class CDP(DiscoveryProtocols):
     def __eq__(self, other):
         if not isinstance(other, CDP):
             return NotImplementedError()
-
-        return (self.local_name == other.local_name and
-                self.local_port == other.local_port and
-                self.neighbor_name == other.neighbor_name and
-                self.neighbor_port == other.neighbor_port)
+        return super(CDP, self).__eq__(other)
 
     def __repr__(self):
         return super(CDP, self).__repr__()

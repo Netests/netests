@@ -90,7 +90,7 @@ class Facts:
 
     def __repr__(self):
         if PRINT_OPTION_KEY in self.options.keys():
-            ret = "\t<Facts \n"
+            ret = "\t<Facts\n"
             if self.options.get(PRINT_OPTION_KEY).get('hostname', True):
                 ret += f"\t\thostname={self.hostname}\n"
             if self.options.get(PRINT_OPTION_KEY).get('domain', True):
@@ -113,16 +113,16 @@ class Facts:
                 ret += f"\t\tinterfaces_lst={self.interfaces_lst}\n"
             return ret + ">\n"
         return "<Facts \n" \
-              f"hostname={self.hostname}\n" \
-              f"domain={self.domain}\n" \
-              f"version={self.version}\n" \
-              f"build={self.build}\n" \
-              f"serial={self.serial}\n" \
-              f"base_mac={self.base_mac}\n" \
-              f"memory={self.memory}\n" \
-              f"vendor={self.vendor}\n" \
-              f"model={self.model}\n" \
-              f"interfaces_lst={self.interfaces_lst}>\n"
+               f"hostname={self.hostname}\n" \
+               f"domain={self.domain}\n" \
+               f"version={self.version}\n" \
+               f"build={self.build}\n" \
+               f"serial={self.serial}\n" \
+               f"base_mac={self.base_mac}\n" \
+               f"memory={self.memory}\n" \
+               f"vendor={self.vendor}\n" \
+               f"model={self.model}\n" \
+               f"interfaces_lst={self.interfaces_lst}>\n"
 
     def to_json(self):
         if PRINT_OPTION_KEY in self.options.keys():
