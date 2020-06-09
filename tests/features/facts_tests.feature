@@ -134,5 +134,49 @@ Feature: Test protocols Facts python class netests/protocols/facts.py
         And Facts YAML file should be equal to o0702
         And Facts YAML file should be equal to o0703
         And Facts YAML file should be equal to o0704
+
+        # Test Filter compare function
+        And I create a Facts object to test compare function named o9999
+
+        And I create a Facts object to test compare function with <domain> named o9982
+        And I create a Facts object to test compare equal to o9982 without <domain> named o9983
+        And I compare Facts o9982 and o9999 with a personal function - should not work
+        And I compare Facts o9983 and o9999 with a personal function - should work
+
+        And I create a Facts object to test compare function with <build> named o9984
+        And I create a Facts object to test compare equal to o9984 without <build> named o9985
+        And I compare Facts o9984 and o9999 with a personal function - should not work
+        And I compare Facts o9985 and o9999 with a personal function - should work
+
+        And I create a Facts object to test compare function with <serial> named o9986
+        And I create a Facts object to test compare equal to o9986 without <serial> named o9987
+        And I compare Facts o9986 and o9999 with a personal function - should not work
+        And I compare Facts o9987 and o9999 with a personal function - should work
+
+        And I create a Facts object to test compare function with <base_mac> named o9988
+        And I create a Facts object to test compare equal to o9988 without <base_mac> named o9989
+        And I compare Facts o9988 and o9999 with a personal function - should not work
+        And I compare Facts o9989 and o9999 with a personal function - should work
+
+        And I create a Facts object to test compare function with <memory> named o9990
+        And I create a Facts object to test compare equal to o9990 without <memory> named o9991
+        And I compare Facts o9990 and o9999 with a personal function - should not work
+        And I compare Facts o9991 and o9999 with a personal function - should work
+
+        And I create a Facts object to test compare function with <vendor> named o9992
+        And I create a Facts object to test compare equal to o9992 without <vendor> named o9993
+        And I compare Facts o9992 and o9999 with a personal function - should not work
+        And I compare Facts o9993 and o9999 with a personal function - should work
+
+        And I create a Facts object to test compare function with <model> named o9994
+        And I create a Facts object to test compare equal to o9994 without <model> named o9995
+        And I compare Facts o9994 and o9999 with a personal function - should not work
+        And I compare Facts o9995 and o9999 with a personal function - should work
+
+        And I create a Facts object to test compare function with <interfaces_lst> named o9996
+        And I create a Facts object to test compare equal to o9996 without <interfaces_lst> named o9997
+        And I compare Facts o9996 and o9999 with a personal function - should not work
+        And I compare Facts o9997 and o9999 with a personal function - should work
+
         # By Protocols
         And I Finish my Facts tests and list tests not implemented

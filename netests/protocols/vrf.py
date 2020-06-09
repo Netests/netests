@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from netests import log
 from netests.constants import COMPARE_OPTION_KEY, PRINT_OPTION_KEY, NOT_SET
 
 
@@ -45,7 +46,19 @@ class VRF:
         if not isinstance(other, VRF):
             return NotImplementedError
 
+        log.debug(
+            "\nCompare VRF - between: \n"
+            f"self={self}"
+            f"other={other}"
+        )
+
         if COMPARE_OPTION_KEY in self.options.keys():
+
+            log.debug(
+                "Compare function is using a personnal function"
+                f"options={self.options}"
+            )
+
             is_equal = True
             if self.options.get(COMPARE_OPTION_KEY).get('vrf_name', True):
                 if str(self.vrf_name) != str(other.vrf_name):
@@ -74,6 +87,12 @@ class VRF:
             if self.options.get(COMPARE_OPTION_KEY).get('exp_targ', False):
                 if str(self.exp_targ) != str(other.exp_targ):
                     is_equal = False
+
+            log.debug(
+                "Result for Compare function using a personnal function"
+                f"is_equal={is_equal}"
+            )
+
             return is_equal
         else:
             return (

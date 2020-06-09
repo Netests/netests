@@ -1328,6 +1328,262 @@ def step_impl(context):
     )
 
 
+@given(u'I create a Facts object to test compare function named o9999')
+def step_impl(context):
+    context.o9999 = Facts(
+        hostname='leaf01',
+        domain=NOT_SET,
+        version='4.0.0',
+        build='Cumulus Linux 4.0.0',
+        serial='50:00:00:02:00:00',
+        base_mac='50:00:00:02:00:00',
+        memory=944388,
+        vendor='Cumulus Networks',
+        model='VX',
+        interfaces_lst=['swp5',
+                        'swp7',
+                        'swp2',
+                        'swp3',
+                        'swp1',
+                        'swp6',
+                        'swp4',
+                        'eth0'],
+        options={}
+    )
+
+
+@given(u'I create a Facts object to test compare function with <domain> named o9982')
+def step_impl(context):
+    options = {
+        'compare': {
+            'domain': True
+        }
+    }
+    context.o9982 = create_facts_obj_for_compare(options)
+
+
+@given(u'I create a Facts object to test compare equal to o9982 without <domain> named o9983')
+def step_impl(context):
+    options = {}
+    context.o9983 = create_facts_obj_for_compare(options)
+
+
+@given(u'I compare Facts o9982 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9982 != context.o9999
+
+
+@given(u'I compare Facts o9983 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9983 == context.o9999
+
+
+@given(u'I create a Facts object to test compare function with <build> named o9984')
+def step_impl(context):
+    options = {
+        'compare': {
+            'build': True
+        }
+    }
+    context.o9984 = create_facts_obj_for_compare(options)
+
+
+@given(u'I create a Facts object to test compare equal to o9984 without <build> named o9985')
+def step_impl(context):
+    options = {}
+    context.o9985 = create_facts_obj_for_compare(options)
+
+
+@given(u'I compare Facts o9984 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9984 != context.o9999
+
+
+@given(u'I compare Facts o9985 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9985 == context.o9999
+
+
+@given(u'I create a Facts object to test compare function with <serial> named o9986')
+def step_impl(context):
+    options = {
+        'compare': {
+            'serial': True
+        }
+    }
+    context.o9986 = create_facts_obj_for_compare(options)
+
+
+@given(u'I create a Facts object to test compare equal to o9986 without <serial> named o9987')
+def step_impl(context):
+    options = {}
+    context.o9987 = create_facts_obj_for_compare(options)
+
+
+@given(u'I compare Facts o9986 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9986 != context.o9999
+
+
+@given(u'I compare Facts o9987 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9987 == context.o9999
+
+
+@given(u'I create a Facts object to test compare function with <base_mac> named o9988')
+def step_impl(context):
+    options = {
+        'compare': {
+            'base_mac': True
+        }
+    }
+    context.o9988 = create_facts_obj_for_compare(options)
+
+
+@given(u'I create a Facts object to test compare equal to o9988 without <base_mac> named o9989')
+def step_impl(context):
+    options = {}
+    context.o9989 = create_facts_obj_for_compare(options)
+
+
+@given(u'I compare Facts o9988 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9988 != context.o9999
+
+
+@given(u'I compare Facts o9989 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9989 == context.o9999
+
+
+@given(u'I create a Facts object to test compare function with <memory> named o9990')
+def step_impl(context):
+    options = {
+        'compare': {
+            'memory': True
+        }
+    }
+    context.o9990 = create_facts_obj_for_compare(options)
+
+
+@given(u'I create a Facts object to test compare equal to o9990 without <memory> named o9991')
+def step_impl(context):
+    options = {}
+    context.o9991 = create_facts_obj_for_compare(options)
+
+
+@given(u'I compare Facts o9990 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9990 != context.o9999
+
+
+@given(u'I compare Facts o9991 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9991 == context.o9999
+
+
+@given(u'I create a Facts object to test compare function with <vendor> named o9992')
+def step_impl(context):
+    options = {
+        'compare': {
+            'vendor': True
+        }
+    }
+    context.o9992 = create_facts_obj_for_compare(options)
+
+
+@given(u'I create a Facts object to test compare equal to o9992 without <vendor> named o9993')
+def step_impl(context):
+    options = {}
+    context.o9993 = create_facts_obj_for_compare(options)
+
+
+@given(u'I compare Facts o9992 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9992 != context.o9999
+
+
+@given(u'I compare Facts o9993 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9993 == context.o9999
+
+
+@given(u'I create a Facts object to test compare function with <model> named o9994')
+def step_impl(context):
+    options = {
+        'compare': {
+            'model': True
+        }
+    }
+    context.o9994 = create_facts_obj_for_compare(options)
+
+
+@given(u'I create a Facts object to test compare equal to o9994 without <model> named o9995')
+def step_impl(context):
+    options = {}
+    context.o9995 = create_facts_obj_for_compare(options)
+
+
+@given(u'I compare Facts o9994 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9994 != context.o9999
+
+
+@given(u'I compare Facts o9995 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9995 == context.o9999
+
+
+@given(u'I create a Facts object to test compare function with <interfaces_lst> named o9996')
+def step_impl(context):
+    options = {
+        'compare': {
+            'interfaces_lst': True
+        }
+    }
+    context.o9996 = create_facts_obj_for_compare(options)
+
+
+@given(u'I create a Facts object to test compare equal to o9996 without <interfaces_lst> named o9997')
+def step_impl(context):
+    options = {}
+    context.o9997 = create_facts_obj_for_compare(options)
+
+
+@given(u'I compare Facts o9996 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9996 != context.o9999
+
+
+@given(u'I compare Facts o9997 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9987 == context.o9999
+
+
+def create_facts_obj_for_compare(options):
+    return Facts(
+        hostname='leaf01',
+        domain="a_very_cool_domain.com",
+        version='4.0.0',
+        build='WRONG__BUILD__!!',
+        serial='WRONG__SERIAL__!!',
+        base_mac='WRONG__BASE_MAC__!!',
+        memory=0,
+        vendor='NOT CUMULUS SO NOT GOOD',
+        model='NOT A CUMULUS MODEL',
+        interfaces_lst=['swp5',
+                        'swp7',
+                        'swp2',
+                        'swp3',
+                        'swp1',
+                        'swp6',
+                        'swp4',
+                        'eth0',
+                        'WHAT IS THIS INTERFACE ????'],
+        options=options
+    )
+
+
 @given(u'I Finish my Facts tests and list tests not implemented')
 def step_impl(context):
     print("| The following tests are not implemented :")
