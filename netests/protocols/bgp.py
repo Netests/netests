@@ -54,13 +54,13 @@ class BGPSession:
     def __repr__(self):
         return "<BGPSession" \
                f"\tsrc_hostname={self.src_hostname} " \
-               f"\tpeer_ip={self.peer_ip} " \
-               f"\tpeer_hostname={self.peer_hostname} " \
-               f"\tremote_as={self.remote_as} " \
-               f"\tstate_brief={self.state_brief} " \
-               f"\tsession_state={self.session_state} "\
-               f"\tstate_time={self.state_time} " \
-               f"\tprefix_received={self.prefix_received}" \
+               f"\t\tpeer_ip={self.peer_ip} " \
+               f"\t\tpeer_hostname={self.peer_hostname} " \
+               f"\t\tremote_as={self.remote_as} " \
+               f"\t\tstate_brief={self.state_brief} " \
+               f"\t\tsession_state={self.session_state} "\
+               f"\t\tstate_time={self.state_time} " \
+               f"\t\tprefix_received={self.prefix_received}" \
                ">\n"
 
     def to_json(self):

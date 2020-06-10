@@ -221,43 +221,43 @@ Feature: Test protocols VRF python class netests/protocols/vrf.py
 
     And I create a VRF object to test compare function with <rt_imp> named o9982
     And I create a VRF object to test compare equal to o9982 without <rt_imp> named o9983
-    And I compare o9982 and o9999 with a personal function - should not work
-    And I compare o9983 and o9999 with a personal function - should work
+    And I compare VRF o9982 and o9999 with a personal function - should not work
+    And I compare VRF o9983 and o9999 with a personal function - should work
 
     And I create a VRF object to test compare function with <rt_exp> named o9984
     And I create a VRF object to test compare equal to o9984 without <rt_exp> named o9985
-    And I compare o9984 and o9999 with a personal function - should not work
-    And I compare o9985 and o9999 with a personal function - should work
+    And I compare VRF o9984 and o9999 with a personal function - should not work
+    And I compare VRF o9985 and o9999 with a personal function - should work
 
     And I create a VRF object to test compare function with <imp_targ> named o9986
     And I create a VRF object to test compare equal to o9986 without <imp_targ> named o9987
-    And I compare o9986 and o9999 with a personal function - should not work
-    And I compare o9987 and o9999 with a personal function - should work
+    And I compare VRF o9986 and o9999 with a personal function - should not work
+    And I compare VRF o9987 and o9999 with a personal function - should work
 
     And I create a VRF object to test compare function with <exp_targ> named o9988
     And I create a VRF object to test compare equal to o9988 without <exp_targ> named o9989
-    And I compare o9988 and o9999 with a personal function - should not work
-    And I compare o9989 and o9999 with a personal function - should work
+    And I compare VRF o9988 and o9999 with a personal function - should not work
+    And I compare VRF o9989 and o9999 with a personal function - should work
     
     And I create a VRF object to test compare function with <vrf_id> named o9990
     And I create a VRF object to test compare equal to o9990 without <vrf_id> named o9991
-    And I compare o9990 and o9999 with a personal function - should not work
-    And I compare o9991 and o9999 with a personal function - should work
+    And I compare VRF o9990 and o9999 with a personal function - should not work
+    And I compare VRF o9991 and o9999 with a personal function - should work
 
     And I create a VRF object to test compare function with <vrf_type> named o9992
     And I create a VRF object to test compare equal to o9992 without <vrf_type> named o9993
-    And I compare o9992 and o9999 with a personal function - should not work
-    And I compare o9993 and o9999 with a personal function - should work
+    And I compare VRF o9992 and o9999 with a personal function - should not work
+    And I compare VRF o9993 and o9999 with a personal function - should work
 
     And I create a VRF object to test compare function with <l3_vni> named o9994
     And I create a VRF object to test compare equal to o9994 without <l3_vni> named o9995
-    And I compare o9994 and o9999 with a personal function - should not work
-    And I compare o9995 and o9999 with a personal function - should work
+    And I compare VRF o9994 and o9999 with a personal function - should not work
+    And I compare VRF o9995 and o9999 with a personal function - should work
 
     And I create a VRF object to test compare function with <rd> named o9996
     And I create a VRF object to test compare equal to o9996 without <rd> named o9997
-    And I compare o9996 and o9999 with a personal function - should not work
-    And I compare o9997 and o9999 with a personal function - should work
+    And I compare VRF o9996 and o9999 with a personal function - should not work
+    And I compare VRF o9997 and o9999 with a personal function - should work
     
     # By Protocols
     And I Finish my VRF tests and list tests not implemented 

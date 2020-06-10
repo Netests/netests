@@ -1934,12 +1934,12 @@ def step_impl(context):
     context.o9983 = create_vrf_obj_for_compare(options)
 
 
-@given(u'I compare o9982 and o9999 with a personal function - should not work')
+@given(u'I compare VRF o9982 and o9999 with a personal function - should not work')
 def step_impl(context):
     assert context.o9982 != context.o9999
 
 
-@given(u'I compare o9983 and o9999 with a personal function - should work')
+@given(u'I compare VRF o9983 and o9999 with a personal function - should work')
 def step_impl(context):
     assert context.o9983 == context.o9999
 
@@ -1960,12 +1960,12 @@ def step_impl(context):
     context.o9985 = create_vrf_obj_for_compare(options)
 
 
-@given(u'I compare o9984 and o9999 with a personal function - should not work')
+@given(u'I compare VRF o9984 and o9999 with a personal function - should not work')
 def step_impl(context):
     assert context.o9984 != context.o9999
 
 
-@given(u'I compare o9985 and o9999 with a personal function - should work')
+@given(u'I compare VRF o9985 and o9999 with a personal function - should work')
 def step_impl(context):
     assert context.o9985 == context.o9999
 
@@ -1986,12 +1986,12 @@ def step_impl(context):
     context.o9987 = create_vrf_obj_for_compare(options)
 
 
-@given(u'I compare o9986 and o9999 with a personal function - should not work')
+@given(u'I compare VRF o9986 and o9999 with a personal function - should not work')
 def step_impl(context):
     assert context.o9986 != context.o9999
 
 
-@given(u'I compare o9987 and o9999 with a personal function - should work')
+@given(u'I compare VRF o9987 and o9999 with a personal function - should work')
 def step_impl(context):
     assert context.o9987 == context.o9999
 
@@ -2012,12 +2012,12 @@ def step_impl(context):
     context.o9989 = create_vrf_obj_for_compare(options)
 
 
-@given(u'I compare o9988 and o9999 with a personal function - should not work')
+@given(u'I compare VRF o9988 and o9999 with a personal function - should not work')
 def step_impl(context):
     assert context.o9988 != context.o9999
 
 
-@given(u'I compare o9989 and o9999 with a personal function - should work')
+@given(u'I compare VRF o9989 and o9999 with a personal function - should work')
 def step_impl(context):
     assert context.o9989 == context.o9999
 
@@ -2037,12 +2037,13 @@ def step_impl(context):
     options = {}
     context.o9991 = create_vrf_obj_for_compare(options)
 
-@given(u'I compare o9990 and o9999 with a personal function - should not work')
+
+@given(u'I compare VRF o9990 and o9999 with a personal function - should not work')
 def step_impl(context):
     assert context.o9990 != context.o9999
 
 
-@given(u'I compare o9991 and o9999 with a personal function - should work')
+@given(u'I compare VRF o9991 and o9999 with a personal function - should work')
 def step_impl(context):
     assert context.o9991 == context.o9999
 
@@ -2063,12 +2064,12 @@ def step_impl(context):
     context.o9993 = create_vrf_obj_for_compare(options)
     
 
-@given(u'I compare o9992 and o9999 with a personal function - should not work')
+@given(u'I compare VRF o9992 and o9999 with a personal function - should not work')
 def step_impl(context):
     assert context.o9992 != context.o9999
 
 
-@given(u'I compare o9993 and o9999 with a personal function - should work')
+@given(u'I compare VRF o9993 and o9999 with a personal function - should work')
 def step_impl(context):
     assert context.o9993 == context.o9999
 
@@ -2090,12 +2091,12 @@ def step_impl(context):
     context.o9995 = create_vrf_obj_for_compare(options)
 
 
-@given(u'I compare o9994 and o9999 with a personal function - should not work')
+@given(u'I compare VRF o9994 and o9999 with a personal function - should not work')
 def step_impl(context):
     assert context.o9994 != context.o9999
 
 
-@given(u'I compare o9995 and o9999 with a personal function - should work')
+@given(u'I compare VRF o9995 and o9999 with a personal function - should work')
 def step_impl(context):
     assert context.o9995 == context.o9999
 
@@ -2116,12 +2117,12 @@ def step_impl(context):
     context.o9997 = create_vrf_obj_for_compare(options)
 
 
-@given(u'I compare o9996 and o9999 with a personal function - should not work')
+@given(u'I compare VRF o9996 and o9999 with a personal function - should not work')
 def step_impl(context):
     assert context.o9996 != context.o9999
 
 
-@given(u'I compare o9997 and o9999 with a personal function - should work')
+@given(u'I compare VRF o9997 and o9999 with a personal function - should work')
 def step_impl(context):
     assert context.o9997 == context.o9999
 
