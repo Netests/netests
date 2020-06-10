@@ -1,5 +1,7 @@
 Each protocol has a different way to compare.
-Only few parameters are used in the compare function.
+Only few parameters are used in the compare function by default.
+
+You can define in Netests.io configuration file which parameter will be used in the compare function.
 
 ## Compare
 
@@ -20,7 +22,11 @@ Some other parameters are also compared :
 6. as_number
 7. vrf_name
 
-#### Parameter not compare 
+#### Parameter not compare
+
+These values are not compare by default, it is possible to add them in the compare function
+
+=> Check `Modify compared values`.
 
 * peer_hostname
 * session_state
@@ -68,6 +74,31 @@ class BGP:
            
 ```
 
+#### Modify compared values
+
+It's possible to add or remove some value from the compare function.
+
+To do that, Modifiy Netests.io configuration file by adding `compare:` in protocols `options:`
+
+```yaml
+config:
+  protocols:
+    bgp:
+      test: true
+      options:
+        compare:
+          src_hostname: true
+          peer_ip: true
+          remote_as: true
+          state_brief: true
+          peer_hostname: false
+          session_state: true
+          state_time: false
+          prefix_received: true
+```
+
+In this example `prefix_received` and `session_state` are added to BGP compare function
+
 
 
 ### CDP
@@ -79,7 +110,11 @@ In the CDP function the following parameters will be compare.
 3. neighbor_name
 4. neighbor_port
 
-#### Parameter not compare 
+#### Parameter not compare
+
+These values are not compare by default, it is possible to add them in the compare function
+
+=> Check `Modify compared values`.
 
 * neighbor_os
 * neighbor_mgmt_ip
@@ -101,6 +136,30 @@ class CDP(DiscoveryProtocols):
                 self.neighbor_port == other.neighbor_port)
 ```
 
+#### Modify compared values
+
+It's possible to add or remove some value from the compare function.
+
+To do that, Modifiy Netests.io configuration file by adding `compare:` in protocols `options:`
+
+```yaml
+config:
+  protocols:
+    cdp:
+      test: true
+      options:
+        compare:
+          local_name: true
+          local_port: true
+          neighbor_name: true
+          neighbor_port: true
+          neighbor_os: true
+          neighbor_mgmt_ip: true
+          neighbor_type: false
+```
+
+In this example `neighbor_os` and `neighbor_port` are added to CDP compare function
+
 
 
 ### Facts
@@ -111,6 +170,10 @@ In the Facts function the following parameters will be compare.
 2. version
 
 #### Parameter not compare 
+
+These values are not compare by default, it is possible to add them in the compare function
+
+=> Check `Modify compared values`.
 
 * domain
 * build
@@ -133,6 +196,33 @@ class Facts:
                 (str(self.version) == str(other.version)))
 ```
 
+#### Modify compared values
+
+It's possible to add or remove some value from the compare function.
+
+To do that, Modifiy Netests.io configuration file by adding `compare:` in protocols `options:`
+
+```yaml
+config:
+  protocols:
+    facts:
+      test: false
+      options:
+        compare:
+          hostname: True
+          domain: true
+          version: True
+          build: false
+          serial: true
+          base_mac: false
+          memory: false
+          vendor: false
+          model: false
+          interfaces_lst: false
+```
+
+In this example `serial` and `domain` are added to Facts compare function
+
 
 
 ### LLDP
@@ -144,7 +234,11 @@ In the LLDP function the following parameters will be compare.
 3. neighbor_name
 4. neighbor_port
 
-#### Parameter not compare 
+#### Parameter not compare
+
+These values are not compare by default, it is possible to add them in the compare function
+
+=> Check `Modify compared values`.
 
 * neighbor_os
 * neighbor_mgmt_ip
@@ -166,6 +260,31 @@ class LLDP(DiscoveryProtocols):
                 self.neighbor_port == other.neighbor_port)
 ```
 
+#### Modify compared values
+
+It's possible to add or remove some value from the compare function.
+
+To do that, Modifiy Netests.io configuration file by adding `compare:` in protocols `options:`
+
+```yaml
+config:
+  protocols:
+    lldp:
+      test: true
+      options:
+        compare:
+          src_hostname: true
+          peer_ip: true
+          remote_as: true
+          state_brief: true
+          peer_hostname: false
+          session_state: true
+          state_time: false
+          prefix_received: true
+```
+
+In this example `prefix_received` and `session_state` are added to LLDP compare function
+
 
 
 ### OSPF
@@ -181,12 +300,15 @@ Some other parameters are also compared :
 6. vrf_name
 7. router_id
 
-#### Parameter not compare 
+#### Parameter not compare
+
+These values are not compare by default, it is possible to add them in the compare function
+
+=> Check `Modify compared values`.
 
 * peer_ip
 * session_state
 * peer_hostname
-* prefix_received
 
 These values are retrieved to have more informations and for some next features.
 
@@ -225,6 +347,28 @@ class OSPFSessionsVRF:
            
 ```
 
+#### Modify compared values
+
+It's possible to add or remove some value from the compare function.
+
+To do that, Modifiy Netests.io configuration file by adding `compare:` in protocols `options:`
+
+```yaml
+config:
+  protocols:
+    ospf:
+      test: true
+      options:
+        compare:
+          peer_rid: true
+          local_interface: true
+          peer_ip: true
+          session_state: true
+          peer_hostname: false
+```
+
+In this example `peer_ip` and `session_state` are added to OSPF compare function
+
 
 
 ### PING
@@ -239,7 +383,11 @@ In the VRF function the following parameters will be compare.
 
 1. vrf_name
 
-#### Parameter not compare 
+#### Parameter not compare
+
+These values are not compare by default, it is possible to add them in the compare function
+
+=> Check `Modify compared values`.
 
 * vrf_id
 * vrf_type
@@ -263,26 +411,28 @@ class VRF:
         return ((str(self.vrf_name) == str(other.vrf_name)))
 ```
 
+#### Modify compared values
 
+It's possible to add or remove some value from the compare function.
 
-## Informations
-
-In the next release you will be able to define in the Netests.io configuration file which parameters will be compared.
+To do that, Modifiy Netests.io configuration file by adding `compare:` in protocols `options:`
 
 ```yaml
-vrf:
-      test: true
+config:
+  protocols:
+    vrf:
+      test: false
       options:
         compare:
-          vrf_name: true
-          vrf_id: true
+          vrf_name: True
+          vrf_id: True
           vrf_type: false
           l3_vni: false
-          rd: true
-          rt_imp: false
-          rt_exp: false
+          rd: True
+          rt_imp: True
+          rt_exp: True
           imp_targ: false
           exp_targ: false
 ```
 
-With this configuration file `rd`, `vrf_name` and `vrf_id` will be compared.
+In this example `rd`, `rt_imp`, `rt_exp` and `vrf_id` are added to VRF compare function

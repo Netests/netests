@@ -69,6 +69,10 @@ PLATFORM_SUPPORTED = [
     NEXUS_PLATEFORM_NAME
 ]
 
+# NETESTS CONFIGURATION FILE
+COMPARE_OPTION_KEY = 'compare'
+PRINT_OPTION_KEY = 'print'
+
 # JUNOS COMMANDS
 JUNOS_GET_FACTS = "show version | display json"
 JUNOS_GET_IPV4 = JUNOS_GET_INT = "show interfaces terse | display json"

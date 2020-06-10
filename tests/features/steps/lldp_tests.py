@@ -974,6 +974,151 @@ def step_impl(context):
     context.scenario.tags.append("own_skipped")
 
 
+@given(u'I create a LLDP object to test compare function named o9999')
+def step_impl(context):
+    lldp_neighbors_lst = ListLLDP(
+        lldp_neighbors_lst=list()
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf03",
+            local_port="Ethernet2",
+            neighbor_port="1/2",
+            neighbor_name="spine02",
+            neighbor_os="VSP-8284XSQ (8.1.0.0)",
+            neighbor_mgmt_ip="192.168.1.202",
+            neighbor_type=['Bridge', 'Router']
+        )
+    )
+
+    lldp_neighbors_lst.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf03",
+            local_port="Ethernet1",
+            neighbor_port="swp1",
+            neighbor_name="cumulus",
+            neighbor_os="Cumulus Linux version 4.0.0 running on QEMU Standard PC(i440FX + PIIX, 1996)",
+            neighbor_mgmt_ip="192.168.1.148",
+            neighbor_type=['Bridge', 'Router']
+        )
+    )
+
+    context.o9999 = lldp_neighbors_lst
+
+
+@given(u'I create a LLDP object to test compare function with <neighbor_os> named o9982')
+def step_impl(context):
+    options = {
+        'compare': {
+            'neighbor_os': True
+        }
+    }
+    context.o9982 = create_lldp_obj_for_compare(options)
+
+
+@given(u'I create a LLDP object to test compare equal to o9982 without <neighbor_os> named o9983')
+def step_impl(context):
+    options = {}
+    context.o9983 = create_lldp_obj_for_compare(options)
+
+
+@given(u'I compare LLDP o9982 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9982 != context.o9999
+
+
+@given(u'I compare LLDP o9983 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9983 == context.o9999
+
+
+@given(u'I create a LLDP object to test compare function with <neighbor_mgmt_ip> named o9984')
+def step_impl(context):
+    options = {
+        'compare': {
+            'neighbor_mgmt_ip': True
+        }
+    }
+    context.o9984 = create_lldp_obj_for_compare(options)
+
+
+@given(u'I create a LLDP object to test compare equal to o9984 without <neighbor_mgmt_ip> named o9985')
+def step_impl(context):
+    options = {}
+    context.o9985 = create_lldp_obj_for_compare(options)
+
+
+@given(u'I compare LLDP o9984 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9984 != context.o9999
+
+
+@given(u'I compare LLDP o9985 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9985 == context.o9999
+
+
+@given(u'I create a LLDP object to test compare function with <neighbor_type> named o9986')
+def step_impl(context):
+    options = {
+        'compare': {
+            'neighbor_type': True
+        }
+    }
+    context.o9986 = create_lldp_obj_for_compare(options)
+
+
+@given(u'I create a LLDP object to test compare equal to o9986 without <neighbor_type> named o9987')
+def step_impl(context):
+    options = {}
+    context.o9987 = create_lldp_obj_for_compare(options)
+
+
+@given(u'I compare LLDP o9986 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9986 != context.o9999
+
+
+@given(u'I compare LLDP o9987 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9987 == context.o9999
+
+
+def create_lldp_obj_for_compare(options):
+    obj = ListLLDP(
+        lldp_neighbors_lst=list()
+    )
+
+    obj.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf03",
+            local_port="Ethernet2",
+            neighbor_port="1/2",
+            neighbor_name="spine02",
+            neighbor_os="NETESTS_IO_IS_CREATING_HIS_OWN_OS...",
+            neighbor_mgmt_ip="239.0.0.1__?_MULTICAST_IP_?!!",
+            neighbor_type=['BOAT', 'CAR', 'DRUNK'],
+            options=options
+        )
+    )
+
+    obj.lldp_neighbors_lst.append(
+        LLDP(
+            local_name="leaf03",
+            local_port="Ethernet1",
+            neighbor_port="swp1",
+            neighbor_name="cumulus",
+            neighbor_os="Cumulus Linux version 4.0.0 running on QEMU Standard PC(i440FX + PIIX, 1996)",
+            neighbor_mgmt_ip="192.168.1.148",
+            neighbor_type=['Bridge', 'Router'],
+            options=options
+        )
+    )
+
+    return obj
+
+
 @given(u'I Finish my LLDP tests and list tests not implemented')
 def step_impl(context):
     print("| The following tests are not implemented :")

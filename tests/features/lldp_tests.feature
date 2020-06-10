@@ -149,6 +149,24 @@ Feature: Test protocols LLDP python class netests/protocols/lldp.py
     And LLDP o0712 should be equal to o0713
     And LLDP o0712 should be equal to o0714
     And LLDP o0713 should be equal to o0714
+
+    # Test Filter compare function
+    And I create a LLDP object to test compare function named o9999
+
+    And I create a LLDP object to test compare function with <neighbor_os> named o9982
+    And I create a LLDP object to test compare equal to o9982 without <neighbor_os> named o9983
+    And I compare LLDP o9982 and o9999 with a personal function - should not work
+    And I compare LLDP o9983 and o9999 with a personal function - should work
+
+    And I create a LLDP object to test compare function with <neighbor_mgmt_ip> named o9984
+    And I create a LLDP object to test compare equal to o9984 without <neighbor_mgmt_ip> named o9985
+    And I compare LLDP o9984 and o9999 with a personal function - should not work
+    And I compare LLDP o9985 and o9999 with a personal function - should work
+
+    And I create a LLDP object to test compare function with <neighbor_type> named o9986
+    And I create a LLDP object to test compare equal to o9986 without <neighbor_type> named o9987
+    And I compare LLDP o9986 and o9999 with a personal function - should not work
+    And I compare LLDP o9987 and o9999 with a personal function - should work
     
     # By Protocols
     And I Finish my LLDP tests and list tests not implemented

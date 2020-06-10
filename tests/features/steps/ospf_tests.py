@@ -1243,6 +1243,201 @@ def step_impl(context):
     )
 
 
+@given(u'I create a OSPF object to test compare function named o9999')
+def step_impl(context):
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    ### VRF - Netests
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="CUSTOMER_NETESTS",
+            router_id="153.153.153.153",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    ### VRF - default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="151.151.151.151",
+            peer_ip="10.1.2.1",
+            local_interface="Ethernet1",
+            session_state="FULL"
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="default",
+            router_id="123.123.123.123",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    context.o9999 = OSPF(
+        hostname="leaf03",
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
+
+
+@given(u'I create a OSPF object to test compare function with <peer_ip> named o9982')
+def step_impl(context):
+    options = {
+        'compare': {
+            'peer_ip': True
+        }
+    }
+    context.o9982 = create_ospf_obj_for_compare(options)
+
+
+@given(u'I create a OSPF object to test compare equal to o9982 without <peer_ip> named o9983')
+def step_impl(context):
+    options = {}
+    context.o9983 = create_ospf_obj_for_compare(options)
+
+
+@given(u'I compare OSPF o9982 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9982 != context.o9999
+
+
+@given(u'I compare OSPF o9983 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9983 == context.o9999
+
+
+@given(u'I create a OSPF object to test compare function with <session_state> named o9984')
+def step_impl(context):
+    options = {
+        'compare': {
+            'session_state': True
+        }
+    }
+    context.o9984 = create_ospf_obj_for_compare(options)
+
+
+@given(u'I create a OSPF object to test compare equal to o9984 without <session_state> named o9985')
+def step_impl(context):
+    options = {}
+    context.o9985 = create_ospf_obj_for_compare(options)
+
+
+@given(u'I compare OSPF o9984 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9984 != context.o9999
+
+
+@given(u'I compare OSPF o9985 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9985 == context.o9999
+
+
+@given(u'I create a OSPF object to test compare function with <peer_hostname> named o9986')
+def step_impl(context):
+    options = {
+        'compare': {
+            'peer_hostname': True
+        }
+    }
+    context.o9986 = create_ospf_obj_for_compare(options)
+
+
+@given(u'I create a OSPF object to test compare equal to o9986 without <peer_hostname> named o9987')
+def step_impl(context):
+    options = {}
+    context.o9987 = create_ospf_obj_for_compare(options)
+
+
+@given(u'I compare OSPF o9986 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9986 != context.o9999
+
+
+@given(u'I compare OSPF o9987 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9987 == context.o9999
+
+
+def create_ospf_obj_for_compare(options):
+    ospf_vrf_lst = ListOSPFSessionsVRF(
+        ospf_sessions_vrf_lst=list()
+    )
+
+    ### VRF - Netests
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="CUSTOMER_NETESTS",
+            router_id="153.153.153.153",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    ### VRF - default
+    ospf_area_lst = ListOSPFSessionsArea(
+        ospf_sessions_area_lst=list()
+    )
+
+    ospf_session_lst = ListOSPFSessions(
+        ospf_sessions_lst=list()
+    )
+
+    ospf_session_lst.ospf_sessions_lst.append(
+        OSPFSession(
+            peer_rid="151.151.151.151",
+            session_state="NOT_REALLY_FULL",
+            peer_hostname="HOOOOOOOPA_I_DONT_KNOW",
+            local_interface="Ethernet1",
+            peer_ip="239.1.1.1",
+            options=options
+        )
+    )
+
+    ospf_area_lst.ospf_sessions_area_lst.append(
+        OSPFSessionsArea(
+            area_number="0.0.0.0",
+            ospf_sessions=ospf_session_lst
+        )
+    )
+
+    ospf_vrf_lst.ospf_sessions_vrf_lst.append(
+        OSPFSessionsVRF(
+            vrf_name="default",
+            router_id="123.123.123.123",
+            ospf_sessions_area_lst=ospf_area_lst
+        )
+    )
+
+    return OSPF(
+        hostname="leaf03",
+        ospf_sessions_vrf_lst=ospf_vrf_lst
+    )
+
+
 @given(u'I Finish my OSPF tests and list tests not implemented')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")

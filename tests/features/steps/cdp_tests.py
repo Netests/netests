@@ -841,6 +841,154 @@ def step_impl(context):
     context.scenario.tags.append("own_skipped")
 
 
+@given(u'I create a CDP object to test compare function named o9999')
+def step_impl(context):
+    cdp_neighbors_lst = ListCDP(
+        cdp_neighbors_lst=list()
+    )
+
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="spine03",
+            local_port="MgmtEth0/RP0/CPU0/0",
+            neighbor_port="eth0",
+            neighbor_name="leaf01",
+            neighbor_os="Cumulus Linux",
+            neighbor_mgmt_ip="100.96.0.21",
+            neighbor_type=['Router', 'Bridge'],
+            options={}
+        )
+    )
+
+    cdp_neighbors_lst.cdp_neighbors_lst.append(
+        CDP(
+            local_name="spine03",
+            local_port="MgmtEth0/RP0/CPU0/0",
+            neighbor_port="mgmt0",
+            neighbor_name="leaf02(9OSPMF3QIF6)",
+            neighbor_os="Cisco Nexus Operating System(NX-OS) Software, Version 9.2(3)",
+            neighbor_mgmt_ip="100.96.0.20",
+            neighbor_type=['Router', 'Bridge'],
+            options={}
+        )
+    )
+
+    context.o9999 = cdp_neighbors_lst
+
+
+@given(u'I create a CDP object to test compare function with <neighbor_os> named o9982')
+def step_impl(context):
+    options = {
+        'compare': {
+            'neighbor_os': True
+        }
+    }
+    context.o9982 = create_cdp_obj_for_compare(options)
+
+
+@given(u'I create a CDP object to test compare equal to o9982 without <neighbor_os> named o9983')
+def step_impl(context):
+    options = {}
+    context.o9983 = create_cdp_obj_for_compare(options)
+
+
+@given(u'I compare CDP o9982 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9982 != context.o9999
+
+
+@given(u'I compare CDP o9983 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9983 == context.o9999
+
+
+@given(u'I create a CDP object to test compare function with <neighbor_mgmt_ip> named o9984')
+def step_impl(context):
+    options = {
+        'compare': {
+            'neighbor_mgmt_ip': True
+        }
+    }
+    context.o9984 = create_cdp_obj_for_compare(options)
+
+
+@given(u'I create a CDP object to test compare equal to o9984 without <neighbor_mgmt_ip> named o9985')
+def step_impl(context):
+    options = {}
+    context.o9985 = create_cdp_obj_for_compare(options)
+
+
+@given(u'I compare CDP o9984 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9984 != context.o9999
+
+
+@given(u'I compare CDP o9985 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9985 == context.o9999
+
+
+@given(u'I create a CDP object to test compare function with <neighbor_type> named o9986')
+def step_impl(context):
+    options = {
+        'compare': {
+            'neighbor_type': True
+        }
+    }
+    context.o9986 = create_cdp_obj_for_compare(options)
+
+
+@given(u'I create a CDP object to test compare equal to o9986 without <neighbor_type> named o9987')
+def step_impl(context):
+    options = {}
+    context.o9987 = create_cdp_obj_for_compare(options)
+
+
+@given(u'I compare CDP o9986 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9986 != context.o9999
+
+
+@given(u'I compare CDP o9987 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9987 == context.o9999
+
+
+def create_cdp_obj_for_compare(options):
+    obj = ListCDP(
+        cdp_neighbors_lst=list()
+    )
+
+    obj.cdp_neighbors_lst.append(
+        CDP(
+            local_name="spine03",
+            local_port="MgmtEth0/RP0/CPU0/0",
+            neighbor_port="eth0",
+            neighbor_name="leaf01",
+            neighbor_os="NETESTS_IO_IS_CREATING_HIS_OWN_OS...",
+            neighbor_mgmt_ip="239.0.0.1__?_MULTICAST_IP_?!!",
+            neighbor_type=['BOAT', 'CAR', 'DRUNK'],
+            options=options
+        )
+    )
+
+    obj.cdp_neighbors_lst.append(
+        CDP(
+            local_name="spine03",
+            local_port="MgmtEth0/RP0/CPU0/0",
+            neighbor_port="mgmt0",
+            neighbor_name="leaf02(9OSPMF3QIF6)",
+            neighbor_os="Cisco Nexus Operating System(NX-OS) Software, Version 9.2(3)",
+            neighbor_mgmt_ip="100.96.0.20",
+            neighbor_type=['Router', 'Bridge'],
+            options=options
+        )
+    )
+
+    return obj
+
+
+
 @given(u'I Finish my CDP tests and list tests not implemented')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")

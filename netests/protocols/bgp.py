@@ -1,7 +1,8 @@
 #!/usr/bin/env python3.7
 # -*- coding: utf-8 -*-
 
-from netests.constants import NOT_SET
+from netests import log
+from netests.constants import COMPARE_OPTION_KEY, PRINT_OPTION_KEY, NOT_SET
 
 ERROR_HEADER = "Error import [bgp.py]"
 
@@ -44,43 +45,112 @@ class BGPSession:
         if not isinstance(other, BGPSession):
             return NotImplementedError
 
-        return (
-            (str(self.src_hostname) == str(other.src_hostname)) and
-            (str(self.peer_ip) == str(other.peer_ip)) and
-            (str(self.state_brief) == str(other.state_brief)) and
-            (str(self.remote_as) == str(other.remote_as))
-        )
+        if COMPARE_OPTION_KEY in self.options.keys():
+            log.debug(f"Compare modified function\noptions={self.options}")
+
+            is_equal = True
+            if self.options.get(COMPARE_OPTION_KEY).get('src_hostname', True):
+                if str(self.src_hostname) != str(other.src_hostname):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('peer_ip', True):
+                if str(self.peer_ip) != str(other.peer_ip):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('peer_hostname', False):
+                if str(self.peer_hostname) != str(other.peer_hostname):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('remote_as', True):
+                if str(self.remote_as) != str(other.remote_as):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('state_brief', True):
+                if str(self.state_brief) != str(other.state_brief):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('session_state', False):
+                if str(self.session_state) != str(other.session_state):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('state_time', False):
+                if str(self.state_time) != str(other.state_time):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('prefix_received', False):
+                if str(self.prefix_received) != str(other.prefix_received):
+                    is_equal = False
+
+            log.debug(
+                "Result for modified compare function\n"
+                f"is_equal={is_equal}"
+            )
+
+            return is_equal
+
+        else:
+            log.debug(f"Compare standard function\noptions={self.options}")
+
+            is_equal = (
+                (str(self.src_hostname) == str(other.src_hostname)) and
+                (str(self.peer_ip) == str(other.peer_ip)) and
+                (str(self.state_brief) == str(other.state_brief)) and
+                (str(self.remote_as) == str(other.remote_as))
+            )
+
+            log.debug(
+                "Result for standard compare function\n"
+                f"is_equal={is_equal}"
+            )
+
+            return is_equal
 
     def __repr__(self):
-        return "<BGPSession" \
-               f"\tsrc_hostname={self.src_hostname} " \
-               f"\tpeer_ip={self.peer_ip} " \
-               f"\tpeer_hostname={self.peer_hostname} " \
-               f"\tremote_as={self.remote_as} " \
-               f"\tstate_brief={self.state_brief} " \
-               f"\tsession_state={self.session_state} "\
-               f"\tstate_time={self.state_time} " \
-               f"\tprefix_received={self.prefix_received}" \
-               ">\n"
+        if PRINT_OPTION_KEY in self.options.keys():
+            ret = "\t<BGPSession\n"
+            if self.options.get(PRINT_OPTION_KEY).get('src_hostname', True):
+                ret += f"\t\tsrc_hostname={self.src_hostname}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('peer_ip', True):
+                ret += f"\t\tpeer_ip={self.peer_ip}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('peer_hostname', True):
+                ret += f"\t\tpeer_hostname={self.peer_hostname}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('remote_as', True):
+                ret += f"\t\tremote_as={self.remote_as}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('state_brief', True):
+                ret += f"\t\tstate_brief={self.state_brief}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('session_state', True):
+                ret += f"\t\tsession_state={self.session_state}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('state_time', True):
+                ret += f"\t\tstate_time={self.state_time}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('prefix_received', True):
+                ret += f"\t\tprefix_received={self.prefix_received}\n"
+            return ret + ">\n"
+        else:
+            return "<BGPSession" \
+                   f"\t\tsrc_hostname={self.src_hostname}\n" \
+                   f"\t\tpeer_ip={self.peer_ip}\n" \
+                   f"\t\tpeer_hostname={self.peer_hostname}\n" \
+                   f"\t\tremote_as={self.remote_as}\n" \
+                   f"\t\tstate_brief={self.state_brief}\n" \
+                   f"\t\tsession_state={self.session_state}\n"\
+                   f"\t\tstate_time={self.state_time}\n" \
+                   f"\t\tprefix_received={self.prefix_received}\n" \
+                   ">\n"
 
     def to_json(self):
-        if 'print' in self.options.keys():
+        if PRINT_OPTION_KEY in self.options.keys():
             r = dict()
-            if self.options.get('print').get('src_hostname', True):
+            if self.options.get(PRINT_OPTION_KEY).get('src_hostname', True):
                 r['src_hostname'] = self.src_hostname
-            if self.options.get('print').get('peer_ip', True):
+            if self.options.get(PRINT_OPTION_KEY).get('peer_ip', True):
                 r['peer_ip'] = self.peer_ip
-            if self.options.get('print').get('peer_hostname', True):
+            if self.options.get(PRINT_OPTION_KEY).get('peer_hostname', True):
                 r['peer_hostname'] = self.peer_hostname
-            if self.options.get('print').get('remote_as', True):
+            if self.options.get(PRINT_OPTION_KEY).get('remote_as', True):
                 r['remote_as'] = self.remote_as
-            if self.options.get('print').get('state_brief', True):
+            if self.options.get(PRINT_OPTION_KEY).get('state_brief', True):
                 r['state_brief'] = self.state_brief
-            if self.options.get('print').get('session_state', True):
+            if self.options.get(PRINT_OPTION_KEY).get('session_state', True):
                 r['session_state'] = self.session_state
-            if self.options.get('print').get('state_time', True):
+            if self.options.get(PRINT_OPTION_KEY).get('state_time', True):
                 r['state_time'] = self.state_time
-            if self.options.get('print').get('prefix_received', True):
+            if self.options.get(PRINT_OPTION_KEY).get('prefix_received', True):
                 r['prefix_received'] = self.prefix_received
             return r
         else:

@@ -1883,6 +1883,289 @@ def step_impl(context):
     )
 
 
+@given(u'I create a VRF object to test compare function named o9999')
+def step_impl(context):
+    context.o9999 = ListVRF(
+        vrf_lst=list()
+    )
+
+    context.o9999.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id="1",
+            vrf_type="vrf",
+            l3_vni=NOT_SET,
+            rd="65123:1",
+            rt_imp="65123:1",
+            rt_exp="65123:1",
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET
+        )
+    )
+
+    context.o9999.vrf_lst.append(
+        VRF(
+            vrf_name="management",
+            vrf_id="2",
+            vrf_type="vrf",
+            l3_vni="100002",
+            rd="65123:100",
+            rt_imp="65123:100",
+            rt_exp="65123:100",
+            imp_targ="65123:100",
+            exp_targ="65123:100"
+        )
+    )
+
+
+@given(u'I create a VRF object to test compare function with <rt_imp> named o9982')
+def step_impl(context):
+    options = {
+        'compare': {
+            'rt_imp': True
+        }
+    }
+    context.o9982 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I create a VRF object to test compare equal to o9982 without <rt_imp> named o9983')
+def step_impl(context):
+    options = {}
+    context.o9983 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I compare VRF o9982 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9982 != context.o9999
+
+
+@given(u'I compare VRF o9983 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9983 == context.o9999
+
+
+@given(u'I create a VRF object to test compare function with <rt_exp> named o9984')
+def step_impl(context):
+    options = {
+        'compare': {
+            'rt_exp': True
+        }
+    }
+    context.o9984 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I create a VRF object to test compare equal to o9984 without <rt_exp> named o9985')
+def step_impl(context):
+    options = {}
+    context.o9985 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I compare VRF o9984 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9984 != context.o9999
+
+
+@given(u'I compare VRF o9985 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9985 == context.o9999
+
+
+@given(u'I create a VRF object to test compare function with <imp_targ> named o9986')
+def step_impl(context):
+    options = {
+        'compare': {
+            'imp_targ': True
+        }
+    }
+    context.o9986 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I create a VRF object to test compare equal to o9986 without <imp_targ> named o9987')
+def step_impl(context):
+    options = {}
+    context.o9987 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I compare VRF o9986 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9986 != context.o9999
+
+
+@given(u'I compare VRF o9987 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9987 == context.o9999
+
+
+@given(u'I create a VRF object to test compare function with <exp_targ> named o9988')
+def step_impl(context):
+    options = {
+        'compare': {
+            'exp_targ': True
+        }
+    }
+    context.o9988 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I create a VRF object to test compare equal to o9988 without <exp_targ> named o9989')
+def step_impl(context):
+    options = {}
+    context.o9989 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I compare VRF o9988 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9988 != context.o9999
+
+
+@given(u'I compare VRF o9989 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9989 == context.o9999
+
+
+@given(u'I create a VRF object to test compare function with <vrf_id> named o9990')
+def step_impl(context):
+    options = {
+        'compare': {
+            'vrf_id': True
+        }
+    }
+    context.o9990 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I create a VRF object to test compare equal to o9990 without <vrf_id> named o9991')
+def step_impl(context):
+    options = {}
+    context.o9991 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I compare VRF o9990 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9990 != context.o9999
+
+
+@given(u'I compare VRF o9991 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9991 == context.o9999
+
+
+@given(u'I create a VRF object to test compare function with <vrf_type> named o9992')
+def step_impl(context):
+    options = {
+        'compare': {
+            'vrf_type': True
+        }
+    }
+    context.o9992 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I create a VRF object to test compare equal to o9992 without <vrf_type> named o9993')
+def step_impl(context):
+    options = {}
+    context.o9993 = create_vrf_obj_for_compare(options)
+    
+
+@given(u'I compare VRF o9992 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9992 != context.o9999
+
+
+@given(u'I compare VRF o9993 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9993 == context.o9999
+
+
+
+@given(u'I create a VRF object to test compare function with <l3_vni> named o9994')
+def step_impl(context):
+    options = {
+        'compare': {
+            'l3_vni': True
+        }
+    }
+    context.o9994 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I create a VRF object to test compare equal to o9994 without <l3_vni> named o9995')
+def step_impl(context):
+    options = {}
+    context.o9995 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I compare VRF o9994 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9994 != context.o9999
+
+
+@given(u'I compare VRF o9995 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9995 == context.o9999
+
+
+@given(u'I create a VRF object to test compare function with <rd> named o9996')
+def step_impl(context):
+    options = {
+        'compare': {
+            'rd': True
+        }
+    }
+    context.o9996 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I create a VRF object to test compare equal to o9996 without <rd> named o9997')
+def step_impl(context):
+    options = {}
+    context.o9997 = create_vrf_obj_for_compare(options)
+
+
+@given(u'I compare VRF o9996 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9996 != context.o9999
+
+
+@given(u'I compare VRF o9997 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9997 == context.o9999
+
+
+def create_vrf_obj_for_compare(options):
+    obj = ListVRF(
+        vrf_lst=list()
+    )
+
+    obj.vrf_lst.append(
+        VRF(
+            vrf_name="default",
+            vrf_id="1",
+            vrf_type="vrf",
+            l3_vni=NOT_SET,
+            rd="65123:1",
+            rt_imp="65123:1",
+            rt_exp="65123:1",
+            imp_targ=NOT_SET,
+            exp_targ=NOT_SET,
+            options=options
+        )
+    )
+
+    # AN ERROR OBJECT
+    obj.vrf_lst.append(
+        VRF(
+            vrf_name="management",
+            vrf_id="2734268734626487328764",
+            vrf_type="vrf-but-not-the-good-one",
+            l3_vni="100999999999999999002",
+            rd="65123:100999999999999999002",
+            rt_imp="65123:100999999999999999002",
+            rt_exp="65123:100999999999999999002",
+            imp_targ="65123:100999999999999999002",
+            exp_targ="65123:100999999999999999002",
+            options=options
+        )
+    )
+
+    return obj
+
+
 @given(u'I Finish my VRF tests and list tests not implemented')
 def step_impl(context):
     print("| The following tests are not implemented :")
