@@ -2,46 +2,6 @@ If there is some interested about Netests.io, the team had already defined some 
 
 Here a list of the new features that will be integrated
 
-### Filter 
-
-Actually the print and the compare function are static. The values that will be compared have been defined by Netests.io Team. In the next release you will be able to define which parameters will be compared and printed.
-
-#### Compare
-
-Define the `compare` function directly in the Netests.io configuration file `netests.yml`
-
-```yaml
-config:
-  protocols:
-    bgp:
-      src_hostname: false
-      peer_ip: true
-      peer_hostname: false
-      remote_as: true
-      state_brief: true
-      session_state: true
-      state_time: false
-      prefix_received: true
-```
-
-#### Print
-
-Define the `print` function directly in the Netests.io configuration file `netests.yml`
-
-```yaml
-config:
-  protocols:
-    bgp:
-      src_hostname: false
-      peer_ip: true
-      peer_hostname: false
-      remote_as: true
-      state_brief: true
-      session_state: true
-      state_time: false
-      prefix_received: true
-```
-
 
 
 ### Netests-API
@@ -85,6 +45,9 @@ We plan to add new protocols like
 
 * ISIS
 * LDP
+* VLAN
+* VLAN_USED - Test if all VLAN on a device are used
+* ACL
 * MTU
 * MLAG
 * LACP
@@ -105,6 +68,20 @@ Some others vendors will be added in the future
 > You can add your suggestion by liking some issue.
 >
 > Vendors with the most of "like" will be developed
+
+
+
+* Nokia
+* VyOS
+
+
+
+* Palo Alto
+* Fortinet
+
+
+
+* AWX
 
 
 
