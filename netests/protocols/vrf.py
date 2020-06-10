@@ -53,11 +53,7 @@ class VRF:
         )
 
         if COMPARE_OPTION_KEY in self.options.keys():
-
-            log.debug(
-                "Compare function is using a personnal function"
-                f"options={self.options}"
-            )
+            log.debug(f"Compare modified function\noptions={self.options}")
 
             is_equal = True
             if self.options.get(COMPARE_OPTION_KEY).get('vrf_name', True):
@@ -95,9 +91,18 @@ class VRF:
 
             return is_equal
         else:
-            return (
+            log.debug(f"Compare standard function\noptions={self.options}")
+
+            is_equal = (
                 str(self.vrf_name) == str(other.vrf_name)
             )
+
+            log.debug(
+                "Result for standard compare function\n"
+                f"is_equal={is_equal}"
+            )
+
+            return is_equal
 
     def __repr__(self):
         if PRINT_OPTION_KEY in self.options.keys():

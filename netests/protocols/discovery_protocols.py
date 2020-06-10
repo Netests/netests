@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from abc import ABC
+from netests import log
 from netests.constants import COMPARE_OPTION_KEY, PRINT_OPTION_KEY, NOT_SET
 
 
@@ -44,6 +45,8 @@ class DiscoveryProtocols(ABC):
             return NotImplemented
 
         if COMPARE_OPTION_KEY in self.options.keys():
+            log.debug(f"Compare modified function\noptions={self.options}")
+
             is_equal = True
             if self.options.get(COMPARE_OPTION_KEY).get('local_name', True):
                 if str(self.local_name) != str(other.local_name):
@@ -68,14 +71,29 @@ class DiscoveryProtocols(ABC):
             if self.options.get(COMPARE_OPTION_KEY).get('neighbor_os', False):
                 if str(self.neighbor_os) != str(other.neighbor_os):
                     is_equal = False
+
+            log.debug(
+                "Result for modified compare function\n"
+                f"is_equal={is_equal}"
+            )
+
             return is_equal
         else:
-            return (
+            log.debug(f"Compare standard function\noptions={self.options}")
+
+            is_equal = (
                 self.local_name == other.local_name and
                 self.local_port == other.local_port and
                 self.neighbor_name == other.neighbor_name and
                 self.neighbor_port == other.neighbor_port
             )
+
+            log.debug(
+                "Result for standard compare function\n"
+                f"is_equal={is_equal}"
+            )
+
+            return is_equal
 
     def __repr__(self):
         if PRINT_OPTION_KEY in self.options.keys():

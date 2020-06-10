@@ -139,6 +139,24 @@ Feature: Test protocols OSPF python class netests/protocols/bgp.py
     And OSPF YAML file should be equal to o0702
     And OSPF YAML file should be equal to o0703
     And OSPF YAML file should be equal to o0704
+
+    # Test Filter compare function
+    And I create a OSPF object to test compare function named o9999
+
+    And I create a OSPF object to test compare function with <peer_ip> named o9982
+    And I create a OSPF object to test compare equal to o9982 without <peer_ip> named o9983
+    And I compare OSPF o9982 and o9999 with a personal function - should not work
+    And I compare OSPF o9983 and o9999 with a personal function - should work
+
+    And I create a OSPF object to test compare function with <session_state> named o9984
+    And I create a OSPF object to test compare equal to o9984 without <session_state> named o9985
+    And I compare OSPF o9984 and o9999 with a personal function - should not work
+    And I compare OSPF o9985 and o9999 with a personal function - should work
+
+    And I create a OSPF object to test compare function with <peer_hostname> named o9986
+    And I create a OSPF object to test compare equal to o9986 without <peer_hostname> named o9987
+    And I compare OSPF o9986 and o9999 with a personal function - should not work
+    And I compare OSPF o9987 and o9999 with a personal function - should work
     
     # By Protocols
     And I Finish my OSPF tests and list tests not implemented

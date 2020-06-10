@@ -65,13 +65,15 @@ class BGPSession:
             if self.options.get(COMPARE_OPTION_KEY).get('state_brief', True):
                 if str(self.state_brief) != str(other.state_brief):
                     is_equal = False
-            if self.options.get(COMPARE_OPTION_KEY).get('session_state', False):
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('session_state', False):
                 if str(self.session_state) != str(other.session_state):
                     is_equal = False
             if self.options.get(COMPARE_OPTION_KEY).get('state_time', False):
                 if str(self.state_time) != str(other.state_time):
                     is_equal = False
-            if self.options.get(COMPARE_OPTION_KEY).get('prefix_received', False):
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('prefix_received', False):
                 if str(self.prefix_received) != str(other.prefix_received):
                     is_equal = False
 
@@ -85,19 +87,19 @@ class BGPSession:
         else:
             log.debug(f"Compare standard function\noptions={self.options}")
 
-            is_equal =  (
+            is_equal = (
                 (str(self.src_hostname) == str(other.src_hostname)) and
                 (str(self.peer_ip) == str(other.peer_ip)) and
                 (str(self.state_brief) == str(other.state_brief)) and
                 (str(self.remote_as) == str(other.remote_as))
             )
+
             log.debug(
                 "Result for standard compare function\n"
                 f"is_equal={is_equal}"
             )
 
             return is_equal
-
 
     def __repr__(self):
         if PRINT_OPTION_KEY in self.options.keys():

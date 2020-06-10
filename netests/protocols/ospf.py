@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from netests.constants import NOT_SET
+from netests import log
+from netests.constants import COMPARE_OPTION_KEY, PRINT_OPTION_KEY, NOT_SET
 
 
 ERROR_HEADER = "Error import [ospf.py]"
@@ -35,27 +36,95 @@ class OSPFSession:
         if not isinstance(other, OSPFSession):
             return NotImplemented
 
-        return (
-                (str(self.local_interface) == str(other.local_interface)) and
-                (str(self.peer_rid) == str(other.peer_rid))
-        )
+        if COMPARE_OPTION_KEY in self.options.keys():
+            log.debug(f"Compare modified function\noptions={self.options}")
+
+            is_equal = True
+            if self.options.get(COMPARE_OPTION_KEY).get('peer_rid', True):
+                if str(self.peer_rid) != str(other.peer_rid):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('session_state', False):
+                if str(self.session_state) != str(other.session_state):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('peer_hostname', False):
+                if str(self.peer_hostname) != str(other.peer_hostname):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('local_interface', True):
+                if str(self.local_interface) != str(other.local_interface):
+                    is_equal = False
+            if self.options.get(COMPARE_OPTION_KEY).get('peer_ip', False):
+                if str(self.peer_ip) != str(other.peer_ip):
+                    is_equal = False
+
+            log.debug(
+                "Result for modified compare function\n"
+                f"is_equal={is_equal}"
+            )
+            return is_equal
+
+        else:
+            log.debug(f"Compare standard function\noptions={self.options}")
+
+            is_equal = (
+                str(self.local_interface) == str(other.local_interface) and
+                str(self.peer_rid) == str(other.peer_rid)
+            )
+
+            log.debug(
+                "Result for standard compare function\n"
+                f"is_equal={is_equal}"
+            )
+
+            return is_equal
 
     def __repr__(self):
-        return f"<OSPFSession " \
-               f"peer_rid={self.peer_rid} " \
-               f"session_state={self.session_state} " \
-               f"peer_hostname={self.peer_hostname} " \
-               f"local_interface={self.local_interface} " \
-               f"peer_ip={self.peer_ip}>\n"
+        if PRINT_OPTION_KEY in self.options.keys():
+            ret = "\t<BGPSession\n"
+            if self.options.get(PRINT_OPTION_KEY).get('peer_rid', True):
+                ret += f"\t\tpeer_rid={self.peer_rid}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('session_state', True):
+                ret += f"\t\tsession_state={self.session_state}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('peer_hostname', True):
+                ret += f"\t\tpeer_hostname={self.peer_hostname}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('local_interface', True):
+                ret += f"\t\tlocal_interface={self.local_interface}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('peer_ip', True):
+                f"\t\tpeer_ip={self.peer_ip}"
+            return ret + ">\n"
+        else:
+            return f"<OSPFSession\n" \
+                   f"\t\tpeer_rid={self.peer_rid}\n" \
+                   f"\t\tsession_state={self.session_state}\n" \
+                   f"\t\tpeer_hostname={self.peer_hostname}\n" \
+                   f"\t\tlocal_interface={self.local_interface}\n" \
+                   f"\t\tpeer_ip={self.peer_ip}" \
+                   ">\n"
 
     def to_json(self):
-        return {
-            "peer_rid": self.peer_rid,
-            "session_state": self.session_state,
-            "peer_hostname": self.peer_hostname,
-            "local_interface": self.local_interface,
-            "peer_ip": self.peer_ip,
-        }
+        if PRINT_OPTION_KEY in self.options.keys():
+            r = dict()
+            if self.options.get(PRINT_OPTION_KEY).get('peer_rid', True):
+                r['peer_rid'] = self.peer_rid
+            if self.options.get(PRINT_OPTION_KEY).get('session_state', True):
+                r['session_state'] = self.session_state
+            if self.options.get(PRINT_OPTION_KEY).get('peer_hostname', True):
+                r['peer_hostname'] = self.peer_hostname
+            if self.options.get(PRINT_OPTION_KEY).get('local_interface', True):
+                r['local_interface'] = self.local_interface
+            if self.options.get(PRINT_OPTION_KEY).get('peer_ip', True):
+                r['peer_ip'] = self.peer_ip
+            return r
+        else:
+            return {
+                "peer_rid": self.peer_rid,
+                "session_state": self.session_state,
+                "peer_hostname": self.peer_hostname,
+                "local_interface": self.local_interface,
+                "peer_ip": self.peer_ip,
+            }
 
 
 class ListOSPFSessions:

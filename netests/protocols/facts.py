@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
+from netests import log
 from netests.constants import COMPARE_OPTION_KEY, PRINT_OPTION_KEY, NOT_SET
 
 
@@ -50,6 +50,8 @@ class Facts:
             return NotImplemented
 
         if COMPARE_OPTION_KEY in self.options.keys():
+            log.debug(f"Compare modified function\noptions={self.options}")
+
             is_equal = True
             if self.options.get(COMPARE_OPTION_KEY).get('hostname', True):
                 if str(self.hostname) != str(other.hostname):
@@ -82,11 +84,27 @@ class Facts:
                            .get('interfaces_lst', False):
                 if str(self.interfaces_lst) != str(other.interfaces_lst):
                     is_equal = False
+
+            log.debug(
+                "Result for modified compare function\n"
+                f"is_equal={is_equal}"
+            )
+
             return is_equal
         else:
-            # Default compare function
-            return ((str(self.hostname) == str(other.hostname)) and
-                    (str(self.version) == str(other.version)))
+            log.debug(f"Compare standard function\noptions={self.options}")
+
+            is_equal = (
+                str(self.hostname) == str(other.hostname) and
+                str(self.version) == str(other.version)
+            )
+
+            log.debug(
+                "Result for standard compare function\n"
+                f"is_equal={is_equal}"
+            )
+
+            return is_equal
 
     def __repr__(self):
         if PRINT_OPTION_KEY in self.options.keys():
