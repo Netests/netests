@@ -155,5 +155,24 @@ Feature: Test protocols BGP python class netests/protocols/bgp.py
     And BGP YAML file should be equal to o0702
     And BGP YAML file should be equal to o0703
     And BGP YAML file should be equal to o0704
+    
+    # Test Filter compare function
+    And I create a BGP object to test compare function named o9999
+
+    And I create a BGP object to test compare function with <session_state> named o9982
+    And I create a BGP object to test compare equal to o9982 without <session_state> named o9983
+    And I compare BGP o9982 and o9999 with a personal function - should not work
+    And I compare BGP o9983 and o9999 with a personal function - should work
+
+    And I create a BGP object to test compare function with <state_time> named o9984
+    And I create a BGP object to test compare equal to o9984 without <state_time> named o9985
+    And I compare BGP o9984 and o9999 with a personal function - should not work
+    And I compare BGP o9985 and o9999 with a personal function - should work
+
+    And I create a BGP object to test compare function with <prefix_received> named o9986
+    And I create a BGP object to test compare equal to o9986 without <prefix_received> named o9987
+    And I compare BGP o9986 and o9999 with a personal function - should not work
+    And I compare BGP o9987 and o9999 with a personal function - should work
+    
     # By Protocols
     And I Finish my BGP tests and list tests not implemented

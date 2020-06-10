@@ -1501,6 +1501,195 @@ def step_impl(context):
     context.scenario.tags.append("own_skipped")
 
 
+@given(u'I create a BGP object to test compare function named o9999')
+def step_impl(context):
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(
+        list()
+    )
+
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf04",
+            peer_ip="10.1.1.1",
+            peer_hostname=NOT_SET,
+            remote_as="65333",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time=NOT_SET,
+            prefix_received=NOT_SET
+        )
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf04",
+            peer_ip="10.2.2.2",
+            peer_hostname=NOT_SET,
+            remote_as="65333",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time="12:12",
+            prefix_received=123
+        )
+    )
+
+    bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+        BGPSessionsVRF(
+            vrf_name="CUSTOMER_AWS",
+            as_number="65444",
+            router_id="9.9.9.9",
+            bgp_sessions=bgp_sessions_lst
+        )
+    )
+
+    context.o9999 = BGP(
+        hostname="leaf04",
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
+
+
+@given(u'I create a BGP object to test compare function with <session_state> named o9982')
+def step_impl(context):
+    options = {
+        'compare': {
+            'session_state': True
+        }
+    }
+    context.o9982 = create_bgp_obj_for_compare(options)
+
+
+@given(u'I create a BGP object to test compare equal to o9982 without <session_state> named o9983')
+def step_impl(context):
+    options = {}
+    context.o9983 = create_bgp_obj_for_compare(options)
+
+
+@given(u'I compare BGP o9982 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9982 != context.o9999
+
+
+@given(u'I compare BGP o9983 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9983 == context.o9999
+
+
+@given(u'I create a BGP object to test compare function with <state_time> named o9984')
+def step_impl(context):
+    options = {
+        'compare': {
+            'state_time': True
+        }
+    }
+    context.o9984 = create_bgp_obj_for_compare(options)
+
+
+@given(u'I create a BGP object to test compare equal to o9984 without <state_time> named o9985')
+def step_impl(context):
+    options = {}
+    context.o9985 = create_bgp_obj_for_compare(options)
+
+
+@given(u'I compare BGP o9984 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9984 != context.o9999
+
+
+@given(u'I compare BGP o9985 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9985 == context.o9999
+
+
+@given(u'I create a BGP object to test compare function with <prefix_received> named o9986')
+def step_impl(context):
+    options = {
+        'compare': {
+            'prefix_received': True
+        }
+    }
+    context.o9986 = create_bgp_obj_for_compare(options)
+
+
+@given(u'I create a BGP object to test compare equal to o9986 without <prefix_received> named o9987')
+def step_impl(context):
+    options = {}
+    context.o9987 = create_bgp_obj_for_compare(options)
+
+
+@given(u'I compare BGP o9986 and o9999 with a personal function - should not work')
+def step_impl(context):
+    assert context.o9986 != context.o9999
+
+
+@given(u'I compare BGP o9987 and o9999 with a personal function - should work')
+def step_impl(context):
+    assert context.o9987 == context.o9999
+
+
+def create_bgp_obj_for_compare(options):
+    bgp_sessions_vrf_lst = ListBGPSessionsVRF(
+        list()
+    )
+
+    bgp_sessions_lst = ListBGPSessions(
+        list()
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf04",
+            peer_ip="10.1.1.1",
+            peer_hostname=NOT_SET,
+            remote_as="65333",
+            state_brief=get_bgp_state_brief(
+                "Idle"
+            ),
+            session_state="Idle",
+            state_time=NOT_SET,
+            prefix_received=NOT_SET,
+            options=options
+        )
+    )
+
+    bgp_sessions_lst.bgp_sessions.append(
+        BGPSession(
+            src_hostname="leaf04",
+            peer_ip="10.2.2.2",
+            peer_hostname=NOT_SET,
+            remote_as="65333",
+            state_brief=get_bgp_state_brief(
+                "WRONG_STATE"
+            ),
+            session_state="UNKNOW_STATE",
+            state_time="DJEIOJDOWIEJIW",
+            prefix_received="DJOEWDJEWODJEOWIDJ",
+            options=options
+        )
+    )
+
+    bgp_sessions_vrf_lst.bgp_sessions_vrf.append(
+        BGPSessionsVRF(
+            vrf_name="CUSTOMER_AWS",
+            as_number="65444",
+            router_id="9.9.9.9",
+            bgp_sessions=bgp_sessions_lst
+        )
+    )
+
+    return BGP(
+        hostname="leaf04",
+        bgp_sessions_vrf_lst=bgp_sessions_vrf_lst
+    )
+
+
 @given(u'I Finish my BGP tests and list tests not implemented')
 def step_impl(context):
     assert _compare_bgp(
