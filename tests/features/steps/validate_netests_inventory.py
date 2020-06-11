@@ -50,6 +50,13 @@ def step_impl(context):
     )
 
 
+@given(u'A Nornir object based on an Ansible with a connexion platform error')
+def step_impl(context):
+    context.nr = create_nornir_obj(
+        "./tests/inventory/bad/ansible/hosts_bad_connexion_platform"
+    )
+
+
 @then(u'This inventory is working')
 def step_impl(context):
     validate_nr = ValidateNetestsInventory(context.nr)
@@ -59,7 +66,6 @@ def step_impl(context):
 @then(u'This inventory is not working')
 def step_impl(context):
     validate_nr = ValidateNetestsInventory(context.nr)
-    print(validate_nr.get_result())
     assert not validate_nr.get_valid()
 
 

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from nornir.core import Nornir
+from netests.base_protocols import MAPPING_CONNEXION_PLATFORM
 from netests.constants import NOT_SET, CONNEXION_MODE, PLATFORM_SUPPORTED
 import pprint
 PP = pprint.PrettyPrinter(indent=4)
@@ -21,6 +22,7 @@ class ValidateNetestsInventory(object):
         self._check_platform()
         self._check_secure_api()
         self._check_port()
+        self._check_connexion_platform_compatibility()
         self.valid = self.__is_a_valid_inventory()
 
     def get_result(self):
@@ -69,7 +71,7 @@ class ValidateNetestsInventory(object):
 
     def _check_secure_api(self):
         self.result['secure_api'] = dict()
-        self.result['secure_api']['failed'] = list()
+        self.result['secure_api']['host_failed'] = list()
 
         error = False
         for host in self.nr.inventory.hosts:
@@ -79,8 +81,30 @@ class ValidateNetestsInventory(object):
                     bool
                 ):
                     error = True
-                    self.result['secure_api']['failed'].append(host)
+                    self.result['secure_api']['host_failed'].append(host)
         self.result['secure_api']['failed'] = error
+
+    def _check_connexion_platform_compatibility(self):
+        self.result['connexion_platform'] = dict()
+        self.result['connexion_platform']['host_failed'] = list()
+        error = False
+        for host in self.nr.inventory.hosts:
+            if self.nr.inventory \
+                      .hosts \
+                      .get(host) \
+                      .get('platform') in MAPPING_CONNEXION_PLATFORM.keys():
+                if MAPPING_CONNEXION_PLATFORM.get(
+                    self.nr.inventory.hosts.get(host).get('platform')
+                ).get(
+                    self.nr.inventory.hosts.get(host).get('connexion')
+                ) is False:
+                    error = True
+                    self.result.get('connexion_platform') \
+                               .get('host_failed') \
+                               .append(host)
+            else:
+                error = True
+        self.result['connexion_platform']['failed'] = error
 
     def print_result(self):
         PP.pprint(self.result)

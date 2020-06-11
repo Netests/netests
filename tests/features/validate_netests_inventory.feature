@@ -18,3 +18,7 @@ Feature: Test Python class netests/tools/verify/ValidateNetestsInventory
     Scenario:
         Given A Nornir object based on an Ansible with a port error
         Then This inventory is not working
+
+    Scenario:
+        Given A Nornir object based on an Ansible with a connexion platform error
+        Then This inventory is not working
