@@ -4,8 +4,10 @@ stages:
   - lint
   - test
   - deploy
+  - test_pypi
 
 before_script:
+  - pip install --upgrade pip
   - pip install poetry
   - poetry config virtualenvs.create false
   - poetry install
@@ -39,6 +41,18 @@ MkDocs Deployment:
 
 Netests PyPi Deployement:
   stage: deploy
-  only: [master]
+  only: [master, develop]
   script:
-    - echo "123"
+    - pip install poetry
+    - poetry config virtualenvs.create false
+    - poetry install
+    - poetry build
+    - poetry publish --username $PYPI_POETRY_USERNAME -p $PYPI_POETRY_PASSWORD
+
+Install and Test Netests:
+  stage: test_pypi
+  only: [master, develop]
+  script:
+    - pip install --upgrade pip
+    - pip install --no-cache-dir netests
+    - netests --show-data-model bgp

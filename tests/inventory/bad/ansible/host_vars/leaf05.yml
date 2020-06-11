@@ -1,0 +1,6 @@
+hostname: 172.16.194.9
+username: admin
+password: cisco
+platform: ios
+port: 22
+connexion: napalm

@@ -23,7 +23,18 @@ from netests.constants import (
     LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
     PING_DATA_HOST_KEY,
-    VRF_DATA_KEY
+    VRF_DATA_KEY,
+    ARISTA_PLATEFORM_NAME,
+    CUMULUS_PLATEFORM_NAME,
+    EXTREME_PLATEFORM_NAME,
+    CISCO_IOS_PLATEFORM_NAME,
+    CISCO_IOSXR_PLATEFORM_NAME,
+    JUNOS_PLATEFORM_NAME,
+    NEXUS_PLATEFORM_NAME,
+    API_CONNECTION,
+    NETCONF_CONNECTION,
+    SSH_CONNECTION,
+    NAPALM_CONNECTION
 )
 
 
@@ -75,5 +86,51 @@ MAPPING_PROTOCOLS = {
         "class": GetterVRF,
         "filename": "vrf.yml",
         "key_store": VRF_DATA_KEY
+    }
+}
+
+
+MAPPING_CONNEXION_PLATFORM = {
+    ARISTA_PLATEFORM_NAME: {
+        API_CONNECTION: True,
+        NETCONF_CONNECTION: True,
+        SSH_CONNECTION: True,
+        NAPALM_CONNECTION: True
+    },
+    CUMULUS_PLATEFORM_NAME: {
+        API_CONNECTION: True,
+        NETCONF_CONNECTION: False,
+        SSH_CONNECTION: True,
+        NAPALM_CONNECTION: False
+    },
+    EXTREME_PLATEFORM_NAME: {
+        API_CONNECTION: True,
+        NETCONF_CONNECTION: False,
+        SSH_CONNECTION: True,
+        NAPALM_CONNECTION: False
+    },
+    CISCO_IOS_PLATEFORM_NAME: {
+        API_CONNECTION: True,
+        NETCONF_CONNECTION: True,
+        SSH_CONNECTION: True,
+        NAPALM_CONNECTION: True
+    },
+    CISCO_IOSXR_PLATEFORM_NAME: {
+        API_CONNECTION: True,
+        NETCONF_CONNECTION: True,
+        SSH_CONNECTION: True,
+        NAPALM_CONNECTION: True
+    },
+    JUNOS_PLATEFORM_NAME: {
+        API_CONNECTION: True,
+        NETCONF_CONNECTION: True,
+        SSH_CONNECTION: True,
+        NAPALM_CONNECTION: True
+    },
+    NEXUS_PLATEFORM_NAME: {
+        API_CONNECTION: True,
+        NETCONF_CONNECTION: True,
+        SSH_CONNECTION: True,
+        NAPALM_CONNECTION: True
     }
 }

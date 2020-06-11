@@ -1,0 +1,6 @@
+hostname: 172.16.194.61
+platform: linux
+username: cumulus
+password: CumulusLinux!
+connexion: netconf
+port: 830

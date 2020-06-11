@@ -85,6 +85,53 @@ To establish the connexion to the device you have to define many differents vari
 
 
 
+### Check inventory
+
+From the release `0.2.1` it's possible to check that variables are corect. This feature is disable by default.
+
+To test inventory variable use `--check-inventory` argument.
+
+```shell
+./netests/welcome.py -x -i inventory/ansible/hosts -a netests.yml --check-inventory
+```
+
+If the inventory is correct nothing will be printed and Netests.io will be normally executed.
+
+If there are some errors in the inventory, Netests.io execution will be interrupted.
+
+A message with informations about "what's wrong" is printed.
+
+```shell
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+Values are wrong or missing in the network inventory
+---
+{   'connexion': {
+				'failed': True,
+				'host_failed': ['leaf01']
+		},
+    'connexion_platform': {
+    		'failed': False, 
+    		'host_failed': []
+    },
+    'platform': {
+    		'failed': False,
+    		'host_failed': []
+    },
+    'port': {
+    		'failed': False,
+    		'host_failed': []
+    },
+    'secure_api': {
+    		'failed': False,
+    		'host_failed': []
+    }
+}
+```
+
+This output shows that there is an error with `connexion:` for the `leaf01`.
+
+
+
 ### Hostname
 
 List of device type by platform key.

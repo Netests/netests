@@ -75,6 +75,10 @@ Options:
   -V, --show-truth-vars TEXT      Show vars retrieved for a specific host. Use
                                   * to select all hosts
 
+  --check-inventory               Will check that connexion, platform, port
+                                  and secure_api arecorrectly defined in the
+                                  network inventory
+
   --help                          Show this message and exit.
 ```
 
