@@ -57,7 +57,7 @@ class ValidateNetestsInventory(object):
 
     def _check_port(self):
         self.result['port'] = dict()
-        self.result['port']['failed'] = list()
+        self.result['port']['host_failed'] = list()
 
         error = False
         for host in self.nr.inventory.hosts:
@@ -66,7 +66,7 @@ class ValidateNetestsInventory(object):
                 self.nr.inventory.hosts.get(host).port > 65535
             ):
                 error = True
-                self.result['port']['failed'].append(host)
+                self.result['port']['host_failed'].append(host)
         self.result['port']['failed'] = error
 
     def _check_secure_api(self):
