@@ -1,0 +1,7 @@
+hostname: 66.129.235.11
+username: jcluser
+password: Juniper!1
+platform: junos
+port: 3100033
+connexion: netconf
+secure_api: false

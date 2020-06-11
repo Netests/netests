@@ -11,6 +11,7 @@ from netests.base_cli import netests_cli
 from netests.tools.file import create_folder
 from netests.select_vars import select_host_vars
 from netests.nornir_inventory import init_nornir
+from netests.tools.verify import ValidateNetestsInventory
 from netests.tools.std import open_file, check_devices_connectivity
 from netests.constants import (
     EXIT_FAILURE,
@@ -57,6 +58,12 @@ def print_hello() -> None:
 
 
 def print_result(result) -> None:
+    PP.pprint(result)
+
+
+def print_wrong_inv(result) -> None:
+    printline()
+    print("Values are wrong or missing in the network inventory \n---")
     PP.pprint(result)
 
 
@@ -241,6 +248,15 @@ def exit_function(result):
     default=False,
     help="Show vars retrieved for a specific host. Use * to select all hosts",
 )
+@click.option(
+    "--check-inventory",
+    default=False,
+    is_flag=True,
+    help=(
+        "Will check that connexion, platform, port and secure_api are"
+        "correctly defined in the network inventory"
+    ),
+)
 def main(
     netest_config_file,
     inventory_config_file,
@@ -266,7 +282,8 @@ def main(
     init_data,
     init_folders,
     init_config_file,
-    show_truth_vars
+    show_truth_vars,
+    check_inventory
 ):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -319,6 +336,12 @@ def main(
     if terminal:
         netests_cli(nr)
         exit(EXIT_SUCCESS)
+
+    if check_inventory:
+        validate_inventory = ValidateNetestsInventory(nr)
+        if validate_inventory.get_valid() is False:
+            print_wrong_inv(validate_inventory.get_result())
+            exit(EXIT_SUCCESS)
 
     print_banner(nr, t)
 

@@ -1,0 +1,6 @@
+hostname: 172.16.194.7
+username: rwa
+password: rwa
+platform: extreme_vsp
+connexion: ssh
+port: 22
