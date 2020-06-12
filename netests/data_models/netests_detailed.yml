@@ -1,0 +1,135 @@
+config:
+  protocols:
+    bgp:
+      test: True
+      options:
+        compare:
+          src_hostname: True
+          peer_ip: True
+          remote_as: True
+          state_brief: True
+          peer_hostname: False
+          session_state: False
+          state_time: False
+          prefix_received: False
+        print:
+          src_hostname: True
+          peer_ip: True
+          remote_as: True
+          state_brief: True
+          peer_hostname: True
+          session_state: True
+          state_time: True
+          prefix_received: True
+
+    bgp_up:
+      test: True
+
+    cdp:
+      test: True
+      options:
+        compare:
+          local_name: True
+          local_port: True
+          neighbor_name: True
+          neighbor_port: True
+          neighbor_os: False
+          neighbor_mgmt_ip: False
+          neighbor_type: False
+        print:
+          local_name: True
+          local_port: True
+          neighbor_name: True
+          neighbor_port: True
+          neighbor_os: True
+          neighbor_mgmt_ip: True
+          neighbor_type: True
+
+    facts:
+      test: True
+      options:
+        compare:
+          hostname: True
+          domain: False
+          version: True
+          build: False
+          serial: False
+          base_mac: False
+          memory: False
+          vendor: False
+          model: False
+          interfaces_lst: False
+        print:
+          hostname: True
+          domain: True
+          version: True
+          build: True
+          serial: True
+          base_mac: True
+          memory: True
+          vendor: True
+          model: True
+          interfaces_lst: True
+
+    lldp:
+      test: True
+      options:
+        compare:
+          local_name: True
+          local_port: True
+          neighbor_name: True
+          neighbor_port: True
+          neighbor_os: False
+          neighbor_mgmt_ip: False
+          neighbor_type: False
+        print:
+          local_name: True
+          local_port: True
+          neighbor_name: True
+          neighbor_port: True
+          neighbor_os: True
+          neighbor_mgmt_ip: True
+          neighbor_type: True
+    
+    ospf:
+      test: True
+      options:
+        compare:
+          peer_rid: True
+          local_interface: True
+          peer_ip: False
+          session_state: False
+          peer_hostname: False
+        print:
+          peer_rid: True
+          local_interface: True
+          peer_ip: True
+          session_state: True
+          peer_hostname: True
+
+    ping:
+      test: True
+
+    vrf:
+      test: False
+      options:
+        compare:
+          vrf_name: True
+          vrf_id: False
+          vrf_type: False
+          l3_vni: False
+          rd: False
+          rt_imp: False
+          rt_exp: False
+          imp_targ: False
+          exp_targ: False
+        print:
+          vrf_name: True
+          vrf_id: True
+          vrf_type: True
+          l3_vni: True
+          rd: True
+          rt_imp: True
+          rt_exp: True
+          imp_targ: True
+          exp_targ: True

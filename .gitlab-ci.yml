@@ -43,16 +43,12 @@ Netests PyPi Deployement:
   stage: deploy
   only: [master, develop]
   script:
-    - pip install poetry
-    - poetry config virtualenvs.create false
-    - poetry install
     - poetry build
-    - poetry publish --username $PYPI_POETRY_USERNAME -p $PYPI_POETRY_PASSWORD
+    - poetry publish --username $PYPI_POETRY_USERNAME --password $PYPI_POETRY_PASSWORD
 
 Install and Test Netests:
   stage: test_pypi
   only: [master, develop]
   script:
-    - pip install --upgrade pip
     - pip install --no-cache-dir netests
     - netests --show-data-model bgp

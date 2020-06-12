@@ -243,6 +243,11 @@ def exit_function(result):
     help="To create netests.yml (Netests.io configuration file).",
 )
 @click.option(
+    "--init-config-file-detailed",
+    is_flag=True,
+    help="To create netests.yml with details(Netests.io configuration file).",
+)
+@click.option(
     "-V",
     "--show-truth-vars",
     default=False,
@@ -282,6 +287,7 @@ def main(
     init_data,
     init_folders,
     init_config_file,
+    init_config_file_detailed,
     show_truth_vars,
     check_inventory
 ):
@@ -305,6 +311,12 @@ def main(
     elif init_config_file:
         with open("netests.yml", "w") as f:
             with open(f"{DATA_MODELS_PATH}netests.yml", 'r') as i:
+                f.write(i.read())
+        exit(EXIT_SUCCESS)
+
+    elif init_config_file_detailed:
+        with open("netests.yml", "w") as f:
+            with open(f"{DATA_MODELS_PATH}netests_detailed.yml", 'r') as i:
                 f.write(i.read())
         exit(EXIT_SUCCESS)
 
