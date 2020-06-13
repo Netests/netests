@@ -92,6 +92,7 @@ def is_alive(task) -> None:
 
     try:
         s = socket.socket()
+        s.settimeout(3)
         s.connect(
             (
                 task.host.hostname,

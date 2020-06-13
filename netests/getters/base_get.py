@@ -213,7 +213,11 @@ class GetterBase(ABC):
         connection_mode: str,
         functions_mapping: dict
     ):
-        log.debug(functions_mapping.get(platform).get(connection_mode))
+        log.debug(
+            "Function selected with "
+            f"platform={platform} and connection_mode={connection_mode} is "
+            f"[{functions_mapping.get(platform).get(connection_mode)}]"
+        )
         return functions_mapping.get(platform).get(connection_mode)
 
     def printline(self):
