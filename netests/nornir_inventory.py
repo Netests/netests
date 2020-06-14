@@ -62,7 +62,9 @@ def init_nornir(
             options = {
                 "nb_url": netbox_url,
                 "nb_token": netbox_token,
-                "ssl_verify": netbox_ssl
+                "ssl_verify": netbox_ssl,
+                "use_slugs": True,
+                "flatten_custom_fields": False
             }
     elif ansible_inventory is not False:
         if inventory_config_file:
@@ -84,9 +86,16 @@ def init_nornir(
     )
 
     nr = InitNornir(
-        core={"num_workers": num_workers},
-        inventory={"plugin": plugin, "options": options},
-        logging={"file": log_file, "level": log_level}
+        core={
+            "num_workers": num_workers
+        },
+        inventory={
+            "plugin": plugin,
+            "options": options
+        },
+        logging={
+            "file": log_file, "level": log_level
+        }
     )
 
     return nr
