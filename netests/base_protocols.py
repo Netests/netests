@@ -8,6 +8,7 @@ from netests.getters.facts_get import GetterFacts
 from netests.getters.lldp_get import GetterLLDP
 from netests.getters.ospf_get import GetterOSPF
 from netests.getters.ping_get import GetterPing
+from netests.getters.vlan_get import GetterVLAN
 from netests.getters.vrf_get import GetterVRF
 from netests.protocols.bgp import BGPSession
 from netests.protocols.cdp import CDP
@@ -15,6 +16,7 @@ from netests.protocols.facts import Facts
 from netests.protocols.lldp import LLDP
 from netests.protocols.ospf import OSPF
 from netests.protocols.ping import PING
+from netests.protocols.vlan import VLAN
 from netests.protocols.vrf import VRF
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
@@ -23,6 +25,7 @@ from netests.constants import (
     LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
     PING_DATA_HOST_KEY,
+    VLAN_DATA_HOST_KEY,
     VRF_DATA_KEY,
     ARISTA_PLATEFORM_NAME,
     CUMULUS_PLATEFORM_NAME,
@@ -80,6 +83,12 @@ MAPPING_PROTOCOLS = {
         "class": GetterPing,
         "filename": "ping.yml",
         "key_store": PING_DATA_HOST_KEY
+    },
+    "vlan": {
+        "proto": VLAN,
+        "class": GetterVLAN,
+        "filename": "vlan.yml",
+        "key_store": VLAN_DATA_HOST_KEY
     },
     "vrf": {
         "proto": VRF,

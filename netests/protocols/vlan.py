@@ -74,3 +74,14 @@ class VLAN(NetestsProtocol):
                 "ipv6_addresses": self.ipv6_addresses.to_json(),
                 "assigned_ports": self.assigned_ports
             }
+
+
+class ListVLAN(NetestsProtocol):
+    vlan_lst: List[VLAN] = list()
+
+    def to_json(self):
+        ret = list()
+        for i in self.vlan_lst:
+            if i is not None:
+                ret.append(i.to_json())
+        return ret

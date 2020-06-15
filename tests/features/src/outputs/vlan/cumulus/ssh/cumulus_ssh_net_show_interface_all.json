@@ -1,0 +1,531 @@
+{
+    "swp5": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 1500,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "50:00:00:02:00:05",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": null,
+            "ip_address": {
+                "allentries": []
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "ADMDN",
+        "summary": "",
+        "connector_type": "Unknown",
+        "mode": "NotConfigured",
+        "speed": "N/A"
+    },
+    "bridge": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": [
+                {
+                    "vlan": 999
+                }
+            ],
+            "asic": null,
+            "mtu": 1500,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "a6:65:52:58:c3:2c",
+            "vlan_filtering": true,
+            "min_links": "",
+            "members": {},
+            "counters": {
+                "RX_ERR": 0,
+                "TX_ERR": 0,
+                "RX_OVR": 0,
+                "TX_OVR": 0,
+                "TX_OK": 32,
+                "MTU": 1500,
+                "Flg": "BMRU",
+                "TX_DRP": 0,
+                "RX_OK": 0,
+                "RX_DRP": 0
+            },
+            "ip_address": {
+                "allentries": []
+            },
+            "vlan_list": "999",
+            "ip_neighbors": null
+        },
+        "linkstate": "UP",
+        "summary": "",
+        "connector_type": "Unknown",
+        "mode": "Bridge/L2",
+        "speed": "N/A"
+    },
+    "lo": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 65536,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "00:00:00:00:00:00",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": {
+                "RX_ERR": 0,
+                "TX_ERR": 0,
+                "RX_OVR": 0,
+                "TX_OVR": 0,
+                "TX_OK": 0,
+                "MTU": 65536,
+                "Flg": "LRU",
+                "TX_DRP": 0,
+                "RX_OK": 0,
+                "RX_DRP": 0
+            },
+            "ip_address": {
+                "allentries": [
+                    "127.0.0.1/8",
+                    "::1/128"
+                ]
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "UP",
+        "summary": "IP: 127.0.0.1/8, ::1/128",
+        "connector_type": "Unknown",
+        "mode": "Loopback",
+        "speed": "N/A"
+    },
+    "vlan999": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "NETESTS_VLAN_MGMT",
+            "vlan": null,
+            "asic": null,
+            "mtu": 1500,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "a6:65:52:58:c3:2c",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": {
+                "RX_ERR": 0,
+                "TX_ERR": 0,
+                "RX_OVR": 0,
+                "TX_OVR": 0,
+                "TX_OK": 23,
+                "MTU": 1500,
+                "Flg": "BMRU",
+                "TX_DRP": 0,
+                "RX_OK": 0,
+                "RX_DRP": 0
+            },
+            "ip_address": {
+                "allentries": [
+                    "192.168.1.1/24",
+                    "2001:cafe::1/64"
+                ]
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "UP",
+        "summary": "Master: NETESTS_VRF(UP)\nIP: 192.168.1.1/24, 2001:cafe::1/64",
+        "connector_type": "Unknown",
+        "mode": "Interface/L3",
+        "speed": "N/A"
+    },
+    "NETESTS_VRF": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 65536,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "9e:a9:3d:9d:47:3f",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": {
+                "RX_ERR": 0,
+                "TX_ERR": 0,
+                "RX_OVR": 0,
+                "TX_OVR": 0,
+                "TX_OK": 0,
+                "MTU": 65536,
+                "Flg": "OmRU",
+                "TX_DRP": 0,
+                "RX_OK": 0,
+                "RX_DRP": 0
+            },
+            "ip_address": {
+                "allentries": []
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "UP",
+        "summary": "",
+        "connector_type": "Unknown",
+        "mode": "VRF",
+        "speed": "N/A"
+    },
+    "mgmt": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 65536,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "82:f2:5e:76:c2:31",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": {
+                "RX_ERR": 0,
+                "TX_ERR": 0,
+                "RX_OVR": 0,
+                "TX_OVR": 0,
+                "TX_OK": 0,
+                "MTU": 65536,
+                "Flg": "OmRU",
+                "TX_DRP": 16,
+                "RX_OK": 282,
+                "RX_DRP": 0
+            },
+            "ip_address": {
+                "allentries": [
+                    "127.0.0.1/8",
+                    "::1/128"
+                ]
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "UP",
+        "summary": "IP: 127.0.0.1/8, ::1/128",
+        "connector_type": "Unknown",
+        "mode": "VRF",
+        "speed": "N/A"
+    },
+    "swp2": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 1500,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "50:00:00:02:00:02",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": {
+                "RX_ERR": 0,
+                "TX_ERR": 0,
+                "RX_OVR": 0,
+                "TX_OVR": 0,
+                "TX_OK": 562,
+                "MTU": 1500,
+                "Flg": "BMRU",
+                "TX_DRP": 0,
+                "RX_OK": 0,
+                "RX_DRP": 0
+            },
+            "ip_address": {
+                "allentries": [
+                    "10.1.20.1/30"
+                ]
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "UP",
+        "summary": "Master: NETESTS_VRF(UP)\nIP: 10.1.20.1/30",
+        "connector_type": "Unknown",
+        "mode": "Interface/L3",
+        "speed": "1G"
+    },
+    "swp3": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 1500,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "50:00:00:02:00:03",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": null,
+            "ip_address": {
+                "allentries": []
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "ADMDN",
+        "summary": "",
+        "connector_type": "Unknown",
+        "mode": "NotConfigured",
+        "speed": "N/A"
+    },
+    "swp1": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 1500,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "50:00:00:02:00:01",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": {
+                "RX_ERR": 0,
+                "TX_ERR": 0,
+                "RX_OVR": 0,
+                "TX_OVR": 0,
+                "TX_OK": 578,
+                "MTU": 1500,
+                "Flg": "BMRU",
+                "TX_DRP": 0,
+                "RX_OK": 0,
+                "RX_DRP": 0
+            },
+            "ip_address": {
+                "allentries": [
+                    "10.1.1.2/30",
+                    "10.1.2.1/30"
+                ]
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "UP",
+        "summary": "Master: NETESTS_VRF(UP)\nIP: 10.1.1.2/30, 10.1.2.1/30",
+        "connector_type": "Unknown",
+        "mode": "Interface/L3",
+        "speed": "1G"
+    },
+    "swp6": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 1500,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "50:00:00:02:00:06",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": null,
+            "ip_address": {
+                "allentries": []
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "ADMDN",
+        "summary": "",
+        "connector_type": "Unknown",
+        "mode": "NotConfigured",
+        "speed": "N/A"
+    },
+    "swp7": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 1500,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "50:00:00:02:00:07",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": null,
+            "ip_address": {
+                "allentries": []
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "ADMDN",
+        "summary": "",
+        "connector_type": "Unknown",
+        "mode": "NotConfigured",
+        "speed": "N/A"
+    },
+    "swp4": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 1500,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "50:00:00:02:00:04",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": null,
+            "ip_address": {
+                "allentries": []
+            },
+            "vlan_list": [],
+            "ip_neighbors": null
+        },
+        "linkstate": "ADMDN",
+        "summary": "",
+        "connector_type": "Unknown",
+        "mode": "NotConfigured",
+        "speed": "N/A"
+    },
+    "eth0": {
+        "iface_obj": {
+            "lldp": null,
+            "native_vlan": null,
+            "dhcp_enabled": false,
+            "description": "",
+            "vlan": null,
+            "asic": null,
+            "mtu": 1500,
+            "lacp": {
+                "rate": "",
+                "sys_priority": "",
+                "partner_mac": "",
+                "bypass": ""
+            },
+            "mac": "50:00:00:02:00:00",
+            "vlan_filtering": false,
+            "min_links": "",
+            "members": {},
+            "counters": {
+                "RX_ERR": 0,
+                "TX_ERR": 0,
+                "RX_OVR": 0,
+                "TX_OVR": 0,
+                "TX_OK": 114,
+                "MTU": 1500,
+                "Flg": "BMRU",
+                "TX_DRP": 0,
+                "RX_OK": 304,
+                "RX_DRP": 0
+            },
+            "ip_address": {
+                "allentries": [
+                    "172.16.194.51/24"
+                ]
+            },
+            "vlan_list": [],
+            "ip_neighbors": {
+                "ipv4": [
+                    "00:50:56:c0:00:08"
+                ],
+                "ipv6": []
+            }
+        },
+        "linkstate": "UP",
+        "summary": "Master: mgmt(UP)\nIP: 172.16.194.51/24",
+        "connector_type": "Unknown",
+        "mode": "Mgmt",
+        "speed": "1G"
+    }
+}

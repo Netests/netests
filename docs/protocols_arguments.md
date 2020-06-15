@@ -165,6 +165,37 @@ Ping value are logically not retrieved from the devices :smiley_cat:
 
 
 
+## VLAN
+
+|                      | id                 | name               | vrf_name   | ipv4_addresses     | ipv6_addresses     | assigned_port |
+| -------------------- | ------------------ | ------------------ | ---------- | ------------------ | ------------------ | ------------- |
+| Arista API           |                    |                    |            |                    |                    |               |
+| Arista Netconf       |                    |                    |            |                    |                    |               |
+| Arista SSH           |                    |                    |            |                    |                    |               |
+| Cumulus API          |                    |                    |            |                    |                    |               |
+| Cumulus Netconf      | :warning:          | :warning:          | :warning:  | :warning:          | :warning:          | :warning:     |
+| Cumulus SSH          | :white_check_mark: | :white_check_mark: | :no_entry: | :white_check_mark: | :white_check_mark: | :no_entry:    |
+| Extreme VSP API      |                    |                    |            |                    |                    |               |
+| Extreme VSP Netconf  |                    |                    |            |                    |                    |               |
+| Extreme VSP SSH      |                    |                    |            |                    |                    |               |
+| Cisco IOS-XE API     |                    |                    |            |                    |                    |               |
+| Cisco IOS-XE Netconf |                    |                    |            |                    |                    |               |
+| Cisco IOS-XE SSH     |                    |                    |            |                    |                    |               |
+| Cisco IOS-XR API     |                    |                    |            |                    |                    |               |
+| Cisco IOS-XR Netconf |                    |                    |            |                    |                    |               |
+| Cisco IOS-XR SSH     |                    |                    |            |                    |                    |               |
+| Juniper API          |                    |                    |            |                    |                    |               |
+| Juniper Netconf      |                    |                    |            |                    |                    |               |
+| Juniper SSH          |                    |                    |            |                    |                    |               |
+| NAPALM               |                    |                    |            |                    |                    |               |
+| Cisco NX-OS API      |                    |                    |            |                    |                    |               |
+| Cisco NX-OS Netconf  |                    |                    |            |                    |                    |               |
+| Cisco NX-OS SSH      |                    |                    |            |                    |                    |               |
+
+
+
+
+
 ## VRF
 
 |                      | vrf_name           | vrf_id             | vrf_type           | l3_vni             | rd                 | rt_imp             | rt_exp             | imp_targ           | exp_targ           |
