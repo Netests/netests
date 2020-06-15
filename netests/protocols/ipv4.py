@@ -2,11 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import ipaddress
+from typing import Optional, List
+from ipaddress import IPv4Address
 from netests.constants import NOT_SET
 from netests.protocols.ip import IPAddress
+from netests.protocols._protocols import NetestsProtocol
 
 
 class IPV4(IPAddress):
+    ip_address: Optional[ipaddress.IPv4Address] = None
 
     @classmethod
     def deserialize(
@@ -14,14 +18,15 @@ class IPV4(IPAddress):
         ip_address=NOT_SET,
         netmask=NOT_SET
     ) -> "IPV4":
-        if IPV4._is_valid_ipv4_and_mask(ip_address, netmask):
+        try:
+            IPv4Address(ip_address)
             return {
                 "ip_address": ip_address,
                 "netmask": netmask
             }
-        else:
+        except Exception:
             return {
-                "ip_address": NOT_SET,
+                "ip_address": IPv4Address(),
                 "netmask": NOT_SET
             }
 
@@ -117,3 +122,14 @@ class IPV4(IPAddress):
             bit_format = bit_format + str(bin(int(bytes))[2:].zfill(8))
 
         return bit_format
+
+
+class IPV4Interface(NetestsProtocol):
+    ipv4_addresses: List[IPV4] = None
+
+    def to_json(self):
+        ret = list()
+        for i in self.ipv4_addresses:
+            if i is not None:
+                ret.append(i.to_json())
+        return ret
