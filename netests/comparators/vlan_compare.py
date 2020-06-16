@@ -4,10 +4,10 @@
 from nornir.core.task import Task
 from netests import log
 from netests.tools.file import open_file
-from netests.protocols.vlan import VLAN
+from netests.protocols.vlan import VLAN, ListVLAN
 from netests.select_vars import select_host_vars
-from netests.comparators.log_compare import log_no_yaml_data
-from netests.constants import VLAN_WORKS_KEY, VLAN_DATA_HOST_KEY
+from netests.comparators.log_compare import log_compare, log_no_yaml_data
+from netests.constants import NOT_SET, VLAN_WORKS_KEY, VLAN_DATA_HOST_KEY
 from netests.exceptions.netests_exceptions import (
     NetestsOverideTruthVarsKeyUnsupported
 )
@@ -56,6 +56,10 @@ def _compare_vlan(
                 protocol="vlan"
             )
 
+        verity_vlan = ListVLAN(
+            list()
+        )
+
         log.debug(
             "VLAN_DATA_HOST_KEY in host_keys="
             f"{VLAN_DATA_HOST_KEY in host_keys}\n"
@@ -66,8 +70,21 @@ def _compare_vlan(
             VLAN_DATA_HOST_KEY in host_keys and
             vlan_yaml_data is not None
         ):
-            print(f"IMPLEMENT {__file__}")
+            for vlan in vlan_yaml_data:
+                verity_vlan.vlan_lst.append(
+                    VLAN(
+                        id=vlan.get('id', NOT_SET),
+                        name=vlan.get('name', NOT_SET),
+                        vrf_name=vlan.get('vrf_name', NOT_SET),
+                        ipv4_addresses=vlan.get('ipv4_addresses', list()),
+                        ipv6_addresses=vlan.get('ipv6_addresses', list()),
+                        assigned_ports=vlan.get('assigned_ports', list()),
+                    )
+                )
 
+            log_compare(verity_vlan, vlan_host_data, hostname, groups)
+            return verity_vlan == vlan_host_data
+            
         else:
             log_no_yaml_data(
                 "vlan",

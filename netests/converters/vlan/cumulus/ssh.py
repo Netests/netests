@@ -18,8 +18,6 @@ def _cumulus_vlan_ssh_converter(
         vlan_lst=list()
     )
 
-    print(cmd_output)
-
     if cmd_output is not None:
         if not isinstance(cmd_output, dict):
             cmd_output = json.loads(cmd_output)
@@ -63,8 +61,5 @@ def _cumulus_vlan_ssh_converter(
                         options=options
                     )
                 )
-
-    print(".............")
-    print(vlan_lst.to_json())
 
     return vlan_lst

@@ -6,7 +6,8 @@ from netests.comparators.vlan_compare import _compare_transit_vlan
 from netests.getters.base_get import GetterBase
 from netests.constants import VLAN_DATA_HOST_KEY
 from netests.workers.cumulus_ssh import VLANCumulusSSH
-
+from netests.workers.ios_nc import VLANIosNC
+from netests.workers.ios_ssh import VLANIosSSH
 
 HEADER = "[netests - get_vlan]"
 
@@ -74,8 +75,8 @@ class GetterVLAN(GetterBase):
             },
             self.CISCO_IOS_PLATEFORM_NAME: {
                 self.API_CONNECTION: self.function_not_implemented,
-                self.NETCONF_CONNECTION: self.function_not_implemented,
-                self.SSH_CONNECTION: self.function_not_implemented,
+                self.NETCONF_CONNECTION: VLANIosNC,
+                self.SSH_CONNECTION: VLANIosSSH,
                 self.NAPALM_CONNECTION: self.function_not_implemented
             },
             self.CISCO_IOSXR_PLATEFORM_NAME: {

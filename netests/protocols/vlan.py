@@ -44,10 +44,7 @@ class VLAN(NetestsProtocol):
                     is_equal = False
             return is_equal
         else:
-            return (
-                self.name == other.name and
-                self.id == other.id
-            )
+            return self.id == other.id
 
     def to_json(self):
         if PRINT_OPTION_KEY in self.options.keys():
