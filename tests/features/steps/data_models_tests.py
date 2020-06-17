@@ -165,6 +165,23 @@ def step_impl(context):
     print(yaml.load(f"{DATA_MODELS_PATH}vrf.yml"))
 
 
+@given(u'I try to execute netests --show-data-model hello')
+def step_impl(context):
+    context.o0099 = subprocess.Popen(
+        ["./netests/welcome.py", "--show-data-model", "hello"],
+        stdout=subprocess.PIPE
+    )
+    context.o0099.wait()
+    print(f"ReturnCode={context.o0099.returncode}")
+    assert context.o0099.returncode != 0
+    print("End process")
+
+
+@then(u'I check that the status code is not zero')
+def step_impl(context):
+    print("")
+
+
 @given(u'I get all protocols listed in netests/converters')
 def step_impl(context):
     context.dirs = os.listdir('netests/converters/')

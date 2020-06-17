@@ -40,5 +40,9 @@ Feature: Test --show-data-model xxx argument
         And I can convert vrf.yml to dict with yaml
 
     Scenario:
+        Given I try to execute netests --show-data-model hello
+        Then I check that the status code is not zero
+
+    Scenario:
         Given I get all protocols listed in netests/converters
         And I check that a data_model exist for each protocol
