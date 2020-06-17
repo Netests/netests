@@ -24,22 +24,25 @@ class VLAN(NetestsProtocol):
         if COMPARE_OPTION_KEY in self.options.keys():
             log.debug(f"Compare modified function\noptions={self.options}")
             is_equal = True
-            if self.options.get(PRINT_OPTION_KEY).get('id', True):
+            if self.options.get(COMPARE_OPTION_KEY).get('id', True):
                 if self.id != other.id:
                     is_equal = False
-            if self.options.get(PRINT_OPTION_KEY).get('name', True):
+            if self.options.get(COMPARE_OPTION_KEY).get('name', True):
                 if self.name != other.name:
                     is_equal = False
-            if self.options.get(PRINT_OPTION_KEY).get('vrf_name', True):
+            if self.options.get(COMPARE_OPTION_KEY).get('vrf_name', True):
                 if self.vrf_name != other.vrf_name:
                     is_equal = False
-            if self.options.get(PRINT_OPTION_KEY).get('ipv4_addresses', True):
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('ipv4_addresses', True):
                 if self.ipv4_addresses != other.ipv4_addresses:
                     is_equal = False
-            if self.options.get(PRINT_OPTION_KEY).get('ipv6_addresses', True):
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('ipv6_addresses', True):
                 if self.ipv6_addresses != other.ipv6_addresses:
                     is_equal = False
-            if self.options.get(PRINT_OPTION_KEY).get('assigned_ports', True):
+            if self.options.get(COMPARE_OPTION_KEY) \
+                           .get('assigned_ports', True):
                 if self.assigned_ports != other.assigned_ports:
                     is_equal = False
             return is_equal
@@ -75,6 +78,26 @@ class VLAN(NetestsProtocol):
 
 class ListVLAN(NetestsProtocol):
     vlan_lst: List[VLAN] = list()
+
+    def __eq__(self, others):
+        if not isinstance(others, ListVLAN):
+            raise NotImplementedError()
+
+        for vlan in self.vlan_lst:
+            if vlan not in others.vlan_lst:
+                return False
+
+        for vlan in others.vlan_lst:
+            if vlan not in self.vlan_lst:
+                return False
+
+        return True
+
+    def __repr__(self):
+        result = "<ListVLAN \n"
+        for vlan in self.vlan_lst:
+            result = result + f"{vlan}"
+        return result + ">"
 
     def to_json(self):
         ret = list()

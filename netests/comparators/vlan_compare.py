@@ -4,8 +4,10 @@
 from nornir.core.task import Task
 from netests import log
 from netests.tools.file import open_file
-from netests.protocols.vlan import VLAN, ListVLAN
 from netests.select_vars import select_host_vars
+from netests.protocols.vlan import VLAN, ListVLAN
+from netests.protocols.ipv4 import IPV4, IPV4Interface
+from netests.protocols.ipv6 import IPV6, IPV6Interface
 from netests.comparators.log_compare import log_compare, log_no_yaml_data
 from netests.constants import NOT_SET, VLAN_WORKS_KEY, VLAN_DATA_HOST_KEY
 from netests.exceptions.netests_exceptions import (
@@ -57,7 +59,7 @@ def _compare_vlan(
             )
 
         verity_vlan = ListVLAN(
-            list()
+            vlan_lst=list()
         )
 
         log.debug(
@@ -71,20 +73,40 @@ def _compare_vlan(
             vlan_yaml_data is not None
         ):
             for vlan in vlan_yaml_data:
+
+                ipv4 = IPV4Interface(ipv4_addresses=list())
+                ipv6 = IPV6Interface(ipv6_addresses=list())
+
+                for ip in vlan.get('ipv4_addresses', list()):
+                    ipv4.ipv4_addresses.append(
+                        IPV4(
+                            ip_address=ip.get('ip_address'),
+                            netmask=ip.get('netmasl')
+                        )
+                    )
+
+                for ip in vlan.get('ipv6_addresses', list()):
+                    ipv6.ipv6_addresses.append(
+                        IPV6(
+                            ip_address=ip.get('ip_address'),
+                            netmask=ip.get('netmasl')
+                        )
+                    )
+
                 verity_vlan.vlan_lst.append(
                     VLAN(
                         id=vlan.get('id', NOT_SET),
                         name=vlan.get('name', NOT_SET),
                         vrf_name=vlan.get('vrf_name', NOT_SET),
-                        ipv4_addresses=vlan.get('ipv4_addresses', list()),
-                        ipv6_addresses=vlan.get('ipv6_addresses', list()),
-                        assigned_ports=vlan.get('assigned_ports', list()),
+                        ipv4_addresses=ipv4,
+                        ipv6_addresses=ipv6,
+                        assigned_ports=vlan.get('assigned_ports'),
                     )
                 )
 
             log_compare(verity_vlan, vlan_host_data, hostname, groups)
             return verity_vlan == vlan_host_data
-            
+
         else:
             log_no_yaml_data(
                 "vlan",

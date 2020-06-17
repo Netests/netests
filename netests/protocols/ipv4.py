@@ -129,7 +129,8 @@ class IPV4Interface(NetestsProtocol):
 
     def to_json(self):
         ret = list()
-        for i in self.ipv4_addresses:
-            if i is not None:
-                ret.append(i.to_json())
+        if self.ipv4_addresses is not None:
+            for i in self.ipv4_addresses:
+                if i is not None:
+                    ret.append(i.to_json())
         return ret

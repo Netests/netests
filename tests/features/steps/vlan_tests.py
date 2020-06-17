@@ -2,8 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from behave import given, when, then
+from netests.comparators.vlan_compare import _compare_vlan
+from netests.protocols.ipv4 import IPV4, IPV4Interface
+from netests.protocols.ipv6 import IPV6, IPV6Interface
 from netests.protocols.vlan import VLAN, ListVLAN
-from netests.constants import NOT_SET, VLAN_DATA_HOST_KEY, VLAN_WORKS_KEY
+from netests.converters.vlan.cumulus.ssh import _cumulus_vlan_ssh_converter
+from netests.constants import NOT_SET, VLAN_DATA_HOST_KEY, FEATURES_SRC_PATH
+from netests.tools.file import open_file, open_json_file
 
 
 @given(u'A network protocols named VLAN defined in netests/protocols/vlan.py')
@@ -33,7 +38,35 @@ def step_impl(context):
 
 @given(u'I create a VLAN object equals to Cumulus manually named o0101')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0101 = ListVLAN(
+        vlan_lst=list()
+    )
+
+    context.o0101.vlan_lst.append(
+        VLAN(
+            id="999",
+            name="NETESTS_VLAN_MGMT",
+            vrf_name=NOT_SET,
+            ipv4_addresses=IPV4Interface(
+                ipv4_addresses=[
+                    IPV4(
+                        ip_address="192.168.1.1",
+                        netmask="255.255.255.0"
+                    )
+                ]
+            ),
+            ipv6_addresses=IPV6Interface(
+                ipv6_addresses=[
+                    IPV6(
+                        ip_address="2001:cafe::1",
+                        netmask="64"
+                    )
+                ]
+            ),
+            assigned_ports=['swp1', 'swp2', 'swp3'],
+            options={}
+        )
+    )
 
 
 @given(u'I create a VLAN object from a Cumulus API output named o0102')
@@ -48,7 +81,16 @@ def step_impl(context):
 
 @given(u'I create a VLAN object from a Cumulus SSH output named o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0104 = _cumulus_vlan_ssh_converter(
+        hostname="leaf01",
+        cmd_output=open_json_file(
+            path=(
+                f"{FEATURES_SRC_PATH}outputs/vlan/cumulus/ssh/"
+                "cumulus_ssh_net_show_interface_all.json"
+            )
+        ),
+        options={}
+    )
 
 
 @given(u'I create a VLAN object equals to Extreme VSP manually named o0201')
@@ -238,7 +280,7 @@ def step_impl(context):
 
 @given(u'VLAN o0101 should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert context.o0101 == context.o0104
 
 
 @given(u'VLAN o0102 should be equal to o0103')
@@ -268,7 +310,13 @@ def step_impl(context):
 
 @given(u'VLAN YAML file should be equal to o0104')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    assert _compare_vlan(
+        host_keys=VLAN_DATA_HOST_KEY,
+        hostname="leaf01",
+        groups=['linux'],
+        vlan_host_data=context.o0104,
+        test=True
+    )
 
 
 @given(u'VLAN o0201 should be equal to o0202')
@@ -527,111 +575,6 @@ def step_impl(context):
 
 
 @given(u'VLAN o0713 should be equal to o0714')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare function named o9999')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare function with <name> named o9982')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare equal to o9982 without <name> named o9983')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I compare VLAN o9982 and o9999 with a personal function - should not work')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I compare VLAN o9983 and o9999 with a personal function - should work')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare function with <vrf_name> named o9984')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare equal to o9984 without <vrf_name> named o9985')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I compare VLAN o9984 and o9999 with a personal function - should not work')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I compare VLAN o9985 and o9999 with a personal function - should work')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare function with <ipv4_addresses> named o9986')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare equal to o9986 without <ipv4_addresses> named o9987')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I compare VLAN o9986 and o9999 with a personal function - should not work')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I compare VLAN o9987 and o9999 with a personal function - should work')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare function with <ipv6_addresses> named o9988')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare equal to o9988 without <ipv6_addresses> named o9989')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I compare VLAN o9988 and o9999 with a personal function - should not work')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I compare VLAN o9989 and o9999 with a personal function - should work')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare function with <assigned_ports> named o9990')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I create a VLAN object to test compare equal to o9990 without <assigned_ports> named o9991')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I compare VLAN o9990 and o9999 with a personal function - should not work')
-def step_impl(context):
-    context.scenario.tags.append("own_skipped")
-
-
-@given(u'I compare VLAN o9991 and o9999 with a personal function - should work')
 def step_impl(context):
     context.scenario.tags.append("own_skipped")
 

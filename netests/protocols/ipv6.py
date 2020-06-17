@@ -35,7 +35,8 @@ class IPV6Interface(IPV6):
 
     def to_json(self):
         ret = list()
-        for i in self.ipv6_addresses:
-            if i is not None:
-                ret.append(i.to_json())
+        if self.ipv6_addresses is not None:
+            for i in self.ipv6_addresses:
+                if i is not None:
+                    ret.append(i.to_json())
         return ret

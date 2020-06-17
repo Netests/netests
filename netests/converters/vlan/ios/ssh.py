@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import json
 from netests.tools.cli import parse_textfsm
-from netests.protocols.ipv4 import IPV4, IPV4Interface
-from netests.protocols.ipv6 import IPV6, IPV6Interface
-from netests.protocols.vlan import VLAN, ListVLAN
-from netests.constants import NOT_SET
+from netests.protocols.vlan import ListVLAN
 
 
 def _ios_vlan_ssh_converter(
     hostname: str,
     cmd_output,
     options={}
-) -> VLAN:
+) -> ListVLAN:
 
     vlan_lst = ListVLAN(
         vlan_lst=list()
