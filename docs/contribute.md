@@ -130,3 +130,23 @@ def print_result(self):
 >
 > Compare function `_compare_transit_vlan` has to be defined in `netests.comparators.protocols_compare.py`
 
+
+
+
+
+### Add data models
+
+In `netests/data_models/{{ protocols }}.yml`
+
+```shell
+⚡ netests --show-data-model vlan
+```
+
+> Add tests !!
+
+```shell
+⚡ behave tests/features/data_models_tests.feature --no-capture
+```
+
+
+

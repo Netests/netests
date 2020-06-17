@@ -377,6 +377,63 @@ The ping is validate if it works.
 
 
 
+### VLAN
+
+In the VLAN function the following parameters will be compare.
+
+1. id
+
+#### Parameter not compare
+
+These values are not compare by default, it is possible to add them in the compare function
+
+=> Check `Modify compared values`.
+
+* vlan_name
+
+* vrf_name
+* ipv4_addresses
+* ipv6_addresses
+* assigned_ports
+
+These values are retrieved to have more informations and for some next features.
+
+#### Compare function
+
+```python
+class VLAN(NetestsProtocol):
+    def __eq__(self, other):
+      if not isinstance(other, VLAN):
+            raise NotImplementedError()
+
+      return self.id == other.id
+```
+
+#### Modify compared values
+
+It's possible to add or remove some value from the compare function.
+
+To do that, Modifiy Netests.io configuration file by adding `compare:` in protocols `options:`
+
+```yaml
+config:
+  protocols:
+    vrf:
+      test: false
+      options:
+        compare:
+          id: True
+          name: True
+          vrf_name: false
+          ipv4_addresses: false
+          ipv6_addresses: True
+          assigned_ports: True
+```
+
+In this example `name`, `ipv6_addresses ` and `assigned_ports` are added to VLAN compare function
+
+
+
 ### VRF
 
 In the VRF function the following parameters will be compare.

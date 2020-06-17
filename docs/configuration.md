@@ -31,6 +31,9 @@ config:
       
     ping:
       test: true
+      
+    vlan:
+      test: true
 
     vrf:
       test: true
