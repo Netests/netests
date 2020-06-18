@@ -59,9 +59,9 @@ class VLAN(NetestsProtocol):
             if self.options.get(PRINT_OPTION_KEY).get('vrf_name', True):
                 ret['vrf_name'] = self.vrf_name
             if self.options.get(PRINT_OPTION_KEY).get('ipv4_addresses', True):
-                ret['ipv4_addresses'] = self.ipv4_addresses
+                ret['ipv4_addresses'] = self.ipv4_addresses.to_json()
             if self.options.get(PRINT_OPTION_KEY).get('ipv6_addresses', True):
-                ret['ipv6_addresses'] = self.ipv6_addresses
+                ret['ipv6_addresses'] = self.ipv6_addresses.to_json()
             if self.options.get(PRINT_OPTION_KEY).get('assigned_ports', True):
                 ret['assigned_ports'] = self.assigned_ports
             return ret

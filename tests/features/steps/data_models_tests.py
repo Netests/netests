@@ -12,7 +12,8 @@ def step_impl(context):
         [
             "./netests/welcome.py",
             "--show-data-model",
-            "bgp"]
+            "bgp"
+        ]
     )
 
 @then(u'I print BGP data model')
@@ -31,7 +32,8 @@ def step_impl(context):
         [
             "./netests/welcome.py",
             "--show-data-model",
-            "cdp"]
+            "cdp"
+        ]
     )
 
 
@@ -51,7 +53,8 @@ def step_impl(context):
         [
             "./netests/welcome.py",
             "--show-data-model",
-            "facts"]
+            "facts"
+        ]
     )
 
 
@@ -71,7 +74,8 @@ def step_impl(context):
         [
             "./netests/welcome.py",
             "--show-data-model",
-            "lldp"]
+            "lldp"
+        ]
     )
 
 
@@ -91,7 +95,8 @@ def step_impl(context):
         [
             "./netests/welcome.py",
             "--show-data-model",
-            "ospf"]
+            "ospf"
+        ]
     )
 
 
@@ -111,7 +116,8 @@ def step_impl(context):
         [
             "./netests/welcome.py",
             "--show-data-model",
-            "ping"]
+            "ping"
+        ]
     )
 
 
@@ -131,7 +137,8 @@ def step_impl(context):
         [
             "./netests/welcome.py",
             "--show-data-model",
-            "vlan"]
+            "vlan"
+        ]
     )
 
 
@@ -151,7 +158,8 @@ def step_impl(context):
         [
             "./netests/welcome.py",
             "--show-data-model",
-            "vrf"]
+            "vrf"
+        ]
     )
 
 

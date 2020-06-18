@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "netests"
-version = "0.2.2"
+version = "0.3.0"
 description = "Test your Network"
 authors = ["Dylan Hamel <dylan.hamel@protonmail.com>"]
 maintainers = ["Netests Team <ping@netests.io>"]

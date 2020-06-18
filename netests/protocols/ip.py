@@ -42,7 +42,7 @@ class IPAddress(NetestsProtocol):
             return ret
         else:
             return {
-                "ip_address": str(self.ip_address),
+                "ip_address": self.ip_address,
                 "netmask": self.netmask
             }
 
