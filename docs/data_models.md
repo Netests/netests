@@ -180,6 +180,36 @@ vrfs:
 
 
 
+### VLAN
+
+```shell
+⚡ netests --show-data-model vlan
+```
+
+```yaml
+
+- id: 1
+  name: default
+  vrf_name: default
+  ipv4_addresses:
+    - ip_address: 1.1.1.1
+      netmask: 255.0.0.0
+    - ip_address: 10.1.1.2
+      netmask: 255.255.255.255
+  ipv6_addresses:
+    - ip_address: 2001:cafe::1
+      netmask: 64
+    - ip_address: 2001:c0ca::1
+      netmask: 64
+  assigned_ports:
+    - swp1
+    - swp2
+    - swp3
+
+```
+
+
+
 ### VRF
 
 ```shell

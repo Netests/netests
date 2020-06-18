@@ -140,13 +140,14 @@ To run a test or get data from one of these hosts, the process is exactly the sa
 
 ### Protocols
 
-For this version Netests.io is able to get information regarding <u>**6 "protocols"**</u>.
+For this version Netests.io is able to get information regarding u>**7 "protocols"**</u>.
 
 * BGP
 * CDP
 * Facts
 * LLDP
 * OSPF
+* VLAN
 * VRF
 
 All protocols have been simplified based on the OpenConfig data models. The idea of Netests.io is not to show some output but compare and check that your network is in an expected state. To see protocols definition, go on the following link.
@@ -308,21 +309,22 @@ With network the steps are a bit differents. The verification will not be done d
    		},
        'lldp': None,
        'ospf': None,
+       'vlan': None,
        'vrf': {
    				Host: leaf02: True
    		},
    }
-   ```
-
+```
+   
    > Protocols with a "None" is the protocols that has not been tested
    >
-   > Don't be affraid about them :smiley:
-
+> Don't be affraid about them :smiley:
+   
    ```shell
    ⚡ echo $?
    0
-   ```
-
+```
+   
    
 
 ### Integrate in a CI/CD pipeline

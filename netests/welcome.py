@@ -299,6 +299,7 @@ def main(
                 print(f.read())
         else:
             print(f"{HEADER} {show_data_model} is not a supported protocol")
+            exit(EXIT_FAILURE)
         exit(EXIT_SUCCESS)
 
     elif init_folders is not False:

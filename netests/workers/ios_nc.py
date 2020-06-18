@@ -10,6 +10,7 @@ from netests.converters.cdp.ios.nc import _ios_cdp_nc_converter
 from netests.converters.facts.ios.nc import _ios_facts_nc_converter
 from netests.converters.lldp.ios.nc import _ios_lldp_nc_converter
 from netests.converters.ospf.ios.nc import _ios_ospf_nc_converter
+from netests.converters.vlan.ios.nc import _ios_vlan_nc_converter
 from netests.converters.vrf.ios.nc import _ios_vrf_nc_converter
 from netests.constants import (
     NETCONF_FILTER,
@@ -17,6 +18,7 @@ from netests.constants import (
     CDP_DATA_HOST_KEY,
     FACTS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
+    VLAN_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
     VRF_DATA_KEY
 )
@@ -94,11 +96,13 @@ class IosNC(DeviceNC, ABC):
             return data
 
     def exec_call_get(self, task, command, m):
+        log.debug("Use [get] method")
         return m.get(
             filter=NETCONF_FILTER.format(command)
         ).data_xml
 
     def exec_call_get_config(self, task, command, m):
+        log.debug("Use [get_config] method")
         return m.get_config(
             source=self.source,
             filter=(
@@ -224,6 +228,30 @@ class OSPFIosNC(IosNC):
             vrf_loop=False,
             converter=_ios_ospf_nc_converter,
             key_store=OSPF_SESSIONS_HOST_KEY,
+            nc_method='get',
+            options=options,
+            source='running'
+        )
+
+
+class VLANIosNC(IosNC):
+
+    NETCONF_FILTER = """
+        <vlans
+            xmlns=\"http://cisco.com/ns/yang/Cisco-IOS-XE-vlan-oper\"
+        />"""
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": self.NETCONF_FILTER
+                }
+            },
+            vrf_loop=False,
+            converter=_ios_vlan_nc_converter,
+            key_store=VLAN_DATA_HOST_KEY,
             nc_method='get',
             options=options,
             source='running'

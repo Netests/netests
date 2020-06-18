@@ -1,35 +1,8 @@
 ---
-# ----------------------------------------------------------------------------------------------------------------------
 leaf01:
-  - vlan_id: 1000
-    ports_members:
-      - bond02
-  - vlan_id: 4000
-  - vlan_id: 1001
-  - vlan_id: 4001
-  - vlan_id: 1002
-  - vlan_id: 4002
-  - vlan_id: 1003
-  - vlan_id: 4003
-  - vlan_id: 1004
-  - vlan_id: 4004
-  - vlan_id: 1005
-  - vlan_id: 4005
-  - vlan_id: 998
-
-# ----------------------------------------------------------------------------------------------------------------------
-leaf03:
-  - vlan_id: 1
-    ports_members:
-      - Ethernet4
-      - Ethernet5
-      - Ethernet6
-      - Ethernet7
-
-  - vlan_id: 1000
-    ports_members:
-      - Ethernet6
-
-  - vlan_id: 2000
-    ports_members:
-      - Ethernet6
+  - id: 999
+    ipv4_addresses:
+      - ip_address: 192.168.1.1
+        netmask: 24
+      - ip_address: 192.168.1.1
+        netmask: 24

@@ -110,6 +110,24 @@ config:
     ping:
       test: True
 
+    vlan:
+      test: True
+      options:
+        compare:
+          id: True
+          name: False
+          vrf_name: False
+          ipv4_addresses: False
+          ipv6_addresses: False
+          assigned_ports: False
+        print:
+          id: True
+          name: True
+          vrf_name: True
+          ipv4_addresses: True
+          ipv6_addresses: True
+          assigned_ports: True
+
     vrf:
       test: False
       options:

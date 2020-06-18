@@ -7,6 +7,7 @@ from netests.converters.cdp.cumulus.ssh import _cumulus_cdp_ssh_converter
 from netests.converters.facts.cumulus.ssh import _cumulus_facts_ssh_converter
 from netests.converters.lldp.cumulus.ssh import _cumulus_lldp_ssh_converter
 from netests.converters.ospf.cumulus.ssh import _cumulus_ospf_ssh_converter
+from netests.converters.vlan.cumulus.ssh import _cumulus_vlan_ssh_converter
 from netests.converters.vrf.cumulus.ssh import _cumulus_vrf_ssh_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
@@ -14,6 +15,7 @@ from netests.constants import (
     FACTS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
+    VLAN_DATA_HOST_KEY,
     VRF_DATA_KEY,
     CUMULUS_GET_BGP,
     CUMULUS_GET_BGP_VRF,
@@ -24,6 +26,7 @@ from netests.constants import (
     CUMULUS_GET_OSPF_RID,
     CUMULUS_GET_OSPF_VRF,
     CUMULUS_GET_OSPF_RID_VRF,
+    CUMULUS_GET_VLAN,
     CUMULUS_GET_VRF
 )
 
@@ -118,6 +121,23 @@ class OSPFCumulusSSH(DeviceSSH):
             vrf_loop=True,
             converter=_cumulus_ospf_ssh_converter,
             key_store=OSPF_SESSIONS_HOST_KEY,
+            options=options
+        )
+
+
+class VLANCumulusSSH(DeviceSSH):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": CUMULUS_GET_VLAN
+                }
+            },
+            vrf_loop=False,
+            converter=_cumulus_vlan_ssh_converter,
+            key_store=VLAN_DATA_HOST_KEY,
             options=options
         )
 

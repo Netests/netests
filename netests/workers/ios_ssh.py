@@ -7,12 +7,14 @@ from netests.converters.cdp.ios.ssh import _ios_cdp_ssh_converter
 from netests.converters.facts.ios.ssh import _ios_facts_ssh_converter
 from netests.converters.lldp.ios.ssh import _ios_lldp_ssh_converter
 from netests.converters.ospf.ios.ssh import _ios_ospf_ssh_converter
+from netests.converters.vlan.ios.ssh import _ios_vlan_ssh_converter
 from netests.converters.vrf.ios.ssh import _ios_vrf_ssh_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,
     FACTS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
+    VLAN_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
     VRF_DATA_KEY,
     IOS_GET_BGP,
@@ -24,6 +26,7 @@ from netests.constants import (
     IOS_GET_OSPF_NEI,
     IOS_GET_OSPF,
     IOS_GET_OSPF_INT,
+    IOS_GET_VLAN,
     IOS_GET_VRF
 )
 
@@ -115,6 +118,23 @@ class OSPFIosSSH(DeviceSSH):
             vrf_loop=True,
             converter=_ios_ospf_ssh_converter,
             key_store=OSPF_SESSIONS_HOST_KEY,
+            options=options
+        )
+
+
+class VLANIosSSH(DeviceSSH):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "no_key": IOS_GET_VLAN
+                }
+            },
+            vrf_loop=False,
+            converter=_ios_vlan_ssh_converter,
+            key_store=VLAN_DATA_HOST_KEY,
             options=options
         )
 

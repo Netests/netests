@@ -1,5 +1,15 @@
 Netests.io releases informations
 
+## Version 0.3.0
+
+* Add VLAN structure and tests.
+
+  It's now possible to implement VLAN test for all devices - (only Cumulus SSH is implemeted yet).
+
+* Add VLAN tests
+
+* Add `pydantic` and `typing` to VLAN class
+
 ## Version 0.2.0
 
 Add possibility to modify compare function.

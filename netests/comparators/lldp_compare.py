@@ -73,17 +73,17 @@ def _compare_lldp(
             lldp_yaml_data is not None
         ):
             for nei in lldp_yaml_data:
-                lldp_obj = LLDP(
-                    local_name=hostname,
-                    local_port=nei.get("local_port", NOT_SET),
-                    neighbor_name=nei.get("neighbor_name", NOT_SET),
-                    neighbor_port=nei.get("neighbor_port", NOT_SET),
-                    neighbor_os=nei.get("neighbor_os", NOT_SET),
-                    neighbor_mgmt_ip=nei.get("neighbor_mgmt_ip", NOT_SET),
-                    neighbor_type=nei.get("neighbor_type", NOT_SET),
+                verity_lldp.lldp_neighbors_lst.append(
+                    LLDP(
+                        local_name=hostname,
+                        local_port=nei.get("local_port", NOT_SET),
+                        neighbor_name=nei.get("neighbor_name", NOT_SET),
+                        neighbor_port=nei.get("neighbor_port", NOT_SET),
+                        neighbor_os=nei.get("neighbor_os", NOT_SET),
+                        neighbor_mgmt_ip=nei.get("neighbor_mgmt_ip", NOT_SET),
+                        neighbor_type=nei.get("neighbor_type", NOT_SET),
+                    )
                 )
-
-                verity_lldp.lldp_neighbors_lst.append(lldp_obj)
 
             log_compare(verity_lldp, lldp_host_data, hostname, groups)
             return verity_lldp == lldp_host_data

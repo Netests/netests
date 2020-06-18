@@ -322,6 +322,7 @@ Device leaf05 is not reachable with the following infos:
     'lldp': True,
     'ospf': True,
     'ping': False,
+    'vlan': False,
     'vrf': False}
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 All devices are reachable :) !
