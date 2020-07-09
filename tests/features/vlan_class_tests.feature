@@ -1,4 +1,4 @@
-Feature: Test protocols IPAddress, IPV4 and IPV6
+Feature: Test protocols VLAN
     # Description
     Scenario:
         Given I create a VLAN object named o0000

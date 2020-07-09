@@ -257,6 +257,12 @@ OSPF_INT_NAME_KEY = 'int_name'
 OSPF_INT_KEY = 'interfaces'
 OSPF_NEI_KEY = 'neighbors'
 
+# ISIS CONSTANTES
+ISIS_DATA_HOST_KEY = "isis_data"
+ISIS_WORKS_KEY = "isis_works"
+ISIS_LEVEL_2 = "level-2"
+ISIS_LEVEL_1 = "level-1"
+
 # VRF CONSTANTES
 VRF_DATA_KEY = 'vrf_data'
 VRF_NAME_DATA_KEY = 'vrf_name_data'
