@@ -23,6 +23,9 @@ config:
     facts:
       test: true
 
+    isis:
+      test: false
+    
     lldp:
       test: false
     

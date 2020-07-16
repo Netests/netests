@@ -6,6 +6,7 @@ from jnpr.junos import Device
 from netests.workers.device_nc import DeviceNC
 from netests.converters.bgp.juniper.nc import _juniper_bgp_nc_converter
 from netests.converters.facts.juniper.nc import _juniper_facts_nc_converter
+from netests.converters.isis.juniper.nc import _juniper_isis_nc_converter
 from netests.converters.lldp.juniper.nc import _juniper_lldp_nc_converter
 from netests.converters.ospf.juniper.nc import _juniper_ospf_nc_converter
 from netests.converters.vrf.juniper.nc import _juniper_vrf_nc_converter
@@ -13,6 +14,7 @@ from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     FACTS_DATA_HOST_KEY,
+    ISIS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
     VRF_DATA_KEY
@@ -82,6 +84,14 @@ class JuniperNC(DeviceNC, ABC):
 
     def _mapping_get_ospf_overview_information(self, m, vrf):
         return m.rpc.get_ospf_overview_information(instance=vrf)
+
+    def _mapping_get_isis_adjacency_information(self, m, vrf):
+        return m.rpc.get_isis_adjacency_information(
+            detail=True, instance=vrf
+        )
+
+    def _mapping_get_isis_overview_information(self, m, vrf):
+        return m.rpc.get_isis_overview_information(instance=vrf)
 
     def _mapping_get_bgp_neighbor_information(self, m, vrf):
         return m.rpc.get_bgp_neighbor_information(exact_instance=vrf)
@@ -175,6 +185,31 @@ class LLDPJuniperNC(JuniperNC):
             nc_method='get',
             options=options,
             source='running'
+        )
+
+
+class ISISJuniperNC(JuniperNC):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "data": self._mapping_get_isis_adjacency_information,
+                    "rid": self._mapping_get_isis_overview_information
+                },
+                "vrf": {
+                    "data": self._mapping_get_isis_adjacency_information,
+                    "rid": self._mapping_get_isis_overview_information
+                }
+            },
+            vrf_loop=True,
+            converter=_juniper_isis_nc_converter,
+            key_store=ISIS_DATA_HOST_KEY,
+            nc_method='get',
+            options=options,
+            source='running',
+            format_command=False
         )
 
 

@@ -19,6 +19,10 @@ from netests.constants import (
 ERROR_HEADER = "Error import [global.py]"
 
 
+def print_json(payload: dict) -> None:
+    print(json.dumps(payload, indent=4, sort_keys=True))
+
+
 def printline() -> None:
     size = int(shutil.get_terminal_size()[0] / 2)
     print("*-" * size)

@@ -68,6 +68,30 @@ def step_impl(context):
     print(yaml.load(f"{DATA_MODELS_PATH}facts.yml"))
 
 
+@given(u'I try to execute netests --show-data-model isis')
+def step_impl(context):
+    context.o0009 = subprocess.run(
+        [
+            "./netests/welcome.py",
+            "--show-data-model",
+            "isis"
+        ]
+    )
+
+
+@then(u'I print ISIS data model')
+def step_impl(context):
+    print(context.o0009)
+    assert context.o0009 != ""
+
+
+@then(u'I can convert isis.yml to dict with yaml')
+def step_impl(context):
+    data = yaml.load(f"{DATA_MODELS_PATH}isis.yml")
+    print(data)
+    assert data != {}
+
+
 @given(u'I try to execute netests --show-data-model lldp')
 def step_impl(context):
     context.o0004 = subprocess.run(

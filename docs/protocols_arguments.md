@@ -99,6 +99,33 @@ Here the list of arguments retrieve by protocols for each vendor / OS.
 
 
 
+## ISIS
+
+|                      | session_state      | level_type         | circuit_type       | local_interface_name | neighbor_sys_name  | neighbor_ip_addr   | snap               |
+| -------------------- | ------------------ | ------------------ | ------------------ | -------------------- | ------------------ | ------------------ | ------------------ |
+| Arista API           |                    |                    |                    |                      |                    |                    |                    |
+| Arista Netconf       |                    |                    |                    |                      |                    |                    |                    |
+| Arista SSH           |                    |                    |                    |                      |                    |                    |                    |
+| Cumulus API          |                    |                    |                    |                      |                    |                    |                    |
+| Cumulus Netconf      |                    |                    |                    |                      |                    |                    |                    |
+| Cumulus SSH          |                    |                    |                    |                      |                    |                    |                    |
+| Extreme VSP API      |                    |                    |                    |                      |                    |                    |                    |
+| Extreme VSP Netconf  |                    |                    |                    |                      |                    |                    |                    |
+| Extreme VSP SSH      |                    |                    |                    |                      |                    |                    |                    |
+| Cisco IOS-XE API     |                    |                    |                    |                      |                    |                    |                    |
+| Cisco IOS-XE Netconf |                    |                    |                    |                      |                    |                    |                    |
+| Cisco IOS-XE SSH     |                    |                    |                    |                      |                    |                    |                    |
+| Cisco IOS-XR API     |                    |                    |                    |                      |                    |                    |                    |
+| Cisco IOS-XR Netconf |                    |                    |                    |                      |                    |                    |                    |
+| Cisco IOS-XR SSH     |                    |                    |                    |                      |                    |                    |                    |
+| Juniper API          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Juniper Netconf      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| Juniper API          | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark:   | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| NAPALM               |                    |                    |                    |                      |                    |                    |                    |
+| Cisco NX-OS API      |                    |                    |                    |                      |                    |                    |                    |
+| Cisco NX-OS Netconf  |                    |                    |                    |                      |                    |                    |                    |
+| Cisco NX-OS SSH      |                    |                    |                    |                      |                    |                    |                    |
+
 
 
 ## LLDP

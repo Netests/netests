@@ -71,6 +71,26 @@ config:
           model: True
           interfaces_lst: True
 
+    isis:
+      test: True
+      options:
+        compare:
+          session_state: True
+          level_type: True
+          circuit_type: False
+          local_interface_name: False
+          neighbor_sys_name: True
+          neighbor_ip_addr: False
+          snap: False
+        print:
+          session_state: True
+          level_type: True
+          circuit_type: True
+          local_interface_name: True
+          neighbor_sys_name: True
+          neighbor_ip_addr: True
+          snap: True
+
     lldp:
       test: True
       options:

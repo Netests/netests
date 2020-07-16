@@ -95,6 +95,18 @@ version: 4.24.0F
 
 
 
+### ISIS
+
+```shell
+⚡ netests --show-data-model isis
+```
+
+```yaml
+
+```
+
+
+
 ### LLDP
 
 ```shell

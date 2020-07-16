@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf8'?>
+<isis-adjacency-information style="detail">
+    <isis-adjacency>
+        <system-name>vMX3</system-name>
+        <interface-name>ge-0/0/0.0</interface-name>
+        <level>2</level>
+        <adjacency-state>Up</adjacency-state>
+        <holdtime>7</holdtime>
+        <interface-priority>64</interface-priority>
+        <transition-count>1</transition-count>
+        <last-transition-time>\n00:24:55\n</last-transition-time>
+        <circuit-type>2</circuit-type>
+        <adjacency-flag>Speaks: IP, IPv6</adjacency-flag>
+        <mac-address>0:50:56:a2:8a:cb</mac-address>
+        <adjacency-topologies>Unicast</adjacency-topologies>
+        <adjacency-restart-capable>yes</adjacency-restart-capable>
+        <adjacency-advertisement>advertise</adjacency-advertisement>
+        <lan-id>vMX3.04</lan-id>
+        <ip-address>10.100.13.2</ip-address>
+    </isis-adjacency>
+    <isis-adjacency>
+        <system-name>vMX5</system-name>
+        <interface-name>ge-0/0/1.0</interface-name>
+        <level>2</level>
+        <adjacency-state>Up</adjacency-state>
+        <holdtime>8</holdtime>
+        <interface-priority>64</interface-priority>
+        <transition-count>1</transition-count>
+        <last-transition-time>\n00:25:50\n</last-transition-time>
+        <circuit-type>2</circuit-type>
+        <adjacency-flag>Speaks: IP, IPv6</adjacency-flag>
+        <mac-address>0:50:56:a2:e8:28</mac-address>
+        <adjacency-topologies>Unicast</adjacency-topologies>
+        <adjacency-restart-capable>yes</adjacency-restart-capable>
+        <adjacency-advertisement>advertise</adjacency-advertisement>
+        <lan-id>vMX5.02</lan-id>
+        <ip-address>10.100.15.2</ip-address>
+    </isis-adjacency>
+    <isis-adjacency>
+        <system-name>vMX2</system-name>
+        <interface-name>ge-0/0/2.0</interface-name>
+        <level>2</level>
+        <adjacency-state>Up</adjacency-state>
+        <holdtime>7</holdtime>
+        <interface-priority>64</interface-priority>
+        <transition-count>1</transition-count>
+        <last-transition-time>\n00:25:11\n</last-transition-time>
+        <circuit-type>2</circuit-type>
+        <adjacency-flag>Speaks: IP, IPv6</adjacency-flag>
+        <mac-address>0:50:56:a2:bd:1a</mac-address>
+        <adjacency-topologies>Unicast</adjacency-topologies>
+        <adjacency-restart-capable>yes</adjacency-restart-capable>
+        <adjacency-advertisement>advertise</adjacency-advertisement>
+        <lan-id>vMX2.03</lan-id>
+        <ip-address>10.100.12.2</ip-address>
+    </isis-adjacency>
+</isis-adjacency-information>

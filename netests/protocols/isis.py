@@ -158,21 +158,33 @@ class ISISAdjacencyVRF(NetestsProtocol):
     system_id: str = NOT_SET
     area_id: str = NOT_SET
     vrf_name: str = NOT_SET
-    isis_adj_lst: ListISISAdjacency = list()
+    adjacencies: ListISISAdjacency = None
 
     def to_json(self):
         return {
             'router_id': self.router_id,
             'system_id': self.system_id,
             'area_id': self.area_id,
-            'isis_adj_lst': self.isis_adj_lst.to_json(),
+            'vrf_name': self.vrf_name,
+            'adjacencies': self.adjacencies.to_json(),
         }
 
 
 class ListISISAdjacencyVRF(NetestsProtocol):
     isis_vrf_lst: List[ISISAdjacencyVRF] = list()
 
+    def to_json(self):
+        ret = list()
+        for i in self.isis_vrf_lst:
+            if i is not None:
+                ret.append(i.to_json())
+        return ret
+
 
 class ISIS(NetestsProtocol):
-    hostname: str = NOT_SET
     isis_vrf_lst: ListISISAdjacencyVRF = list()
+
+    def to_json(self):
+        d = dict()
+        d['vrfs'] = self.isis_vrf_lst.to_json()
+        return d

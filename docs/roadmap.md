@@ -4,7 +4,7 @@ Here a list of the new features that will be integrated
 
 
 
-### Netests-API
+### Netests-API (FastAPI)
 
 An API to execute test with an API call is in developement.
 
@@ -43,9 +43,7 @@ Improve protocols already implemented :
 
 We plan to add new protocols like
 
-* ISIS
 * LDP
-* VLAN
 * VLAN_USED - Test if all VLAN on a device are used
 * ACL
 * MTU

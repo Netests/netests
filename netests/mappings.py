@@ -6,8 +6,19 @@ from netests.constants import (
     BGP_STATE_UP_LIST,
     BGP_STATE_BRIEF_UP,
     BGP_STATE_BRIEF_DOWN,
-    BGP_UPTIME_FORMAT_MS
+    BGP_UPTIME_FORMAT_MS,
+    ISIS_LEVEL_1,
+    ISIS_LEVEL_2
 )
+
+
+def isis_level_converter(value: str) -> str:
+    if value == '2':
+        return ISIS_LEVEL_2
+    elif value == '1':
+        return ISIS_LEVEL_1
+    else:
+        return NOT_SET
 
 
 def get_bgp_state_brief(state: str) -> str:

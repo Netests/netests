@@ -15,6 +15,11 @@ Feature: Test --show-data-model xxx argument
         And I can convert facts.yml to dict with yaml
 
     Scenario:
+        Given I try to execute netests --show-data-model isis
+        Then I print ISIS data model
+        And I can convert isis.yml to dict with yaml
+
+    Scenario:
         Given I try to execute netests --show-data-model lldp
         Then I print LLDP data model
         And I can convert lldp.yml to dict with yaml

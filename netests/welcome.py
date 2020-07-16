@@ -6,11 +6,11 @@ import click
 import urllib3
 from netests import log
 from netests.base_run import run_base
-from netests.tools.std import printline
 from netests.base_cli import netests_cli
 from netests.tools.file import create_folder
 from netests.select_vars import select_host_vars
 from netests.nornir_inventory import init_nornir
+from netests.tools.std import printline, print_json
 from netests.tools.verify import ValidateNetestsInventory
 from netests.tools.std import open_file, check_devices_connectivity
 from netests.constants import (
@@ -19,8 +19,6 @@ from netests.constants import (
     DATA_MODELS_PATH,
     TRUTH_VARS_PATH
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 HEADER = "[netests - main.py]"
@@ -39,7 +37,7 @@ def print_protocols(content_file):
     pdict = dict()
     for k, v in content_file.get('config').get('protocols').items():
         pdict[k] = v.get('test', False)
-    PP.pprint(pdict)
+    print_json(pdict)
 
 
 def print_inv(nr):
@@ -50,7 +48,7 @@ def print_inv(nr):
         to_print[host]['connexion'] = nr.inventory.hosts[host]['connexion']
         to_print[host]['port'] = nr.inventory.hosts[host].port
         to_print[host]['platform'] = nr.inventory.hosts[host].platform
-    PP.pprint(to_print)
+    print_json(to_print)
 
 
 def print_hello() -> None:
@@ -58,13 +56,13 @@ def print_hello() -> None:
 
 
 def print_result(result) -> None:
-    PP.pprint(result)
+    print_json(result)
 
 
 def print_wrong_inv(result) -> None:
     printline()
     print("Values are wrong or missing in the network inventory \n---")
-    PP.pprint(result)
+    print_json(result)
 
 
 def exit_function(result):
@@ -381,7 +379,7 @@ def main(
                 result['error_not_in_inventory'].append(hostname)
 
         printline()
-        PP.pprint(result)
+        print_json(result)
         exit(EXIT_SUCCESS)
 
     result = dict()

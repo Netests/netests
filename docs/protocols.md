@@ -225,6 +225,66 @@ In this example `serial` and `domain` are added to Facts compare function
 
 
 
+### ISIS
+
+In the ISIS function the following parameters will be compare.
+
+1. session_state
+2. level_type
+3. neighbor_sys_name
+
+#### Parameter not compare
+
+These values are not compare by default, it is possible to add them in the compare function
+
+=> Check `Modify compared values`.
+
+* circuit_type
+* local_interface_name
+* neighbor_ip_addr
+* snap
+
+These values are retrieved to have more informations and for some next features.
+
+#### Compare function
+
+```python
+class ISISAdjacency(NetestsProtocol):
+    def __eq__(self, other):
+        if not isinstance(other, ISISAdjacency):
+            raise NotImplementedError()
+        
+        return (
+                self.session_state == other.session_state and
+                self.level_type == other.level_type and
+                self.neighbor_sys_name == other.neighbor_sys_name
+            )
+```
+
+#### Modify compared values
+
+It's possible to add or remove some value from the compare function.
+
+To do that, Modifiy Netests.io configuration file by adding `compare:` in protocols `options:`
+
+```yaml
+config:
+  protocols:
+    isis:
+      test: true
+      options:
+        compare:
+          session_state: true
+          level_type: true
+          neighbor_sys_name: true
+          circuit_type: true
+          local_interface_name: false
+          neighbor_ip_addr: false
+          snap: true
+```
+
+In this example `snap` and `circuit_type` are added to ISIS compare function
+
 ### LLDP
 
 In the LLDP function the following parameters will be compare.

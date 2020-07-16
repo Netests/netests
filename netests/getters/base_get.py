@@ -8,12 +8,11 @@ from pathlib import Path
 from nornir.core import Nornir
 from nornir.core.filter import F
 from abc import ABC, abstractmethod
+from netests.tools.std import print_json
 from netests.constants import PLATFORM_SUPPORTED, CONNEXION_MODE
 from netests.exceptions.netests_exceptions import (
     NetestsDeviceNotCompatibleWithNapalm
 )
-import pprint
-PP = pprint.PrettyPrinter(indent=4)
 
 
 class GetterBase(ABC):
@@ -101,7 +100,7 @@ class GetterBase(ABC):
             f"data.values()={data.values()}"
         )
         for value in data.values():
-            self.compare_result[value.host] = value.result
+            self.compare_result[value.host.name] = value.result
         log.debug(
             f"RESULT - {self.__class__.__name__}"
             f"self.compare_result={self.compare_result}"
@@ -179,7 +178,7 @@ class GetterBase(ABC):
                     print("No value found for this host.")
 
     def print_json(self, data):
-        PP.pprint(data)
+        print_json(payload=data)
 
     def select_devices(self):
         if self.is_from_cli():
@@ -249,8 +248,9 @@ class GetterBase(ABC):
             )
         return False
 
-    def function_not_implemented(self, task):
+    def function_not_implemented(self):
         log.debug("Function not implemented")
+        raise NotImplementedError
 
     def __repr__(self) -> str:
         pass

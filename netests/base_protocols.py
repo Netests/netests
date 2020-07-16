@@ -5,6 +5,7 @@ from netests.getters.bgp_get import GetterBGP
 from netests.getters.bgp_up_get import GetterBGPUp
 from netests.getters.cdp_get import GetterCDP
 from netests.getters.facts_get import GetterFacts
+from netests.getters.isis_get import GetterISIS
 from netests.getters.lldp_get import GetterLLDP
 from netests.getters.ospf_get import GetterOSPF
 from netests.getters.ping_get import GetterPing
@@ -13,6 +14,7 @@ from netests.getters.vrf_get import GetterVRF
 from netests.protocols.bgp import BGPSession
 from netests.protocols.cdp import CDP
 from netests.protocols.facts import Facts
+from netests.protocols.isis import ISIS
 from netests.protocols.lldp import LLDP
 from netests.protocols.ospf import OSPF
 from netests.protocols.ping import PING
@@ -22,6 +24,7 @@ from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     CDP_DATA_HOST_KEY,
     FACTS_DATA_HOST_KEY,
+    ISIS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
     PING_DATA_HOST_KEY,
@@ -65,6 +68,12 @@ MAPPING_PROTOCOLS = {
         "class": GetterFacts,
         "filename": "facts.yml",
         "key_store": FACTS_DATA_HOST_KEY
+    },
+    "isis": {
+        "proto": ISIS,
+        "class": GetterISIS,
+        "filename": "isis.yml",
+        "key_store": ISIS_DATA_HOST_KEY
     },
     "lldp": {
         "proto": LLDP,

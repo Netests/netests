@@ -12,6 +12,9 @@ config:
     facts:
       test: true
 
+    isis:
+      test: True
+
     lldp:
       test: true
     

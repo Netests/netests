@@ -1,0 +1,28 @@
+---
+leaf04:
+  - vrf_name: default
+    router_id: 10.100.100.1
+    system_id: 1010.0100.0001
+    area_id: 49.0001
+    adjacencies:
+      - circuit_type: 2
+        level_type: level-2
+        local_interface_name: ge-0/0/0.0
+        neighbor_ip_addr: 10.100.13.2
+        neighbor_sys_name: vMX3
+        session_state: Up
+        snap: 0:50:56:a2:8a:cb
+      - circuit_type: 2
+        level_type: level-2
+        local_interface_name: ge-0/0/1.0
+        neighbor_ip_addr: 10.100.15.2
+        neighbor_sys_name: vMX5
+        session_state: Up
+        snap: 0:50:56:a2:e8:28
+      - circuit_type: 2
+        level_type: level-2
+        local_interface_name: ge-0/0/2.0
+        neighbor_ip_addr: 10.100.12.2
+        neighbor_sys_name: vMX2
+        session_state: Up
+        snap: 0:50:56:a2:bd:1a

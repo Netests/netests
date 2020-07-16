@@ -10,48 +10,43 @@
 
 In our current world, the stability of networks has become something of paramount importance.
 
-There are many solutions to define / check that your network is working :
+There are many solutions to define/check that your network is working :
 
-* Monitoring - Get metrcis with SNMP, "show" command, Telemetry, etc.
-* Logging - Manage and use log messages send by devices.
-* Alarming - Based on metrics and logging raise an alarms if something appears on your network.
+- Monitoring - Get metrics with SNMP, "show" command, Telemetry, etc.
+- Logging - Manage and use log messages send by devices.
+- Alarming - Based on metrics and logging raise alarms if something appears on your network.
 
 And, for a few years **Testing**.
 
 The goal of testing your network is to be sure that :
 
-* All BGP sessions are UP and the session.
-* Wires are correctly connected by checking LLDP neighbors.
-* Destination are reachable by executing some Pings.
-* etc.
+- All BGP sessions are UP.
+- 0
+- Destinations are reachable by executing some Pings.
+- etc.
 
-One of the biggest problem is **How can I test my network automatically ?**
+One of the biggest problems is **How can I test my network automatically?**
 
+All of these tests should be run after each change to be sure that they have not created a problem on your network
 
+Yet, the problem is that **we have to write some code to automate tests ...** But "*I'm a Network Engineer, not a developer*".
 
-All of these tests should be run after each change to be sure that they have not created a problem on your netwok
-
-Yet, the problem is that **we have to write some code to automate tests ...** But "*I'm a Network Engineer not a developer*".
-
-That's why **Netests.io** was created ! The idea of **Netests.io** is to offer a way of testing your network without writing some codes !
+That's why **Netests.io** was created! The idea of **Netests.io** is to offer a way of testing your network without writing some codes!
 
 
 
 ## Netests features
 
-Netests.io is based on a source of truth. This source is used to define which you exepect on your network.
+Netests.io is based on a source of truth. This source is used to define which you expect on your network.
 
-When Netests.io is run, it will connect to the device, get informations by protocols and compare to your source of truth.
+When Netests.io is run, it will connect to the device, get information by protocols, and compare it to your source of truth.
 
-If the two results are the same, Netests will return a success, otherwise a failure.
+If the two results are the same, Netests will return success, otherwise a failure.
 
+Netests.io can connect to the device with Netconf, ssh, over a rest API, and with NAPALM if the vendor is supported by NAPALM.
+Not all connexion types are available for all devices. Some vendors don't support Netconf or REST API.
 
-
-Netests.io can connect to the device with `Netconf`, `ssh`, over a `rest api` and with `NAPALM` if the vendor is supported by NAPALM.
-
-Not all connexion type are available for all devices. Some vendors don't support Netconf or REST API.
-
-Please before to start have a look on ``vendors_and_protocols``.
+Please before to start have a look at https://www.netests.io/vendors_and_protocols/
 
 
 
@@ -67,19 +62,17 @@ Run Netests.io with a shell command
 netests -x -i hosts -a netests
 ```
 
-Standard mode can be a step of a CI/CD pipeline or run as a scheduled script to be sure that the network works as you expect.
-
-
+The standard mode can be a step of a CI/CD pipeline or run as a scheduled script to be sure that the network works as you expect.
 
 ##### CLI Mode
 
-Run Netests.io in a interactive mode
+Run Netests.io in a interactive mode.
 
 ```shell
 netests -x -i hosts --terminal
 ```
 
-CLI mode can be used to troubleshoot the network or get informations from many devices
+CLI mode can be used to troubleshoot the network or get information from many devices.
 
 ```shell
 > get ospf
@@ -124,7 +117,7 @@ CLI mode can be used to troubleshoot the network or get informations from many d
 
 ### Abstraction
 
-Netests.io offers a vendor abstraction. Currently Netests.io supports **<u>7 differents OS.</u>**
+Netests.io offers a vendor abstraction. Currently, Netests.io supports **<u>7 differents OS.</u>**
 
 * Arista Networks
 * Cumulus Linux
@@ -134,17 +127,18 @@ Netests.io offers a vendor abstraction. Currently Netests.io supports **<u>7 dif
 * Juniper
 * Cisco NX-OS
 
-To run a test or get data from one of these hosts, the process is exactly the same !
+To run a test or get data from one of these hosts, the process is the same !
 
 
 
 ### Protocols
 
-For this version Netests.io is able to get information regarding u>**7 "protocols"**</u>.
+For this version Netests.io can get information regarding <u>**8 "protocols"**</u>.
 
 * BGP
 * CDP
 * Facts
+* ISIS
 * LLDP
 * OSPF
 * VLAN
@@ -154,7 +148,7 @@ All protocols have been simplified based on the OpenConfig data models. The idea
 
 https://www.netests.io/protocols/
 
-Netests.io will establish a connection to the device, get datas, and format them, into the data models.
+Netests.io will establish a connection to devices, get datas, and format them, into the data models.
 https://www.netests.io/data_models/
 
 
@@ -314,6 +308,7 @@ With network the steps are a bit differents. The verification will not be done d
    				Host: leaf02: True
    		},
    }
+   ```
 ```
    
    > Protocols with a "None" is the protocols that has not been tested
@@ -324,7 +319,7 @@ With network the steps are a bit differents. The verification will not be done d
    ⚡ echo $?
    0
 ```
-   
+
    
 
 ### Integrate in a CI/CD pipeline

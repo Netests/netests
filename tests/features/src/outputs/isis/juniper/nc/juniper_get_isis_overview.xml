@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf8'?>
+<isis-overview-information>
+    <isis-overview>
+        <instance-name>master</instance-name>
+        <isis-router-id>10.100.100.1</isis-router-id>
+        <isis-router-hostname>vMX1</isis-router-hostname>
+        <isis-router-sysid>1010.0100.0001</isis-router-sysid>
+        <isis-router-areaid>49.0001</isis-router-areaid>
+        <isis-adjacency-holddown>enabled</isis-adjacency-holddown>
+        <isis-max-areas>3</isis-max-areas>
+        <isis-lsp-lifetime>1200</isis-lsp-lifetime>
+        <isis-attached-bit-evaluation>enabled</isis-attached-bit-evaluation>
+        <isis-spf-information>
+            <isis-spf-delay>200</isis-spf-delay>
+            <isis-spf-holddown>5000</isis-spf-holddown>
+            <isis-spf-rapid-runs>3</isis-spf-rapid-runs>
+        </isis-spf-information>
+        <isis-routing>
+            <isis-routing-ipv4 />
+            <isis-routing-ipv6 />
+        </isis-routing>
+        <isis-traffic-engineering>
+            <isis-te-status>enabled</isis-te-status>
+        </isis-traffic-engineering>
+        <isis-restart>
+            <isis-restart-enabled>disabled</isis-restart-enabled>
+            <isis-restart-helper-mode-enabled>enabled</isis-restart-helper-mode-enabled>
+        </isis-restart>
+        <isis-layer2-map-enabled>Disabled</isis-layer2-map-enabled>
+        <isis-spring>
+            <isis-spring-enabled>Disabled</isis-spring-enabled>
+        </isis-spring>
+        <isis-tilfa>
+            <isis-tilfa-enabled>Disabled</isis-tilfa-enabled>
+        </isis-tilfa>
+        <isis-level-information>
+            <isis-level>1</isis-level>
+            <isis-preference>15</isis-preference>
+            <isis-external-preference>160</isis-external-preference>
+            <isis-prefix-export-count>0</isis-prefix-export-count>
+            <isis-narrow-metrics />
+            <isis-wide-metrics />
+        </isis-level-information>
+        <isis-level-information>
+            <isis-level>2</isis-level>
+            <isis-preference>18</isis-preference>
+            <isis-external-preference>165</isis-external-preference>
+            <isis-prefix-export-count>0</isis-prefix-export-count>
+            <isis-narrow-metrics />
+            <isis-wide-metrics />
+        </isis-level-information>
+    </isis-overview>
+</isis-overview-information>

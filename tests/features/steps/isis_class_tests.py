@@ -133,7 +133,7 @@ def step_impl(context):
         system_id="1010.0100.0001",
         area_id="49.0001",
         vrf_name="default",
-        isis_adj_lst=isis_adj_lst
+        adjacencies=isis_adj_lst
     )
 
 
