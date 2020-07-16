@@ -29,11 +29,11 @@ class ISISAdjacency(NetestsProtocol):
             if self.options.get(COMPARE_OPTION_KEY).get('level_type', True):
                 if self.level_type != other.level_type:
                     is_equal = False
-            if self.options.get(COMPARE_OPTION_KEY).get('circuit_type', True):
+            if self.options.get(COMPARE_OPTION_KEY).get('circuit_type', False):
                 if self.circuit_type != other.circuit_type:
                     is_equal = False
             if self.options.get(COMPARE_OPTION_KEY) \
-                           .get('local_interface_name', True):
+                           .get('local_interface_name', False):
                 if self.local_interface_name != other.local_interface_name:
                     is_equal = False
             if self.options.get(COMPARE_OPTION_KEY) \
@@ -41,11 +41,11 @@ class ISISAdjacency(NetestsProtocol):
                 if self.neighbor_sys_name != other.neighbor_sys_name:
                     is_equal = False
             if self.options.get(COMPARE_OPTION_KEY) \
-                           .get('neighbor_ip_addr', True):
+                           .get('neighbor_ip_addr', False):
                 if self.neighbor_ip_addr != other.neighbor_ip_addr:
                     is_equal = False
             if self.options.get(COMPARE_OPTION_KEY) \
-                           .get('snap', True):
+                           .get('snap', False):
                 if self.snap != other.snap:
                     is_equal = False
             return is_equal
@@ -54,6 +54,39 @@ class ISISAdjacency(NetestsProtocol):
                 self.session_state == other.session_state and
                 self.level_type == other.level_type and
                 self.neighbor_sys_name == other.neighbor_sys_name
+            )
+
+    def __repr__(self):
+        if PRINT_OPTION_KEY in self.options.keys():
+            ret = f"<{type(self)}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('session_state', True):
+                ret += f"\tsession_state={self.session_state}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('level_type', True):
+                ret += f"\tlevel_type={self.level_type}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('circuit_type', True):
+                ret += f"\tcircuit_type={self.circuit_type}\n"
+            if self.options.get(PRINT_OPTION_KEY) \
+                           .get('local_interface_name', True):
+                ret += f"\tlocal_interface_name={self.local_interface_name}\n"
+            if self.options.get(PRINT_OPTION_KEY) \
+                           .get('neighbor_sys_name', True):
+                ret += f"\tneighbor_sys_name={self.neighbor_sys_name}\n"
+            if self.options.get(PRINT_OPTION_KEY) \
+                           .get('neighbor_ip_addr', True):
+                ret += f"\tneighbor_ip_addr={self.neighbor_ip_addr}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('snap', True):
+                ret += f"\tsnap={self.snap}\n"
+            return ret + ">\n"
+        else:
+            return str(
+                f"<{type(self)}\n"
+                f"\tsession_state={self.session_state}\n"
+                f"\tlevel_type={self.level_type}\n"
+                f"\tcircuit_type={self.circuit_type}\n"
+                f"\tlocal_interface_name={self.local_interface_name}\n"
+                f"\tneighbor_sys_name={self.neighbor_sys_name}\n"
+                f"\tneighbor_ip_addr={self.neighbor_ip_addr}\n"
+                f"\tsnap={self.snap}\n>"
             )
 
     def to_json(self):

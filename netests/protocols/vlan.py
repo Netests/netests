@@ -49,6 +49,33 @@ class VLAN(NetestsProtocol):
         else:
             return self.id == other.id
 
+    def __repr__(self):
+        if PRINT_OPTION_KEY in self.options.keys():
+            ret = f"<{type(self)}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('id', True):
+                ret += f"\tid={self.id}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('name', True):
+                ret += f"\tname={self.name}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('vrf_name', True):
+                ret += f"\tvrf_name={self.vrf_name}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('ipv4_addresses', True):
+                ret += f"\tipv4_addresses={self.ipv4_addresses}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('ipv6_addresses', True):
+                ret += f"\tipv6_addresses={self.ipv6_addresses}\n"
+            if self.options.get(PRINT_OPTION_KEY).get('assigned_ports', True):
+                ret += f"\tassigned_ports={self.assigned_ports}\n"
+            return ret + ">\n"
+        else:
+            return str(
+                f"<{type(self)}\n"
+                f"\tid={self.id}\n"
+                f"\tname={self.name}\n"
+                f"\tvrf_name={self.vrf_name}\n"
+                f"\tipv4_addresses={self.ipv4_addresses}\n"
+                f"\tipv6_addresses={self.ipv6_addresses}\n"
+                f"\tassigned_ports={self.assigned_ports}\n>"
+            )
+
     def to_json(self):
         if PRINT_OPTION_KEY in self.options.keys():
             ret = dict()
