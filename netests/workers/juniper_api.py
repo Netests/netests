@@ -119,11 +119,13 @@ class ISISJuniperAPI(JuniperAPI):
             task=task,
             commands={
                 "default_vrf": {
-                    "data": "get-isis-adjacency-information?instance=master&detail=",
+                    "data":
+                      "get-isis-adjacency-information?instance=master&detail=",
                     "rid": "get-isis-overview-information?instance=master"
-                }, 
+                },
                 "vrf": {
-                    "data": "get-isis-adjacency-information?instance={}&detail=",
+                    "data":
+                      "get-isis-adjacency-information?instance={}&detail=",
                     "rid": "get-isis-overview-information?instance={}"
                 }
             },
