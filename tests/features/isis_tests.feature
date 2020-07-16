@@ -38,9 +38,7 @@ Feature: Test protocols ISIS python class netests/protocols/isis.py
         And I create a ISIS object from a Juniper API output named o0502
         And I create a ISIS object from a Juniper Netconf output named o0503
         And I create a ISIS object from a Juniper SSH output named o0504
-
-        And I create a ISIS object from Juniper Netconf no config named 0511
-
+        
         # NAPALM-Automation Networks ID Device = o06
         And I create a ISIS object equals to NAPALM manually named o0601
         And I create a ISIS object from a NAPALM output named o0602

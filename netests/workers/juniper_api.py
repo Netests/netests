@@ -7,12 +7,14 @@ from netests.workers.device_api import DeviceAPI
 from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
 from netests.converters.bgp.juniper.api import _juniper_bgp_api_converter
 from netests.converters.facts.juniper.api import _juniper_facts_api_converter
+from netests.converters.isis.juniper.api import _juniper_isis_api_converter
 from netests.converters.lldp.juniper.api import _juniper_lldp_api_converter
 from netests.converters.ospf.juniper.api import _juniper_ospf_api_converter
 from netests.converters.vrf.juniper.api import _juniper_vrf_api_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     FACTS_DATA_HOST_KEY,
+    ISIS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
     VRF_DATA_KEY
@@ -110,6 +112,28 @@ class FactsJuniperAPI(JuniperAPI):
         )
 
 
+class ISISJuniperAPI(JuniperAPI):
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "data": "get-isis-adjacency-information?instance=master&detail=",
+                    "rid": "get-isis-overview-information?instance=master"
+                }, 
+                "vrf": {
+                    "data": "get-isis-adjacency-information?instance={}&detail=",
+                    "rid": "get-isis-overview-information?instance={}"
+                }
+            },
+            vrf_loop=True,
+            converter=_juniper_isis_api_converter,
+            key_store=ISIS_DATA_HOST_KEY,
+            options=options
+        )
+
+
 class LLDPJuniperAPI(JuniperAPI):
 
     def __init__(self, task, options={}):
@@ -134,12 +158,12 @@ class OSPFJuniperAPI(JuniperAPI):
             task=task,
             commands={
                 "default_vrf": {
-                    "bgp":
+                    "data":
                        "get-ospf-neighbor-information?instance=master&detail=",
                     "rid": "get-ospf-overview-information?instance=master"
                 },
                 "vrf": {
-                    "bgp":
+                    "data":
                         "get-ospf-neighbor-information?instance={}&detail=",
                     "rid": "get-ospf-overview-information?instance={}"
                 }

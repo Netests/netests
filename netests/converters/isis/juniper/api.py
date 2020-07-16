@@ -13,7 +13,7 @@ from netests.protocols.isis import (
 )
 
 
-def _juniper_isis_nc_converter(
+def _juniper_isis_api_converter(
     hostname: str,
     cmd_output,
     options={}

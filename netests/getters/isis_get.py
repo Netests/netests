@@ -4,6 +4,7 @@
 from netests import log
 from netests.getters.routing_get import GetterRouting
 from netests.comparators.isis_compare import _compare_transit_isis
+from netests.workers.juniper_api import ISISJuniperAPI
 from netests.workers.juniper_nc import ISISJuniperNC
 
 
@@ -76,7 +77,7 @@ class GetterISIS(GetterRouting):
                 self.NAPALM_CONNECTION: self.function_not_implemented
             },
             self.JUNOS_PLATEFORM_NAME: {
-                self.API_CONNECTION: self.function_not_implemented,
+                self.API_CONNECTION: ISISJuniperAPI,
                 self.NETCONF_CONNECTION: ISISJuniperNC,
                 self.SSH_CONNECTION: self.function_not_implemented,
                 self.NAPALM_CONNECTION: self.function_not_implemented
