@@ -1,0 +1,215 @@
+{
+    "isis-overview-information": [
+        {
+            "attributes": {
+                "xmlns": "http://xml.juniper.net/junos/19.4R0/junos-routing"
+            },
+            "isis-overview": [
+                {
+                    "instance-name": [
+                        {
+                            "data": "master"
+                        }
+                    ],
+                    "isis-router-id": [
+                        {
+                            "data": "10.100.100.1"
+                        }
+                    ],
+                    "isis-router-hostname": [
+                        {
+                            "data": "vMX1"
+                        }
+                    ],
+                    "isis-router-sysid": [
+                        {
+                            "data": "1010.0100.0001"
+                        }
+                    ],
+                    "isis-router-areaid": [
+                        {
+                            "data": "49.0001"
+                        }
+                    ],
+                    "isis-adjacency-holddown": [
+                        {
+                            "data": "enabled"
+                        }
+                    ],
+                    "isis-max-areas": [
+                        {
+                            "data": "3"
+                        }
+                    ],
+                    "isis-lsp-lifetime": [
+                        {
+                            "data": "1200"
+                        }
+                    ],
+                    "isis-attached-bit-evaluation": [
+                        {
+                            "data": "enabled"
+                        }
+                    ],
+                    "isis-spf-information": [
+                        {
+                            "isis-spf-delay": [
+                                {
+                                    "data": "200"
+                                }
+                            ],
+                            "isis-spf-holddown": [
+                                {
+                                    "data": "5000"
+                                }
+                            ],
+                            "isis-spf-rapid-runs": [
+                                {
+                                    "data": "3"
+                                }
+                            ]
+                        }
+                    ],
+                    "isis-routing": [
+                        {
+                            "isis-routing-ipv4": [
+                                {
+                                    "data": [
+                                        null
+                                    ]
+                                }
+                            ],
+                            "isis-routing-ipv6": [
+                                {
+                                    "data": [
+                                        null
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "isis-traffic-engineering": [
+                        {
+                            "isis-te-status": [
+                                {
+                                    "data": "enabled"
+                                }
+                            ]
+                        }
+                    ],
+                    "isis-restart": [
+                        {
+                            "isis-restart-enabled": [
+                                {
+                                    "data": "disabled"
+                                }
+                            ],
+                            "isis-restart-helper-mode-enabled": [
+                                {
+                                    "data": "enabled"
+                                }
+                            ]
+                        }
+                    ],
+                    "isis-layer2-map-enabled": [
+                        {
+                            "data": "Disabled"
+                        }
+                    ],
+                    "isis-spring": [
+                        {
+                            "isis-spring-enabled": [
+                                {
+                                    "data": "Disabled"
+                                }
+                            ]
+                        }
+                    ],
+                    "isis-tilfa": [
+                        {
+                            "isis-tilfa-enabled": [
+                                {
+                                    "data": "Disabled"
+                                }
+                            ]
+                        }
+                    ],
+                    "isis-level-information": [
+                        {
+                            "isis-level": [
+                                {
+                                    "data": "1"
+                                }
+                            ],
+                            "isis-preference": [
+                                {
+                                    "data": "15"
+                                }
+                            ],
+                            "isis-external-preference": [
+                                {
+                                    "data": "160"
+                                }
+                            ],
+                            "isis-prefix-export-count": [
+                                {
+                                    "data": "0"
+                                }
+                            ],
+                            "isis-narrow-metrics": [
+                                {
+                                    "data": [
+                                        null
+                                    ]
+                                }
+                            ],
+                            "isis-wide-metrics": [
+                                {
+                                    "data": [
+                                        null
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "isis-level": [
+                                {
+                                    "data": "2"
+                                }
+                            ],
+                            "isis-preference": [
+                                {
+                                    "data": "18"
+                                }
+                            ],
+                            "isis-external-preference": [
+                                {
+                                    "data": "165"
+                                }
+                            ],
+                            "isis-prefix-export-count": [
+                                {
+                                    "data": "0"
+                                }
+                            ],
+                            "isis-narrow-metrics": [
+                                {
+                                    "data": [
+                                        null
+                                    ]
+                                }
+                            ],
+                            "isis-wide-metrics": [
+                                {
+                                    "data": [
+                                        null
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

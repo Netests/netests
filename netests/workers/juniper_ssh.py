@@ -5,12 +5,14 @@ from netests.workers.device_ssh import DeviceSSH
 from netests.exceptions.netests_exceptions import NetestsFunctionNotPossible
 from netests.converters.bgp.juniper.ssh import _juniper_bgp_ssh_converter
 from netests.converters.facts.juniper.ssh import _juniper_facts_ssh_converter
+from netests.converters.isis.juniper.ssh import _juniper_isis_ssh_converter
 from netests.converters.lldp.juniper.ssh import _juniper_lldp_ssh_converter
 from netests.converters.ospf.juniper.ssh import _juniper_ospf_ssh_converter
 from netests.converters.vrf.juniper.ssh import _juniper_vrf_ssh_converter
 from netests.constants import (
     BGP_SESSIONS_HOST_KEY,
     FACTS_DATA_HOST_KEY,
+    ISIS_DATA_HOST_KEY,
     LLDP_DATA_HOST_KEY,
     OSPF_SESSIONS_HOST_KEY,
     VRF_DATA_KEY,
@@ -118,6 +120,34 @@ class OSPFJuniperSSH(DeviceSSH):
             vrf_loop=True,
             converter=_juniper_ospf_ssh_converter,
             key_store=OSPF_SESSIONS_HOST_KEY,
+            options=options
+        )
+
+
+class ISISJuniperSSH(DeviceSSH):
+
+    ISIS_ADJ = "show isis adjacency detail instance master | display json"
+    ISIS_INFO = "show isis overview instance master | display json"
+
+    ISIS_ADJ_VRF = "show isis adjacency detail instance {} | display json"
+    ISIS_INFO_VRF = "show isis overview instance {} | display json"
+
+    def __init__(self, task, options={}):
+        super().__init__(
+            task=task,
+            commands={
+                "default_vrf": {
+                    "data": self.ISIS_ADJ,
+                    "rid": self.ISIS_INFO
+                },
+                "vrf": {
+                    "data": self.ISIS_ADJ_VRF,
+                    "rid": self.ISIS_INFO_VRF
+                },
+            },
+            vrf_loop=True,
+            converter=_juniper_isis_ssh_converter,
+            key_store=ISIS_DATA_HOST_KEY,
             options=options
         )
 

@@ -4,6 +4,7 @@
 from netests.comparators.isis_compare import _compare_isis
 from netests.converters.isis.juniper.api import _juniper_isis_api_converter
 from netests.converters.isis.juniper.nc import _juniper_isis_nc_converter
+from netests.converters.isis.juniper.ssh import _juniper_isis_ssh_converter
 from netests.constants import NOT_SET, FEATURES_SRC_PATH, ISIS_DATA_HOST_KEY
 from netests.tools.file import open_json_file, open_txt_file, open_txt_file_as_bytes
 from netests.protocols.isis import (
@@ -255,7 +256,38 @@ def step_impl(context):
 
 @given(u'I create a ISIS object from a Juniper SSH output named o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    cmd_output = dict()
+    cmd_output['default'] = dict()
+    cmd_output['default']['rid'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/isis/juniper/ssh/"
+            "juniper_get_isis_overview.json"
+        )
+    )
+    cmd_output['default']['data'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/isis/juniper/ssh/"
+            "juniper_get_isis_adjacencies.json"
+        )
+    )
+    cmd_output['mgmt_junos'] = dict()
+    cmd_output['mgmt_junos']['rid'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/isis/juniper/ssh/"
+            "juniper_get_isis_overview_mgmt_empty.json"
+        )
+    )
+    cmd_output['mgmt_junos']['data'] = open_json_file(
+        path=(
+            f"{FEATURES_SRC_PATH}outputs/isis/juniper/ssh/"
+            "juniper_get_isis_adjacencies_mgmt_empty.json"
+        )
+    )
+    context.o0504 = _juniper_isis_ssh_converter(
+        hostname="leaf04",
+        cmd_output=cmd_output,
+        options={}
+    )
 
 
 @given(u'I create a ISIS object equals to NAPALM manually named o0601')
@@ -545,22 +577,22 @@ def step_impl(context):
 
 @given(u'ISIS o0501 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0501 == context.o0504
 
 
 @given(u'ISIS o0502 should be equal to o0503')
 def step_impl(context):
-    context.o0502 == context.o0502
+    context.o0502 == context.o0503
 
 
 @given(u'ISIS o0502 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0502 == context.o0504
 
 
 @given(u'ISIS o0503 should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    context.o0503 == context.o0504
 
 
 @given(u'ISIS YAML file should be equal to o0502')
@@ -589,7 +621,14 @@ def step_impl(context):
 
 @given(u'ISIS YAML file should be equal to o0504')
 def step_impl(context):
-    context.scenario.tags.append("own_skipped")
+    _compare_isis(
+        host_keys=ISIS_DATA_HOST_KEY,
+        hostname='leaf04',
+        groups=['junos'],
+        isis_host_data=context.o0504,
+        test=True,
+        options={}
+    )
 
 
 @given(u'ISIS o0601 should be equal to o0602')

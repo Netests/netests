@@ -1,0 +1,258 @@
+{
+    "isis-adjacency-information": [
+        {
+            "attributes": {
+                "xmlns": "http://xml.juniper.net/junos/19.4R0/junos-routing",
+                "junos:style": "detail"
+            },
+            "isis-adjacency": [
+                {
+                    "system-name": [
+                        {
+                            "data": "vMX3"
+                        }
+                    ],
+                    "interface-name": [
+                        {
+                            "data": "ge-0/0/0.0"
+                        }
+                    ],
+                    "level": [
+                        {
+                            "data": "2"
+                        }
+                    ],
+                    "adjacency-state": [
+                        {
+                            "data": "Up"
+                        }
+                    ],
+                    "holdtime": [
+                        {
+                            "data": "21"
+                        }
+                    ],
+                    "interface-priority": [
+                        {
+                            "data": "64"
+                        }
+                    ],
+                    "transition-count": [
+                        {
+                            "data": "1"
+                        }
+                    ],
+                    "last-transition-time": [
+                        {
+                            "data": "00:36:05"
+                        }
+                    ],
+                    "circuit-type": [
+                        {
+                            "data": "2"
+                        }
+                    ],
+                    "adjacency-flag": [
+                        {
+                            "data": "Speaks: IP, IPv6"
+                        }
+                    ],
+                    "mac-address": [
+                        {
+                            "data": "0:50:56:a2:1e:a9"
+                        }
+                    ],
+                    "adjacency-topologies": [
+                        {
+                            "data": "Unicast"
+                        }
+                    ],
+                    "adjacency-restart-capable": [
+                        {
+                            "data": "yes"
+                        }
+                    ],
+                    "adjacency-advertisement": [
+                        {
+                            "data": "advertise"
+                        }
+                    ],
+                    "lan-id": [
+                        {
+                            "data": "vMX1.03"
+                        }
+                    ],
+                    "ip-address": [
+                        {
+                            "data": "10.100.13.2"
+                        }
+                    ]
+                },
+                {
+                    "system-name": [
+                        {
+                            "data": "vMX5"
+                        }
+                    ],
+                    "interface-name": [
+                        {
+                            "data": "ge-0/0/1.0"
+                        }
+                    ],
+                    "level": [
+                        {
+                            "data": "2"
+                        }
+                    ],
+                    "adjacency-state": [
+                        {
+                            "data": "Up"
+                        }
+                    ],
+                    "holdtime": [
+                        {
+                            "data": "20"
+                        }
+                    ],
+                    "interface-priority": [
+                        {
+                            "data": "64"
+                        }
+                    ],
+                    "transition-count": [
+                        {
+                            "data": "1"
+                        }
+                    ],
+                    "last-transition-time": [
+                        {
+                            "data": "00:36:33"
+                        }
+                    ],
+                    "circuit-type": [
+                        {
+                            "data": "2"
+                        }
+                    ],
+                    "adjacency-flag": [
+                        {
+                            "data": "Speaks: IP, IPv6"
+                        }
+                    ],
+                    "mac-address": [
+                        {
+                            "data": "0:50:56:a2:58:45"
+                        }
+                    ],
+                    "adjacency-topologies": [
+                        {
+                            "data": "Unicast"
+                        }
+                    ],
+                    "adjacency-restart-capable": [
+                        {
+                            "data": "yes"
+                        }
+                    ],
+                    "adjacency-advertisement": [
+                        {
+                            "data": "advertise"
+                        }
+                    ],
+                    "lan-id": [
+                        {
+                            "data": "vMX1.02"
+                        }
+                    ],
+                    "ip-address": [
+                        {
+                            "data": "10.100.15.2"
+                        }
+                    ]
+                },
+                {
+                    "system-name": [
+                        {
+                            "data": "vMX2"
+                        }
+                    ],
+                    "interface-name": [
+                        {
+                            "data": "ge-0/0/2.0"
+                        }
+                    ],
+                    "level": [
+                        {
+                            "data": "2"
+                        }
+                    ],
+                    "adjacency-state": [
+                        {
+                            "data": "Up"
+                        }
+                    ],
+                    "holdtime": [
+                        {
+                            "data": "8"
+                        }
+                    ],
+                    "interface-priority": [
+                        {
+                            "data": "64"
+                        }
+                    ],
+                    "transition-count": [
+                        {
+                            "data": "1"
+                        }
+                    ],
+                    "last-transition-time": [
+                        {
+                            "data": "00:35:51"
+                        }
+                    ],
+                    "circuit-type": [
+                        {
+                            "data": "2"
+                        }
+                    ],
+                    "adjacency-flag": [
+                        {
+                            "data": "Speaks: IP, IPv6"
+                        }
+                    ],
+                    "mac-address": [
+                        {
+                            "data": "0:50:56:a2:ff:e5"
+                        }
+                    ],
+                    "adjacency-topologies": [
+                        {
+                            "data": "Unicast"
+                        }
+                    ],
+                    "adjacency-restart-capable": [
+                        {
+                            "data": "yes"
+                        }
+                    ],
+                    "adjacency-advertisement": [
+                        {
+                            "data": "advertise"
+                        }
+                    ],
+                    "lan-id": [
+                        {
+                            "data": "vMX2.02"
+                        }
+                    ],
+                    "ip-address": [
+                        {
+                            "data": "10.100.12.2"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
